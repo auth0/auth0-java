@@ -29,9 +29,9 @@ public class AsyncLogsClient {
 
     /**
      * Retrieve log events for a specific user.
-     * <p>Note: For more information on all possible event types, their respective acronyms and descriptions, see &lt;a href=&quot;https://auth0.com/docs/logs/log-event-type-codes&quot;&gt;Log Event Type Codes&lt;/a&gt;.</p>
-     * <p>For more information on the list of fields that can be used in <code>sort</code>, see &lt;a href=&quot;https://auth0.com/docs/logs/log-search-query-syntax#searchable-fields&quot;&gt;Searchable Fields&lt;/a&gt;.</p>
-     * <p>Auth0 &lt;a href=&quot;https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#limitations&quot;&gt;limits the number of logs&lt;/a&gt; you can return by search criteria to 100 logs per request. Furthermore, you may only paginate through up to 1,000 search results. If you exceed this threshold, please redefine your search.</p>
+     * <p>Note: For more information on all possible event types, their respective acronyms and descriptions, see <a href="https://auth0.com/docs/logs/log-event-type-codes">Log Event Type Codes</a>.</p>
+     * <p>For more information on the list of fields that can be used in <code>sort</code>, see <a href="https://auth0.com/docs/logs/log-search-query-syntax#searchable-fields">Searchable Fields</a>.</p>
+     * <p>Auth0 <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#limitations">limits the number of logs</a> you can return by search criteria to 100 logs per request. Furthermore, you may only paginate through up to 1,000 search results. If you exceed this threshold, please redefine your search.</p>
      */
     public CompletableFuture<SyncPagingIterable<Log>> list(String id) {
         return this.rawClient.list(id).thenApply(response -> response.body());
@@ -39,9 +39,19 @@ public class AsyncLogsClient {
 
     /**
      * Retrieve log events for a specific user.
-     * <p>Note: For more information on all possible event types, their respective acronyms and descriptions, see &lt;a href=&quot;https://auth0.com/docs/logs/log-event-type-codes&quot;&gt;Log Event Type Codes&lt;/a&gt;.</p>
-     * <p>For more information on the list of fields that can be used in <code>sort</code>, see &lt;a href=&quot;https://auth0.com/docs/logs/log-search-query-syntax#searchable-fields&quot;&gt;Searchable Fields&lt;/a&gt;.</p>
-     * <p>Auth0 &lt;a href=&quot;https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#limitations&quot;&gt;limits the number of logs&lt;/a&gt; you can return by search criteria to 100 logs per request. Furthermore, you may only paginate through up to 1,000 search results. If you exceed this threshold, please redefine your search.</p>
+     * <p>Note: For more information on all possible event types, their respective acronyms and descriptions, see <a href="https://auth0.com/docs/logs/log-event-type-codes">Log Event Type Codes</a>.</p>
+     * <p>For more information on the list of fields that can be used in <code>sort</code>, see <a href="https://auth0.com/docs/logs/log-search-query-syntax#searchable-fields">Searchable Fields</a>.</p>
+     * <p>Auth0 <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#limitations">limits the number of logs</a> you can return by search criteria to 100 logs per request. Furthermore, you may only paginate through up to 1,000 search results. If you exceed this threshold, please redefine your search.</p>
+     */
+    public CompletableFuture<SyncPagingIterable<Log>> list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve log events for a specific user.
+     * <p>Note: For more information on all possible event types, their respective acronyms and descriptions, see <a href="https://auth0.com/docs/logs/log-event-type-codes">Log Event Type Codes</a>.</p>
+     * <p>For more information on the list of fields that can be used in <code>sort</code>, see <a href="https://auth0.com/docs/logs/log-search-query-syntax#searchable-fields">Searchable Fields</a>.</p>
+     * <p>Auth0 <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#limitations">limits the number of logs</a> you can return by search criteria to 100 logs per request. Furthermore, you may only paginate through up to 1,000 search results. If you exceed this threshold, please redefine your search.</p>
      */
     public CompletableFuture<SyncPagingIterable<Log>> list(String id, ListUserLogsRequestParameters request) {
         return this.rawClient.list(id, request).thenApply(response -> response.body());
@@ -49,9 +59,9 @@ public class AsyncLogsClient {
 
     /**
      * Retrieve log events for a specific user.
-     * <p>Note: For more information on all possible event types, their respective acronyms and descriptions, see &lt;a href=&quot;https://auth0.com/docs/logs/log-event-type-codes&quot;&gt;Log Event Type Codes&lt;/a&gt;.</p>
-     * <p>For more information on the list of fields that can be used in <code>sort</code>, see &lt;a href=&quot;https://auth0.com/docs/logs/log-search-query-syntax#searchable-fields&quot;&gt;Searchable Fields&lt;/a&gt;.</p>
-     * <p>Auth0 &lt;a href=&quot;https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#limitations&quot;&gt;limits the number of logs&lt;/a&gt; you can return by search criteria to 100 logs per request. Furthermore, you may only paginate through up to 1,000 search results. If you exceed this threshold, please redefine your search.</p>
+     * <p>Note: For more information on all possible event types, their respective acronyms and descriptions, see <a href="https://auth0.com/docs/logs/log-event-type-codes">Log Event Type Codes</a>.</p>
+     * <p>For more information on the list of fields that can be used in <code>sort</code>, see <a href="https://auth0.com/docs/logs/log-search-query-syntax#searchable-fields">Searchable Fields</a>.</p>
+     * <p>Auth0 <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#limitations">limits the number of logs</a> you can return by search criteria to 100 logs per request. Furthermore, you may only paginate through up to 1,000 search results. If you exceed this threshold, please redefine your search.</p>
      */
     public CompletableFuture<SyncPagingIterable<Log>> list(
             String id, ListUserLogsRequestParameters request, RequestOptions requestOptions) {

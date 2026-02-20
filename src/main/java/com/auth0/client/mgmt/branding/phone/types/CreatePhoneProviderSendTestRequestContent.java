@@ -92,6 +92,10 @@ public final class CreatePhoneProviderSendTestRequestContent {
     public interface _FinalStage {
         CreatePhoneProviderSendTestRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage deliveryMethod(Optional<PhoneProviderDeliveryMethodEnum> deliveryMethod);
 
         _FinalStage deliveryMethod(PhoneProviderDeliveryMethodEnum deliveryMethod);
@@ -143,6 +147,18 @@ public final class CreatePhoneProviderSendTestRequestContent {
         @java.lang.Override
         public CreatePhoneProviderSendTestRequestContent build() {
             return new CreatePhoneProviderSendTestRequestContent(to, deliveryMethod, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

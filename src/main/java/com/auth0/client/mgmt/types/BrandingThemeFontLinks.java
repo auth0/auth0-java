@@ -93,6 +93,10 @@ public final class BrandingThemeFontLinks {
 
     public interface _FinalStage {
         BrandingThemeFontLinks build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -140,6 +144,18 @@ public final class BrandingThemeFontLinks {
         @java.lang.Override
         public BrandingThemeFontLinks build() {
             return new BrandingThemeFontLinks(bold, size, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

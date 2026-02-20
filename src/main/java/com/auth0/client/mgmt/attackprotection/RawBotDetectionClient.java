@@ -46,12 +46,16 @@ public class RawBotDetectionClient {
      * Get the Bot Detection configuration of your tenant.
      */
     public ManagementApiHttpResponse<GetBotDetectionSettingsResponseContent> get(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("attack-protection/bot-detection")
-                .build();
+                .addPathSegments("attack-protection/bot-detection");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -105,6 +109,13 @@ public class RawBotDetectionClient {
     /**
      * Update the Bot Detection configuration of your tenant.
      */
+    public ManagementApiHttpResponse<UpdateBotDetectionSettingsResponseContent> update(RequestOptions requestOptions) {
+        return update(UpdateBotDetectionSettingsRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update the Bot Detection configuration of your tenant.
+     */
     public ManagementApiHttpResponse<UpdateBotDetectionSettingsResponseContent> update(
             UpdateBotDetectionSettingsRequestContent request) {
         return update(request, null);
@@ -115,10 +126,14 @@ public class RawBotDetectionClient {
      */
     public ManagementApiHttpResponse<UpdateBotDetectionSettingsResponseContent> update(
             UpdateBotDetectionSettingsRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("attack-protection/bot-detection")
-                .build();
+                .addPathSegments("attack-protection/bot-detection");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -127,7 +142,7 @@ public class RawBotDetectionClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

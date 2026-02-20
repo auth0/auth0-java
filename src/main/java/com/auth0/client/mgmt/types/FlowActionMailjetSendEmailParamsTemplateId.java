@@ -82,6 +82,10 @@ public final class FlowActionMailjetSendEmailParamsTemplateId {
     public interface _FinalStage {
         FlowActionMailjetSendEmailParamsTemplateId build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage variables(Optional<Map<String, Object>> variables);
 
         _FinalStage variables(Map<String, Object> variables);
@@ -128,6 +132,18 @@ public final class FlowActionMailjetSendEmailParamsTemplateId {
         @java.lang.Override
         public FlowActionMailjetSendEmailParamsTemplateId build() {
             return new FlowActionMailjetSendEmailParamsTemplateId(templateId, variables, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

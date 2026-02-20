@@ -37,6 +37,13 @@ public class AsyncConnectedAccountsClient {
     /**
      * Retrieve all connected accounts associated with the user.
      */
+    public CompletableFuture<SyncPagingIterable<ConnectedAccount>> list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve all connected accounts associated with the user.
+     */
     public CompletableFuture<SyncPagingIterable<ConnectedAccount>> list(
             String id, GetUserConnectedAccountsRequestParameters request) {
         return this.rawClient.list(id, request).thenApply(response -> response.body());

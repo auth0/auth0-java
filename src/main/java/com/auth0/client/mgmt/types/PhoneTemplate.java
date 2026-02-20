@@ -154,6 +154,10 @@ public final class PhoneTemplate {
     public interface _FinalStage {
         PhoneTemplate build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage channel(Optional<String> channel);
 
         _FinalStage channel(String channel);
@@ -275,6 +279,18 @@ public final class PhoneTemplate {
         @java.lang.Override
         public PhoneTemplate build() {
             return new PhoneTemplate(id, channel, customizable, tenant, content, type, disabled, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

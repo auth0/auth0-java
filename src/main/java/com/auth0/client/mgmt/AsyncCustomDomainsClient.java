@@ -35,21 +35,28 @@ public class AsyncCustomDomainsClient {
     }
 
     /**
-     * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/custom-domains&quot;&gt;custom domains&lt;/a&gt;.
+     * Retrieve details on <a href="https://auth0.com/docs/custom-domains">custom domains</a>.
      */
     public CompletableFuture<List<CustomDomain>> list() {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/custom-domains&quot;&gt;custom domains&lt;/a&gt;.
+     * Retrieve details on <a href="https://auth0.com/docs/custom-domains">custom domains</a>.
+     */
+    public CompletableFuture<List<CustomDomain>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve details on <a href="https://auth0.com/docs/custom-domains">custom domains</a>.
      */
     public CompletableFuture<List<CustomDomain>> list(ListCustomDomainsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/custom-domains&quot;&gt;custom domains&lt;/a&gt;.
+     * Retrieve details on <a href="https://auth0.com/docs/custom-domains">custom domains</a>.
      */
     public CompletableFuture<List<CustomDomain>> list(
             ListCustomDomainsRequestParameters request, RequestOptions requestOptions) {
@@ -128,11 +135,11 @@ public class AsyncCustomDomainsClient {
      * <li>custom_client_ip_header</li>
      * <li>tls_policy</li>
      * </ul>
-     * <p>&lt;h5&gt;Updating CUSTOM_CLIENT_IP_HEADER for a custom domain&lt;/h5&gt;To update the &lt;code&gt;custom_client_ip_header&lt;/code&gt; for a domain, the body to
+     * <p><h5>Updating CUSTOM_CLIENT_IP_HEADER for a custom domain</h5>To update the <code>custom_client_ip_header</code> for a domain, the body to
      * send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating TLS_POLICY for a custom domain&lt;/h5&gt;To update the &lt;code&gt;tls_policy&lt;/code&gt; for a domain, the body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;tls_policy&quot;: &quot;recommended&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
+     * <pre><code>{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }</code></pre></p>
+     * <p><h5>Updating TLS_POLICY for a custom domain</h5>To update the <code>tls_policy</code> for a domain, the body to send should be:
+     * <pre><code>{ &quot;tls_policy&quot;: &quot;recommended&quot; }</code></pre></p>
      * <p>TLS Policies:</p>
      * <ul>
      * <li>recommended - for modern usage this includes TLS 1.2 only</li>
@@ -140,7 +147,7 @@ public class AsyncCustomDomainsClient {
      * <p>Some considerations:</p>
      * <ul>
      * <li>The TLS ciphers and protocols available in each TLS policy follow industry recommendations, and may be updated occasionally.</li>
-     * <li>The &lt;code&gt;compatible&lt;/code&gt; TLS policy is no longer supported.</li>
+     * <li>The <code>compatible</code> TLS policy is no longer supported.</li>
      * </ul>
      */
     public CompletableFuture<UpdateCustomDomainResponseContent> update(String id) {
@@ -154,11 +161,11 @@ public class AsyncCustomDomainsClient {
      * <li>custom_client_ip_header</li>
      * <li>tls_policy</li>
      * </ul>
-     * <p>&lt;h5&gt;Updating CUSTOM_CLIENT_IP_HEADER for a custom domain&lt;/h5&gt;To update the &lt;code&gt;custom_client_ip_header&lt;/code&gt; for a domain, the body to
+     * <p><h5>Updating CUSTOM_CLIENT_IP_HEADER for a custom domain</h5>To update the <code>custom_client_ip_header</code> for a domain, the body to
      * send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating TLS_POLICY for a custom domain&lt;/h5&gt;To update the &lt;code&gt;tls_policy&lt;/code&gt; for a domain, the body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;tls_policy&quot;: &quot;recommended&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
+     * <pre><code>{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }</code></pre></p>
+     * <p><h5>Updating TLS_POLICY for a custom domain</h5>To update the <code>tls_policy</code> for a domain, the body to send should be:
+     * <pre><code>{ &quot;tls_policy&quot;: &quot;recommended&quot; }</code></pre></p>
      * <p>TLS Policies:</p>
      * <ul>
      * <li>recommended - for modern usage this includes TLS 1.2 only</li>
@@ -166,7 +173,33 @@ public class AsyncCustomDomainsClient {
      * <p>Some considerations:</p>
      * <ul>
      * <li>The TLS ciphers and protocols available in each TLS policy follow industry recommendations, and may be updated occasionally.</li>
-     * <li>The &lt;code&gt;compatible&lt;/code&gt; TLS policy is no longer supported.</li>
+     * <li>The <code>compatible</code> TLS policy is no longer supported.</li>
+     * </ul>
+     */
+    public CompletableFuture<UpdateCustomDomainResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update a custom domain.
+     * <p>These are the attributes that can be updated:</p>
+     * <ul>
+     * <li>custom_client_ip_header</li>
+     * <li>tls_policy</li>
+     * </ul>
+     * <p><h5>Updating CUSTOM_CLIENT_IP_HEADER for a custom domain</h5>To update the <code>custom_client_ip_header</code> for a domain, the body to
+     * send should be:
+     * <pre><code>{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }</code></pre></p>
+     * <p><h5>Updating TLS_POLICY for a custom domain</h5>To update the <code>tls_policy</code> for a domain, the body to send should be:
+     * <pre><code>{ &quot;tls_policy&quot;: &quot;recommended&quot; }</code></pre></p>
+     * <p>TLS Policies:</p>
+     * <ul>
+     * <li>recommended - for modern usage this includes TLS 1.2 only</li>
+     * </ul>
+     * <p>Some considerations:</p>
+     * <ul>
+     * <li>The TLS ciphers and protocols available in each TLS policy follow industry recommendations, and may be updated occasionally.</li>
+     * <li>The <code>compatible</code> TLS policy is no longer supported.</li>
      * </ul>
      */
     public CompletableFuture<UpdateCustomDomainResponseContent> update(
@@ -181,11 +214,11 @@ public class AsyncCustomDomainsClient {
      * <li>custom_client_ip_header</li>
      * <li>tls_policy</li>
      * </ul>
-     * <p>&lt;h5&gt;Updating CUSTOM_CLIENT_IP_HEADER for a custom domain&lt;/h5&gt;To update the &lt;code&gt;custom_client_ip_header&lt;/code&gt; for a domain, the body to
+     * <p><h5>Updating CUSTOM_CLIENT_IP_HEADER for a custom domain</h5>To update the <code>custom_client_ip_header</code> for a domain, the body to
      * send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating TLS_POLICY for a custom domain&lt;/h5&gt;To update the &lt;code&gt;tls_policy&lt;/code&gt; for a domain, the body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;tls_policy&quot;: &quot;recommended&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
+     * <pre><code>{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }</code></pre></p>
+     * <p><h5>Updating TLS_POLICY for a custom domain</h5>To update the <code>tls_policy</code> for a domain, the body to send should be:
+     * <pre><code>{ &quot;tls_policy&quot;: &quot;recommended&quot; }</code></pre></p>
      * <p>TLS Policies:</p>
      * <ul>
      * <li>recommended - for modern usage this includes TLS 1.2 only</li>
@@ -193,7 +226,7 @@ public class AsyncCustomDomainsClient {
      * <p>Some considerations:</p>
      * <ul>
      * <li>The TLS ciphers and protocols available in each TLS policy follow industry recommendations, and may be updated occasionally.</li>
-     * <li>The &lt;code&gt;compatible&lt;/code&gt; TLS policy is no longer supported.</li>
+     * <li>The <code>compatible</code> TLS policy is no longer supported.</li>
      * </ul>
      */
     public CompletableFuture<UpdateCustomDomainResponseContent> update(
@@ -217,10 +250,10 @@ public class AsyncCustomDomainsClient {
 
     /**
      * Run the verification process on a custom domain.
-     * <p>Note: Check the &lt;code&gt;status&lt;/code&gt; field to see its verification status. Once verification is complete, it may take up to 10 minutes before the custom domain can start accepting requests.</p>
-     * <p>For &lt;code&gt;self_managed_certs&lt;/code&gt;, when the custom domain is verified for the first time, the response will also include the &lt;code&gt;cname_api_key&lt;/code&gt; which you will need to configure your proxy. This key must be kept secret, and is used to validate the proxy requests.</p>
-     * <p>&lt;a href=&quot;https://auth0.com/docs/custom-domains#step-2-verify-ownership&quot;&gt;Learn more&lt;/a&gt; about verifying custom domains that use Auth0 Managed certificates.
-     * &lt;a href=&quot;https://auth0.com/docs/custom-domains/self-managed-certificates#step-2-verify-ownership&quot;&gt;Learn more&lt;/a&gt; about verifying custom domains that use Self Managed certificates.</p>
+     * <p>Note: Check the <code>status</code> field to see its verification status. Once verification is complete, it may take up to 10 minutes before the custom domain can start accepting requests.</p>
+     * <p>For <code>self_managed_certs</code>, when the custom domain is verified for the first time, the response will also include the <code>cname_api_key</code> which you will need to configure your proxy. This key must be kept secret, and is used to validate the proxy requests.</p>
+     * <p><a href="https://auth0.com/docs/custom-domains#step-2-verify-ownership">Learn more</a> about verifying custom domains that use Auth0 Managed certificates.
+     * <a href="https://auth0.com/docs/custom-domains/self-managed-certificates#step-2-verify-ownership">Learn more</a> about verifying custom domains that use Self Managed certificates.</p>
      */
     public CompletableFuture<VerifyCustomDomainResponseContent> verify(String id) {
         return this.rawClient.verify(id).thenApply(response -> response.body());
@@ -228,10 +261,10 @@ public class AsyncCustomDomainsClient {
 
     /**
      * Run the verification process on a custom domain.
-     * <p>Note: Check the &lt;code&gt;status&lt;/code&gt; field to see its verification status. Once verification is complete, it may take up to 10 minutes before the custom domain can start accepting requests.</p>
-     * <p>For &lt;code&gt;self_managed_certs&lt;/code&gt;, when the custom domain is verified for the first time, the response will also include the &lt;code&gt;cname_api_key&lt;/code&gt; which you will need to configure your proxy. This key must be kept secret, and is used to validate the proxy requests.</p>
-     * <p>&lt;a href=&quot;https://auth0.com/docs/custom-domains#step-2-verify-ownership&quot;&gt;Learn more&lt;/a&gt; about verifying custom domains that use Auth0 Managed certificates.
-     * &lt;a href=&quot;https://auth0.com/docs/custom-domains/self-managed-certificates#step-2-verify-ownership&quot;&gt;Learn more&lt;/a&gt; about verifying custom domains that use Self Managed certificates.</p>
+     * <p>Note: Check the <code>status</code> field to see its verification status. Once verification is complete, it may take up to 10 minutes before the custom domain can start accepting requests.</p>
+     * <p>For <code>self_managed_certs</code>, when the custom domain is verified for the first time, the response will also include the <code>cname_api_key</code> which you will need to configure your proxy. This key must be kept secret, and is used to validate the proxy requests.</p>
+     * <p><a href="https://auth0.com/docs/custom-domains#step-2-verify-ownership">Learn more</a> about verifying custom domains that use Auth0 Managed certificates.
+     * <a href="https://auth0.com/docs/custom-domains/self-managed-certificates#step-2-verify-ownership">Learn more</a> about verifying custom domains that use Self Managed certificates.</p>
      */
     public CompletableFuture<VerifyCustomDomainResponseContent> verify(String id, RequestOptions requestOptions) {
         return this.rawClient.verify(id, requestOptions).thenApply(response -> response.body());

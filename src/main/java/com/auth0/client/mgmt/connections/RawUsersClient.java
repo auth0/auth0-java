@@ -50,6 +50,11 @@ public class RawUsersClient {
                 .addPathSegment(id)
                 .addPathSegments("users");
         QueryStringMapper.addQueryParameter(httpUrl, "email", request.getEmail(), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("DELETE", null)

@@ -108,6 +108,10 @@ public final class ChangePasswordTicketIdentity {
     public interface _FinalStage {
         ChangePasswordTicketIdentity build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>connection_id of the identity.</p>
          */
@@ -179,6 +183,18 @@ public final class ChangePasswordTicketIdentity {
         @java.lang.Override
         public ChangePasswordTicketIdentity build() {
             return new ChangePasswordTicketIdentity(userId, provider, connectionId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

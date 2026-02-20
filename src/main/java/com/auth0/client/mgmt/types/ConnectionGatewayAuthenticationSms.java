@@ -133,6 +133,10 @@ public final class ConnectionGatewayAuthenticationSms {
     public interface _FinalStage {
         ConnectionGatewayAuthenticationSms build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Set to true if the secret is base64-url-encoded</p>
          */
@@ -235,6 +239,18 @@ public final class ConnectionGatewayAuthenticationSms {
         public ConnectionGatewayAuthenticationSms build() {
             return new ConnectionGatewayAuthenticationSms(
                     audience, method, secret, secretBase64Encoded, subject, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

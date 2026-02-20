@@ -52,6 +52,13 @@ public class AsyncModulesClient {
     /**
      * Retrieve a paginated list of all Actions Modules with optional filtering and totals.
      */
+    public CompletableFuture<SyncPagingIterable<ActionModuleListItem>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a paginated list of all Actions Modules with optional filtering and totals.
+     */
     public CompletableFuture<SyncPagingIterable<ActionModuleListItem>> list(GetActionModulesRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
@@ -117,6 +124,13 @@ public class AsyncModulesClient {
     /**
      * Update properties of an existing Actions Module, such as code, dependencies, or secrets.
      */
+    public CompletableFuture<UpdateActionModuleResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update properties of an existing Actions Module, such as code, dependencies, or secrets.
+     */
     public CompletableFuture<UpdateActionModuleResponseContent> update(
             String id, UpdateActionModuleRequestContent request) {
         return this.rawClient.update(id, request).thenApply(response -> response.body());
@@ -135,6 +149,14 @@ public class AsyncModulesClient {
      */
     public CompletableFuture<SyncPagingIterable<ActionModuleAction>> listActions(String id) {
         return this.rawClient.listActions(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Lists all actions that are using a specific Actions Module, showing which deployed action versions reference this Actions Module.
+     */
+    public CompletableFuture<SyncPagingIterable<ActionModuleAction>> listActions(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.listActions(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**

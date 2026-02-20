@@ -118,6 +118,10 @@ public final class ResourceServerTokenEncryptionKey {
     public interface _FinalStage {
         ResourceServerTokenEncryptionKey build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Name of the encryption key.</p>
          */
@@ -219,6 +223,18 @@ public final class ResourceServerTokenEncryptionKey {
         @java.lang.Override
         public ResourceServerTokenEncryptionKey build() {
             return new ResourceServerTokenEncryptionKey(name, alg, kid, pem, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

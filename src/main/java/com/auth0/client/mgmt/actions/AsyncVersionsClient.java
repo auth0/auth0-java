@@ -41,6 +41,13 @@ public class AsyncVersionsClient {
     /**
      * Retrieve all of an action's versions. An action version is created whenever an action is deployed. An action version is immutable, once created.
      */
+    public CompletableFuture<SyncPagingIterable<ActionVersion>> list(String actionId, RequestOptions requestOptions) {
+        return this.rawClient.list(actionId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve all of an action's versions. An action version is created whenever an action is deployed. An action version is immutable, once created.
+     */
     public CompletableFuture<SyncPagingIterable<ActionVersion>> list(
             String actionId, ListActionVersionsRequestParameters request) {
         return this.rawClient.list(actionId, request).thenApply(response -> response.body());
@@ -74,6 +81,14 @@ public class AsyncVersionsClient {
      */
     public CompletableFuture<DeployActionVersionResponseContent> deploy(String actionId, String id) {
         return this.rawClient.deploy(actionId, id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Performs the equivalent of a roll-back of an action to an earlier, specified version. Creates a new, deployed action version that is identical to the specified version. If this action is currently bound to a trigger, the system will begin executing the newly-created version immediately.
+     */
+    public CompletableFuture<DeployActionVersionResponseContent> deploy(
+            String actionId, String id, RequestOptions requestOptions) {
+        return this.rawClient.deploy(actionId, id, requestOptions).thenApply(response -> response.body());
     }
 
     /**

@@ -158,6 +158,10 @@ public final class FormFieldPayment {
     public interface _FinalStage {
         FormFieldPayment build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage label(Optional<String> label);
 
         _FinalStage label(String label);
@@ -295,6 +299,18 @@ public final class FormFieldPayment {
         public FormFieldPayment build() {
             return new FormFieldPayment(
                     id, category, type, config, label, hint, required, sensitive, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

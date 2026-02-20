@@ -98,6 +98,10 @@ public final class FlowActionSalesforceUpdateLeadParams {
     public interface _FinalStage {
         FlowActionSalesforceUpdateLeadParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage payload(Optional<Map<String, Object>> payload);
 
         _FinalStage payload(Map<String, Object> payload);
@@ -154,6 +158,18 @@ public final class FlowActionSalesforceUpdateLeadParams {
         @java.lang.Override
         public FlowActionSalesforceUpdateLeadParams build() {
             return new FlowActionSalesforceUpdateLeadParams(connectionId, leadId, payload, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

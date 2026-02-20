@@ -42,6 +42,13 @@ public class ResourceServersClient {
     /**
      * Retrieve details of all APIs associated with your tenant.
      */
+    public SyncPagingIterable<ResourceServer> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve details of all APIs associated with your tenant.
+     */
     public SyncPagingIterable<ResourceServer> list(ListResourceServerRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -55,14 +62,14 @@ public class ResourceServersClient {
     }
 
     /**
-     * Create a new API associated with your tenant. Note that all new APIs must be registered with Auth0. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis&quot;&gt; APIs&lt;/a&gt;.
+     * Create a new API associated with your tenant. Note that all new APIs must be registered with Auth0. For more information, read <a href="https://www.auth0.com/docs/get-started/apis"> APIs</a>.
      */
     public CreateResourceServerResponseContent create(CreateResourceServerRequestContent request) {
         return this.rawClient.create(request).body();
     }
 
     /**
-     * Create a new API associated with your tenant. Note that all new APIs must be registered with Auth0. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis&quot;&gt; APIs&lt;/a&gt;.
+     * Create a new API associated with your tenant. Note that all new APIs must be registered with Auth0. For more information, read <a href="https://www.auth0.com/docs/get-started/apis"> APIs</a>.
      */
     public CreateResourceServerResponseContent create(
             CreateResourceServerRequestContent request, RequestOptions requestOptions) {
@@ -70,21 +77,28 @@ public class ResourceServersClient {
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/apis&quot;&gt;API&lt;/a&gt; details with the given ID.
+     * Retrieve <a href="https://auth0.com/docs/apis">API</a> details with the given ID.
      */
     public GetResourceServerResponseContent get(String id) {
         return this.rawClient.get(id).body();
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/apis&quot;&gt;API&lt;/a&gt; details with the given ID.
+     * Retrieve <a href="https://auth0.com/docs/apis">API</a> details with the given ID.
+     */
+    public GetResourceServerResponseContent get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).body();
+    }
+
+    /**
+     * Retrieve <a href="https://auth0.com/docs/apis">API</a> details with the given ID.
      */
     public GetResourceServerResponseContent get(String id, GetResourceServerRequestParameters request) {
         return this.rawClient.get(id, request).body();
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/apis&quot;&gt;API&lt;/a&gt; details with the given ID.
+     * Retrieve <a href="https://auth0.com/docs/apis">API</a> details with the given ID.
      */
     public GetResourceServerResponseContent get(
             String id, GetResourceServerRequestParameters request, RequestOptions requestOptions) {
@@ -92,35 +106,42 @@ public class ResourceServersClient {
     }
 
     /**
-     * Delete an existing API by ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Delete an existing API by ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public void delete(String id) {
         this.rawClient.delete(id).body();
     }
 
     /**
-     * Delete an existing API by ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Delete an existing API by ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public void delete(String id, RequestOptions requestOptions) {
         this.rawClient.delete(id, requestOptions).body();
     }
 
     /**
-     * Change an existing API setting by resource server ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Change an existing API setting by resource server ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public UpdateResourceServerResponseContent update(String id) {
         return this.rawClient.update(id).body();
     }
 
     /**
-     * Change an existing API setting by resource server ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Change an existing API setting by resource server ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
+     */
+    public UpdateResourceServerResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
+    }
+
+    /**
+     * Change an existing API setting by resource server ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public UpdateResourceServerResponseContent update(String id, UpdateResourceServerRequestContent request) {
         return this.rawClient.update(id, request).body();
     }
 
     /**
-     * Change an existing API setting by resource server ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Change an existing API setting by resource server ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public UpdateResourceServerResponseContent update(
             String id, UpdateResourceServerRequestContent request, RequestOptions requestOptions) {

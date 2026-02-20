@@ -36,6 +36,13 @@ public class MembersClient {
     /**
      * List all users that are a member of this group.
      */
+    public SyncPagingIterable<GroupMember> get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).body();
+    }
+
+    /**
+     * List all users that are a member of this group.
+     */
     public SyncPagingIterable<GroupMember> get(String id, GetGroupMembersRequestParameters request) {
         return this.rawClient.get(id, request).body();
     }

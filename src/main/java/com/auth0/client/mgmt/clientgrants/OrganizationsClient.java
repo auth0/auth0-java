@@ -30,6 +30,10 @@ public class OrganizationsClient {
         return this.rawClient.list(id).body();
     }
 
+    public SyncPagingIterable<Organization> list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).body();
+    }
+
     public SyncPagingIterable<Organization> list(String id, ListClientGrantOrganizationsRequestParameters request) {
         return this.rawClient.list(id, request).body();
     }

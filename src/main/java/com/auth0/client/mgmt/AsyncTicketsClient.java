@@ -55,6 +55,14 @@ public class AsyncTicketsClient {
      * Create a password change ticket for a given user. A password change ticket is a generated URL that the user can consume to start a reset password flow.
      * <p>Note: This endpoint does not verify the given user’s identity. If you call this endpoint within your application, you must design your application to verify the user’s identity.</p>
      */
+    public CompletableFuture<ChangePasswordTicketResponseContent> changePassword(RequestOptions requestOptions) {
+        return this.rawClient.changePassword(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Create a password change ticket for a given user. A password change ticket is a generated URL that the user can consume to start a reset password flow.
+     * <p>Note: This endpoint does not verify the given user’s identity. If you call this endpoint within your application, you must design your application to verify the user’s identity.</p>
+     */
     public CompletableFuture<ChangePasswordTicketResponseContent> changePassword(
             ChangePasswordTicketRequestContent request) {
         return this.rawClient.changePassword(request).thenApply(response -> response.body());

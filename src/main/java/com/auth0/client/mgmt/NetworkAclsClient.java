@@ -42,6 +42,13 @@ public class NetworkAclsClient {
     /**
      * Get all access control list entries for your client.
      */
+    public SyncPagingIterable<NetworkAclsResponseContent> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Get all access control list entries for your client.
+     */
     public SyncPagingIterable<NetworkAclsResponseContent> list(ListNetworkAclsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -116,6 +123,13 @@ public class NetworkAclsClient {
      */
     public UpdateNetworkAclResponseContent update(String id) {
         return this.rawClient.update(id).body();
+    }
+
+    /**
+     * Update existing access control list for your client.
+     */
+    public UpdateNetworkAclResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
     }
 
     /**

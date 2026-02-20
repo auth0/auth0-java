@@ -113,6 +113,10 @@ public final class FormBlockImage {
     public interface _FinalStage {
         FormBlockImage build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage config(Optional<FormBlockImageConfig> config);
 
         _FinalStage config(FormBlockImageConfig config);
@@ -179,6 +183,18 @@ public final class FormBlockImage {
         @java.lang.Override
         public FormBlockImage build() {
             return new FormBlockImage(id, category, type, config, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

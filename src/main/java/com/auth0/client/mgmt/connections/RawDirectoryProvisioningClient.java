@@ -57,6 +57,13 @@ public class RawDirectoryProvisioningClient {
     /**
      * Retrieve a list of directory provisioning configurations of a tenant.
      */
+    public ManagementApiHttpResponse<SyncPagingIterable<DirectoryProvisioning>> list(RequestOptions requestOptions) {
+        return list(ListDirectoryProvisioningsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve a list of directory provisioning configurations of a tenant.
+     */
     public ManagementApiHttpResponse<SyncPagingIterable<DirectoryProvisioning>> list(
             ListDirectoryProvisioningsRequestParameters request) {
         return list(request, null);
@@ -75,6 +82,11 @@ public class RawDirectoryProvisioningClient {
                     httpUrl, "from", request.getFrom().orElse(null), false);
         }
         QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -143,14 +155,18 @@ public class RawDirectoryProvisioningClient {
      */
     public ManagementApiHttpResponse<GetDirectoryProvisioningResponseContent> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
-                .addPathSegments("directory-provisioning")
-                .build();
+                .addPathSegments("directory-provisioning");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -208,6 +224,14 @@ public class RawDirectoryProvisioningClient {
      * Create a directory provisioning configuration for a connection.
      */
     public ManagementApiHttpResponse<CreateDirectoryProvisioningResponseContent> create(
+            String id, RequestOptions requestOptions) {
+        return create(id, OptionalNullable.<CreateDirectoryProvisioningRequestContent>absent(), requestOptions);
+    }
+
+    /**
+     * Create a directory provisioning configuration for a connection.
+     */
+    public ManagementApiHttpResponse<CreateDirectoryProvisioningResponseContent> create(
             String id, OptionalNullable<CreateDirectoryProvisioningRequestContent> request) {
         return create(id, request, null);
     }
@@ -219,12 +243,16 @@ public class RawDirectoryProvisioningClient {
             String id,
             OptionalNullable<CreateDirectoryProvisioningRequestContent> request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
-                .addPathSegments("directory-provisioning")
-                .build();
+                .addPathSegments("directory-provisioning");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create("", null);
@@ -236,7 +264,7 @@ public class RawDirectoryProvisioningClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -298,14 +326,18 @@ public class RawDirectoryProvisioningClient {
      * Delete the directory provisioning configuration of a connection.
      */
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
-                .addPathSegments("directory-provisioning")
-                .build();
+                .addPathSegments("directory-provisioning");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -360,6 +392,14 @@ public class RawDirectoryProvisioningClient {
      * Update the directory provisioning configuration of a connection.
      */
     public ManagementApiHttpResponse<UpdateDirectoryProvisioningResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, OptionalNullable.<UpdateDirectoryProvisioningRequestContent>absent(), requestOptions);
+    }
+
+    /**
+     * Update the directory provisioning configuration of a connection.
+     */
+    public ManagementApiHttpResponse<UpdateDirectoryProvisioningResponseContent> update(
             String id, OptionalNullable<UpdateDirectoryProvisioningRequestContent> request) {
         return update(id, request, null);
     }
@@ -371,12 +411,16 @@ public class RawDirectoryProvisioningClient {
             String id,
             OptionalNullable<UpdateDirectoryProvisioningRequestContent> request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
-                .addPathSegments("directory-provisioning")
-                .build();
+                .addPathSegments("directory-provisioning");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create("", null);
@@ -388,7 +432,7 @@ public class RawDirectoryProvisioningClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -449,15 +493,19 @@ public class RawDirectoryProvisioningClient {
      */
     public ManagementApiHttpResponse<GetDirectoryProvisioningDefaultMappingResponseContent> getDefaultMapping(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
                 .addPathSegments("directory-provisioning")
-                .addPathSegments("default-mapping")
-                .build();
+                .addPathSegments("default-mapping");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

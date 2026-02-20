@@ -50,12 +50,16 @@ public class AsyncRawBreachedPasswordDetectionClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetBreachedPasswordDetectionSettingsResponseContent>> get(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("attack-protection/breached-password-detection")
-                .build();
+                .addPathSegments("attack-protection/breached-password-detection");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -129,6 +133,15 @@ public class AsyncRawBreachedPasswordDetectionClient {
      * Update details of the Breached Password Detection configuration of your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateBreachedPasswordDetectionSettingsResponseContent>> update(
+            RequestOptions requestOptions) {
+        return update(
+                UpdateBreachedPasswordDetectionSettingsRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update details of the Breached Password Detection configuration of your tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateBreachedPasswordDetectionSettingsResponseContent>> update(
             UpdateBreachedPasswordDetectionSettingsRequestContent request) {
         return update(request, null);
     }
@@ -138,10 +151,14 @@ public class AsyncRawBreachedPasswordDetectionClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateBreachedPasswordDetectionSettingsResponseContent>> update(
             UpdateBreachedPasswordDetectionSettingsRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("attack-protection/breached-password-detection")
-                .build();
+                .addPathSegments("attack-protection/breached-password-detection");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -150,7 +167,7 @@ public class AsyncRawBreachedPasswordDetectionClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

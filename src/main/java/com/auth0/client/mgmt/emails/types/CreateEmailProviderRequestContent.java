@@ -140,6 +140,10 @@ public final class CreateEmailProviderRequestContent {
     public interface _FinalStage {
         CreateEmailProviderRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Whether the provider is enabled (true) or disabled (false).</p>
          */
@@ -283,6 +287,18 @@ public final class CreateEmailProviderRequestContent {
         public CreateEmailProviderRequestContent build() {
             return new CreateEmailProviderRequestContent(
                     name, enabled, defaultFromAddress, credentials, settings, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

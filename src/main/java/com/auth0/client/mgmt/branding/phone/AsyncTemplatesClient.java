@@ -38,6 +38,10 @@ public class AsyncTemplatesClient {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
+    public CompletableFuture<ListPhoneTemplatesResponseContent> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<ListPhoneTemplatesResponseContent> list(ListPhoneTemplatesRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
@@ -49,6 +53,10 @@ public class AsyncTemplatesClient {
 
     public CompletableFuture<CreatePhoneTemplateResponseContent> create() {
         return this.rawClient.create().thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreatePhoneTemplateResponseContent> create(RequestOptions requestOptions) {
+        return this.rawClient.create(requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<CreatePhoneTemplateResponseContent> create(CreatePhoneTemplateRequestContent request) {
@@ -78,6 +86,10 @@ public class AsyncTemplatesClient {
 
     public CompletableFuture<UpdatePhoneTemplateResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<UpdatePhoneTemplateResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<UpdatePhoneTemplateResponseContent> update(

@@ -43,7 +43,7 @@ public class RolesClient {
 
     /**
      * Retrieve detailed list of user roles created in your tenant.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public SyncPagingIterable<Role> list() {
         return this.rawClient.list().body();
@@ -51,7 +51,15 @@ public class RolesClient {
 
     /**
      * Retrieve detailed list of user roles created in your tenant.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     */
+    public SyncPagingIterable<Role> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve detailed list of user roles created in your tenant.
+     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public SyncPagingIterable<Role> list(ListRolesRequestParameters request) {
         return this.rawClient.list(request).body();
@@ -59,72 +67,79 @@ public class RolesClient {
 
     /**
      * Retrieve detailed list of user roles created in your tenant.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public SyncPagingIterable<Role> list(ListRolesRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
-     * Create a user role for &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;Role-Based Access Control&lt;/a&gt;.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
+     * Create a user role for <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+     * <p><b>Note</b>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
      */
     public CreateRoleResponseContent create(CreateRoleRequestContent request) {
         return this.rawClient.create(request).body();
     }
 
     /**
-     * Create a user role for &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;Role-Based Access Control&lt;/a&gt;.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
+     * Create a user role for <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+     * <p><b>Note</b>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
      */
     public CreateRoleResponseContent create(CreateRoleRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).body();
     }
 
     /**
-     * Retrieve details about a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Retrieve details about a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public GetRoleResponseContent get(String id) {
         return this.rawClient.get(id).body();
     }
 
     /**
-     * Retrieve details about a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Retrieve details about a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public GetRoleResponseContent get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).body();
     }
 
     /**
-     * Delete a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
+     * Delete a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
      */
     public void delete(String id) {
         this.rawClient.delete(id).body();
     }
 
     /**
-     * Delete a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
+     * Delete a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
      */
     public void delete(String id, RequestOptions requestOptions) {
         this.rawClient.delete(id, requestOptions).body();
     }
 
     /**
-     * Modify the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public UpdateRoleResponseContent update(String id) {
         return this.rawClient.update(id).body();
     }
 
     /**
-     * Modify the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+     */
+    public UpdateRoleResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
+    }
+
+    /**
+     * Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public UpdateRoleResponseContent update(String id, UpdateRoleRequestContent request) {
         return this.rawClient.update(id, request).body();
     }
 
     /**
-     * Modify the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public UpdateRoleResponseContent update(
             String id, UpdateRoleRequestContent request, RequestOptions requestOptions) {

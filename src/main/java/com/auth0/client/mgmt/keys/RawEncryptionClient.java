@@ -56,6 +56,13 @@ public class RawEncryptionClient {
     /**
      * Retrieve details of all the encryption keys associated with your tenant.
      */
+    public ManagementApiHttpResponse<SyncPagingIterable<EncryptionKey>> list(RequestOptions requestOptions) {
+        return list(ListEncryptionKeysRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve details of all the encryption keys associated with your tenant.
+     */
     public ManagementApiHttpResponse<SyncPagingIterable<EncryptionKey>> list(
             ListEncryptionKeysRequestParameters request) {
         return list(request, null);
@@ -74,6 +81,11 @@ public class RawEncryptionClient {
                 httpUrl, "per_page", request.getPerPage().orElse(50), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -142,10 +154,14 @@ public class RawEncryptionClient {
      */
     public ManagementApiHttpResponse<CreateEncryptionKeyResponseContent> create(
             CreateEncryptionKeyRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("keys/encryption")
-                .build();
+                .addPathSegments("keys/encryption");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -154,7 +170,7 @@ public class RawEncryptionClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -213,12 +229,16 @@ public class RawEncryptionClient {
      * Perform rekeying operation on the key hierarchy.
      */
     public ManagementApiHttpResponse<Void> rekey(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("keys/encryption/rekey")
-                .build();
+                .addPathSegments("keys/encryption/rekey");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -267,13 +287,17 @@ public class RawEncryptionClient {
      * Retrieve details of the encryption key with the given ID.
      */
     public ManagementApiHttpResponse<GetEncryptionKeyResponseContent> get(String kid, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("keys/encryption")
-                .addPathSegment(kid)
-                .build();
+                .addPathSegment(kid);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -332,11 +356,15 @@ public class RawEncryptionClient {
      */
     public ManagementApiHttpResponse<ImportEncryptionKeyResponseContent> import_(
             String kid, ImportEncryptionKeyRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("keys/encryption")
-                .addPathSegment(kid)
-                .build();
+                .addPathSegment(kid);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -345,7 +373,7 @@ public class RawEncryptionClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -404,13 +432,17 @@ public class RawEncryptionClient {
      * Delete the custom provided encryption key with the given ID and move back to using native encryption key.
      */
     public ManagementApiHttpResponse<Void> delete(String kid, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("keys/encryption")
-                .addPathSegment(kid)
-                .build();
+                .addPathSegment(kid);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -464,14 +496,18 @@ public class RawEncryptionClient {
      */
     public ManagementApiHttpResponse<CreateEncryptionKeyPublicWrappingResponseContent> createPublicWrappingKey(
             String kid, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("keys/encryption")
                 .addPathSegment(kid)
-                .addPathSegments("wrapping-key")
-                .build();
+                .addPathSegments("wrapping-key");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

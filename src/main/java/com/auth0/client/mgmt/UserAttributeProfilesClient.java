@@ -43,6 +43,13 @@ public class UserAttributeProfilesClient {
     /**
      * Retrieve a list of User Attribute Profiles. This endpoint supports Checkpoint pagination.
      */
+    public SyncPagingIterable<UserAttributeProfile> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve a list of User Attribute Profiles. This endpoint supports Checkpoint pagination.
+     */
     public SyncPagingIterable<UserAttributeProfile> list(ListUserAttributeProfileRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -131,6 +138,13 @@ public class UserAttributeProfilesClient {
      */
     public UpdateUserAttributeProfileResponseContent update(String id) {
         return this.rawClient.update(id).body();
+    }
+
+    /**
+     * Update the details of a specific User attribute profile, such as name, user_id and user_attributes.
+     */
+    public UpdateUserAttributeProfileResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
     }
 
     /**

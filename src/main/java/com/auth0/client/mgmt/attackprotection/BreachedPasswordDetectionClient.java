@@ -50,6 +50,13 @@ public class BreachedPasswordDetectionClient {
     /**
      * Update details of the Breached Password Detection configuration of your tenant.
      */
+    public UpdateBreachedPasswordDetectionSettingsResponseContent update(RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).body();
+    }
+
+    /**
+     * Update details of the Breached Password Detection configuration of your tenant.
+     */
     public UpdateBreachedPasswordDetectionSettingsResponseContent update(
             UpdateBreachedPasswordDetectionSettingsRequestContent request) {
         return this.rawClient.update(request).body();

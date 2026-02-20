@@ -52,10 +52,14 @@ public class RawThemesClient {
      */
     public ManagementApiHttpResponse<CreateBrandingThemeResponseContent> create(
             CreateBrandingThemeRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("branding/themes")
-                .build();
+                .addPathSegments("branding/themes");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -64,7 +68,7 @@ public class RawThemesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -123,12 +127,16 @@ public class RawThemesClient {
      * Retrieve default branding theme.
      */
     public ManagementApiHttpResponse<GetBrandingDefaultThemeResponseContent> getDefault(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("branding/themes/default")
-                .build();
+                .addPathSegments("branding/themes/default");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -184,13 +192,17 @@ public class RawThemesClient {
      */
     public ManagementApiHttpResponse<GetBrandingThemeResponseContent> get(
             String themeId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("branding/themes")
-                .addPathSegment(themeId)
-                .build();
+                .addPathSegment(themeId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -244,13 +256,17 @@ public class RawThemesClient {
      * Delete branding theme.
      */
     public ManagementApiHttpResponse<Void> delete(String themeId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("branding/themes")
-                .addPathSegment(themeId)
-                .build();
+                .addPathSegment(themeId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -304,11 +320,15 @@ public class RawThemesClient {
      */
     public ManagementApiHttpResponse<UpdateBrandingThemeResponseContent> update(
             String themeId, UpdateBrandingThemeRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("branding/themes")
-                .addPathSegment(themeId)
-                .build();
+                .addPathSegment(themeId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -317,7 +337,7 @@ public class RawThemesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

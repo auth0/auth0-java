@@ -36,6 +36,13 @@ public class ConnectedAccountsClient {
     /**
      * Retrieve all connected accounts associated with the user.
      */
+    public SyncPagingIterable<ConnectedAccount> list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).body();
+    }
+
+    /**
+     * Retrieve all connected accounts associated with the user.
+     */
     public SyncPagingIterable<ConnectedAccount> list(String id, GetUserConnectedAccountsRequestParameters request) {
         return this.rawClient.list(id, request).body();
     }

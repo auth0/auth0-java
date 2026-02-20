@@ -220,5 +220,15 @@ public final class ClientAddonFirebase {
             return new ClientAddonFirebase(
                     secret, privateKeyId, privateKey, clientEmail, lifetimeInSeconds, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

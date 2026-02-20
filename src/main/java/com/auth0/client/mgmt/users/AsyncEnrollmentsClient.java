@@ -27,14 +27,14 @@ public class AsyncEnrollmentsClient {
     }
 
     /**
-     * Retrieve the first &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors&quot;&gt;multi-factor authentication&lt;/a&gt; enrollment that a specific user has confirmed.
+     * Retrieve the first <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors">multi-factor authentication</a> enrollment that a specific user has confirmed.
      */
     public CompletableFuture<List<UsersEnrollment>> get(String id) {
         return this.rawClient.get(id).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve the first &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors&quot;&gt;multi-factor authentication&lt;/a&gt; enrollment that a specific user has confirmed.
+     * Retrieve the first <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors">multi-factor authentication</a> enrollment that a specific user has confirmed.
      */
     public CompletableFuture<List<UsersEnrollment>> get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());

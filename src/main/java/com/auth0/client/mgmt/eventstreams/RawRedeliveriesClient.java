@@ -39,18 +39,27 @@ public class RawRedeliveriesClient {
     }
 
     public ManagementApiHttpResponse<CreateEventStreamRedeliveryResponseContent> create(
+            String id, RequestOptions requestOptions) {
+        return create(id, CreateEventStreamRedeliveryRequestContent.builder().build(), requestOptions);
+    }
+
+    public ManagementApiHttpResponse<CreateEventStreamRedeliveryResponseContent> create(
             String id, CreateEventStreamRedeliveryRequestContent request) {
         return create(id, request, null);
     }
 
     public ManagementApiHttpResponse<CreateEventStreamRedeliveryResponseContent> create(
             String id, CreateEventStreamRedeliveryRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("event-streams")
                 .addPathSegment(id)
-                .addPathSegments("redeliver")
-                .build();
+                .addPathSegments("redeliver");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -59,7 +68,7 @@ public class RawRedeliveriesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -112,15 +121,19 @@ public class RawRedeliveriesClient {
     }
 
     public ManagementApiHttpResponse<Void> createById(String id, String eventId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("event-streams")
                 .addPathSegment(id)
                 .addPathSegments("redeliver")
-                .addPathSegment(eventId)
-                .build();
+                .addPathSegment(eventId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

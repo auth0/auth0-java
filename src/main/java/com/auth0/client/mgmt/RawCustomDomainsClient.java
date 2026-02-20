@@ -46,21 +46,28 @@ public class RawCustomDomainsClient {
     }
 
     /**
-     * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/custom-domains&quot;&gt;custom domains&lt;/a&gt;.
+     * Retrieve details on <a href="https://auth0.com/docs/custom-domains">custom domains</a>.
      */
     public ManagementApiHttpResponse<List<CustomDomain>> list() {
         return list(ListCustomDomainsRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/custom-domains&quot;&gt;custom domains&lt;/a&gt;.
+     * Retrieve details on <a href="https://auth0.com/docs/custom-domains">custom domains</a>.
+     */
+    public ManagementApiHttpResponse<List<CustomDomain>> list(RequestOptions requestOptions) {
+        return list(ListCustomDomainsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve details on <a href="https://auth0.com/docs/custom-domains">custom domains</a>.
      */
     public ManagementApiHttpResponse<List<CustomDomain>> list(ListCustomDomainsRequestParameters request) {
         return list(request, null);
     }
 
     /**
-     * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/custom-domains&quot;&gt;custom domains&lt;/a&gt;.
+     * Retrieve details on <a href="https://auth0.com/docs/custom-domains">custom domains</a>.
      */
     public ManagementApiHttpResponse<List<CustomDomain>> list(
             ListCustomDomainsRequestParameters request, RequestOptions requestOptions) {
@@ -81,6 +88,11 @@ public class RawCustomDomainsClient {
         if (!request.getSort().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "sort", request.getSort().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -159,10 +171,14 @@ public class RawCustomDomainsClient {
      */
     public ManagementApiHttpResponse<CreateCustomDomainResponseContent> create(
             CreateCustomDomainRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("custom-domains")
-                .build();
+                .addPathSegments("custom-domains");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -171,7 +187,7 @@ public class RawCustomDomainsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -230,13 +246,17 @@ public class RawCustomDomainsClient {
      * Retrieve a custom domain configuration and status.
      */
     public ManagementApiHttpResponse<GetCustomDomainResponseContent> get(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("custom-domains")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -293,13 +313,17 @@ public class RawCustomDomainsClient {
      * Delete a custom domain and stop serving requests for it.
      */
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("custom-domains")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -347,11 +371,11 @@ public class RawCustomDomainsClient {
      * <li>custom_client_ip_header</li>
      * <li>tls_policy</li>
      * </ul>
-     * <p>&lt;h5&gt;Updating CUSTOM_CLIENT_IP_HEADER for a custom domain&lt;/h5&gt;To update the &lt;code&gt;custom_client_ip_header&lt;/code&gt; for a domain, the body to
+     * <p><h5>Updating CUSTOM_CLIENT_IP_HEADER for a custom domain</h5>To update the <code>custom_client_ip_header</code> for a domain, the body to
      * send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating TLS_POLICY for a custom domain&lt;/h5&gt;To update the &lt;code&gt;tls_policy&lt;/code&gt; for a domain, the body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;tls_policy&quot;: &quot;recommended&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
+     * <pre><code>{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }</code></pre></p>
+     * <p><h5>Updating TLS_POLICY for a custom domain</h5>To update the <code>tls_policy</code> for a domain, the body to send should be:
+     * <pre><code>{ &quot;tls_policy&quot;: &quot;recommended&quot; }</code></pre></p>
      * <p>TLS Policies:</p>
      * <ul>
      * <li>recommended - for modern usage this includes TLS 1.2 only</li>
@@ -359,7 +383,7 @@ public class RawCustomDomainsClient {
      * <p>Some considerations:</p>
      * <ul>
      * <li>The TLS ciphers and protocols available in each TLS policy follow industry recommendations, and may be updated occasionally.</li>
-     * <li>The &lt;code&gt;compatible&lt;/code&gt; TLS policy is no longer supported.</li>
+     * <li>The <code>compatible</code> TLS policy is no longer supported.</li>
      * </ul>
      */
     public ManagementApiHttpResponse<UpdateCustomDomainResponseContent> update(String id) {
@@ -373,11 +397,11 @@ public class RawCustomDomainsClient {
      * <li>custom_client_ip_header</li>
      * <li>tls_policy</li>
      * </ul>
-     * <p>&lt;h5&gt;Updating CUSTOM_CLIENT_IP_HEADER for a custom domain&lt;/h5&gt;To update the &lt;code&gt;custom_client_ip_header&lt;/code&gt; for a domain, the body to
+     * <p><h5>Updating CUSTOM_CLIENT_IP_HEADER for a custom domain</h5>To update the <code>custom_client_ip_header</code> for a domain, the body to
      * send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating TLS_POLICY for a custom domain&lt;/h5&gt;To update the &lt;code&gt;tls_policy&lt;/code&gt; for a domain, the body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;tls_policy&quot;: &quot;recommended&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
+     * <pre><code>{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }</code></pre></p>
+     * <p><h5>Updating TLS_POLICY for a custom domain</h5>To update the <code>tls_policy</code> for a domain, the body to send should be:
+     * <pre><code>{ &quot;tls_policy&quot;: &quot;recommended&quot; }</code></pre></p>
      * <p>TLS Policies:</p>
      * <ul>
      * <li>recommended - for modern usage this includes TLS 1.2 only</li>
@@ -385,7 +409,34 @@ public class RawCustomDomainsClient {
      * <p>Some considerations:</p>
      * <ul>
      * <li>The TLS ciphers and protocols available in each TLS policy follow industry recommendations, and may be updated occasionally.</li>
-     * <li>The &lt;code&gt;compatible&lt;/code&gt; TLS policy is no longer supported.</li>
+     * <li>The <code>compatible</code> TLS policy is no longer supported.</li>
+     * </ul>
+     */
+    public ManagementApiHttpResponse<UpdateCustomDomainResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateCustomDomainRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update a custom domain.
+     * <p>These are the attributes that can be updated:</p>
+     * <ul>
+     * <li>custom_client_ip_header</li>
+     * <li>tls_policy</li>
+     * </ul>
+     * <p><h5>Updating CUSTOM_CLIENT_IP_HEADER for a custom domain</h5>To update the <code>custom_client_ip_header</code> for a domain, the body to
+     * send should be:
+     * <pre><code>{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }</code></pre></p>
+     * <p><h5>Updating TLS_POLICY for a custom domain</h5>To update the <code>tls_policy</code> for a domain, the body to send should be:
+     * <pre><code>{ &quot;tls_policy&quot;: &quot;recommended&quot; }</code></pre></p>
+     * <p>TLS Policies:</p>
+     * <ul>
+     * <li>recommended - for modern usage this includes TLS 1.2 only</li>
+     * </ul>
+     * <p>Some considerations:</p>
+     * <ul>
+     * <li>The TLS ciphers and protocols available in each TLS policy follow industry recommendations, and may be updated occasionally.</li>
+     * <li>The <code>compatible</code> TLS policy is no longer supported.</li>
      * </ul>
      */
     public ManagementApiHttpResponse<UpdateCustomDomainResponseContent> update(
@@ -400,11 +451,11 @@ public class RawCustomDomainsClient {
      * <li>custom_client_ip_header</li>
      * <li>tls_policy</li>
      * </ul>
-     * <p>&lt;h5&gt;Updating CUSTOM_CLIENT_IP_HEADER for a custom domain&lt;/h5&gt;To update the &lt;code&gt;custom_client_ip_header&lt;/code&gt; for a domain, the body to
+     * <p><h5>Updating CUSTOM_CLIENT_IP_HEADER for a custom domain</h5>To update the <code>custom_client_ip_header</code> for a domain, the body to
      * send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating TLS_POLICY for a custom domain&lt;/h5&gt;To update the &lt;code&gt;tls_policy&lt;/code&gt; for a domain, the body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;tls_policy&quot;: &quot;recommended&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
+     * <pre><code>{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }</code></pre></p>
+     * <p><h5>Updating TLS_POLICY for a custom domain</h5>To update the <code>tls_policy</code> for a domain, the body to send should be:
+     * <pre><code>{ &quot;tls_policy&quot;: &quot;recommended&quot; }</code></pre></p>
      * <p>TLS Policies:</p>
      * <ul>
      * <li>recommended - for modern usage this includes TLS 1.2 only</li>
@@ -412,16 +463,20 @@ public class RawCustomDomainsClient {
      * <p>Some considerations:</p>
      * <ul>
      * <li>The TLS ciphers and protocols available in each TLS policy follow industry recommendations, and may be updated occasionally.</li>
-     * <li>The &lt;code&gt;compatible&lt;/code&gt; TLS policy is no longer supported.</li>
+     * <li>The <code>compatible</code> TLS policy is no longer supported.</li>
      * </ul>
      */
     public ManagementApiHttpResponse<UpdateCustomDomainResponseContent> update(
             String id, UpdateCustomDomainRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("custom-domains")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -430,7 +485,7 @@ public class RawCustomDomainsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -486,14 +541,18 @@ public class RawCustomDomainsClient {
      * Run the test process on a custom domain.
      */
     public ManagementApiHttpResponse<TestCustomDomainResponseContent> test(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("custom-domains")
                 .addPathSegment(id)
-                .addPathSegments("test")
-                .build();
+                .addPathSegments("test");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -541,10 +600,10 @@ public class RawCustomDomainsClient {
 
     /**
      * Run the verification process on a custom domain.
-     * <p>Note: Check the &lt;code&gt;status&lt;/code&gt; field to see its verification status. Once verification is complete, it may take up to 10 minutes before the custom domain can start accepting requests.</p>
-     * <p>For &lt;code&gt;self_managed_certs&lt;/code&gt;, when the custom domain is verified for the first time, the response will also include the &lt;code&gt;cname_api_key&lt;/code&gt; which you will need to configure your proxy. This key must be kept secret, and is used to validate the proxy requests.</p>
-     * <p>&lt;a href=&quot;https://auth0.com/docs/custom-domains#step-2-verify-ownership&quot;&gt;Learn more&lt;/a&gt; about verifying custom domains that use Auth0 Managed certificates.
-     * &lt;a href=&quot;https://auth0.com/docs/custom-domains/self-managed-certificates#step-2-verify-ownership&quot;&gt;Learn more&lt;/a&gt; about verifying custom domains that use Self Managed certificates.</p>
+     * <p>Note: Check the <code>status</code> field to see its verification status. Once verification is complete, it may take up to 10 minutes before the custom domain can start accepting requests.</p>
+     * <p>For <code>self_managed_certs</code>, when the custom domain is verified for the first time, the response will also include the <code>cname_api_key</code> which you will need to configure your proxy. This key must be kept secret, and is used to validate the proxy requests.</p>
+     * <p><a href="https://auth0.com/docs/custom-domains#step-2-verify-ownership">Learn more</a> about verifying custom domains that use Auth0 Managed certificates.
+     * <a href="https://auth0.com/docs/custom-domains/self-managed-certificates#step-2-verify-ownership">Learn more</a> about verifying custom domains that use Self Managed certificates.</p>
      */
     public ManagementApiHttpResponse<VerifyCustomDomainResponseContent> verify(String id) {
         return verify(id, null);
@@ -552,21 +611,25 @@ public class RawCustomDomainsClient {
 
     /**
      * Run the verification process on a custom domain.
-     * <p>Note: Check the &lt;code&gt;status&lt;/code&gt; field to see its verification status. Once verification is complete, it may take up to 10 minutes before the custom domain can start accepting requests.</p>
-     * <p>For &lt;code&gt;self_managed_certs&lt;/code&gt;, when the custom domain is verified for the first time, the response will also include the &lt;code&gt;cname_api_key&lt;/code&gt; which you will need to configure your proxy. This key must be kept secret, and is used to validate the proxy requests.</p>
-     * <p>&lt;a href=&quot;https://auth0.com/docs/custom-domains#step-2-verify-ownership&quot;&gt;Learn more&lt;/a&gt; about verifying custom domains that use Auth0 Managed certificates.
-     * &lt;a href=&quot;https://auth0.com/docs/custom-domains/self-managed-certificates#step-2-verify-ownership&quot;&gt;Learn more&lt;/a&gt; about verifying custom domains that use Self Managed certificates.</p>
+     * <p>Note: Check the <code>status</code> field to see its verification status. Once verification is complete, it may take up to 10 minutes before the custom domain can start accepting requests.</p>
+     * <p>For <code>self_managed_certs</code>, when the custom domain is verified for the first time, the response will also include the <code>cname_api_key</code> which you will need to configure your proxy. This key must be kept secret, and is used to validate the proxy requests.</p>
+     * <p><a href="https://auth0.com/docs/custom-domains#step-2-verify-ownership">Learn more</a> about verifying custom domains that use Auth0 Managed certificates.
+     * <a href="https://auth0.com/docs/custom-domains/self-managed-certificates#step-2-verify-ownership">Learn more</a> about verifying custom domains that use Self Managed certificates.</p>
      */
     public ManagementApiHttpResponse<VerifyCustomDomainResponseContent> verify(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("custom-domains")
                 .addPathSegment(id)
-                .addPathSegments("verify")
-                .build();
+                .addPathSegments("verify");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

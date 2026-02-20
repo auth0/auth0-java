@@ -81,6 +81,10 @@ public final class ConnectionPasswordHistoryOptions {
     public interface _FinalStage {
         ConnectionPasswordHistoryOptions build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage size(Optional<Integer> size);
 
         _FinalStage size(Integer size);
@@ -127,6 +131,18 @@ public final class ConnectionPasswordHistoryOptions {
         @java.lang.Override
         public ConnectionPasswordHistoryOptions build() {
             return new ConnectionPasswordHistoryOptions(enable, size, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

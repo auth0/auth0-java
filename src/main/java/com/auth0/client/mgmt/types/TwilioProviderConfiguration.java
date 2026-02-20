@@ -107,6 +107,10 @@ public final class TwilioProviderConfiguration {
     public interface _FinalStage {
         TwilioProviderConfiguration build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage defaultFrom(Optional<String> defaultFrom);
 
         _FinalStage defaultFrom(String defaultFrom);
@@ -206,6 +210,18 @@ public final class TwilioProviderConfiguration {
         @java.lang.Override
         public TwilioProviderConfiguration build() {
             return new TwilioProviderConfiguration(defaultFrom, mssid, sid, deliveryMethods, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

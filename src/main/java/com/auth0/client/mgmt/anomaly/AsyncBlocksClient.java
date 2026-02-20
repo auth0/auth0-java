@@ -25,28 +25,28 @@ public class AsyncBlocksClient {
     }
 
     /**
-     * Check if the given IP address is blocked via the &lt;a href=&quot;https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling&quot;&gt;Suspicious IP Throttling&lt;/a&gt; due to multiple suspicious attempts.
+     * Check if the given IP address is blocked via the <a href="https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling">Suspicious IP Throttling</a> due to multiple suspicious attempts.
      */
     public CompletableFuture<Void> checkIp(String id) {
         return this.rawClient.checkIp(id).thenApply(response -> response.body());
     }
 
     /**
-     * Check if the given IP address is blocked via the &lt;a href=&quot;https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling&quot;&gt;Suspicious IP Throttling&lt;/a&gt; due to multiple suspicious attempts.
+     * Check if the given IP address is blocked via the <a href="https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling">Suspicious IP Throttling</a> due to multiple suspicious attempts.
      */
     public CompletableFuture<Void> checkIp(String id, RequestOptions requestOptions) {
         return this.rawClient.checkIp(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**
-     * Remove a block imposed by &lt;a href=&quot;https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling&quot;&gt;Suspicious IP Throttling&lt;/a&gt; for the given IP address.
+     * Remove a block imposed by <a href="https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling">Suspicious IP Throttling</a> for the given IP address.
      */
     public CompletableFuture<Void> unblockIp(String id) {
         return this.rawClient.unblockIp(id).thenApply(response -> response.body());
     }
 
     /**
-     * Remove a block imposed by &lt;a href=&quot;https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling&quot;&gt;Suspicious IP Throttling&lt;/a&gt; for the given IP address.
+     * Remove a block imposed by <a href="https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling">Suspicious IP Throttling</a> for the given IP address.
      */
     public CompletableFuture<Void> unblockIp(String id, RequestOptions requestOptions) {
         return this.rawClient.unblockIp(id, requestOptions).thenApply(response -> response.body());

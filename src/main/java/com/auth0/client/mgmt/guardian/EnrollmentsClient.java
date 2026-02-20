@@ -27,8 +27,8 @@ public class EnrollmentsClient {
     }
 
     /**
-     * Create a &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets&quot;&gt;multi-factor authentication (MFA) enrollment ticket&lt;/a&gt;, and optionally send an email with the created ticket, to a given user.
-     * Create a &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets&quot;&gt;multi-factor authentication (MFA) enrollment ticket&lt;/a&gt;, and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.&lt;br/&gt;
+     * Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket, to a given user.
+     * Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.<br/>
      * <p>Note: Users cannot enroll in Email as a factor through custom enrollment tickets.</p>
      */
     public CreateGuardianEnrollmentTicketResponseContent createTicket(
@@ -37,8 +37,8 @@ public class EnrollmentsClient {
     }
 
     /**
-     * Create a &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets&quot;&gt;multi-factor authentication (MFA) enrollment ticket&lt;/a&gt;, and optionally send an email with the created ticket, to a given user.
-     * Create a &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets&quot;&gt;multi-factor authentication (MFA) enrollment ticket&lt;/a&gt;, and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.&lt;br/&gt;
+     * Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket, to a given user.
+     * Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.<br/>
      * <p>Note: Users cannot enroll in Email as a factor through custom enrollment tickets.</p>
      */
     public CreateGuardianEnrollmentTicketResponseContent createTicket(
@@ -61,14 +61,14 @@ public class EnrollmentsClient {
     }
 
     /**
-     * Remove a specific multi-factor authentication (MFA) enrollment from a user's account. This allows the user to re-enroll with MFA. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa&quot;&gt;Reset User Multi-Factor Authentication and Recovery Codes&lt;/a&gt;.
+     * Remove a specific multi-factor authentication (MFA) enrollment from a user's account. This allows the user to re-enroll with MFA. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa">Reset User Multi-Factor Authentication and Recovery Codes</a>.
      */
     public void delete(String id) {
         this.rawClient.delete(id).body();
     }
 
     /**
-     * Remove a specific multi-factor authentication (MFA) enrollment from a user's account. This allows the user to re-enroll with MFA. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa&quot;&gt;Reset User Multi-Factor Authentication and Recovery Codes&lt;/a&gt;.
+     * Remove a specific multi-factor authentication (MFA) enrollment from a user's account. This allows the user to re-enroll with MFA. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa">Reset User Multi-Factor Authentication and Recovery Codes</a>.
      */
     public void delete(String id, RequestOptions requestOptions) {
         this.rawClient.delete(id, requestOptions).body();

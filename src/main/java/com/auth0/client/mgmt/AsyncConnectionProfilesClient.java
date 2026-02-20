@@ -44,6 +44,13 @@ public class AsyncConnectionProfilesClient {
     /**
      * Retrieve a list of Connection Profiles. This endpoint supports Checkpoint pagination.
      */
+    public CompletableFuture<SyncPagingIterable<ConnectionProfile>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a list of Connection Profiles. This endpoint supports Checkpoint pagination.
+     */
     public CompletableFuture<SyncPagingIterable<ConnectionProfile>> list(
             ListConnectionProfileRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
@@ -136,6 +143,13 @@ public class AsyncConnectionProfilesClient {
      */
     public CompletableFuture<UpdateConnectionProfileResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update the details of a specific Connection Profile.
+     */
+    public CompletableFuture<UpdateConnectionProfileResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**

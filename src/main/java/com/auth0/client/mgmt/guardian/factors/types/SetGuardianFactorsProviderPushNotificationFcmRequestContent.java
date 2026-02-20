@@ -126,5 +126,15 @@ public final class SetGuardianFactorsProviderPushNotificationFcmRequestContent {
         public SetGuardianFactorsProviderPushNotificationFcmRequestContent build() {
             return new SetGuardianFactorsProviderPushNotificationFcmRequestContent(serverKey, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

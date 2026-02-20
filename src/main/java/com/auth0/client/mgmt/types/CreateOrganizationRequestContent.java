@@ -140,6 +140,10 @@ public final class CreateOrganizationRequestContent {
     public interface _FinalStage {
         CreateOrganizationRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Friendly name of this organization.</p>
          */
@@ -292,6 +296,18 @@ public final class CreateOrganizationRequestContent {
         public CreateOrganizationRequestContent build() {
             return new CreateOrganizationRequestContent(
                     name, displayName, branding, metadata, enabledConnections, tokenQuota, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

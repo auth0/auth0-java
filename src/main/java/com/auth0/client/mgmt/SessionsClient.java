@@ -64,6 +64,13 @@ public class SessionsClient {
     /**
      * Update session information.
      */
+    public UpdateSessionResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
+    }
+
+    /**
+     * Update session information.
+     */
     public UpdateSessionResponseContent update(String id, UpdateSessionRequestContent request) {
         return this.rawClient.update(id, request).body();
     }

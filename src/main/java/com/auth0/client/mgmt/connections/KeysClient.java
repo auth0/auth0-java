@@ -52,6 +52,13 @@ public class KeysClient {
     /**
      * Rotates the connection keys for the Okta or OIDC connection strategies.
      */
+    public RotateConnectionsKeysResponseContent rotate(String id, RequestOptions requestOptions) {
+        return this.rawClient.rotate(id, requestOptions).body();
+    }
+
+    /**
+     * Rotates the connection keys for the Okta or OIDC connection strategies.
+     */
     public RotateConnectionsKeysResponseContent rotate(
             String id, OptionalNullable<RotateConnectionKeysRequestContent> request) {
         return this.rawClient.rotate(id, request).body();

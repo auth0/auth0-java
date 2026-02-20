@@ -38,7 +38,7 @@ public class AsyncRawVerificationEmailClient {
     }
 
     /**
-     * Send an email to the specified user that asks them to click a link to &lt;a href=&quot;https://auth0.com/docs/email/custom#verification-email&quot;&gt;verify their email address&lt;/a&gt;.
+     * Send an email to the specified user that asks them to click a link to <a href="https://auth0.com/docs/email/custom#verification-email">verify their email address</a>.
      * <p>Note: You must have the <code>Status</code> toggle enabled for the verification email template for the email to be sent.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateVerificationEmailResponseContent>> create(
@@ -47,15 +47,19 @@ public class AsyncRawVerificationEmailClient {
     }
 
     /**
-     * Send an email to the specified user that asks them to click a link to &lt;a href=&quot;https://auth0.com/docs/email/custom#verification-email&quot;&gt;verify their email address&lt;/a&gt;.
+     * Send an email to the specified user that asks them to click a link to <a href="https://auth0.com/docs/email/custom#verification-email">verify their email address</a>.
      * <p>Note: You must have the <code>Status</code> toggle enabled for the verification email template for the email to be sent.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateVerificationEmailResponseContent>> create(
             CreateVerificationEmailRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("jobs/verification-email")
-                .build();
+                .addPathSegments("jobs/verification-email");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -64,7 +68,7 @@ public class AsyncRawVerificationEmailClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

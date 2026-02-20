@@ -109,6 +109,10 @@ public final class FlowActionAuth0SendSmsParams {
     public interface _FinalStage {
         FlowActionAuth0SendSmsParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage from(Optional<String> from);
 
         _FinalStage from(String from);
@@ -185,6 +189,18 @@ public final class FlowActionAuth0SendSmsParams {
         @java.lang.Override
         public FlowActionAuth0SendSmsParams build() {
             return new FlowActionAuth0SendSmsParams(from, to, message, customVars, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

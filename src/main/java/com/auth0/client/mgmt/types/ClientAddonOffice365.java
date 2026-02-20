@@ -126,5 +126,15 @@ public final class ClientAddonOffice365 {
         public ClientAddonOffice365 build() {
             return new ClientAddonOffice365(domain, connection, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

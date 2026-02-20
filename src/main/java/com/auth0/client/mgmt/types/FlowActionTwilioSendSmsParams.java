@@ -110,6 +110,10 @@ public final class FlowActionTwilioSendSmsParams {
 
     public interface _FinalStage {
         FlowActionTwilioSendSmsParams build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -167,6 +171,18 @@ public final class FlowActionTwilioSendSmsParams {
         @java.lang.Override
         public FlowActionTwilioSendSmsParams build() {
             return new FlowActionTwilioSendSmsParams(connectionId, from, to, message, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

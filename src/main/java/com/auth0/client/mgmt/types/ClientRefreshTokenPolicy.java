@@ -91,6 +91,10 @@ public final class ClientRefreshTokenPolicy {
     public interface _FinalStage {
         ClientRefreshTokenPolicy build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The resource server permissions granted under the Multi Resource Refresh Token Policy, defining the context in which an access token can be used</p>
          */
@@ -169,6 +173,18 @@ public final class ClientRefreshTokenPolicy {
         @java.lang.Override
         public ClientRefreshTokenPolicy build() {
             return new ClientRefreshTokenPolicy(audience, scope, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

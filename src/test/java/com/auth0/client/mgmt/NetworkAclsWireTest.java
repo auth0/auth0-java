@@ -125,11 +125,9 @@ public class NetworkAclsWireTest {
 
     @Test
     public void testGet() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"id\":\"id\",\"description\":\"description\",\"active\":true,\"priority\":1.1,\"rule\":{\"action\":{\"block\":true,\"allow\":true,\"log\":true,\"redirect\":true,\"redirect_uri\":\"redirect_uri\"},\"match\":{\"asns\":[1],\"geo_country_codes\":[\"geo_country_codes\"],\"geo_subdivision_codes\":[\"geo_subdivision_codes\"],\"ipv4_cidrs\":[\"ipv4_cidrs\"],\"ipv6_cidrs\":[\"ipv6_cidrs\"],\"ja3_fingerprints\":[\"ja3_fingerprints\"],\"ja4_fingerprints\":[\"ja4_fingerprints\"],\"user_agents\":[\"user_agents\"]},\"not_match\":{\"asns\":[1],\"geo_country_codes\":[\"geo_country_codes\"],\"geo_subdivision_codes\":[\"geo_subdivision_codes\"],\"ipv4_cidrs\":[\"ipv4_cidrs\"],\"ipv6_cidrs\":[\"ipv6_cidrs\"],\"ja3_fingerprints\":[\"ja3_fingerprints\"],\"ja4_fingerprints\":[\"ja4_fingerprints\"],\"user_agents\":[\"user_agents\"]},\"scope\":\"management\"},\"created_at\":\"created_at\",\"updated_at\":\"updated_at\"}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource("/wire-tests/NetworkAclsWireTest_testGet_response.json")));
         GetNetworkAclsResponseContent response = client.networkAcls().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -138,77 +136,8 @@ public class NetworkAclsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"id\": \"id\",\n"
-                + "  \"description\": \"description\",\n"
-                + "  \"active\": true,\n"
-                + "  \"priority\": 1.1,\n"
-                + "  \"rule\": {\n"
-                + "    \"action\": {\n"
-                + "      \"block\": true,\n"
-                + "      \"allow\": true,\n"
-                + "      \"log\": true,\n"
-                + "      \"redirect\": true,\n"
-                + "      \"redirect_uri\": \"redirect_uri\"\n"
-                + "    },\n"
-                + "    \"match\": {\n"
-                + "      \"asns\": [\n"
-                + "        1\n"
-                + "      ],\n"
-                + "      \"geo_country_codes\": [\n"
-                + "        \"geo_country_codes\"\n"
-                + "      ],\n"
-                + "      \"geo_subdivision_codes\": [\n"
-                + "        \"geo_subdivision_codes\"\n"
-                + "      ],\n"
-                + "      \"ipv4_cidrs\": [\n"
-                + "        \"ipv4_cidrs\"\n"
-                + "      ],\n"
-                + "      \"ipv6_cidrs\": [\n"
-                + "        \"ipv6_cidrs\"\n"
-                + "      ],\n"
-                + "      \"ja3_fingerprints\": [\n"
-                + "        \"ja3_fingerprints\"\n"
-                + "      ],\n"
-                + "      \"ja4_fingerprints\": [\n"
-                + "        \"ja4_fingerprints\"\n"
-                + "      ],\n"
-                + "      \"user_agents\": [\n"
-                + "        \"user_agents\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"not_match\": {\n"
-                + "      \"asns\": [\n"
-                + "        1\n"
-                + "      ],\n"
-                + "      \"geo_country_codes\": [\n"
-                + "        \"geo_country_codes\"\n"
-                + "      ],\n"
-                + "      \"geo_subdivision_codes\": [\n"
-                + "        \"geo_subdivision_codes\"\n"
-                + "      ],\n"
-                + "      \"ipv4_cidrs\": [\n"
-                + "        \"ipv4_cidrs\"\n"
-                + "      ],\n"
-                + "      \"ipv6_cidrs\": [\n"
-                + "        \"ipv6_cidrs\"\n"
-                + "      ],\n"
-                + "      \"ja3_fingerprints\": [\n"
-                + "        \"ja3_fingerprints\"\n"
-                + "      ],\n"
-                + "      \"ja4_fingerprints\": [\n"
-                + "        \"ja4_fingerprints\"\n"
-                + "      ],\n"
-                + "      \"user_agents\": [\n"
-                + "        \"user_agents\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"scope\": \"management\"\n"
-                + "  },\n"
-                + "  \"created_at\": \"created_at\",\n"
-                + "  \"updated_at\": \"updated_at\"\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/NetworkAclsWireTest_testGet_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -242,11 +171,9 @@ public class NetworkAclsWireTest {
 
     @Test
     public void testSet() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"id\":\"id\",\"description\":\"description\",\"active\":true,\"priority\":1.1,\"rule\":{\"action\":{\"block\":true,\"allow\":true,\"log\":true,\"redirect\":true,\"redirect_uri\":\"redirect_uri\"},\"match\":{\"asns\":[1],\"geo_country_codes\":[\"geo_country_codes\"],\"geo_subdivision_codes\":[\"geo_subdivision_codes\"],\"ipv4_cidrs\":[\"ipv4_cidrs\"],\"ipv6_cidrs\":[\"ipv6_cidrs\"],\"ja3_fingerprints\":[\"ja3_fingerprints\"],\"ja4_fingerprints\":[\"ja4_fingerprints\"],\"user_agents\":[\"user_agents\"]},\"not_match\":{\"asns\":[1],\"geo_country_codes\":[\"geo_country_codes\"],\"geo_subdivision_codes\":[\"geo_subdivision_codes\"],\"ipv4_cidrs\":[\"ipv4_cidrs\"],\"ipv6_cidrs\":[\"ipv6_cidrs\"],\"ja3_fingerprints\":[\"ja3_fingerprints\"],\"ja4_fingerprints\":[\"ja4_fingerprints\"],\"user_agents\":[\"user_agents\"]},\"scope\":\"management\"},\"created_at\":\"created_at\",\"updated_at\":\"updated_at\"}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource("/wire-tests/NetworkAclsWireTest_testSet_response.json")));
         SetNetworkAclsResponseContent response = client.networkAcls()
                 .set(
                         "id",
@@ -304,77 +231,8 @@ public class NetworkAclsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"id\": \"id\",\n"
-                + "  \"description\": \"description\",\n"
-                + "  \"active\": true,\n"
-                + "  \"priority\": 1.1,\n"
-                + "  \"rule\": {\n"
-                + "    \"action\": {\n"
-                + "      \"block\": true,\n"
-                + "      \"allow\": true,\n"
-                + "      \"log\": true,\n"
-                + "      \"redirect\": true,\n"
-                + "      \"redirect_uri\": \"redirect_uri\"\n"
-                + "    },\n"
-                + "    \"match\": {\n"
-                + "      \"asns\": [\n"
-                + "        1\n"
-                + "      ],\n"
-                + "      \"geo_country_codes\": [\n"
-                + "        \"geo_country_codes\"\n"
-                + "      ],\n"
-                + "      \"geo_subdivision_codes\": [\n"
-                + "        \"geo_subdivision_codes\"\n"
-                + "      ],\n"
-                + "      \"ipv4_cidrs\": [\n"
-                + "        \"ipv4_cidrs\"\n"
-                + "      ],\n"
-                + "      \"ipv6_cidrs\": [\n"
-                + "        \"ipv6_cidrs\"\n"
-                + "      ],\n"
-                + "      \"ja3_fingerprints\": [\n"
-                + "        \"ja3_fingerprints\"\n"
-                + "      ],\n"
-                + "      \"ja4_fingerprints\": [\n"
-                + "        \"ja4_fingerprints\"\n"
-                + "      ],\n"
-                + "      \"user_agents\": [\n"
-                + "        \"user_agents\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"not_match\": {\n"
-                + "      \"asns\": [\n"
-                + "        1\n"
-                + "      ],\n"
-                + "      \"geo_country_codes\": [\n"
-                + "        \"geo_country_codes\"\n"
-                + "      ],\n"
-                + "      \"geo_subdivision_codes\": [\n"
-                + "        \"geo_subdivision_codes\"\n"
-                + "      ],\n"
-                + "      \"ipv4_cidrs\": [\n"
-                + "        \"ipv4_cidrs\"\n"
-                + "      ],\n"
-                + "      \"ipv6_cidrs\": [\n"
-                + "        \"ipv6_cidrs\"\n"
-                + "      ],\n"
-                + "      \"ja3_fingerprints\": [\n"
-                + "        \"ja3_fingerprints\"\n"
-                + "      ],\n"
-                + "      \"ja4_fingerprints\": [\n"
-                + "        \"ja4_fingerprints\"\n"
-                + "      ],\n"
-                + "      \"user_agents\": [\n"
-                + "        \"user_agents\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"scope\": \"management\"\n"
-                + "  },\n"
-                + "  \"created_at\": \"created_at\",\n"
-                + "  \"updated_at\": \"updated_at\"\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/NetworkAclsWireTest_testSet_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -417,11 +275,9 @@ public class NetworkAclsWireTest {
 
     @Test
     public void testUpdate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"id\":\"id\",\"description\":\"description\",\"active\":true,\"priority\":1.1,\"rule\":{\"action\":{\"block\":true,\"allow\":true,\"log\":true,\"redirect\":true,\"redirect_uri\":\"redirect_uri\"},\"match\":{\"asns\":[1],\"geo_country_codes\":[\"geo_country_codes\"],\"geo_subdivision_codes\":[\"geo_subdivision_codes\"],\"ipv4_cidrs\":[\"ipv4_cidrs\"],\"ipv6_cidrs\":[\"ipv6_cidrs\"],\"ja3_fingerprints\":[\"ja3_fingerprints\"],\"ja4_fingerprints\":[\"ja4_fingerprints\"],\"user_agents\":[\"user_agents\"]},\"not_match\":{\"asns\":[1],\"geo_country_codes\":[\"geo_country_codes\"],\"geo_subdivision_codes\":[\"geo_subdivision_codes\"],\"ipv4_cidrs\":[\"ipv4_cidrs\"],\"ipv6_cidrs\":[\"ipv6_cidrs\"],\"ja3_fingerprints\":[\"ja3_fingerprints\"],\"ja4_fingerprints\":[\"ja4_fingerprints\"],\"user_agents\":[\"user_agents\"]},\"scope\":\"management\"},\"created_at\":\"created_at\",\"updated_at\":\"updated_at\"}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource("/wire-tests/NetworkAclsWireTest_testUpdate_response.json")));
         UpdateNetworkAclResponseContent response = client.networkAcls()
                 .update("id", UpdateNetworkAclRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -460,77 +316,8 @@ public class NetworkAclsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"id\": \"id\",\n"
-                + "  \"description\": \"description\",\n"
-                + "  \"active\": true,\n"
-                + "  \"priority\": 1.1,\n"
-                + "  \"rule\": {\n"
-                + "    \"action\": {\n"
-                + "      \"block\": true,\n"
-                + "      \"allow\": true,\n"
-                + "      \"log\": true,\n"
-                + "      \"redirect\": true,\n"
-                + "      \"redirect_uri\": \"redirect_uri\"\n"
-                + "    },\n"
-                + "    \"match\": {\n"
-                + "      \"asns\": [\n"
-                + "        1\n"
-                + "      ],\n"
-                + "      \"geo_country_codes\": [\n"
-                + "        \"geo_country_codes\"\n"
-                + "      ],\n"
-                + "      \"geo_subdivision_codes\": [\n"
-                + "        \"geo_subdivision_codes\"\n"
-                + "      ],\n"
-                + "      \"ipv4_cidrs\": [\n"
-                + "        \"ipv4_cidrs\"\n"
-                + "      ],\n"
-                + "      \"ipv6_cidrs\": [\n"
-                + "        \"ipv6_cidrs\"\n"
-                + "      ],\n"
-                + "      \"ja3_fingerprints\": [\n"
-                + "        \"ja3_fingerprints\"\n"
-                + "      ],\n"
-                + "      \"ja4_fingerprints\": [\n"
-                + "        \"ja4_fingerprints\"\n"
-                + "      ],\n"
-                + "      \"user_agents\": [\n"
-                + "        \"user_agents\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"not_match\": {\n"
-                + "      \"asns\": [\n"
-                + "        1\n"
-                + "      ],\n"
-                + "      \"geo_country_codes\": [\n"
-                + "        \"geo_country_codes\"\n"
-                + "      ],\n"
-                + "      \"geo_subdivision_codes\": [\n"
-                + "        \"geo_subdivision_codes\"\n"
-                + "      ],\n"
-                + "      \"ipv4_cidrs\": [\n"
-                + "        \"ipv4_cidrs\"\n"
-                + "      ],\n"
-                + "      \"ipv6_cidrs\": [\n"
-                + "        \"ipv6_cidrs\"\n"
-                + "      ],\n"
-                + "      \"ja3_fingerprints\": [\n"
-                + "        \"ja3_fingerprints\"\n"
-                + "      ],\n"
-                + "      \"ja4_fingerprints\": [\n"
-                + "        \"ja4_fingerprints\"\n"
-                + "      ],\n"
-                + "      \"user_agents\": [\n"
-                + "        \"user_agents\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"scope\": \"management\"\n"
-                + "  },\n"
-                + "  \"created_at\": \"created_at\",\n"
-                + "  \"updated_at\": \"updated_at\"\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/NetworkAclsWireTest_testUpdate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(

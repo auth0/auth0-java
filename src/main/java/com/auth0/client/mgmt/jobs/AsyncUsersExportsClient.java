@@ -36,6 +36,13 @@ public class AsyncUsersExportsClient {
     /**
      * Export all users to a file via a long-running job.
      */
+    public CompletableFuture<CreateExportUsersResponseContent> create(RequestOptions requestOptions) {
+        return this.rawClient.create(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Export all users to a file via a long-running job.
+     */
     public CompletableFuture<CreateExportUsersResponseContent> create(CreateExportUsersRequestContent request) {
         return this.rawClient.create(request).thenApply(response -> response.body());
     }

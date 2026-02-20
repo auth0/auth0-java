@@ -153,5 +153,15 @@ public final class UsernameValidation {
         public UsernameValidation build() {
             return new UsernameValidation(minLength, maxLength, allowedTypes, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

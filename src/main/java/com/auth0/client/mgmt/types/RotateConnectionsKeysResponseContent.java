@@ -210,6 +210,10 @@ public final class RotateConnectionsKeysResponseContent {
     public interface _FinalStage {
         RotateConnectionsKeysResponseContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The public certificate of the signing key in pkcs7 format</p>
          */
@@ -417,6 +421,18 @@ public final class RotateConnectionsKeysResponseContent {
         public RotateConnectionsKeysResponseContent build() {
             return new RotateConnectionsKeysResponseContent(
                     kid, cert, pkcs, next, fingerprint, thumbprint, algorithm, keyUse, subjectDn, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

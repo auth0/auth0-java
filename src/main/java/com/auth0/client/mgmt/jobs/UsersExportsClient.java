@@ -35,6 +35,13 @@ public class UsersExportsClient {
     /**
      * Export all users to a file via a long-running job.
      */
+    public CreateExportUsersResponseContent create(RequestOptions requestOptions) {
+        return this.rawClient.create(requestOptions).body();
+    }
+
+    /**
+     * Export all users to a file via a long-running job.
+     */
     public CreateExportUsersResponseContent create(CreateExportUsersRequestContent request) {
         return this.rawClient.create(request).body();
     }

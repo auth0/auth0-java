@@ -37,6 +37,14 @@ public class AsyncSsoTicketClient {
      * Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
      */
     public CompletableFuture<CreateSelfServiceProfileSsoTicketResponseContent> create(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.create(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
+     */
+    public CompletableFuture<CreateSelfServiceProfileSsoTicketResponseContent> create(
             String id, CreateSelfServiceProfileSsoTicketRequestContent request) {
         return this.rawClient.create(id, request).thenApply(response -> response.body());
     }

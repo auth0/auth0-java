@@ -49,12 +49,16 @@ public class AsyncRawBrandingClient {
      * Retrieve branding settings.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetBrandingResponseContent>> get(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("branding")
-                .build();
+                .addPathSegments("branding");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -125,6 +129,14 @@ public class AsyncRawBrandingClient {
      * Update branding settings.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateBrandingResponseContent>> update(
+            RequestOptions requestOptions) {
+        return update(UpdateBrandingRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update branding settings.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateBrandingResponseContent>> update(
             UpdateBrandingRequestContent request) {
         return update(request, null);
     }
@@ -134,10 +146,14 @@ public class AsyncRawBrandingClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateBrandingResponseContent>> update(
             UpdateBrandingRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("branding")
-                .build();
+                .addPathSegments("branding");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -146,7 +162,7 @@ public class AsyncRawBrandingClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

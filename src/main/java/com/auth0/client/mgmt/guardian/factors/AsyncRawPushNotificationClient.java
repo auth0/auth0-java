@@ -66,12 +66,16 @@ public class AsyncRawPushNotificationClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetGuardianFactorsProviderApnsResponseContent>> getApnsProvider(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/push-notification/providers/apns")
-                .build();
+                .addPathSegments("guardian/factors/push-notification/providers/apns");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -145,6 +149,17 @@ public class AsyncRawPushNotificationClient {
      * Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPushNotificationApnsResponseContent>>
+            setApnsProvider(RequestOptions requestOptions) {
+        return setApnsProvider(
+                SetGuardianFactorsProviderPushNotificationApnsRequestContent.builder()
+                        .build(),
+                requestOptions);
+    }
+
+    /**
+     * Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPushNotificationApnsResponseContent>>
             setApnsProvider(SetGuardianFactorsProviderPushNotificationApnsRequestContent request) {
         return setApnsProvider(request, null);
     }
@@ -156,10 +171,14 @@ public class AsyncRawPushNotificationClient {
             setApnsProvider(
                     SetGuardianFactorsProviderPushNotificationApnsRequestContent request,
                     RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/push-notification/providers/apns")
-                .build();
+                .addPathSegments("guardian/factors/push-notification/providers/apns");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -168,7 +187,7 @@ public class AsyncRawPushNotificationClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -246,6 +265,18 @@ public class AsyncRawPushNotificationClient {
      */
     public CompletableFuture<
                     ManagementApiHttpResponse<UpdateGuardianFactorsProviderPushNotificationApnsResponseContent>>
+            updateApnsProvider(RequestOptions requestOptions) {
+        return updateApnsProvider(
+                UpdateGuardianFactorsProviderPushNotificationApnsRequestContent.builder()
+                        .build(),
+                requestOptions);
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+     */
+    public CompletableFuture<
+                    ManagementApiHttpResponse<UpdateGuardianFactorsProviderPushNotificationApnsResponseContent>>
             updateApnsProvider(UpdateGuardianFactorsProviderPushNotificationApnsRequestContent request) {
         return updateApnsProvider(request, null);
     }
@@ -258,10 +289,14 @@ public class AsyncRawPushNotificationClient {
             updateApnsProvider(
                     UpdateGuardianFactorsProviderPushNotificationApnsRequestContent request,
                     RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/push-notification/providers/apns")
-                .build();
+                .addPathSegments("guardian/factors/push-notification/providers/apns");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -270,7 +305,7 @@ public class AsyncRawPushNotificationClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -345,6 +380,17 @@ public class AsyncRawPushNotificationClient {
      * Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> setFcmProvider(
+            RequestOptions requestOptions) {
+        return setFcmProvider(
+                SetGuardianFactorsProviderPushNotificationFcmRequestContent.builder()
+                        .build(),
+                requestOptions);
+    }
+
+    /**
+     * Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> setFcmProvider(
             SetGuardianFactorsProviderPushNotificationFcmRequestContent request) {
         return setFcmProvider(request, null);
     }
@@ -354,10 +400,14 @@ public class AsyncRawPushNotificationClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> setFcmProvider(
             SetGuardianFactorsProviderPushNotificationFcmRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/push-notification/providers/fcm")
-                .build();
+                .addPathSegments("guardian/factors/push-notification/providers/fcm");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -366,7 +416,7 @@ public class AsyncRawPushNotificationClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -439,6 +489,17 @@ public class AsyncRawPushNotificationClient {
      * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> updateFcmProvider(
+            RequestOptions requestOptions) {
+        return updateFcmProvider(
+                UpdateGuardianFactorsProviderPushNotificationFcmRequestContent.builder()
+                        .build(),
+                requestOptions);
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> updateFcmProvider(
             UpdateGuardianFactorsProviderPushNotificationFcmRequestContent request) {
         return updateFcmProvider(request, null);
     }
@@ -448,10 +509,14 @@ public class AsyncRawPushNotificationClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> updateFcmProvider(
             UpdateGuardianFactorsProviderPushNotificationFcmRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/push-notification/providers/fcm")
-                .build();
+                .addPathSegments("guardian/factors/push-notification/providers/fcm");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -460,7 +525,7 @@ public class AsyncRawPushNotificationClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -533,6 +598,17 @@ public class AsyncRawPushNotificationClient {
      * Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> setFcmv1Provider(
+            RequestOptions requestOptions) {
+        return setFcmv1Provider(
+                SetGuardianFactorsProviderPushNotificationFcmv1RequestContent.builder()
+                        .build(),
+                requestOptions);
+    }
+
+    /**
+     * Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> setFcmv1Provider(
             SetGuardianFactorsProviderPushNotificationFcmv1RequestContent request) {
         return setFcmv1Provider(request, null);
     }
@@ -542,10 +618,14 @@ public class AsyncRawPushNotificationClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> setFcmv1Provider(
             SetGuardianFactorsProviderPushNotificationFcmv1RequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/push-notification/providers/fcmv1")
-                .build();
+                .addPathSegments("guardian/factors/push-notification/providers/fcmv1");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -554,7 +634,7 @@ public class AsyncRawPushNotificationClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -627,6 +707,17 @@ public class AsyncRawPushNotificationClient {
      * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> updateFcmv1Provider(
+            RequestOptions requestOptions) {
+        return updateFcmv1Provider(
+                UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent.builder()
+                        .build(),
+                requestOptions);
+    }
+
+    /**
+     * Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> updateFcmv1Provider(
             UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent request) {
         return updateFcmv1Provider(request, null);
     }
@@ -636,10 +727,14 @@ public class AsyncRawPushNotificationClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> updateFcmv1Provider(
             UpdateGuardianFactorsProviderPushNotificationFcmv1RequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/push-notification/providers/fcmv1")
-                .build();
+                .addPathSegments("guardian/factors/push-notification/providers/fcmv1");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -648,7 +743,7 @@ public class AsyncRawPushNotificationClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -710,23 +805,27 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Retrieve configuration details for an AWS SNS push notification provider that has been enabled for MFA. To learn more, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa&quot;&gt;Configure Push Notifications for MFA&lt;/a&gt;.
+     * Retrieve configuration details for an AWS SNS push notification provider that has been enabled for MFA. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa">Configure Push Notifications for MFA</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetGuardianFactorsProviderSnsResponseContent>> getSnsProvider() {
         return getSnsProvider(null);
     }
 
     /**
-     * Retrieve configuration details for an AWS SNS push notification provider that has been enabled for MFA. To learn more, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa&quot;&gt;Configure Push Notifications for MFA&lt;/a&gt;.
+     * Retrieve configuration details for an AWS SNS push notification provider that has been enabled for MFA. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa">Configure Push Notifications for MFA</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetGuardianFactorsProviderSnsResponseContent>> getSnsProvider(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/push-notification/providers/sns")
-                .build();
+                .addPathSegments("guardian/factors/push-notification/providers/sns");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -788,7 +887,7 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Configure the &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication/developer/sns-configuration&quot;&gt;AWS SNS push notification provider configuration&lt;/a&gt; (subscription required).
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPushNotificationSnsResponseContent>>
             setSnsProvider() {
@@ -797,7 +896,18 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Configure the &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication/developer/sns-configuration&quot;&gt;AWS SNS push notification provider configuration&lt;/a&gt; (subscription required).
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPushNotificationSnsResponseContent>>
+            setSnsProvider(RequestOptions requestOptions) {
+        return setSnsProvider(
+                SetGuardianFactorsProviderPushNotificationSnsRequestContent.builder()
+                        .build(),
+                requestOptions);
+    }
+
+    /**
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPushNotificationSnsResponseContent>>
             setSnsProvider(SetGuardianFactorsProviderPushNotificationSnsRequestContent request) {
@@ -805,16 +915,20 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Configure the &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication/developer/sns-configuration&quot;&gt;AWS SNS push notification provider configuration&lt;/a&gt; (subscription required).
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPushNotificationSnsResponseContent>>
             setSnsProvider(
                     SetGuardianFactorsProviderPushNotificationSnsRequestContent request,
                     RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/push-notification/providers/sns")
-                .build();
+                .addPathSegments("guardian/factors/push-notification/providers/sns");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -823,7 +937,7 @@ public class AsyncRawPushNotificationClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -887,7 +1001,7 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Configure the &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication/developer/sns-configuration&quot;&gt;AWS SNS push notification provider configuration&lt;/a&gt; (subscription required).
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateGuardianFactorsProviderPushNotificationSnsResponseContent>>
             updateSnsProvider() {
@@ -896,7 +1010,18 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Configure the &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication/developer/sns-configuration&quot;&gt;AWS SNS push notification provider configuration&lt;/a&gt; (subscription required).
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateGuardianFactorsProviderPushNotificationSnsResponseContent>>
+            updateSnsProvider(RequestOptions requestOptions) {
+        return updateSnsProvider(
+                UpdateGuardianFactorsProviderPushNotificationSnsRequestContent.builder()
+                        .build(),
+                requestOptions);
+    }
+
+    /**
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateGuardianFactorsProviderPushNotificationSnsResponseContent>>
             updateSnsProvider(UpdateGuardianFactorsProviderPushNotificationSnsRequestContent request) {
@@ -904,16 +1029,20 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Configure the &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication/developer/sns-configuration&quot;&gt;AWS SNS push notification provider configuration&lt;/a&gt; (subscription required).
+     * Configure the <a href="https://auth0.com/docs/multifactor-authentication/developer/sns-configuration">AWS SNS push notification provider configuration</a> (subscription required).
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateGuardianFactorsProviderPushNotificationSnsResponseContent>>
             updateSnsProvider(
                     UpdateGuardianFactorsProviderPushNotificationSnsRequestContent request,
                     RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/push-notification/providers/sns")
-                .build();
+                .addPathSegments("guardian/factors/push-notification/providers/sns");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -922,7 +1051,7 @@ public class AsyncRawPushNotificationClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -986,7 +1115,7 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Modify the push notification provider configured for your tenant. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa&quot;&gt;Configure Push Notifications for MFA&lt;/a&gt;.
+     * Modify the push notification provider configured for your tenant. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa">Configure Push Notifications for MFA</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetGuardianFactorsProviderPushNotificationResponseContent>>
             getSelectedProvider() {
@@ -994,16 +1123,20 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Modify the push notification provider configured for your tenant. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa&quot;&gt;Configure Push Notifications for MFA&lt;/a&gt;.
+     * Modify the push notification provider configured for your tenant. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa">Configure Push Notifications for MFA</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetGuardianFactorsProviderPushNotificationResponseContent>>
             getSelectedProvider(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/push-notification/selected-provider")
-                .build();
+                .addPathSegments("guardian/factors/push-notification/selected-provider");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -1066,7 +1199,7 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Modify the push notification provider configured for your tenant. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa&quot;&gt;Configure Push Notifications for MFA&lt;/a&gt;.
+     * Modify the push notification provider configured for your tenant. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa">Configure Push Notifications for MFA</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPushNotificationResponseContent>>
             setProvider(SetGuardianFactorsProviderPushNotificationRequestContent request) {
@@ -1074,15 +1207,19 @@ public class AsyncRawPushNotificationClient {
     }
 
     /**
-     * Modify the push notification provider configured for your tenant. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa&quot;&gt;Configure Push Notifications for MFA&lt;/a&gt;.
+     * Modify the push notification provider configured for your tenant. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-push-notifications-for-mfa">Configure Push Notifications for MFA</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPushNotificationResponseContent>>
             setProvider(
                     SetGuardianFactorsProviderPushNotificationRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/push-notification/selected-provider")
-                .build();
+                .addPathSegments("guardian/factors/push-notification/selected-provider");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -1091,7 +1228,7 @@ public class AsyncRawPushNotificationClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

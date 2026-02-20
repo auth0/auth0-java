@@ -83,6 +83,10 @@ public final class FlowActionSendgridSendEmailParamsPerson {
     public interface _FinalStage {
         FlowActionSendgridSendEmailParamsPerson build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage name(Optional<String> name);
 
         _FinalStage name(String name);
@@ -129,6 +133,18 @@ public final class FlowActionSendgridSendEmailParamsPerson {
         @java.lang.Override
         public FlowActionSendgridSendEmailParamsPerson build() {
             return new FlowActionSendgridSendEmailParamsPerson(name, email, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

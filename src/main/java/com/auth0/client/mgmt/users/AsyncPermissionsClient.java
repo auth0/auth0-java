@@ -39,6 +39,13 @@ public class AsyncPermissionsClient {
     /**
      * Retrieve all permissions associated with the user.
      */
+    public CompletableFuture<SyncPagingIterable<UserPermissionSchema>> list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve all permissions associated with the user.
+     */
     public CompletableFuture<SyncPagingIterable<UserPermissionSchema>> list(
             String id, ListUserPermissionsRequestParameters request) {
         return this.rawClient.list(id, request).thenApply(response -> response.body());

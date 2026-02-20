@@ -44,6 +44,13 @@ public class AuthenticationMethodsClient {
     /**
      * Retrieve detailed list of authentication methods associated with a specified user.
      */
+    public SyncPagingIterable<UserAuthenticationMethod> list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).body();
+    }
+
+    /**
+     * Retrieve detailed list of authentication methods associated with a specified user.
+     */
     public SyncPagingIterable<UserAuthenticationMethod> list(
             String id, ListUserAuthenticationMethodsRequestParameters request) {
         return this.rawClient.list(id, request).body();
@@ -74,8 +81,8 @@ public class AuthenticationMethodsClient {
     }
 
     /**
-     * Replace the specified user &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors&quot;&gt; authentication methods&lt;/a&gt; with supplied values.
-     * <pre><code>&lt;b&gt;Note&lt;/b&gt;: Authentication methods supplied through this action do not iterate on existing methods. Instead, any methods passed will overwrite the user&amp;#8217s existing settings.
+     * Replace the specified user <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors"> authentication methods</a> with supplied values.
+     * <pre><code><b>Note</b>: Authentication methods supplied through this action do not iterate on existing methods. Instead, any methods passed will overwrite the user&amp;#8217s existing settings.
      * </code></pre>
      */
     public List<SetUserAuthenticationMethodResponseContent> set(String id, List<SetUserAuthenticationMethods> request) {
@@ -83,8 +90,8 @@ public class AuthenticationMethodsClient {
     }
 
     /**
-     * Replace the specified user &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors&quot;&gt; authentication methods&lt;/a&gt; with supplied values.
-     * <pre><code>&lt;b&gt;Note&lt;/b&gt;: Authentication methods supplied through this action do not iterate on existing methods. Instead, any methods passed will overwrite the user&amp;#8217s existing settings.
+     * Replace the specified user <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors"> authentication methods</a> with supplied values.
+     * <pre><code><b>Note</b>: Authentication methods supplied through this action do not iterate on existing methods. Instead, any methods passed will overwrite the user&amp;#8217s existing settings.
      * </code></pre>
      */
     public List<SetUserAuthenticationMethodResponseContent> set(
@@ -116,28 +123,36 @@ public class AuthenticationMethodsClient {
     }
 
     /**
-     * Remove the authentication method with the given ID from the specified user. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api&quot;&gt;Manage Authentication Methods with Management API&lt;/a&gt;.
+     * Remove the authentication method with the given ID from the specified user. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api">Manage Authentication Methods with Management API</a>.
      */
     public void delete(String id, String authenticationMethodId) {
         this.rawClient.delete(id, authenticationMethodId).body();
     }
 
     /**
-     * Remove the authentication method with the given ID from the specified user. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api&quot;&gt;Manage Authentication Methods with Management API&lt;/a&gt;.
+     * Remove the authentication method with the given ID from the specified user. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api">Manage Authentication Methods with Management API</a>.
      */
     public void delete(String id, String authenticationMethodId, RequestOptions requestOptions) {
         this.rawClient.delete(id, authenticationMethodId, requestOptions).body();
     }
 
     /**
-     * Modify the authentication method with the given ID from the specified user. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api&quot;&gt;Manage Authentication Methods with Management API&lt;/a&gt;.
+     * Modify the authentication method with the given ID from the specified user. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api">Manage Authentication Methods with Management API</a>.
      */
     public UpdateUserAuthenticationMethodResponseContent update(String id, String authenticationMethodId) {
         return this.rawClient.update(id, authenticationMethodId).body();
     }
 
     /**
-     * Modify the authentication method with the given ID from the specified user. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api&quot;&gt;Manage Authentication Methods with Management API&lt;/a&gt;.
+     * Modify the authentication method with the given ID from the specified user. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api">Manage Authentication Methods with Management API</a>.
+     */
+    public UpdateUserAuthenticationMethodResponseContent update(
+            String id, String authenticationMethodId, RequestOptions requestOptions) {
+        return this.rawClient.update(id, authenticationMethodId, requestOptions).body();
+    }
+
+    /**
+     * Modify the authentication method with the given ID from the specified user. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api">Manage Authentication Methods with Management API</a>.
      */
     public UpdateUserAuthenticationMethodResponseContent update(
             String id, String authenticationMethodId, UpdateUserAuthenticationMethodRequestContent request) {
@@ -145,7 +160,7 @@ public class AuthenticationMethodsClient {
     }
 
     /**
-     * Modify the authentication method with the given ID from the specified user. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api&quot;&gt;Manage Authentication Methods with Management API&lt;/a&gt;.
+     * Modify the authentication method with the given ID from the specified user. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api">Manage Authentication Methods with Management API</a>.
      */
     public UpdateUserAuthenticationMethodResponseContent update(
             String id,

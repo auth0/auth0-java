@@ -54,7 +54,7 @@ public final class UpdateSuspiciousIpThrottlingSettingsResponseContent {
 
     /**
      * @return Action to take when a suspicious IP throttling threshold is violated.
-     * Possible values: &lt;code&gt;block&lt;/code&gt;, &lt;code&gt;admin_notification&lt;/code&gt;.
+     * Possible values: <code>block</code>, <code>admin_notification</code>.
      */
     @JsonProperty("shields")
     public Optional<List<SuspiciousIpThrottlingShieldsEnum>> getShields() {
@@ -143,7 +143,7 @@ public final class UpdateSuspiciousIpThrottlingSettingsResponseContent {
 
         /**
          * <p>Action to take when a suspicious IP throttling threshold is violated.
-         * Possible values: &lt;code&gt;block&lt;/code&gt;, &lt;code&gt;admin_notification&lt;/code&gt;.</p>
+         * Possible values: <code>block</code>, <code>admin_notification</code>.</p>
          */
         @JsonSetter(value = "shields", nulls = Nulls.SKIP)
         public Builder shields(Optional<List<SuspiciousIpThrottlingShieldsEnum>> shields) {
@@ -181,6 +181,16 @@ public final class UpdateSuspiciousIpThrottlingSettingsResponseContent {
         public UpdateSuspiciousIpThrottlingSettingsResponseContent build() {
             return new UpdateSuspiciousIpThrottlingSettingsResponseContent(
                     enabled, shields, allowlist, stage, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -39,21 +39,28 @@ public class HooksClient {
     }
 
     /**
-     * Retrieve all &lt;a href=&quot;https://auth0.com/docs/hooks&quot;&gt;hooks&lt;/a&gt;. Accepts a list of fields to include or exclude in the result.
+     * Retrieve all <a href="https://auth0.com/docs/hooks">hooks</a>. Accepts a list of fields to include or exclude in the result.
      */
     public SyncPagingIterable<Hook> list() {
         return this.rawClient.list().body();
     }
 
     /**
-     * Retrieve all &lt;a href=&quot;https://auth0.com/docs/hooks&quot;&gt;hooks&lt;/a&gt;. Accepts a list of fields to include or exclude in the result.
+     * Retrieve all <a href="https://auth0.com/docs/hooks">hooks</a>. Accepts a list of fields to include or exclude in the result.
+     */
+    public SyncPagingIterable<Hook> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve all <a href="https://auth0.com/docs/hooks">hooks</a>. Accepts a list of fields to include or exclude in the result.
      */
     public SyncPagingIterable<Hook> list(ListHooksRequestParameters request) {
         return this.rawClient.list(request).body();
     }
 
     /**
-     * Retrieve all &lt;a href=&quot;https://auth0.com/docs/hooks&quot;&gt;hooks&lt;/a&gt;. Accepts a list of fields to include or exclude in the result.
+     * Retrieve all <a href="https://auth0.com/docs/hooks">hooks</a>. Accepts a list of fields to include or exclude in the result.
      */
     public SyncPagingIterable<Hook> list(ListHooksRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();
@@ -74,21 +81,28 @@ public class HooksClient {
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/hooks&quot;&gt;a hook&lt;/a&gt; by its ID. Accepts a list of fields to include in the result.
+     * Retrieve <a href="https://auth0.com/docs/hooks">a hook</a> by its ID. Accepts a list of fields to include in the result.
      */
     public GetHookResponseContent get(String id) {
         return this.rawClient.get(id).body();
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/hooks&quot;&gt;a hook&lt;/a&gt; by its ID. Accepts a list of fields to include in the result.
+     * Retrieve <a href="https://auth0.com/docs/hooks">a hook</a> by its ID. Accepts a list of fields to include in the result.
+     */
+    public GetHookResponseContent get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).body();
+    }
+
+    /**
+     * Retrieve <a href="https://auth0.com/docs/hooks">a hook</a> by its ID. Accepts a list of fields to include in the result.
      */
     public GetHookResponseContent get(String id, GetHookRequestParameters request) {
         return this.rawClient.get(id, request).body();
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/hooks&quot;&gt;a hook&lt;/a&gt; by its ID. Accepts a list of fields to include in the result.
+     * Retrieve <a href="https://auth0.com/docs/hooks">a hook</a> by its ID. Accepts a list of fields to include in the result.
      */
     public GetHookResponseContent get(String id, GetHookRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.get(id, request, requestOptions).body();
@@ -113,6 +127,13 @@ public class HooksClient {
      */
     public UpdateHookResponseContent update(String id) {
         return this.rawClient.update(id).body();
+    }
+
+    /**
+     * Update an existing hook.
+     */
+    public UpdateHookResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
     }
 
     /**

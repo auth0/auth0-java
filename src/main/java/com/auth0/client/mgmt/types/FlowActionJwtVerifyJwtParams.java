@@ -109,6 +109,10 @@ public final class FlowActionJwtVerifyJwtParams {
     public interface _FinalStage {
         FlowActionJwtVerifyJwtParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage audience(Optional<String> audience);
 
         _FinalStage audience(String audience);
@@ -185,6 +189,18 @@ public final class FlowActionJwtVerifyJwtParams {
         @java.lang.Override
         public FlowActionJwtVerifyJwtParams build() {
             return new FlowActionJwtVerifyJwtParams(connectionId, token, audience, issuer, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

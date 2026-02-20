@@ -62,6 +62,14 @@ public class AsyncRawSelfServiceProfilesClient {
      * Retrieves self-service profiles.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<SelfServiceProfile>>> list(
+            RequestOptions requestOptions) {
+        return list(ListSelfServiceProfilesRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieves self-service profiles.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<SelfServiceProfile>>> list(
             ListSelfServiceProfilesRequestParameters request) {
         return list(request, null);
     }
@@ -79,6 +87,11 @@ public class AsyncRawSelfServiceProfilesClient {
                 httpUrl, "per_page", request.getPerPage().orElse(50), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -179,10 +192,14 @@ public class AsyncRawSelfServiceProfilesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateSelfServiceProfileResponseContent>> create(
             CreateSelfServiceProfileRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("self-service-profiles")
-                .build();
+                .addPathSegments("self-service-profiles");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -191,7 +208,7 @@ public class AsyncRawSelfServiceProfilesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -280,13 +297,17 @@ public class AsyncRawSelfServiceProfilesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetSelfServiceProfileResponseContent>> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("self-service-profiles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -373,13 +394,17 @@ public class AsyncRawSelfServiceProfilesClient {
      * Deletes a self-service profile by Id.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("self-service-profiles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -457,6 +482,14 @@ public class AsyncRawSelfServiceProfilesClient {
      * Updates a self-service profile.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateSelfServiceProfileResponseContent>> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateSelfServiceProfileRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Updates a self-service profile.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateSelfServiceProfileResponseContent>> update(
             String id, UpdateSelfServiceProfileRequestContent request) {
         return update(id, request, null);
     }
@@ -466,11 +499,15 @@ public class AsyncRawSelfServiceProfilesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateSelfServiceProfileResponseContent>> update(
             String id, UpdateSelfServiceProfileRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("self-service-profiles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -479,7 +516,7 @@ public class AsyncRawSelfServiceProfilesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

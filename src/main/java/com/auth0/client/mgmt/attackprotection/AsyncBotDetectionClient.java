@@ -51,6 +51,13 @@ public class AsyncBotDetectionClient {
     /**
      * Update the Bot Detection configuration of your tenant.
      */
+    public CompletableFuture<UpdateBotDetectionSettingsResponseContent> update(RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update the Bot Detection configuration of your tenant.
+     */
     public CompletableFuture<UpdateBotDetectionSettingsResponseContent> update(
             UpdateBotDetectionSettingsRequestContent request) {
         return this.rawClient.update(request).thenApply(response -> response.body());

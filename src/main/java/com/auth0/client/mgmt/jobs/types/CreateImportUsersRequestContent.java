@@ -120,6 +120,10 @@ public final class CreateImportUsersRequestContent {
     public interface _FinalStage {
         CreateImportUsersRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Whether to update users if they already exist (true) or to ignore them (false).</p>
          */
@@ -242,6 +246,18 @@ public final class CreateImportUsersRequestContent {
         public CreateImportUsersRequestContent build() {
             return new CreateImportUsersRequestContent(
                     connectionId, upsert, externalId, sendCompletionEmail, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

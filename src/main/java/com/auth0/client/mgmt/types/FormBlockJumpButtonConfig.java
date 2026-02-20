@@ -97,6 +97,10 @@ public final class FormBlockJumpButtonConfig {
     public interface _FinalStage {
         FormBlockJumpButtonConfig build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage style(Optional<FormBlockJumpButtonConfigStyle> style);
 
         _FinalStage style(FormBlockJumpButtonConfigStyle style);
@@ -153,6 +157,18 @@ public final class FormBlockJumpButtonConfig {
         @java.lang.Override
         public FormBlockJumpButtonConfig build() {
             return new FormBlockJumpButtonConfig(text, nextNode, style, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

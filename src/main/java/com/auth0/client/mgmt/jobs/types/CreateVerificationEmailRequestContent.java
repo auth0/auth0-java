@@ -119,6 +119,10 @@ public final class CreateVerificationEmailRequestContent {
     public interface _FinalStage {
         CreateVerificationEmailRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>client_id of the client (application). If no value provided, the global Client ID will be used.</p>
          */
@@ -231,6 +235,18 @@ public final class CreateVerificationEmailRequestContent {
         public CreateVerificationEmailRequestContent build() {
             return new CreateVerificationEmailRequestContent(
                     userId, clientId, identity, organizationId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

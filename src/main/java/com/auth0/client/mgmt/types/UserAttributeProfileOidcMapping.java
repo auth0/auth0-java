@@ -91,6 +91,10 @@ public final class UserAttributeProfileOidcMapping {
     public interface _FinalStage {
         UserAttributeProfileOidcMapping build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Display name for the OIDC mapping</p>
          */
@@ -152,6 +156,18 @@ public final class UserAttributeProfileOidcMapping {
         @java.lang.Override
         public UserAttributeProfileOidcMapping build() {
             return new UserAttributeProfileOidcMapping(mapping, displayName, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

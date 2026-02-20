@@ -37,6 +37,13 @@ public class AsyncMembersClient {
     /**
      * List all users that are a member of this group.
      */
+    public CompletableFuture<SyncPagingIterable<GroupMember>> get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * List all users that are a member of this group.
+     */
     public CompletableFuture<SyncPagingIterable<GroupMember>> get(String id, GetGroupMembersRequestParameters request) {
         return this.rawClient.get(id, request).thenApply(response -> response.body());
     }

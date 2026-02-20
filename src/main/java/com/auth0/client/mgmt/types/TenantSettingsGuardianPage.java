@@ -42,7 +42,7 @@ public final class TenantSettingsGuardianPage {
     }
 
     /**
-     * @return Custom Guardian HTML (&lt;a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'&gt;Liquid syntax&lt;/a&gt; is supported).
+     * @return Custom Guardian HTML (<a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'>Liquid syntax</a> is supported).
      */
     @JsonProperty("html")
     public Optional<String> getHtml() {
@@ -110,7 +110,7 @@ public final class TenantSettingsGuardianPage {
         }
 
         /**
-         * <p>Custom Guardian HTML (&lt;a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'&gt;Liquid syntax&lt;/a&gt; is supported).</p>
+         * <p>Custom Guardian HTML (<a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'>Liquid syntax</a> is supported).</p>
          */
         @JsonSetter(value = "html", nulls = Nulls.SKIP)
         public Builder html(Optional<String> html) {
@@ -125,6 +125,16 @@ public final class TenantSettingsGuardianPage {
 
         public TenantSettingsGuardianPage build() {
             return new TenantSettingsGuardianPage(enabled, html, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

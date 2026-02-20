@@ -50,6 +50,13 @@ public class CaptchaClient {
     /**
      * Update existing CAPTCHA configuration for your client.
      */
+    public UpdateAttackProtectionCaptchaResponseContent update(RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).body();
+    }
+
+    /**
+     * Update existing CAPTCHA configuration for your client.
+     */
     public UpdateAttackProtectionCaptchaResponseContent update(UpdateAttackProtectionCaptchaRequestContent request) {
         return this.rawClient.update(request).body();
     }

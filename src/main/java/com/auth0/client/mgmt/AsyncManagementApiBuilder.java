@@ -23,6 +23,8 @@ public class AsyncManagementApiBuilder {
 
     private OkHttpClient httpClient;
 
+    private String tenantDomain;
+
     /**
      * Sets token
      */
@@ -78,6 +80,11 @@ public class AsyncManagementApiBuilder {
         return this;
     }
 
+    public AsyncManagementApiBuilder tenantDomain(String tenantDomain) {
+        this.tenantDomain = tenantDomain;
+        return this;
+    }
+
     protected ClientOptions buildClientOptions() {
         ClientOptions.Builder builder = ClientOptions.builder();
         setEnvironment(builder);
@@ -99,6 +106,11 @@ public class AsyncManagementApiBuilder {
      * @param builder The ClientOptions.Builder to configure
      */
     protected void setEnvironment(ClientOptions.Builder builder) {
+        if (this.tenantDomain != null) {
+            String _tenantDomain = this.tenantDomain != null ? this.tenantDomain : "{TENANT}.auth0.com";
+            this.environment =
+                    Environment.custom("https://{tenantDomain}/api/v2".replace("{tenantDomain}", _tenantDomain));
+        }
         builder.environment(this.environment);
     }
 

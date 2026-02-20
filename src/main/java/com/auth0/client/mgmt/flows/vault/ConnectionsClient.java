@@ -35,6 +35,10 @@ public class ConnectionsClient {
         return this.rawClient.list().body();
     }
 
+    public SyncPagingIterable<FlowsVaultConnectionSummary> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
     public SyncPagingIterable<FlowsVaultConnectionSummary> list(ListFlowsVaultConnectionsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -71,6 +75,10 @@ public class ConnectionsClient {
 
     public UpdateFlowsVaultConnectionResponseContent update(String id) {
         return this.rawClient.update(id).body();
+    }
+
+    public UpdateFlowsVaultConnectionResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
     }
 
     public UpdateFlowsVaultConnectionResponseContent update(

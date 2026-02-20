@@ -28,14 +28,21 @@ public class AsyncOrganizationsClient {
     }
 
     /**
-     * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations&quot;&gt;Auth0 Organizations&lt;/a&gt;.
+     * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
      */
     public CompletableFuture<SyncPagingIterable<Organization>> list(String id) {
         return this.rawClient.list(id).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations&quot;&gt;Auth0 Organizations&lt;/a&gt;.
+     * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
+     */
+    public CompletableFuture<SyncPagingIterable<Organization>> list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
      */
     public CompletableFuture<SyncPagingIterable<Organization>> list(
             String id, ListUserOrganizationsRequestParameters request) {
@@ -43,7 +50,7 @@ public class AsyncOrganizationsClient {
     }
 
     /**
-     * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations&quot;&gt;Auth0 Organizations&lt;/a&gt;.
+     * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
      */
     public CompletableFuture<SyncPagingIterable<Organization>> list(
             String id, ListUserOrganizationsRequestParameters request, RequestOptions requestOptions) {

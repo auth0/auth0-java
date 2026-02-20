@@ -110,6 +110,10 @@ public final class FlowActionPipedriveAddOrganizationParams {
     public interface _FinalStage {
         FlowActionPipedriveAddOrganizationParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage ownerId(Optional<FlowActionPipedriveAddOrganizationParamsOwnerId> ownerId);
 
         _FinalStage ownerId(FlowActionPipedriveAddOrganizationParamsOwnerId ownerId);
@@ -187,6 +191,18 @@ public final class FlowActionPipedriveAddOrganizationParams {
         public FlowActionPipedriveAddOrganizationParams build() {
             return new FlowActionPipedriveAddOrganizationParams(
                     connectionId, name, ownerId, fields, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

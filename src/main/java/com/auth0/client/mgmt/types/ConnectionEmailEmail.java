@@ -171,5 +171,15 @@ public final class ConnectionEmailEmail {
         public ConnectionEmailEmail build() {
             return new ConnectionEmailEmail(body, from, subject, syntax, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

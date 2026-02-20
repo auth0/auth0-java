@@ -108,6 +108,10 @@ public final class Identity {
     public interface _FinalStage {
         Identity build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>connection_id of the identity.</p>
          */
@@ -179,6 +183,18 @@ public final class Identity {
         @java.lang.Override
         public Identity build() {
             return new Identity(userId, provider, connectionId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

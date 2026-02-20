@@ -34,34 +34,38 @@ public class RawPoliciesClient {
     }
 
     /**
-     * Retrieve the &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa&quot;&gt;multi-factor authentication (MFA) policies&lt;/a&gt; configured for your tenant.
+     * Retrieve the <a href="https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa">multi-factor authentication (MFA) policies</a> configured for your tenant.
      * <p>The following policies are supported:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;all-applications&lt;/code&gt; policy prompts with MFA for all logins.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;confidence-score&lt;/code&gt; policy prompts with MFA only for low confidence logins.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The &lt;code&gt;confidence-score&lt;/code&gt; policy is part of the &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa&quot;&gt;Adaptive MFA feature&lt;/a&gt;. Adaptive MFA requires an add-on for the Enterprise plan; review &lt;a href=&quot;https://auth0.com/pricing&quot;&gt;Auth0 Pricing&lt;/a&gt; for more details.</p>
+     * <p><ul>
+     * <li><code>all-applications</code> policy prompts with MFA for all logins.</li>
+     * <li><code>confidence-score</code> policy prompts with MFA only for low confidence logins.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The <code>confidence-score</code> policy is part of the <a href="https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa">Adaptive MFA feature</a>. Adaptive MFA requires an add-on for the Enterprise plan; review <a href="https://auth0.com/pricing">Auth0 Pricing</a> for more details.</p>
      */
     public ManagementApiHttpResponse<List<MfaPolicyEnum>> list() {
         return list(null);
     }
 
     /**
-     * Retrieve the &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa&quot;&gt;multi-factor authentication (MFA) policies&lt;/a&gt; configured for your tenant.
+     * Retrieve the <a href="https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa">multi-factor authentication (MFA) policies</a> configured for your tenant.
      * <p>The following policies are supported:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;all-applications&lt;/code&gt; policy prompts with MFA for all logins.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;confidence-score&lt;/code&gt; policy prompts with MFA only for low confidence logins.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The &lt;code&gt;confidence-score&lt;/code&gt; policy is part of the &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa&quot;&gt;Adaptive MFA feature&lt;/a&gt;. Adaptive MFA requires an add-on for the Enterprise plan; review &lt;a href=&quot;https://auth0.com/pricing&quot;&gt;Auth0 Pricing&lt;/a&gt; for more details.</p>
+     * <p><ul>
+     * <li><code>all-applications</code> policy prompts with MFA for all logins.</li>
+     * <li><code>confidence-score</code> policy prompts with MFA only for low confidence logins.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The <code>confidence-score</code> policy is part of the <a href="https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa">Adaptive MFA feature</a>. Adaptive MFA requires an add-on for the Enterprise plan; review <a href="https://auth0.com/pricing">Auth0 Pricing</a> for more details.</p>
      */
     public ManagementApiHttpResponse<List<MfaPolicyEnum>> list(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/policies")
-                .build();
+                .addPathSegments("guardian/policies");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -103,33 +107,37 @@ public class RawPoliciesClient {
     }
 
     /**
-     * Set &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa&quot;&gt;multi-factor authentication (MFA) policies&lt;/a&gt; for your tenant.
+     * Set <a href="https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa">multi-factor authentication (MFA) policies</a> for your tenant.
      * <p>The following policies are supported:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;all-applications&lt;/code&gt; policy prompts with MFA for all logins.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;confidence-score&lt;/code&gt; policy prompts with MFA only for low confidence logins.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The &lt;code&gt;confidence-score&lt;/code&gt; policy is part of the &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa&quot;&gt;Adaptive MFA feature&lt;/a&gt;. Adaptive MFA requires an add-on for the Enterprise plan; review &lt;a href=&quot;https://auth0.com/pricing&quot;&gt;Auth0 Pricing&lt;/a&gt; for more details.</p>
+     * <p><ul>
+     * <li><code>all-applications</code> policy prompts with MFA for all logins.</li>
+     * <li><code>confidence-score</code> policy prompts with MFA only for low confidence logins.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The <code>confidence-score</code> policy is part of the <a href="https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa">Adaptive MFA feature</a>. Adaptive MFA requires an add-on for the Enterprise plan; review <a href="https://auth0.com/pricing">Auth0 Pricing</a> for more details.</p>
      */
     public ManagementApiHttpResponse<List<MfaPolicyEnum>> set(List<MfaPolicyEnum> request) {
         return set(request, null);
     }
 
     /**
-     * Set &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa&quot;&gt;multi-factor authentication (MFA) policies&lt;/a&gt; for your tenant.
+     * Set <a href="https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa">multi-factor authentication (MFA) policies</a> for your tenant.
      * <p>The following policies are supported:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;all-applications&lt;/code&gt; policy prompts with MFA for all logins.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;confidence-score&lt;/code&gt; policy prompts with MFA only for low confidence logins.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The &lt;code&gt;confidence-score&lt;/code&gt; policy is part of the &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa&quot;&gt;Adaptive MFA feature&lt;/a&gt;. Adaptive MFA requires an add-on for the Enterprise plan; review &lt;a href=&quot;https://auth0.com/pricing&quot;&gt;Auth0 Pricing&lt;/a&gt; for more details.</p>
+     * <p><ul>
+     * <li><code>all-applications</code> policy prompts with MFA for all logins.</li>
+     * <li><code>confidence-score</code> policy prompts with MFA only for low confidence logins.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The <code>confidence-score</code> policy is part of the <a href="https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa">Adaptive MFA feature</a>. Adaptive MFA requires an add-on for the Enterprise plan; review <a href="https://auth0.com/pricing">Auth0 Pricing</a> for more details.</p>
      */
     public ManagementApiHttpResponse<List<MfaPolicyEnum>> set(
             List<MfaPolicyEnum> request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/policies")
-                .build();
+                .addPathSegments("guardian/policies");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -138,7 +146,7 @@ public class RawPoliciesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

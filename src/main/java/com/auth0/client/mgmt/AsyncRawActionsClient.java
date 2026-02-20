@@ -64,6 +64,14 @@ public class AsyncRawActionsClient {
      * Retrieve all actions.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Action>>> list(
+            RequestOptions requestOptions) {
+        return list(ListActionsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve all actions.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Action>>> list(
             ListActionsRequestParameters request) {
         return list(request, null);
     }
@@ -94,6 +102,11 @@ public class AsyncRawActionsClient {
         if (!request.getInstalled().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "installed", request.getInstalled().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -191,10 +204,14 @@ public class AsyncRawActionsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateActionResponseContent>> create(
             CreateActionRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("actions/actions")
-                .build();
+                .addPathSegments("actions/actions");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -203,7 +220,7 @@ public class AsyncRawActionsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -281,13 +298,17 @@ public class AsyncRawActionsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetActionResponseContent>> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/actions")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -366,6 +387,13 @@ public class AsyncRawActionsClient {
     /**
      * Deletes an action and all of its associated versions. An action must be unbound from all triggers before it can be deleted.
      */
+    public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
+        return delete(id, DeleteActionRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Deletes an action and all of its associated versions. An action must be unbound from all triggers before it can be deleted.
+     */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, DeleteActionRequestParameters request) {
         return delete(id, request, null);
     }
@@ -382,6 +410,11 @@ public class AsyncRawActionsClient {
         if (!request.getForce().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "force", request.getForce().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -452,14 +485,22 @@ public class AsyncRawActionsClient {
     }
 
     /**
-     * Update an existing action. If this action is currently bound to a trigger, updating it will &lt;strong&gt;not&lt;/strong&gt; affect any user flows until the action is deployed.
+     * Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateActionResponseContent>> update(String id) {
         return update(id, UpdateActionRequestContent.builder().build());
     }
 
     /**
-     * Update an existing action. If this action is currently bound to a trigger, updating it will &lt;strong&gt;not&lt;/strong&gt; affect any user flows until the action is deployed.
+     * Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateActionResponseContent>> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateActionRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateActionResponseContent>> update(
             String id, UpdateActionRequestContent request) {
@@ -467,15 +508,19 @@ public class AsyncRawActionsClient {
     }
 
     /**
-     * Update an existing action. If this action is currently bound to a trigger, updating it will &lt;strong&gt;not&lt;/strong&gt; affect any user flows until the action is deployed.
+     * Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateActionResponseContent>> update(
             String id, UpdateActionRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/actions")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -484,7 +529,7 @@ public class AsyncRawActionsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -567,14 +612,18 @@ public class AsyncRawActionsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<DeployActionResponseContent>> deploy(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/actions")
                 .addPathSegment(id)
-                .addPathSegments("deploy")
-                .build();
+                .addPathSegments("deploy");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -652,12 +701,16 @@ public class AsyncRawActionsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<TestActionResponseContent>> test(
             String id, TestActionRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/actions")
                 .addPathSegment(id)
-                .addPathSegments("test")
-                .build();
+                .addPathSegments("test");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -666,7 +719,7 @@ public class AsyncRawActionsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

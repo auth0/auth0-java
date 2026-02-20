@@ -40,8 +40,8 @@ public class RawSmsClient {
     }
 
     /**
-     * Retrieve the &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication/twilio-configuration&quot;&gt;Twilio SMS provider configuration&lt;/a&gt; (subscription required).
-     * <pre><code>A new endpoint is available to retrieve the Twilio configuration related to phone factors (&lt;a href='https://auth0.com/docs/api/management/v2/#!/Guardian/get_twilio'&gt;phone Twilio configuration&lt;/a&gt;). It has the same payload as this one. Please use it instead.
+     * Retrieve the <a href="https://auth0.com/docs/multifactor-authentication/twilio-configuration">Twilio SMS provider configuration</a> (subscription required).
+     * <pre><code>A new endpoint is available to retrieve the Twilio configuration related to phone factors (<a href='https://auth0.com/docs/api/management/v2/#!/Guardian/get_twilio'>phone Twilio configuration</a>). It has the same payload as this one. Please use it instead.
      * </code></pre>
      */
     public ManagementApiHttpResponse<GetGuardianFactorsProviderSmsTwilioResponseContent> getTwilioProvider() {
@@ -49,18 +49,22 @@ public class RawSmsClient {
     }
 
     /**
-     * Retrieve the &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication/twilio-configuration&quot;&gt;Twilio SMS provider configuration&lt;/a&gt; (subscription required).
-     * <pre><code>A new endpoint is available to retrieve the Twilio configuration related to phone factors (&lt;a href='https://auth0.com/docs/api/management/v2/#!/Guardian/get_twilio'&gt;phone Twilio configuration&lt;/a&gt;). It has the same payload as this one. Please use it instead.
+     * Retrieve the <a href="https://auth0.com/docs/multifactor-authentication/twilio-configuration">Twilio SMS provider configuration</a> (subscription required).
+     * <pre><code>A new endpoint is available to retrieve the Twilio configuration related to phone factors (<a href='https://auth0.com/docs/api/management/v2/#!/Guardian/get_twilio'>phone Twilio configuration</a>). It has the same payload as this one. Please use it instead.
      * </code></pre>
      */
     public ManagementApiHttpResponse<GetGuardianFactorsProviderSmsTwilioResponseContent> getTwilioProvider(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/sms/providers/twilio")
-                .build();
+                .addPathSegments("guardian/factors/sms/providers/twilio");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -102,8 +106,8 @@ public class RawSmsClient {
     }
 
     /**
-     * This endpoint has been deprecated. To complete this action, use the &lt;a href=&quot;https://auth0.com/docs/api/management/v2/guardian/put-twilio&quot;&gt;Update Twilio phone configuration&lt;/a&gt; endpoint.
-     * <pre><code>&lt;b&gt;Previous functionality&lt;/b&gt;: Update the Twilio SMS provider configuration.
+     * This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/put-twilio">Update Twilio phone configuration</a> endpoint.
+     * <pre><code><b>Previous functionality</b>: Update the Twilio SMS provider configuration.
      * </code></pre>
      */
     public ManagementApiHttpResponse<SetGuardianFactorsProviderSmsTwilioResponseContent> setTwilioProvider() {
@@ -112,8 +116,19 @@ public class RawSmsClient {
     }
 
     /**
-     * This endpoint has been deprecated. To complete this action, use the &lt;a href=&quot;https://auth0.com/docs/api/management/v2/guardian/put-twilio&quot;&gt;Update Twilio phone configuration&lt;/a&gt; endpoint.
-     * <pre><code>&lt;b&gt;Previous functionality&lt;/b&gt;: Update the Twilio SMS provider configuration.
+     * This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/put-twilio">Update Twilio phone configuration</a> endpoint.
+     * <pre><code><b>Previous functionality</b>: Update the Twilio SMS provider configuration.
+     * </code></pre>
+     */
+    public ManagementApiHttpResponse<SetGuardianFactorsProviderSmsTwilioResponseContent> setTwilioProvider(
+            RequestOptions requestOptions) {
+        return setTwilioProvider(
+                SetGuardianFactorsProviderSmsTwilioRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/put-twilio">Update Twilio phone configuration</a> endpoint.
+     * <pre><code><b>Previous functionality</b>: Update the Twilio SMS provider configuration.
      * </code></pre>
      */
     public ManagementApiHttpResponse<SetGuardianFactorsProviderSmsTwilioResponseContent> setTwilioProvider(
@@ -122,16 +137,20 @@ public class RawSmsClient {
     }
 
     /**
-     * This endpoint has been deprecated. To complete this action, use the &lt;a href=&quot;https://auth0.com/docs/api/management/v2/guardian/put-twilio&quot;&gt;Update Twilio phone configuration&lt;/a&gt; endpoint.
-     * <pre><code>&lt;b&gt;Previous functionality&lt;/b&gt;: Update the Twilio SMS provider configuration.
+     * This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/put-twilio">Update Twilio phone configuration</a> endpoint.
+     * <pre><code><b>Previous functionality</b>: Update the Twilio SMS provider configuration.
      * </code></pre>
      */
     public ManagementApiHttpResponse<SetGuardianFactorsProviderSmsTwilioResponseContent> setTwilioProvider(
             SetGuardianFactorsProviderSmsTwilioRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/sms/providers/twilio")
-                .build();
+                .addPathSegments("guardian/factors/sms/providers/twilio");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -140,7 +159,7 @@ public class RawSmsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -183,8 +202,8 @@ public class RawSmsClient {
     }
 
     /**
-     * This endpoint has been deprecated. To complete this action, use the &lt;a href=&quot;https://auth0.com/docs/api/management/v2/guardian/get-phone-providers&quot;&gt;Retrieve phone configuration&lt;/a&gt; endpoint instead.
-     * <pre><code>&lt;b&gt;Previous functionality&lt;/b&gt;: Retrieve details for the multi-factor authentication SMS provider configured for your tenant.
+     * This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/get-phone-providers">Retrieve phone configuration</a> endpoint instead.
+     * <pre><code><b>Previous functionality</b>: Retrieve details for the multi-factor authentication SMS provider configured for your tenant.
      * </code></pre>
      */
     public ManagementApiHttpResponse<GetGuardianFactorsProviderSmsResponseContent> getSelectedProvider() {
@@ -192,18 +211,22 @@ public class RawSmsClient {
     }
 
     /**
-     * This endpoint has been deprecated. To complete this action, use the &lt;a href=&quot;https://auth0.com/docs/api/management/v2/guardian/get-phone-providers&quot;&gt;Retrieve phone configuration&lt;/a&gt; endpoint instead.
-     * <pre><code>&lt;b&gt;Previous functionality&lt;/b&gt;: Retrieve details for the multi-factor authentication SMS provider configured for your tenant.
+     * This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/get-phone-providers">Retrieve phone configuration</a> endpoint instead.
+     * <pre><code><b>Previous functionality</b>: Retrieve details for the multi-factor authentication SMS provider configured for your tenant.
      * </code></pre>
      */
     public ManagementApiHttpResponse<GetGuardianFactorsProviderSmsResponseContent> getSelectedProvider(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/sms/selected-provider")
-                .build();
+                .addPathSegments("guardian/factors/sms/selected-provider");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -245,8 +268,8 @@ public class RawSmsClient {
     }
 
     /**
-     * This endpoint has been deprecated. To complete this action, use the &lt;a href=&quot;https://auth0.com/docs/api/management/v2/guardian/put-phone-providers&quot;&gt;Update phone configuration&lt;/a&gt; endpoint instead.
-     * <pre><code>&lt;b&gt;Previous functionality&lt;/b&gt;: Update the multi-factor authentication SMS provider configuration in your tenant.
+     * This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/put-phone-providers">Update phone configuration</a> endpoint instead.
+     * <pre><code><b>Previous functionality</b>: Update the multi-factor authentication SMS provider configuration in your tenant.
      * </code></pre>
      */
     public ManagementApiHttpResponse<SetGuardianFactorsProviderSmsResponseContent> setProvider(
@@ -255,16 +278,20 @@ public class RawSmsClient {
     }
 
     /**
-     * This endpoint has been deprecated. To complete this action, use the &lt;a href=&quot;https://auth0.com/docs/api/management/v2/guardian/put-phone-providers&quot;&gt;Update phone configuration&lt;/a&gt; endpoint instead.
-     * <pre><code>&lt;b&gt;Previous functionality&lt;/b&gt;: Update the multi-factor authentication SMS provider configuration in your tenant.
+     * This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/put-phone-providers">Update phone configuration</a> endpoint instead.
+     * <pre><code><b>Previous functionality</b>: Update the multi-factor authentication SMS provider configuration in your tenant.
      * </code></pre>
      */
     public ManagementApiHttpResponse<SetGuardianFactorsProviderSmsResponseContent> setProvider(
             SetGuardianFactorsProviderSmsRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/sms/selected-provider")
-                .build();
+                .addPathSegments("guardian/factors/sms/selected-provider");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -273,7 +300,7 @@ public class RawSmsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -316,8 +343,8 @@ public class RawSmsClient {
     }
 
     /**
-     * This endpoint has been deprecated. To complete this action, use the &lt;a href=&quot;https://auth0.com/docs/api/management/v2/guardian/get-factor-phone-templates&quot;&gt;Retrieve enrollment and verification phone templates&lt;/a&gt; endpoint instead.
-     * <pre><code>&lt;b&gt;Previous function&lt;/b&gt;: Retrieve details of SMS enrollment and verification templates configured for your tenant.
+     * This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/get-factor-phone-templates">Retrieve enrollment and verification phone templates</a> endpoint instead.
+     * <pre><code><b>Previous function</b>: Retrieve details of SMS enrollment and verification templates configured for your tenant.
      * </code></pre>
      */
     public ManagementApiHttpResponse<GetGuardianFactorSmsTemplatesResponseContent> getTemplates() {
@@ -325,18 +352,22 @@ public class RawSmsClient {
     }
 
     /**
-     * This endpoint has been deprecated. To complete this action, use the &lt;a href=&quot;https://auth0.com/docs/api/management/v2/guardian/get-factor-phone-templates&quot;&gt;Retrieve enrollment and verification phone templates&lt;/a&gt; endpoint instead.
-     * <pre><code>&lt;b&gt;Previous function&lt;/b&gt;: Retrieve details of SMS enrollment and verification templates configured for your tenant.
+     * This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/get-factor-phone-templates">Retrieve enrollment and verification phone templates</a> endpoint instead.
+     * <pre><code><b>Previous function</b>: Retrieve details of SMS enrollment and verification templates configured for your tenant.
      * </code></pre>
      */
     public ManagementApiHttpResponse<GetGuardianFactorSmsTemplatesResponseContent> getTemplates(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/sms/templates")
-                .build();
+                .addPathSegments("guardian/factors/sms/templates");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -378,8 +409,8 @@ public class RawSmsClient {
     }
 
     /**
-     * This endpoint has been deprecated. To complete this action, use the &lt;a href=&quot;https://auth0.com/docs/api/management/v2/guardian/put-factor-phone-templates&quot;&gt;Update enrollment and verification phone templates&lt;/a&gt; endpoint instead.
-     * <pre><code>&lt;b&gt;Previous functionality&lt;/b&gt;: Customize the messages sent to complete SMS enrollment and verification.
+     * This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/put-factor-phone-templates">Update enrollment and verification phone templates</a> endpoint instead.
+     * <pre><code><b>Previous functionality</b>: Customize the messages sent to complete SMS enrollment and verification.
      * </code></pre>
      */
     public ManagementApiHttpResponse<SetGuardianFactorSmsTemplatesResponseContent> setTemplates(
@@ -388,16 +419,20 @@ public class RawSmsClient {
     }
 
     /**
-     * This endpoint has been deprecated. To complete this action, use the &lt;a href=&quot;https://auth0.com/docs/api/management/v2/guardian/put-factor-phone-templates&quot;&gt;Update enrollment and verification phone templates&lt;/a&gt; endpoint instead.
-     * <pre><code>&lt;b&gt;Previous functionality&lt;/b&gt;: Customize the messages sent to complete SMS enrollment and verification.
+     * This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/put-factor-phone-templates">Update enrollment and verification phone templates</a> endpoint instead.
+     * <pre><code><b>Previous functionality</b>: Customize the messages sent to complete SMS enrollment and verification.
      * </code></pre>
      */
     public ManagementApiHttpResponse<SetGuardianFactorSmsTemplatesResponseContent> setTemplates(
             SetGuardianFactorSmsTemplatesRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/sms/templates")
-                .build();
+                .addPathSegments("guardian/factors/sms/templates");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -406,7 +441,7 @@ public class RawSmsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

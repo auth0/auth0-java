@@ -151,6 +151,10 @@ public final class CreateSelfServiceProfileRequestContent {
     public interface _FinalStage {
         CreateSelfServiceProfileRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The description of the self-service Profile.</p>
          */
@@ -329,6 +333,18 @@ public final class CreateSelfServiceProfileRequestContent {
                     userAttributes,
                     userAttributeProfileId,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

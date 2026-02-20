@@ -152,6 +152,10 @@ public final class GetGuardianEnrollmentResponseContent {
     public interface _FinalStage {
         GetGuardianEnrollmentResponseContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage status(Optional<GuardianEnrollmentStatus> status);
 
         _FinalStage status(GuardianEnrollmentStatus status);
@@ -334,6 +338,18 @@ public final class GetGuardianEnrollmentResponseContent {
         public GetGuardianEnrollmentResponseContent build() {
             return new GetGuardianEnrollmentResponseContent(
                     id, status, name, identifier, phoneNumber, enrolledAt, lastAuth, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

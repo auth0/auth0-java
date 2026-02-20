@@ -52,6 +52,14 @@ public class AsyncSuspiciousIpThrottlingClient {
      * Update the details of the Suspicious IP Throttling configuration of your tenant.
      */
     public CompletableFuture<UpdateSuspiciousIpThrottlingSettingsResponseContent> update(
+            RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update the details of the Suspicious IP Throttling configuration of your tenant.
+     */
+    public CompletableFuture<UpdateSuspiciousIpThrottlingSettingsResponseContent> update(
             UpdateSuspiciousIpThrottlingSettingsRequestContent request) {
         return this.rawClient.update(request).thenApply(response -> response.body());
     }

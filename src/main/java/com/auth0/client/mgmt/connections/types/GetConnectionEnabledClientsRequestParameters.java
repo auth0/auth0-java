@@ -181,5 +181,15 @@ public final class GetConnectionEnabledClientsRequestParameters {
         public GetConnectionEnabledClientsRequestParameters build() {
             return new GetConnectionEnabledClientsRequestParameters(take, from, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

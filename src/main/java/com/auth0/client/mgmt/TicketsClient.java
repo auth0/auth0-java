@@ -54,6 +54,14 @@ public class TicketsClient {
      * Create a password change ticket for a given user. A password change ticket is a generated URL that the user can consume to start a reset password flow.
      * <p>Note: This endpoint does not verify the given user’s identity. If you call this endpoint within your application, you must design your application to verify the user’s identity.</p>
      */
+    public ChangePasswordTicketResponseContent changePassword(RequestOptions requestOptions) {
+        return this.rawClient.changePassword(requestOptions).body();
+    }
+
+    /**
+     * Create a password change ticket for a given user. A password change ticket is a generated URL that the user can consume to start a reset password flow.
+     * <p>Note: This endpoint does not verify the given user’s identity. If you call this endpoint within your application, you must design your application to verify the user’s identity.</p>
+     */
     public ChangePasswordTicketResponseContent changePassword(ChangePasswordTicketRequestContent request) {
         return this.rawClient.changePassword(request).body();
     }

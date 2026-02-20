@@ -240,7 +240,7 @@ public final class UpdateClientRequestContent {
     }
 
     /**
-     * @return Free text description of the purpose of the Client. (Max character length: &lt;code&gt;140&lt;/code&gt;)
+     * @return Free text description of the purpose of the Client. (Max character length: <code>140</code>)
      */
     @JsonProperty("description")
     public Optional<String> getDescription() {
@@ -353,7 +353,7 @@ public final class UpdateClientRequestContent {
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; to use Auth0 instead of the IdP to do Single Sign On, &lt;code&gt;false&lt;/code&gt; otherwise (default: &lt;code&gt;false&lt;/code&gt;)
+     * @return <code>true</code> to use Auth0 instead of the IdP to do Single Sign On, <code>false</code> otherwise (default: <code>false</code>)
      */
     @JsonProperty("sso")
     public Optional<Boolean> getSso() {
@@ -361,7 +361,7 @@ public final class UpdateClientRequestContent {
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; if this client can be used to make cross-origin authentication requests, &lt;code&gt;false&lt;/code&gt; otherwise if cross origin is disabled
+     * @return <code>true</code> if this client can be used to make cross-origin authentication requests, <code>false</code> otherwise if cross origin is disabled
      */
     @JsonProperty("cross_origin_authentication")
     public Optional<Boolean> getCrossOriginAuthentication() {
@@ -381,7 +381,7 @@ public final class UpdateClientRequestContent {
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; to disable Single Sign On, &lt;code&gt;false&lt;/code&gt; otherwise (default: &lt;code&gt;false&lt;/code&gt;)
+     * @return <code>true</code> to disable Single Sign On, <code>false</code> otherwise (default: <code>false</code>)
      */
     @JsonProperty("sso_disabled")
     public Optional<Boolean> getSsoDisabled() {
@@ -389,7 +389,7 @@ public final class UpdateClientRequestContent {
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; if the custom login page is to be used, &lt;code&gt;false&lt;/code&gt; otherwise.
+     * @return <code>true</code> if the custom login page is to be used, <code>false</code> otherwise.
      */
     @JsonProperty("custom_login_page_on")
     public Optional<Boolean> getCustomLoginPageOn() {
@@ -1022,7 +1022,7 @@ public final class UpdateClientRequestContent {
         }
 
         /**
-         * <p>Free text description of the purpose of the Client. (Max character length: &lt;code&gt;140&lt;/code&gt;)</p>
+         * <p>Free text description of the purpose of the Client. (Max character length: <code>140</code>)</p>
          */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
@@ -1258,7 +1258,7 @@ public final class UpdateClientRequestContent {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; to use Auth0 instead of the IdP to do Single Sign On, &lt;code&gt;false&lt;/code&gt; otherwise (default: &lt;code&gt;false&lt;/code&gt;)</p>
+         * <p><code>true</code> to use Auth0 instead of the IdP to do Single Sign On, <code>false</code> otherwise (default: <code>false</code>)</p>
          */
         @JsonSetter(value = "sso", nulls = Nulls.SKIP)
         public Builder sso(Optional<Boolean> sso) {
@@ -1272,7 +1272,7 @@ public final class UpdateClientRequestContent {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; if this client can be used to make cross-origin authentication requests, &lt;code&gt;false&lt;/code&gt; otherwise if cross origin is disabled</p>
+         * <p><code>true</code> if this client can be used to make cross-origin authentication requests, <code>false</code> otherwise if cross origin is disabled</p>
          */
         @JsonSetter(value = "cross_origin_authentication", nulls = Nulls.SKIP)
         public Builder crossOriginAuthentication(Optional<Boolean> crossOriginAuthentication) {
@@ -1320,7 +1320,7 @@ public final class UpdateClientRequestContent {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; to disable Single Sign On, &lt;code&gt;false&lt;/code&gt; otherwise (default: &lt;code&gt;false&lt;/code&gt;)</p>
+         * <p><code>true</code> to disable Single Sign On, <code>false</code> otherwise (default: <code>false</code>)</p>
          */
         @JsonSetter(value = "sso_disabled", nulls = Nulls.SKIP)
         public Builder ssoDisabled(Optional<Boolean> ssoDisabled) {
@@ -1334,7 +1334,7 @@ public final class UpdateClientRequestContent {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; if the custom login page is to be used, &lt;code&gt;false&lt;/code&gt; otherwise.</p>
+         * <p><code>true</code> if the custom login page is to be used, <code>false</code> otherwise.</p>
          */
         @JsonSetter(value = "custom_login_page_on", nulls = Nulls.SKIP)
         public Builder customLoginPageOn(Optional<Boolean> customLoginPageOn) {
@@ -2021,6 +2021,16 @@ public final class UpdateClientRequestContent {
                     expressConfiguration,
                     asyncApprovalNotificationChannels,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

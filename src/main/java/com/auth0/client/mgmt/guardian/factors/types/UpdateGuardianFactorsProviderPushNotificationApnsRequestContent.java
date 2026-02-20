@@ -204,5 +204,15 @@ public final class UpdateGuardianFactorsProviderPushNotificationApnsRequestConte
             return new UpdateGuardianFactorsProviderPushNotificationApnsRequestContent(
                     sandbox, bundleId, p12, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

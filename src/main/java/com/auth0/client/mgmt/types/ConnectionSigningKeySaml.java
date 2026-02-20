@@ -126,5 +126,15 @@ public final class ConnectionSigningKeySaml {
         public ConnectionSigningKeySaml build() {
             return new ConnectionSigningKeySaml(cert, key, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

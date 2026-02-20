@@ -43,6 +43,13 @@ public class AsyncEncryptionClient {
     /**
      * Retrieve details of all the encryption keys associated with your tenant.
      */
+    public CompletableFuture<SyncPagingIterable<EncryptionKey>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve details of all the encryption keys associated with your tenant.
+     */
     public CompletableFuture<SyncPagingIterable<EncryptionKey>> list(ListEncryptionKeysRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

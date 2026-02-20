@@ -54,14 +54,18 @@ public class AsyncRawKeysClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<List<ConnectionKey>>> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
-                .addPathSegments("keys")
-                .build();
+                .addPathSegments("keys");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -142,6 +146,14 @@ public class AsyncRawKeysClient {
      * Rotates the connection keys for the Okta or OIDC connection strategies.
      */
     public CompletableFuture<ManagementApiHttpResponse<RotateConnectionsKeysResponseContent>> rotate(
+            String id, RequestOptions requestOptions) {
+        return rotate(id, OptionalNullable.<RotateConnectionKeysRequestContent>absent(), requestOptions);
+    }
+
+    /**
+     * Rotates the connection keys for the Okta or OIDC connection strategies.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<RotateConnectionsKeysResponseContent>> rotate(
             String id, OptionalNullable<RotateConnectionKeysRequestContent> request) {
         return rotate(id, request, null);
     }
@@ -151,13 +163,17 @@ public class AsyncRawKeysClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<RotateConnectionsKeysResponseContent>> rotate(
             String id, OptionalNullable<RotateConnectionKeysRequestContent> request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
                 .addPathSegments("keys")
-                .addPathSegments("rotate")
-                .build();
+                .addPathSegments("rotate");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create("", null);
@@ -169,7 +185,7 @@ public class AsyncRawKeysClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

@@ -83,6 +83,10 @@ public final class FlowsVaultConnectioSetupWebhook {
 
     public interface _FinalStage {
         FlowsVaultConnectioSetupWebhook build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -120,6 +124,18 @@ public final class FlowsVaultConnectioSetupWebhook {
         @java.lang.Override
         public FlowsVaultConnectioSetupWebhook build() {
             return new FlowsVaultConnectioSetupWebhook(type, url, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

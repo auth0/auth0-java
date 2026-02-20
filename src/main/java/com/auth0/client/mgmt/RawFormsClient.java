@@ -49,6 +49,10 @@ public class RawFormsClient {
         return list(ListFormsRequestParameters.builder().build());
     }
 
+    public ManagementApiHttpResponse<SyncPagingIterable<FormSummary>> list(RequestOptions requestOptions) {
+        return list(ListFormsRequestParameters.builder().build(), requestOptions);
+    }
+
     public ManagementApiHttpResponse<SyncPagingIterable<FormSummary>> list(ListFormsRequestParameters request) {
         return list(request, null);
     }
@@ -66,6 +70,11 @@ public class RawFormsClient {
         if (request.getHydrate().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "hydrate", request.getHydrate().get(), true);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -128,10 +137,14 @@ public class RawFormsClient {
 
     public ManagementApiHttpResponse<CreateFormResponseContent> create(
             CreateFormRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("forms")
-                .build();
+                .addPathSegments("forms");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -140,7 +153,7 @@ public class RawFormsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -188,6 +201,10 @@ public class RawFormsClient {
         return get(id, GetFormRequestParameters.builder().build());
     }
 
+    public ManagementApiHttpResponse<GetFormResponseContent> get(String id, RequestOptions requestOptions) {
+        return get(id, GetFormRequestParameters.builder().build(), requestOptions);
+    }
+
     public ManagementApiHttpResponse<GetFormResponseContent> get(String id, GetFormRequestParameters request) {
         return get(id, request, null);
     }
@@ -201,6 +218,11 @@ public class RawFormsClient {
         if (request.getHydrate().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "hydrate", request.getHydrate().get(), true);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -254,13 +276,17 @@ public class RawFormsClient {
     }
 
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("forms")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -305,17 +331,25 @@ public class RawFormsClient {
         return update(id, UpdateFormRequestContent.builder().build());
     }
 
+    public ManagementApiHttpResponse<UpdateFormResponseContent> update(String id, RequestOptions requestOptions) {
+        return update(id, UpdateFormRequestContent.builder().build(), requestOptions);
+    }
+
     public ManagementApiHttpResponse<UpdateFormResponseContent> update(String id, UpdateFormRequestContent request) {
         return update(id, request, null);
     }
 
     public ManagementApiHttpResponse<UpdateFormResponseContent> update(
             String id, UpdateFormRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("forms")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -324,7 +358,7 @@ public class RawFormsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

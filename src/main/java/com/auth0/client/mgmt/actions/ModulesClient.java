@@ -51,6 +51,13 @@ public class ModulesClient {
     /**
      * Retrieve a paginated list of all Actions Modules with optional filtering and totals.
      */
+    public SyncPagingIterable<ActionModuleListItem> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve a paginated list of all Actions Modules with optional filtering and totals.
+     */
     public SyncPagingIterable<ActionModuleListItem> list(GetActionModulesRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -116,6 +123,13 @@ public class ModulesClient {
     /**
      * Update properties of an existing Actions Module, such as code, dependencies, or secrets.
      */
+    public UpdateActionModuleResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
+    }
+
+    /**
+     * Update properties of an existing Actions Module, such as code, dependencies, or secrets.
+     */
     public UpdateActionModuleResponseContent update(String id, UpdateActionModuleRequestContent request) {
         return this.rawClient.update(id, request).body();
     }
@@ -133,6 +147,13 @@ public class ModulesClient {
      */
     public SyncPagingIterable<ActionModuleAction> listActions(String id) {
         return this.rawClient.listActions(id).body();
+    }
+
+    /**
+     * Lists all actions that are using a specific Actions Module, showing which deployed action versions reference this Actions Module.
+     */
+    public SyncPagingIterable<ActionModuleAction> listActions(String id, RequestOptions requestOptions) {
+        return this.rawClient.listActions(id, requestOptions).body();
     }
 
     /**

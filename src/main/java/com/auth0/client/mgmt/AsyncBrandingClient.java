@@ -65,6 +65,13 @@ public class AsyncBrandingClient {
     /**
      * Update branding settings.
      */
+    public CompletableFuture<UpdateBrandingResponseContent> update(RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update branding settings.
+     */
     public CompletableFuture<UpdateBrandingResponseContent> update(UpdateBrandingRequestContent request) {
         return this.rawClient.update(request).thenApply(response -> response.body());
     }

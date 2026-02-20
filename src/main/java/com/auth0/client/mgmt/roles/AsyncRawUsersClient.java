@@ -47,40 +47,61 @@ public class AsyncRawUsersClient {
     }
 
     /**
-     * Retrieve list of users associated with a specific role. For Dashboard instructions, review &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles&quot;&gt;View Users Assigned to Roles&lt;/a&gt;.
+     * Retrieve list of users associated with a specific role. For Dashboard instructions, review <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles">View Users Assigned to Roles</a>.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;Offset pagination&lt;/li&gt;
-     * &lt;li&gt;Checkpoint pagination&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total amount of entries to retrieve when using the from parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<RoleUser>>> list(String id) {
         return list(id, ListRoleUsersRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve list of users associated with a specific role. For Dashboard instructions, review &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles&quot;&gt;View Users Assigned to Roles&lt;/a&gt;.
+     * Retrieve list of users associated with a specific role. For Dashboard instructions, review <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles">View Users Assigned to Roles</a>.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;Offset pagination&lt;/li&gt;
-     * &lt;li&gt;Checkpoint pagination&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total amount of entries to retrieve when using the from parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<RoleUser>>> list(
+            String id, RequestOptions requestOptions) {
+        return list(id, ListRoleUsersRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve list of users associated with a specific role. For Dashboard instructions, review <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles">View Users Assigned to Roles</a>.
+     * <p>This endpoint supports two types of pagination:</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
+     * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p>To search by checkpoint, use the following parameters:</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<RoleUser>>> list(
             String id, ListRoleUsersRequestParameters request) {
@@ -88,20 +109,20 @@ public class AsyncRawUsersClient {
     }
 
     /**
-     * Retrieve list of users associated with a specific role. For Dashboard instructions, review &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles&quot;&gt;View Users Assigned to Roles&lt;/a&gt;.
+     * Retrieve list of users associated with a specific role. For Dashboard instructions, review <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles">View Users Assigned to Roles</a>.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;Offset pagination&lt;/li&gt;
-     * &lt;li&gt;Checkpoint pagination&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total amount of entries to retrieve when using the from parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<RoleUser>>> list(
             String id, ListRoleUsersRequestParameters request, RequestOptions requestOptions) {
@@ -115,6 +136,11 @@ public class AsyncRawUsersClient {
                     httpUrl, "from", request.getFrom().orElse(null), false);
         }
         QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -203,25 +229,29 @@ public class AsyncRawUsersClient {
     }
 
     /**
-     * Assign one or more users to an existing user role. To learn more, review &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;Role-Based Access Control&lt;/a&gt;.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: New roles cannot be created through this action.</p>
+     * Assign one or more users to an existing user role. To learn more, review <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+     * <p><b>Note</b>: New roles cannot be created through this action.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> assign(String id, AssignRoleUsersRequestContent request) {
         return assign(id, request, null);
     }
 
     /**
-     * Assign one or more users to an existing user role. To learn more, review &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;Role-Based Access Control&lt;/a&gt;.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: New roles cannot be created through this action.</p>
+     * Assign one or more users to an existing user role. To learn more, review <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+     * <p><b>Note</b>: New roles cannot be created through this action.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> assign(
             String id, AssignRoleUsersRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("roles")
                 .addPathSegment(id)
-                .addPathSegments("users")
-                .build();
+                .addPathSegments("users");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -230,7 +260,7 @@ public class AsyncRawUsersClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

@@ -47,14 +47,14 @@ public class FactorsClient {
     }
 
     /**
-     * Retrieve details of all &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors&quot;&gt;multi-factor authentication factors&lt;/a&gt; associated with your tenant.
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors">multi-factor authentication factors</a> associated with your tenant.
      */
     public List<GuardianFactor> list() {
         return this.rawClient.list().body();
     }
 
     /**
-     * Retrieve details of all &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors&quot;&gt;multi-factor authentication factors&lt;/a&gt; associated with your tenant.
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors">multi-factor authentication factors</a> associated with your tenant.
      */
     public List<GuardianFactor> list(RequestOptions requestOptions) {
         return this.rawClient.list(requestOptions).body();

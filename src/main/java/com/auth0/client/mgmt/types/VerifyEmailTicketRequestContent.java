@@ -73,7 +73,7 @@ public final class VerifyEmailTicketRequestContent {
     }
 
     /**
-     * @return ID of the client (application). If provided for tenants using the New Universal Login experience, the email template and UI displays application details, and the user is prompted to redirect to the application's &lt;a target='' href='https://auth0.com/docs/authenticate/login/auth0-universal-login/configure-default-login-routes#completing-the-password-reset-flow'&gt;default login route&lt;/a&gt; after the ticket is used. client_id is required to use the &lt;a target='' href='https://auth0.com/docs/customize/actions/flows-and-triggers/post-change-password-flow'&gt;Password Reset Post Challenge&lt;/a&gt; trigger.
+     * @return ID of the client (application). If provided for tenants using the New Universal Login experience, the email template and UI displays application details, and the user is prompted to redirect to the application's <a target='' href='https://auth0.com/docs/authenticate/login/auth0-universal-login/configure-default-login-routes#completing-the-password-reset-flow'>default login route</a> after the ticket is used. client_id is required to use the <a target='' href='https://auth0.com/docs/customize/actions/flows-and-triggers/post-change-password-flow'>Password Reset Post Challenge</a> trigger.
      */
     @JsonProperty("client_id")
     public Optional<String> getClientId() {
@@ -163,6 +163,10 @@ public final class VerifyEmailTicketRequestContent {
     public interface _FinalStage {
         VerifyEmailTicketRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using client_id or organization_id.</p>
          */
@@ -171,7 +175,7 @@ public final class VerifyEmailTicketRequestContent {
         _FinalStage resultUrl(String resultUrl);
 
         /**
-         * <p>ID of the client (application). If provided for tenants using the New Universal Login experience, the email template and UI displays application details, and the user is prompted to redirect to the application's &lt;a target='' href='https://auth0.com/docs/authenticate/login/auth0-universal-login/configure-default-login-routes#completing-the-password-reset-flow'&gt;default login route&lt;/a&gt; after the ticket is used. client_id is required to use the &lt;a target='' href='https://auth0.com/docs/customize/actions/flows-and-triggers/post-change-password-flow'&gt;Password Reset Post Challenge&lt;/a&gt; trigger.</p>
+         * <p>ID of the client (application). If provided for tenants using the New Universal Login experience, the email template and UI displays application details, and the user is prompted to redirect to the application's <a target='' href='https://auth0.com/docs/authenticate/login/auth0-universal-login/configure-default-login-routes#completing-the-password-reset-flow'>default login route</a> after the ticket is used. client_id is required to use the <a target='' href='https://auth0.com/docs/customize/actions/flows-and-triggers/post-change-password-flow'>Password Reset Post Challenge</a> trigger.</p>
          */
         _FinalStage clientId(Optional<String> clientId);
 
@@ -322,7 +326,7 @@ public final class VerifyEmailTicketRequestContent {
         }
 
         /**
-         * <p>ID of the client (application). If provided for tenants using the New Universal Login experience, the email template and UI displays application details, and the user is prompted to redirect to the application's &lt;a target='' href='https://auth0.com/docs/authenticate/login/auth0-universal-login/configure-default-login-routes#completing-the-password-reset-flow'&gt;default login route&lt;/a&gt; after the ticket is used. client_id is required to use the &lt;a target='' href='https://auth0.com/docs/customize/actions/flows-and-triggers/post-change-password-flow'&gt;Password Reset Post Challenge&lt;/a&gt; trigger.</p>
+         * <p>ID of the client (application). If provided for tenants using the New Universal Login experience, the email template and UI displays application details, and the user is prompted to redirect to the application's <a target='' href='https://auth0.com/docs/authenticate/login/auth0-universal-login/configure-default-login-routes#completing-the-password-reset-flow'>default login route</a> after the ticket is used. client_id is required to use the <a target='' href='https://auth0.com/docs/customize/actions/flows-and-triggers/post-change-password-flow'>Password Reset Post Challenge</a> trigger.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -332,7 +336,7 @@ public final class VerifyEmailTicketRequestContent {
         }
 
         /**
-         * <p>ID of the client (application). If provided for tenants using the New Universal Login experience, the email template and UI displays application details, and the user is prompted to redirect to the application's &lt;a target='' href='https://auth0.com/docs/authenticate/login/auth0-universal-login/configure-default-login-routes#completing-the-password-reset-flow'&gt;default login route&lt;/a&gt; after the ticket is used. client_id is required to use the &lt;a target='' href='https://auth0.com/docs/customize/actions/flows-and-triggers/post-change-password-flow'&gt;Password Reset Post Challenge&lt;/a&gt; trigger.</p>
+         * <p>ID of the client (application). If provided for tenants using the New Universal Login experience, the email template and UI displays application details, and the user is prompted to redirect to the application's <a target='' href='https://auth0.com/docs/authenticate/login/auth0-universal-login/configure-default-login-routes#completing-the-password-reset-flow'>default login route</a> after the ticket is used. client_id is required to use the <a target='' href='https://auth0.com/docs/customize/actions/flows-and-triggers/post-change-password-flow'>Password Reset Post Challenge</a> trigger.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
@@ -372,6 +376,18 @@ public final class VerifyEmailTicketRequestContent {
                     includeEmailInRedirect,
                     identity,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

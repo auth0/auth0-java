@@ -47,6 +47,10 @@ public class EventStreamsClient {
         return this.rawClient.list().body();
     }
 
+    public SyncPagingIterable<EventStreamResponseContent> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
     public SyncPagingIterable<EventStreamResponseContent> list(ListEventStreamsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -82,6 +86,10 @@ public class EventStreamsClient {
 
     public UpdateEventStreamResponseContent update(String id) {
         return this.rawClient.update(id).body();
+    }
+
+    public UpdateEventStreamResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
     }
 
     public UpdateEventStreamResponseContent update(String id, UpdateEventStreamRequestContent request) {

@@ -39,8 +39,8 @@ public class AsyncRawEnrollmentsClient {
     }
 
     /**
-     * Create a &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets&quot;&gt;multi-factor authentication (MFA) enrollment ticket&lt;/a&gt;, and optionally send an email with the created ticket, to a given user.
-     * Create a &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets&quot;&gt;multi-factor authentication (MFA) enrollment ticket&lt;/a&gt;, and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.&lt;br/&gt;
+     * Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket, to a given user.
+     * Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.<br/>
      * <p>Note: Users cannot enroll in Email as a factor through custom enrollment tickets.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateGuardianEnrollmentTicketResponseContent>> createTicket(
@@ -49,16 +49,20 @@ public class AsyncRawEnrollmentsClient {
     }
 
     /**
-     * Create a &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets&quot;&gt;multi-factor authentication (MFA) enrollment ticket&lt;/a&gt;, and optionally send an email with the created ticket, to a given user.
-     * Create a &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets&quot;&gt;multi-factor authentication (MFA) enrollment ticket&lt;/a&gt;, and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.&lt;br/&gt;
+     * Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket, to a given user.
+     * Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.<br/>
      * <p>Note: Users cannot enroll in Email as a factor through custom enrollment tickets.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateGuardianEnrollmentTicketResponseContent>> createTicket(
             CreateGuardianEnrollmentTicketRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/enrollments/ticket")
-                .build();
+                .addPathSegments("guardian/enrollments/ticket");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -67,7 +71,7 @@ public class AsyncRawEnrollmentsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -146,13 +150,17 @@ public class AsyncRawEnrollmentsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetGuardianEnrollmentResponseContent>> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("guardian/enrollments")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -214,23 +222,27 @@ public class AsyncRawEnrollmentsClient {
     }
 
     /**
-     * Remove a specific multi-factor authentication (MFA) enrollment from a user's account. This allows the user to re-enroll with MFA. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa&quot;&gt;Reset User Multi-Factor Authentication and Recovery Codes&lt;/a&gt;.
+     * Remove a specific multi-factor authentication (MFA) enrollment from a user's account. This allows the user to re-enroll with MFA. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa">Reset User Multi-Factor Authentication and Recovery Codes</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id) {
         return delete(id, null);
     }
 
     /**
-     * Remove a specific multi-factor authentication (MFA) enrollment from a user's account. This allows the user to re-enroll with MFA. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa&quot;&gt;Reset User Multi-Factor Authentication and Recovery Codes&lt;/a&gt;.
+     * Remove a specific multi-factor authentication (MFA) enrollment from a user's account. This allows the user to re-enroll with MFA. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa">Reset User Multi-Factor Authentication and Recovery Codes</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("guardian/enrollments")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

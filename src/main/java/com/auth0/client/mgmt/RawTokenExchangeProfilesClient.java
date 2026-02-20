@@ -47,13 +47,13 @@ public class RawTokenExchangeProfilesClient {
 
     /**
      * Retrieve a list of all Token Exchange Profiles available in your tenant.
-     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
+     * <p>By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.</p>
      * <p>This endpoint supports Checkpoint pagination. To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total amount of entries to retrieve when using the from parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<TokenExchangeProfileResponseContent>> list() {
         return list(TokenExchangeProfilesListRequest.builder().build());
@@ -61,13 +61,28 @@ public class RawTokenExchangeProfilesClient {
 
     /**
      * Retrieve a list of all Token Exchange Profiles available in your tenant.
-     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
+     * <p>By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.</p>
      * <p>This endpoint supports Checkpoint pagination. To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total amount of entries to retrieve when using the from parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<TokenExchangeProfileResponseContent>> list(
+            RequestOptions requestOptions) {
+        return list(TokenExchangeProfilesListRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve a list of all Token Exchange Profiles available in your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.</p>
+     * <p>This endpoint supports Checkpoint pagination. To search by checkpoint, use the following parameters:</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<TokenExchangeProfileResponseContent>> list(
             TokenExchangeProfilesListRequest request) {
@@ -76,13 +91,13 @@ public class RawTokenExchangeProfilesClient {
 
     /**
      * Retrieve a list of all Token Exchange Profiles available in your tenant.
-     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
+     * <p>By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.</p>
      * <p>This endpoint supports Checkpoint pagination. To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total amount of entries to retrieve when using the from parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<TokenExchangeProfileResponseContent>> list(
             TokenExchangeProfilesListRequest request, RequestOptions requestOptions) {
@@ -94,6 +109,11 @@ public class RawTokenExchangeProfilesClient {
                     httpUrl, "from", request.getFrom().orElse(null), false);
         }
         QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -152,7 +172,7 @@ public class RawTokenExchangeProfilesClient {
 
     /**
      * Create a new Token Exchange Profile within your tenant.
-     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
+     * <p>By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.</p>
      */
     public ManagementApiHttpResponse<CreateTokenExchangeProfileResponseContent> create(
             CreateTokenExchangeProfileRequestContent request) {
@@ -161,14 +181,18 @@ public class RawTokenExchangeProfilesClient {
 
     /**
      * Create a new Token Exchange Profile within your tenant.
-     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
+     * <p>By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.</p>
      */
     public ManagementApiHttpResponse<CreateTokenExchangeProfileResponseContent> create(
             CreateTokenExchangeProfileRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("token-exchange-profiles")
-                .build();
+                .addPathSegments("token-exchange-profiles");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -177,7 +201,7 @@ public class RawTokenExchangeProfilesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -227,7 +251,7 @@ public class RawTokenExchangeProfilesClient {
 
     /**
      * Retrieve details about a single Token Exchange Profile specified by ID.
-     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
+     * <p>By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.</p>
      */
     public ManagementApiHttpResponse<GetTokenExchangeProfileResponseContent> get(String id) {
         return get(id, null);
@@ -235,17 +259,21 @@ public class RawTokenExchangeProfilesClient {
 
     /**
      * Retrieve details about a single Token Exchange Profile specified by ID.
-     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta’s Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user’s subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
+     * <p>By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.</p>
      */
     public ManagementApiHttpResponse<GetTokenExchangeProfileResponseContent> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("token-exchange-profiles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -294,7 +322,7 @@ public class RawTokenExchangeProfilesClient {
 
     /**
      * Delete a Token Exchange Profile within your tenant.
-     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
+     * <p>By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta's Master Subscription Agreement</a>. It is your responsibility to securely validate the user's subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.</p>
      */
     public ManagementApiHttpResponse<Void> delete(String id) {
         return delete(id, null);
@@ -302,16 +330,20 @@ public class RawTokenExchangeProfilesClient {
 
     /**
      * Delete a Token Exchange Profile within your tenant.
-     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
+     * <p>By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta's Master Subscription Agreement</a>. It is your responsibility to securely validate the user's subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.</p>
      */
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("token-exchange-profiles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -351,7 +383,7 @@ public class RawTokenExchangeProfilesClient {
 
     /**
      * Update a Token Exchange Profile within your tenant.
-     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
+     * <p>By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta's Master Subscription Agreement</a>. It is your responsibility to securely validate the user's subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.</p>
      */
     public ManagementApiHttpResponse<Void> update(String id) {
         return update(id, UpdateTokenExchangeProfileRequestContent.builder().build());
@@ -359,7 +391,15 @@ public class RawTokenExchangeProfilesClient {
 
     /**
      * Update a Token Exchange Profile within your tenant.
-     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
+     * <p>By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta's Master Subscription Agreement</a>. It is your responsibility to securely validate the user's subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.</p>
+     */
+    public ManagementApiHttpResponse<Void> update(String id, RequestOptions requestOptions) {
+        return update(id, UpdateTokenExchangeProfileRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update a Token Exchange Profile within your tenant.
+     * <p>By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta's Master Subscription Agreement</a>. It is your responsibility to securely validate the user's subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.</p>
      */
     public ManagementApiHttpResponse<Void> update(String id, UpdateTokenExchangeProfileRequestContent request) {
         return update(id, request, null);
@@ -367,15 +407,19 @@ public class RawTokenExchangeProfilesClient {
 
     /**
      * Update a Token Exchange Profile within your tenant.
-     * <p>By using this feature, you agree to the applicable Free Trial terms in &lt;a href=&quot;https://www.okta.com/legal/&quot;&gt;Okta's Master Subscription Agreement&lt;/a&gt;. It is your responsibility to securely validate the user's subject_token. See &lt;a href=&quot;https://auth0.com/docs/authenticate/custom-token-exchange&quot;&gt;User Guide&lt;/a&gt; for more details.</p>
+     * <p>By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta's Master Subscription Agreement</a>. It is your responsibility to securely validate the user's subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.</p>
      */
     public ManagementApiHttpResponse<Void> update(
             String id, UpdateTokenExchangeProfileRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("token-exchange-profiles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -384,7 +428,7 @@ public class RawTokenExchangeProfilesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

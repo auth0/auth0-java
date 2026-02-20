@@ -224,5 +224,15 @@ public final class ListOrganizationMemberRolesRequestParameters {
         public ListOrganizationMemberRolesRequestParameters build() {
             return new ListOrganizationMemberRolesRequestParameters(page, perPage, includeTotals, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

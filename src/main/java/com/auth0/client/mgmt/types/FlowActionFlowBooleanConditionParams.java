@@ -118,5 +118,15 @@ public final class FlowActionFlowBooleanConditionParams {
         public FlowActionFlowBooleanConditionParams build() {
             return new FlowActionFlowBooleanConditionParams(then, else_, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

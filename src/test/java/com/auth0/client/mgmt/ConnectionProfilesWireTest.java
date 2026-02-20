@@ -66,11 +66,10 @@ public class ConnectionProfilesWireTest {
 
     @Test
     public void testCreate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"organization\":{\"show_as_button\":\"none\",\"assign_membership_on_login\":\"none\"},\"connection_name_prefix_template\":\"connection_name_prefix_template\",\"enabled_features\":[\"scim\"],\"strategy_overrides\":{\"pingfederate\":{\"enabled_features\":[\"scim\"]},\"ad\":{\"enabled_features\":[\"scim\"]},\"adfs\":{\"enabled_features\":[\"scim\"]},\"waad\":{\"enabled_features\":[\"scim\"]},\"google-apps\":{\"enabled_features\":[\"scim\"]},\"okta\":{\"enabled_features\":[\"scim\"]},\"oidc\":{\"enabled_features\":[\"scim\"]},\"samlp\":{\"enabled_features\":[\"scim\"]}}}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(
+                        TestResources.loadResource("/wire-tests/ConnectionProfilesWireTest_testCreate_response.json")));
         CreateConnectionProfileResponseContent response = client.connectionProfiles()
                 .create(CreateConnectionProfileRequestContent.builder()
                         .name("name")
@@ -111,61 +110,8 @@ public class ConnectionProfilesWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"id\": \"id\",\n"
-                + "  \"name\": \"name\",\n"
-                + "  \"organization\": {\n"
-                + "    \"show_as_button\": \"none\",\n"
-                + "    \"assign_membership_on_login\": \"none\"\n"
-                + "  },\n"
-                + "  \"connection_name_prefix_template\": \"connection_name_prefix_template\",\n"
-                + "  \"enabled_features\": [\n"
-                + "    \"scim\"\n"
-                + "  ],\n"
-                + "  \"strategy_overrides\": {\n"
-                + "    \"pingfederate\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"ad\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"adfs\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"waad\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"google-apps\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"okta\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"oidc\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"samlp\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    }\n"
-                + "  }\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/ConnectionProfilesWireTest_testCreate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -316,11 +262,9 @@ public class ConnectionProfilesWireTest {
 
     @Test
     public void testGet() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"organization\":{\"show_as_button\":\"none\",\"assign_membership_on_login\":\"none\"},\"connection_name_prefix_template\":\"connection_name_prefix_template\",\"enabled_features\":[\"scim\"],\"strategy_overrides\":{\"pingfederate\":{\"enabled_features\":[\"scim\"]},\"ad\":{\"enabled_features\":[\"scim\"]},\"adfs\":{\"enabled_features\":[\"scim\"]},\"waad\":{\"enabled_features\":[\"scim\"]},\"google-apps\":{\"enabled_features\":[\"scim\"]},\"okta\":{\"enabled_features\":[\"scim\"]},\"oidc\":{\"enabled_features\":[\"scim\"]},\"samlp\":{\"enabled_features\":[\"scim\"]}}}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource("/wire-tests/ConnectionProfilesWireTest_testGet_response.json")));
         GetConnectionProfileResponseContent response =
                 client.connectionProfiles().get("id");
         RecordedRequest request = server.takeRequest();
@@ -330,61 +274,8 @@ public class ConnectionProfilesWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"id\": \"id\",\n"
-                + "  \"name\": \"name\",\n"
-                + "  \"organization\": {\n"
-                + "    \"show_as_button\": \"none\",\n"
-                + "    \"assign_membership_on_login\": \"none\"\n"
-                + "  },\n"
-                + "  \"connection_name_prefix_template\": \"connection_name_prefix_template\",\n"
-                + "  \"enabled_features\": [\n"
-                + "    \"scim\"\n"
-                + "  ],\n"
-                + "  \"strategy_overrides\": {\n"
-                + "    \"pingfederate\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"ad\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"adfs\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"waad\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"google-apps\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"okta\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"oidc\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"samlp\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    }\n"
-                + "  }\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/ConnectionProfilesWireTest_testGet_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -427,11 +318,10 @@ public class ConnectionProfilesWireTest {
 
     @Test
     public void testUpdate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"organization\":{\"show_as_button\":\"none\",\"assign_membership_on_login\":\"none\"},\"connection_name_prefix_template\":\"connection_name_prefix_template\",\"enabled_features\":[\"scim\"],\"strategy_overrides\":{\"pingfederate\":{\"enabled_features\":[\"scim\"]},\"ad\":{\"enabled_features\":[\"scim\"]},\"adfs\":{\"enabled_features\":[\"scim\"]},\"waad\":{\"enabled_features\":[\"scim\"]},\"google-apps\":{\"enabled_features\":[\"scim\"]},\"okta\":{\"enabled_features\":[\"scim\"]},\"oidc\":{\"enabled_features\":[\"scim\"]},\"samlp\":{\"enabled_features\":[\"scim\"]}}}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(
+                        TestResources.loadResource("/wire-tests/ConnectionProfilesWireTest_testUpdate_response.json")));
         UpdateConnectionProfileResponseContent response = client.connectionProfiles()
                 .update("id", UpdateConnectionProfileRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -470,61 +360,8 @@ public class ConnectionProfilesWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"id\": \"id\",\n"
-                + "  \"name\": \"name\",\n"
-                + "  \"organization\": {\n"
-                + "    \"show_as_button\": \"none\",\n"
-                + "    \"assign_membership_on_login\": \"none\"\n"
-                + "  },\n"
-                + "  \"connection_name_prefix_template\": \"connection_name_prefix_template\",\n"
-                + "  \"enabled_features\": [\n"
-                + "    \"scim\"\n"
-                + "  ],\n"
-                + "  \"strategy_overrides\": {\n"
-                + "    \"pingfederate\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"ad\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"adfs\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"waad\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"google-apps\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"okta\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"oidc\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    },\n"
-                + "    \"samlp\": {\n"
-                + "      \"enabled_features\": [\n"
-                + "        \"scim\"\n"
-                + "      ]\n"
-                + "    }\n"
-                + "  }\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/ConnectionProfilesWireTest_testUpdate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(

@@ -37,16 +37,16 @@ public class AsyncTemplatesClient {
 
     /**
      * Update the Universal Login branding template.
-     * <p>&lt;p&gt;When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;application/json&lt;/code&gt;:&lt;/p&gt;
-     * &lt;pre&gt;
+     * <p><p>When <code>content-type</code> header is set to <code>application/json</code>:</p>
+     * <pre>
      * {
      *   &quot;template&quot;: &quot;&amp;lt;!DOCTYPE html&amp;gt;{% assign resolved_dir = dir | default: &quot;auto&quot; %}&amp;lt;html lang=&quot;{{locale}}&quot; dir=&quot;{{resolved_dir}}&quot;&amp;gt;&amp;lt;head&amp;gt;{%- auth0:head -%}&amp;lt;/head&amp;gt;&amp;lt;body class=&quot;_widget-auto-layout&quot;&amp;gt;{%- auth0:widget -%}&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&quot;
      * }
-     * &lt;/pre&gt;</p>
-     * <p>&lt;p&gt;
-     *   When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;text/html&lt;/code&gt;:
-     * &lt;/p&gt;
-     * &lt;pre&gt;
+     * </pre></p>
+     * <p><p>
+     *   When <code>content-type</code> header is set to <code>text/html</code>:
+     * </p>
+     * <pre>
      * &amp;lt!DOCTYPE html&amp;gt;
      * {% assign resolved_dir = dir | default: &quot;auto&quot; %}
      * &amp;lt;html lang=&quot;{{locale}}&quot; dir=&quot;{{resolved_dir}}&quot;&amp;gt;
@@ -57,7 +57,7 @@ public class AsyncTemplatesClient {
      *     {%- auth0:widget -%}
      *   &amp;lt;/body&amp;gt;
      * &amp;lt;/html&amp;gt;
-     * &lt;/pre&gt;</p>
+     * </pre></p>
      */
     public CompletableFuture<Void> updateUniversalLogin(UpdateUniversalLoginTemplateRequestContent request) {
         return this.rawClient.updateUniversalLogin(request).thenApply(response -> response.body());
@@ -65,16 +65,16 @@ public class AsyncTemplatesClient {
 
     /**
      * Update the Universal Login branding template.
-     * <p>&lt;p&gt;When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;application/json&lt;/code&gt;:&lt;/p&gt;
-     * &lt;pre&gt;
+     * <p><p>When <code>content-type</code> header is set to <code>application/json</code>:</p>
+     * <pre>
      * {
      *   &quot;template&quot;: &quot;&amp;lt;!DOCTYPE html&amp;gt;{% assign resolved_dir = dir | default: &quot;auto&quot; %}&amp;lt;html lang=&quot;{{locale}}&quot; dir=&quot;{{resolved_dir}}&quot;&amp;gt;&amp;lt;head&amp;gt;{%- auth0:head -%}&amp;lt;/head&amp;gt;&amp;lt;body class=&quot;_widget-auto-layout&quot;&amp;gt;{%- auth0:widget -%}&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&quot;
      * }
-     * &lt;/pre&gt;</p>
-     * <p>&lt;p&gt;
-     *   When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;text/html&lt;/code&gt;:
-     * &lt;/p&gt;
-     * &lt;pre&gt;
+     * </pre></p>
+     * <p><p>
+     *   When <code>content-type</code> header is set to <code>text/html</code>:
+     * </p>
+     * <pre>
      * &amp;lt!DOCTYPE html&amp;gt;
      * {% assign resolved_dir = dir | default: &quot;auto&quot; %}
      * &amp;lt;html lang=&quot;{{locale}}&quot; dir=&quot;{{resolved_dir}}&quot;&amp;gt;
@@ -85,7 +85,7 @@ public class AsyncTemplatesClient {
      *     {%- auth0:widget -%}
      *   &amp;lt;/body&amp;gt;
      * &amp;lt;/html&amp;gt;
-     * &lt;/pre&gt;</p>
+     * </pre></p>
      */
     public CompletableFuture<Void> updateUniversalLogin(
             UpdateUniversalLoginTemplateRequestContent request, RequestOptions requestOptions) {

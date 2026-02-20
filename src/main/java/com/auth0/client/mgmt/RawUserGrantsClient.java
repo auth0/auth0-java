@@ -37,21 +37,28 @@ public class RawUserGrantsClient {
     }
 
     /**
-     * Retrieve the &lt;a href=&quot;https://auth0.com/docs/api-auth/which-oauth-flow-to-use&quot;&gt;grants&lt;/a&gt; associated with your account.
+     * Retrieve the <a href="https://auth0.com/docs/api-auth/which-oauth-flow-to-use">grants</a> associated with your account.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<UserGrant>> list() {
         return list(ListUserGrantsRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve the &lt;a href=&quot;https://auth0.com/docs/api-auth/which-oauth-flow-to-use&quot;&gt;grants&lt;/a&gt; associated with your account.
+     * Retrieve the <a href="https://auth0.com/docs/api-auth/which-oauth-flow-to-use">grants</a> associated with your account.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<UserGrant>> list(RequestOptions requestOptions) {
+        return list(ListUserGrantsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve the <a href="https://auth0.com/docs/api-auth/which-oauth-flow-to-use">grants</a> associated with your account.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<UserGrant>> list(ListUserGrantsRequestParameters request) {
         return list(request, null);
     }
 
     /**
-     * Retrieve the &lt;a href=&quot;https://auth0.com/docs/api-auth/which-oauth-flow-to-use&quot;&gt;grants&lt;/a&gt; associated with your account.
+     * Retrieve the <a href="https://auth0.com/docs/api-auth/which-oauth-flow-to-use">grants</a> associated with your account.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<UserGrant>> list(
             ListUserGrantsRequestParameters request, RequestOptions requestOptions) {
@@ -74,6 +81,11 @@ public class RawUserGrantsClient {
         if (!request.getAudience().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "audience", request.getAudience().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -143,6 +155,11 @@ public class RawUserGrantsClient {
                 .newBuilder()
                 .addPathSegments("grants");
         QueryStringMapper.addQueryParameter(httpUrl, "user_id", request.getUserId(), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("DELETE", null)
@@ -193,13 +210,17 @@ public class RawUserGrantsClient {
      * Delete a grant associated with your account.
      */
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("grants")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

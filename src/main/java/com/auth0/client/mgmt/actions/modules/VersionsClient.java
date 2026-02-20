@@ -38,6 +38,13 @@ public class VersionsClient {
     /**
      * List all published versions of a specific Actions Module.
      */
+    public SyncPagingIterable<ActionModuleVersion> list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).body();
+    }
+
+    /**
+     * List all published versions of a specific Actions Module.
+     */
     public SyncPagingIterable<ActionModuleVersion> list(String id, GetActionModuleVersionsRequestParameters request) {
         return this.rawClient.list(id, request).body();
     }

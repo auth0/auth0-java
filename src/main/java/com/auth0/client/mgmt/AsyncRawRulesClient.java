@@ -52,14 +52,21 @@ public class AsyncRawRulesClient {
     }
 
     /**
-     * Retrieve a filtered list of &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rules&lt;/a&gt;. Accepts a list of fields to include or exclude.
+     * Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Rule>>> list() {
         return list(ListRulesRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve a filtered list of &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rules&lt;/a&gt;. Accepts a list of fields to include or exclude.
+     * Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Rule>>> list(RequestOptions requestOptions) {
+        return list(ListRulesRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Rule>>> list(
             ListRulesRequestParameters request) {
@@ -67,7 +74,7 @@ public class AsyncRawRulesClient {
     }
 
     /**
-     * Retrieve a filtered list of &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rules&lt;/a&gt;. Accepts a list of fields to include or exclude.
+     * Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Rule>>> list(
             ListRulesRequestParameters request, RequestOptions requestOptions) {
@@ -90,6 +97,11 @@ public class AsyncRawRulesClient {
         if (!request.getIncludeFields().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -180,8 +192,8 @@ public class AsyncRawRulesClient {
     }
 
     /**
-     * Create a &lt;a href=&quot;https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api&quot;&gt;new rule&lt;/a&gt;.
-     * <p>Note: Changing a rule's stage of execution from the default &lt;code&gt;login_success&lt;/code&gt; can change the rule's function signature to have user omitted.</p>
+     * Create a <a href="https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api">new rule</a>.
+     * <p>Note: Changing a rule's stage of execution from the default <code>login_success</code> can change the rule's function signature to have user omitted.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateRuleResponseContent>> create(
             CreateRuleRequestContent request) {
@@ -189,15 +201,19 @@ public class AsyncRawRulesClient {
     }
 
     /**
-     * Create a &lt;a href=&quot;https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api&quot;&gt;new rule&lt;/a&gt;.
-     * <p>Note: Changing a rule's stage of execution from the default &lt;code&gt;login_success&lt;/code&gt; can change the rule's function signature to have user omitted.</p>
+     * Create a <a href="https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api">new rule</a>.
+     * <p>Note: Changing a rule's stage of execution from the default <code>login_success</code> can change the rule's function signature to have user omitted.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateRuleResponseContent>> create(
             CreateRuleRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("rules")
-                .build();
+                .addPathSegments("rules");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -206,7 +222,7 @@ public class AsyncRawRulesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -278,14 +294,22 @@ public class AsyncRawRulesClient {
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rule&lt;/a&gt; details. Accepts a list of fields to include or exclude in the result.
+     * Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetRuleResponseContent>> get(String id) {
         return get(id, GetRuleRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rule&lt;/a&gt; details. Accepts a list of fields to include or exclude in the result.
+     * Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<GetRuleResponseContent>> get(
+            String id, RequestOptions requestOptions) {
+        return get(id, GetRuleRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetRuleResponseContent>> get(
             String id, GetRuleRequestParameters request) {
@@ -293,7 +317,7 @@ public class AsyncRawRulesClient {
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rule&lt;/a&gt; details. Accepts a list of fields to include or exclude in the result.
+     * Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetRuleResponseContent>> get(
             String id, GetRuleRequestParameters request, RequestOptions requestOptions) {
@@ -308,6 +332,11 @@ public class AsyncRawRulesClient {
         if (!request.getIncludeFields().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -390,13 +419,17 @@ public class AsyncRawRulesClient {
      * Delete a rule.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("rules")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -469,6 +502,14 @@ public class AsyncRawRulesClient {
      * Update an existing rule.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateRuleResponseContent>> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateRuleRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update an existing rule.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateRuleResponseContent>> update(
             String id, UpdateRuleRequestContent request) {
         return update(id, request, null);
     }
@@ -478,11 +519,15 @@ public class AsyncRawRulesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateRuleResponseContent>> update(
             String id, UpdateRuleRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("rules")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -491,7 +536,7 @@ public class AsyncRawRulesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

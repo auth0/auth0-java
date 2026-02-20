@@ -418,6 +418,10 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
     public interface _FinalStage {
         ConnectionOptionsOidc build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage authorizationEndpoint(Optional<String> authorizationEndpoint);
 
         _FinalStage authorizationEndpoint(String authorizationEndpoint);
@@ -1136,6 +1140,18 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                     discoveryUrl,
                     type,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

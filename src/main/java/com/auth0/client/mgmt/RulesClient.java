@@ -33,58 +33,72 @@ public class RulesClient {
     }
 
     /**
-     * Retrieve a filtered list of &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rules&lt;/a&gt;. Accepts a list of fields to include or exclude.
+     * Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
      */
     public SyncPagingIterable<Rule> list() {
         return this.rawClient.list().body();
     }
 
     /**
-     * Retrieve a filtered list of &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rules&lt;/a&gt;. Accepts a list of fields to include or exclude.
+     * Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
+     */
+    public SyncPagingIterable<Rule> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
      */
     public SyncPagingIterable<Rule> list(ListRulesRequestParameters request) {
         return this.rawClient.list(request).body();
     }
 
     /**
-     * Retrieve a filtered list of &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rules&lt;/a&gt;. Accepts a list of fields to include or exclude.
+     * Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
      */
     public SyncPagingIterable<Rule> list(ListRulesRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
-     * Create a &lt;a href=&quot;https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api&quot;&gt;new rule&lt;/a&gt;.
-     * <p>Note: Changing a rule's stage of execution from the default &lt;code&gt;login_success&lt;/code&gt; can change the rule's function signature to have user omitted.</p>
+     * Create a <a href="https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api">new rule</a>.
+     * <p>Note: Changing a rule's stage of execution from the default <code>login_success</code> can change the rule's function signature to have user omitted.</p>
      */
     public CreateRuleResponseContent create(CreateRuleRequestContent request) {
         return this.rawClient.create(request).body();
     }
 
     /**
-     * Create a &lt;a href=&quot;https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api&quot;&gt;new rule&lt;/a&gt;.
-     * <p>Note: Changing a rule's stage of execution from the default &lt;code&gt;login_success&lt;/code&gt; can change the rule's function signature to have user omitted.</p>
+     * Create a <a href="https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api">new rule</a>.
+     * <p>Note: Changing a rule's stage of execution from the default <code>login_success</code> can change the rule's function signature to have user omitted.</p>
      */
     public CreateRuleResponseContent create(CreateRuleRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).body();
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rule&lt;/a&gt; details. Accepts a list of fields to include or exclude in the result.
+     * Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
      */
     public GetRuleResponseContent get(String id) {
         return this.rawClient.get(id).body();
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rule&lt;/a&gt; details. Accepts a list of fields to include or exclude in the result.
+     * Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
+     */
+    public GetRuleResponseContent get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).body();
+    }
+
+    /**
+     * Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
      */
     public GetRuleResponseContent get(String id, GetRuleRequestParameters request) {
         return this.rawClient.get(id, request).body();
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/rules&quot;&gt;rule&lt;/a&gt; details. Accepts a list of fields to include or exclude in the result.
+     * Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
      */
     public GetRuleResponseContent get(String id, GetRuleRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.get(id, request, requestOptions).body();
@@ -109,6 +123,13 @@ public class RulesClient {
      */
     public UpdateRuleResponseContent update(String id) {
         return this.rawClient.update(id).body();
+    }
+
+    /**
+     * Update an existing rule.
+     */
+    public UpdateRuleResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
     }
 
     /**

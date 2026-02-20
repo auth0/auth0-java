@@ -44,6 +44,13 @@ public class AsyncUserAttributeProfilesClient {
     /**
      * Retrieve a list of User Attribute Profiles. This endpoint supports Checkpoint pagination.
      */
+    public CompletableFuture<SyncPagingIterable<UserAttributeProfile>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a list of User Attribute Profiles. This endpoint supports Checkpoint pagination.
+     */
     public CompletableFuture<SyncPagingIterable<UserAttributeProfile>> list(
             ListUserAttributeProfileRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
@@ -136,6 +143,14 @@ public class AsyncUserAttributeProfilesClient {
      */
     public CompletableFuture<UpdateUserAttributeProfileResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update the details of a specific User attribute profile, such as name, user_id and user_attributes.
+     */
+    public CompletableFuture<UpdateUserAttributeProfileResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**

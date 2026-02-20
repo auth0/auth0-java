@@ -29,14 +29,14 @@ public class AsyncTokensClient {
     }
 
     /**
-     * Retrieves all scim tokens by its connection &lt;code&gt;id&lt;/code&gt;.
+     * Retrieves all scim tokens by its connection <code>id</code>.
      */
     public CompletableFuture<List<ScimTokenItem>> get(String id) {
         return this.rawClient.get(id).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieves all scim tokens by its connection &lt;code&gt;id&lt;/code&gt;.
+     * Retrieves all scim tokens by its connection <code>id</code>.
      */
     public CompletableFuture<List<ScimTokenItem>> get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
@@ -47,6 +47,13 @@ public class AsyncTokensClient {
      */
     public CompletableFuture<CreateScimTokenResponseContent> create(String id) {
         return this.rawClient.create(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Create a scim token for a scim client.
+     */
+    public CompletableFuture<CreateScimTokenResponseContent> create(String id, RequestOptions requestOptions) {
+        return this.rawClient.create(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -65,14 +72,14 @@ public class AsyncTokensClient {
     }
 
     /**
-     * Deletes a scim token by its connection &lt;code&gt;id&lt;/code&gt; and &lt;code&gt;tokenId&lt;/code&gt;.
+     * Deletes a scim token by its connection <code>id</code> and <code>tokenId</code>.
      */
     public CompletableFuture<Void> delete(String id, String tokenId) {
         return this.rawClient.delete(id, tokenId).thenApply(response -> response.body());
     }
 
     /**
-     * Deletes a scim token by its connection &lt;code&gt;id&lt;/code&gt; and &lt;code&gt;tokenId&lt;/code&gt;.
+     * Deletes a scim token by its connection <code>id</code> and <code>tokenId</code>.
      */
     public CompletableFuture<Void> delete(String id, String tokenId, RequestOptions requestOptions) {
         return this.rawClient.delete(id, tokenId, requestOptions).thenApply(response -> response.body());

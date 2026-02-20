@@ -64,6 +64,14 @@ public class AsyncRawConnectionProfilesClient {
      * Retrieve a list of Connection Profiles. This endpoint supports Checkpoint pagination.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ConnectionProfile>>> list(
+            RequestOptions requestOptions) {
+        return list(ListConnectionProfileRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve a list of Connection Profiles. This endpoint supports Checkpoint pagination.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ConnectionProfile>>> list(
             ListConnectionProfileRequestParameters request) {
         return list(request, null);
     }
@@ -81,6 +89,11 @@ public class AsyncRawConnectionProfilesClient {
                     httpUrl, "from", request.getFrom().orElse(null), false);
         }
         QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -180,10 +193,14 @@ public class AsyncRawConnectionProfilesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateConnectionProfileResponseContent>> create(
             CreateConnectionProfileRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("connection-profiles")
-                .build();
+                .addPathSegments("connection-profiles");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -192,7 +209,7 @@ public class AsyncRawConnectionProfilesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -276,12 +293,16 @@ public class AsyncRawConnectionProfilesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<ListConnectionProfileTemplateResponseContent>> listTemplates(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("connection-profiles/templates")
-                .build();
+                .addPathSegments("connection-profiles/templates");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -355,13 +376,17 @@ public class AsyncRawConnectionProfilesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetConnectionProfileTemplateResponseContent>> getTemplate(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connection-profiles/templates")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -439,13 +464,17 @@ public class AsyncRawConnectionProfilesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetConnectionProfileResponseContent>> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connection-profiles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -522,13 +551,17 @@ public class AsyncRawConnectionProfilesClient {
      * Delete a single Connection Profile specified by ID.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connection-profiles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -596,6 +629,14 @@ public class AsyncRawConnectionProfilesClient {
      * Update the details of a specific Connection Profile.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateConnectionProfileResponseContent>> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateConnectionProfileRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update the details of a specific Connection Profile.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateConnectionProfileResponseContent>> update(
             String id, UpdateConnectionProfileRequestContent request) {
         return update(id, request, null);
     }
@@ -605,11 +646,15 @@ public class AsyncRawConnectionProfilesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateConnectionProfileResponseContent>> update(
             String id, UpdateConnectionProfileRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connection-profiles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -618,7 +663,7 @@ public class AsyncRawConnectionProfilesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

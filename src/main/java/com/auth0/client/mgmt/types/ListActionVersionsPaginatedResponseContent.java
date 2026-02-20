@@ -185,5 +185,15 @@ public final class ListActionVersionsPaginatedResponseContent {
         public ListActionVersionsPaginatedResponseContent build() {
             return new ListActionVersionsPaginatedResponseContent(total, page, perPage, versions, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

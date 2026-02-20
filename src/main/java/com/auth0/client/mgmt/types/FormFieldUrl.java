@@ -154,6 +154,10 @@ public final class FormFieldUrl {
     public interface _FinalStage {
         FormFieldUrl build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage config(Optional<FormFieldUrlConfig> config);
 
         _FinalStage config(FormFieldUrlConfig config);
@@ -300,6 +304,18 @@ public final class FormFieldUrl {
         @java.lang.Override
         public FormFieldUrl build() {
             return new FormFieldUrl(id, category, type, config, label, hint, required, sensitive, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

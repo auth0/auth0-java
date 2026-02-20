@@ -152,5 +152,15 @@ public final class EmailProviderCredentialsSchemaApiKey {
         public EmailProviderCredentialsSchemaApiKey build() {
             return new EmailProviderCredentialsSchemaApiKey(apiKey, domain, region, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

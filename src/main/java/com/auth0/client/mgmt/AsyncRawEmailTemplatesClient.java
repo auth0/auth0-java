@@ -58,10 +58,14 @@ public class AsyncRawEmailTemplatesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateEmailTemplateResponseContent>> create(
             CreateEmailTemplateRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("email-templates")
-                .build();
+                .addPathSegments("email-templates");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -70,7 +74,7 @@ public class AsyncRawEmailTemplatesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -155,13 +159,17 @@ public class AsyncRawEmailTemplatesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetEmailTemplateResponseContent>> get(
             EmailTemplateNameEnum templateName, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("email-templates")
-                .addPathSegment(templateName.toString())
-                .build();
+                .addPathSegment(templateName.toString());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -240,11 +248,15 @@ public class AsyncRawEmailTemplatesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<SetEmailTemplateResponseContent>> set(
             EmailTemplateNameEnum templateName, SetEmailTemplateRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("email-templates")
-                .addPathSegment(templateName.toString())
-                .build();
+                .addPathSegment(templateName.toString());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -253,7 +265,7 @@ public class AsyncRawEmailTemplatesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -337,6 +349,14 @@ public class AsyncRawEmailTemplatesClient {
      * Modify an email template.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateEmailTemplateResponseContent>> update(
+            EmailTemplateNameEnum templateName, RequestOptions requestOptions) {
+        return update(templateName, UpdateEmailTemplateRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Modify an email template.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateEmailTemplateResponseContent>> update(
             EmailTemplateNameEnum templateName, UpdateEmailTemplateRequestContent request) {
         return update(templateName, request, null);
     }
@@ -348,11 +368,15 @@ public class AsyncRawEmailTemplatesClient {
             EmailTemplateNameEnum templateName,
             UpdateEmailTemplateRequestContent request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("email-templates")
-                .addPathSegment(templateName.toString())
-                .build();
+                .addPathSegment(templateName.toString());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -361,7 +385,7 @@ public class AsyncRawEmailTemplatesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

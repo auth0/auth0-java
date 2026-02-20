@@ -37,14 +37,14 @@ public class ScimConfigurationClient {
     }
 
     /**
-     * Retrieves a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Retrieves a scim configuration by its <code>connectionId</code>.
      */
     public GetScimConfigurationResponseContent get(String id) {
         return this.rawClient.get(id).body();
     }
 
     /**
-     * Retrieves a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Retrieves a scim configuration by its <code>connectionId</code>.
      */
     public GetScimConfigurationResponseContent get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).body();
@@ -55,6 +55,13 @@ public class ScimConfigurationClient {
      */
     public CreateScimConfigurationResponseContent create(String id) {
         return this.rawClient.create(id).body();
+    }
+
+    /**
+     * Create a scim configuration for a connection.
+     */
+    public CreateScimConfigurationResponseContent create(String id, RequestOptions requestOptions) {
+        return this.rawClient.create(id, requestOptions).body();
     }
 
     /**
@@ -74,28 +81,28 @@ public class ScimConfigurationClient {
     }
 
     /**
-     * Deletes a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Deletes a scim configuration by its <code>connectionId</code>.
      */
     public void delete(String id) {
         this.rawClient.delete(id).body();
     }
 
     /**
-     * Deletes a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Deletes a scim configuration by its <code>connectionId</code>.
      */
     public void delete(String id, RequestOptions requestOptions) {
         this.rawClient.delete(id, requestOptions).body();
     }
 
     /**
-     * Update a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Update a scim configuration by its <code>connectionId</code>.
      */
     public UpdateScimConfigurationResponseContent update(String id, UpdateScimConfigurationRequestContent request) {
         return this.rawClient.update(id, request).body();
     }
 
     /**
-     * Update a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Update a scim configuration by its <code>connectionId</code>.
      */
     public UpdateScimConfigurationResponseContent update(
             String id, UpdateScimConfigurationRequestContent request, RequestOptions requestOptions) {
@@ -103,14 +110,14 @@ public class ScimConfigurationClient {
     }
 
     /**
-     * Retrieves a scim configuration's default mapping by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Retrieves a scim configuration's default mapping by its <code>connectionId</code>.
      */
     public GetScimConfigurationDefaultMappingResponseContent getDefaultMapping(String id) {
         return this.rawClient.getDefaultMapping(id).body();
     }
 
     /**
-     * Retrieves a scim configuration's default mapping by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Retrieves a scim configuration's default mapping by its <code>connectionId</code>.
      */
     public GetScimConfigurationDefaultMappingResponseContent getDefaultMapping(
             String id, RequestOptions requestOptions) {

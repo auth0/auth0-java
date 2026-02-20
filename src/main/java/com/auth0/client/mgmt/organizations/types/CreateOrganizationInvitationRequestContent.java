@@ -194,6 +194,10 @@ public final class CreateOrganizationInvitationRequestContent {
     public interface _FinalStage {
         CreateOrganizationInvitationRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The id of the connection to force invitee to authenticate with.</p>
          */
@@ -415,6 +419,18 @@ public final class CreateOrganizationInvitationRequestContent {
                     roles,
                     sendInvitationEmail,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -89,6 +89,14 @@ public class AsyncEmailTemplatesClient {
      * Modify an email template.
      */
     public CompletableFuture<UpdateEmailTemplateResponseContent> update(
+            EmailTemplateNameEnum templateName, RequestOptions requestOptions) {
+        return this.rawClient.update(templateName, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Modify an email template.
+     */
+    public CompletableFuture<UpdateEmailTemplateResponseContent> update(
             EmailTemplateNameEnum templateName, UpdateEmailTemplateRequestContent request) {
         return this.rawClient.update(templateName, request).thenApply(response -> response.body());
     }

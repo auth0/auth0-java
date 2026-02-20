@@ -38,6 +38,13 @@ public class BindingsClient {
     /**
      * Retrieve the actions that are bound to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The list of actions returned reflects the order in which they will be executed during the appropriate flow.
      */
+    public SyncPagingIterable<ActionBinding> list(String triggerId, RequestOptions requestOptions) {
+        return this.rawClient.list(triggerId, requestOptions).body();
+    }
+
+    /**
+     * Retrieve the actions that are bound to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The list of actions returned reflects the order in which they will be executed during the appropriate flow.
+     */
     public SyncPagingIterable<ActionBinding> list(
             String triggerId, ListActionTriggerBindingsRequestParameters request) {
         return this.rawClient.list(triggerId, request).body();
@@ -56,6 +63,13 @@ public class BindingsClient {
      */
     public UpdateActionBindingsResponseContent updateMany(String triggerId) {
         return this.rawClient.updateMany(triggerId).body();
+    }
+
+    /**
+     * Update the actions that are bound (i.e. attached) to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The order in which the actions are provided will determine the order in which they are executed.
+     */
+    public UpdateActionBindingsResponseContent updateMany(String triggerId, RequestOptions requestOptions) {
+        return this.rawClient.updateMany(triggerId, requestOptions).body();
     }
 
     /**
