@@ -40,6 +40,8 @@ public final class ConnectionOptionsOidcMetadata {
 
     private final Optional<List<String>> displayValuesSupported;
 
+    private final Optional<List<String>> dpopSigningAlgValuesSupported;
+
     private final Optional<String> endSessionEndpoint;
 
     private final Optional<List<String>> grantTypesSupported;
@@ -108,6 +110,7 @@ public final class ConnectionOptionsOidcMetadata {
             Optional<Boolean> claimsParameterSupported,
             Optional<List<String>> claimsSupported,
             Optional<List<String>> displayValuesSupported,
+            Optional<List<String>> dpopSigningAlgValuesSupported,
             Optional<String> endSessionEndpoint,
             Optional<List<String>> grantTypesSupported,
             Optional<List<String>> idTokenEncryptionAlgValuesSupported,
@@ -145,6 +148,7 @@ public final class ConnectionOptionsOidcMetadata {
         this.claimsParameterSupported = claimsParameterSupported;
         this.claimsSupported = claimsSupported;
         this.displayValuesSupported = displayValuesSupported;
+        this.dpopSigningAlgValuesSupported = dpopSigningAlgValuesSupported;
         this.endSessionEndpoint = endSessionEndpoint;
         this.grantTypesSupported = grantTypesSupported;
         this.idTokenEncryptionAlgValuesSupported = idTokenEncryptionAlgValuesSupported;
@@ -210,6 +214,11 @@ public final class ConnectionOptionsOidcMetadata {
     @JsonProperty("display_values_supported")
     public Optional<List<String>> getDisplayValuesSupported() {
         return displayValuesSupported;
+    }
+
+    @JsonProperty("dpop_signing_alg_values_supported")
+    public Optional<List<String>> getDpopSigningAlgValuesSupported() {
+        return dpopSigningAlgValuesSupported;
     }
 
     @JsonProperty("end_session_endpoint")
@@ -386,6 +395,7 @@ public final class ConnectionOptionsOidcMetadata {
                 && claimsParameterSupported.equals(other.claimsParameterSupported)
                 && claimsSupported.equals(other.claimsSupported)
                 && displayValuesSupported.equals(other.displayValuesSupported)
+                && dpopSigningAlgValuesSupported.equals(other.dpopSigningAlgValuesSupported)
                 && endSessionEndpoint.equals(other.endSessionEndpoint)
                 && grantTypesSupported.equals(other.grantTypesSupported)
                 && idTokenEncryptionAlgValuesSupported.equals(other.idTokenEncryptionAlgValuesSupported)
@@ -427,6 +437,7 @@ public final class ConnectionOptionsOidcMetadata {
                 this.claimsParameterSupported,
                 this.claimsSupported,
                 this.displayValuesSupported,
+                this.dpopSigningAlgValuesSupported,
                 this.endSessionEndpoint,
                 this.grantTypesSupported,
                 this.idTokenEncryptionAlgValuesSupported,
@@ -507,6 +518,10 @@ public final class ConnectionOptionsOidcMetadata {
         _FinalStage displayValuesSupported(Optional<List<String>> displayValuesSupported);
 
         _FinalStage displayValuesSupported(List<String> displayValuesSupported);
+
+        _FinalStage dpopSigningAlgValuesSupported(Optional<List<String>> dpopSigningAlgValuesSupported);
+
+        _FinalStage dpopSigningAlgValuesSupported(List<String> dpopSigningAlgValuesSupported);
 
         _FinalStage endSessionEndpoint(Optional<String> endSessionEndpoint);
 
@@ -689,6 +704,8 @@ public final class ConnectionOptionsOidcMetadata {
 
         private Optional<String> endSessionEndpoint = Optional.empty();
 
+        private Optional<List<String>> dpopSigningAlgValuesSupported = Optional.empty();
+
         private Optional<List<String>> displayValuesSupported = Optional.empty();
 
         private Optional<List<String>> claimsSupported = Optional.empty();
@@ -715,6 +732,7 @@ public final class ConnectionOptionsOidcMetadata {
             claimsParameterSupported(other.getClaimsParameterSupported());
             claimsSupported(other.getClaimsSupported());
             displayValuesSupported(other.getDisplayValuesSupported());
+            dpopSigningAlgValuesSupported(other.getDpopSigningAlgValuesSupported());
             endSessionEndpoint(other.getEndSessionEndpoint());
             grantTypesSupported(other.getGrantTypesSupported());
             idTokenEncryptionAlgValuesSupported(other.getIdTokenEncryptionAlgValuesSupported());
@@ -1168,6 +1186,19 @@ public final class ConnectionOptionsOidcMetadata {
         }
 
         @java.lang.Override
+        public _FinalStage dpopSigningAlgValuesSupported(List<String> dpopSigningAlgValuesSupported) {
+            this.dpopSigningAlgValuesSupported = Optional.ofNullable(dpopSigningAlgValuesSupported);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "dpop_signing_alg_values_supported", nulls = Nulls.SKIP)
+        public _FinalStage dpopSigningAlgValuesSupported(Optional<List<String>> dpopSigningAlgValuesSupported) {
+            this.dpopSigningAlgValuesSupported = dpopSigningAlgValuesSupported;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage displayValuesSupported(List<String> displayValuesSupported) {
             this.displayValuesSupported = Optional.ofNullable(displayValuesSupported);
             return this;
@@ -1255,6 +1286,7 @@ public final class ConnectionOptionsOidcMetadata {
                     claimsParameterSupported,
                     claimsSupported,
                     displayValuesSupported,
+                    dpopSigningAlgValuesSupported,
                     endSessionEndpoint,
                     grantTypesSupported,
                     idTokenEncryptionAlgValuesSupported,
