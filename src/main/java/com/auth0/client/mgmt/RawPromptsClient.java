@@ -35,22 +35,26 @@ public class RawPromptsClient {
     }
 
     /**
-     * Retrieve details of the Universal Login configuration of your tenant. This includes the &lt;a href=&quot;https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first&quot;&gt;Identifier First Authentication&lt;/a&gt; and &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa&quot;&gt;WebAuthn with Device Biometrics for MFA&lt;/a&gt; features.
+     * Retrieve details of the Universal Login configuration of your tenant. This includes the <a href="https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first">Identifier First Authentication</a> and <a href="https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa">WebAuthn with Device Biometrics for MFA</a> features.
      */
     public ManagementApiHttpResponse<GetSettingsResponseContent> getSettings() {
         return getSettings(null);
     }
 
     /**
-     * Retrieve details of the Universal Login configuration of your tenant. This includes the &lt;a href=&quot;https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first&quot;&gt;Identifier First Authentication&lt;/a&gt; and &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa&quot;&gt;WebAuthn with Device Biometrics for MFA&lt;/a&gt; features.
+     * Retrieve details of the Universal Login configuration of your tenant. This includes the <a href="https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first">Identifier First Authentication</a> and <a href="https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa">WebAuthn with Device Biometrics for MFA</a> features.
      */
     public ManagementApiHttpResponse<GetSettingsResponseContent> getSettings(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("prompts")
-                .build();
+                .addPathSegments("prompts");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -91,14 +95,21 @@ public class RawPromptsClient {
     }
 
     /**
-     * Update the Universal Login configuration of your tenant. This includes the &lt;a href=&quot;https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first&quot;&gt;Identifier First Authentication&lt;/a&gt; and &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa&quot;&gt;WebAuthn with Device Biometrics for MFA&lt;/a&gt; features.
+     * Update the Universal Login configuration of your tenant. This includes the <a href="https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first">Identifier First Authentication</a> and <a href="https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa">WebAuthn with Device Biometrics for MFA</a> features.
      */
     public ManagementApiHttpResponse<UpdateSettingsResponseContent> updateSettings() {
         return updateSettings(UpdateSettingsRequestContent.builder().build());
     }
 
     /**
-     * Update the Universal Login configuration of your tenant. This includes the &lt;a href=&quot;https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first&quot;&gt;Identifier First Authentication&lt;/a&gt; and &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa&quot;&gt;WebAuthn with Device Biometrics for MFA&lt;/a&gt; features.
+     * Update the Universal Login configuration of your tenant. This includes the <a href="https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first">Identifier First Authentication</a> and <a href="https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa">WebAuthn with Device Biometrics for MFA</a> features.
+     */
+    public ManagementApiHttpResponse<UpdateSettingsResponseContent> updateSettings(RequestOptions requestOptions) {
+        return updateSettings(UpdateSettingsRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update the Universal Login configuration of your tenant. This includes the <a href="https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first">Identifier First Authentication</a> and <a href="https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa">WebAuthn with Device Biometrics for MFA</a> features.
      */
     public ManagementApiHttpResponse<UpdateSettingsResponseContent> updateSettings(
             UpdateSettingsRequestContent request) {
@@ -106,14 +117,18 @@ public class RawPromptsClient {
     }
 
     /**
-     * Update the Universal Login configuration of your tenant. This includes the &lt;a href=&quot;https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first&quot;&gt;Identifier First Authentication&lt;/a&gt; and &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa&quot;&gt;WebAuthn with Device Biometrics for MFA&lt;/a&gt; features.
+     * Update the Universal Login configuration of your tenant. This includes the <a href="https://auth0.com/docs/authenticate/login/auth0-universal-login/identifier-first">Identifier First Authentication</a> and <a href="https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa">WebAuthn with Device Biometrics for MFA</a> features.
      */
     public ManagementApiHttpResponse<UpdateSettingsResponseContent> updateSettings(
             UpdateSettingsRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("prompts")
-                .build();
+                .addPathSegments("prompts");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -122,7 +137,7 @@ public class RawPromptsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

@@ -313,7 +313,7 @@ public final class RotateClientSecretResponseContent {
     }
 
     /**
-     * @return Whether this client conforms to &lt;a href='https://auth0.com/docs/api-auth/tutorials/adoption'&gt;strict OIDC specifications&lt;/a&gt; (true) or uses legacy features (false).
+     * @return Whether this client conforms to <a href='https://auth0.com/docs/api-auth/tutorials/adoption'>strict OIDC specifications</a> (true) or uses legacy features (false).
      */
     @JsonProperty("oidc_conformant")
     public Optional<Boolean> getOidcConformant() {
@@ -337,7 +337,7 @@ public final class RotateClientSecretResponseContent {
     }
 
     /**
-     * @return Comma-separated list of allowed origins for use with &lt;a href='https://auth0.com/docs/cross-origin-authentication'&gt;Cross-Origin Authentication&lt;/a&gt;, &lt;a href='https://auth0.com/docs/flows/concepts/device-auth'&gt;Device Flow&lt;/a&gt;, and &lt;a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'&gt;web message response mode&lt;/a&gt;.
+     * @return Comma-separated list of allowed origins for use with <a href='https://auth0.com/docs/cross-origin-authentication'>Cross-Origin Authentication</a>, <a href='https://auth0.com/docs/flows/concepts/device-auth'>Device Flow</a>, and <a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'>web message response mode</a>.
      */
     @JsonProperty("web_origins")
     public Optional<List<String>> getWebOrigins() {
@@ -1106,7 +1106,7 @@ public final class RotateClientSecretResponseContent {
         }
 
         /**
-         * <p>Whether this client conforms to &lt;a href='https://auth0.com/docs/api-auth/tutorials/adoption'&gt;strict OIDC specifications&lt;/a&gt; (true) or uses legacy features (false).</p>
+         * <p>Whether this client conforms to <a href='https://auth0.com/docs/api-auth/tutorials/adoption'>strict OIDC specifications</a> (true) or uses legacy features (false).</p>
          */
         @JsonSetter(value = "oidc_conformant", nulls = Nulls.SKIP)
         public Builder oidcConformant(Optional<Boolean> oidcConformant) {
@@ -1148,7 +1148,7 @@ public final class RotateClientSecretResponseContent {
         }
 
         /**
-         * <p>Comma-separated list of allowed origins for use with &lt;a href='https://auth0.com/docs/cross-origin-authentication'&gt;Cross-Origin Authentication&lt;/a&gt;, &lt;a href='https://auth0.com/docs/flows/concepts/device-auth'&gt;Device Flow&lt;/a&gt;, and &lt;a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'&gt;web message response mode&lt;/a&gt;.</p>
+         * <p>Comma-separated list of allowed origins for use with <a href='https://auth0.com/docs/cross-origin-authentication'>Cross-Origin Authentication</a>, <a href='https://auth0.com/docs/flows/concepts/device-auth'>Device Flow</a>, and <a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'>web message response mode</a>.</p>
          */
         @JsonSetter(value = "web_origins", nulls = Nulls.SKIP)
         public Builder webOrigins(Optional<List<String>> webOrigins) {
@@ -1871,6 +1871,16 @@ public final class RotateClientSecretResponseContent {
                     resourceServerIdentifier,
                     asyncApprovalNotificationChannels,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

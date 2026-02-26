@@ -40,6 +40,14 @@ public class AsyncPermissionsClient {
      * Retrieve detailed list (name, description, resource server) of permissions granted by a specified user role.
      */
     public CompletableFuture<SyncPagingIterable<PermissionsResponsePayload>> list(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve detailed list (name, description, resource server) of permissions granted by a specified user role.
+     */
+    public CompletableFuture<SyncPagingIterable<PermissionsResponsePayload>> list(
             String id, ListRolePermissionsRequestParameters request) {
         return this.rawClient.list(id, request).thenApply(response -> response.body());
     }
@@ -53,14 +61,14 @@ public class AsyncPermissionsClient {
     }
 
     /**
-     * Add one or more &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions&quot;&gt;permissions&lt;/a&gt; to a specified user role.
+     * Add one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> to a specified user role.
      */
     public CompletableFuture<Void> add(String id, AddRolePermissionsRequestContent request) {
         return this.rawClient.add(id, request).thenApply(response -> response.body());
     }
 
     /**
-     * Add one or more &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions&quot;&gt;permissions&lt;/a&gt; to a specified user role.
+     * Add one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> to a specified user role.
      */
     public CompletableFuture<Void> add(
             String id, AddRolePermissionsRequestContent request, RequestOptions requestOptions) {
@@ -68,14 +76,14 @@ public class AsyncPermissionsClient {
     }
 
     /**
-     * Remove one or more &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions&quot;&gt;permissions&lt;/a&gt; from a specified user role.
+     * Remove one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> from a specified user role.
      */
     public CompletableFuture<Void> delete(String id, DeleteRolePermissionsRequestContent request) {
         return this.rawClient.delete(id, request).thenApply(response -> response.body());
     }
 
     /**
-     * Remove one or more &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions&quot;&gt;permissions&lt;/a&gt; from a specified user role.
+     * Remove one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> from a specified user role.
      */
     public CompletableFuture<Void> delete(
             String id, DeleteRolePermissionsRequestContent request, RequestOptions requestOptions) {

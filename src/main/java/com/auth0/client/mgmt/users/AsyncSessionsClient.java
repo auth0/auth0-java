@@ -38,6 +38,14 @@ public class AsyncSessionsClient {
      * Retrieve details for a user's sessions.
      */
     public CompletableFuture<SyncPagingIterable<SessionResponseContent>> list(
+            String userId, RequestOptions requestOptions) {
+        return this.rawClient.list(userId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve details for a user's sessions.
+     */
+    public CompletableFuture<SyncPagingIterable<SessionResponseContent>> list(
             String userId, ListUserSessionsRequestParameters request) {
         return this.rawClient.list(userId, request).thenApply(response -> response.body());
     }

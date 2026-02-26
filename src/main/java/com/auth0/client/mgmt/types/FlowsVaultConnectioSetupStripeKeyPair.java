@@ -99,6 +99,10 @@ public final class FlowsVaultConnectioSetupStripeKeyPair {
 
     public interface _FinalStage {
         FlowsVaultConnectioSetupStripeKeyPair build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -146,6 +150,18 @@ public final class FlowsVaultConnectioSetupStripeKeyPair {
         @java.lang.Override
         public FlowsVaultConnectioSetupStripeKeyPair build() {
             return new FlowsVaultConnectioSetupStripeKeyPair(type, privateKey, publicKey, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

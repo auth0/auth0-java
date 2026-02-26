@@ -421,5 +421,15 @@ public final class UpdateFormRequestContent {
             return new UpdateFormRequestContent(
                     name, messages, languages, translations, nodes, start, ending, style, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

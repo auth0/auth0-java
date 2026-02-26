@@ -160,6 +160,10 @@ public final class GetJobGenericErrorResponseContent {
     public interface _FinalStage {
         GetJobGenericErrorResponseContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>When this job was created.</p>
          */
@@ -312,6 +316,18 @@ public final class GetJobGenericErrorResponseContent {
         public GetJobGenericErrorResponseContent build() {
             return new GetJobGenericErrorResponseContent(
                     status, type, createdAt, id, connectionId, statusDetails, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

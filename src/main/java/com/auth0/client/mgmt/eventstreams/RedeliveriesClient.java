@@ -29,6 +29,10 @@ public class RedeliveriesClient {
         return this.rawClient.create(id).body();
     }
 
+    public CreateEventStreamRedeliveryResponseContent create(String id, RequestOptions requestOptions) {
+        return this.rawClient.create(id, requestOptions).body();
+    }
+
     public CreateEventStreamRedeliveryResponseContent create(
             String id, CreateEventStreamRedeliveryRequestContent request) {
         return this.rawClient.create(id, request).body();

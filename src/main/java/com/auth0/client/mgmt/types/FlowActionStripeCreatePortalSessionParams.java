@@ -100,6 +100,10 @@ public final class FlowActionStripeCreatePortalSessionParams {
     public interface _FinalStage {
         FlowActionStripeCreatePortalSessionParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage returnUrl(Optional<String> returnUrl);
 
         _FinalStage returnUrl(String returnUrl);
@@ -157,6 +161,18 @@ public final class FlowActionStripeCreatePortalSessionParams {
         public FlowActionStripeCreatePortalSessionParams build() {
             return new FlowActionStripeCreatePortalSessionParams(
                     connectionId, customerId, returnUrl, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

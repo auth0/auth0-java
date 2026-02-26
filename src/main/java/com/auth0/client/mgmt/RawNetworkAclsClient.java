@@ -58,6 +58,14 @@ public class RawNetworkAclsClient {
      * Get all access control list entries for your client.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<NetworkAclsResponseContent>> list(
+            RequestOptions requestOptions) {
+        return list(ListNetworkAclsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Get all access control list entries for your client.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<NetworkAclsResponseContent>> list(
             ListNetworkAclsRequestParameters request) {
         return list(request, null);
     }
@@ -75,6 +83,11 @@ public class RawNetworkAclsClient {
                 httpUrl, "per_page", request.getPerPage().orElse(50), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -143,10 +156,14 @@ public class RawNetworkAclsClient {
      */
     public ManagementApiHttpResponse<Void> create(
             CreateNetworkAclRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("network-acls")
-                .build();
+                .addPathSegments("network-acls");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -155,7 +172,7 @@ public class RawNetworkAclsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -214,13 +231,17 @@ public class RawNetworkAclsClient {
      * Get a specific access control list entry for your client.
      */
     public ManagementApiHttpResponse<GetNetworkAclsResponseContent> get(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("network-acls")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -276,11 +297,15 @@ public class RawNetworkAclsClient {
      */
     public ManagementApiHttpResponse<SetNetworkAclsResponseContent> set(
             String id, SetNetworkAclRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("network-acls")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -289,7 +314,7 @@ public class RawNetworkAclsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -347,13 +372,17 @@ public class RawNetworkAclsClient {
      * Delete existing access control list for your client.
      */
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("network-acls")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -407,6 +436,13 @@ public class RawNetworkAclsClient {
     /**
      * Update existing access control list for your client.
      */
+    public ManagementApiHttpResponse<UpdateNetworkAclResponseContent> update(String id, RequestOptions requestOptions) {
+        return update(id, UpdateNetworkAclRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update existing access control list for your client.
+     */
     public ManagementApiHttpResponse<UpdateNetworkAclResponseContent> update(
             String id, UpdateNetworkAclRequestContent request) {
         return update(id, request, null);
@@ -417,11 +453,15 @@ public class RawNetworkAclsClient {
      */
     public ManagementApiHttpResponse<UpdateNetworkAclResponseContent> update(
             String id, UpdateNetworkAclRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("network-acls")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -430,7 +470,7 @@ public class RawNetworkAclsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

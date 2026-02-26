@@ -36,6 +36,13 @@ public class GroupsClient {
     /**
      * List all groups to which this user belongs.
      */
+    public SyncPagingIterable<UserGroupsResponseSchema> get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).body();
+    }
+
+    /**
+     * List all groups to which this user belongs.
+     */
     public SyncPagingIterable<UserGroupsResponseSchema> get(String id, GetUserGroupsRequestParameters request) {
         return this.rawClient.get(id, request).body();
     }

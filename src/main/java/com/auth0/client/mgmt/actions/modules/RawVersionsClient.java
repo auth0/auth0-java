@@ -53,6 +53,14 @@ public class RawVersionsClient {
      * List all published versions of a specific Actions Module.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ActionModuleVersion>> list(
+            String id, RequestOptions requestOptions) {
+        return list(id, GetActionModuleVersionsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * List all published versions of a specific Actions Module.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<ActionModuleVersion>> list(
             String id, GetActionModuleVersionsRequestParameters request) {
         return list(id, request, null);
     }
@@ -70,6 +78,11 @@ public class RawVersionsClient {
         QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "per_page", request.getPerPage().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -141,14 +154,18 @@ public class RawVersionsClient {
      */
     public ManagementApiHttpResponse<CreateActionModuleVersionResponseContent> create(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/modules")
                 .addPathSegment(id)
-                .addPathSegments("versions")
-                .build();
+                .addPathSegments("versions");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -210,15 +227,19 @@ public class RawVersionsClient {
      */
     public ManagementApiHttpResponse<GetActionModuleVersionResponseContent> get(
             String id, String versionId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("actions/modules")
                 .addPathSegment(id)
                 .addPathSegments("versions")
-                .addPathSegment(versionId)
-                .build();
+                .addPathSegment(versionId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

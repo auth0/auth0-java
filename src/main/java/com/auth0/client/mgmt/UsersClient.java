@@ -108,10 +108,10 @@ public class UsersClient {
      * <li>Specify the number of users to retrieve per page and the page index</li>
      * </ul>
      * <p> &lt;!-- only v3 is available --&gt;</p>
-     * <p>The &lt;code&gt;q&lt;/code&gt; query parameter can be used to get users that match the specified criteria &lt;a href=&quot;https://auth0.com/docs/users/search/v3/query-syntax&quot;&gt;using query string syntax.&lt;/a&gt;</p>
-     * <p>&lt;a href=&quot;https://auth0.com/docs/users/search/v3&quot;&gt;Learn more about searching for users.&lt;/a&gt;</p>
-     * <p>Read about &lt;a href=&quot;https://auth0.com/docs/users/search/best-practices&quot;&gt;best practices&lt;/a&gt; when working with the API endpoints for retrieving users.</p>
-     * <p>Auth0 limits the number of users you can return. If you exceed this threshold, please redefine your search, use the &lt;a href=&quot;https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports&quot;&gt;export job&lt;/a&gt;, or the &lt;a href=&quot;https://auth0.com/docs/extensions/user-import-export&quot;&gt;User Import / Export&lt;/a&gt; extension.</p>
+     * <p>The <code>q</code> query parameter can be used to get users that match the specified criteria <a href="https://auth0.com/docs/users/search/v3/query-syntax">using query string syntax.</a></p>
+     * <p><a href="https://auth0.com/docs/users/search/v3">Learn more about searching for users.</a></p>
+     * <p>Read about <a href="https://auth0.com/docs/users/search/best-practices">best practices</a> when working with the API endpoints for retrieving users.</p>
+     * <p>Auth0 limits the number of users you can return. If you exceed this threshold, please redefine your search, use the <a href="https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports">export job</a>, or the <a href="https://auth0.com/docs/extensions/user-import-export">User Import / Export</a> extension.</p>
      */
     public SyncPagingIterable<UserResponseSchema> list() {
         return this.rawClient.list().body();
@@ -126,10 +126,28 @@ public class UsersClient {
      * <li>Specify the number of users to retrieve per page and the page index</li>
      * </ul>
      * <p> &lt;!-- only v3 is available --&gt;</p>
-     * <p>The &lt;code&gt;q&lt;/code&gt; query parameter can be used to get users that match the specified criteria &lt;a href=&quot;https://auth0.com/docs/users/search/v3/query-syntax&quot;&gt;using query string syntax.&lt;/a&gt;</p>
-     * <p>&lt;a href=&quot;https://auth0.com/docs/users/search/v3&quot;&gt;Learn more about searching for users.&lt;/a&gt;</p>
-     * <p>Read about &lt;a href=&quot;https://auth0.com/docs/users/search/best-practices&quot;&gt;best practices&lt;/a&gt; when working with the API endpoints for retrieving users.</p>
-     * <p>Auth0 limits the number of users you can return. If you exceed this threshold, please redefine your search, use the &lt;a href=&quot;https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports&quot;&gt;export job&lt;/a&gt;, or the &lt;a href=&quot;https://auth0.com/docs/extensions/user-import-export&quot;&gt;User Import / Export&lt;/a&gt; extension.</p>
+     * <p>The <code>q</code> query parameter can be used to get users that match the specified criteria <a href="https://auth0.com/docs/users/search/v3/query-syntax">using query string syntax.</a></p>
+     * <p><a href="https://auth0.com/docs/users/search/v3">Learn more about searching for users.</a></p>
+     * <p>Read about <a href="https://auth0.com/docs/users/search/best-practices">best practices</a> when working with the API endpoints for retrieving users.</p>
+     * <p>Auth0 limits the number of users you can return. If you exceed this threshold, please redefine your search, use the <a href="https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports">export job</a>, or the <a href="https://auth0.com/docs/extensions/user-import-export">User Import / Export</a> extension.</p>
+     */
+    public SyncPagingIterable<UserResponseSchema> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve details of users. It is possible to:
+     * <ul>
+     * <li>Specify a search criteria for users</li>
+     * <li>Sort the users to be returned</li>
+     * <li>Select the fields to be returned</li>
+     * <li>Specify the number of users to retrieve per page and the page index</li>
+     * </ul>
+     * <p> &lt;!-- only v3 is available --&gt;</p>
+     * <p>The <code>q</code> query parameter can be used to get users that match the specified criteria <a href="https://auth0.com/docs/users/search/v3/query-syntax">using query string syntax.</a></p>
+     * <p><a href="https://auth0.com/docs/users/search/v3">Learn more about searching for users.</a></p>
+     * <p>Read about <a href="https://auth0.com/docs/users/search/best-practices">best practices</a> when working with the API endpoints for retrieving users.</p>
+     * <p>Auth0 limits the number of users you can return. If you exceed this threshold, please redefine your search, use the <a href="https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports">export job</a>, or the <a href="https://auth0.com/docs/extensions/user-import-export">User Import / Export</a> extension.</p>
      */
     public SyncPagingIterable<UserResponseSchema> list(ListUsersRequestParameters request) {
         return this.rawClient.list(request).body();
@@ -144,10 +162,10 @@ public class UsersClient {
      * <li>Specify the number of users to retrieve per page and the page index</li>
      * </ul>
      * <p> &lt;!-- only v3 is available --&gt;</p>
-     * <p>The &lt;code&gt;q&lt;/code&gt; query parameter can be used to get users that match the specified criteria &lt;a href=&quot;https://auth0.com/docs/users/search/v3/query-syntax&quot;&gt;using query string syntax.&lt;/a&gt;</p>
-     * <p>&lt;a href=&quot;https://auth0.com/docs/users/search/v3&quot;&gt;Learn more about searching for users.&lt;/a&gt;</p>
-     * <p>Read about &lt;a href=&quot;https://auth0.com/docs/users/search/best-practices&quot;&gt;best practices&lt;/a&gt; when working with the API endpoints for retrieving users.</p>
-     * <p>Auth0 limits the number of users you can return. If you exceed this threshold, please redefine your search, use the &lt;a href=&quot;https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports&quot;&gt;export job&lt;/a&gt;, or the &lt;a href=&quot;https://auth0.com/docs/extensions/user-import-export&quot;&gt;User Import / Export&lt;/a&gt; extension.</p>
+     * <p>The <code>q</code> query parameter can be used to get users that match the specified criteria <a href="https://auth0.com/docs/users/search/v3/query-syntax">using query string syntax.</a></p>
+     * <p><a href="https://auth0.com/docs/users/search/v3">Learn more about searching for users.</a></p>
+     * <p>Read about <a href="https://auth0.com/docs/users/search/best-practices">best practices</a> when working with the API endpoints for retrieving users.</p>
+     * <p>Auth0 limits the number of users you can return. If you exceed this threshold, please redefine your search, use the <a href="https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports">export job</a>, or the <a href="https://auth0.com/docs/extensions/user-import-export">User Import / Export</a> extension.</p>
      */
     public SyncPagingIterable<UserResponseSchema> list(
             ListUsersRequestParameters request, RequestOptions requestOptions) {
@@ -155,16 +173,16 @@ public class UsersClient {
     }
 
     /**
-     * Create a new user for a given &lt;a href=&quot;https://auth0.com/docs/connections/database&quot;&gt;database&lt;/a&gt; or &lt;a href=&quot;https://auth0.com/docs/connections/passwordless&quot;&gt;passwordless&lt;/a&gt; connection.
-     * <p>Note: &lt;code&gt;connection&lt;/code&gt; is required but other parameters such as &lt;code&gt;email&lt;/code&gt; and &lt;code&gt;password&lt;/code&gt; are dependent upon the type of connection.</p>
+     * Create a new user for a given <a href="https://auth0.com/docs/connections/database">database</a> or <a href="https://auth0.com/docs/connections/passwordless">passwordless</a> connection.
+     * <p>Note: <code>connection</code> is required but other parameters such as <code>email</code> and <code>password</code> are dependent upon the type of connection.</p>
      */
     public CreateUserResponseContent create(CreateUserRequestContent request) {
         return this.rawClient.create(request).body();
     }
 
     /**
-     * Create a new user for a given &lt;a href=&quot;https://auth0.com/docs/connections/database&quot;&gt;database&lt;/a&gt; or &lt;a href=&quot;https://auth0.com/docs/connections/passwordless&quot;&gt;passwordless&lt;/a&gt; connection.
-     * <p>Note: &lt;code&gt;connection&lt;/code&gt; is required but other parameters such as &lt;code&gt;email&lt;/code&gt; and &lt;code&gt;password&lt;/code&gt; are dependent upon the type of connection.</p>
+     * Create a new user for a given <a href="https://auth0.com/docs/connections/database">database</a> or <a href="https://auth0.com/docs/connections/passwordless">passwordless</a> connection.
+     * <p>Note: <code>connection</code> is required but other parameters such as <code>email</code> and <code>password</code> are dependent upon the type of connection.</p>
      */
     public CreateUserResponseContent create(CreateUserRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).body();
@@ -190,35 +208,42 @@ public class UsersClient {
     }
 
     /**
-     * Retrieve user details. A list of fields to include or exclude may also be specified. For more information, see &lt;a href=&quot;https://auth0.com/docs/manage-users/user-search/retrieve-users-with-get-users-endpoint&quot;&gt;Retrieve Users with the Get Users Endpoint&lt;/a&gt;.
+     * Retrieve user details. A list of fields to include or exclude may also be specified. For more information, see <a href="https://auth0.com/docs/manage-users/user-search/retrieve-users-with-get-users-endpoint">Retrieve Users with the Get Users Endpoint</a>.
      */
     public GetUserResponseContent get(String id) {
         return this.rawClient.get(id).body();
     }
 
     /**
-     * Retrieve user details. A list of fields to include or exclude may also be specified. For more information, see &lt;a href=&quot;https://auth0.com/docs/manage-users/user-search/retrieve-users-with-get-users-endpoint&quot;&gt;Retrieve Users with the Get Users Endpoint&lt;/a&gt;.
+     * Retrieve user details. A list of fields to include or exclude may also be specified. For more information, see <a href="https://auth0.com/docs/manage-users/user-search/retrieve-users-with-get-users-endpoint">Retrieve Users with the Get Users Endpoint</a>.
+     */
+    public GetUserResponseContent get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).body();
+    }
+
+    /**
+     * Retrieve user details. A list of fields to include or exclude may also be specified. For more information, see <a href="https://auth0.com/docs/manage-users/user-search/retrieve-users-with-get-users-endpoint">Retrieve Users with the Get Users Endpoint</a>.
      */
     public GetUserResponseContent get(String id, GetUserRequestParameters request) {
         return this.rawClient.get(id, request).body();
     }
 
     /**
-     * Retrieve user details. A list of fields to include or exclude may also be specified. For more information, see &lt;a href=&quot;https://auth0.com/docs/manage-users/user-search/retrieve-users-with-get-users-endpoint&quot;&gt;Retrieve Users with the Get Users Endpoint&lt;/a&gt;.
+     * Retrieve user details. A list of fields to include or exclude may also be specified. For more information, see <a href="https://auth0.com/docs/manage-users/user-search/retrieve-users-with-get-users-endpoint">Retrieve Users with the Get Users Endpoint</a>.
      */
     public GetUserResponseContent get(String id, GetUserRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.get(id, request, requestOptions).body();
     }
 
     /**
-     * Delete a user by user ID. This action cannot be undone. For Auth0 Dashboard instructions, see &lt;a href=&quot;https://auth0.com/docs/manage-users/user-accounts/delete-users&quot;&gt;Delete Users&lt;/a&gt;.
+     * Delete a user by user ID. This action cannot be undone. For Auth0 Dashboard instructions, see <a href="https://auth0.com/docs/manage-users/user-accounts/delete-users">Delete Users</a>.
      */
     public void delete(String id) {
         this.rawClient.delete(id).body();
     }
 
     /**
-     * Delete a user by user ID. This action cannot be undone. For Auth0 Dashboard instructions, see &lt;a href=&quot;https://auth0.com/docs/manage-users/user-accounts/delete-users&quot;&gt;Delete Users&lt;/a&gt;.
+     * Delete a user by user ID. This action cannot be undone. For Auth0 Dashboard instructions, see <a href="https://auth0.com/docs/manage-users/user-accounts/delete-users">Delete Users</a>.
      */
     public void delete(String id, RequestOptions requestOptions) {
         this.rawClient.delete(id, requestOptions).body();
@@ -227,57 +252,57 @@ public class UsersClient {
     /**
      * Update a user.
      * <p>These are the attributes that can be updated at the root level:</p>
-     * <p>&lt;ul&gt;
-     *     &lt;li&gt;app_metadata&lt;/li&gt;
-     *     &lt;li&gt;blocked&lt;/li&gt;
-     *     &lt;li&gt;email&lt;/li&gt;
-     *     &lt;li&gt;email_verified&lt;/li&gt;
-     *     &lt;li&gt;family_name&lt;/li&gt;
-     *     &lt;li&gt;given_name&lt;/li&gt;
-     *     &lt;li&gt;name&lt;/li&gt;
-     *     &lt;li&gt;nickname&lt;/li&gt;
-     *     &lt;li&gt;password&lt;/li&gt;
-     *     &lt;li&gt;phone_number&lt;/li&gt;
-     *     &lt;li&gt;phone_verified&lt;/li&gt;
-     *     &lt;li&gt;picture&lt;/li&gt;
-     *     &lt;li&gt;username&lt;/li&gt;
-     *     &lt;li&gt;user_metadata&lt;/li&gt;
-     *     &lt;li&gt;verify_email&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     *     <li>app_metadata</li>
+     *     <li>blocked</li>
+     *     <li>email</li>
+     *     <li>email_verified</li>
+     *     <li>family_name</li>
+     *     <li>given_name</li>
+     *     <li>name</li>
+     *     <li>nickname</li>
+     *     <li>password</li>
+     *     <li>phone_number</li>
+     *     <li>phone_verified</li>
+     *     <li>picture</li>
+     *     <li>username</li>
+     *     <li>user_metadata</li>
+     *     <li>verify_email</li>
+     * </ul></p>
      * <p>Some considerations:</p>
-     * <p>&lt;ul&gt;
-     *     &lt;li&gt;The properties of the new object will replace the old ones.&lt;/li&gt;
-     *     &lt;li&gt;The metadata fields are an exception to this rule (&lt;code&gt;user_metadata&lt;/code&gt; and &lt;code&gt;app_metadata&lt;/code&gt;). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.&lt;/li&gt;
-     *     &lt;li&gt;If you are updating &lt;code&gt;email&lt;/code&gt;, &lt;code&gt;email_verified&lt;/code&gt;, &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;phone_verified&lt;/code&gt;, &lt;code&gt;username&lt;/code&gt; or &lt;code&gt;password&lt;/code&gt; of a secondary identity, you need to specify the &lt;code&gt;connection&lt;/code&gt; property too.&lt;/li&gt;
-     *     &lt;li&gt;If you are updating &lt;code&gt;email&lt;/code&gt; or &lt;code&gt;phone_number&lt;/code&gt; you can specify, optionally, the &lt;code&gt;client_id&lt;/code&gt; property.&lt;/li&gt;
-     *     &lt;li&gt;Updating &lt;code&gt;email_verified&lt;/code&gt; is not supported for enterprise and passwordless sms connections.&lt;/li&gt;
-     *     &lt;li&gt;Updating the &lt;code&gt;blocked&lt;/code&gt; to &lt;code&gt;false&lt;/code&gt; does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.&lt;/li&gt;
-     *     &lt;li&gt;Supported attributes can be unset by supplying &lt;code&gt;null&lt;/code&gt; as the value.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;h5&gt;Updating a field (non-metadata property)&lt;/h5&gt;
+     * <p><ul>
+     *     <li>The properties of the new object will replace the old ones.</li>
+     *     <li>The metadata fields are an exception to this rule (<code>user_metadata</code> and <code>app_metadata</code>). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.</li>
+     *     <li>If you are updating <code>email</code>, <code>email_verified</code>, <code>phone_number</code>, <code>phone_verified</code>, <code>username</code> or <code>password</code> of a secondary identity, you need to specify the <code>connection</code> property too.</li>
+     *     <li>If you are updating <code>email</code> or <code>phone_number</code> you can specify, optionally, the <code>client_id</code> property.</li>
+     *     <li>Updating <code>email_verified</code> is not supported for enterprise and passwordless sms connections.</li>
+     *     <li>Updating the <code>blocked</code> to <code>false</code> does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.</li>
+     *     <li>Supported attributes can be unset by supplying <code>null</code> as the value.</li>
+     * </ul></p>
+     * <p><h5>Updating a field (non-metadata property)</h5>
      * To mark the email address of a user as verified, the body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;email_verified&quot;: true }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating a user metadata root property&lt;/h5&gt;Let's assume that our test user has the following &lt;code&gt;user_metadata&lt;/code&gt;:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>To add the field &lt;code&gt;addresses&lt;/code&gt; the body to send should be:</p>
-     * <p>&lt;pre&gt;&lt;code&gt;{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>The modified object ends up with the following &lt;code&gt;user_metadata&lt;/code&gt; property:&lt;pre&gt;&lt;code&gt;{
+     * <pre><code>{ &quot;email_verified&quot;: true }</code></pre></p>
+     * <p><h5>Updating a user metadata root property</h5>Let's assume that our test user has the following <code>user_metadata</code>:
+     * <pre><code>{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }</code></pre></p>
+     * <p>To add the field <code>addresses</code> the body to send should be:</p>
+     * <p><pre><code>{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}</code></pre></p>
+     * <p>The modified object ends up with the following <code>user_metadata</code> property:<pre><code>{
      * &quot;user_metadata&quot;: {
      * &quot;profileCode&quot;: 1479,
      * &quot;addresses&quot;: { &quot;work_address&quot;: &quot;100 Industrial Way&quot; }
      * }
-     * }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating an inner user metadata property&lt;/h5&gt;If there's existing user metadata to which we want to add  &lt;code&gt;&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;&lt;/code&gt; (using the &lt;code&gt;addresses&lt;/code&gt; property) we should send the whole &lt;code&gt;addresses&lt;/code&gt; object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre></p>
+     * <p><h5>Updating an inner user metadata property</h5>If there's existing user metadata to which we want to add  <code>&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;</code> (using the <code>addresses</code> property) we should send the whole <code>addresses</code> object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:
+     * <pre><code>{
      *   &quot;user_metadata&quot;: {
      *     &quot;addresses&quot;: {
      *       &quot;work_address&quot;: &quot;100 Industrial Way&quot;,
      *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
      *     }
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>The modified object ends up with the following &lt;code&gt;user_metadata&lt;/code&gt; property:</p>
-     * <p>&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre></p>
+     * <p>The modified object ends up with the following <code>user_metadata</code> property:</p>
+     * <p><pre><code>{
      *   &quot;user_metadata&quot;: {
      *     &quot;profileCode&quot;: 1479,
      *     &quot;addresses&quot;: {
@@ -285,7 +310,7 @@ public class UsersClient {
      *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
      *     }
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;</p>
+     * }</code></pre></p>
      */
     public UpdateUserResponseContent update(String id) {
         return this.rawClient.update(id).body();
@@ -294,57 +319,57 @@ public class UsersClient {
     /**
      * Update a user.
      * <p>These are the attributes that can be updated at the root level:</p>
-     * <p>&lt;ul&gt;
-     *     &lt;li&gt;app_metadata&lt;/li&gt;
-     *     &lt;li&gt;blocked&lt;/li&gt;
-     *     &lt;li&gt;email&lt;/li&gt;
-     *     &lt;li&gt;email_verified&lt;/li&gt;
-     *     &lt;li&gt;family_name&lt;/li&gt;
-     *     &lt;li&gt;given_name&lt;/li&gt;
-     *     &lt;li&gt;name&lt;/li&gt;
-     *     &lt;li&gt;nickname&lt;/li&gt;
-     *     &lt;li&gt;password&lt;/li&gt;
-     *     &lt;li&gt;phone_number&lt;/li&gt;
-     *     &lt;li&gt;phone_verified&lt;/li&gt;
-     *     &lt;li&gt;picture&lt;/li&gt;
-     *     &lt;li&gt;username&lt;/li&gt;
-     *     &lt;li&gt;user_metadata&lt;/li&gt;
-     *     &lt;li&gt;verify_email&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     *     <li>app_metadata</li>
+     *     <li>blocked</li>
+     *     <li>email</li>
+     *     <li>email_verified</li>
+     *     <li>family_name</li>
+     *     <li>given_name</li>
+     *     <li>name</li>
+     *     <li>nickname</li>
+     *     <li>password</li>
+     *     <li>phone_number</li>
+     *     <li>phone_verified</li>
+     *     <li>picture</li>
+     *     <li>username</li>
+     *     <li>user_metadata</li>
+     *     <li>verify_email</li>
+     * </ul></p>
      * <p>Some considerations:</p>
-     * <p>&lt;ul&gt;
-     *     &lt;li&gt;The properties of the new object will replace the old ones.&lt;/li&gt;
-     *     &lt;li&gt;The metadata fields are an exception to this rule (&lt;code&gt;user_metadata&lt;/code&gt; and &lt;code&gt;app_metadata&lt;/code&gt;). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.&lt;/li&gt;
-     *     &lt;li&gt;If you are updating &lt;code&gt;email&lt;/code&gt;, &lt;code&gt;email_verified&lt;/code&gt;, &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;phone_verified&lt;/code&gt;, &lt;code&gt;username&lt;/code&gt; or &lt;code&gt;password&lt;/code&gt; of a secondary identity, you need to specify the &lt;code&gt;connection&lt;/code&gt; property too.&lt;/li&gt;
-     *     &lt;li&gt;If you are updating &lt;code&gt;email&lt;/code&gt; or &lt;code&gt;phone_number&lt;/code&gt; you can specify, optionally, the &lt;code&gt;client_id&lt;/code&gt; property.&lt;/li&gt;
-     *     &lt;li&gt;Updating &lt;code&gt;email_verified&lt;/code&gt; is not supported for enterprise and passwordless sms connections.&lt;/li&gt;
-     *     &lt;li&gt;Updating the &lt;code&gt;blocked&lt;/code&gt; to &lt;code&gt;false&lt;/code&gt; does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.&lt;/li&gt;
-     *     &lt;li&gt;Supported attributes can be unset by supplying &lt;code&gt;null&lt;/code&gt; as the value.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;h5&gt;Updating a field (non-metadata property)&lt;/h5&gt;
+     * <p><ul>
+     *     <li>The properties of the new object will replace the old ones.</li>
+     *     <li>The metadata fields are an exception to this rule (<code>user_metadata</code> and <code>app_metadata</code>). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.</li>
+     *     <li>If you are updating <code>email</code>, <code>email_verified</code>, <code>phone_number</code>, <code>phone_verified</code>, <code>username</code> or <code>password</code> of a secondary identity, you need to specify the <code>connection</code> property too.</li>
+     *     <li>If you are updating <code>email</code> or <code>phone_number</code> you can specify, optionally, the <code>client_id</code> property.</li>
+     *     <li>Updating <code>email_verified</code> is not supported for enterprise and passwordless sms connections.</li>
+     *     <li>Updating the <code>blocked</code> to <code>false</code> does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.</li>
+     *     <li>Supported attributes can be unset by supplying <code>null</code> as the value.</li>
+     * </ul></p>
+     * <p><h5>Updating a field (non-metadata property)</h5>
      * To mark the email address of a user as verified, the body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;email_verified&quot;: true }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating a user metadata root property&lt;/h5&gt;Let's assume that our test user has the following &lt;code&gt;user_metadata&lt;/code&gt;:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>To add the field &lt;code&gt;addresses&lt;/code&gt; the body to send should be:</p>
-     * <p>&lt;pre&gt;&lt;code&gt;{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>The modified object ends up with the following &lt;code&gt;user_metadata&lt;/code&gt; property:&lt;pre&gt;&lt;code&gt;{
+     * <pre><code>{ &quot;email_verified&quot;: true }</code></pre></p>
+     * <p><h5>Updating a user metadata root property</h5>Let's assume that our test user has the following <code>user_metadata</code>:
+     * <pre><code>{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }</code></pre></p>
+     * <p>To add the field <code>addresses</code> the body to send should be:</p>
+     * <p><pre><code>{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}</code></pre></p>
+     * <p>The modified object ends up with the following <code>user_metadata</code> property:<pre><code>{
      * &quot;user_metadata&quot;: {
      * &quot;profileCode&quot;: 1479,
      * &quot;addresses&quot;: { &quot;work_address&quot;: &quot;100 Industrial Way&quot; }
      * }
-     * }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating an inner user metadata property&lt;/h5&gt;If there's existing user metadata to which we want to add  &lt;code&gt;&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;&lt;/code&gt; (using the &lt;code&gt;addresses&lt;/code&gt; property) we should send the whole &lt;code&gt;addresses&lt;/code&gt; object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre></p>
+     * <p><h5>Updating an inner user metadata property</h5>If there's existing user metadata to which we want to add  <code>&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;</code> (using the <code>addresses</code> property) we should send the whole <code>addresses</code> object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:
+     * <pre><code>{
      *   &quot;user_metadata&quot;: {
      *     &quot;addresses&quot;: {
      *       &quot;work_address&quot;: &quot;100 Industrial Way&quot;,
      *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
      *     }
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>The modified object ends up with the following &lt;code&gt;user_metadata&lt;/code&gt; property:</p>
-     * <p>&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre></p>
+     * <p>The modified object ends up with the following <code>user_metadata</code> property:</p>
+     * <p><pre><code>{
      *   &quot;user_metadata&quot;: {
      *     &quot;profileCode&quot;: 1479,
      *     &quot;addresses&quot;: {
@@ -352,7 +377,74 @@ public class UsersClient {
      *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
      *     }
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;</p>
+     * }</code></pre></p>
+     */
+    public UpdateUserResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
+    }
+
+    /**
+     * Update a user.
+     * <p>These are the attributes that can be updated at the root level:</p>
+     * <p><ul>
+     *     <li>app_metadata</li>
+     *     <li>blocked</li>
+     *     <li>email</li>
+     *     <li>email_verified</li>
+     *     <li>family_name</li>
+     *     <li>given_name</li>
+     *     <li>name</li>
+     *     <li>nickname</li>
+     *     <li>password</li>
+     *     <li>phone_number</li>
+     *     <li>phone_verified</li>
+     *     <li>picture</li>
+     *     <li>username</li>
+     *     <li>user_metadata</li>
+     *     <li>verify_email</li>
+     * </ul></p>
+     * <p>Some considerations:</p>
+     * <p><ul>
+     *     <li>The properties of the new object will replace the old ones.</li>
+     *     <li>The metadata fields are an exception to this rule (<code>user_metadata</code> and <code>app_metadata</code>). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.</li>
+     *     <li>If you are updating <code>email</code>, <code>email_verified</code>, <code>phone_number</code>, <code>phone_verified</code>, <code>username</code> or <code>password</code> of a secondary identity, you need to specify the <code>connection</code> property too.</li>
+     *     <li>If you are updating <code>email</code> or <code>phone_number</code> you can specify, optionally, the <code>client_id</code> property.</li>
+     *     <li>Updating <code>email_verified</code> is not supported for enterprise and passwordless sms connections.</li>
+     *     <li>Updating the <code>blocked</code> to <code>false</code> does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.</li>
+     *     <li>Supported attributes can be unset by supplying <code>null</code> as the value.</li>
+     * </ul></p>
+     * <p><h5>Updating a field (non-metadata property)</h5>
+     * To mark the email address of a user as verified, the body to send should be:
+     * <pre><code>{ &quot;email_verified&quot;: true }</code></pre></p>
+     * <p><h5>Updating a user metadata root property</h5>Let's assume that our test user has the following <code>user_metadata</code>:
+     * <pre><code>{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }</code></pre></p>
+     * <p>To add the field <code>addresses</code> the body to send should be:</p>
+     * <p><pre><code>{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}</code></pre></p>
+     * <p>The modified object ends up with the following <code>user_metadata</code> property:<pre><code>{
+     * &quot;user_metadata&quot;: {
+     * &quot;profileCode&quot;: 1479,
+     * &quot;addresses&quot;: { &quot;work_address&quot;: &quot;100 Industrial Way&quot; }
+     * }
+     * }</code></pre></p>
+     * <p><h5>Updating an inner user metadata property</h5>If there's existing user metadata to which we want to add  <code>&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;</code> (using the <code>addresses</code> property) we should send the whole <code>addresses</code> object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:
+     * <pre><code>{
+     *   &quot;user_metadata&quot;: {
+     *     &quot;addresses&quot;: {
+     *       &quot;work_address&quot;: &quot;100 Industrial Way&quot;,
+     *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
+     *     }
+     *   }
+     * }</code></pre></p>
+     * <p>The modified object ends up with the following <code>user_metadata</code> property:</p>
+     * <p><pre><code>{
+     *   &quot;user_metadata&quot;: {
+     *     &quot;profileCode&quot;: 1479,
+     *     &quot;addresses&quot;: {
+     *       &quot;work_address&quot;: &quot;100 Industrial Way&quot;,
+     *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
+     *     }
+     *   }
+     * }</code></pre></p>
      */
     public UpdateUserResponseContent update(String id, UpdateUserRequestContent request) {
         return this.rawClient.update(id, request).body();
@@ -361,57 +453,57 @@ public class UsersClient {
     /**
      * Update a user.
      * <p>These are the attributes that can be updated at the root level:</p>
-     * <p>&lt;ul&gt;
-     *     &lt;li&gt;app_metadata&lt;/li&gt;
-     *     &lt;li&gt;blocked&lt;/li&gt;
-     *     &lt;li&gt;email&lt;/li&gt;
-     *     &lt;li&gt;email_verified&lt;/li&gt;
-     *     &lt;li&gt;family_name&lt;/li&gt;
-     *     &lt;li&gt;given_name&lt;/li&gt;
-     *     &lt;li&gt;name&lt;/li&gt;
-     *     &lt;li&gt;nickname&lt;/li&gt;
-     *     &lt;li&gt;password&lt;/li&gt;
-     *     &lt;li&gt;phone_number&lt;/li&gt;
-     *     &lt;li&gt;phone_verified&lt;/li&gt;
-     *     &lt;li&gt;picture&lt;/li&gt;
-     *     &lt;li&gt;username&lt;/li&gt;
-     *     &lt;li&gt;user_metadata&lt;/li&gt;
-     *     &lt;li&gt;verify_email&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     *     <li>app_metadata</li>
+     *     <li>blocked</li>
+     *     <li>email</li>
+     *     <li>email_verified</li>
+     *     <li>family_name</li>
+     *     <li>given_name</li>
+     *     <li>name</li>
+     *     <li>nickname</li>
+     *     <li>password</li>
+     *     <li>phone_number</li>
+     *     <li>phone_verified</li>
+     *     <li>picture</li>
+     *     <li>username</li>
+     *     <li>user_metadata</li>
+     *     <li>verify_email</li>
+     * </ul></p>
      * <p>Some considerations:</p>
-     * <p>&lt;ul&gt;
-     *     &lt;li&gt;The properties of the new object will replace the old ones.&lt;/li&gt;
-     *     &lt;li&gt;The metadata fields are an exception to this rule (&lt;code&gt;user_metadata&lt;/code&gt; and &lt;code&gt;app_metadata&lt;/code&gt;). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.&lt;/li&gt;
-     *     &lt;li&gt;If you are updating &lt;code&gt;email&lt;/code&gt;, &lt;code&gt;email_verified&lt;/code&gt;, &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;phone_verified&lt;/code&gt;, &lt;code&gt;username&lt;/code&gt; or &lt;code&gt;password&lt;/code&gt; of a secondary identity, you need to specify the &lt;code&gt;connection&lt;/code&gt; property too.&lt;/li&gt;
-     *     &lt;li&gt;If you are updating &lt;code&gt;email&lt;/code&gt; or &lt;code&gt;phone_number&lt;/code&gt; you can specify, optionally, the &lt;code&gt;client_id&lt;/code&gt; property.&lt;/li&gt;
-     *     &lt;li&gt;Updating &lt;code&gt;email_verified&lt;/code&gt; is not supported for enterprise and passwordless sms connections.&lt;/li&gt;
-     *     &lt;li&gt;Updating the &lt;code&gt;blocked&lt;/code&gt; to &lt;code&gt;false&lt;/code&gt; does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.&lt;/li&gt;
-     *     &lt;li&gt;Supported attributes can be unset by supplying &lt;code&gt;null&lt;/code&gt; as the value.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;h5&gt;Updating a field (non-metadata property)&lt;/h5&gt;
+     * <p><ul>
+     *     <li>The properties of the new object will replace the old ones.</li>
+     *     <li>The metadata fields are an exception to this rule (<code>user_metadata</code> and <code>app_metadata</code>). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.</li>
+     *     <li>If you are updating <code>email</code>, <code>email_verified</code>, <code>phone_number</code>, <code>phone_verified</code>, <code>username</code> or <code>password</code> of a secondary identity, you need to specify the <code>connection</code> property too.</li>
+     *     <li>If you are updating <code>email</code> or <code>phone_number</code> you can specify, optionally, the <code>client_id</code> property.</li>
+     *     <li>Updating <code>email_verified</code> is not supported for enterprise and passwordless sms connections.</li>
+     *     <li>Updating the <code>blocked</code> to <code>false</code> does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.</li>
+     *     <li>Supported attributes can be unset by supplying <code>null</code> as the value.</li>
+     * </ul></p>
+     * <p><h5>Updating a field (non-metadata property)</h5>
      * To mark the email address of a user as verified, the body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;email_verified&quot;: true }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating a user metadata root property&lt;/h5&gt;Let's assume that our test user has the following &lt;code&gt;user_metadata&lt;/code&gt;:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>To add the field &lt;code&gt;addresses&lt;/code&gt; the body to send should be:</p>
-     * <p>&lt;pre&gt;&lt;code&gt;{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>The modified object ends up with the following &lt;code&gt;user_metadata&lt;/code&gt; property:&lt;pre&gt;&lt;code&gt;{
+     * <pre><code>{ &quot;email_verified&quot;: true }</code></pre></p>
+     * <p><h5>Updating a user metadata root property</h5>Let's assume that our test user has the following <code>user_metadata</code>:
+     * <pre><code>{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }</code></pre></p>
+     * <p>To add the field <code>addresses</code> the body to send should be:</p>
+     * <p><pre><code>{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}</code></pre></p>
+     * <p>The modified object ends up with the following <code>user_metadata</code> property:<pre><code>{
      * &quot;user_metadata&quot;: {
      * &quot;profileCode&quot;: 1479,
      * &quot;addresses&quot;: { &quot;work_address&quot;: &quot;100 Industrial Way&quot; }
      * }
-     * }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating an inner user metadata property&lt;/h5&gt;If there's existing user metadata to which we want to add  &lt;code&gt;&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;&lt;/code&gt; (using the &lt;code&gt;addresses&lt;/code&gt; property) we should send the whole &lt;code&gt;addresses&lt;/code&gt; object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{
+     * }</code></pre></p>
+     * <p><h5>Updating an inner user metadata property</h5>If there's existing user metadata to which we want to add  <code>&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;</code> (using the <code>addresses</code> property) we should send the whole <code>addresses</code> object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:
+     * <pre><code>{
      *   &quot;user_metadata&quot;: {
      *     &quot;addresses&quot;: {
      *       &quot;work_address&quot;: &quot;100 Industrial Way&quot;,
      *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
      *     }
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>The modified object ends up with the following &lt;code&gt;user_metadata&lt;/code&gt; property:</p>
-     * <p>&lt;pre&gt;&lt;code&gt;{
+     * }</code></pre></p>
+     * <p>The modified object ends up with the following <code>user_metadata</code> property:</p>
+     * <p><pre><code>{
      *   &quot;user_metadata&quot;: {
      *     &quot;profileCode&quot;: 1479,
      *     &quot;addresses&quot;: {
@@ -419,7 +511,7 @@ public class UsersClient {
      *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
      *     }
      *   }
-     * }&lt;/code&gt;&lt;/pre&gt;</p>
+     * }</code></pre></p>
      */
     public UpdateUserResponseContent update(
             String id, UpdateUserRequestContent request, RequestOptions requestOptions) {
@@ -427,14 +519,14 @@ public class UsersClient {
     }
 
     /**
-     * Remove an existing multi-factor authentication (MFA) &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa&quot;&gt;recovery code&lt;/a&gt; and generate a new one. If a user cannot access the original device or account used for MFA enrollment, they can use a recovery code to authenticate.
+     * Remove an existing multi-factor authentication (MFA) <a href="https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa">recovery code</a> and generate a new one. If a user cannot access the original device or account used for MFA enrollment, they can use a recovery code to authenticate.
      */
     public RegenerateUsersRecoveryCodeResponseContent regenerateRecoveryCode(String id) {
         return this.rawClient.regenerateRecoveryCode(id).body();
     }
 
     /**
-     * Remove an existing multi-factor authentication (MFA) &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa&quot;&gt;recovery code&lt;/a&gt; and generate a new one. If a user cannot access the original device or account used for MFA enrollment, they can use a recovery code to authenticate.
+     * Remove an existing multi-factor authentication (MFA) <a href="https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa">recovery code</a> and generate a new one. If a user cannot access the original device or account used for MFA enrollment, they can use a recovery code to authenticate.
      */
     public RegenerateUsersRecoveryCodeResponseContent regenerateRecoveryCode(String id, RequestOptions requestOptions) {
         return this.rawClient.regenerateRecoveryCode(id, requestOptions).body();
@@ -445,6 +537,13 @@ public class UsersClient {
      */
     public void revokeAccess(String id) {
         this.rawClient.revokeAccess(id).body();
+    }
+
+    /**
+     * Revokes selected resources related to a user (sessions, refresh tokens, ...).
+     */
+    public void revokeAccess(String id, RequestOptions requestOptions) {
+        this.rawClient.revokeAccess(id, requestOptions).body();
     }
 
     /**

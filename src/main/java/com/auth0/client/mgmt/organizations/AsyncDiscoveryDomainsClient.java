@@ -44,6 +44,14 @@ public class AsyncDiscoveryDomainsClient {
      * Retrieve list of all organization discovery domains associated with the specified organization.
      */
     public CompletableFuture<SyncPagingIterable<OrganizationDiscoveryDomain>> list(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve list of all organization discovery domains associated with the specified organization.
+     */
+    public CompletableFuture<SyncPagingIterable<OrganizationDiscoveryDomain>> list(
             String id, ListOrganizationDiscoveryDomainsRequestParameters request) {
         return this.rawClient.list(id, request).thenApply(response -> response.body());
     }
@@ -118,7 +126,7 @@ public class AsyncDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
      */
     public CompletableFuture<UpdateOrganizationDiscoveryDomainResponseContent> update(
             String id, String discoveryDomainId) {
@@ -126,7 +134,15 @@ public class AsyncDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
+     */
+    public CompletableFuture<UpdateOrganizationDiscoveryDomainResponseContent> update(
+            String id, String discoveryDomainId, RequestOptions requestOptions) {
+        return this.rawClient.update(id, discoveryDomainId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
      */
     public CompletableFuture<UpdateOrganizationDiscoveryDomainResponseContent> update(
             String id, String discoveryDomainId, UpdateOrganizationDiscoveryDomainRequestContent request) {
@@ -134,7 +150,7 @@ public class AsyncDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
      */
     public CompletableFuture<UpdateOrganizationDiscoveryDomainResponseContent> update(
             String id,

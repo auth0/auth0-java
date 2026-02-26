@@ -63,6 +63,14 @@ public class AsyncRawRenderingClient {
      * Get render setting configurations for all screens.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ListAculsResponseContentItem>>> list(
+            RequestOptions requestOptions) {
+        return list(ListAculsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Get render setting configurations for all screens.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ListAculsResponseContentItem>>> list(
             ListAculsRequestParameters request) {
         return list(request, null);
     }
@@ -99,6 +107,11 @@ public class AsyncRawRenderingClient {
         if (!request.getRenderingMode().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "rendering_mode", request.getRenderingMode().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -192,7 +205,7 @@ public class AsyncRawRenderingClient {
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public CompletableFuture<ManagementApiHttpResponse<BulkUpdateAculResponseContent>> bulkUpdate(
             BulkUpdateAculRequestContent request) {
@@ -200,14 +213,18 @@ public class AsyncRawRenderingClient {
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public CompletableFuture<ManagementApiHttpResponse<BulkUpdateAculResponseContent>> bulkUpdate(
             BulkUpdateAculRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("prompts/rendering")
-                .build();
+                .addPathSegments("prompts/rendering");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -216,7 +233,7 @@ public class AsyncRawRenderingClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -300,16 +317,20 @@ public class AsyncRawRenderingClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetAculResponseContent>> get(
             PromptGroupNameEnum prompt, ScreenGroupNameEnum screen, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("prompts")
                 .addPathSegment(prompt.toString())
                 .addPathSegments("screen")
                 .addPathSegment(screen.toString())
-                .addPathSegments("rendering")
-                .build();
+                .addPathSegments("rendering");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -384,7 +405,7 @@ public class AsyncRawRenderingClient {
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateAculResponseContent>> update(
             PromptGroupNameEnum prompt, ScreenGroupNameEnum screen) {
@@ -392,7 +413,15 @@ public class AsyncRawRenderingClient {
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateAculResponseContent>> update(
+            PromptGroupNameEnum prompt, ScreenGroupNameEnum screen, RequestOptions requestOptions) {
+        return update(prompt, screen, UpdateAculRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateAculResponseContent>> update(
             PromptGroupNameEnum prompt, ScreenGroupNameEnum screen, UpdateAculRequestContent request) {
@@ -400,21 +429,25 @@ public class AsyncRawRenderingClient {
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateAculResponseContent>> update(
             PromptGroupNameEnum prompt,
             ScreenGroupNameEnum screen,
             UpdateAculRequestContent request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("prompts")
                 .addPathSegment(prompt.toString())
                 .addPathSegments("screen")
                 .addPathSegment(screen.toString())
-                .addPathSegments("rendering")
-                .build();
+                .addPathSegments("rendering");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -423,7 +456,7 @@ public class AsyncRawRenderingClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

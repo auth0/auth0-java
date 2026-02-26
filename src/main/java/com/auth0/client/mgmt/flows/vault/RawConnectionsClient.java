@@ -49,6 +49,11 @@ public class RawConnectionsClient {
     }
 
     public ManagementApiHttpResponse<SyncPagingIterable<FlowsVaultConnectionSummary>> list(
+            RequestOptions requestOptions) {
+        return list(ListFlowsVaultConnectionsRequestParameters.builder().build(), requestOptions);
+    }
+
+    public ManagementApiHttpResponse<SyncPagingIterable<FlowsVaultConnectionSummary>> list(
             ListFlowsVaultConnectionsRequestParameters request) {
         return list(request, null);
     }
@@ -63,6 +68,11 @@ public class RawConnectionsClient {
                 httpUrl, "per_page", request.getPerPage().orElse(50), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -128,10 +138,14 @@ public class RawConnectionsClient {
 
     public ManagementApiHttpResponse<CreateFlowsVaultConnectionResponseContent> create(
             CreateFlowsVaultConnectionRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("flows/vault/connections")
-                .build();
+                .addPathSegments("flows/vault/connections");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -140,7 +154,7 @@ public class RawConnectionsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -191,13 +205,17 @@ public class RawConnectionsClient {
 
     public ManagementApiHttpResponse<GetFlowsVaultConnectionResponseContent> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("flows/vault/connections")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -249,13 +267,17 @@ public class RawConnectionsClient {
     }
 
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("flows/vault/connections")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -301,17 +323,26 @@ public class RawConnectionsClient {
     }
 
     public ManagementApiHttpResponse<UpdateFlowsVaultConnectionResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateFlowsVaultConnectionRequestContent.builder().build(), requestOptions);
+    }
+
+    public ManagementApiHttpResponse<UpdateFlowsVaultConnectionResponseContent> update(
             String id, UpdateFlowsVaultConnectionRequestContent request) {
         return update(id, request, null);
     }
 
     public ManagementApiHttpResponse<UpdateFlowsVaultConnectionResponseContent> update(
             String id, UpdateFlowsVaultConnectionRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("flows/vault/connections")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -320,7 +351,7 @@ public class RawConnectionsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

@@ -116,6 +116,10 @@ public final class CreateBrandingPhoneProviderRequestContent {
     public interface _FinalStage {
         CreateBrandingPhoneProviderRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Whether the provider is enabled (false) or disabled (true).</p>
          */
@@ -203,6 +207,18 @@ public final class CreateBrandingPhoneProviderRequestContent {
         public CreateBrandingPhoneProviderRequestContent build() {
             return new CreateBrandingPhoneProviderRequestContent(
                     name, disabled, configuration, credentials, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

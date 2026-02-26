@@ -154,6 +154,10 @@ public final class FormFieldFile {
     public interface _FinalStage {
         FormFieldFile build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage config(Optional<FormFieldFileConfig> config);
 
         _FinalStage config(FormFieldFileConfig config);
@@ -301,6 +305,18 @@ public final class FormFieldFile {
         public FormFieldFile build() {
             return new FormFieldFile(
                     id, category, type, config, label, hint, required, sensitive, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

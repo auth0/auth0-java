@@ -38,14 +38,14 @@ public class AsyncScimConfigurationClient {
     }
 
     /**
-     * Retrieves a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Retrieves a scim configuration by its <code>connectionId</code>.
      */
     public CompletableFuture<GetScimConfigurationResponseContent> get(String id) {
         return this.rawClient.get(id).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieves a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Retrieves a scim configuration by its <code>connectionId</code>.
      */
     public CompletableFuture<GetScimConfigurationResponseContent> get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
@@ -56,6 +56,13 @@ public class AsyncScimConfigurationClient {
      */
     public CompletableFuture<CreateScimConfigurationResponseContent> create(String id) {
         return this.rawClient.create(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Create a scim configuration for a connection.
+     */
+    public CompletableFuture<CreateScimConfigurationResponseContent> create(String id, RequestOptions requestOptions) {
+        return this.rawClient.create(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -75,21 +82,21 @@ public class AsyncScimConfigurationClient {
     }
 
     /**
-     * Deletes a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Deletes a scim configuration by its <code>connectionId</code>.
      */
     public CompletableFuture<Void> delete(String id) {
         return this.rawClient.delete(id).thenApply(response -> response.body());
     }
 
     /**
-     * Deletes a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Deletes a scim configuration by its <code>connectionId</code>.
      */
     public CompletableFuture<Void> delete(String id, RequestOptions requestOptions) {
         return this.rawClient.delete(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**
-     * Update a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Update a scim configuration by its <code>connectionId</code>.
      */
     public CompletableFuture<UpdateScimConfigurationResponseContent> update(
             String id, UpdateScimConfigurationRequestContent request) {
@@ -97,7 +104,7 @@ public class AsyncScimConfigurationClient {
     }
 
     /**
-     * Update a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Update a scim configuration by its <code>connectionId</code>.
      */
     public CompletableFuture<UpdateScimConfigurationResponseContent> update(
             String id, UpdateScimConfigurationRequestContent request, RequestOptions requestOptions) {
@@ -105,14 +112,14 @@ public class AsyncScimConfigurationClient {
     }
 
     /**
-     * Retrieves a scim configuration's default mapping by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Retrieves a scim configuration's default mapping by its <code>connectionId</code>.
      */
     public CompletableFuture<GetScimConfigurationDefaultMappingResponseContent> getDefaultMapping(String id) {
         return this.rawClient.getDefaultMapping(id).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieves a scim configuration's default mapping by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Retrieves a scim configuration's default mapping by its <code>connectionId</code>.
      */
     public CompletableFuture<GetScimConfigurationDefaultMappingResponseContent> getDefaultMapping(
             String id, RequestOptions requestOptions) {

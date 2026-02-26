@@ -47,7 +47,7 @@ public final class ListCustomDomainsRequestParameters {
     }
 
     /**
-     * @return Query in &lt;a href =&quot;http://www.lucenetutorial.com/lucene-query-syntax.html&quot;&gt;Lucene query string syntax&lt;/a&gt;.
+     * @return Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("q")
@@ -83,7 +83,7 @@ public final class ListCustomDomainsRequestParameters {
     }
 
     /**
-     * @return Field to sort by. Only &lt;code&gt;domain:1&lt;/code&gt; (ascending order by domain) is supported at this time.
+     * @return Field to sort by. Only <code>domain:1</code> (ascending order by domain) is supported at this time.
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("sort")
@@ -175,7 +175,7 @@ public final class ListCustomDomainsRequestParameters {
         }
 
         /**
-         * <p>Query in &lt;a href =&quot;http://www.lucenetutorial.com/lucene-query-syntax.html&quot;&gt;Lucene query string syntax&lt;/a&gt;.</p>
+         * <p>Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.</p>
          */
         @JsonSetter(value = "q", nulls = Nulls.SKIP)
         public Builder q(@Nullable OptionalNullable<String> q) {
@@ -277,7 +277,7 @@ public final class ListCustomDomainsRequestParameters {
         }
 
         /**
-         * <p>Field to sort by. Only &lt;code&gt;domain:1&lt;/code&gt; (ascending order by domain) is supported at this time.</p>
+         * <p>Field to sort by. Only <code>domain:1</code> (ascending order by domain) is supported at this time.</p>
          */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
         public Builder sort(@Nullable OptionalNullable<String> sort) {
@@ -312,6 +312,16 @@ public final class ListCustomDomainsRequestParameters {
 
         public ListCustomDomainsRequestParameters build() {
             return new ListCustomDomainsRequestParameters(q, fields, includeFields, sort, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

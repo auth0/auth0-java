@@ -76,6 +76,10 @@ public final class UpdateRiskAssessmentsSettingsResponseContent {
 
     public interface _FinalStage {
         UpdateRiskAssessmentsSettingsResponseContent build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -108,6 +112,18 @@ public final class UpdateRiskAssessmentsSettingsResponseContent {
         @java.lang.Override
         public UpdateRiskAssessmentsSettingsResponseContent build() {
             return new UpdateRiskAssessmentsSettingsResponseContent(enabled, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

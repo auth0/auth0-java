@@ -94,6 +94,10 @@ public final class ClientDefaultOrganization {
     public interface _FinalStage {
         ClientDefaultOrganization build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The default Organization usage</p>
          */
@@ -172,6 +176,18 @@ public final class ClientDefaultOrganization {
         @java.lang.Override
         public ClientDefaultOrganization build() {
             return new ClientDefaultOrganization(organizationId, flows, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

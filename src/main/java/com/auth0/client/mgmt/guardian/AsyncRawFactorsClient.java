@@ -41,22 +41,26 @@ public class AsyncRawFactorsClient {
     }
 
     /**
-     * Retrieve details of all &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors&quot;&gt;multi-factor authentication factors&lt;/a&gt; associated with your tenant.
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors">multi-factor authentication factors</a> associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<GuardianFactor>>> list() {
         return list(null);
     }
 
     /**
-     * Retrieve details of all &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors&quot;&gt;multi-factor authentication factors&lt;/a&gt; associated with your tenant.
+     * Retrieve details of all <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors">multi-factor authentication factors</a> associated with your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<GuardianFactor>>> list(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors")
-                .build();
+                .addPathSegments("guardian/factors");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -129,11 +133,15 @@ public class AsyncRawFactorsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorResponseContent>> set(
             GuardianFactorNameEnum name, SetGuardianFactorRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("guardian/factors")
-                .addPathSegment(name.toString())
-                .build();
+                .addPathSegment(name.toString());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -142,7 +150,7 @@ public class AsyncRawFactorsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

@@ -145,7 +145,7 @@ public final class CreateUserResponseContent {
     }
 
     /**
-     * @return Phone number for this user. Follows the &lt;a href=&quot;https://en.wikipedia.org/wiki/E.164&quot;&gt;E.164 recommendation&lt;/a&gt;.
+     * @return Phone number for this user. Follows the <a href="https://en.wikipedia.org/wiki/E.164">E.164 recommendation</a>.
      */
     @JsonProperty("phone_number")
     public Optional<String> getPhoneNumber() {
@@ -466,7 +466,7 @@ public final class CreateUserResponseContent {
         }
 
         /**
-         * <p>Phone number for this user. Follows the &lt;a href=&quot;https://en.wikipedia.org/wiki/E.164&quot;&gt;E.164 recommendation&lt;/a&gt;.</p>
+         * <p>Phone number for this user. Follows the <a href="https://en.wikipedia.org/wiki/E.164">E.164 recommendation</a>.</p>
          */
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public Builder phoneNumber(Optional<String> phoneNumber) {
@@ -712,6 +712,16 @@ public final class CreateUserResponseContent {
                     givenName,
                     familyName,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -83,6 +83,10 @@ public final class FormFieldPaymentConfigCredentials {
 
     public interface _FinalStage {
         FormFieldPaymentConfigCredentials build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -120,6 +124,18 @@ public final class FormFieldPaymentConfigCredentials {
         @java.lang.Override
         public FormFieldPaymentConfigCredentials build() {
             return new FormFieldPaymentConfigCredentials(publicKey, privateKey, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

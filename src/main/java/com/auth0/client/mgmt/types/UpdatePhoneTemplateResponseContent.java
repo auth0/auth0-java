@@ -155,6 +155,10 @@ public final class UpdatePhoneTemplateResponseContent {
     public interface _FinalStage {
         UpdatePhoneTemplateResponseContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage channel(Optional<String> channel);
 
         _FinalStage channel(String channel);
@@ -277,6 +281,18 @@ public final class UpdatePhoneTemplateResponseContent {
         public UpdatePhoneTemplateResponseContent build() {
             return new UpdatePhoneTemplateResponseContent(
                     id, channel, customizable, tenant, content, type, disabled, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

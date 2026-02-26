@@ -64,6 +64,14 @@ public class AsyncRawAuthenticationMethodsClient {
      * Retrieve detailed list of authentication methods associated with a specified user.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<UserAuthenticationMethod>>> list(
+            String id, RequestOptions requestOptions) {
+        return list(id, ListUserAuthenticationMethodsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve detailed list of authentication methods associated with a specified user.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<UserAuthenticationMethod>>> list(
             String id, ListUserAuthenticationMethodsRequestParameters request) {
         return list(id, request, null);
     }
@@ -83,6 +91,11 @@ public class AsyncRawAuthenticationMethodsClient {
                 httpUrl, "per_page", request.getPerPage().orElse(50), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -189,12 +202,16 @@ public class AsyncRawAuthenticationMethodsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateUserAuthenticationMethodResponseContent>> create(
             String id, CreateUserAuthenticationMethodRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users")
                 .addPathSegment(id)
-                .addPathSegments("authentication-methods")
-                .build();
+                .addPathSegments("authentication-methods");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -203,7 +220,7 @@ public class AsyncRawAuthenticationMethodsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -281,8 +298,8 @@ public class AsyncRawAuthenticationMethodsClient {
     }
 
     /**
-     * Replace the specified user &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors&quot;&gt; authentication methods&lt;/a&gt; with supplied values.
-     * <pre><code>&lt;b&gt;Note&lt;/b&gt;: Authentication methods supplied through this action do not iterate on existing methods. Instead, any methods passed will overwrite the user&amp;#8217s existing settings.
+     * Replace the specified user <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors"> authentication methods</a> with supplied values.
+     * <pre><code><b>Note</b>: Authentication methods supplied through this action do not iterate on existing methods. Instead, any methods passed will overwrite the user&amp;#8217s existing settings.
      * </code></pre>
      */
     public CompletableFuture<ManagementApiHttpResponse<List<SetUserAuthenticationMethodResponseContent>>> set(
@@ -291,18 +308,22 @@ public class AsyncRawAuthenticationMethodsClient {
     }
 
     /**
-     * Replace the specified user &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors&quot;&gt; authentication methods&lt;/a&gt; with supplied values.
-     * <pre><code>&lt;b&gt;Note&lt;/b&gt;: Authentication methods supplied through this action do not iterate on existing methods. Instead, any methods passed will overwrite the user&amp;#8217s existing settings.
+     * Replace the specified user <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors"> authentication methods</a> with supplied values.
+     * <pre><code><b>Note</b>: Authentication methods supplied through this action do not iterate on existing methods. Instead, any methods passed will overwrite the user&amp;#8217s existing settings.
      * </code></pre>
      */
     public CompletableFuture<ManagementApiHttpResponse<List<SetUserAuthenticationMethodResponseContent>>> set(
             String id, List<SetUserAuthenticationMethods> request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users")
                 .addPathSegment(id)
-                .addPathSegments("authentication-methods")
-                .build();
+                .addPathSegments("authentication-methods");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -311,7 +332,7 @@ public class AsyncRawAuthenticationMethodsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -395,14 +416,18 @@ public class AsyncRawAuthenticationMethodsClient {
      * Remove all authentication methods (i.e., enrolled MFA factors) from the specified user account. This action cannot be undone.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> deleteAll(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users")
                 .addPathSegment(id)
-                .addPathSegments("authentication-methods")
-                .build();
+                .addPathSegments("authentication-methods");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -471,15 +496,19 @@ public class AsyncRawAuthenticationMethodsClient {
 
     public CompletableFuture<ManagementApiHttpResponse<GetUserAuthenticationMethodResponseContent>> get(
             String id, String authenticationMethodId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users")
                 .addPathSegment(id)
                 .addPathSegments("authentication-methods")
-                .addPathSegment(authenticationMethodId)
-                .build();
+                .addPathSegment(authenticationMethodId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -551,26 +580,30 @@ public class AsyncRawAuthenticationMethodsClient {
     }
 
     /**
-     * Remove the authentication method with the given ID from the specified user. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api&quot;&gt;Manage Authentication Methods with Management API&lt;/a&gt;.
+     * Remove the authentication method with the given ID from the specified user. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api">Manage Authentication Methods with Management API</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, String authenticationMethodId) {
         return delete(id, authenticationMethodId, null);
     }
 
     /**
-     * Remove the authentication method with the given ID from the specified user. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api&quot;&gt;Manage Authentication Methods with Management API&lt;/a&gt;.
+     * Remove the authentication method with the given ID from the specified user. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api">Manage Authentication Methods with Management API</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(
             String id, String authenticationMethodId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users")
                 .addPathSegment(id)
                 .addPathSegments("authentication-methods")
-                .addPathSegment(authenticationMethodId)
-                .build();
+                .addPathSegment(authenticationMethodId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -638,7 +671,7 @@ public class AsyncRawAuthenticationMethodsClient {
     }
 
     /**
-     * Modify the authentication method with the given ID from the specified user. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api&quot;&gt;Manage Authentication Methods with Management API&lt;/a&gt;.
+     * Modify the authentication method with the given ID from the specified user. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api">Manage Authentication Methods with Management API</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateUserAuthenticationMethodResponseContent>> update(
             String id, String authenticationMethodId) {
@@ -649,7 +682,19 @@ public class AsyncRawAuthenticationMethodsClient {
     }
 
     /**
-     * Modify the authentication method with the given ID from the specified user. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api&quot;&gt;Manage Authentication Methods with Management API&lt;/a&gt;.
+     * Modify the authentication method with the given ID from the specified user. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api">Manage Authentication Methods with Management API</a>.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateUserAuthenticationMethodResponseContent>> update(
+            String id, String authenticationMethodId, RequestOptions requestOptions) {
+        return update(
+                id,
+                authenticationMethodId,
+                UpdateUserAuthenticationMethodRequestContent.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Modify the authentication method with the given ID from the specified user. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api">Manage Authentication Methods with Management API</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateUserAuthenticationMethodResponseContent>> update(
             String id, String authenticationMethodId, UpdateUserAuthenticationMethodRequestContent request) {
@@ -657,20 +702,24 @@ public class AsyncRawAuthenticationMethodsClient {
     }
 
     /**
-     * Modify the authentication method with the given ID from the specified user. For more information, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api&quot;&gt;Manage Authentication Methods with Management API&lt;/a&gt;.
+     * Modify the authentication method with the given ID from the specified user. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/manage-mfa-auth0-apis/manage-authentication-methods-with-management-api">Manage Authentication Methods with Management API</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateUserAuthenticationMethodResponseContent>> update(
             String id,
             String authenticationMethodId,
             UpdateUserAuthenticationMethodRequestContent request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users")
                 .addPathSegment(id)
                 .addPathSegments("authentication-methods")
-                .addPathSegment(authenticationMethodId)
-                .build();
+                .addPathSegment(authenticationMethodId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -679,7 +728,7 @@ public class AsyncRawAuthenticationMethodsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

@@ -64,6 +64,13 @@ public class BrandingClient {
     /**
      * Update branding settings.
      */
+    public UpdateBrandingResponseContent update(RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).body();
+    }
+
+    /**
+     * Update branding settings.
+     */
     public UpdateBrandingResponseContent update(UpdateBrandingRequestContent request) {
         return this.rawClient.update(request).body();
     }

@@ -161,6 +161,10 @@ public final class PostClientCredentialRequestContent {
     public interface _FinalStage {
         PostClientCredentialRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Friendly name for a credential.</p>
          */
@@ -358,6 +362,18 @@ public final class PostClientCredentialRequestContent {
         public PostClientCredentialRequestContent build() {
             return new PostClientCredentialRequestContent(
                     credentialType, name, subjectDn, pem, alg, parseExpiryFromCert, expiresAt, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

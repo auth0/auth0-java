@@ -48,40 +48,60 @@ public class RawConnectionsClient {
     }
 
     /**
-     * Retrieves detailed list of all &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connections&lt;/a&gt; that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
+     * Retrieves detailed list of all <a href="https://auth0.com/docs/authenticate/identity-providers">connections</a> that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;Offset pagination&lt;/li&gt;
-     * &lt;li&gt;Checkpoint pagination&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 connections.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total amount of entries to retrieve when using the from parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ConnectionForList>> list() {
         return list(ListConnectionsQueryParameters.builder().build());
     }
 
     /**
-     * Retrieves detailed list of all &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connections&lt;/a&gt; that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
+     * Retrieves detailed list of all <a href="https://auth0.com/docs/authenticate/identity-providers">connections</a> that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;Offset pagination&lt;/li&gt;
-     * &lt;li&gt;Checkpoint pagination&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 connections.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total amount of entries to retrieve when using the from parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<ConnectionForList>> list(RequestOptions requestOptions) {
+        return list(ListConnectionsQueryParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieves detailed list of all <a href="https://auth0.com/docs/authenticate/identity-providers">connections</a> that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
+     * <p>This endpoint supports two types of pagination:</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
+     * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 connections.</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p>To search by checkpoint, use the following parameters:</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ConnectionForList>> list(
             ListConnectionsQueryParameters request) {
@@ -89,20 +109,20 @@ public class RawConnectionsClient {
     }
 
     /**
-     * Retrieves detailed list of all &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connections&lt;/a&gt; that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
+     * Retrieves detailed list of all <a href="https://auth0.com/docs/authenticate/identity-providers">connections</a> that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;Offset pagination&lt;/li&gt;
-     * &lt;li&gt;Checkpoint pagination&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 connections.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total amount of entries to retrieve when using the from parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<ConnectionForList>> list(
             ListConnectionsQueryParameters request, RequestOptions requestOptions) {
@@ -129,6 +149,11 @@ public class RawConnectionsClient {
         if (request.getStrategy().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "strategy", request.getStrategy().get(), true);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -186,23 +211,27 @@ public class RawConnectionsClient {
     }
 
     /**
-     * Creates a new connection according to the JSON object received in &lt;code&gt;body&lt;/code&gt;.
-     * <p>&lt;b&gt;Note:&lt;/b&gt; If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.</p>
+     * Creates a new connection according to the JSON object received in <code>body</code>.
+     * <p><b>Note:</b> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.</p>
      */
     public ManagementApiHttpResponse<CreateConnectionResponseContent> create(CreateConnectionRequestContent request) {
         return create(request, null);
     }
 
     /**
-     * Creates a new connection according to the JSON object received in &lt;code&gt;body&lt;/code&gt;.
-     * <p>&lt;b&gt;Note:&lt;/b&gt; If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.</p>
+     * Creates a new connection according to the JSON object received in <code>body</code>.
+     * <p><b>Note:</b> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.</p>
      */
     public ManagementApiHttpResponse<CreateConnectionResponseContent> create(
             CreateConnectionRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("connections")
-                .build();
+                .addPathSegments("connections");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -211,7 +240,7 @@ public class RawConnectionsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -259,14 +288,21 @@ public class RawConnectionsClient {
     }
 
     /**
-     * Retrieve details for a specified &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; along with options that can be used for identity provider configuration.
+     * Retrieve details for a specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> along with options that can be used for identity provider configuration.
      */
     public ManagementApiHttpResponse<GetConnectionResponseContent> get(String id) {
         return get(id, GetConnectionRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve details for a specified &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; along with options that can be used for identity provider configuration.
+     * Retrieve details for a specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> along with options that can be used for identity provider configuration.
+     */
+    public ManagementApiHttpResponse<GetConnectionResponseContent> get(String id, RequestOptions requestOptions) {
+        return get(id, GetConnectionRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve details for a specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> along with options that can be used for identity provider configuration.
      */
     public ManagementApiHttpResponse<GetConnectionResponseContent> get(
             String id, GetConnectionRequestParameters request) {
@@ -274,7 +310,7 @@ public class RawConnectionsClient {
     }
 
     /**
-     * Retrieve details for a specified &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; along with options that can be used for identity provider configuration.
+     * Retrieve details for a specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> along with options that can be used for identity provider configuration.
      */
     public ManagementApiHttpResponse<GetConnectionResponseContent> get(
             String id, GetConnectionRequestParameters request, RequestOptions requestOptions) {
@@ -289,6 +325,11 @@ public class RawConnectionsClient {
         if (!request.getIncludeFields().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -338,25 +379,29 @@ public class RawConnectionsClient {
     }
 
     /**
-     * Removes a specific &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
-     * <p>&lt;b&gt;Note:&lt;/b&gt; If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent &lt;a href=&quot;https://auth0.com/docs/api/management/v2/connections/post-connections&quot;&gt;create connection&lt;/a&gt; requests, if they use an identical connection name.</p>
+     * Removes a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+     * <p><b>Note:</b> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name.</p>
      */
     public ManagementApiHttpResponse<Void> delete(String id) {
         return delete(id, null);
     }
 
     /**
-     * Removes a specific &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
-     * <p>&lt;b&gt;Note:&lt;/b&gt; If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent &lt;a href=&quot;https://auth0.com/docs/api/management/v2/connections/post-connections&quot;&gt;create connection&lt;/a&gt; requests, if they use an identical connection name.</p>
+     * Removes a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+     * <p><b>Note:</b> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name.</p>
      */
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -398,16 +443,24 @@ public class RawConnectionsClient {
     }
 
     /**
-     * Update details for a specific &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt;, including option properties for identity provider configuration.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: If you use the &lt;code&gt;options&lt;/code&gt; parameter, the entire &lt;code&gt;options&lt;/code&gt; object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
+     * Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
+     * <p><b>Note</b>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
      */
     public ManagementApiHttpResponse<UpdateConnectionResponseContent> update(String id) {
         return update(id, UpdateConnectionRequestContent.builder().build());
     }
 
     /**
-     * Update details for a specific &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt;, including option properties for identity provider configuration.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: If you use the &lt;code&gt;options&lt;/code&gt; parameter, the entire &lt;code&gt;options&lt;/code&gt; object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
+     * Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
+     * <p><b>Note</b>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
+     */
+    public ManagementApiHttpResponse<UpdateConnectionResponseContent> update(String id, RequestOptions requestOptions) {
+        return update(id, UpdateConnectionRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
+     * <p><b>Note</b>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
      */
     public ManagementApiHttpResponse<UpdateConnectionResponseContent> update(
             String id, UpdateConnectionRequestContent request) {
@@ -415,16 +468,20 @@ public class RawConnectionsClient {
     }
 
     /**
-     * Update details for a specific &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt;, including option properties for identity provider configuration.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: If you use the &lt;code&gt;options&lt;/code&gt; parameter, the entire &lt;code&gt;options&lt;/code&gt; object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
+     * Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
+     * <p><b>Note</b>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
      */
     public ManagementApiHttpResponse<UpdateConnectionResponseContent> update(
             String id, UpdateConnectionRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -433,7 +490,7 @@ public class RawConnectionsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -484,24 +541,28 @@ public class RawConnectionsClient {
     }
 
     /**
-     * Retrieves the status of an ad/ldap connection referenced by its &lt;code&gt;ID&lt;/code&gt;. &lt;code&gt;200 OK&lt;/code&gt; http status code response is returned  when the connection is online, otherwise a &lt;code&gt;404&lt;/code&gt; status code is returned along with an error message
+     * Retrieves the status of an ad/ldap connection referenced by its <code>ID</code>. <code>200 OK</code> http status code response is returned  when the connection is online, otherwise a <code>404</code> status code is returned along with an error message
      */
     public ManagementApiHttpResponse<Void> checkStatus(String id) {
         return checkStatus(id, null);
     }
 
     /**
-     * Retrieves the status of an ad/ldap connection referenced by its &lt;code&gt;ID&lt;/code&gt;. &lt;code&gt;200 OK&lt;/code&gt; http status code response is returned  when the connection is online, otherwise a &lt;code&gt;404&lt;/code&gt; status code is returned along with an error message
+     * Retrieves the status of an ad/ldap connection referenced by its <code>ID</code>. <code>200 OK</code> http status code response is returned  when the connection is online, otherwise a <code>404</code> status code is returned along with an error message
      */
     public ManagementApiHttpResponse<Void> checkStatus(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
-                .addPathSegments("status")
-                .build();
+                .addPathSegments("status");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

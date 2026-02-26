@@ -128,6 +128,10 @@ public final class FlowActionAirtableUpdateRecordParams {
     public interface _FinalStage {
         FlowActionAirtableUpdateRecordParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage fields(Optional<Map<String, Object>> fields);
 
         _FinalStage fields(Map<String, Object> fields);
@@ -206,6 +210,18 @@ public final class FlowActionAirtableUpdateRecordParams {
         public FlowActionAirtableUpdateRecordParams build() {
             return new FlowActionAirtableUpdateRecordParams(
                     connectionId, baseId, tableName, recordId, fields, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -201,6 +201,10 @@ public final class ImportEncryptionKeyResponseContent {
     public interface _FinalStage {
         ImportEncryptionKeyResponseContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>ID of parent wrapping key</p>
          */
@@ -412,6 +416,18 @@ public final class ImportEncryptionKeyResponseContent {
         public ImportEncryptionKeyResponseContent build() {
             return new ImportEncryptionKeyResponseContent(
                     kid, type, state, createdAt, updatedAt, parentKid, publicKey, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

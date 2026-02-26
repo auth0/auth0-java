@@ -50,15 +50,19 @@ public class AsyncRawSynchronizationsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateDirectorySynchronizationResponseContent>> create(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
                 .addPathSegments("directory-provisioning")
-                .addPathSegments("synchronizations")
-                .build();
+                .addPathSegments("synchronizations");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

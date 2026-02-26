@@ -38,6 +38,13 @@ public class AsyncSettingsClient {
     /**
      * Retrieve tenant settings. A list of fields to include or exclude may also be specified.
      */
+    public CompletableFuture<GetTenantSettingsResponseContent> get(RequestOptions requestOptions) {
+        return this.rawClient.get(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve tenant settings. A list of fields to include or exclude may also be specified.
+     */
     public CompletableFuture<GetTenantSettingsResponseContent> get(GetTenantSettingsRequestParameters request) {
         return this.rawClient.get(request).thenApply(response -> response.body());
     }
@@ -55,6 +62,13 @@ public class AsyncSettingsClient {
      */
     public CompletableFuture<UpdateTenantSettingsResponseContent> update() {
         return this.rawClient.update().thenApply(response -> response.body());
+    }
+
+    /**
+     * Update settings for a tenant.
+     */
+    public CompletableFuture<UpdateTenantSettingsResponseContent> update(RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).thenApply(response -> response.body());
     }
 
     /**

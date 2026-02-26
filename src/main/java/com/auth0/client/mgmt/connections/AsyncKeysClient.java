@@ -53,6 +53,13 @@ public class AsyncKeysClient {
     /**
      * Rotates the connection keys for the Okta or OIDC connection strategies.
      */
+    public CompletableFuture<RotateConnectionsKeysResponseContent> rotate(String id, RequestOptions requestOptions) {
+        return this.rawClient.rotate(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Rotates the connection keys for the Okta or OIDC connection strategies.
+     */
     public CompletableFuture<RotateConnectionsKeysResponseContent> rotate(
             String id, OptionalNullable<RotateConnectionKeysRequestContent> request) {
         return this.rawClient.rotate(id, request).thenApply(response -> response.body());

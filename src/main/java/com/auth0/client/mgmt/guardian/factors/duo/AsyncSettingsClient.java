@@ -53,6 +53,13 @@ public class AsyncSettingsClient {
     /**
      * Set the DUO account configuration and other properties specific to this factor.
      */
+    public CompletableFuture<SetGuardianFactorDuoSettingsResponseContent> set(RequestOptions requestOptions) {
+        return this.rawClient.set(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Set the DUO account configuration and other properties specific to this factor.
+     */
     public CompletableFuture<SetGuardianFactorDuoSettingsResponseContent> set(
             SetGuardianFactorDuoSettingsRequestContent request) {
         return this.rawClient.set(request).thenApply(response -> response.body());
@@ -68,6 +75,10 @@ public class AsyncSettingsClient {
 
     public CompletableFuture<UpdateGuardianFactorDuoSettingsResponseContent> update() {
         return this.rawClient.update().thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<UpdateGuardianFactorDuoSettingsResponseContent> update(RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<UpdateGuardianFactorDuoSettingsResponseContent> update(

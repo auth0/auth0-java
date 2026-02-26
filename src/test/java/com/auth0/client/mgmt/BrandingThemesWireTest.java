@@ -57,11 +57,9 @@ public class BrandingThemesWireTest {
 
     @Test
     public void testCreate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"borders\":{\"button_border_radius\":1.1,\"button_border_weight\":1.1,\"buttons_style\":\"pill\",\"input_border_radius\":1.1,\"input_border_weight\":1.1,\"inputs_style\":\"pill\",\"show_widget_shadow\":true,\"widget_border_weight\":1.1,\"widget_corner_radius\":1.1},\"colors\":{\"base_focus_color\":\"base_focus_color\",\"base_hover_color\":\"base_hover_color\",\"body_text\":\"body_text\",\"captcha_widget_theme\":\"auto\",\"error\":\"error\",\"header\":\"header\",\"icons\":\"icons\",\"input_background\":\"input_background\",\"input_border\":\"input_border\",\"input_filled_text\":\"input_filled_text\",\"input_labels_placeholders\":\"input_labels_placeholders\",\"links_focused_components\":\"links_focused_components\",\"primary_button\":\"primary_button\",\"primary_button_label\":\"primary_button_label\",\"read_only_background\":\"read_only_background\",\"secondary_button_border\":\"secondary_button_border\",\"secondary_button_label\":\"secondary_button_label\",\"success\":\"success\",\"widget_background\":\"widget_background\",\"widget_border\":\"widget_border\"},\"displayName\":\"displayName\",\"fonts\":{\"body_text\":{\"bold\":true,\"size\":1.1},\"buttons_text\":{\"bold\":true,\"size\":1.1},\"font_url\":\"font_url\",\"input_labels\":{\"bold\":true,\"size\":1.1},\"links\":{\"bold\":true,\"size\":1.1},\"links_style\":\"normal\",\"reference_text_size\":1.1,\"subtitle\":{\"bold\":true,\"size\":1.1},\"title\":{\"bold\":true,\"size\":1.1}},\"page_background\":{\"background_color\":\"background_color\",\"background_image_url\":\"background_image_url\",\"page_layout\":\"center\"},\"themeId\":\"themeId\",\"widget\":{\"header_text_alignment\":\"center\",\"logo_height\":1.1,\"logo_position\":\"center\",\"logo_url\":\"logo_url\",\"social_buttons_layout\":\"bottom\"}}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource("/wire-tests/BrandingThemesWireTest_testCreate_response.json")));
         CreateBrandingThemeResponseContent response = client.branding()
                 .themes()
                 .create(CreateBrandingThemeRequestContent.builder()
@@ -141,79 +139,8 @@ public class BrandingThemesWireTest {
         Assertions.assertEquals("POST", request.getMethod());
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
-        String expectedRequestBody = ""
-                + "{\n"
-                + "  \"borders\": {\n"
-                + "    \"button_border_radius\": 1.1,\n"
-                + "    \"button_border_weight\": 1.1,\n"
-                + "    \"buttons_style\": \"pill\",\n"
-                + "    \"input_border_radius\": 1.1,\n"
-                + "    \"input_border_weight\": 1.1,\n"
-                + "    \"inputs_style\": \"pill\",\n"
-                + "    \"show_widget_shadow\": true,\n"
-                + "    \"widget_border_weight\": 1.1,\n"
-                + "    \"widget_corner_radius\": 1.1\n"
-                + "  },\n"
-                + "  \"colors\": {\n"
-                + "    \"body_text\": \"body_text\",\n"
-                + "    \"error\": \"error\",\n"
-                + "    \"header\": \"header\",\n"
-                + "    \"icons\": \"icons\",\n"
-                + "    \"input_background\": \"input_background\",\n"
-                + "    \"input_border\": \"input_border\",\n"
-                + "    \"input_filled_text\": \"input_filled_text\",\n"
-                + "    \"input_labels_placeholders\": \"input_labels_placeholders\",\n"
-                + "    \"links_focused_components\": \"links_focused_components\",\n"
-                + "    \"primary_button\": \"primary_button\",\n"
-                + "    \"primary_button_label\": \"primary_button_label\",\n"
-                + "    \"secondary_button_border\": \"secondary_button_border\",\n"
-                + "    \"secondary_button_label\": \"secondary_button_label\",\n"
-                + "    \"success\": \"success\",\n"
-                + "    \"widget_background\": \"widget_background\",\n"
-                + "    \"widget_border\": \"widget_border\"\n"
-                + "  },\n"
-                + "  \"fonts\": {\n"
-                + "    \"body_text\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"buttons_text\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"font_url\": \"font_url\",\n"
-                + "    \"input_labels\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"links\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"links_style\": \"normal\",\n"
-                + "    \"reference_text_size\": 1.1,\n"
-                + "    \"subtitle\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"title\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"page_background\": {\n"
-                + "    \"background_color\": \"background_color\",\n"
-                + "    \"background_image_url\": \"background_image_url\",\n"
-                + "    \"page_layout\": \"center\"\n"
-                + "  },\n"
-                + "  \"widget\": {\n"
-                + "    \"header_text_alignment\": \"center\",\n"
-                + "    \"logo_height\": 1.1,\n"
-                + "    \"logo_position\": \"center\",\n"
-                + "    \"logo_url\": \"logo_url\",\n"
-                + "    \"social_buttons_layout\": \"bottom\"\n"
-                + "  }\n"
-                + "}";
+        String expectedRequestBody =
+                TestResources.loadResource("/wire-tests/BrandingThemesWireTest_testCreate_request.json");
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
         Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
@@ -244,85 +171,8 @@ public class BrandingThemesWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"borders\": {\n"
-                + "    \"button_border_radius\": 1.1,\n"
-                + "    \"button_border_weight\": 1.1,\n"
-                + "    \"buttons_style\": \"pill\",\n"
-                + "    \"input_border_radius\": 1.1,\n"
-                + "    \"input_border_weight\": 1.1,\n"
-                + "    \"inputs_style\": \"pill\",\n"
-                + "    \"show_widget_shadow\": true,\n"
-                + "    \"widget_border_weight\": 1.1,\n"
-                + "    \"widget_corner_radius\": 1.1\n"
-                + "  },\n"
-                + "  \"colors\": {\n"
-                + "    \"base_focus_color\": \"base_focus_color\",\n"
-                + "    \"base_hover_color\": \"base_hover_color\",\n"
-                + "    \"body_text\": \"body_text\",\n"
-                + "    \"captcha_widget_theme\": \"auto\",\n"
-                + "    \"error\": \"error\",\n"
-                + "    \"header\": \"header\",\n"
-                + "    \"icons\": \"icons\",\n"
-                + "    \"input_background\": \"input_background\",\n"
-                + "    \"input_border\": \"input_border\",\n"
-                + "    \"input_filled_text\": \"input_filled_text\",\n"
-                + "    \"input_labels_placeholders\": \"input_labels_placeholders\",\n"
-                + "    \"links_focused_components\": \"links_focused_components\",\n"
-                + "    \"primary_button\": \"primary_button\",\n"
-                + "    \"primary_button_label\": \"primary_button_label\",\n"
-                + "    \"read_only_background\": \"read_only_background\",\n"
-                + "    \"secondary_button_border\": \"secondary_button_border\",\n"
-                + "    \"secondary_button_label\": \"secondary_button_label\",\n"
-                + "    \"success\": \"success\",\n"
-                + "    \"widget_background\": \"widget_background\",\n"
-                + "    \"widget_border\": \"widget_border\"\n"
-                + "  },\n"
-                + "  \"displayName\": \"displayName\",\n"
-                + "  \"fonts\": {\n"
-                + "    \"body_text\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"buttons_text\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"font_url\": \"font_url\",\n"
-                + "    \"input_labels\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"links\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"links_style\": \"normal\",\n"
-                + "    \"reference_text_size\": 1.1,\n"
-                + "    \"subtitle\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"title\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"page_background\": {\n"
-                + "    \"background_color\": \"background_color\",\n"
-                + "    \"background_image_url\": \"background_image_url\",\n"
-                + "    \"page_layout\": \"center\"\n"
-                + "  },\n"
-                + "  \"themeId\": \"themeId\",\n"
-                + "  \"widget\": {\n"
-                + "    \"header_text_alignment\": \"center\",\n"
-                + "    \"logo_height\": 1.1,\n"
-                + "    \"logo_position\": \"center\",\n"
-                + "    \"logo_url\": \"logo_url\",\n"
-                + "    \"social_buttons_layout\": \"bottom\"\n"
-                + "  }\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/BrandingThemesWireTest_testCreate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -356,11 +206,10 @@ public class BrandingThemesWireTest {
 
     @Test
     public void testGetDefault() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"borders\":{\"button_border_radius\":1.1,\"button_border_weight\":1.1,\"buttons_style\":\"pill\",\"input_border_radius\":1.1,\"input_border_weight\":1.1,\"inputs_style\":\"pill\",\"show_widget_shadow\":true,\"widget_border_weight\":1.1,\"widget_corner_radius\":1.1},\"colors\":{\"base_focus_color\":\"base_focus_color\",\"base_hover_color\":\"base_hover_color\",\"body_text\":\"body_text\",\"captcha_widget_theme\":\"auto\",\"error\":\"error\",\"header\":\"header\",\"icons\":\"icons\",\"input_background\":\"input_background\",\"input_border\":\"input_border\",\"input_filled_text\":\"input_filled_text\",\"input_labels_placeholders\":\"input_labels_placeholders\",\"links_focused_components\":\"links_focused_components\",\"primary_button\":\"primary_button\",\"primary_button_label\":\"primary_button_label\",\"read_only_background\":\"read_only_background\",\"secondary_button_border\":\"secondary_button_border\",\"secondary_button_label\":\"secondary_button_label\",\"success\":\"success\",\"widget_background\":\"widget_background\",\"widget_border\":\"widget_border\"},\"displayName\":\"displayName\",\"fonts\":{\"body_text\":{\"bold\":true,\"size\":1.1},\"buttons_text\":{\"bold\":true,\"size\":1.1},\"font_url\":\"font_url\",\"input_labels\":{\"bold\":true,\"size\":1.1},\"links\":{\"bold\":true,\"size\":1.1},\"links_style\":\"normal\",\"reference_text_size\":1.1,\"subtitle\":{\"bold\":true,\"size\":1.1},\"title\":{\"bold\":true,\"size\":1.1}},\"page_background\":{\"background_color\":\"background_color\",\"background_image_url\":\"background_image_url\",\"page_layout\":\"center\"},\"themeId\":\"themeId\",\"widget\":{\"header_text_alignment\":\"center\",\"logo_height\":1.1,\"logo_position\":\"center\",\"logo_url\":\"logo_url\",\"social_buttons_layout\":\"bottom\"}}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(
+                        TestResources.loadResource("/wire-tests/BrandingThemesWireTest_testGetDefault_response.json")));
         GetBrandingDefaultThemeResponseContent response =
                 client.branding().themes().getDefault();
         RecordedRequest request = server.takeRequest();
@@ -370,85 +219,8 @@ public class BrandingThemesWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"borders\": {\n"
-                + "    \"button_border_radius\": 1.1,\n"
-                + "    \"button_border_weight\": 1.1,\n"
-                + "    \"buttons_style\": \"pill\",\n"
-                + "    \"input_border_radius\": 1.1,\n"
-                + "    \"input_border_weight\": 1.1,\n"
-                + "    \"inputs_style\": \"pill\",\n"
-                + "    \"show_widget_shadow\": true,\n"
-                + "    \"widget_border_weight\": 1.1,\n"
-                + "    \"widget_corner_radius\": 1.1\n"
-                + "  },\n"
-                + "  \"colors\": {\n"
-                + "    \"base_focus_color\": \"base_focus_color\",\n"
-                + "    \"base_hover_color\": \"base_hover_color\",\n"
-                + "    \"body_text\": \"body_text\",\n"
-                + "    \"captcha_widget_theme\": \"auto\",\n"
-                + "    \"error\": \"error\",\n"
-                + "    \"header\": \"header\",\n"
-                + "    \"icons\": \"icons\",\n"
-                + "    \"input_background\": \"input_background\",\n"
-                + "    \"input_border\": \"input_border\",\n"
-                + "    \"input_filled_text\": \"input_filled_text\",\n"
-                + "    \"input_labels_placeholders\": \"input_labels_placeholders\",\n"
-                + "    \"links_focused_components\": \"links_focused_components\",\n"
-                + "    \"primary_button\": \"primary_button\",\n"
-                + "    \"primary_button_label\": \"primary_button_label\",\n"
-                + "    \"read_only_background\": \"read_only_background\",\n"
-                + "    \"secondary_button_border\": \"secondary_button_border\",\n"
-                + "    \"secondary_button_label\": \"secondary_button_label\",\n"
-                + "    \"success\": \"success\",\n"
-                + "    \"widget_background\": \"widget_background\",\n"
-                + "    \"widget_border\": \"widget_border\"\n"
-                + "  },\n"
-                + "  \"displayName\": \"displayName\",\n"
-                + "  \"fonts\": {\n"
-                + "    \"body_text\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"buttons_text\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"font_url\": \"font_url\",\n"
-                + "    \"input_labels\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"links\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"links_style\": \"normal\",\n"
-                + "    \"reference_text_size\": 1.1,\n"
-                + "    \"subtitle\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"title\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"page_background\": {\n"
-                + "    \"background_color\": \"background_color\",\n"
-                + "    \"background_image_url\": \"background_image_url\",\n"
-                + "    \"page_layout\": \"center\"\n"
-                + "  },\n"
-                + "  \"themeId\": \"themeId\",\n"
-                + "  \"widget\": {\n"
-                + "    \"header_text_alignment\": \"center\",\n"
-                + "    \"logo_height\": 1.1,\n"
-                + "    \"logo_position\": \"center\",\n"
-                + "    \"logo_url\": \"logo_url\",\n"
-                + "    \"social_buttons_layout\": \"bottom\"\n"
-                + "  }\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/BrandingThemesWireTest_testGetDefault_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -482,11 +254,9 @@ public class BrandingThemesWireTest {
 
     @Test
     public void testGet() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"borders\":{\"button_border_radius\":1.1,\"button_border_weight\":1.1,\"buttons_style\":\"pill\",\"input_border_radius\":1.1,\"input_border_weight\":1.1,\"inputs_style\":\"pill\",\"show_widget_shadow\":true,\"widget_border_weight\":1.1,\"widget_corner_radius\":1.1},\"colors\":{\"base_focus_color\":\"base_focus_color\",\"base_hover_color\":\"base_hover_color\",\"body_text\":\"body_text\",\"captcha_widget_theme\":\"auto\",\"error\":\"error\",\"header\":\"header\",\"icons\":\"icons\",\"input_background\":\"input_background\",\"input_border\":\"input_border\",\"input_filled_text\":\"input_filled_text\",\"input_labels_placeholders\":\"input_labels_placeholders\",\"links_focused_components\":\"links_focused_components\",\"primary_button\":\"primary_button\",\"primary_button_label\":\"primary_button_label\",\"read_only_background\":\"read_only_background\",\"secondary_button_border\":\"secondary_button_border\",\"secondary_button_label\":\"secondary_button_label\",\"success\":\"success\",\"widget_background\":\"widget_background\",\"widget_border\":\"widget_border\"},\"displayName\":\"displayName\",\"fonts\":{\"body_text\":{\"bold\":true,\"size\":1.1},\"buttons_text\":{\"bold\":true,\"size\":1.1},\"font_url\":\"font_url\",\"input_labels\":{\"bold\":true,\"size\":1.1},\"links\":{\"bold\":true,\"size\":1.1},\"links_style\":\"normal\",\"reference_text_size\":1.1,\"subtitle\":{\"bold\":true,\"size\":1.1},\"title\":{\"bold\":true,\"size\":1.1}},\"page_background\":{\"background_color\":\"background_color\",\"background_image_url\":\"background_image_url\",\"page_layout\":\"center\"},\"themeId\":\"themeId\",\"widget\":{\"header_text_alignment\":\"center\",\"logo_height\":1.1,\"logo_position\":\"center\",\"logo_url\":\"logo_url\",\"social_buttons_layout\":\"bottom\"}}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource("/wire-tests/BrandingThemesWireTest_testGet_response.json")));
         GetBrandingThemeResponseContent response = client.branding().themes().get("themeId");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -495,85 +265,8 @@ public class BrandingThemesWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"borders\": {\n"
-                + "    \"button_border_radius\": 1.1,\n"
-                + "    \"button_border_weight\": 1.1,\n"
-                + "    \"buttons_style\": \"pill\",\n"
-                + "    \"input_border_radius\": 1.1,\n"
-                + "    \"input_border_weight\": 1.1,\n"
-                + "    \"inputs_style\": \"pill\",\n"
-                + "    \"show_widget_shadow\": true,\n"
-                + "    \"widget_border_weight\": 1.1,\n"
-                + "    \"widget_corner_radius\": 1.1\n"
-                + "  },\n"
-                + "  \"colors\": {\n"
-                + "    \"base_focus_color\": \"base_focus_color\",\n"
-                + "    \"base_hover_color\": \"base_hover_color\",\n"
-                + "    \"body_text\": \"body_text\",\n"
-                + "    \"captcha_widget_theme\": \"auto\",\n"
-                + "    \"error\": \"error\",\n"
-                + "    \"header\": \"header\",\n"
-                + "    \"icons\": \"icons\",\n"
-                + "    \"input_background\": \"input_background\",\n"
-                + "    \"input_border\": \"input_border\",\n"
-                + "    \"input_filled_text\": \"input_filled_text\",\n"
-                + "    \"input_labels_placeholders\": \"input_labels_placeholders\",\n"
-                + "    \"links_focused_components\": \"links_focused_components\",\n"
-                + "    \"primary_button\": \"primary_button\",\n"
-                + "    \"primary_button_label\": \"primary_button_label\",\n"
-                + "    \"read_only_background\": \"read_only_background\",\n"
-                + "    \"secondary_button_border\": \"secondary_button_border\",\n"
-                + "    \"secondary_button_label\": \"secondary_button_label\",\n"
-                + "    \"success\": \"success\",\n"
-                + "    \"widget_background\": \"widget_background\",\n"
-                + "    \"widget_border\": \"widget_border\"\n"
-                + "  },\n"
-                + "  \"displayName\": \"displayName\",\n"
-                + "  \"fonts\": {\n"
-                + "    \"body_text\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"buttons_text\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"font_url\": \"font_url\",\n"
-                + "    \"input_labels\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"links\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"links_style\": \"normal\",\n"
-                + "    \"reference_text_size\": 1.1,\n"
-                + "    \"subtitle\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"title\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"page_background\": {\n"
-                + "    \"background_color\": \"background_color\",\n"
-                + "    \"background_image_url\": \"background_image_url\",\n"
-                + "    \"page_layout\": \"center\"\n"
-                + "  },\n"
-                + "  \"themeId\": \"themeId\",\n"
-                + "  \"widget\": {\n"
-                + "    \"header_text_alignment\": \"center\",\n"
-                + "    \"logo_height\": 1.1,\n"
-                + "    \"logo_position\": \"center\",\n"
-                + "    \"logo_url\": \"logo_url\",\n"
-                + "    \"social_buttons_layout\": \"bottom\"\n"
-                + "  }\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/BrandingThemesWireTest_testGet_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -616,11 +309,9 @@ public class BrandingThemesWireTest {
 
     @Test
     public void testUpdate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"borders\":{\"button_border_radius\":1.1,\"button_border_weight\":1.1,\"buttons_style\":\"pill\",\"input_border_radius\":1.1,\"input_border_weight\":1.1,\"inputs_style\":\"pill\",\"show_widget_shadow\":true,\"widget_border_weight\":1.1,\"widget_corner_radius\":1.1},\"colors\":{\"base_focus_color\":\"base_focus_color\",\"base_hover_color\":\"base_hover_color\",\"body_text\":\"body_text\",\"captcha_widget_theme\":\"auto\",\"error\":\"error\",\"header\":\"header\",\"icons\":\"icons\",\"input_background\":\"input_background\",\"input_border\":\"input_border\",\"input_filled_text\":\"input_filled_text\",\"input_labels_placeholders\":\"input_labels_placeholders\",\"links_focused_components\":\"links_focused_components\",\"primary_button\":\"primary_button\",\"primary_button_label\":\"primary_button_label\",\"read_only_background\":\"read_only_background\",\"secondary_button_border\":\"secondary_button_border\",\"secondary_button_label\":\"secondary_button_label\",\"success\":\"success\",\"widget_background\":\"widget_background\",\"widget_border\":\"widget_border\"},\"displayName\":\"displayName\",\"fonts\":{\"body_text\":{\"bold\":true,\"size\":1.1},\"buttons_text\":{\"bold\":true,\"size\":1.1},\"font_url\":\"font_url\",\"input_labels\":{\"bold\":true,\"size\":1.1},\"links\":{\"bold\":true,\"size\":1.1},\"links_style\":\"normal\",\"reference_text_size\":1.1,\"subtitle\":{\"bold\":true,\"size\":1.1},\"title\":{\"bold\":true,\"size\":1.1}},\"page_background\":{\"background_color\":\"background_color\",\"background_image_url\":\"background_image_url\",\"page_layout\":\"center\"},\"themeId\":\"themeId\",\"widget\":{\"header_text_alignment\":\"center\",\"logo_height\":1.1,\"logo_position\":\"center\",\"logo_url\":\"logo_url\",\"social_buttons_layout\":\"bottom\"}}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource("/wire-tests/BrandingThemesWireTest_testUpdate_response.json")));
         UpdateBrandingThemeResponseContent response = client.branding()
                 .themes()
                 .update(
@@ -702,79 +393,8 @@ public class BrandingThemesWireTest {
         Assertions.assertEquals("PATCH", request.getMethod());
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
-        String expectedRequestBody = ""
-                + "{\n"
-                + "  \"borders\": {\n"
-                + "    \"button_border_radius\": 1.1,\n"
-                + "    \"button_border_weight\": 1.1,\n"
-                + "    \"buttons_style\": \"pill\",\n"
-                + "    \"input_border_radius\": 1.1,\n"
-                + "    \"input_border_weight\": 1.1,\n"
-                + "    \"inputs_style\": \"pill\",\n"
-                + "    \"show_widget_shadow\": true,\n"
-                + "    \"widget_border_weight\": 1.1,\n"
-                + "    \"widget_corner_radius\": 1.1\n"
-                + "  },\n"
-                + "  \"colors\": {\n"
-                + "    \"body_text\": \"body_text\",\n"
-                + "    \"error\": \"error\",\n"
-                + "    \"header\": \"header\",\n"
-                + "    \"icons\": \"icons\",\n"
-                + "    \"input_background\": \"input_background\",\n"
-                + "    \"input_border\": \"input_border\",\n"
-                + "    \"input_filled_text\": \"input_filled_text\",\n"
-                + "    \"input_labels_placeholders\": \"input_labels_placeholders\",\n"
-                + "    \"links_focused_components\": \"links_focused_components\",\n"
-                + "    \"primary_button\": \"primary_button\",\n"
-                + "    \"primary_button_label\": \"primary_button_label\",\n"
-                + "    \"secondary_button_border\": \"secondary_button_border\",\n"
-                + "    \"secondary_button_label\": \"secondary_button_label\",\n"
-                + "    \"success\": \"success\",\n"
-                + "    \"widget_background\": \"widget_background\",\n"
-                + "    \"widget_border\": \"widget_border\"\n"
-                + "  },\n"
-                + "  \"fonts\": {\n"
-                + "    \"body_text\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"buttons_text\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"font_url\": \"font_url\",\n"
-                + "    \"input_labels\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"links\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"links_style\": \"normal\",\n"
-                + "    \"reference_text_size\": 1.1,\n"
-                + "    \"subtitle\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"title\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"page_background\": {\n"
-                + "    \"background_color\": \"background_color\",\n"
-                + "    \"background_image_url\": \"background_image_url\",\n"
-                + "    \"page_layout\": \"center\"\n"
-                + "  },\n"
-                + "  \"widget\": {\n"
-                + "    \"header_text_alignment\": \"center\",\n"
-                + "    \"logo_height\": 1.1,\n"
-                + "    \"logo_position\": \"center\",\n"
-                + "    \"logo_url\": \"logo_url\",\n"
-                + "    \"social_buttons_layout\": \"bottom\"\n"
-                + "  }\n"
-                + "}";
+        String expectedRequestBody =
+                TestResources.loadResource("/wire-tests/BrandingThemesWireTest_testUpdate_request.json");
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
         Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
@@ -805,85 +425,8 @@ public class BrandingThemesWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"borders\": {\n"
-                + "    \"button_border_radius\": 1.1,\n"
-                + "    \"button_border_weight\": 1.1,\n"
-                + "    \"buttons_style\": \"pill\",\n"
-                + "    \"input_border_radius\": 1.1,\n"
-                + "    \"input_border_weight\": 1.1,\n"
-                + "    \"inputs_style\": \"pill\",\n"
-                + "    \"show_widget_shadow\": true,\n"
-                + "    \"widget_border_weight\": 1.1,\n"
-                + "    \"widget_corner_radius\": 1.1\n"
-                + "  },\n"
-                + "  \"colors\": {\n"
-                + "    \"base_focus_color\": \"base_focus_color\",\n"
-                + "    \"base_hover_color\": \"base_hover_color\",\n"
-                + "    \"body_text\": \"body_text\",\n"
-                + "    \"captcha_widget_theme\": \"auto\",\n"
-                + "    \"error\": \"error\",\n"
-                + "    \"header\": \"header\",\n"
-                + "    \"icons\": \"icons\",\n"
-                + "    \"input_background\": \"input_background\",\n"
-                + "    \"input_border\": \"input_border\",\n"
-                + "    \"input_filled_text\": \"input_filled_text\",\n"
-                + "    \"input_labels_placeholders\": \"input_labels_placeholders\",\n"
-                + "    \"links_focused_components\": \"links_focused_components\",\n"
-                + "    \"primary_button\": \"primary_button\",\n"
-                + "    \"primary_button_label\": \"primary_button_label\",\n"
-                + "    \"read_only_background\": \"read_only_background\",\n"
-                + "    \"secondary_button_border\": \"secondary_button_border\",\n"
-                + "    \"secondary_button_label\": \"secondary_button_label\",\n"
-                + "    \"success\": \"success\",\n"
-                + "    \"widget_background\": \"widget_background\",\n"
-                + "    \"widget_border\": \"widget_border\"\n"
-                + "  },\n"
-                + "  \"displayName\": \"displayName\",\n"
-                + "  \"fonts\": {\n"
-                + "    \"body_text\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"buttons_text\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"font_url\": \"font_url\",\n"
-                + "    \"input_labels\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"links\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"links_style\": \"normal\",\n"
-                + "    \"reference_text_size\": 1.1,\n"
-                + "    \"subtitle\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    },\n"
-                + "    \"title\": {\n"
-                + "      \"bold\": true,\n"
-                + "      \"size\": 1.1\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"page_background\": {\n"
-                + "    \"background_color\": \"background_color\",\n"
-                + "    \"background_image_url\": \"background_image_url\",\n"
-                + "    \"page_layout\": \"center\"\n"
-                + "  },\n"
-                + "  \"themeId\": \"themeId\",\n"
-                + "  \"widget\": {\n"
-                + "    \"header_text_alignment\": \"center\",\n"
-                + "    \"logo_height\": 1.1,\n"
-                + "    \"logo_position\": \"center\",\n"
-                + "    \"logo_url\": \"logo_url\",\n"
-                + "    \"social_buttons_layout\": \"bottom\"\n"
-                + "  }\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/BrandingThemesWireTest_testUpdate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(

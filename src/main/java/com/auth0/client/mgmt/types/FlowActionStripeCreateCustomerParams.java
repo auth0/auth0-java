@@ -165,6 +165,10 @@ public final class FlowActionStripeCreateCustomerParams {
     public interface _FinalStage {
         FlowActionStripeCreateCustomerParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage taxId(Optional<FlowActionStripeTaxId> taxId);
 
         _FinalStage taxId(FlowActionStripeTaxId taxId);
@@ -361,6 +365,18 @@ public final class FlowActionStripeCreateCustomerParams {
                     address,
                     metadata,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

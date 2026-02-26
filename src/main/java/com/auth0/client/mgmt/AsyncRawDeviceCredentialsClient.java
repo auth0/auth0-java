@@ -47,14 +47,22 @@ public class AsyncRawDeviceCredentialsClient {
     }
 
     /**
-     * Retrieve device credential information (&lt;code&gt;public_key&lt;/code&gt;, &lt;code&gt;refresh_token&lt;/code&gt;, or &lt;code&gt;rotating_refresh_token&lt;/code&gt;) associated with a specific user.
+     * Retrieve device credential information (<code>public_key</code>, <code>refresh_token</code>, or <code>rotating_refresh_token</code>) associated with a specific user.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<DeviceCredential>>> list() {
         return list(ListDeviceCredentialsRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve device credential information (&lt;code&gt;public_key&lt;/code&gt;, &lt;code&gt;refresh_token&lt;/code&gt;, or &lt;code&gt;rotating_refresh_token&lt;/code&gt;) associated with a specific user.
+     * Retrieve device credential information (<code>public_key</code>, <code>refresh_token</code>, or <code>rotating_refresh_token</code>) associated with a specific user.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<DeviceCredential>>> list(
+            RequestOptions requestOptions) {
+        return list(ListDeviceCredentialsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve device credential information (<code>public_key</code>, <code>refresh_token</code>, or <code>rotating_refresh_token</code>) associated with a specific user.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<DeviceCredential>>> list(
             ListDeviceCredentialsRequestParameters request) {
@@ -62,7 +70,7 @@ public class AsyncRawDeviceCredentialsClient {
     }
 
     /**
-     * Retrieve device credential information (&lt;code&gt;public_key&lt;/code&gt;, &lt;code&gt;refresh_token&lt;/code&gt;, or &lt;code&gt;rotating_refresh_token&lt;/code&gt;) associated with a specific user.
+     * Retrieve device credential information (<code>public_key</code>, <code>refresh_token</code>, or <code>rotating_refresh_token</code>) associated with a specific user.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<DeviceCredential>>> list(
             ListDeviceCredentialsRequestParameters request, RequestOptions requestOptions) {
@@ -93,6 +101,11 @@ public class AsyncRawDeviceCredentialsClient {
         if (!request.getType().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "type", request.getType().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -182,8 +195,8 @@ public class AsyncRawDeviceCredentialsClient {
     }
 
     /**
-     * Create a device credential public key to manage refresh token rotation for a given &lt;code&gt;user_id&lt;/code&gt;. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
-     * <p>When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read &lt;a href=&quot;https://auth0.com/docs/get-started/tenant-settings/signing-keys&quot;&gt; Signing Keys&lt;/a&gt;.</p>
+     * Create a device credential public key to manage refresh token rotation for a given <code>user_id</code>. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
+     * <p>When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read <a href="https://auth0.com/docs/get-started/tenant-settings/signing-keys"> Signing Keys</a>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<CreatePublicKeyDeviceCredentialResponseContent>> createPublicKey(
             CreatePublicKeyDeviceCredentialRequestContent request) {
@@ -191,15 +204,19 @@ public class AsyncRawDeviceCredentialsClient {
     }
 
     /**
-     * Create a device credential public key to manage refresh token rotation for a given &lt;code&gt;user_id&lt;/code&gt;. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
-     * <p>When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read &lt;a href=&quot;https://auth0.com/docs/get-started/tenant-settings/signing-keys&quot;&gt; Signing Keys&lt;/a&gt;.</p>
+     * Create a device credential public key to manage refresh token rotation for a given <code>user_id</code>. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
+     * <p>When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read <a href="https://auth0.com/docs/get-started/tenant-settings/signing-keys"> Signing Keys</a>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<CreatePublicKeyDeviceCredentialResponseContent>> createPublicKey(
             CreatePublicKeyDeviceCredentialRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("device-credentials")
-                .build();
+                .addPathSegments("device-credentials");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -208,7 +225,7 @@ public class AsyncRawDeviceCredentialsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -291,13 +308,17 @@ public class AsyncRawDeviceCredentialsClient {
      * Permanently delete a device credential (such as a refresh token or public key) with the given ID.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("device-credentials")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

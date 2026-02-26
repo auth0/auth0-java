@@ -55,6 +55,11 @@ public class AsyncRawFlowsClient {
     }
 
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<FlowSummary>>> list(
+            RequestOptions requestOptions) {
+        return list(ListFlowsRequestParameters.builder().build(), requestOptions);
+    }
+
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<FlowSummary>>> list(
             ListFlowsRequestParameters request) {
         return list(request, null);
     }
@@ -76,6 +81,11 @@ public class AsyncRawFlowsClient {
         if (request.getHydrate().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "hydrate", request.getHydrate().get(), true);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -168,10 +178,14 @@ public class AsyncRawFlowsClient {
 
     public CompletableFuture<ManagementApiHttpResponse<CreateFlowResponseContent>> create(
             CreateFlowRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("flows")
-                .build();
+                .addPathSegments("flows");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -180,7 +194,7 @@ public class AsyncRawFlowsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -251,6 +265,11 @@ public class AsyncRawFlowsClient {
     }
 
     public CompletableFuture<ManagementApiHttpResponse<GetFlowResponseContent>> get(
+            String id, RequestOptions requestOptions) {
+        return get(id, GetFlowRequestParameters.builder().build(), requestOptions);
+    }
+
+    public CompletableFuture<ManagementApiHttpResponse<GetFlowResponseContent>> get(
             String id, GetFlowRequestParameters request) {
         return get(id, request, null);
     }
@@ -264,6 +283,11 @@ public class AsyncRawFlowsClient {
         if (request.getHydrate().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "hydrate", request.getHydrate().get(), true);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -340,13 +364,17 @@ public class AsyncRawFlowsClient {
     }
 
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("flows")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -418,17 +446,26 @@ public class AsyncRawFlowsClient {
     }
 
     public CompletableFuture<ManagementApiHttpResponse<UpdateFlowResponseContent>> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateFlowRequestContent.builder().build(), requestOptions);
+    }
+
+    public CompletableFuture<ManagementApiHttpResponse<UpdateFlowResponseContent>> update(
             String id, UpdateFlowRequestContent request) {
         return update(id, request, null);
     }
 
     public CompletableFuture<ManagementApiHttpResponse<UpdateFlowResponseContent>> update(
             String id, UpdateFlowRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("flows")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -437,7 +474,7 @@ public class AsyncRawFlowsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

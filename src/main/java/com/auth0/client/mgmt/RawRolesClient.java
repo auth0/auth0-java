@@ -47,7 +47,7 @@ public class RawRolesClient {
 
     /**
      * Retrieve detailed list of user roles created in your tenant.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<Role>> list() {
         return list(ListRolesRequestParameters.builder().build());
@@ -55,7 +55,15 @@ public class RawRolesClient {
 
     /**
      * Retrieve detailed list of user roles created in your tenant.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<Role>> list(RequestOptions requestOptions) {
+        return list(ListRolesRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve detailed list of user roles created in your tenant.
+     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<Role>> list(ListRolesRequestParameters request) {
         return list(request, null);
@@ -63,7 +71,7 @@ public class RawRolesClient {
 
     /**
      * Retrieve detailed list of user roles created in your tenant.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<Role>> list(
             ListRolesRequestParameters request, RequestOptions requestOptions) {
@@ -78,6 +86,11 @@ public class RawRolesClient {
         if (!request.getNameFilter().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "name_filter", request.getNameFilter().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -135,23 +148,27 @@ public class RawRolesClient {
     }
 
     /**
-     * Create a user role for &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;Role-Based Access Control&lt;/a&gt;.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
+     * Create a user role for <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+     * <p><b>Note</b>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
      */
     public ManagementApiHttpResponse<CreateRoleResponseContent> create(CreateRoleRequestContent request) {
         return create(request, null);
     }
 
     /**
-     * Create a user role for &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;Role-Based Access Control&lt;/a&gt;.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
+     * Create a user role for <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+     * <p><b>Note</b>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
      */
     public ManagementApiHttpResponse<CreateRoleResponseContent> create(
             CreateRoleRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("roles")
-                .build();
+                .addPathSegments("roles");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -160,7 +177,7 @@ public class RawRolesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -208,23 +225,27 @@ public class RawRolesClient {
     }
 
     /**
-     * Retrieve details about a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Retrieve details about a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public ManagementApiHttpResponse<GetRoleResponseContent> get(String id) {
         return get(id, null);
     }
 
     /**
-     * Retrieve details about a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Retrieve details about a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public ManagementApiHttpResponse<GetRoleResponseContent> get(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("roles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -271,23 +292,27 @@ public class RawRolesClient {
     }
 
     /**
-     * Delete a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
+     * Delete a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
      */
     public ManagementApiHttpResponse<Void> delete(String id) {
         return delete(id, null);
     }
 
     /**
-     * Delete a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
+     * Delete a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
      */
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("roles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -332,29 +357,40 @@ public class RawRolesClient {
     }
 
     /**
-     * Modify the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public ManagementApiHttpResponse<UpdateRoleResponseContent> update(String id) {
         return update(id, UpdateRoleRequestContent.builder().build());
     }
 
     /**
-     * Modify the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+     */
+    public ManagementApiHttpResponse<UpdateRoleResponseContent> update(String id, RequestOptions requestOptions) {
+        return update(id, UpdateRoleRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public ManagementApiHttpResponse<UpdateRoleResponseContent> update(String id, UpdateRoleRequestContent request) {
         return update(id, request, null);
     }
 
     /**
-     * Modify the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public ManagementApiHttpResponse<UpdateRoleResponseContent> update(
             String id, UpdateRoleRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("roles")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -363,7 +399,7 @@ public class RawRolesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

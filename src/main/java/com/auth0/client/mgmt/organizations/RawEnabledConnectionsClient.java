@@ -54,6 +54,14 @@ public class RawEnabledConnectionsClient {
      * Retrieve details about a specific connection currently enabled for an Organization. Information returned includes details such as connection ID, name, strategy, and whether the connection automatically grants membership upon login.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<OrganizationConnection>> list(
+            String id, RequestOptions requestOptions) {
+        return list(id, ListOrganizationConnectionsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve details about a specific connection currently enabled for an Organization. Information returned includes details such as connection ID, name, strategy, and whether the connection automatically grants membership upon login.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<OrganizationConnection>> list(
             String id, ListOrganizationConnectionsRequestParameters request) {
         return list(id, request, null);
     }
@@ -73,6 +81,11 @@ public class RawEnabledConnectionsClient {
                 httpUrl, "per_page", request.getPerPage().orElse(50), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -133,7 +146,7 @@ public class RawEnabledConnectionsClient {
 
     /**
      * Enable a specific connection for a given Organization. To enable a connection, it must already exist within your tenant; connections cannot be created through this action.
-     * <p>&lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;Connections&lt;/a&gt; represent the relationship between Auth0 and a source of users. Available types of connections include database, enterprise, and social.</p>
+     * <p><a href="https://auth0.com/docs/authenticate/identity-providers">Connections</a> represent the relationship between Auth0 and a source of users. Available types of connections include database, enterprise, and social.</p>
      */
     public ManagementApiHttpResponse<AddOrganizationConnectionResponseContent> add(
             String id, AddOrganizationConnectionRequestContent request) {
@@ -142,16 +155,20 @@ public class RawEnabledConnectionsClient {
 
     /**
      * Enable a specific connection for a given Organization. To enable a connection, it must already exist within your tenant; connections cannot be created through this action.
-     * <p>&lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;Connections&lt;/a&gt; represent the relationship between Auth0 and a source of users. Available types of connections include database, enterprise, and social.</p>
+     * <p><a href="https://auth0.com/docs/authenticate/identity-providers">Connections</a> represent the relationship between Auth0 and a source of users. Available types of connections include database, enterprise, and social.</p>
      */
     public ManagementApiHttpResponse<AddOrganizationConnectionResponseContent> add(
             String id, AddOrganizationConnectionRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
-                .addPathSegments("enabled_connections")
-                .build();
+                .addPathSegments("enabled_connections");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -160,7 +177,7 @@ public class RawEnabledConnectionsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -217,15 +234,19 @@ public class RawEnabledConnectionsClient {
      */
     public ManagementApiHttpResponse<GetOrganizationConnectionResponseContent> get(
             String id, String connectionId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
                 .addPathSegments("enabled_connections")
-                .addPathSegment(connectionId)
-                .build();
+                .addPathSegment(connectionId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -268,7 +289,7 @@ public class RawEnabledConnectionsClient {
 
     /**
      * Disable a specific connection for an Organization. Once disabled, Organization members can no longer use that connection to authenticate.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: This action does not remove the connection from your tenant.</p>
+     * <p><b>Note</b>: This action does not remove the connection from your tenant.</p>
      */
     public ManagementApiHttpResponse<Void> delete(String id, String connectionId) {
         return delete(id, connectionId, null);
@@ -276,18 +297,22 @@ public class RawEnabledConnectionsClient {
 
     /**
      * Disable a specific connection for an Organization. Once disabled, Organization members can no longer use that connection to authenticate.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: This action does not remove the connection from your tenant.</p>
+     * <p><b>Note</b>: This action does not remove the connection from your tenant.</p>
      */
     public ManagementApiHttpResponse<Void> delete(String id, String connectionId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
                 .addPathSegments("enabled_connections")
-                .addPathSegment(connectionId)
-                .build();
+                .addPathSegment(connectionId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -343,6 +368,18 @@ public class RawEnabledConnectionsClient {
      * Modify the details of a specific connection currently enabled for an Organization.
      */
     public ManagementApiHttpResponse<UpdateOrganizationConnectionResponseContent> update(
+            String id, String connectionId, RequestOptions requestOptions) {
+        return update(
+                id,
+                connectionId,
+                UpdateOrganizationConnectionRequestContent.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Modify the details of a specific connection currently enabled for an Organization.
+     */
+    public ManagementApiHttpResponse<UpdateOrganizationConnectionResponseContent> update(
             String id, String connectionId, UpdateOrganizationConnectionRequestContent request) {
         return update(id, connectionId, request, null);
     }
@@ -355,13 +392,17 @@ public class RawEnabledConnectionsClient {
             String connectionId,
             UpdateOrganizationConnectionRequestContent request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
                 .addPathSegments("enabled_connections")
-                .addPathSegment(connectionId)
-                .build();
+                .addPathSegment(connectionId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -370,7 +411,7 @@ public class RawEnabledConnectionsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

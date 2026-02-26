@@ -70,7 +70,7 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
     }
 
     /**
-     * @return Unique identifier for the device. Recommend using &lt;a href=&quot;http://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID&quot;&gt;Android_ID&lt;/a&gt; on Android and &lt;a href=&quot;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDevice_Class/index.html#//apple_ref/occ/instp/UIDevice/identifierForVendor&quot;&gt;identifierForVendor&lt;/a&gt;.
+     * @return Unique identifier for the device. Recommend using <a href="http://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID">Android_ID</a> on Android and <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDevice_Class/index.html#//apple_ref/occ/instp/UIDevice/identifierForVendor">identifierForVendor</a>.
      */
     @JsonProperty("device_id")
     public String getDeviceId() {
@@ -141,13 +141,17 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
 
     public interface DeviceIdStage {
         /**
-         * <p>Unique identifier for the device. Recommend using &lt;a href=&quot;http://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID&quot;&gt;Android_ID&lt;/a&gt; on Android and &lt;a href=&quot;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDevice_Class/index.html#//apple_ref/occ/instp/UIDevice/identifierForVendor&quot;&gt;identifierForVendor&lt;/a&gt;.</p>
+         * <p>Unique identifier for the device. Recommend using <a href="http://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID">Android_ID</a> on Android and <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDevice_Class/index.html#//apple_ref/occ/instp/UIDevice/identifierForVendor">identifierForVendor</a>.</p>
          */
         _FinalStage deviceId(@NotNull String deviceId);
     }
 
     public interface _FinalStage {
         CreatePublicKeyDeviceCredentialRequestContent build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
         /**
          * <p>client_id of the client (application) this credential is for.</p>
@@ -216,8 +220,8 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
         }
 
         /**
-         * <p>Unique identifier for the device. Recommend using &lt;a href=&quot;http://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID&quot;&gt;Android_ID&lt;/a&gt; on Android and &lt;a href=&quot;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDevice_Class/index.html#//apple_ref/occ/instp/UIDevice/identifierForVendor&quot;&gt;identifierForVendor&lt;/a&gt;.</p>
-         * <p>Unique identifier for the device. Recommend using &lt;a href=&quot;http://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID&quot;&gt;Android_ID&lt;/a&gt; on Android and &lt;a href=&quot;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDevice_Class/index.html#//apple_ref/occ/instp/UIDevice/identifierForVendor&quot;&gt;identifierForVendor&lt;/a&gt;.</p>
+         * <p>Unique identifier for the device. Recommend using <a href="http://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID">Android_ID</a> on Android and <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDevice_Class/index.html#//apple_ref/occ/instp/UIDevice/identifierForVendor">identifierForVendor</a>.</p>
+         * <p>Unique identifier for the device. Recommend using <a href="http://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID">Android_ID</a> on Android and <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDevice_Class/index.html#//apple_ref/occ/instp/UIDevice/identifierForVendor">identifierForVendor</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -251,6 +255,18 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
         public CreatePublicKeyDeviceCredentialRequestContent build() {
             return new CreatePublicKeyDeviceCredentialRequestContent(
                     deviceName, type, value, deviceId, clientId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

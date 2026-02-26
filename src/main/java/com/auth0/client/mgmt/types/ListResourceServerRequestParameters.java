@@ -54,7 +54,7 @@ public final class ListResourceServerRequestParameters {
     }
 
     /**
-     * @return An optional filter on the resource server identifier. Must be URL encoded and may be specified multiple times (max 10).&lt;br /&gt;&lt;b&gt;e.g.&lt;/b&gt; &lt;i&gt;../resource-servers?identifiers=id1&amp;identifiers=id2&lt;/i&gt;
+     * @return An optional filter on the resource server identifier. Must be URL encoded and may be specified multiple times (max 10).<b>e.g.</b> <i>../resource-servers?identifiers=id1&amp;identifiers=id2</i>
      */
     @JsonIgnore
     public Optional<List<String>> getIdentifiers() {
@@ -176,7 +176,7 @@ public final class ListResourceServerRequestParameters {
         }
 
         /**
-         * <p>An optional filter on the resource server identifier. Must be URL encoded and may be specified multiple times (max 10).&lt;br /&gt;&lt;b&gt;e.g.&lt;/b&gt; &lt;i&gt;../resource-servers?identifiers=id1&amp;identifiers=id2&lt;/i&gt;</p>
+         * <p>An optional filter on the resource server identifier. Must be URL encoded and may be specified multiple times (max 10).<b>e.g.</b> <i>../resource-servers?identifiers=id1&amp;identifiers=id2</i></p>
          */
         @JsonSetter(value = "identifiers", nulls = Nulls.SKIP)
         public Builder identifiers(@Nullable Optional<List<String>> identifiers) {
@@ -344,6 +344,16 @@ public final class ListResourceServerRequestParameters {
         public ListResourceServerRequestParameters build() {
             return new ListResourceServerRequestParameters(
                     identifiers, page, perPage, includeTotals, includeFields, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

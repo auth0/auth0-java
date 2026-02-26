@@ -82,6 +82,10 @@ public final class FormFlowConfig {
     public interface _FinalStage {
         FormFlowConfig build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage nextNode(Optional<FormNodePointer> nextNode);
 
         _FinalStage nextNode(FormNodePointer nextNode);
@@ -128,6 +132,18 @@ public final class FormFlowConfig {
         @java.lang.Override
         public FormFlowConfig build() {
             return new FormFlowConfig(flowId, nextNode, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

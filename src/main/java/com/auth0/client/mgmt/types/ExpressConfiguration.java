@@ -237,6 +237,10 @@ public final class ExpressConfiguration {
     public interface _FinalStage {
         ExpressConfiguration build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>List of client IDs that are linked to this express configuration (e.g. web or mobile clients).</p>
          */
@@ -439,6 +443,18 @@ public final class ExpressConfiguration {
                     adminLoginDomain,
                     oinSubmissionId,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

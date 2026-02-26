@@ -131,6 +131,10 @@ public final class FlowActionActivecampaignUpsertContactParams {
     public interface _FinalStage {
         FlowActionActivecampaignUpsertContactParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage firstName(Optional<String> firstName);
 
         _FinalStage firstName(String firstName);
@@ -248,6 +252,18 @@ public final class FlowActionActivecampaignUpsertContactParams {
         public FlowActionActivecampaignUpsertContactParams build() {
             return new FlowActionActivecampaignUpsertContactParams(
                     connectionId, email, firstName, lastName, phone, customFields, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

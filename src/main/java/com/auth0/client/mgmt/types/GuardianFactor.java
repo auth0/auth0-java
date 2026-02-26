@@ -101,6 +101,10 @@ public final class GuardianFactor {
     public interface _FinalStage {
         GuardianFactor build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Whether trial limits have been exceeded.</p>
          */
@@ -182,6 +186,18 @@ public final class GuardianFactor {
         @java.lang.Override
         public GuardianFactor build() {
             return new GuardianFactor(enabled, trialExpired, name, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

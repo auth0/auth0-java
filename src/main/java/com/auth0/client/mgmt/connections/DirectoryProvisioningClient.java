@@ -49,6 +49,13 @@ public class DirectoryProvisioningClient {
     /**
      * Retrieve a list of directory provisioning configurations of a tenant.
      */
+    public SyncPagingIterable<DirectoryProvisioning> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve a list of directory provisioning configurations of a tenant.
+     */
     public SyncPagingIterable<DirectoryProvisioning> list(ListDirectoryProvisioningsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -80,6 +87,13 @@ public class DirectoryProvisioningClient {
      */
     public CreateDirectoryProvisioningResponseContent create(String id) {
         return this.rawClient.create(id).body();
+    }
+
+    /**
+     * Create a directory provisioning configuration for a connection.
+     */
+    public CreateDirectoryProvisioningResponseContent create(String id, RequestOptions requestOptions) {
+        return this.rawClient.create(id, requestOptions).body();
     }
 
     /**
@@ -119,6 +133,13 @@ public class DirectoryProvisioningClient {
      */
     public UpdateDirectoryProvisioningResponseContent update(String id) {
         return this.rawClient.update(id).body();
+    }
+
+    /**
+     * Update the directory provisioning configuration of a connection.
+     */
+    public UpdateDirectoryProvisioningResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
     }
 
     /**

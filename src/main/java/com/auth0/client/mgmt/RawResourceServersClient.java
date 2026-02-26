@@ -56,6 +56,13 @@ public class RawResourceServersClient {
     /**
      * Retrieve details of all APIs associated with your tenant.
      */
+    public ManagementApiHttpResponse<SyncPagingIterable<ResourceServer>> list(RequestOptions requestOptions) {
+        return list(ListResourceServerRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve details of all APIs associated with your tenant.
+     */
     public ManagementApiHttpResponse<SyncPagingIterable<ResourceServer>> list(
             ListResourceServerRequestParameters request) {
         return list(request, null);
@@ -81,6 +88,11 @@ public class RawResourceServersClient {
         if (request.getIdentifiers().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "identifiers", request.getIdentifiers().get(), true);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -139,7 +151,7 @@ public class RawResourceServersClient {
     }
 
     /**
-     * Create a new API associated with your tenant. Note that all new APIs must be registered with Auth0. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis&quot;&gt; APIs&lt;/a&gt;.
+     * Create a new API associated with your tenant. Note that all new APIs must be registered with Auth0. For more information, read <a href="https://www.auth0.com/docs/get-started/apis"> APIs</a>.
      */
     public ManagementApiHttpResponse<CreateResourceServerResponseContent> create(
             CreateResourceServerRequestContent request) {
@@ -147,14 +159,18 @@ public class RawResourceServersClient {
     }
 
     /**
-     * Create a new API associated with your tenant. Note that all new APIs must be registered with Auth0. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis&quot;&gt; APIs&lt;/a&gt;.
+     * Create a new API associated with your tenant. Note that all new APIs must be registered with Auth0. For more information, read <a href="https://www.auth0.com/docs/get-started/apis"> APIs</a>.
      */
     public ManagementApiHttpResponse<CreateResourceServerResponseContent> create(
             CreateResourceServerRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("resource-servers")
-                .build();
+                .addPathSegments("resource-servers");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -163,7 +179,7 @@ public class RawResourceServersClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -212,14 +228,21 @@ public class RawResourceServersClient {
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/apis&quot;&gt;API&lt;/a&gt; details with the given ID.
+     * Retrieve <a href="https://auth0.com/docs/apis">API</a> details with the given ID.
      */
     public ManagementApiHttpResponse<GetResourceServerResponseContent> get(String id) {
         return get(id, GetResourceServerRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/apis&quot;&gt;API&lt;/a&gt; details with the given ID.
+     * Retrieve <a href="https://auth0.com/docs/apis">API</a> details with the given ID.
+     */
+    public ManagementApiHttpResponse<GetResourceServerResponseContent> get(String id, RequestOptions requestOptions) {
+        return get(id, GetResourceServerRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve <a href="https://auth0.com/docs/apis">API</a> details with the given ID.
      */
     public ManagementApiHttpResponse<GetResourceServerResponseContent> get(
             String id, GetResourceServerRequestParameters request) {
@@ -227,7 +250,7 @@ public class RawResourceServersClient {
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/apis&quot;&gt;API&lt;/a&gt; details with the given ID.
+     * Retrieve <a href="https://auth0.com/docs/apis">API</a> details with the given ID.
      */
     public ManagementApiHttpResponse<GetResourceServerResponseContent> get(
             String id, GetResourceServerRequestParameters request, RequestOptions requestOptions) {
@@ -238,6 +261,11 @@ public class RawResourceServersClient {
         if (!request.getIncludeFields().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -287,23 +315,27 @@ public class RawResourceServersClient {
     }
 
     /**
-     * Delete an existing API by ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Delete an existing API by ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public ManagementApiHttpResponse<Void> delete(String id) {
         return delete(id, null);
     }
 
     /**
-     * Delete an existing API by ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Delete an existing API by ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("resource-servers")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -345,14 +377,22 @@ public class RawResourceServersClient {
     }
 
     /**
-     * Change an existing API setting by resource server ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Change an existing API setting by resource server ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public ManagementApiHttpResponse<UpdateResourceServerResponseContent> update(String id) {
         return update(id, UpdateResourceServerRequestContent.builder().build());
     }
 
     /**
-     * Change an existing API setting by resource server ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Change an existing API setting by resource server ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
+     */
+    public ManagementApiHttpResponse<UpdateResourceServerResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateResourceServerRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Change an existing API setting by resource server ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public ManagementApiHttpResponse<UpdateResourceServerResponseContent> update(
             String id, UpdateResourceServerRequestContent request) {
@@ -360,15 +400,19 @@ public class RawResourceServersClient {
     }
 
     /**
-     * Change an existing API setting by resource server ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Change an existing API setting by resource server ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public ManagementApiHttpResponse<UpdateResourceServerResponseContent> update(
             String id, UpdateResourceServerRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("resource-servers")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -377,7 +421,7 @@ public class RawResourceServersClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
