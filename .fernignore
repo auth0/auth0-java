@@ -37,7 +37,6 @@ src/test/java/com/auth0/net/
 src/test/java/com/auth0/exception/
 src/test/java/com/auth0/utils/
 src/test/java/com/auth0/json/
-src/test/resources/
 src/test/resources/auth/
 src/test/resources/keys/
 src/test/resources/mgmt/
