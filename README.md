@@ -17,8 +17,9 @@
 :books: [Documentation](#documentation) - :rocket: [Getting Started](#getting-started) - :computer: [API Reference](#api-reference) :speech_balloon: [Feedback](#feedback)
 
 ## Documentation
+- [Reference](./reference.md) - code samples for Management APIs.
 - [Examples](./EXAMPLES.md) - code samples for common auth0-java scenarios.
-- [Migration Guide](./MIGRATION_GUIDE) - guidance for updating your application to use version 3 of auth0-java.
+- [Migration Guide](./MIGRATION_GUIDE.md) - guidance for updating your application to use version 3 of auth0-java.
 - [Docs site](https://www.auth0.com/docs) - explore our docs site and learn more about Auth0.
 
 ## Getting Started
@@ -61,48 +62,52 @@ AuthAPI auth = AuthAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CL
 
 #### Management API Client
 
-The Management API client is based on the [Management API Docs](https://auth0.com/docs/api/management/v2).
+The Management API client is based on the [Management API Docs](https://auth0.com/docs/api/management/v2). In v3, the Management API is Fern-generated and uses `ManagementApi` as the entry point.
 
-Create a `ManagementAPI` instance by providing the domain from the [Application dashboard](https://manage.auth0.com/#/applications) and a valid API Token.
-
-```java
-ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_API_TOKEN}").build();
-```
-
-OR
-
-Create a `ManagementAPI` instance by providing the domain from the [Application dashboard](https://manage.auth0.com/#/applications) and Token Provider.
+Create a `ManagementApi` instance with a static token:
 
 ```java
-TokenProvider tokenProvider = SimpleTokenProvider.create("{YOUR_API_TOKEN}");
-ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", TokenProvider).build();
+ManagementApi mgmt = ManagementApi.builder()
+        .domain("{YOUR_DOMAIN}")
+        .token("{YOUR_API_TOKEN}")
+        .build();
 ```
 
-The Management API is organized by entities represented by the Auth0 Management API objects.
+Or use client credentials for automatic token management (recommended for server-to-server applications):
 
 ```java
-User user = mgmt.users().get("auth0|user-id", new UserFilter()).execute().getBody();
-Role role = mgmt.roles().get("role-id").execute().getBody();
+ManagementApi mgmt = ManagementApi.builder()
+        .domain("{YOUR_DOMAIN}")
+        .clientCredentials("{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}")
+        .build();
 ```
 
-You can use the Authentication API to obtain a token for a previously authorized Application:
+The Management API is organized into resource clients. Methods return typed response objects directly:
+
+```java
+GetUserResponseContent user = mgmt.users().get("user_id");
+GetRoleResponseContent role = mgmt.roles().get("role_id");
+```
+
+You can also obtain a token via the Authentication API and use it with the Management API client:
 
 ```java
 AuthAPI authAPI = AuthAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}").build();
 TokenRequest tokenRequest = authAPI.requestToken("https://{YOUR_DOMAIN}/api/v2/");
 TokenHolder holder = tokenRequest.execute().getBody();
 String accessToken = holder.getAccessToken();
-ManagementAPI mgmt = ManagementAPI.newBuilder("{YOUR_DOMAIN}", accessToken).build();
+ManagementApi mgmt = ManagementApi.builder()
+        .domain("{YOUR_DOMAIN}")
+        .token(accessToken)
+        .build();
 ```
-
-An expired token for an existing `ManagementAPI` instance can be replaced by calling the `setApiToken` method with the new token.
 
 See the [Auth0 Management API documentation](https://auth0.com/docs/api/management/v2/tokens) for more information on how to obtain API Tokens.
 
 ## API Reference
 
 - [AuthAPI](https://javadoc.io/doc/com.auth0/auth0/latest/com/auth0/client/auth/AuthAPI.html)
-- [ManagementAPI](https://javadoc.io/doc/com.auth0/auth0/latest/com/auth0/client/mgmt/ManagementAPI.html)
+- [ManagementApi](https://javadoc.io/doc/com.auth0/auth0/latest/com/auth0/client/mgmt/ManagementApi.html)
 
 ## Feedback
 
