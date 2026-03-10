@@ -191,5 +191,15 @@ public final class GetEmailProviderRequestParameters {
         public GetEmailProviderRequestParameters build() {
             return new GetEmailProviderRequestParameters(fields, includeFields, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

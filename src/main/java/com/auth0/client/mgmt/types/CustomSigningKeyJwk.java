@@ -250,6 +250,10 @@ public final class CustomSigningKeyJwk {
     public interface _FinalStage {
         CustomSigningKeyJwk build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Key identifier</p>
          */
@@ -637,6 +641,18 @@ public final class CustomSigningKeyJwk {
         public CustomSigningKeyJwk build() {
             return new CustomSigningKeyJwk(
                     kty, kid, use, keyOps, alg, n, e, crv, x, y, x5U, x5C, x5T, x5TS256, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

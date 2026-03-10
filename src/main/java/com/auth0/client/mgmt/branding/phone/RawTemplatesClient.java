@@ -48,6 +48,10 @@ public class RawTemplatesClient {
         return list(ListPhoneTemplatesRequestParameters.builder().build());
     }
 
+    public ManagementApiHttpResponse<ListPhoneTemplatesResponseContent> list(RequestOptions requestOptions) {
+        return list(ListPhoneTemplatesRequestParameters.builder().build(), requestOptions);
+    }
+
     public ManagementApiHttpResponse<ListPhoneTemplatesResponseContent> list(
             ListPhoneTemplatesRequestParameters request) {
         return list(request, null);
@@ -61,6 +65,11 @@ public class RawTemplatesClient {
         if (!request.getDisabled().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "disabled", request.getDisabled().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -111,6 +120,10 @@ public class RawTemplatesClient {
         return create(CreatePhoneTemplateRequestContent.builder().build());
     }
 
+    public ManagementApiHttpResponse<CreatePhoneTemplateResponseContent> create(RequestOptions requestOptions) {
+        return create(CreatePhoneTemplateRequestContent.builder().build(), requestOptions);
+    }
+
     public ManagementApiHttpResponse<CreatePhoneTemplateResponseContent> create(
             CreatePhoneTemplateRequestContent request) {
         return create(request, null);
@@ -118,10 +131,14 @@ public class RawTemplatesClient {
 
     public ManagementApiHttpResponse<CreatePhoneTemplateResponseContent> create(
             CreatePhoneTemplateRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("branding/phone/templates")
-                .build();
+                .addPathSegments("branding/phone/templates");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -130,7 +147,7 @@ public class RawTemplatesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -183,13 +200,17 @@ public class RawTemplatesClient {
     }
 
     public ManagementApiHttpResponse<GetPhoneTemplateResponseContent> get(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("branding/phone/templates")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -240,13 +261,17 @@ public class RawTemplatesClient {
     }
 
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("branding/phone/templates")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -295,17 +320,26 @@ public class RawTemplatesClient {
     }
 
     public ManagementApiHttpResponse<UpdatePhoneTemplateResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdatePhoneTemplateRequestContent.builder().build(), requestOptions);
+    }
+
+    public ManagementApiHttpResponse<UpdatePhoneTemplateResponseContent> update(
             String id, UpdatePhoneTemplateRequestContent request) {
         return update(id, request, null);
     }
 
     public ManagementApiHttpResponse<UpdatePhoneTemplateResponseContent> update(
             String id, UpdatePhoneTemplateRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("branding/phone/templates")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -314,7 +348,7 @@ public class RawTemplatesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -368,12 +402,16 @@ public class RawTemplatesClient {
 
     public ManagementApiHttpResponse<ResetPhoneTemplateResponseContent> reset(
             String id, Object request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("branding/phone/templates")
                 .addPathSegment(id)
-                .addPathSegments("reset")
-                .build();
+                .addPathSegments("reset");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -382,7 +420,7 @@ public class RawTemplatesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -434,12 +472,16 @@ public class RawTemplatesClient {
 
     public ManagementApiHttpResponse<CreatePhoneTemplateTestNotificationResponseContent> test(
             String id, CreatePhoneTemplateTestNotificationRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("branding/phone/templates")
                 .addPathSegment(id)
-                .addPathSegments("try")
-                .build();
+                .addPathSegments("try");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -448,7 +490,7 @@ public class RawTemplatesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

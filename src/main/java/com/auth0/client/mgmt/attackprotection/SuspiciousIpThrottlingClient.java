@@ -50,6 +50,13 @@ public class SuspiciousIpThrottlingClient {
     /**
      * Update the details of the Suspicious IP Throttling configuration of your tenant.
      */
+    public UpdateSuspiciousIpThrottlingSettingsResponseContent update(RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).body();
+    }
+
+    /**
+     * Update the details of the Suspicious IP Throttling configuration of your tenant.
+     */
     public UpdateSuspiciousIpThrottlingSettingsResponseContent update(
             UpdateSuspiciousIpThrottlingSettingsRequestContent request) {
         return this.rawClient.update(request).body();

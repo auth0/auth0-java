@@ -91,6 +91,10 @@ public final class FlowActionSlackPostMessageParamsAttachmentField {
     public interface _FinalStage {
         FlowActionSlackPostMessageParamsAttachmentField build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage value(Optional<String> value);
 
         _FinalStage value(String value);
@@ -157,6 +161,18 @@ public final class FlowActionSlackPostMessageParamsAttachmentField {
         @java.lang.Override
         public FlowActionSlackPostMessageParamsAttachmentField build() {
             return new FlowActionSlackPostMessageParamsAttachmentField(title, value, short_, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -53,15 +53,19 @@ public class AsyncRawCustomTextClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, Object>>> get(
             PromptGroupNameEnum prompt, PromptLanguageEnum language, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("prompts")
                 .addPathSegment(prompt.toString())
                 .addPathSegments("custom-text")
-                .addPathSegment(language.toString())
-                .build();
+                .addPathSegment(language.toString());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -147,13 +151,17 @@ public class AsyncRawCustomTextClient {
             PromptLanguageEnum language,
             Map<String, Object> request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("prompts")
                 .addPathSegment(prompt.toString())
                 .addPathSegments("custom-text")
-                .addPathSegment(language.toString())
-                .build();
+                .addPathSegment(language.toString());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -162,7 +170,7 @@ public class AsyncRawCustomTextClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

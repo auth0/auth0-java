@@ -150,6 +150,10 @@ public final class CreateConnectionRequestContentMiicard implements ICreateConne
     public interface _FinalStage {
         CreateConnectionRequestContentMiicard build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage name(Optional<String> name);
 
         _FinalStage name(String name);
@@ -304,6 +308,18 @@ public final class CreateConnectionRequestContentMiicard implements ICreateConne
                     strategy,
                     options,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

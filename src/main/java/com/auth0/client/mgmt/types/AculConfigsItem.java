@@ -200,6 +200,10 @@ public final class AculConfigsItem {
     public interface _FinalStage {
         AculConfigsItem build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage renderingMode(Optional<AculRenderingModeEnum> renderingMode);
 
         _FinalStage renderingMode(AculRenderingModeEnum renderingMode);
@@ -490,6 +494,18 @@ public final class AculConfigsItem {
                     headTags,
                     filters,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

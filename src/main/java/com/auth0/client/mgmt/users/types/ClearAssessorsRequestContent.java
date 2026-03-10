@@ -93,6 +93,10 @@ public final class ClearAssessorsRequestContent {
     public interface _FinalStage {
         ClearAssessorsRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>List of assessors to clear.</p>
          */
@@ -171,6 +175,18 @@ public final class ClearAssessorsRequestContent {
         @java.lang.Override
         public ClearAssessorsRequestContent build() {
             return new ClearAssessorsRequestContent(connection, assessors, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

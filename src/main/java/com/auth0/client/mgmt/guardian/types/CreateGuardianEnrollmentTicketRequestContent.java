@@ -91,7 +91,7 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
     }
 
     /**
-     * @return Optional. Allows a user who has previously enrolled in MFA to enroll with additional factors.&lt;br /&gt;Note: Parameter can only be used with Universal Login; it cannot be used with Classic Login or custom MFA pages.
+     * @return Optional. Allows a user who has previously enrolled in MFA to enroll with additional factors.Note: Parameter can only be used with Universal Login; it cannot be used with Classic Login or custom MFA pages.
      */
     @JsonProperty("allow_multiple_enrollments")
     public Optional<Boolean> getAllowMultipleEnrollments() {
@@ -146,6 +146,10 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
     public interface _FinalStage {
         CreateGuardianEnrollmentTicketRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>alternate email to which the enrollment email will be sent. Optional - by default, the email will be sent to the user's default address</p>
          */
@@ -172,7 +176,7 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
         _FinalStage factor(GuardianEnrollmentFactorEnum factor);
 
         /**
-         * <p>Optional. Allows a user who has previously enrolled in MFA to enroll with additional factors.&lt;br /&gt;Note: Parameter can only be used with Universal Login; it cannot be used with Classic Login or custom MFA pages.</p>
+         * <p>Optional. Allows a user who has previously enrolled in MFA to enroll with additional factors.Note: Parameter can only be used with Universal Login; it cannot be used with Classic Login or custom MFA pages.</p>
          */
         _FinalStage allowMultipleEnrollments(Optional<Boolean> allowMultipleEnrollments);
 
@@ -222,7 +226,7 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
         }
 
         /**
-         * <p>Optional. Allows a user who has previously enrolled in MFA to enroll with additional factors.&lt;br /&gt;Note: Parameter can only be used with Universal Login; it cannot be used with Classic Login or custom MFA pages.</p>
+         * <p>Optional. Allows a user who has previously enrolled in MFA to enroll with additional factors.Note: Parameter can only be used with Universal Login; it cannot be used with Classic Login or custom MFA pages.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -232,7 +236,7 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
         }
 
         /**
-         * <p>Optional. Allows a user who has previously enrolled in MFA to enroll with additional factors.&lt;br /&gt;Note: Parameter can only be used with Universal Login; it cannot be used with Classic Login or custom MFA pages.</p>
+         * <p>Optional. Allows a user who has previously enrolled in MFA to enroll with additional factors.Note: Parameter can only be used with Universal Login; it cannot be used with Classic Login or custom MFA pages.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "allow_multiple_enrollments", nulls = Nulls.SKIP)
@@ -318,6 +322,18 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
         public CreateGuardianEnrollmentTicketRequestContent build() {
             return new CreateGuardianEnrollmentTicketRequestContent(
                     userId, email, sendMail, emailLocale, factor, allowMultipleEnrollments, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

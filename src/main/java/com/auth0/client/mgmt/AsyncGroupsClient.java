@@ -44,6 +44,13 @@ public class AsyncGroupsClient {
     /**
      * List all groups in your tenant.
      */
+    public CompletableFuture<SyncPagingIterable<Group>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * List all groups in your tenant.
+     */
     public CompletableFuture<SyncPagingIterable<Group>> list(ListGroupsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

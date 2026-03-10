@@ -51,6 +51,13 @@ public class SelfServiceProfilesClient {
     /**
      * Retrieves self-service profiles.
      */
+    public SyncPagingIterable<SelfServiceProfile> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieves self-service profiles.
+     */
     public SyncPagingIterable<SelfServiceProfile> list(ListSelfServiceProfilesRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -111,6 +118,13 @@ public class SelfServiceProfilesClient {
      */
     public UpdateSelfServiceProfileResponseContent update(String id) {
         return this.rawClient.update(id).body();
+    }
+
+    /**
+     * Updates a self-service profile.
+     */
+    public UpdateSelfServiceProfileResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
     }
 
     /**

@@ -58,6 +58,14 @@ public class AsyncRawPermissionsClient {
      * Retrieve detailed list (name, description, resource server) of permissions granted by a specified user role.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<PermissionsResponsePayload>>> list(
+            String id, RequestOptions requestOptions) {
+        return list(id, ListRolePermissionsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve detailed list (name, description, resource server) of permissions granted by a specified user role.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<PermissionsResponsePayload>>> list(
             String id, ListRolePermissionsRequestParameters request) {
         return list(id, request, null);
     }
@@ -77,6 +85,11 @@ public class AsyncRawPermissionsClient {
         QueryStringMapper.addQueryParameter(httpUrl, "page", request.getPage().orElse(0), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -170,23 +183,27 @@ public class AsyncRawPermissionsClient {
     }
 
     /**
-     * Add one or more &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions&quot;&gt;permissions&lt;/a&gt; to a specified user role.
+     * Add one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> to a specified user role.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> add(String id, AddRolePermissionsRequestContent request) {
         return add(id, request, null);
     }
 
     /**
-     * Add one or more &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions&quot;&gt;permissions&lt;/a&gt; to a specified user role.
+     * Add one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> to a specified user role.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> add(
             String id, AddRolePermissionsRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("roles")
                 .addPathSegment(id)
-                .addPathSegments("permissions")
-                .build();
+                .addPathSegments("permissions");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -195,7 +212,7 @@ public class AsyncRawPermissionsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -259,7 +276,7 @@ public class AsyncRawPermissionsClient {
     }
 
     /**
-     * Remove one or more &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions&quot;&gt;permissions&lt;/a&gt; from a specified user role.
+     * Remove one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> from a specified user role.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(
             String id, DeleteRolePermissionsRequestContent request) {
@@ -267,16 +284,20 @@ public class AsyncRawPermissionsClient {
     }
 
     /**
-     * Remove one or more &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions&quot;&gt;permissions&lt;/a&gt; from a specified user role.
+     * Remove one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> from a specified user role.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(
             String id, DeleteRolePermissionsRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("roles")
                 .addPathSegment(id)
-                .addPathSegments("permissions")
-                .build();
+                .addPathSegments("permissions");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -285,7 +306,7 @@ public class AsyncRawPermissionsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

@@ -167,5 +167,15 @@ public final class ListUserGrantsOffsetPaginatedResponseContent {
         public ListUserGrantsOffsetPaginatedResponseContent build() {
             return new ListUserGrantsOffsetPaginatedResponseContent(start, limit, total, grants, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

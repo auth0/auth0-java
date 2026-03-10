@@ -118,5 +118,15 @@ public final class BreachedPasswordDetectionStage {
         public BreachedPasswordDetectionStage build() {
             return new BreachedPasswordDetectionStage(preUserRegistration, preChangePassword, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

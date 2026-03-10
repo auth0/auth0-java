@@ -105,6 +105,10 @@ public final class CreateFlowsVaultConnectionZapierWebhook {
 
     public interface _FinalStage {
         CreateFlowsVaultConnectionZapierWebhook build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -157,6 +161,18 @@ public final class CreateFlowsVaultConnectionZapierWebhook {
         @java.lang.Override
         public CreateFlowsVaultConnectionZapierWebhook build() {
             return new CreateFlowsVaultConnectionZapierWebhook(name, appId, setup, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

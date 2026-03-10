@@ -52,6 +52,13 @@ public class AsyncSelfServiceProfilesClient {
     /**
      * Retrieves self-service profiles.
      */
+    public CompletableFuture<SyncPagingIterable<SelfServiceProfile>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieves self-service profiles.
+     */
     public CompletableFuture<SyncPagingIterable<SelfServiceProfile>> list(
             ListSelfServiceProfilesRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
@@ -114,6 +121,13 @@ public class AsyncSelfServiceProfilesClient {
      */
     public CompletableFuture<UpdateSelfServiceProfileResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Updates a self-service profile.
+     */
+    public CompletableFuture<UpdateSelfServiceProfileResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**

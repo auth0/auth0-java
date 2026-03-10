@@ -344,7 +344,7 @@ public final class TenantSettingsFlags {
     }
 
     /**
-     * @return Whether third-party developers can &lt;a href=&quot;https://auth0.com/docs/api-auth/dynamic-client-registration&quot;&gt;dynamically register&lt;/a&gt; applications for your APIs (true) or not (false). This flag enables dynamic client registration.
+     * @return Whether third-party developers can <a href="https://auth0.com/docs/api-auth/dynamic-client-registration">dynamically register</a> applications for your APIs (true) or not (false). This flag enables dynamic client registration.
      */
     @JsonProperty("enable_dynamic_client_registration")
     public Optional<Boolean> getEnableDynamicClientRegistration() {
@@ -915,7 +915,7 @@ public final class TenantSettingsFlags {
         }
 
         /**
-         * <p>Whether third-party developers can &lt;a href=&quot;https://auth0.com/docs/api-auth/dynamic-client-registration&quot;&gt;dynamically register&lt;/a&gt; applications for your APIs (true) or not (false). This flag enables dynamic client registration.</p>
+         * <p>Whether third-party developers can <a href="https://auth0.com/docs/api-auth/dynamic-client-registration">dynamically register</a> applications for your APIs (true) or not (false). This flag enables dynamic client registration.</p>
          */
         @JsonSetter(value = "enable_dynamic_client_registration", nulls = Nulls.SKIP)
         public Builder enableDynamicClientRegistration(Optional<Boolean> enableDynamicClientRegistration) {
@@ -1005,6 +1005,16 @@ public final class TenantSettingsFlags {
                     trustAzureAdfsEmailVerifiedConnectionProperty,
                     customDomainsProvisioning,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

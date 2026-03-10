@@ -36,6 +36,10 @@ public class FormsClient {
         return this.rawClient.list().body();
     }
 
+    public SyncPagingIterable<FormSummary> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
     public SyncPagingIterable<FormSummary> list(ListFormsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -56,6 +60,10 @@ public class FormsClient {
         return this.rawClient.get(id).body();
     }
 
+    public GetFormResponseContent get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).body();
+    }
+
     public GetFormResponseContent get(String id, GetFormRequestParameters request) {
         return this.rawClient.get(id, request).body();
     }
@@ -74,6 +82,10 @@ public class FormsClient {
 
     public UpdateFormResponseContent update(String id) {
         return this.rawClient.update(id).body();
+    }
+
+    public UpdateFormResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
     }
 
     public UpdateFormResponseContent update(String id, UpdateFormRequestContent request) {

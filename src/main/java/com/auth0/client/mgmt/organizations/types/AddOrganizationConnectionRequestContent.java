@@ -121,6 +121,10 @@ public final class AddOrganizationConnectionRequestContent {
     public interface _FinalStage {
         AddOrganizationConnectionRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.</p>
          */
@@ -243,6 +247,18 @@ public final class AddOrganizationConnectionRequestContent {
         public AddOrganizationConnectionRequestContent build() {
             return new AddOrganizationConnectionRequestContent(
                     connectionId, assignMembershipOnLogin, isSignupEnabled, showAsButton, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

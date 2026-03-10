@@ -128,5 +128,15 @@ public final class ConnectionScriptsOAuth2 {
         public ConnectionScriptsOAuth2 build() {
             return new ConnectionScriptsOAuth2(fetchUserProfile, getLogoutUrl, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

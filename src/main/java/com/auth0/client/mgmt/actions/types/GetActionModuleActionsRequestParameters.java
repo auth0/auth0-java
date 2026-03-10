@@ -174,5 +174,15 @@ public final class GetActionModuleActionsRequestParameters {
         public GetActionModuleActionsRequestParameters build() {
             return new GetActionModuleActionsRequestParameters(page, perPage, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

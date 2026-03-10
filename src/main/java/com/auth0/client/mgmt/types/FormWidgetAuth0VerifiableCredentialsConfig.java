@@ -139,6 +139,10 @@ public final class FormWidgetAuth0VerifiableCredentialsConfig {
     public interface _FinalStage {
         FormWidgetAuth0VerifiableCredentialsConfig build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage size(Optional<Double> size);
 
         _FinalStage size(Double size);
@@ -237,6 +241,18 @@ public final class FormWidgetAuth0VerifiableCredentialsConfig {
         public FormWidgetAuth0VerifiableCredentialsConfig build() {
             return new FormWidgetAuth0VerifiableCredentialsConfig(
                     url, size, alternateText, accessToken, verificationId, maxWait, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

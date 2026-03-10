@@ -198,5 +198,15 @@ public final class UpdateConnectionRequestContentOAuth1 implements IConnectionCo
             return new UpdateConnectionRequestContentOAuth1(
                     displayName, enabledClients, isDomainConnection, metadata, options, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

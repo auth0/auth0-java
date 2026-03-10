@@ -41,6 +41,13 @@ public class EnabledConnectionsClient {
     /**
      * Retrieve details about a specific connection currently enabled for an Organization. Information returned includes details such as connection ID, name, strategy, and whether the connection automatically grants membership upon login.
      */
+    public SyncPagingIterable<OrganizationConnection> list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).body();
+    }
+
+    /**
+     * Retrieve details about a specific connection currently enabled for an Organization. Information returned includes details such as connection ID, name, strategy, and whether the connection automatically grants membership upon login.
+     */
     public SyncPagingIterable<OrganizationConnection> list(
             String id, ListOrganizationConnectionsRequestParameters request) {
         return this.rawClient.list(id, request).body();
@@ -56,7 +63,7 @@ public class EnabledConnectionsClient {
 
     /**
      * Enable a specific connection for a given Organization. To enable a connection, it must already exist within your tenant; connections cannot be created through this action.
-     * <p>&lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;Connections&lt;/a&gt; represent the relationship between Auth0 and a source of users. Available types of connections include database, enterprise, and social.</p>
+     * <p><a href="https://auth0.com/docs/authenticate/identity-providers">Connections</a> represent the relationship between Auth0 and a source of users. Available types of connections include database, enterprise, and social.</p>
      */
     public AddOrganizationConnectionResponseContent add(String id, AddOrganizationConnectionRequestContent request) {
         return this.rawClient.add(id, request).body();
@@ -64,7 +71,7 @@ public class EnabledConnectionsClient {
 
     /**
      * Enable a specific connection for a given Organization. To enable a connection, it must already exist within your tenant; connections cannot be created through this action.
-     * <p>&lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;Connections&lt;/a&gt; represent the relationship between Auth0 and a source of users. Available types of connections include database, enterprise, and social.</p>
+     * <p><a href="https://auth0.com/docs/authenticate/identity-providers">Connections</a> represent the relationship between Auth0 and a source of users. Available types of connections include database, enterprise, and social.</p>
      */
     public AddOrganizationConnectionResponseContent add(
             String id, AddOrganizationConnectionRequestContent request, RequestOptions requestOptions) {
@@ -87,7 +94,7 @@ public class EnabledConnectionsClient {
 
     /**
      * Disable a specific connection for an Organization. Once disabled, Organization members can no longer use that connection to authenticate.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: This action does not remove the connection from your tenant.</p>
+     * <p><b>Note</b>: This action does not remove the connection from your tenant.</p>
      */
     public void delete(String id, String connectionId) {
         this.rawClient.delete(id, connectionId).body();
@@ -95,7 +102,7 @@ public class EnabledConnectionsClient {
 
     /**
      * Disable a specific connection for an Organization. Once disabled, Organization members can no longer use that connection to authenticate.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: This action does not remove the connection from your tenant.</p>
+     * <p><b>Note</b>: This action does not remove the connection from your tenant.</p>
      */
     public void delete(String id, String connectionId, RequestOptions requestOptions) {
         this.rawClient.delete(id, connectionId, requestOptions).body();
@@ -106,6 +113,14 @@ public class EnabledConnectionsClient {
      */
     public UpdateOrganizationConnectionResponseContent update(String id, String connectionId) {
         return this.rawClient.update(id, connectionId).body();
+    }
+
+    /**
+     * Modify the details of a specific connection currently enabled for an Organization.
+     */
+    public UpdateOrganizationConnectionResponseContent update(
+            String id, String connectionId, RequestOptions requestOptions) {
+        return this.rawClient.update(id, connectionId, requestOptions).body();
     }
 
     /**

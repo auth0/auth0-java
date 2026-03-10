@@ -43,6 +43,13 @@ public class RenderingClient {
     /**
      * Get render setting configurations for all screens.
      */
+    public SyncPagingIterable<ListAculsResponseContentItem> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Get render setting configurations for all screens.
+     */
     public SyncPagingIterable<ListAculsResponseContentItem> list(ListAculsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -56,14 +63,14 @@ public class RenderingClient {
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public BulkUpdateAculResponseContent bulkUpdate(BulkUpdateAculRequestContent request) {
         return this.rawClient.bulkUpdate(request).body();
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public BulkUpdateAculResponseContent bulkUpdate(
             BulkUpdateAculRequestContent request, RequestOptions requestOptions) {
@@ -86,14 +93,22 @@ public class RenderingClient {
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public UpdateAculResponseContent update(PromptGroupNameEnum prompt, ScreenGroupNameEnum screen) {
         return this.rawClient.update(prompt, screen).body();
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+     */
+    public UpdateAculResponseContent update(
+            PromptGroupNameEnum prompt, ScreenGroupNameEnum screen, RequestOptions requestOptions) {
+        return this.rawClient.update(prompt, screen, requestOptions).body();
+    }
+
+    /**
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public UpdateAculResponseContent update(
             PromptGroupNameEnum prompt, ScreenGroupNameEnum screen, UpdateAculRequestContent request) {
@@ -101,7 +116,7 @@ public class RenderingClient {
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public UpdateAculResponseContent update(
             PromptGroupNameEnum prompt,

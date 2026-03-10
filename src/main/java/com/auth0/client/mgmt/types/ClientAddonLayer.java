@@ -147,6 +147,10 @@ public final class ClientAddonLayer {
     public interface _FinalStage {
         ClientAddonLayer build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Name of the property used as the unique user id in Layer. If not specified <code>user_id</code> is used.</p>
          */
@@ -268,6 +272,18 @@ public final class ClientAddonLayer {
         @java.lang.Override
         public ClientAddonLayer build() {
             return new ClientAddonLayer(providerId, keyId, privateKey, principal, expiration, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

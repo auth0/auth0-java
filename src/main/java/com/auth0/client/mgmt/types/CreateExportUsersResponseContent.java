@@ -192,6 +192,10 @@ public final class CreateExportUsersResponseContent {
     public interface _FinalStage {
         CreateExportUsersResponseContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>When this job was created.</p>
          */
@@ -394,6 +398,18 @@ public final class CreateExportUsersResponseContent {
         public CreateExportUsersResponseContent build() {
             return new CreateExportUsersResponseContent(
                     status, type, createdAt, id, connectionId, format, limit, fields, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

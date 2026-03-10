@@ -191,5 +191,15 @@ public final class ListActionsPaginatedResponseContent {
         public ListActionsPaginatedResponseContent build() {
             return new ListActionsPaginatedResponseContent(total, page, perPage, actions, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

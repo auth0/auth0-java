@@ -57,18 +57,18 @@ public class OrganizationsClient {
     /**
      * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;Offset pagination&lt;/li&gt;
-     * &lt;li&gt;Checkpoint pagination&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total number of entries to retrieve when using the &lt;code&gt;from&lt;/code&gt; parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public SyncPagingIterable<Organization> list() {
         return this.rawClient.list().body();
@@ -77,18 +77,38 @@ public class OrganizationsClient {
     /**
      * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;Offset pagination&lt;/li&gt;
-     * &lt;li&gt;Checkpoint pagination&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total number of entries to retrieve when using the &lt;code&gt;from&lt;/code&gt; parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     */
+    public SyncPagingIterable<Organization> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
+     * <p>This endpoint supports two types of pagination:</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
+     * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p>To search by checkpoint, use the following parameters:</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public SyncPagingIterable<Organization> list(ListOrganizationsRequestParameters request) {
         return this.rawClient.list(request).body();
@@ -97,18 +117,18 @@ public class OrganizationsClient {
     /**
      * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;Offset pagination&lt;/li&gt;
-     * &lt;li&gt;Checkpoint pagination&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total number of entries to retrieve when using the &lt;code&gt;from&lt;/code&gt; parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public SyncPagingIterable<Organization> list(
             ListOrganizationsRequestParameters request, RequestOptions requestOptions) {
@@ -116,14 +136,14 @@ public class OrganizationsClient {
     }
 
     /**
-     * Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/create-first-organization&quot;&gt;Create Your First Organization&lt;/a&gt;.
+     * Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review <a href="https://auth0.com/docs/manage-users/organizations/create-first-organization">Create Your First Organization</a>.
      */
     public CreateOrganizationResponseContent create(CreateOrganizationRequestContent request) {
         return this.rawClient.create(request).body();
     }
 
     /**
-     * Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/create-first-organization&quot;&gt;Create Your First Organization&lt;/a&gt;.
+     * Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review <a href="https://auth0.com/docs/manage-users/organizations/create-first-organization">Create Your First Organization</a>.
      */
     public CreateOrganizationResponseContent create(
             CreateOrganizationRequestContent request, RequestOptions requestOptions) {
@@ -160,7 +180,7 @@ public class OrganizationsClient {
 
     /**
      * Remove an Organization from your tenant.  This action cannot be undone.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: Members are automatically disassociated from an Organization when it is deleted. However, this action does &lt;b&gt;not&lt;/b&gt; delete these users from your tenant.</p>
+     * <p><b>Note</b>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <b>not</b> delete these users from your tenant.</p>
      */
     public void delete(String id) {
         this.rawClient.delete(id).body();
@@ -168,28 +188,35 @@ public class OrganizationsClient {
 
     /**
      * Remove an Organization from your tenant.  This action cannot be undone.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: Members are automatically disassociated from an Organization when it is deleted. However, this action does &lt;b&gt;not&lt;/b&gt; delete these users from your tenant.</p>
+     * <p><b>Note</b>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <b>not</b> delete these users from your tenant.</p>
      */
     public void delete(String id, RequestOptions requestOptions) {
         this.rawClient.delete(id, requestOptions).body();
     }
 
     /**
-     * Update the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations&quot;&gt;Organization&lt;/a&gt;, such as name and display name, branding options, and metadata.
+     * Update the details of a specific <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations">Organization</a>, such as name and display name, branding options, and metadata.
      */
     public UpdateOrganizationResponseContent update(String id) {
         return this.rawClient.update(id).body();
     }
 
     /**
-     * Update the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations&quot;&gt;Organization&lt;/a&gt;, such as name and display name, branding options, and metadata.
+     * Update the details of a specific <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations">Organization</a>, such as name and display name, branding options, and metadata.
+     */
+    public UpdateOrganizationResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
+    }
+
+    /**
+     * Update the details of a specific <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations">Organization</a>, such as name and display name, branding options, and metadata.
      */
     public UpdateOrganizationResponseContent update(String id, UpdateOrganizationRequestContent request) {
         return this.rawClient.update(id, request).body();
     }
 
     /**
-     * Update the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations&quot;&gt;Organization&lt;/a&gt;, such as name and display name, branding options, and metadata.
+     * Update the details of a specific <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations">Organization</a>, such as name and display name, branding options, and metadata.
      */
     public UpdateOrganizationResponseContent update(
             String id, UpdateOrganizationRequestContent request, RequestOptions requestOptions) {

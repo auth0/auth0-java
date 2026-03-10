@@ -90,6 +90,10 @@ public final class CreateFlowsVaultConnectionGoogleSheetsUninitialized {
 
     public interface _FinalStage {
         CreateFlowsVaultConnectionGoogleSheetsUninitialized build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -132,6 +136,18 @@ public final class CreateFlowsVaultConnectionGoogleSheetsUninitialized {
         @java.lang.Override
         public CreateFlowsVaultConnectionGoogleSheetsUninitialized build() {
             return new CreateFlowsVaultConnectionGoogleSheetsUninitialized(name, appId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

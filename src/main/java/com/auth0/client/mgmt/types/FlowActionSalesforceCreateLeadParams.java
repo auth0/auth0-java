@@ -145,6 +145,10 @@ public final class FlowActionSalesforceCreateLeadParams {
     public interface _FinalStage {
         FlowActionSalesforceCreateLeadParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage firstName(Optional<String> firstName);
 
         _FinalStage firstName(String firstName);
@@ -272,6 +276,18 @@ public final class FlowActionSalesforceCreateLeadParams {
         public FlowActionSalesforceCreateLeadParams build() {
             return new FlowActionSalesforceCreateLeadParams(
                     connectionId, firstName, lastName, company, email, phone, payload, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

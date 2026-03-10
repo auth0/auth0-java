@@ -47,6 +47,10 @@ public class AsyncFlowsClient {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
+    public CompletableFuture<SyncPagingIterable<FlowSummary>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<SyncPagingIterable<FlowSummary>> list(ListFlowsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
@@ -69,6 +73,10 @@ public class AsyncFlowsClient {
         return this.rawClient.get(id).thenApply(response -> response.body());
     }
 
+    public CompletableFuture<GetFlowResponseContent> get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<GetFlowResponseContent> get(String id, GetFlowRequestParameters request) {
         return this.rawClient.get(id, request).thenApply(response -> response.body());
     }
@@ -88,6 +96,10 @@ public class AsyncFlowsClient {
 
     public CompletableFuture<UpdateFlowResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<UpdateFlowResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<UpdateFlowResponseContent> update(String id, UpdateFlowRequestContent request) {

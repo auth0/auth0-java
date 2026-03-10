@@ -141,6 +141,10 @@ public final class AttackProtectionUpdateCaptchaArkose {
     public interface _FinalStage {
         AttackProtectionUpdateCaptchaArkose build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The subdomain used for client requests to the Arkose captcha provider.</p>
          */
@@ -278,6 +282,18 @@ public final class AttackProtectionUpdateCaptchaArkose {
         public AttackProtectionUpdateCaptchaArkose build() {
             return new AttackProtectionUpdateCaptchaArkose(
                     siteKey, secret, clientSubdomain, verifySubdomain, failOpen, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

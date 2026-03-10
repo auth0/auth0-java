@@ -155,6 +155,10 @@ public final class CreateEventStreamTestEventResponseContent {
     public interface _FinalStage {
         CreateEventStreamTestEventResponseContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Results of delivery attempts</p>
          */
@@ -289,6 +293,18 @@ public final class CreateEventStreamTestEventResponseContent {
         public CreateEventStreamTestEventResponseContent build() {
             return new CreateEventStreamTestEventResponseContent(
                     id, eventStreamId, status, eventType, attempts, event, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

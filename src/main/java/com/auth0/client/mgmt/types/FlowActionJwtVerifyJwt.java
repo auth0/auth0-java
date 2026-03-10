@@ -148,6 +148,10 @@ public final class FlowActionJwtVerifyJwt {
     public interface _FinalStage {
         FlowActionJwtVerifyJwt build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage alias(Optional<String> alias);
 
         _FinalStage alias(String alias);
@@ -265,6 +269,18 @@ public final class FlowActionJwtVerifyJwt {
         public FlowActionJwtVerifyJwt build() {
             return new FlowActionJwtVerifyJwt(
                     id, alias, type, action, allowFailure, maskOutput, params, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -36,6 +36,13 @@ public class RefreshTokenClient {
     /**
      * Retrieve details for a user's refresh tokens.
      */
+    public SyncPagingIterable<RefreshTokenResponseContent> list(String userId, RequestOptions requestOptions) {
+        return this.rawClient.list(userId, requestOptions).body();
+    }
+
+    /**
+     * Retrieve details for a user's refresh tokens.
+     */
     public SyncPagingIterable<RefreshTokenResponseContent> list(
             String userId, ListRefreshTokensRequestParameters request) {
         return this.rawClient.list(userId, request).body();

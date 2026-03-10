@@ -55,18 +55,18 @@ public class AsyncRawOrganizationsClient {
     /**
      * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;Offset pagination&lt;/li&gt;
-     * &lt;li&gt;Checkpoint pagination&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total number of entries to retrieve when using the &lt;code&gt;from&lt;/code&gt; parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Organization>>> list() {
         return list(ListOrganizationsRequestParameters.builder().build());
@@ -75,18 +75,39 @@ public class AsyncRawOrganizationsClient {
     /**
      * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;Offset pagination&lt;/li&gt;
-     * &lt;li&gt;Checkpoint pagination&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total number of entries to retrieve when using the &lt;code&gt;from&lt;/code&gt; parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Organization>>> list(
+            RequestOptions requestOptions) {
+        return list(ListOrganizationsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
+     * <p>This endpoint supports two types of pagination:</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
+     * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p>To search by checkpoint, use the following parameters:</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Organization>>> list(
             ListOrganizationsRequestParameters request) {
@@ -96,18 +117,18 @@ public class AsyncRawOrganizationsClient {
     /**
      * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;Offset pagination&lt;/li&gt;
-     * &lt;li&gt;Checkpoint pagination&lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul></p>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p>&lt;ul&gt;
-     * &lt;li&gt;&lt;code&gt;from&lt;/code&gt;: Optional id from which to start selection.&lt;/li&gt;
-     * &lt;li&gt;&lt;code&gt;take&lt;/code&gt;: The total number of entries to retrieve when using the &lt;code&gt;from&lt;/code&gt; parameter. Defaults to 50.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint using checkpoint pagination, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no pages are remaining.</p>
+     * <p><ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
+     * </ul></p>
+     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Organization>>> list(
             ListOrganizationsRequestParameters request, RequestOptions requestOptions) {
@@ -122,6 +143,11 @@ public class AsyncRawOrganizationsClient {
         if (!request.getSort().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "sort", request.getSort().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -208,7 +234,7 @@ public class AsyncRawOrganizationsClient {
     }
 
     /**
-     * Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/create-first-organization&quot;&gt;Create Your First Organization&lt;/a&gt;.
+     * Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review <a href="https://auth0.com/docs/manage-users/organizations/create-first-organization">Create Your First Organization</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateOrganizationResponseContent>> create(
             CreateOrganizationRequestContent request) {
@@ -216,14 +242,18 @@ public class AsyncRawOrganizationsClient {
     }
 
     /**
-     * Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/create-first-organization&quot;&gt;Create Your First Organization&lt;/a&gt;.
+     * Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review <a href="https://auth0.com/docs/manage-users/organizations/create-first-organization">Create Your First Organization</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateOrganizationResponseContent>> create(
             CreateOrganizationRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("organizations")
-                .build();
+                .addPathSegments("organizations");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -232,7 +262,7 @@ public class AsyncRawOrganizationsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -316,13 +346,17 @@ public class AsyncRawOrganizationsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetOrganizationByNameResponseContent>> getByName(
             String name, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations/name")
-                .addPathSegment(name)
-                .build();
+                .addPathSegment(name);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -400,13 +434,17 @@ public class AsyncRawOrganizationsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetOrganizationResponseContent>> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -473,7 +511,7 @@ public class AsyncRawOrganizationsClient {
 
     /**
      * Remove an Organization from your tenant.  This action cannot be undone.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: Members are automatically disassociated from an Organization when it is deleted. However, this action does &lt;b&gt;not&lt;/b&gt; delete these users from your tenant.</p>
+     * <p><b>Note</b>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <b>not</b> delete these users from your tenant.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id) {
         return delete(id, null);
@@ -481,16 +519,20 @@ public class AsyncRawOrganizationsClient {
 
     /**
      * Remove an Organization from your tenant.  This action cannot be undone.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: Members are automatically disassociated from an Organization when it is deleted. However, this action does &lt;b&gt;not&lt;/b&gt; delete these users from your tenant.</p>
+     * <p><b>Note</b>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <b>not</b> delete these users from your tenant.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -558,14 +600,22 @@ public class AsyncRawOrganizationsClient {
     }
 
     /**
-     * Update the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations&quot;&gt;Organization&lt;/a&gt;, such as name and display name, branding options, and metadata.
+     * Update the details of a specific <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations">Organization</a>, such as name and display name, branding options, and metadata.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateOrganizationResponseContent>> update(String id) {
         return update(id, UpdateOrganizationRequestContent.builder().build());
     }
 
     /**
-     * Update the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations&quot;&gt;Organization&lt;/a&gt;, such as name and display name, branding options, and metadata.
+     * Update the details of a specific <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations">Organization</a>, such as name and display name, branding options, and metadata.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateOrganizationResponseContent>> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateOrganizationRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update the details of a specific <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations">Organization</a>, such as name and display name, branding options, and metadata.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateOrganizationResponseContent>> update(
             String id, UpdateOrganizationRequestContent request) {
@@ -573,15 +623,19 @@ public class AsyncRawOrganizationsClient {
     }
 
     /**
-     * Update the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations&quot;&gt;Organization&lt;/a&gt;, such as name and display name, branding options, and metadata.
+     * Update the details of a specific <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations">Organization</a>, such as name and display name, branding options, and metadata.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateOrganizationResponseContent>> update(
             String id, UpdateOrganizationRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -590,7 +644,7 @@ public class AsyncRawOrganizationsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

@@ -41,25 +41,29 @@ public class AsyncRawScimConfigurationClient {
     }
 
     /**
-     * Retrieves a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Retrieves a scim configuration by its <code>connectionId</code>.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetScimConfigurationResponseContent>> get(String id) {
         return get(id, null);
     }
 
     /**
-     * Retrieves a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Retrieves a scim configuration by its <code>connectionId</code>.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetScimConfigurationResponseContent>> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
-                .addPathSegments("scim-configuration")
-                .build();
+                .addPathSegments("scim-configuration");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -126,6 +130,14 @@ public class AsyncRawScimConfigurationClient {
      * Create a scim configuration for a connection.
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateScimConfigurationResponseContent>> create(
+            String id, RequestOptions requestOptions) {
+        return create(id, OptionalNullable.<CreateScimConfigurationRequestContent>absent(), requestOptions);
+    }
+
+    /**
+     * Create a scim configuration for a connection.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<CreateScimConfigurationResponseContent>> create(
             String id, OptionalNullable<CreateScimConfigurationRequestContent> request) {
         return create(id, request, null);
     }
@@ -135,12 +147,16 @@ public class AsyncRawScimConfigurationClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateScimConfigurationResponseContent>> create(
             String id, OptionalNullable<CreateScimConfigurationRequestContent> request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
-                .addPathSegments("scim-configuration")
-                .build();
+                .addPathSegments("scim-configuration");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create("", null);
@@ -152,7 +168,7 @@ public class AsyncRawScimConfigurationClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -210,24 +226,28 @@ public class AsyncRawScimConfigurationClient {
     }
 
     /**
-     * Deletes a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Deletes a scim configuration by its <code>connectionId</code>.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id) {
         return delete(id, null);
     }
 
     /**
-     * Deletes a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Deletes a scim configuration by its <code>connectionId</code>.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
-                .addPathSegments("scim-configuration")
-                .build();
+                .addPathSegments("scim-configuration");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -280,7 +300,7 @@ public class AsyncRawScimConfigurationClient {
     }
 
     /**
-     * Update a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Update a scim configuration by its <code>connectionId</code>.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateScimConfigurationResponseContent>> update(
             String id, UpdateScimConfigurationRequestContent request) {
@@ -288,16 +308,20 @@ public class AsyncRawScimConfigurationClient {
     }
 
     /**
-     * Update a scim configuration by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Update a scim configuration by its <code>connectionId</code>.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateScimConfigurationResponseContent>> update(
             String id, UpdateScimConfigurationRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
-                .addPathSegments("scim-configuration")
-                .build();
+                .addPathSegments("scim-configuration");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -306,7 +330,7 @@ public class AsyncRawScimConfigurationClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -364,7 +388,7 @@ public class AsyncRawScimConfigurationClient {
     }
 
     /**
-     * Retrieves a scim configuration's default mapping by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Retrieves a scim configuration's default mapping by its <code>connectionId</code>.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetScimConfigurationDefaultMappingResponseContent>>
             getDefaultMapping(String id) {
@@ -372,19 +396,23 @@ public class AsyncRawScimConfigurationClient {
     }
 
     /**
-     * Retrieves a scim configuration's default mapping by its &lt;code&gt;connectionId&lt;/code&gt;.
+     * Retrieves a scim configuration's default mapping by its <code>connectionId</code>.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetScimConfigurationDefaultMappingResponseContent>>
             getDefaultMapping(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
                 .addPathSegments("scim-configuration")
-                .addPathSegments("default-mapping")
-                .build();
+                .addPathSegments("default-mapping");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

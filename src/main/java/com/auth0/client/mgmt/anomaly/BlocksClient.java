@@ -24,28 +24,28 @@ public class BlocksClient {
     }
 
     /**
-     * Check if the given IP address is blocked via the &lt;a href=&quot;https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling&quot;&gt;Suspicious IP Throttling&lt;/a&gt; due to multiple suspicious attempts.
+     * Check if the given IP address is blocked via the <a href="https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling">Suspicious IP Throttling</a> due to multiple suspicious attempts.
      */
     public void checkIp(String id) {
         this.rawClient.checkIp(id).body();
     }
 
     /**
-     * Check if the given IP address is blocked via the &lt;a href=&quot;https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling&quot;&gt;Suspicious IP Throttling&lt;/a&gt; due to multiple suspicious attempts.
+     * Check if the given IP address is blocked via the <a href="https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling">Suspicious IP Throttling</a> due to multiple suspicious attempts.
      */
     public void checkIp(String id, RequestOptions requestOptions) {
         this.rawClient.checkIp(id, requestOptions).body();
     }
 
     /**
-     * Remove a block imposed by &lt;a href=&quot;https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling&quot;&gt;Suspicious IP Throttling&lt;/a&gt; for the given IP address.
+     * Remove a block imposed by <a href="https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling">Suspicious IP Throttling</a> for the given IP address.
      */
     public void unblockIp(String id) {
         this.rawClient.unblockIp(id).body();
     }
 
     /**
-     * Remove a block imposed by &lt;a href=&quot;https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling&quot;&gt;Suspicious IP Throttling&lt;/a&gt; for the given IP address.
+     * Remove a block imposed by <a href="https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling">Suspicious IP Throttling</a> for the given IP address.
      */
     public void unblockIp(String id, RequestOptions requestOptions) {
         this.rawClient.unblockIp(id, requestOptions).body();

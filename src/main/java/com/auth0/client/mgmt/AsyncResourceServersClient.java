@@ -43,6 +43,13 @@ public class AsyncResourceServersClient {
     /**
      * Retrieve details of all APIs associated with your tenant.
      */
+    public CompletableFuture<SyncPagingIterable<ResourceServer>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve details of all APIs associated with your tenant.
+     */
     public CompletableFuture<SyncPagingIterable<ResourceServer>> list(ListResourceServerRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
@@ -56,14 +63,14 @@ public class AsyncResourceServersClient {
     }
 
     /**
-     * Create a new API associated with your tenant. Note that all new APIs must be registered with Auth0. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis&quot;&gt; APIs&lt;/a&gt;.
+     * Create a new API associated with your tenant. Note that all new APIs must be registered with Auth0. For more information, read <a href="https://www.auth0.com/docs/get-started/apis"> APIs</a>.
      */
     public CompletableFuture<CreateResourceServerResponseContent> create(CreateResourceServerRequestContent request) {
         return this.rawClient.create(request).thenApply(response -> response.body());
     }
 
     /**
-     * Create a new API associated with your tenant. Note that all new APIs must be registered with Auth0. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis&quot;&gt; APIs&lt;/a&gt;.
+     * Create a new API associated with your tenant. Note that all new APIs must be registered with Auth0. For more information, read <a href="https://www.auth0.com/docs/get-started/apis"> APIs</a>.
      */
     public CompletableFuture<CreateResourceServerResponseContent> create(
             CreateResourceServerRequestContent request, RequestOptions requestOptions) {
@@ -71,14 +78,21 @@ public class AsyncResourceServersClient {
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/apis&quot;&gt;API&lt;/a&gt; details with the given ID.
+     * Retrieve <a href="https://auth0.com/docs/apis">API</a> details with the given ID.
      */
     public CompletableFuture<GetResourceServerResponseContent> get(String id) {
         return this.rawClient.get(id).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/apis&quot;&gt;API&lt;/a&gt; details with the given ID.
+     * Retrieve <a href="https://auth0.com/docs/apis">API</a> details with the given ID.
+     */
+    public CompletableFuture<GetResourceServerResponseContent> get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve <a href="https://auth0.com/docs/apis">API</a> details with the given ID.
      */
     public CompletableFuture<GetResourceServerResponseContent> get(
             String id, GetResourceServerRequestParameters request) {
@@ -86,7 +100,7 @@ public class AsyncResourceServersClient {
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/apis&quot;&gt;API&lt;/a&gt; details with the given ID.
+     * Retrieve <a href="https://auth0.com/docs/apis">API</a> details with the given ID.
      */
     public CompletableFuture<GetResourceServerResponseContent> get(
             String id, GetResourceServerRequestParameters request, RequestOptions requestOptions) {
@@ -94,28 +108,35 @@ public class AsyncResourceServersClient {
     }
 
     /**
-     * Delete an existing API by ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Delete an existing API by ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public CompletableFuture<Void> delete(String id) {
         return this.rawClient.delete(id).thenApply(response -> response.body());
     }
 
     /**
-     * Delete an existing API by ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Delete an existing API by ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public CompletableFuture<Void> delete(String id, RequestOptions requestOptions) {
         return this.rawClient.delete(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**
-     * Change an existing API setting by resource server ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Change an existing API setting by resource server ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public CompletableFuture<UpdateResourceServerResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
     }
 
     /**
-     * Change an existing API setting by resource server ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Change an existing API setting by resource server ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
+     */
+    public CompletableFuture<UpdateResourceServerResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Change an existing API setting by resource server ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public CompletableFuture<UpdateResourceServerResponseContent> update(
             String id, UpdateResourceServerRequestContent request) {
@@ -123,7 +144,7 @@ public class AsyncResourceServersClient {
     }
 
     /**
-     * Change an existing API setting by resource server ID. For more information, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/apis/api-settings&quot;&gt;API Settings&lt;/a&gt;.
+     * Change an existing API setting by resource server ID. For more information, read <a href="https://www.auth0.com/docs/get-started/apis/api-settings">API Settings</a>.
      */
     public CompletableFuture<UpdateResourceServerResponseContent> update(
             String id, UpdateResourceServerRequestContent request, RequestOptions requestOptions) {

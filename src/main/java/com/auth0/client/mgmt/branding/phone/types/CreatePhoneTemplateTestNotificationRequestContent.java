@@ -92,6 +92,10 @@ public final class CreatePhoneTemplateTestNotificationRequestContent {
     public interface _FinalStage {
         CreatePhoneTemplateTestNotificationRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage deliveryMethod(Optional<PhoneProviderDeliveryMethodEnum> deliveryMethod);
 
         _FinalStage deliveryMethod(PhoneProviderDeliveryMethodEnum deliveryMethod);
@@ -143,6 +147,18 @@ public final class CreatePhoneTemplateTestNotificationRequestContent {
         @java.lang.Override
         public CreatePhoneTemplateTestNotificationRequestContent build() {
             return new CreatePhoneTemplateTestNotificationRequestContent(to, deliveryMethod, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -106,6 +106,10 @@ public final class DomainVerificationMethod {
     public interface _FinalStage {
         DomainVerificationMethod build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The name of the txt record for verification</p>
          */
@@ -177,6 +181,18 @@ public final class DomainVerificationMethod {
         @java.lang.Override
         public DomainVerificationMethod build() {
             return new DomainVerificationMethod(name, record, domain, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -50,6 +50,13 @@ public class BruteForceProtectionClient {
     /**
      * Update the Brute-force Protection configuration of your tenant.
      */
+    public UpdateBruteForceSettingsResponseContent update(RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).body();
+    }
+
+    /**
+     * Update the Brute-force Protection configuration of your tenant.
+     */
     public UpdateBruteForceSettingsResponseContent update(UpdateBruteForceSettingsRequestContent request) {
         return this.rawClient.update(request).body();
     }

@@ -219,5 +219,15 @@ public final class EmailProviderCredentials {
         public EmailProviderCredentials build() {
             return new EmailProviderCredentials(apiUser, region, smtpHost, smtpPort, smtpUser, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

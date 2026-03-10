@@ -63,6 +63,13 @@ public class ActionsClient {
     /**
      * Retrieve all actions.
      */
+    public SyncPagingIterable<Action> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve all actions.
+     */
     public SyncPagingIterable<Action> list(ListActionsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -112,6 +119,13 @@ public class ActionsClient {
     /**
      * Deletes an action and all of its associated versions. An action must be unbound from all triggers before it can be deleted.
      */
+    public void delete(String id, RequestOptions requestOptions) {
+        this.rawClient.delete(id, requestOptions).body();
+    }
+
+    /**
+     * Deletes an action and all of its associated versions. An action must be unbound from all triggers before it can be deleted.
+     */
     public void delete(String id, DeleteActionRequestParameters request) {
         this.rawClient.delete(id, request).body();
     }
@@ -124,21 +138,28 @@ public class ActionsClient {
     }
 
     /**
-     * Update an existing action. If this action is currently bound to a trigger, updating it will &lt;strong&gt;not&lt;/strong&gt; affect any user flows until the action is deployed.
+     * Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
      */
     public UpdateActionResponseContent update(String id) {
         return this.rawClient.update(id).body();
     }
 
     /**
-     * Update an existing action. If this action is currently bound to a trigger, updating it will &lt;strong&gt;not&lt;/strong&gt; affect any user flows until the action is deployed.
+     * Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
+     */
+    public UpdateActionResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
+    }
+
+    /**
+     * Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
      */
     public UpdateActionResponseContent update(String id, UpdateActionRequestContent request) {
         return this.rawClient.update(id, request).body();
     }
 
     /**
-     * Update an existing action. If this action is currently bound to a trigger, updating it will &lt;strong&gt;not&lt;/strong&gt; affect any user flows until the action is deployed.
+     * Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
      */
     public UpdateActionResponseContent update(
             String id, UpdateActionRequestContent request, RequestOptions requestOptions) {

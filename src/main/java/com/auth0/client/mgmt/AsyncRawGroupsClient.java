@@ -53,6 +53,13 @@ public class AsyncRawGroupsClient {
     /**
      * List all groups in your tenant.
      */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Group>>> list(RequestOptions requestOptions) {
+        return list(ListGroupsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * List all groups in your tenant.
+     */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Group>>> list(
             ListGroupsRequestParameters request) {
         return list(request, null);
@@ -91,6 +98,11 @@ public class AsyncRawGroupsClient {
                     httpUrl, "from", request.getFrom().orElse(null), false);
         }
         QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -184,13 +196,17 @@ public class AsyncRawGroupsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetGroupResponseContent>> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("groups")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

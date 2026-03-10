@@ -93,6 +93,10 @@ public final class FlowActionFlowMapValueParams {
     public interface _FinalStage {
         FlowActionFlowMapValueParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage cases(Optional<Map<String, Object>> cases);
 
         _FinalStage cases(Map<String, Object> cases);
@@ -159,6 +163,18 @@ public final class FlowActionFlowMapValueParams {
         @java.lang.Override
         public FlowActionFlowMapValueParams build() {
             return new FlowActionFlowMapValueParams(input, cases, fallback, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

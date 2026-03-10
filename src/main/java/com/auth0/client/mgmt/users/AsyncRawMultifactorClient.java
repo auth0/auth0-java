@@ -37,26 +37,30 @@ public class AsyncRawMultifactorClient {
     }
 
     /**
-     * Invalidate all remembered browsers across all &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication&quot;&gt;authentication factors&lt;/a&gt; for a user.
+     * Invalidate all remembered browsers across all <a href="https://auth0.com/docs/multifactor-authentication">authentication factors</a> for a user.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> invalidateRememberBrowser(String id) {
         return invalidateRememberBrowser(id, null);
     }
 
     /**
-     * Invalidate all remembered browsers across all &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication&quot;&gt;authentication factors&lt;/a&gt; for a user.
+     * Invalidate all remembered browsers across all <a href="https://auth0.com/docs/multifactor-authentication">authentication factors</a> for a user.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> invalidateRememberBrowser(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users")
                 .addPathSegment(id)
                 .addPathSegments("multifactor/actions")
-                .addPathSegments("invalidate-remember-browser")
-                .build();
+                .addPathSegments("invalidate-remember-browser");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -114,7 +118,7 @@ public class AsyncRawMultifactorClient {
     }
 
     /**
-     * Remove a &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication&quot;&gt;multifactor&lt;/a&gt; authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
+     * Remove a <a href="https://auth0.com/docs/multifactor-authentication">multifactor</a> authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> deleteProvider(
             String id, UserMultifactorProviderEnum provider) {
@@ -122,19 +126,23 @@ public class AsyncRawMultifactorClient {
     }
 
     /**
-     * Remove a &lt;a href=&quot;https://auth0.com/docs/multifactor-authentication&quot;&gt;multifactor&lt;/a&gt; authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
+     * Remove a <a href="https://auth0.com/docs/multifactor-authentication">multifactor</a> authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> deleteProvider(
             String id, UserMultifactorProviderEnum provider, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users")
                 .addPathSegment(id)
                 .addPathSegments("multifactor")
-                .addPathSegment(provider.toString())
-                .build();
+                .addPathSegment(provider.toString());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

@@ -243,6 +243,10 @@ public final class GetGroupResponseContent {
     public interface _FinalStage {
         GetGroupResponseContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>External identifier for the group, often used for SCIM synchronization. Max length of 256 characters.</p>
          */
@@ -515,6 +519,18 @@ public final class GetGroupResponseContent {
                     createdAt,
                     updatedAt,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

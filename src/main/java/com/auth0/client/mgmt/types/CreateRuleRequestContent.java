@@ -127,6 +127,10 @@ public final class CreateRuleRequestContent {
     public interface _FinalStage {
         CreateRuleRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Order that this rule should execute in relative to other rules. Lower-valued rules execute first.</p>
          */
@@ -233,6 +237,18 @@ public final class CreateRuleRequestContent {
         @java.lang.Override
         public CreateRuleRequestContent build() {
             return new CreateRuleRequestContent(name, script, order, enabled, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

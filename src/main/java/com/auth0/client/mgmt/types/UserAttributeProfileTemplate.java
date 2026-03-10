@@ -142,5 +142,15 @@ public final class UserAttributeProfileTemplate {
         public UserAttributeProfileTemplate build() {
             return new UserAttributeProfileTemplate(name, userId, userAttributes, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

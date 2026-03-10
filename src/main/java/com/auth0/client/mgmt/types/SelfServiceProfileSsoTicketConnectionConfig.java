@@ -72,7 +72,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; promotes to a domain-level connection so that third-party applications can use it. &lt;code&gt;false&lt;/code&gt; does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to &lt;code&gt;false&lt;/code&gt;.)
+     * @return <code>true</code> promotes to a domain-level connection so that third-party applications can use it. <code>false</code> does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to <code>false</code>.)
      */
     @JsonProperty("is_domain_connection")
     public Optional<Boolean> getIsDomainConnection() {
@@ -80,7 +80,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
     }
 
     /**
-     * @return Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to &lt;code&gt;false&lt;/code&gt;.)
+     * @return Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to <code>false</code>.)
      */
     @JsonProperty("show_as_button")
     public Optional<Boolean> getShowAsButton() {
@@ -155,6 +155,10 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
     public interface _FinalStage {
         SelfServiceProfileSsoTicketConnectionConfig build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Connection name used in the new universal login experience</p>
          */
@@ -163,14 +167,14 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
         _FinalStage displayName(String displayName);
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; promotes to a domain-level connection so that third-party applications can use it. &lt;code&gt;false&lt;/code&gt; does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
+         * <p><code>true</code> promotes to a domain-level connection so that third-party applications can use it. <code>false</code> does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to <code>false</code>.)</p>
          */
         _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection);
 
         _FinalStage isDomainConnection(Boolean isDomainConnection);
 
         /**
-         * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
+         * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to <code>false</code>.)</p>
          */
         _FinalStage showAsButton(Optional<Boolean> showAsButton);
 
@@ -281,7 +285,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
         }
 
         /**
-         * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
+         * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to <code>false</code>.)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -291,7 +295,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
         }
 
         /**
-         * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
+         * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to <code>false</code>.)</p>
          */
         @java.lang.Override
         @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
@@ -301,7 +305,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; promotes to a domain-level connection so that third-party applications can use it. &lt;code&gt;false&lt;/code&gt; does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
+         * <p><code>true</code> promotes to a domain-level connection so that third-party applications can use it. <code>false</code> does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to <code>false</code>.)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -311,7 +315,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; promotes to a domain-level connection so that third-party applications can use it. &lt;code&gt;false&lt;/code&gt; does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
+         * <p><code>true</code> promotes to a domain-level connection so that third-party applications can use it. <code>false</code> does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to <code>false</code>.)</p>
          */
         @java.lang.Override
         @JsonSetter(value = "is_domain_connection", nulls = Nulls.SKIP)
@@ -344,6 +348,18 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
         public SelfServiceProfileSsoTicketConnectionConfig build() {
             return new SelfServiceProfileSsoTicketConnectionConfig(
                     name, displayName, isDomainConnection, showAsButton, metadata, options, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

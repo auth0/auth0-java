@@ -36,25 +36,29 @@ public class RawTokensClient {
     }
 
     /**
-     * Retrieves all scim tokens by its connection &lt;code&gt;id&lt;/code&gt;.
+     * Retrieves all scim tokens by its connection <code>id</code>.
      */
     public ManagementApiHttpResponse<List<ScimTokenItem>> get(String id) {
         return get(id, null);
     }
 
     /**
-     * Retrieves all scim tokens by its connection &lt;code&gt;id&lt;/code&gt;.
+     * Retrieves all scim tokens by its connection <code>id</code>.
      */
     public ManagementApiHttpResponse<List<ScimTokenItem>> get(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
                 .addPathSegments("scim-configuration")
-                .addPathSegments("tokens")
-                .build();
+                .addPathSegments("tokens");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -102,6 +106,13 @@ public class RawTokensClient {
     /**
      * Create a scim token for a scim client.
      */
+    public ManagementApiHttpResponse<CreateScimTokenResponseContent> create(String id, RequestOptions requestOptions) {
+        return create(id, CreateScimTokenRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Create a scim token for a scim client.
+     */
     public ManagementApiHttpResponse<CreateScimTokenResponseContent> create(
             String id, CreateScimTokenRequestContent request) {
         return create(id, request, null);
@@ -112,13 +123,17 @@ public class RawTokensClient {
      */
     public ManagementApiHttpResponse<CreateScimTokenResponseContent> create(
             String id, CreateScimTokenRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
                 .addPathSegments("scim-configuration")
-                .addPathSegments("tokens")
-                .build();
+                .addPathSegments("tokens");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -127,7 +142,7 @@ public class RawTokensClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -169,25 +184,29 @@ public class RawTokensClient {
     }
 
     /**
-     * Deletes a scim token by its connection &lt;code&gt;id&lt;/code&gt; and &lt;code&gt;tokenId&lt;/code&gt;.
+     * Deletes a scim token by its connection <code>id</code> and <code>tokenId</code>.
      */
     public ManagementApiHttpResponse<Void> delete(String id, String tokenId) {
         return delete(id, tokenId, null);
     }
 
     /**
-     * Deletes a scim token by its connection &lt;code&gt;id&lt;/code&gt; and &lt;code&gt;tokenId&lt;/code&gt;.
+     * Deletes a scim token by its connection <code>id</code> and <code>tokenId</code>.
      */
     public ManagementApiHttpResponse<Void> delete(String id, String tokenId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("connections")
                 .addPathSegment(id)
                 .addPathSegments("scim-configuration/tokens")
-                .addPathSegment(tokenId)
-                .build();
+                .addPathSegment(tokenId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

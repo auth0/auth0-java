@@ -114,6 +114,10 @@ public final class CertificateSubjectDnCredential {
     public interface _FinalStage {
         CertificateSubjectDnCredential build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Friendly name for a credential.</p>
          */
@@ -230,6 +234,18 @@ public final class CertificateSubjectDnCredential {
         @java.lang.Override
         public CertificateSubjectDnCredential build() {
             return new CertificateSubjectDnCredential(credentialType, name, subjectDn, pem, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

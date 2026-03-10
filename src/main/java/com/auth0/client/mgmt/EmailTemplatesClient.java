@@ -87,6 +87,14 @@ public class EmailTemplatesClient {
      * Modify an email template.
      */
     public UpdateEmailTemplateResponseContent update(
+            EmailTemplateNameEnum templateName, RequestOptions requestOptions) {
+        return this.rawClient.update(templateName, requestOptions).body();
+    }
+
+    /**
+     * Modify an email template.
+     */
+    public UpdateEmailTemplateResponseContent update(
             EmailTemplateNameEnum templateName, UpdateEmailTemplateRequestContent request) {
         return this.rawClient.update(templateName, request).body();
     }

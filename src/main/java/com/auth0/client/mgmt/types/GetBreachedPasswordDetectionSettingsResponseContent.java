@@ -58,7 +58,7 @@ public final class GetBreachedPasswordDetectionSettingsResponseContent {
 
     /**
      * @return Action to take when a breached password is detected during a login.
-     * Possible values: &lt;code&gt;block&lt;/code&gt;, &lt;code&gt;user_notification&lt;/code&gt;, &lt;code&gt;admin_notification&lt;/code&gt;.
+     * Possible values: <code>block</code>, <code>user_notification</code>, <code>admin_notification</code>.
      */
     @JsonProperty("shields")
     public Optional<List<BreachedPasswordDetectionShieldsEnum>> getShields() {
@@ -67,7 +67,7 @@ public final class GetBreachedPasswordDetectionSettingsResponseContent {
 
     /**
      * @return When &quot;admin_notification&quot; is enabled, determines how often email notifications are sent.
-     * Possible values: &lt;code&gt;immediately&lt;/code&gt;, &lt;code&gt;daily&lt;/code&gt;, &lt;code&gt;weekly&lt;/code&gt;, &lt;code&gt;monthly&lt;/code&gt;.
+     * Possible values: <code>immediately</code>, <code>daily</code>, <code>weekly</code>, <code>monthly</code>.
      */
     @JsonProperty("admin_notification_frequency")
     public Optional<List<BreachedPasswordDetectionAdminNotificationFrequencyEnum>> getAdminNotificationFrequency() {
@@ -161,7 +161,7 @@ public final class GetBreachedPasswordDetectionSettingsResponseContent {
 
         /**
          * <p>Action to take when a breached password is detected during a login.
-         * Possible values: &lt;code&gt;block&lt;/code&gt;, &lt;code&gt;user_notification&lt;/code&gt;, &lt;code&gt;admin_notification&lt;/code&gt;.</p>
+         * Possible values: <code>block</code>, <code>user_notification</code>, <code>admin_notification</code>.</p>
          */
         @JsonSetter(value = "shields", nulls = Nulls.SKIP)
         public Builder shields(Optional<List<BreachedPasswordDetectionShieldsEnum>> shields) {
@@ -176,7 +176,7 @@ public final class GetBreachedPasswordDetectionSettingsResponseContent {
 
         /**
          * <p>When &quot;admin_notification&quot; is enabled, determines how often email notifications are sent.
-         * Possible values: &lt;code&gt;immediately&lt;/code&gt;, &lt;code&gt;daily&lt;/code&gt;, &lt;code&gt;weekly&lt;/code&gt;, &lt;code&gt;monthly&lt;/code&gt;.</p>
+         * Possible values: <code>immediately</code>, <code>daily</code>, <code>weekly</code>, <code>monthly</code>.</p>
          */
         @JsonSetter(value = "admin_notification_frequency", nulls = Nulls.SKIP)
         public Builder adminNotificationFrequency(
@@ -216,6 +216,16 @@ public final class GetBreachedPasswordDetectionSettingsResponseContent {
         public GetBreachedPasswordDetectionSettingsResponseContent build() {
             return new GetBreachedPasswordDetectionSettingsResponseContent(
                     enabled, shields, adminNotificationFrequency, method, stage, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

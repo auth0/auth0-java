@@ -36,6 +36,13 @@ public class SessionsClient {
     /**
      * Retrieve details for a user's sessions.
      */
+    public SyncPagingIterable<SessionResponseContent> list(String userId, RequestOptions requestOptions) {
+        return this.rawClient.list(userId, requestOptions).body();
+    }
+
+    /**
+     * Retrieve details for a user's sessions.
+     */
     public SyncPagingIterable<SessionResponseContent> list(String userId, ListUserSessionsRequestParameters request) {
         return this.rawClient.list(userId, request).body();
     }

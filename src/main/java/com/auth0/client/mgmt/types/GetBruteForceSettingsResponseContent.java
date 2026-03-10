@@ -58,7 +58,7 @@ public final class GetBruteForceSettingsResponseContent {
 
     /**
      * @return Action to take when a brute force protection threshold is violated.
-     * Possible values: &lt;code&gt;block&lt;/code&gt;, &lt;code&gt;user_notification&lt;/code&gt;.
+     * Possible values: <code>block</code>, <code>user_notification</code>.
      */
     @JsonProperty("shields")
     public Optional<List<BruteForceProtectionShieldsEnum>> getShields() {
@@ -162,7 +162,7 @@ public final class GetBruteForceSettingsResponseContent {
 
         /**
          * <p>Action to take when a brute force protection threshold is violated.
-         * Possible values: &lt;code&gt;block&lt;/code&gt;, &lt;code&gt;user_notification&lt;/code&gt;.</p>
+         * Possible values: <code>block</code>, <code>user_notification</code>.</p>
          */
         @JsonSetter(value = "shields", nulls = Nulls.SKIP)
         public Builder shields(Optional<List<BruteForceProtectionShieldsEnum>> shields) {
@@ -217,6 +217,16 @@ public final class GetBruteForceSettingsResponseContent {
         public GetBruteForceSettingsResponseContent build() {
             return new GetBruteForceSettingsResponseContent(
                     enabled, shields, allowlist, mode, maxAttempts, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

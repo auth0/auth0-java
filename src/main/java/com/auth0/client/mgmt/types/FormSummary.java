@@ -138,6 +138,10 @@ public final class FormSummary {
     public interface _FinalStage {
         FormSummary build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage embeddedAt(Optional<String> embeddedAt);
 
         _FinalStage embeddedAt(String embeddedAt);
@@ -234,6 +238,18 @@ public final class FormSummary {
         @java.lang.Override
         public FormSummary build() {
             return new FormSummary(id, name, createdAt, updatedAt, embeddedAt, submittedAt, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

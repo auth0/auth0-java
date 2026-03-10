@@ -31,6 +31,10 @@ public class DeliveriesClient {
         return this.rawClient.list(id).body();
     }
 
+    public List<EventStreamDelivery> list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).body();
+    }
+
     public List<EventStreamDelivery> list(String id, ListEventStreamDeliveriesRequestParameters request) {
         return this.rawClient.list(id, request).body();
     }

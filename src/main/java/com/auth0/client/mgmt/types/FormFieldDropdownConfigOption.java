@@ -82,6 +82,10 @@ public final class FormFieldDropdownConfigOption {
 
     public interface _FinalStage {
         FormFieldDropdownConfigOption build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -119,6 +123,18 @@ public final class FormFieldDropdownConfigOption {
         @java.lang.Override
         public FormFieldDropdownConfigOption build() {
             return new FormFieldDropdownConfigOption(value, label, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

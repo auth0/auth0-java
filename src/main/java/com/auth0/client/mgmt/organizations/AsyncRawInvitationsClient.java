@@ -49,14 +49,22 @@ public class AsyncRawInvitationsClient {
     }
 
     /**
-     * Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members&quot;&gt;Invite Organization Members&lt;/a&gt;.
+     * Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<OrganizationInvitation>>> list(String id) {
         return list(id, ListOrganizationInvitationsRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members&quot;&gt;Invite Organization Members&lt;/a&gt;.
+     * Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<OrganizationInvitation>>> list(
+            String id, RequestOptions requestOptions) {
+        return list(id, ListOrganizationInvitationsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<OrganizationInvitation>>> list(
             String id, ListOrganizationInvitationsRequestParameters request) {
@@ -64,7 +72,7 @@ public class AsyncRawInvitationsClient {
     }
 
     /**
-     * Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members&quot;&gt;Invite Organization Members&lt;/a&gt;.
+     * Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<OrganizationInvitation>>> list(
             String id, ListOrganizationInvitationsRequestParameters request, RequestOptions requestOptions) {
@@ -89,6 +97,11 @@ public class AsyncRawInvitationsClient {
         if (!request.getSort().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "sort", request.getSort().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -184,7 +197,7 @@ public class AsyncRawInvitationsClient {
     }
 
     /**
-     * Create a user invitation for a specific Organization. Upon creation, the listed user receives an email inviting them to join the Organization. To learn more about Organization invitations, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members&quot;&gt;Invite Organization Members&lt;/a&gt;.
+     * Create a user invitation for a specific Organization. Upon creation, the listed user receives an email inviting them to join the Organization. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateOrganizationInvitationResponseContent>> create(
             String id, CreateOrganizationInvitationRequestContent request) {
@@ -192,16 +205,20 @@ public class AsyncRawInvitationsClient {
     }
 
     /**
-     * Create a user invitation for a specific Organization. Upon creation, the listed user receives an email inviting them to join the Organization. To learn more about Organization invitations, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members&quot;&gt;Invite Organization Members&lt;/a&gt;.
+     * Create a user invitation for a specific Organization. Upon creation, the listed user receives an email inviting them to join the Organization. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateOrganizationInvitationResponseContent>> create(
             String id, CreateOrganizationInvitationRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
-                .addPathSegments("invitations")
-                .build();
+                .addPathSegments("invitations");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -210,7 +227,7 @@ public class AsyncRawInvitationsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -291,6 +308,15 @@ public class AsyncRawInvitationsClient {
     }
 
     public CompletableFuture<ManagementApiHttpResponse<GetOrganizationInvitationResponseContent>> get(
+            String id, String invitationId, RequestOptions requestOptions) {
+        return get(
+                id,
+                invitationId,
+                GetOrganizationInvitationRequestParameters.builder().build(),
+                requestOptions);
+    }
+
+    public CompletableFuture<ManagementApiHttpResponse<GetOrganizationInvitationResponseContent>> get(
             String id, String invitationId, GetOrganizationInvitationRequestParameters request) {
         return get(id, invitationId, request, null);
     }
@@ -313,6 +339,11 @@ public class AsyncRawInvitationsClient {
         if (!request.getIncludeFields().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -392,15 +423,19 @@ public class AsyncRawInvitationsClient {
 
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(
             String id, String invitationId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
                 .addPathSegments("invitations")
-                .addPathSegment(invitationId)
-                .build();
+                .addPathSegment(invitationId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

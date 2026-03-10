@@ -34,14 +34,21 @@ public class AsyncProvidersClient {
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone providers&lt;/a&gt; details set for a Tenant. A list of fields to include or exclude may also be specified.
+     * Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone providers</a> details set for a Tenant. A list of fields to include or exclude may also be specified.
      */
     public CompletableFuture<ListBrandingPhoneProvidersResponseContent> list() {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone providers&lt;/a&gt; details set for a Tenant. A list of fields to include or exclude may also be specified.
+     * Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone providers</a> details set for a Tenant. A list of fields to include or exclude may also be specified.
+     */
+    public CompletableFuture<ListBrandingPhoneProvidersResponseContent> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone providers</a> details set for a Tenant. A list of fields to include or exclude may also be specified.
      */
     public CompletableFuture<ListBrandingPhoneProvidersResponseContent> list(
             ListBrandingPhoneProvidersRequestParameters request) {
@@ -49,7 +56,7 @@ public class AsyncProvidersClient {
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone providers&lt;/a&gt; details set for a Tenant. A list of fields to include or exclude may also be specified.
+     * Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone providers</a> details set for a Tenant. A list of fields to include or exclude may also be specified.
      */
     public CompletableFuture<ListBrandingPhoneProvidersResponseContent> list(
             ListBrandingPhoneProvidersRequestParameters request, RequestOptions requestOptions) {
@@ -57,8 +64,8 @@ public class AsyncProvidersClient {
     }
 
     /**
-     * Create a &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone provider&lt;/a&gt;.
-     * The &lt;code&gt;credentials&lt;/code&gt; object requires different properties depending on the phone provider (which is specified using the &lt;code&gt;name&lt;/code&gt; property).
+     * Create a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
+     * The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
      */
     public CompletableFuture<CreateBrandingPhoneProviderResponseContent> create(
             CreateBrandingPhoneProviderRequestContent request) {
@@ -66,8 +73,8 @@ public class AsyncProvidersClient {
     }
 
     /**
-     * Create a &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone provider&lt;/a&gt;.
-     * The &lt;code&gt;credentials&lt;/code&gt; object requires different properties depending on the phone provider (which is specified using the &lt;code&gt;name&lt;/code&gt; property).
+     * Create a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
+     * The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
      */
     public CompletableFuture<CreateBrandingPhoneProviderResponseContent> create(
             CreateBrandingPhoneProviderRequestContent request, RequestOptions requestOptions) {
@@ -75,14 +82,14 @@ public class AsyncProvidersClient {
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone provider&lt;/a&gt; details. A list of fields to include or exclude may also be specified.
+     * Retrieve <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a> details. A list of fields to include or exclude may also be specified.
      */
     public CompletableFuture<GetBrandingPhoneProviderResponseContent> get(String id) {
         return this.rawClient.get(id).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone provider&lt;/a&gt; details. A list of fields to include or exclude may also be specified.
+     * Retrieve <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a> details. A list of fields to include or exclude may also be specified.
      */
     public CompletableFuture<GetBrandingPhoneProviderResponseContent> get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
@@ -103,16 +110,25 @@ public class AsyncProvidersClient {
     }
 
     /**
-     * Update a &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone provider&lt;/a&gt;.
-     * The &lt;code&gt;credentials&lt;/code&gt; object requires different properties depending on the phone provider (which is specified using the &lt;code&gt;name&lt;/code&gt; property).
+     * Update a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
+     * The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
      */
     public CompletableFuture<UpdateBrandingPhoneProviderResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
     }
 
     /**
-     * Update a &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone provider&lt;/a&gt;.
-     * The &lt;code&gt;credentials&lt;/code&gt; object requires different properties depending on the phone provider (which is specified using the &lt;code&gt;name&lt;/code&gt; property).
+     * Update a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
+     * The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
+     */
+    public CompletableFuture<UpdateBrandingPhoneProviderResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
+     * The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
      */
     public CompletableFuture<UpdateBrandingPhoneProviderResponseContent> update(
             String id, UpdateBrandingPhoneProviderRequestContent request) {
@@ -120,8 +136,8 @@ public class AsyncProvidersClient {
     }
 
     /**
-     * Update a &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone provider&lt;/a&gt;.
-     * The &lt;code&gt;credentials&lt;/code&gt; object requires different properties depending on the phone provider (which is specified using the &lt;code&gt;name&lt;/code&gt; property).
+     * Update a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
+     * The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
      */
     public CompletableFuture<UpdateBrandingPhoneProviderResponseContent> update(
             String id, UpdateBrandingPhoneProviderRequestContent request, RequestOptions requestOptions) {

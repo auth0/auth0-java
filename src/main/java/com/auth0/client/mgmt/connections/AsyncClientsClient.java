@@ -30,16 +30,25 @@ public class AsyncClientsClient {
     }
 
     /**
-     * Retrieve all clients that have the specified &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; enabled.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no further results are remaining.</p>
+     * Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+     * <p><b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
      */
     public CompletableFuture<SyncPagingIterable<ConnectionEnabledClient>> get(String id) {
         return this.rawClient.get(id).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve all clients that have the specified &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; enabled.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no further results are remaining.</p>
+     * Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+     * <p><b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
+     */
+    public CompletableFuture<SyncPagingIterable<ConnectionEnabledClient>> get(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+     * <p><b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
      */
     public CompletableFuture<SyncPagingIterable<ConnectionEnabledClient>> get(
             String id, GetConnectionEnabledClientsRequestParameters request) {
@@ -47,8 +56,8 @@ public class AsyncClientsClient {
     }
 
     /**
-     * Retrieve all clients that have the specified &lt;a href=&quot;https://auth0.com/docs/authenticate/identity-providers&quot;&gt;connection&lt;/a&gt; enabled.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The first time you call this endpoint, omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value is included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, no further results are remaining.</p>
+     * Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+     * <p><b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
      */
     public CompletableFuture<SyncPagingIterable<ConnectionEnabledClient>> get(
             String id, GetConnectionEnabledClientsRequestParameters request, RequestOptions requestOptions) {

@@ -29,21 +29,28 @@ public class AsyncUserGrantsClient {
     }
 
     /**
-     * Retrieve the &lt;a href=&quot;https://auth0.com/docs/api-auth/which-oauth-flow-to-use&quot;&gt;grants&lt;/a&gt; associated with your account.
+     * Retrieve the <a href="https://auth0.com/docs/api-auth/which-oauth-flow-to-use">grants</a> associated with your account.
      */
     public CompletableFuture<SyncPagingIterable<UserGrant>> list() {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve the &lt;a href=&quot;https://auth0.com/docs/api-auth/which-oauth-flow-to-use&quot;&gt;grants&lt;/a&gt; associated with your account.
+     * Retrieve the <a href="https://auth0.com/docs/api-auth/which-oauth-flow-to-use">grants</a> associated with your account.
+     */
+    public CompletableFuture<SyncPagingIterable<UserGrant>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve the <a href="https://auth0.com/docs/api-auth/which-oauth-flow-to-use">grants</a> associated with your account.
      */
     public CompletableFuture<SyncPagingIterable<UserGrant>> list(ListUserGrantsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve the &lt;a href=&quot;https://auth0.com/docs/api-auth/which-oauth-flow-to-use&quot;&gt;grants&lt;/a&gt; associated with your account.
+     * Retrieve the <a href="https://auth0.com/docs/api-auth/which-oauth-flow-to-use">grants</a> associated with your account.
      */
     public CompletableFuture<SyncPagingIterable<UserGrant>> list(
             ListUserGrantsRequestParameters request, RequestOptions requestOptions) {

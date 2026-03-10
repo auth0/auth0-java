@@ -100,6 +100,10 @@ public final class FlowActionMailchimpUpsertMemberParamsMember {
     public interface _FinalStage {
         FlowActionMailchimpUpsertMemberParamsMember build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage mergeFields(Optional<Map<String, Object>> mergeFields);
 
         _FinalStage mergeFields(Map<String, Object> mergeFields);
@@ -157,6 +161,18 @@ public final class FlowActionMailchimpUpsertMemberParamsMember {
         public FlowActionMailchimpUpsertMemberParamsMember build() {
             return new FlowActionMailchimpUpsertMemberParamsMember(
                     emailAddress, statusIfNew, mergeFields, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

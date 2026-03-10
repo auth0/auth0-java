@@ -52,14 +52,21 @@ public class AsyncRawHooksClient {
     }
 
     /**
-     * Retrieve all &lt;a href=&quot;https://auth0.com/docs/hooks&quot;&gt;hooks&lt;/a&gt;. Accepts a list of fields to include or exclude in the result.
+     * Retrieve all <a href="https://auth0.com/docs/hooks">hooks</a>. Accepts a list of fields to include or exclude in the result.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Hook>>> list() {
         return list(ListHooksRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve all &lt;a href=&quot;https://auth0.com/docs/hooks&quot;&gt;hooks&lt;/a&gt;. Accepts a list of fields to include or exclude in the result.
+     * Retrieve all <a href="https://auth0.com/docs/hooks">hooks</a>. Accepts a list of fields to include or exclude in the result.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Hook>>> list(RequestOptions requestOptions) {
+        return list(ListHooksRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve all <a href="https://auth0.com/docs/hooks">hooks</a>. Accepts a list of fields to include or exclude in the result.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Hook>>> list(
             ListHooksRequestParameters request) {
@@ -67,7 +74,7 @@ public class AsyncRawHooksClient {
     }
 
     /**
-     * Retrieve all &lt;a href=&quot;https://auth0.com/docs/hooks&quot;&gt;hooks&lt;/a&gt;. Accepts a list of fields to include or exclude in the result.
+     * Retrieve all <a href="https://auth0.com/docs/hooks">hooks</a>. Accepts a list of fields to include or exclude in the result.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Hook>>> list(
             ListHooksRequestParameters request, RequestOptions requestOptions) {
@@ -90,6 +97,11 @@ public class AsyncRawHooksClient {
         if (!request.getTriggerId().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "triggerId", request.getTriggerId().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -192,10 +204,14 @@ public class AsyncRawHooksClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateHookResponseContent>> create(
             CreateHookRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("hooks")
-                .build();
+                .addPathSegments("hooks");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -204,7 +220,7 @@ public class AsyncRawHooksClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -276,14 +292,22 @@ public class AsyncRawHooksClient {
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/hooks&quot;&gt;a hook&lt;/a&gt; by its ID. Accepts a list of fields to include in the result.
+     * Retrieve <a href="https://auth0.com/docs/hooks">a hook</a> by its ID. Accepts a list of fields to include in the result.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetHookResponseContent>> get(String id) {
         return get(id, GetHookRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/hooks&quot;&gt;a hook&lt;/a&gt; by its ID. Accepts a list of fields to include in the result.
+     * Retrieve <a href="https://auth0.com/docs/hooks">a hook</a> by its ID. Accepts a list of fields to include in the result.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<GetHookResponseContent>> get(
+            String id, RequestOptions requestOptions) {
+        return get(id, GetHookRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve <a href="https://auth0.com/docs/hooks">a hook</a> by its ID. Accepts a list of fields to include in the result.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetHookResponseContent>> get(
             String id, GetHookRequestParameters request) {
@@ -291,7 +315,7 @@ public class AsyncRawHooksClient {
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/hooks&quot;&gt;a hook&lt;/a&gt; by its ID. Accepts a list of fields to include in the result.
+     * Retrieve <a href="https://auth0.com/docs/hooks">a hook</a> by its ID. Accepts a list of fields to include in the result.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetHookResponseContent>> get(
             String id, GetHookRequestParameters request, RequestOptions requestOptions) {
@@ -302,6 +326,11 @@ public class AsyncRawHooksClient {
         if (!request.getFields().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "fields", request.getFields().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -384,13 +413,17 @@ public class AsyncRawHooksClient {
      * Delete a hook.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("hooks")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -463,6 +496,14 @@ public class AsyncRawHooksClient {
      * Update an existing hook.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateHookResponseContent>> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateHookRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update an existing hook.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateHookResponseContent>> update(
             String id, UpdateHookRequestContent request) {
         return update(id, request, null);
     }
@@ -472,11 +513,15 @@ public class AsyncRawHooksClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateHookResponseContent>> update(
             String id, UpdateHookRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("hooks")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -485,7 +530,7 @@ public class AsyncRawHooksClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

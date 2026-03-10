@@ -289,5 +289,15 @@ public final class LogStreamEventBridgeResponseSchema {
             return new LogStreamEventBridgeResponseSchema(
                     id, name, status, type, isPriority, filters, piiConfig, sink, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

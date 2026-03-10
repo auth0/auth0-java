@@ -32,6 +32,10 @@ public class ExecutionsClient {
         return this.rawClient.list(flowId).body();
     }
 
+    public SyncPagingIterable<FlowExecutionSummary> list(String flowId, RequestOptions requestOptions) {
+        return this.rawClient.list(flowId, requestOptions).body();
+    }
+
     public SyncPagingIterable<FlowExecutionSummary> list(String flowId, ListFlowExecutionsRequestParameters request) {
         return this.rawClient.list(flowId, request).body();
     }
@@ -43,6 +47,10 @@ public class ExecutionsClient {
 
     public GetFlowExecutionResponseContent get(String flowId, String executionId) {
         return this.rawClient.get(flowId, executionId).body();
+    }
+
+    public GetFlowExecutionResponseContent get(String flowId, String executionId, RequestOptions requestOptions) {
+        return this.rawClient.get(flowId, executionId, requestOptions).body();
     }
 
     public GetFlowExecutionResponseContent get(

@@ -49,22 +49,22 @@ public class AsyncRawMembersClient {
     /**
      * List organization members.
      * This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
-     * <p>&lt;ul&gt;
-     *   &lt;li&gt;
-     *     Use the &lt;code&gt;fields&lt;/code&gt; parameter to optionally define the specific member details retrieved. If &lt;code&gt;fields&lt;/code&gt; is left blank, all fields (except roles) are returned.
-     *   &lt;/li&gt;
-     *   &lt;li&gt;
-     *     Member roles are not sent by default. Use &lt;code&gt;fields=roles&lt;/code&gt; to retrieve the roles assigned to each listed member. To use this parameter, you must include the &lt;code&gt;read:organization_member_roles&lt;/code&gt; scope in the token.
-     *   &lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     *   <li>
+     *     Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.
+     *   </li>
+     *   <li>
+     *     Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.
+     *   </li>
+     * </ul></p>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
      * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
-     * <p>To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value will be included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, this indicates there are no more pages remaining.</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p>To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the <code>from</code> parameter. If there are more results, a <code>next</code> value will be included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, this indicates there are no more pages remaining.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<OrganizationMember>>> list(String id) {
         return list(id, ListOrganizationMembersRequestParameters.builder().build());
@@ -73,22 +73,47 @@ public class AsyncRawMembersClient {
     /**
      * List organization members.
      * This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
-     * <p>&lt;ul&gt;
-     *   &lt;li&gt;
-     *     Use the &lt;code&gt;fields&lt;/code&gt; parameter to optionally define the specific member details retrieved. If &lt;code&gt;fields&lt;/code&gt; is left blank, all fields (except roles) are returned.
-     *   &lt;/li&gt;
-     *   &lt;li&gt;
-     *     Member roles are not sent by default. Use &lt;code&gt;fields=roles&lt;/code&gt; to retrieve the roles assigned to each listed member. To use this parameter, you must include the &lt;code&gt;read:organization_member_roles&lt;/code&gt; scope in the token.
-     *   &lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     *   <li>
+     *     Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.
+     *   </li>
+     *   <li>
+     *     Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.
+     *   </li>
+     * </ul></p>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
      * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
-     * <p>To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value will be included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, this indicates there are no more pages remaining.</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p>To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the <code>from</code> parameter. If there are more results, a <code>next</code> value will be included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, this indicates there are no more pages remaining.</p>
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<OrganizationMember>>> list(
+            String id, RequestOptions requestOptions) {
+        return list(id, ListOrganizationMembersRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * List organization members.
+     * This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
+     * <p><ul>
+     *   <li>
+     *     Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.
+     *   </li>
+     *   <li>
+     *     Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.
+     *   </li>
+     * </ul></p>
+     * <p>This endpoint supports two types of pagination:</p>
+     * <ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul>
+     * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p>To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the <code>from</code> parameter. If there are more results, a <code>next</code> value will be included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, this indicates there are no more pages remaining.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<OrganizationMember>>> list(
             String id, ListOrganizationMembersRequestParameters request) {
@@ -98,22 +123,22 @@ public class AsyncRawMembersClient {
     /**
      * List organization members.
      * This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
-     * <p>&lt;ul&gt;
-     *   &lt;li&gt;
-     *     Use the &lt;code&gt;fields&lt;/code&gt; parameter to optionally define the specific member details retrieved. If &lt;code&gt;fields&lt;/code&gt; is left blank, all fields (except roles) are returned.
-     *   &lt;/li&gt;
-     *   &lt;li&gt;
-     *     Member roles are not sent by default. Use &lt;code&gt;fields=roles&lt;/code&gt; to retrieve the roles assigned to each listed member. To use this parameter, you must include the &lt;code&gt;read:organization_member_roles&lt;/code&gt; scope in the token.
-     *   &lt;/li&gt;
-     * &lt;/ul&gt;</p>
+     * <p><ul>
+     *   <li>
+     *     Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.
+     *   </li>
+     *   <li>
+     *     Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.
+     *   </li>
+     * </ul></p>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
      * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
-     * <p>&lt;h2&gt;Checkpoint Pagination&lt;/h2&gt;</p>
-     * <p>To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the &lt;code&gt;from&lt;/code&gt; parameter. If there are more results, a &lt;code&gt;next&lt;/code&gt; value will be included in the response. You can use this for subsequent API calls. When &lt;code&gt;next&lt;/code&gt; is no longer included in the response, this indicates there are no more pages remaining.</p>
+     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p>To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the <code>from</code> parameter. If there are more results, a <code>next</code> value will be included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, this indicates there are no more pages remaining.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<OrganizationMember>>> list(
             String id, ListOrganizationMembersRequestParameters request, RequestOptions requestOptions) {
@@ -134,6 +159,11 @@ public class AsyncRawMembersClient {
         if (!request.getIncludeFields().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -222,8 +252,8 @@ public class AsyncRawMembersClient {
     }
 
     /**
-     * Set one or more existing users as members of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations&quot;&gt;Organization&lt;/a&gt;.
-     * <p>To add a user to an Organization through this action, the user must already exist in your tenant. If a user does not yet exist, you can &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members&quot;&gt;invite them to create an account&lt;/a&gt;, manually create them through the Auth0 Dashboard, or use the Management API.</p>
+     * Set one or more existing users as members of a specific <a href="https://auth0.com/docs/manage-users/organizations">Organization</a>.
+     * <p>To add a user to an Organization through this action, the user must already exist in your tenant. If a user does not yet exist, you can <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">invite them to create an account</a>, manually create them through the Auth0 Dashboard, or use the Management API.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> create(
             String id, CreateOrganizationMemberRequestContent request) {
@@ -231,17 +261,21 @@ public class AsyncRawMembersClient {
     }
 
     /**
-     * Set one or more existing users as members of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations&quot;&gt;Organization&lt;/a&gt;.
-     * <p>To add a user to an Organization through this action, the user must already exist in your tenant. If a user does not yet exist, you can &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members&quot;&gt;invite them to create an account&lt;/a&gt;, manually create them through the Auth0 Dashboard, or use the Management API.</p>
+     * Set one or more existing users as members of a specific <a href="https://auth0.com/docs/manage-users/organizations">Organization</a>.
+     * <p>To add a user to an Organization through this action, the user must already exist in your tenant. If a user does not yet exist, you can <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">invite them to create an account</a>, manually create them through the Auth0 Dashboard, or use the Management API.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> create(
             String id, CreateOrganizationMemberRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
-                .addPathSegments("members")
-                .build();
+                .addPathSegments("members");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -250,7 +284,7 @@ public class AsyncRawMembersClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -320,12 +354,16 @@ public class AsyncRawMembersClient {
 
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(
             String id, DeleteOrganizationMembersRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
-                .addPathSegments("members")
-                .build();
+                .addPathSegments("members");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -334,7 +372,7 @@ public class AsyncRawMembersClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

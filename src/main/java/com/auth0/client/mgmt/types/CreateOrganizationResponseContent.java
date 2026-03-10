@@ -265,5 +265,15 @@ public final class CreateOrganizationResponseContent {
             return new CreateOrganizationResponseContent(
                     id, name, displayName, branding, metadata, tokenQuota, enabledConnections, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

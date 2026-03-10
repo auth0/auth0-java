@@ -48,7 +48,7 @@ public class AsyncRawPhoneClient {
     }
 
     /**
-     * Retrieve list of &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;phone-type MFA factors&lt;/a&gt; (i.e., sms and voice) that are enabled for your tenant.
+     * Retrieve list of <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">phone-type MFA factors</a> (i.e., sms and voice) that are enabled for your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetGuardianFactorPhoneMessageTypesResponseContent>>
             getMessageTypes() {
@@ -56,16 +56,20 @@ public class AsyncRawPhoneClient {
     }
 
     /**
-     * Retrieve list of &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;phone-type MFA factors&lt;/a&gt; (i.e., sms and voice) that are enabled for your tenant.
+     * Retrieve list of <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">phone-type MFA factors</a> (i.e., sms and voice) that are enabled for your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetGuardianFactorPhoneMessageTypesResponseContent>>
             getMessageTypes(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/phone/message-types")
-                .build();
+                .addPathSegments("guardian/factors/phone/message-types");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -127,7 +131,7 @@ public class AsyncRawPhoneClient {
     }
 
     /**
-     * Replace the list of &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;phone-type MFA factors&lt;/a&gt; (i.e., sms and voice) that are enabled for your tenant.
+     * Replace the list of <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">phone-type MFA factors</a> (i.e., sms and voice) that are enabled for your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorPhoneMessageTypesResponseContent>>
             setMessageTypes(SetGuardianFactorPhoneMessageTypesRequestContent request) {
@@ -135,14 +139,18 @@ public class AsyncRawPhoneClient {
     }
 
     /**
-     * Replace the list of &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;phone-type MFA factors&lt;/a&gt; (i.e., sms and voice) that are enabled for your tenant.
+     * Replace the list of <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">phone-type MFA factors</a> (i.e., sms and voice) that are enabled for your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorPhoneMessageTypesResponseContent>>
             setMessageTypes(SetGuardianFactorPhoneMessageTypesRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/phone/message-types")
-                .build();
+                .addPathSegments("guardian/factors/phone/message-types");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -151,7 +159,7 @@ public class AsyncRawPhoneClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -219,7 +227,7 @@ public class AsyncRawPhoneClient {
     }
 
     /**
-     * Retrieve configuration details for a Twilio phone provider that has been set up in your tenant. To learn more, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;Configure SMS and Voice Notifications for MFA&lt;/a&gt;.
+     * Retrieve configuration details for a Twilio phone provider that has been set up in your tenant. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">Configure SMS and Voice Notifications for MFA</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetGuardianFactorsProviderPhoneTwilioResponseContent>>
             getTwilioProvider() {
@@ -227,16 +235,20 @@ public class AsyncRawPhoneClient {
     }
 
     /**
-     * Retrieve configuration details for a Twilio phone provider that has been set up in your tenant. To learn more, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;Configure SMS and Voice Notifications for MFA&lt;/a&gt;.
+     * Retrieve configuration details for a Twilio phone provider that has been set up in your tenant. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">Configure SMS and Voice Notifications for MFA</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetGuardianFactorsProviderPhoneTwilioResponseContent>>
             getTwilioProvider(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/phone/providers/twilio")
-                .build();
+                .addPathSegments("guardian/factors/phone/providers/twilio");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -298,7 +310,7 @@ public class AsyncRawPhoneClient {
     }
 
     /**
-     * Update the configuration of a Twilio phone provider that has been set up in your tenant. To learn more, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;Configure SMS and Voice Notifications for MFA&lt;/a&gt;.
+     * Update the configuration of a Twilio phone provider that has been set up in your tenant. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">Configure SMS and Voice Notifications for MFA</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPhoneTwilioResponseContent>>
             setTwilioProvider() {
@@ -307,7 +319,16 @@ public class AsyncRawPhoneClient {
     }
 
     /**
-     * Update the configuration of a Twilio phone provider that has been set up in your tenant. To learn more, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;Configure SMS and Voice Notifications for MFA&lt;/a&gt;.
+     * Update the configuration of a Twilio phone provider that has been set up in your tenant. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">Configure SMS and Voice Notifications for MFA</a>.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPhoneTwilioResponseContent>>
+            setTwilioProvider(RequestOptions requestOptions) {
+        return setTwilioProvider(
+                SetGuardianFactorsProviderPhoneTwilioRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update the configuration of a Twilio phone provider that has been set up in your tenant. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">Configure SMS and Voice Notifications for MFA</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPhoneTwilioResponseContent>>
             setTwilioProvider(SetGuardianFactorsProviderPhoneTwilioRequestContent request) {
@@ -315,15 +336,19 @@ public class AsyncRawPhoneClient {
     }
 
     /**
-     * Update the configuration of a Twilio phone provider that has been set up in your tenant. To learn more, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;Configure SMS and Voice Notifications for MFA&lt;/a&gt;.
+     * Update the configuration of a Twilio phone provider that has been set up in your tenant. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">Configure SMS and Voice Notifications for MFA</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPhoneTwilioResponseContent>>
             setTwilioProvider(
                     SetGuardianFactorsProviderPhoneTwilioRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/phone/providers/twilio")
-                .build();
+                .addPathSegments("guardian/factors/phone/providers/twilio");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -332,7 +357,7 @@ public class AsyncRawPhoneClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -407,12 +432,16 @@ public class AsyncRawPhoneClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetGuardianFactorsProviderPhoneResponseContent>>
             getSelectedProvider(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/phone/selected-provider")
-                .build();
+                .addPathSegments("guardian/factors/phone/selected-provider");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -480,10 +509,14 @@ public class AsyncRawPhoneClient {
 
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorsProviderPhoneResponseContent>> setProvider(
             SetGuardianFactorsProviderPhoneRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/phone/selected-provider")
-                .build();
+                .addPathSegments("guardian/factors/phone/selected-provider");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -492,7 +525,7 @@ public class AsyncRawPhoneClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -566,12 +599,16 @@ public class AsyncRawPhoneClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetGuardianFactorPhoneTemplatesResponseContent>> getTemplates(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/phone/templates")
-                .build();
+                .addPathSegments("guardian/factors/phone/templates");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -645,10 +682,14 @@ public class AsyncRawPhoneClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<SetGuardianFactorPhoneTemplatesResponseContent>> setTemplates(
             SetGuardianFactorPhoneTemplatesRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("guardian/factors/phone/templates")
-                .build();
+                .addPathSegments("guardian/factors/phone/templates");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -657,7 +698,7 @@ public class AsyncRawPhoneClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

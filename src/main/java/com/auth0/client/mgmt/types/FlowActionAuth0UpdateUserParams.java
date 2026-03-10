@@ -94,6 +94,10 @@ public final class FlowActionAuth0UpdateUserParams {
     public interface _FinalStage {
         FlowActionAuth0UpdateUserParams build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage changes(Map<String, Object> changes);
 
         _FinalStage putAllChanges(Map<String, Object> changes);
@@ -163,6 +167,18 @@ public final class FlowActionAuth0UpdateUserParams {
         @java.lang.Override
         public FlowActionAuth0UpdateUserParams build() {
             return new FlowActionAuth0UpdateUserParams(connectionId, userId, changes, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

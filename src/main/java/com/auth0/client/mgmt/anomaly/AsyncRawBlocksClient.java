@@ -35,23 +35,27 @@ public class AsyncRawBlocksClient {
     }
 
     /**
-     * Check if the given IP address is blocked via the &lt;a href=&quot;https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling&quot;&gt;Suspicious IP Throttling&lt;/a&gt; due to multiple suspicious attempts.
+     * Check if the given IP address is blocked via the <a href="https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling">Suspicious IP Throttling</a> due to multiple suspicious attempts.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> checkIp(String id) {
         return checkIp(id, null);
     }
 
     /**
-     * Check if the given IP address is blocked via the &lt;a href=&quot;https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling&quot;&gt;Suspicious IP Throttling&lt;/a&gt; due to multiple suspicious attempts.
+     * Check if the given IP address is blocked via the <a href="https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling">Suspicious IP Throttling</a> due to multiple suspicious attempts.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> checkIp(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("anomaly/blocks/ips")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -119,23 +123,27 @@ public class AsyncRawBlocksClient {
     }
 
     /**
-     * Remove a block imposed by &lt;a href=&quot;https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling&quot;&gt;Suspicious IP Throttling&lt;/a&gt; for the given IP address.
+     * Remove a block imposed by <a href="https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling">Suspicious IP Throttling</a> for the given IP address.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> unblockIp(String id) {
         return unblockIp(id, null);
     }
 
     /**
-     * Remove a block imposed by &lt;a href=&quot;https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling&quot;&gt;Suspicious IP Throttling&lt;/a&gt; for the given IP address.
+     * Remove a block imposed by <a href="https://auth0.com/docs/configure/attack-protection/suspicious-ip-throttling">Suspicious IP Throttling</a> for the given IP address.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> unblockIp(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("anomaly/blocks/ips")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

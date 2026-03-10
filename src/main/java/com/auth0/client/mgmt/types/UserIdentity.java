@@ -185,6 +185,10 @@ public final class UserIdentity {
     public interface _FinalStage {
         UserIdentity build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage profileData(Optional<UserProfileData> profileData);
 
         _FinalStage profileData(UserProfileData profileData);
@@ -390,6 +394,18 @@ public final class UserIdentity {
                     accessTokenSecret,
                     refreshToken,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

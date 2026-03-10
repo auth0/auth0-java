@@ -62,6 +62,14 @@ public class AsyncRawTemplatesClient {
      * List a verifiable credential templates.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<VerifiableCredentialTemplateResponse>>> list(
+            RequestOptions requestOptions) {
+        return list(ListVerifiableCredentialTemplatesRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * List a verifiable credential templates.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<VerifiableCredentialTemplateResponse>>> list(
             ListVerifiableCredentialTemplatesRequestParameters request) {
         return list(request, null);
     }
@@ -79,6 +87,11 @@ public class AsyncRawTemplatesClient {
                     httpUrl, "from", request.getFrom().orElse(null), false);
         }
         QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -179,10 +192,14 @@ public class AsyncRawTemplatesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateVerifiableCredentialTemplateResponseContent>> create(
             CreateVerifiableCredentialTemplateRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("verifiable-credentials/verification/templates")
-                .build();
+                .addPathSegments("verifiable-credentials/verification/templates");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -191,7 +208,7 @@ public class AsyncRawTemplatesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -275,13 +292,17 @@ public class AsyncRawTemplatesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetVerifiableCredentialTemplateResponseContent>> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("verifiable-credentials/verification/templates")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -363,13 +384,17 @@ public class AsyncRawTemplatesClient {
      * Delete a verifiable credential template.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("verifiable-credentials/verification/templates")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -444,6 +469,15 @@ public class AsyncRawTemplatesClient {
      * Update a verifiable credential template.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateVerifiableCredentialTemplateResponseContent>> update(
+            String id, RequestOptions requestOptions) {
+        return update(
+                id, UpdateVerifiableCredentialTemplateRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update a verifiable credential template.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateVerifiableCredentialTemplateResponseContent>> update(
             String id, UpdateVerifiableCredentialTemplateRequestContent request) {
         return update(id, request, null);
     }
@@ -453,11 +487,15 @@ public class AsyncRawTemplatesClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateVerifiableCredentialTemplateResponseContent>> update(
             String id, UpdateVerifiableCredentialTemplateRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("verifiable-credentials/verification/templates")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -466,7 +504,7 @@ public class AsyncRawTemplatesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

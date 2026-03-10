@@ -51,6 +51,13 @@ public class AsyncCaptchaClient {
     /**
      * Update existing CAPTCHA configuration for your client.
      */
+    public CompletableFuture<UpdateAttackProtectionCaptchaResponseContent> update(RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update existing CAPTCHA configuration for your client.
+     */
     public CompletableFuture<UpdateAttackProtectionCaptchaResponseContent> update(
             UpdateAttackProtectionCaptchaRequestContent request) {
         return this.rawClient.update(request).thenApply(response -> response.body());

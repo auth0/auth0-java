@@ -43,6 +43,13 @@ public class ConnectionProfilesClient {
     /**
      * Retrieve a list of Connection Profiles. This endpoint supports Checkpoint pagination.
      */
+    public SyncPagingIterable<ConnectionProfile> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve a list of Connection Profiles. This endpoint supports Checkpoint pagination.
+     */
     public SyncPagingIterable<ConnectionProfile> list(ListConnectionProfileRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -131,6 +138,13 @@ public class ConnectionProfilesClient {
      */
     public UpdateConnectionProfileResponseContent update(String id) {
         return this.rawClient.update(id).body();
+    }
+
+    /**
+     * Update the details of a specific Connection Profile.
+     */
+    public UpdateConnectionProfileResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
     }
 
     /**

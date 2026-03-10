@@ -39,14 +39,21 @@ public class AsyncClientGrantsClient {
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
      */
     public CompletableFuture<SyncPagingIterable<ClientGrantResponseContent>> list() {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
+     */
+    public CompletableFuture<SyncPagingIterable<ClientGrantResponseContent>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
      */
     public CompletableFuture<SyncPagingIterable<ClientGrantResponseContent>> list(
             ListClientGrantsRequestParameters request) {
@@ -54,7 +61,7 @@ public class AsyncClientGrantsClient {
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grants&lt;/a&gt;, including the scopes associated with the application/API pair.
+     * Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
      */
     public CompletableFuture<SyncPagingIterable<ClientGrantResponseContent>> list(
             ListClientGrantsRequestParameters request, RequestOptions requestOptions) {
@@ -62,14 +69,14 @@ public class AsyncClientGrantsClient {
     }
 
     /**
-     * Create a client grant for a machine-to-machine login flow. To learn more, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow&quot;&gt;Client Credential Flow&lt;/a&gt;.
+     * Create a client grant for a machine-to-machine login flow. To learn more, read <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a>.
      */
     public CompletableFuture<CreateClientGrantResponseContent> create(CreateClientGrantRequestContent request) {
         return this.rawClient.create(request).thenApply(response -> response.body());
     }
 
     /**
-     * Create a client grant for a machine-to-machine login flow. To learn more, read &lt;a href=&quot;https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow&quot;&gt;Client Credential Flow&lt;/a&gt;.
+     * Create a client grant for a machine-to-machine login flow. To learn more, read <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a>.
      */
     public CompletableFuture<CreateClientGrantResponseContent> create(
             CreateClientGrantRequestContent request, RequestOptions requestOptions) {
@@ -77,7 +84,7 @@ public class AsyncClientGrantsClient {
     }
 
     /**
-     * Retrieve a single &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grant&lt;/a&gt;, including the
+     * Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
      * scopes associated with the application/API pair.
      */
     public CompletableFuture<GetClientGrantResponseContent> get(String id) {
@@ -85,7 +92,7 @@ public class AsyncClientGrantsClient {
     }
 
     /**
-     * Retrieve a single &lt;a href=&quot;https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants&quot;&gt;client grant&lt;/a&gt;, including the
+     * Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
      * scopes associated with the application/API pair.
      */
     public CompletableFuture<GetClientGrantResponseContent> get(String id, RequestOptions requestOptions) {
@@ -93,14 +100,14 @@ public class AsyncClientGrantsClient {
     }
 
     /**
-     * Delete the &lt;a href=&quot;https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow&quot;&gt;Client Credential Flow&lt;/a&gt; from your machine-to-machine application.
+     * Delete the <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a> from your machine-to-machine application.
      */
     public CompletableFuture<Void> delete(String id) {
         return this.rawClient.delete(id).thenApply(response -> response.body());
     }
 
     /**
-     * Delete the &lt;a href=&quot;https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow&quot;&gt;Client Credential Flow&lt;/a&gt; from your machine-to-machine application.
+     * Delete the <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a> from your machine-to-machine application.
      */
     public CompletableFuture<Void> delete(String id, RequestOptions requestOptions) {
         return this.rawClient.delete(id, requestOptions).thenApply(response -> response.body());
@@ -111,6 +118,13 @@ public class AsyncClientGrantsClient {
      */
     public CompletableFuture<UpdateClientGrantResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update a client grant.
+     */
+    public CompletableFuture<UpdateClientGrantResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**

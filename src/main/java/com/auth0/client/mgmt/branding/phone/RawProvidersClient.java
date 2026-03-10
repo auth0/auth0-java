@@ -44,14 +44,21 @@ public class RawProvidersClient {
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone providers&lt;/a&gt; details set for a Tenant. A list of fields to include or exclude may also be specified.
+     * Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone providers</a> details set for a Tenant. A list of fields to include or exclude may also be specified.
      */
     public ManagementApiHttpResponse<ListBrandingPhoneProvidersResponseContent> list() {
         return list(ListBrandingPhoneProvidersRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone providers&lt;/a&gt; details set for a Tenant. A list of fields to include or exclude may also be specified.
+     * Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone providers</a> details set for a Tenant. A list of fields to include or exclude may also be specified.
+     */
+    public ManagementApiHttpResponse<ListBrandingPhoneProvidersResponseContent> list(RequestOptions requestOptions) {
+        return list(ListBrandingPhoneProvidersRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone providers</a> details set for a Tenant. A list of fields to include or exclude may also be specified.
      */
     public ManagementApiHttpResponse<ListBrandingPhoneProvidersResponseContent> list(
             ListBrandingPhoneProvidersRequestParameters request) {
@@ -59,7 +66,7 @@ public class RawProvidersClient {
     }
 
     /**
-     * Retrieve a list of &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone providers&lt;/a&gt; details set for a Tenant. A list of fields to include or exclude may also be specified.
+     * Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone providers</a> details set for a Tenant. A list of fields to include or exclude may also be specified.
      */
     public ManagementApiHttpResponse<ListBrandingPhoneProvidersResponseContent> list(
             ListBrandingPhoneProvidersRequestParameters request, RequestOptions requestOptions) {
@@ -69,6 +76,11 @@ public class RawProvidersClient {
         if (!request.getDisabled().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "disabled", request.getDisabled().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -116,8 +128,8 @@ public class RawProvidersClient {
     }
 
     /**
-     * Create a &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone provider&lt;/a&gt;.
-     * The &lt;code&gt;credentials&lt;/code&gt; object requires different properties depending on the phone provider (which is specified using the &lt;code&gt;name&lt;/code&gt; property).
+     * Create a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
+     * The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
      */
     public ManagementApiHttpResponse<CreateBrandingPhoneProviderResponseContent> create(
             CreateBrandingPhoneProviderRequestContent request) {
@@ -125,15 +137,19 @@ public class RawProvidersClient {
     }
 
     /**
-     * Create a &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone provider&lt;/a&gt;.
-     * The &lt;code&gt;credentials&lt;/code&gt; object requires different properties depending on the phone provider (which is specified using the &lt;code&gt;name&lt;/code&gt; property).
+     * Create a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
+     * The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
      */
     public ManagementApiHttpResponse<CreateBrandingPhoneProviderResponseContent> create(
             CreateBrandingPhoneProviderRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("branding/phone/providers")
-                .build();
+                .addPathSegments("branding/phone/providers");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -142,7 +158,7 @@ public class RawProvidersClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -191,24 +207,28 @@ public class RawProvidersClient {
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone provider&lt;/a&gt; details. A list of fields to include or exclude may also be specified.
+     * Retrieve <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a> details. A list of fields to include or exclude may also be specified.
      */
     public ManagementApiHttpResponse<GetBrandingPhoneProviderResponseContent> get(String id) {
         return get(id, null);
     }
 
     /**
-     * Retrieve &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone provider&lt;/a&gt; details. A list of fields to include or exclude may also be specified.
+     * Retrieve <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a> details. A list of fields to include or exclude may also be specified.
      */
     public ManagementApiHttpResponse<GetBrandingPhoneProviderResponseContent> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("branding/phone/providers")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -266,13 +286,17 @@ public class RawProvidersClient {
      * Delete the configured phone provider.
      */
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("branding/phone/providers")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -314,16 +338,25 @@ public class RawProvidersClient {
     }
 
     /**
-     * Update a &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone provider&lt;/a&gt;.
-     * The &lt;code&gt;credentials&lt;/code&gt; object requires different properties depending on the phone provider (which is specified using the &lt;code&gt;name&lt;/code&gt; property).
+     * Update a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
+     * The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
      */
     public ManagementApiHttpResponse<UpdateBrandingPhoneProviderResponseContent> update(String id) {
         return update(id, UpdateBrandingPhoneProviderRequestContent.builder().build());
     }
 
     /**
-     * Update a &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone provider&lt;/a&gt;.
-     * The &lt;code&gt;credentials&lt;/code&gt; object requires different properties depending on the phone provider (which is specified using the &lt;code&gt;name&lt;/code&gt; property).
+     * Update a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
+     * The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
+     */
+    public ManagementApiHttpResponse<UpdateBrandingPhoneProviderResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateBrandingPhoneProviderRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
+     * The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
      */
     public ManagementApiHttpResponse<UpdateBrandingPhoneProviderResponseContent> update(
             String id, UpdateBrandingPhoneProviderRequestContent request) {
@@ -331,16 +364,20 @@ public class RawProvidersClient {
     }
 
     /**
-     * Update a &lt;a href=&quot;https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers&quot;&gt;phone provider&lt;/a&gt;.
-     * The &lt;code&gt;credentials&lt;/code&gt; object requires different properties depending on the phone provider (which is specified using the &lt;code&gt;name&lt;/code&gt; property).
+     * Update a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
+     * The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
      */
     public ManagementApiHttpResponse<UpdateBrandingPhoneProviderResponseContent> update(
             String id, UpdateBrandingPhoneProviderRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("branding/phone/providers")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -349,7 +386,7 @@ public class RawProvidersClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -407,12 +444,16 @@ public class RawProvidersClient {
 
     public ManagementApiHttpResponse<CreatePhoneProviderSendTestResponseContent> test(
             String id, CreatePhoneProviderSendTestRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("branding/phone/providers")
                 .addPathSegment(id)
-                .addPathSegments("try")
-                .build();
+                .addPathSegments("try");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -421,7 +462,7 @@ public class RawProvidersClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
