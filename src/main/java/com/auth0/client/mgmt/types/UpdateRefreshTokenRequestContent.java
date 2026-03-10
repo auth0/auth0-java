@@ -33,6 +33,9 @@ public final class UpdateRefreshTokenRequestContent {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Metadata associated with the refresh token. Pass null or {} to remove all metadata.
+     */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("refresh_token_metadata")
     public OptionalNullable<Map<String, Object>> getRefreshTokenMetadata() {
@@ -91,6 +94,9 @@ public final class UpdateRefreshTokenRequestContent {
             return this;
         }
 
+        /**
+         * <p>Metadata associated with the refresh token. Pass null or {} to remove all metadata.</p>
+         */
         @JsonSetter(value = "refresh_token_metadata", nulls = Nulls.SKIP)
         public Builder refreshTokenMetadata(@Nullable OptionalNullable<Map<String, Object>> refreshTokenMetadata) {
             this.refreshTokenMetadata = refreshTokenMetadata;

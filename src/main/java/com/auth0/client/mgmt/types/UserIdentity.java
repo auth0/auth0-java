@@ -68,6 +68,9 @@ public final class UserIdentity {
         return connection;
     }
 
+    /**
+     * @return user_id of this identity.
+     */
     @JsonProperty("user_id")
     public UserId getUserId() {
         return userId;
@@ -172,6 +175,9 @@ public final class UserIdentity {
     }
 
     public interface UserIdStage {
+        /**
+         * <p>user_id of this identity.</p>
+         */
         ProviderStage userId(@NotNull UserId userId);
     }
 
@@ -270,6 +276,11 @@ public final class UserIdentity {
             return this;
         }
 
+        /**
+         * <p>user_id of this identity.</p>
+         * <p>user_id of this identity.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("user_id")
         public ProviderStage userId(@NotNull UserId userId) {

@@ -269,6 +269,9 @@ public final class CreateClientRequestContent {
         return oidcLogout;
     }
 
+    /**
+     * @return Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
+     */
     @JsonProperty("oidc_backchannel_logout")
     public Optional<ClientOidcBackchannelLogoutSettings> getOidcBackchannelLogout() {
         return oidcBackchannelLogout;
@@ -798,6 +801,9 @@ public final class CreateClientRequestContent {
 
         _FinalStage oidcLogout(ClientOidcBackchannelLogoutSettings oidcLogout);
 
+        /**
+         * <p>Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)</p>
+         */
         _FinalStage oidcBackchannelLogout(Optional<ClientOidcBackchannelLogoutSettings> oidcBackchannelLogout);
 
         _FinalStage oidcBackchannelLogout(ClientOidcBackchannelLogoutSettings oidcBackchannelLogout);
@@ -2161,12 +2167,19 @@ public final class CreateClientRequestContent {
             return this;
         }
 
+        /**
+         * <p>Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage oidcBackchannelLogout(ClientOidcBackchannelLogoutSettings oidcBackchannelLogout) {
             this.oidcBackchannelLogout = Optional.ofNullable(oidcBackchannelLogout);
             return this;
         }
 
+        /**
+         * <p>Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "oidc_backchannel_logout", nulls = Nulls.SKIP)
         public _FinalStage oidcBackchannelLogout(Optional<ClientOidcBackchannelLogoutSettings> oidcBackchannelLogout) {

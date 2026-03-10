@@ -45,6 +45,9 @@ public final class CreatePhoneTemplateTestNotificationRequestContent {
         return to;
     }
 
+    /**
+     * @return Medium to use to send the notification
+     */
     @JsonProperty("delivery_method")
     public Optional<PhoneProviderDeliveryMethodEnum> getDeliveryMethod() {
         return deliveryMethod;
@@ -96,6 +99,9 @@ public final class CreatePhoneTemplateTestNotificationRequestContent {
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
+        /**
+         * <p>Medium to use to send the notification</p>
+         */
         _FinalStage deliveryMethod(Optional<PhoneProviderDeliveryMethodEnum> deliveryMethod);
 
         _FinalStage deliveryMethod(PhoneProviderDeliveryMethodEnum deliveryMethod);
@@ -131,12 +137,19 @@ public final class CreatePhoneTemplateTestNotificationRequestContent {
             return this;
         }
 
+        /**
+         * <p>Medium to use to send the notification</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage deliveryMethod(PhoneProviderDeliveryMethodEnum deliveryMethod) {
             this.deliveryMethod = Optional.ofNullable(deliveryMethod);
             return this;
         }
 
+        /**
+         * <p>Medium to use to send the notification</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "delivery_method", nulls = Nulls.SKIP)
         public _FinalStage deliveryMethod(Optional<PhoneProviderDeliveryMethodEnum> deliveryMethod) {

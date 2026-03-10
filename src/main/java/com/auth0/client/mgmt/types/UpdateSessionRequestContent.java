@@ -33,6 +33,9 @@ public final class UpdateSessionRequestContent {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Metadata associated with the session. Pass null or {} to remove all session_metadata.
+     */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("session_metadata")
     public OptionalNullable<Map<String, Object>> getSessionMetadata() {
@@ -91,6 +94,9 @@ public final class UpdateSessionRequestContent {
             return this;
         }
 
+        /**
+         * <p>Metadata associated with the session. Pass null or {} to remove all session_metadata.</p>
+         */
         @JsonSetter(value = "session_metadata", nulls = Nulls.SKIP)
         public Builder sessionMetadata(@Nullable OptionalNullable<Map<String, Object>> sessionMetadata) {
             this.sessionMetadata = sessionMetadata;

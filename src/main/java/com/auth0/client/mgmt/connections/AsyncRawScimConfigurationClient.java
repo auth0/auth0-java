@@ -3,6 +3,7 @@
  */
 package com.auth0.client.mgmt.connections;
 
+import com.auth0.client.mgmt.connections.types.ListScimConfigurationsRequestParameters;
 import com.auth0.client.mgmt.connections.types.UpdateScimConfigurationRequestContent;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.ManagementApiException;
@@ -11,17 +12,27 @@ import com.auth0.client.mgmt.core.ManagementException;
 import com.auth0.client.mgmt.core.MediaTypes;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
+import com.auth0.client.mgmt.core.QueryStringMapper;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.errors.BadRequestError;
+import com.auth0.client.mgmt.errors.ForbiddenError;
 import com.auth0.client.mgmt.errors.NotFoundError;
+import com.auth0.client.mgmt.errors.TooManyRequestsError;
+import com.auth0.client.mgmt.errors.UnauthorizedError;
 import com.auth0.client.mgmt.types.CreateScimConfigurationRequestContent;
 import com.auth0.client.mgmt.types.CreateScimConfigurationResponseContent;
 import com.auth0.client.mgmt.types.GetScimConfigurationDefaultMappingResponseContent;
 import com.auth0.client.mgmt.types.GetScimConfigurationResponseContent;
+import com.auth0.client.mgmt.types.ListScimConfigurationsResponseContent;
+import com.auth0.client.mgmt.types.ScimConfiguration;
 import com.auth0.client.mgmt.types.UpdateScimConfigurationResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -38,6 +49,131 @@ public class AsyncRawScimConfigurationClient {
 
     public AsyncRawScimConfigurationClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+    }
+
+    /**
+     * Retrieve a list of SCIM configurations of a tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ScimConfiguration>>> list() {
+        return list(ListScimConfigurationsRequestParameters.builder().build());
+    }
+
+    /**
+     * Retrieve a list of SCIM configurations of a tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ScimConfiguration>>> list(
+            RequestOptions requestOptions) {
+        return list(ListScimConfigurationsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve a list of SCIM configurations of a tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ScimConfiguration>>> list(
+            ListScimConfigurationsRequestParameters request) {
+        return list(request, null);
+    }
+
+    /**
+     * Retrieve a list of SCIM configurations of a tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ScimConfiguration>>> list(
+            ListScimConfigurationsRequestParameters request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("connections-scim-configurations");
+        if (!request.getFrom().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "from", request.getFrom().orElse(null), false);
+        }
+        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ScimConfiguration>>> future =
+                new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        ListScimConfigurationsResponseContent parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, ListScimConfigurationsResponseContent.class);
+                        Optional<String> startingAfter = parsedResponse.getNext();
+                        ListScimConfigurationsRequestParameters nextRequest =
+                                ListScimConfigurationsRequestParameters.builder()
+                                        .from(request)
+                                        .from(startingAfter)
+                                        .build();
+                        List<ScimConfiguration> result = parsedResponse.getScimConfigurations();
+                        future.complete(new ManagementApiHttpResponse<>(
+                                new SyncPagingIterable<ScimConfiguration>(
+                                        startingAfter.isPresent(), result, parsedResponse, () -> {
+                                            try {
+                                                return list(nextRequest, requestOptions)
+                                                        .get()
+                                                        .body();
+                                            } catch (InterruptedException | ExecutionException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                        }),
+                                response));
+                        return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
     }
 
     /**

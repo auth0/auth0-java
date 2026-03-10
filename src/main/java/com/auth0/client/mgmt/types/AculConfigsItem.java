@@ -74,6 +74,9 @@ public final class AculConfigsItem {
         return screen;
     }
 
+    /**
+     * @return Rendering mode
+     */
     @JsonProperty("rendering_mode")
     public Optional<AculRenderingModeEnum> getRenderingMode() {
         return renderingMode;
@@ -204,6 +207,9 @@ public final class AculConfigsItem {
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
+        /**
+         * <p>Rendering mode</p>
+         */
         _FinalStage renderingMode(Optional<AculRenderingModeEnum> renderingMode);
 
         _FinalStage renderingMode(AculRenderingModeEnum renderingMode);
@@ -469,12 +475,19 @@ public final class AculConfigsItem {
             return this;
         }
 
+        /**
+         * <p>Rendering mode</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage renderingMode(AculRenderingModeEnum renderingMode) {
             this.renderingMode = Optional.ofNullable(renderingMode);
             return this;
         }
 
+        /**
+         * <p>Rendering mode</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "rendering_mode", nulls = Nulls.SKIP)
         public _FinalStage renderingMode(Optional<AculRenderingModeEnum> renderingMode) {

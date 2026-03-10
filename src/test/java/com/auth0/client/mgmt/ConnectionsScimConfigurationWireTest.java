@@ -1,11 +1,14 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.connections.types.ListScimConfigurationsRequestParameters;
 import com.auth0.client.mgmt.connections.types.UpdateScimConfigurationRequestContent;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateScimConfigurationResponseContent;
 import com.auth0.client.mgmt.types.GetScimConfigurationDefaultMappingResponseContent;
 import com.auth0.client.mgmt.types.GetScimConfigurationResponseContent;
+import com.auth0.client.mgmt.types.ScimConfiguration;
 import com.auth0.client.mgmt.types.ScimMappingItem;
 import com.auth0.client.mgmt.types.UpdateScimConfigurationResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -40,12 +43,35 @@ public class ConnectionsScimConfigurationWireTest {
     }
 
     @Test
+    public void testList() throws Exception {
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"scim_configurations\":[{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"tenant_name\":\"tenant_name\",\"user_id_attribute\":\"user_id_attribute\",\"mapping\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_on\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\"}"));
+        SyncPagingIterable<ScimConfiguration> response = client.connections()
+                .scimConfiguration()
+                .list(ListScimConfigurationsRequestParameters.builder()
+                        .from(OptionalNullable.of("from"))
+                        .take(OptionalNullable.of(1))
+                        .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("GET", request.getMethod());
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        // Pagination response validated via MockWebServer
+        // The SDK correctly parses the response into a SyncPagingIterable
+    }
+
+    @Test
     public void testGet() throws Exception {
         server.enqueue(
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"tenant_name\":\"tenant_name\",\"user_id_attribute\":\"user_id_attribute\",\"mapping\":[{\"auth0\":\"auth0\",\"scim\":\"scim\"}],\"created_at\":\"created_at\",\"updated_on\":\"updated_on\"}"));
+                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"tenant_name\":\"tenant_name\",\"user_id_attribute\":\"user_id_attribute\",\"mapping\":[{\"auth0\":\"auth0\",\"scim\":\"scim\"}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_on\":\"2024-01-15T09:30:00Z\"}"));
         GetScimConfigurationResponseContent response =
                 client.connections().scimConfiguration().get("id");
         RecordedRequest request = server.takeRequest();
@@ -68,8 +94,8 @@ public class ConnectionsScimConfigurationWireTest {
                 + "      \"scim\": \"scim\"\n"
                 + "    }\n"
                 + "  ],\n"
-                + "  \"created_at\": \"created_at\",\n"
-                + "  \"updated_on\": \"updated_on\"\n"
+                + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
+                + "  \"updated_on\": \"2024-01-15T09:30:00Z\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -108,7 +134,7 @@ public class ConnectionsScimConfigurationWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"tenant_name\":\"tenant_name\",\"user_id_attribute\":\"user_id_attribute\",\"mapping\":[{\"auth0\":\"auth0\",\"scim\":\"scim\"}],\"created_at\":\"created_at\",\"updated_on\":\"updated_on\"}"));
+                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"tenant_name\":\"tenant_name\",\"user_id_attribute\":\"user_id_attribute\",\"mapping\":[{\"auth0\":\"auth0\",\"scim\":\"scim\"}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_on\":\"2024-01-15T09:30:00Z\"}"));
         CreateScimConfigurationResponseContent response =
                 client.connections().scimConfiguration().create("id", OptionalNullable.absent());
         RecordedRequest request = server.takeRequest();
@@ -131,8 +157,8 @@ public class ConnectionsScimConfigurationWireTest {
                 + "      \"scim\": \"scim\"\n"
                 + "    }\n"
                 + "  ],\n"
-                + "  \"created_at\": \"created_at\",\n"
-                + "  \"updated_on\": \"updated_on\"\n"
+                + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
+                + "  \"updated_on\": \"2024-01-15T09:30:00Z\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -180,7 +206,7 @@ public class ConnectionsScimConfigurationWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"tenant_name\":\"tenant_name\",\"user_id_attribute\":\"user_id_attribute\",\"mapping\":[{\"auth0\":\"auth0\",\"scim\":\"scim\"}],\"created_at\":\"created_at\",\"updated_on\":\"updated_on\"}"));
+                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"tenant_name\":\"tenant_name\",\"user_id_attribute\":\"user_id_attribute\",\"mapping\":[{\"auth0\":\"auth0\",\"scim\":\"scim\"}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_on\":\"2024-01-15T09:30:00Z\"}"));
         UpdateScimConfigurationResponseContent response = client.connections()
                 .scimConfiguration()
                 .update(
@@ -244,8 +270,8 @@ public class ConnectionsScimConfigurationWireTest {
                 + "      \"scim\": \"scim\"\n"
                 + "    }\n"
                 + "  ],\n"
-                + "  \"created_at\": \"created_at\",\n"
-                + "  \"updated_on\": \"updated_on\"\n"
+                + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
+                + "  \"updated_on\": \"2024-01-15T09:30:00Z\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);

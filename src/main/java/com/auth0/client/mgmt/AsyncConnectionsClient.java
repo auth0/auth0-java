@@ -30,11 +30,11 @@ public class AsyncConnectionsClient {
 
     protected final Supplier<AsyncDirectoryProvisioningClient> directoryProvisioningClient;
 
+    protected final Supplier<AsyncScimConfigurationClient> scimConfigurationClient;
+
     protected final Supplier<AsyncClientsClient> clientsClient;
 
     protected final Supplier<AsyncKeysClient> keysClient;
-
-    protected final Supplier<AsyncScimConfigurationClient> scimConfigurationClient;
 
     protected final Supplier<AsyncUsersClient> usersClient;
 
@@ -42,9 +42,9 @@ public class AsyncConnectionsClient {
         this.clientOptions = clientOptions;
         this.rawClient = new AsyncRawConnectionsClient(clientOptions);
         this.directoryProvisioningClient = Suppliers.memoize(() -> new AsyncDirectoryProvisioningClient(clientOptions));
+        this.scimConfigurationClient = Suppliers.memoize(() -> new AsyncScimConfigurationClient(clientOptions));
         this.clientsClient = Suppliers.memoize(() -> new AsyncClientsClient(clientOptions));
         this.keysClient = Suppliers.memoize(() -> new AsyncKeysClient(clientOptions));
-        this.scimConfigurationClient = Suppliers.memoize(() -> new AsyncScimConfigurationClient(clientOptions));
         this.usersClient = Suppliers.memoize(() -> new AsyncUsersClient(clientOptions));
     }
 
@@ -250,16 +250,16 @@ public class AsyncConnectionsClient {
         return this.directoryProvisioningClient.get();
     }
 
+    public AsyncScimConfigurationClient scimConfiguration() {
+        return this.scimConfigurationClient.get();
+    }
+
     public AsyncClientsClient clients() {
         return this.clientsClient.get();
     }
 
     public AsyncKeysClient keys() {
         return this.keysClient.get();
-    }
-
-    public AsyncScimConfigurationClient scimConfiguration() {
-        return this.scimConfigurationClient.get();
     }
 
     public AsyncUsersClient users() {

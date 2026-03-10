@@ -77,6 +77,9 @@ public final class CreateHookRequestContent {
         return dependencies;
     }
 
+    /**
+     * @return Execution stage of this rule. Can be <code>credentials-exchange</code>, <code>pre-user-registration</code>, <code>post-user-registration</code>, <code>post-change-password</code>, or <code>send-phone-message</code>.
+     */
     @JsonProperty("triggerId")
     public HookTriggerIdEnum getTriggerId() {
         return triggerId;
@@ -132,6 +135,9 @@ public final class CreateHookRequestContent {
     }
 
     public interface TriggerIdStage {
+        /**
+         * <p>Execution stage of this rule. Can be <code>credentials-exchange</code>, <code>pre-user-registration</code>, <code>post-user-registration</code>, <code>post-change-password</code>, or <code>send-phone-message</code>.</p>
+         */
         _FinalStage triggerId(@NotNull HookTriggerIdEnum triggerId);
     }
 
@@ -205,6 +211,11 @@ public final class CreateHookRequestContent {
             return this;
         }
 
+        /**
+         * <p>Execution stage of this rule. Can be <code>credentials-exchange</code>, <code>pre-user-registration</code>, <code>post-user-registration</code>, <code>post-change-password</code>, or <code>send-phone-message</code>.</p>
+         * <p>Execution stage of this rule. Can be <code>credentials-exchange</code>, <code>pre-user-registration</code>, <code>post-user-registration</code>, <code>post-change-password</code>, or <code>send-phone-message</code>.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("triggerId")
         public _FinalStage triggerId(@NotNull HookTriggerIdEnum triggerId) {

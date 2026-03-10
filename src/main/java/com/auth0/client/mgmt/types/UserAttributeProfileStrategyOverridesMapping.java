@@ -40,6 +40,9 @@ public final class UserAttributeProfileStrategyOverridesMapping {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return OIDC mapping override for this strategy
+     */
     @JsonProperty("oidc_mapping")
     public Optional<UserAttributeProfileOidcMapping> getOidcMapping() {
         return oidcMapping;
@@ -110,6 +113,9 @@ public final class UserAttributeProfileStrategyOverridesMapping {
             return this;
         }
 
+        /**
+         * <p>OIDC mapping override for this strategy</p>
+         */
         @JsonSetter(value = "oidc_mapping", nulls = Nulls.SKIP)
         public Builder oidcMapping(Optional<UserAttributeProfileOidcMapping> oidcMapping) {
             this.oidcMapping = oidcMapping;

@@ -4,15 +4,18 @@
 package com.auth0.client.mgmt.connections;
 
 import com.auth0.client.mgmt.connections.scimconfiguration.TokensClient;
+import com.auth0.client.mgmt.connections.types.ListScimConfigurationsRequestParameters;
 import com.auth0.client.mgmt.connections.types.UpdateScimConfigurationRequestContent;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateScimConfigurationRequestContent;
 import com.auth0.client.mgmt.types.CreateScimConfigurationResponseContent;
 import com.auth0.client.mgmt.types.GetScimConfigurationDefaultMappingResponseContent;
 import com.auth0.client.mgmt.types.GetScimConfigurationResponseContent;
+import com.auth0.client.mgmt.types.ScimConfiguration;
 import com.auth0.client.mgmt.types.UpdateScimConfigurationResponseContent;
 import java.util.function.Supplier;
 
@@ -34,6 +37,35 @@ public class ScimConfigurationClient {
      */
     public RawScimConfigurationClient withRawResponse() {
         return this.rawClient;
+    }
+
+    /**
+     * Retrieve a list of SCIM configurations of a tenant.
+     */
+    public SyncPagingIterable<ScimConfiguration> list() {
+        return this.rawClient.list().body();
+    }
+
+    /**
+     * Retrieve a list of SCIM configurations of a tenant.
+     */
+    public SyncPagingIterable<ScimConfiguration> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve a list of SCIM configurations of a tenant.
+     */
+    public SyncPagingIterable<ScimConfiguration> list(ListScimConfigurationsRequestParameters request) {
+        return this.rawClient.list(request).body();
+    }
+
+    /**
+     * Retrieve a list of SCIM configurations of a tenant.
+     */
+    public SyncPagingIterable<ScimConfiguration> list(
+            ListScimConfigurationsRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient.list(request, requestOptions).body();
     }
 
     /**

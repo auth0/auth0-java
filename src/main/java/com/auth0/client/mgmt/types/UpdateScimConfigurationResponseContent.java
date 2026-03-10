@@ -12,42 +12,44 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdateScimConfigurationResponseContent.Builder.class)
 public final class UpdateScimConfigurationResponseContent {
-    private final Optional<String> connectionId;
+    private final String connectionId;
 
-    private final Optional<String> connectionName;
+    private final String connectionName;
 
-    private final Optional<String> strategy;
+    private final String strategy;
 
-    private final Optional<String> tenantName;
+    private final String tenantName;
 
-    private final Optional<String> userIdAttribute;
+    private final String userIdAttribute;
 
-    private final Optional<List<ScimMappingItem>> mapping;
+    private final List<ScimMappingItem> mapping;
 
-    private final Optional<String> createdAt;
+    private final OffsetDateTime createdAt;
 
-    private final Optional<String> updatedOn;
+    private final OffsetDateTime updatedOn;
 
     private final Map<String, Object> additionalProperties;
 
     private UpdateScimConfigurationResponseContent(
-            Optional<String> connectionId,
-            Optional<String> connectionName,
-            Optional<String> strategy,
-            Optional<String> tenantName,
-            Optional<String> userIdAttribute,
-            Optional<List<ScimMappingItem>> mapping,
-            Optional<String> createdAt,
-            Optional<String> updatedOn,
+            String connectionId,
+            String connectionName,
+            String strategy,
+            String tenantName,
+            String userIdAttribute,
+            List<ScimMappingItem> mapping,
+            OffsetDateTime createdAt,
+            OffsetDateTime updatedOn,
             Map<String, Object> additionalProperties) {
         this.connectionId = connectionId;
         this.connectionName = connectionName;
@@ -64,15 +66,15 @@ public final class UpdateScimConfigurationResponseContent {
      * @return The connection's identifier
      */
     @JsonProperty("connection_id")
-    public Optional<String> getConnectionId() {
+    public String getConnectionId() {
         return connectionId;
     }
 
     /**
-     * @return The connection's identifier
+     * @return The connection's name
      */
     @JsonProperty("connection_name")
-    public Optional<String> getConnectionName() {
+    public String getConnectionName() {
         return connectionName;
     }
 
@@ -80,7 +82,7 @@ public final class UpdateScimConfigurationResponseContent {
      * @return The connection's strategy
      */
     @JsonProperty("strategy")
-    public Optional<String> getStrategy() {
+    public String getStrategy() {
         return strategy;
     }
 
@@ -88,7 +90,7 @@ public final class UpdateScimConfigurationResponseContent {
      * @return The tenant's name
      */
     @JsonProperty("tenant_name")
-    public Optional<String> getTenantName() {
+    public String getTenantName() {
         return tenantName;
     }
 
@@ -96,7 +98,7 @@ public final class UpdateScimConfigurationResponseContent {
      * @return User ID attribute for generating unique user ids
      */
     @JsonProperty("user_id_attribute")
-    public Optional<String> getUserIdAttribute() {
+    public String getUserIdAttribute() {
         return userIdAttribute;
     }
 
@@ -104,23 +106,23 @@ public final class UpdateScimConfigurationResponseContent {
      * @return The mapping between auth0 and SCIM
      */
     @JsonProperty("mapping")
-    public Optional<List<ScimMappingItem>> getMapping() {
+    public List<ScimMappingItem> getMapping() {
         return mapping;
     }
 
     /**
-     * @return The Date Time Scim Configuration was created
+     * @return The ISO 8601 date and time the SCIM configuration was created at
      */
     @JsonProperty("created_at")
-    public Optional<String> getCreatedAt() {
+    public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
-     * @return The Date Time Scim Configuration was last updated
+     * @return The ISO 8601 date and time the SCIM configuration was last updated on
      */
     @JsonProperty("updated_on")
-    public Optional<String> getUpdatedOn() {
+    public OffsetDateTime getUpdatedOn() {
         return updatedOn;
     }
 
@@ -165,33 +167,110 @@ public final class UpdateScimConfigurationResponseContent {
         return ObjectMappers.stringify(this);
     }
 
-    public static Builder builder() {
+    public static ConnectionIdStage builder() {
         return new Builder();
     }
 
+    public interface ConnectionIdStage {
+        /**
+         * <p>The connection's identifier</p>
+         */
+        ConnectionNameStage connectionId(@NotNull String connectionId);
+
+        Builder from(UpdateScimConfigurationResponseContent other);
+    }
+
+    public interface ConnectionNameStage {
+        /**
+         * <p>The connection's name</p>
+         */
+        StrategyStage connectionName(@NotNull String connectionName);
+    }
+
+    public interface StrategyStage {
+        /**
+         * <p>The connection's strategy</p>
+         */
+        TenantNameStage strategy(@NotNull String strategy);
+    }
+
+    public interface TenantNameStage {
+        /**
+         * <p>The tenant's name</p>
+         */
+        UserIdAttributeStage tenantName(@NotNull String tenantName);
+    }
+
+    public interface UserIdAttributeStage {
+        /**
+         * <p>User ID attribute for generating unique user ids</p>
+         */
+        CreatedAtStage userIdAttribute(@NotNull String userIdAttribute);
+    }
+
+    public interface CreatedAtStage {
+        /**
+         * <p>The ISO 8601 date and time the SCIM configuration was created at</p>
+         */
+        UpdatedOnStage createdAt(@NotNull OffsetDateTime createdAt);
+    }
+
+    public interface UpdatedOnStage {
+        /**
+         * <p>The ISO 8601 date and time the SCIM configuration was last updated on</p>
+         */
+        _FinalStage updatedOn(@NotNull OffsetDateTime updatedOn);
+    }
+
+    public interface _FinalStage {
+        UpdateScimConfigurationResponseContent build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>The mapping between auth0 and SCIM</p>
+         */
+        _FinalStage mapping(List<ScimMappingItem> mapping);
+
+        _FinalStage addMapping(ScimMappingItem mapping);
+
+        _FinalStage addAllMapping(List<ScimMappingItem> mapping);
+    }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder {
-        private Optional<String> connectionId = Optional.empty();
+    public static final class Builder
+            implements ConnectionIdStage,
+                    ConnectionNameStage,
+                    StrategyStage,
+                    TenantNameStage,
+                    UserIdAttributeStage,
+                    CreatedAtStage,
+                    UpdatedOnStage,
+                    _FinalStage {
+        private String connectionId;
 
-        private Optional<String> connectionName = Optional.empty();
+        private String connectionName;
 
-        private Optional<String> strategy = Optional.empty();
+        private String strategy;
 
-        private Optional<String> tenantName = Optional.empty();
+        private String tenantName;
 
-        private Optional<String> userIdAttribute = Optional.empty();
+        private String userIdAttribute;
 
-        private Optional<List<ScimMappingItem>> mapping = Optional.empty();
+        private OffsetDateTime createdAt;
 
-        private Optional<String> createdAt = Optional.empty();
+        private OffsetDateTime updatedOn;
 
-        private Optional<String> updatedOn = Optional.empty();
+        private List<ScimMappingItem> mapping = new ArrayList<>();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
+        @java.lang.Override
         public Builder from(UpdateScimConfigurationResponseContent other) {
             connectionId(other.getConnectionId());
             connectionName(other.getConnectionName());
@@ -206,116 +285,124 @@ public final class UpdateScimConfigurationResponseContent {
 
         /**
          * <p>The connection's identifier</p>
+         * <p>The connection's identifier</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @JsonSetter(value = "connection_id", nulls = Nulls.SKIP)
-        public Builder connectionId(Optional<String> connectionId) {
-            this.connectionId = connectionId;
-            return this;
-        }
-
-        public Builder connectionId(String connectionId) {
-            this.connectionId = Optional.ofNullable(connectionId);
+        @java.lang.Override
+        @JsonSetter("connection_id")
+        public ConnectionNameStage connectionId(@NotNull String connectionId) {
+            this.connectionId = Objects.requireNonNull(connectionId, "connectionId must not be null");
             return this;
         }
 
         /**
-         * <p>The connection's identifier</p>
+         * <p>The connection's name</p>
+         * <p>The connection's name</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @JsonSetter(value = "connection_name", nulls = Nulls.SKIP)
-        public Builder connectionName(Optional<String> connectionName) {
-            this.connectionName = connectionName;
-            return this;
-        }
-
-        public Builder connectionName(String connectionName) {
-            this.connectionName = Optional.ofNullable(connectionName);
+        @java.lang.Override
+        @JsonSetter("connection_name")
+        public StrategyStage connectionName(@NotNull String connectionName) {
+            this.connectionName = Objects.requireNonNull(connectionName, "connectionName must not be null");
             return this;
         }
 
         /**
          * <p>The connection's strategy</p>
+         * <p>The connection's strategy</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @JsonSetter(value = "strategy", nulls = Nulls.SKIP)
-        public Builder strategy(Optional<String> strategy) {
-            this.strategy = strategy;
-            return this;
-        }
-
-        public Builder strategy(String strategy) {
-            this.strategy = Optional.ofNullable(strategy);
+        @java.lang.Override
+        @JsonSetter("strategy")
+        public TenantNameStage strategy(@NotNull String strategy) {
+            this.strategy = Objects.requireNonNull(strategy, "strategy must not be null");
             return this;
         }
 
         /**
          * <p>The tenant's name</p>
+         * <p>The tenant's name</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @JsonSetter(value = "tenant_name", nulls = Nulls.SKIP)
-        public Builder tenantName(Optional<String> tenantName) {
-            this.tenantName = tenantName;
-            return this;
-        }
-
-        public Builder tenantName(String tenantName) {
-            this.tenantName = Optional.ofNullable(tenantName);
+        @java.lang.Override
+        @JsonSetter("tenant_name")
+        public UserIdAttributeStage tenantName(@NotNull String tenantName) {
+            this.tenantName = Objects.requireNonNull(tenantName, "tenantName must not be null");
             return this;
         }
 
         /**
          * <p>User ID attribute for generating unique user ids</p>
+         * <p>User ID attribute for generating unique user ids</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @JsonSetter(value = "user_id_attribute", nulls = Nulls.SKIP)
-        public Builder userIdAttribute(Optional<String> userIdAttribute) {
-            this.userIdAttribute = userIdAttribute;
+        @java.lang.Override
+        @JsonSetter("user_id_attribute")
+        public CreatedAtStage userIdAttribute(@NotNull String userIdAttribute) {
+            this.userIdAttribute = Objects.requireNonNull(userIdAttribute, "userIdAttribute must not be null");
             return this;
         }
 
-        public Builder userIdAttribute(String userIdAttribute) {
-            this.userIdAttribute = Optional.ofNullable(userIdAttribute);
+        /**
+         * <p>The ISO 8601 date and time the SCIM configuration was created at</p>
+         * <p>The ISO 8601 date and time the SCIM configuration was created at</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        @JsonSetter("created_at")
+        public UpdatedOnStage createdAt(@NotNull OffsetDateTime createdAt) {
+            this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
+            return this;
+        }
+
+        /**
+         * <p>The ISO 8601 date and time the SCIM configuration was last updated on</p>
+         * <p>The ISO 8601 date and time the SCIM configuration was last updated on</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        @JsonSetter("updated_on")
+        public _FinalStage updatedOn(@NotNull OffsetDateTime updatedOn) {
+            this.updatedOn = Objects.requireNonNull(updatedOn, "updatedOn must not be null");
+            return this;
+        }
+
+        /**
+         * <p>The mapping between auth0 and SCIM</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage addAllMapping(List<ScimMappingItem> mapping) {
+            if (mapping != null) {
+                this.mapping.addAll(mapping);
+            }
+            return this;
+        }
+
+        /**
+         * <p>The mapping between auth0 and SCIM</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage addMapping(ScimMappingItem mapping) {
+            this.mapping.add(mapping);
             return this;
         }
 
         /**
          * <p>The mapping between auth0 and SCIM</p>
          */
+        @java.lang.Override
         @JsonSetter(value = "mapping", nulls = Nulls.SKIP)
-        public Builder mapping(Optional<List<ScimMappingItem>> mapping) {
-            this.mapping = mapping;
+        public _FinalStage mapping(List<ScimMappingItem> mapping) {
+            this.mapping.clear();
+            if (mapping != null) {
+                this.mapping.addAll(mapping);
+            }
             return this;
         }
 
-        public Builder mapping(List<ScimMappingItem> mapping) {
-            this.mapping = Optional.ofNullable(mapping);
-            return this;
-        }
-
-        /**
-         * <p>The Date Time Scim Configuration was created</p>
-         */
-        @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
-        public Builder createdAt(Optional<String> createdAt) {
-            this.createdAt = createdAt;
-            return this;
-        }
-
-        public Builder createdAt(String createdAt) {
-            this.createdAt = Optional.ofNullable(createdAt);
-            return this;
-        }
-
-        /**
-         * <p>The Date Time Scim Configuration was last updated</p>
-         */
-        @JsonSetter(value = "updated_on", nulls = Nulls.SKIP)
-        public Builder updatedOn(Optional<String> updatedOn) {
-            this.updatedOn = updatedOn;
-            return this;
-        }
-
-        public Builder updatedOn(String updatedOn) {
-            this.updatedOn = Optional.ofNullable(updatedOn);
-            return this;
-        }
-
+        @java.lang.Override
         public UpdateScimConfigurationResponseContent build() {
             return new UpdateScimConfigurationResponseContent(
                     connectionId,
@@ -329,11 +416,13 @@ public final class UpdateScimConfigurationResponseContent {
                     additionalProperties);
         }
 
+        @java.lang.Override
         public Builder additionalProperty(String key, Object value) {
             this.additionalProperties.put(key, value);
             return this;
         }
 
+        @java.lang.Override
         public Builder additionalProperties(Map<String, Object> additionalProperties) {
             this.additionalProperties.putAll(additionalProperties);
             return this;
