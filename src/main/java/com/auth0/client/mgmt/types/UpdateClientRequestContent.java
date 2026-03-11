@@ -276,6 +276,9 @@ public final class UpdateClientRequestContent {
         return oidcLogout;
     }
 
+    /**
+     * @return Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
+     */
     @JsonProperty("oidc_backchannel_logout")
     public Optional<ClientOidcBackchannelLogoutSettings> getOidcBackchannelLogout() {
         return oidcBackchannelLogout;
@@ -338,11 +341,17 @@ public final class UpdateClientRequestContent {
         return allowedLogoutUrls;
     }
 
+    /**
+     * @return An object that holds settings related to how JWTs are created
+     */
     @JsonProperty("jwt_configuration")
     public Optional<ClientJwtConfiguration> getJwtConfiguration() {
         return jwtConfiguration;
     }
 
+    /**
+     * @return The client's encryption key
+     */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("encryption_key")
     public OptionalNullable<ClientEncryptionKey> getEncryptionKey() {
@@ -474,6 +483,9 @@ public final class UpdateClientRequestContent {
         return clientMetadata;
     }
 
+    /**
+     * @return Configuration related to native mobile apps
+     */
     @JsonProperty("mobile")
     public Optional<ClientMobile> getMobile() {
         return mobile;
@@ -1088,6 +1100,9 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        /**
+         * <p>Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)</p>
+         */
         @JsonSetter(value = "oidc_backchannel_logout", nulls = Nulls.SKIP)
         public Builder oidcBackchannelLogout(Optional<ClientOidcBackchannelLogoutSettings> oidcBackchannelLogout) {
             this.oidcBackchannelLogout = oidcBackchannelLogout;
@@ -1215,6 +1230,9 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        /**
+         * <p>An object that holds settings related to how JWTs are created</p>
+         */
         @JsonSetter(value = "jwt_configuration", nulls = Nulls.SKIP)
         public Builder jwtConfiguration(Optional<ClientJwtConfiguration> jwtConfiguration) {
             this.jwtConfiguration = jwtConfiguration;
@@ -1226,6 +1244,9 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        /**
+         * <p>The client's encryption key</p>
+         */
         @JsonSetter(value = "encryption_key", nulls = Nulls.SKIP)
         public Builder encryptionKey(@Nullable OptionalNullable<ClientEncryptionKey> encryptionKey) {
             this.encryptionKey = encryptionKey;
@@ -1526,6 +1547,9 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        /**
+         * <p>Configuration related to native mobile apps</p>
+         */
         @JsonSetter(value = "mobile", nulls = Nulls.SKIP)
         public Builder mobile(Optional<ClientMobile> mobile) {
             this.mobile = mobile;

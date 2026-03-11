@@ -44,6 +44,9 @@ public final class UpdateUserAuthenticationMethodRequestContent {
         return name;
     }
 
+    /**
+     * @return Preferred phone authentication method
+     */
     @JsonProperty("preferred_authentication_method")
     public Optional<PreferredAuthenticationMethodEnum> getPreferredAuthenticationMethod() {
         return preferredAuthenticationMethod;
@@ -110,6 +113,9 @@ public final class UpdateUserAuthenticationMethodRequestContent {
             return this;
         }
 
+        /**
+         * <p>Preferred phone authentication method</p>
+         */
         @JsonSetter(value = "preferred_authentication_method", nulls = Nulls.SKIP)
         public Builder preferredAuthenticationMethod(
                 Optional<PreferredAuthenticationMethodEnum> preferredAuthenticationMethod) {

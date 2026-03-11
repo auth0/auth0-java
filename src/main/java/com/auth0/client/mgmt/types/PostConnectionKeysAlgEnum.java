@@ -6,33 +6,26 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class RotateConnectionKeysSigningAlgEnum {
-    public static final RotateConnectionKeysSigningAlgEnum RS512 =
-            new RotateConnectionKeysSigningAlgEnum(Value.RS512, "RS512");
+public final class PostConnectionKeysAlgEnum {
+    public static final PostConnectionKeysAlgEnum RS512 = new PostConnectionKeysAlgEnum(Value.RS512, "RS512");
 
-    public static final RotateConnectionKeysSigningAlgEnum PS256 =
-            new RotateConnectionKeysSigningAlgEnum(Value.PS256, "PS256");
+    public static final PostConnectionKeysAlgEnum PS256 = new PostConnectionKeysAlgEnum(Value.PS256, "PS256");
 
-    public static final RotateConnectionKeysSigningAlgEnum ES256 =
-            new RotateConnectionKeysSigningAlgEnum(Value.ES256, "ES256");
+    public static final PostConnectionKeysAlgEnum ES256 = new PostConnectionKeysAlgEnum(Value.ES256, "ES256");
 
-    public static final RotateConnectionKeysSigningAlgEnum PS384 =
-            new RotateConnectionKeysSigningAlgEnum(Value.PS384, "PS384");
+    public static final PostConnectionKeysAlgEnum PS384 = new PostConnectionKeysAlgEnum(Value.PS384, "PS384");
 
-    public static final RotateConnectionKeysSigningAlgEnum ES384 =
-            new RotateConnectionKeysSigningAlgEnum(Value.ES384, "ES384");
+    public static final PostConnectionKeysAlgEnum ES384 = new PostConnectionKeysAlgEnum(Value.ES384, "ES384");
 
-    public static final RotateConnectionKeysSigningAlgEnum RS256 =
-            new RotateConnectionKeysSigningAlgEnum(Value.RS256, "RS256");
+    public static final PostConnectionKeysAlgEnum RS256 = new PostConnectionKeysAlgEnum(Value.RS256, "RS256");
 
-    public static final RotateConnectionKeysSigningAlgEnum RS384 =
-            new RotateConnectionKeysSigningAlgEnum(Value.RS384, "RS384");
+    public static final PostConnectionKeysAlgEnum RS384 = new PostConnectionKeysAlgEnum(Value.RS384, "RS384");
 
     private final Value value;
 
     private final String string;
 
-    RotateConnectionKeysSigningAlgEnum(Value value, String string) {
+    PostConnectionKeysAlgEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -50,8 +43,8 @@ public final class RotateConnectionKeysSigningAlgEnum {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof RotateConnectionKeysSigningAlgEnum
-                        && this.string.equals(((RotateConnectionKeysSigningAlgEnum) other).string));
+                || (other instanceof PostConnectionKeysAlgEnum
+                        && this.string.equals(((PostConnectionKeysAlgEnum) other).string));
     }
 
     @java.lang.Override
@@ -82,7 +75,7 @@ public final class RotateConnectionKeysSigningAlgEnum {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static RotateConnectionKeysSigningAlgEnum valueOf(String value) {
+    public static PostConnectionKeysAlgEnum valueOf(String value) {
         switch (value) {
             case "RS512":
                 return RS512;
@@ -99,7 +92,7 @@ public final class RotateConnectionKeysSigningAlgEnum {
             case "RS384":
                 return RS384;
             default:
-                return new RotateConnectionKeysSigningAlgEnum(Value.UNKNOWN, value);
+                return new PostConnectionKeysAlgEnum(Value.UNKNOWN, value);
         }
     }
 

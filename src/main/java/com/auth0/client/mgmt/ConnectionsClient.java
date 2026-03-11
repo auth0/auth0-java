@@ -29,11 +29,11 @@ public class ConnectionsClient {
 
     protected final Supplier<DirectoryProvisioningClient> directoryProvisioningClient;
 
+    protected final Supplier<ScimConfigurationClient> scimConfigurationClient;
+
     protected final Supplier<ClientsClient> clientsClient;
 
     protected final Supplier<KeysClient> keysClient;
-
-    protected final Supplier<ScimConfigurationClient> scimConfigurationClient;
 
     protected final Supplier<UsersClient> usersClient;
 
@@ -41,9 +41,9 @@ public class ConnectionsClient {
         this.clientOptions = clientOptions;
         this.rawClient = new RawConnectionsClient(clientOptions);
         this.directoryProvisioningClient = Suppliers.memoize(() -> new DirectoryProvisioningClient(clientOptions));
+        this.scimConfigurationClient = Suppliers.memoize(() -> new ScimConfigurationClient(clientOptions));
         this.clientsClient = Suppliers.memoize(() -> new ClientsClient(clientOptions));
         this.keysClient = Suppliers.memoize(() -> new KeysClient(clientOptions));
-        this.scimConfigurationClient = Suppliers.memoize(() -> new ScimConfigurationClient(clientOptions));
         this.usersClient = Suppliers.memoize(() -> new UsersClient(clientOptions));
     }
 
@@ -248,16 +248,16 @@ public class ConnectionsClient {
         return this.directoryProvisioningClient.get();
     }
 
+    public ScimConfigurationClient scimConfiguration() {
+        return this.scimConfigurationClient.get();
+    }
+
     public ClientsClient clients() {
         return this.clientsClient.get();
     }
 
     public KeysClient keys() {
         return this.keysClient.get();
-    }
-
-    public ScimConfigurationClient scimConfiguration() {
-        return this.scimConfigurationClient.get();
     }
 
     public UsersClient users() {

@@ -1,9 +1,0 @@
-{
-  "type": "users_export",
-  "status": "pending",
-  "connection_id": "con_123456789",
-  "format": "csv",
-  "connection": "Username-Password-Authentication",
-  "created_at": "2020-04-07T18:07:32.792Z",
-  "id": "job_123456789"
-}

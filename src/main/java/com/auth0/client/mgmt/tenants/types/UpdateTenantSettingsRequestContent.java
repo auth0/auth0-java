@@ -188,6 +188,9 @@ public final class UpdateTenantSettingsRequestContent {
         return changePassword;
     }
 
+    /**
+     * @return Device Flow configuration.
+     */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("device_flow")
     public OptionalNullable<TenantSettingsDeviceFlow> getDeviceFlow() {
@@ -792,6 +795,9 @@ public final class UpdateTenantSettingsRequestContent {
             return this;
         }
 
+        /**
+         * <p>Device Flow configuration.</p>
+         */
         @JsonSetter(value = "device_flow", nulls = Nulls.SKIP)
         public Builder deviceFlow(@Nullable OptionalNullable<TenantSettingsDeviceFlow> deviceFlow) {
             this.deviceFlow = deviceFlow;

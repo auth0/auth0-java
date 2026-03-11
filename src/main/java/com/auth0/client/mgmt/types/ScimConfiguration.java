@@ -21,8 +21,8 @@ import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = CreateScimConfigurationResponseContent.Builder.class)
-public final class CreateScimConfigurationResponseContent {
+@JsonDeserialize(builder = ScimConfiguration.Builder.class)
+public final class ScimConfiguration {
     private final String connectionId;
 
     private final String connectionName;
@@ -41,7 +41,7 @@ public final class CreateScimConfigurationResponseContent {
 
     private final Map<String, Object> additionalProperties;
 
-    private CreateScimConfigurationResponseContent(
+    private ScimConfiguration(
             String connectionId,
             String connectionName,
             String strategy,
@@ -129,8 +129,7 @@ public final class CreateScimConfigurationResponseContent {
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof CreateScimConfigurationResponseContent
-                && equalTo((CreateScimConfigurationResponseContent) other);
+        return other instanceof ScimConfiguration && equalTo((ScimConfiguration) other);
     }
 
     @JsonAnyGetter
@@ -138,7 +137,7 @@ public final class CreateScimConfigurationResponseContent {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(CreateScimConfigurationResponseContent other) {
+    private boolean equalTo(ScimConfiguration other) {
         return connectionId.equals(other.connectionId)
                 && connectionName.equals(other.connectionName)
                 && strategy.equals(other.strategy)
@@ -177,7 +176,7 @@ public final class CreateScimConfigurationResponseContent {
          */
         ConnectionNameStage connectionId(@NotNull String connectionId);
 
-        Builder from(CreateScimConfigurationResponseContent other);
+        Builder from(ScimConfiguration other);
     }
 
     public interface ConnectionNameStage {
@@ -223,7 +222,7 @@ public final class CreateScimConfigurationResponseContent {
     }
 
     public interface _FinalStage {
-        CreateScimConfigurationResponseContent build();
+        ScimConfiguration build();
 
         _FinalStage additionalProperty(String key, Object value);
 
@@ -271,7 +270,7 @@ public final class CreateScimConfigurationResponseContent {
         private Builder() {}
 
         @java.lang.Override
-        public Builder from(CreateScimConfigurationResponseContent other) {
+        public Builder from(ScimConfiguration other) {
             connectionId(other.getConnectionId());
             connectionName(other.getConnectionName());
             strategy(other.getStrategy());
@@ -403,8 +402,8 @@ public final class CreateScimConfigurationResponseContent {
         }
 
         @java.lang.Override
-        public CreateScimConfigurationResponseContent build() {
-            return new CreateScimConfigurationResponseContent(
+        public ScimConfiguration build() {
+            return new ScimConfiguration(
                     connectionId,
                     connectionName,
                     strategy,

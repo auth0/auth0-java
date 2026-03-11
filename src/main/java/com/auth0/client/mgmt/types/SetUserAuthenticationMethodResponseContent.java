@@ -132,6 +132,9 @@ public final class SetUserAuthenticationMethodResponseContent {
         return authenticationMethods;
     }
 
+    /**
+     * @return Preferred phone authentication method
+     */
     @JsonProperty("preferred_authentication_method")
     public Optional<PreferredAuthenticationMethodEnum> getPreferredAuthenticationMethod() {
         return preferredAuthenticationMethod;
@@ -284,6 +287,9 @@ public final class SetUserAuthenticationMethodResponseContent {
 
         _FinalStage authenticationMethods(List<UserAuthenticationMethodProperties> authenticationMethods);
 
+        /**
+         * <p>Preferred phone authentication method</p>
+         */
         _FinalStage preferredAuthenticationMethod(
                 Optional<PreferredAuthenticationMethodEnum> preferredAuthenticationMethod);
 
@@ -483,6 +489,10 @@ public final class SetUserAuthenticationMethodResponseContent {
             return this;
         }
 
+        /**
+         * <p>Preferred phone authentication method</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage preferredAuthenticationMethod(
                 PreferredAuthenticationMethodEnum preferredAuthenticationMethod) {
@@ -490,6 +500,9 @@ public final class SetUserAuthenticationMethodResponseContent {
             return this;
         }
 
+        /**
+         * <p>Preferred phone authentication method</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "preferred_authentication_method", nulls = Nulls.SKIP)
         public _FinalStage preferredAuthenticationMethod(

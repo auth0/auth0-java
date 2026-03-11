@@ -75,6 +75,9 @@ public final class DeviceCredential {
         return deviceId;
     }
 
+    /**
+     * @return Type of credential. Can be <code>public_key</code>, <code>refresh_token</code>, or <code>rotating_refresh_token</code>.
+     */
     @JsonProperty("type")
     public Optional<DeviceCredentialTypeEnum> getType() {
         return type;
@@ -201,6 +204,9 @@ public final class DeviceCredential {
             return this;
         }
 
+        /**
+         * <p>Type of credential. Can be <code>public_key</code>, <code>refresh_token</code>, or <code>rotating_refresh_token</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<DeviceCredentialTypeEnum> type) {
             this.type = type;

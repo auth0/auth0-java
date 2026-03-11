@@ -98,6 +98,9 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
         return oidcMapping;
     }
 
+    /**
+     * @return SAML mapping for this attribute
+     */
     @JsonProperty("saml_mapping")
     public Optional<List<String>> getSamlMapping() {
         return samlMapping;
@@ -202,6 +205,9 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
 
         _FinalStage oidcMapping(UserAttributeProfileOidcMapping oidcMapping);
 
+        /**
+         * <p>SAML mapping for this attribute</p>
+         */
         _FinalStage samlMapping(Optional<List<String>> samlMapping);
 
         _FinalStage samlMapping(List<String> samlMapping);
@@ -336,12 +342,19 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
             return this;
         }
 
+        /**
+         * <p>SAML mapping for this attribute</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage samlMapping(List<String> samlMapping) {
             this.samlMapping = Optional.ofNullable(samlMapping);
             return this;
         }
 
+        /**
+         * <p>SAML mapping for this attribute</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "saml_mapping", nulls = Nulls.SKIP)
         public _FinalStage samlMapping(Optional<List<String>> samlMapping) {

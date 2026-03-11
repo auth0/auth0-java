@@ -16,8 +16,17 @@ public final class ConnectionTokenEndpointAuthSigningAlgEnum {
     public static final ConnectionTokenEndpointAuthSigningAlgEnum PS256 =
             new ConnectionTokenEndpointAuthSigningAlgEnum(Value.PS256, "PS256");
 
+    public static final ConnectionTokenEndpointAuthSigningAlgEnum ES384 =
+            new ConnectionTokenEndpointAuthSigningAlgEnum(Value.ES384, "ES384");
+
+    public static final ConnectionTokenEndpointAuthSigningAlgEnum PS384 =
+            new ConnectionTokenEndpointAuthSigningAlgEnum(Value.PS384, "PS384");
+
     public static final ConnectionTokenEndpointAuthSigningAlgEnum RS256 =
             new ConnectionTokenEndpointAuthSigningAlgEnum(Value.RS256, "RS256");
+
+    public static final ConnectionTokenEndpointAuthSigningAlgEnum RS384 =
+            new ConnectionTokenEndpointAuthSigningAlgEnum(Value.RS384, "RS384");
 
     private final Value value;
 
@@ -58,8 +67,14 @@ public final class ConnectionTokenEndpointAuthSigningAlgEnum {
                 return visitor.visitEs256();
             case PS256:
                 return visitor.visitPs256();
+            case ES384:
+                return visitor.visitEs384();
+            case PS384:
+                return visitor.visitPs384();
             case RS256:
                 return visitor.visitRs256();
+            case RS384:
+                return visitor.visitRs384();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -75,8 +90,14 @@ public final class ConnectionTokenEndpointAuthSigningAlgEnum {
                 return ES256;
             case "PS256":
                 return PS256;
+            case "ES384":
+                return ES384;
+            case "PS384":
+                return PS384;
             case "RS256":
                 return RS256;
+            case "RS384":
+                return RS384;
             default:
                 return new ConnectionTokenEndpointAuthSigningAlgEnum(Value.UNKNOWN, value);
         }
@@ -85,9 +106,15 @@ public final class ConnectionTokenEndpointAuthSigningAlgEnum {
     public enum Value {
         ES256,
 
+        ES384,
+
         PS256,
 
+        PS384,
+
         RS256,
+
+        RS384,
 
         RS512,
 
@@ -97,9 +124,15 @@ public final class ConnectionTokenEndpointAuthSigningAlgEnum {
     public interface Visitor<T> {
         T visitEs256();
 
+        T visitEs384();
+
         T visitPs256();
 
+        T visitPs384();
+
         T visitRs256();
+
+        T visitRs384();
 
         T visitRs512();
 

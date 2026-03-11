@@ -59,6 +59,9 @@ public final class UpdateAculRequestContent {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Rendering mode
+     */
     @JsonProperty("rendering_mode")
     public Optional<AculRenderingModeEnum> getRenderingMode() {
         return renderingMode;
@@ -197,6 +200,9 @@ public final class UpdateAculRequestContent {
             return this;
         }
 
+        /**
+         * <p>Rendering mode</p>
+         */
         @JsonSetter(value = "rendering_mode", nulls = Nulls.SKIP)
         public Builder renderingMode(Optional<AculRenderingModeEnum> renderingMode) {
             this.renderingMode = renderingMode;

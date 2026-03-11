@@ -4,15 +4,18 @@
 package com.auth0.client.mgmt.connections;
 
 import com.auth0.client.mgmt.connections.scimconfiguration.AsyncTokensClient;
+import com.auth0.client.mgmt.connections.types.ListScimConfigurationsRequestParameters;
 import com.auth0.client.mgmt.connections.types.UpdateScimConfigurationRequestContent;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateScimConfigurationRequestContent;
 import com.auth0.client.mgmt.types.CreateScimConfigurationResponseContent;
 import com.auth0.client.mgmt.types.GetScimConfigurationDefaultMappingResponseContent;
 import com.auth0.client.mgmt.types.GetScimConfigurationResponseContent;
+import com.auth0.client.mgmt.types.ScimConfiguration;
 import com.auth0.client.mgmt.types.UpdateScimConfigurationResponseContent;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
@@ -35,6 +38,36 @@ public class AsyncScimConfigurationClient {
      */
     public AsyncRawScimConfigurationClient withRawResponse() {
         return this.rawClient;
+    }
+
+    /**
+     * Retrieve a list of SCIM configurations of a tenant.
+     */
+    public CompletableFuture<SyncPagingIterable<ScimConfiguration>> list() {
+        return this.rawClient.list().thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a list of SCIM configurations of a tenant.
+     */
+    public CompletableFuture<SyncPagingIterable<ScimConfiguration>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a list of SCIM configurations of a tenant.
+     */
+    public CompletableFuture<SyncPagingIterable<ScimConfiguration>> list(
+            ListScimConfigurationsRequestParameters request) {
+        return this.rawClient.list(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a list of SCIM configurations of a tenant.
+     */
+    public CompletableFuture<SyncPagingIterable<ScimConfiguration>> list(
+            ListScimConfigurationsRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
