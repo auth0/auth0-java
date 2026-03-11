@@ -1,5 +1,14 @@
 # Change Log
 
+## [3.3.0](https://github.com/auth0/auth0-java/tree/3.3.0) (2026-03-11)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/3.2.0...3.3.0)
+
+**Added**
+- Add connection keys create endpoint and auth0Managed field in NetworkAclMatch [\#837](https://github.com/auth0/auth0-java/pull/837) ([fern-api[bot]](https://github.com/apps/fern-api))
+- Added AdditionalProperties field in ConnectionOptions and method overloading with RequestOptions  [\#831](https://github.com/auth0/auth0-java/pull/831) ([fern-api[bot]](https://github.com/apps/fern-api))
+- Patch: Fixed Readme links and added Examples [\#836](https://github.com/auth0/auth0-java/pull/836) ([tanya732](https://github.com/tanya732))
+- Feat: Added DPoP Support and Modified Connection Strategy [\#830](https://github.com/auth0/auth0-java/pull/830) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [3.2.0](https://github.com/auth0/auth0-java/tree/3.2.0) (2026-02-11)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/3.1.0...3.2.0)
 
