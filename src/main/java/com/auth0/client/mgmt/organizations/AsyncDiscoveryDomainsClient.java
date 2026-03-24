@@ -35,6 +35,7 @@ public class AsyncDiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<SyncPagingIterable<OrganizationDiscoveryDomain>> list(String id) {
         return this.rawClient.list(id).thenApply(response -> response.body());
@@ -42,6 +43,7 @@ public class AsyncDiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<SyncPagingIterable<OrganizationDiscoveryDomain>> list(
             String id, RequestOptions requestOptions) {
@@ -50,6 +52,7 @@ public class AsyncDiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<SyncPagingIterable<OrganizationDiscoveryDomain>> list(
             String id, ListOrganizationDiscoveryDomainsRequestParameters request) {
@@ -58,6 +61,7 @@ public class AsyncDiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<SyncPagingIterable<OrganizationDiscoveryDomain>> list(
             String id, ListOrganizationDiscoveryDomainsRequestParameters request, RequestOptions requestOptions) {
@@ -82,6 +86,7 @@ public class AsyncDiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by domain name.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<GetOrganizationDiscoveryDomainByNameResponseContent> getByName(
             String id, String discoveryDomain) {
@@ -90,6 +95,7 @@ public class AsyncDiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by domain name.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<GetOrganizationDiscoveryDomainByNameResponseContent> getByName(
             String id, String discoveryDomain, RequestOptions requestOptions) {
@@ -98,6 +104,7 @@ public class AsyncDiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by ID.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<GetOrganizationDiscoveryDomainResponseContent> get(String id, String discoveryDomainId) {
         return this.rawClient.get(id, discoveryDomainId).thenApply(response -> response.body());
@@ -105,6 +112,7 @@ public class AsyncDiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by ID.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<GetOrganizationDiscoveryDomainResponseContent> get(
             String id, String discoveryDomainId, RequestOptions requestOptions) {

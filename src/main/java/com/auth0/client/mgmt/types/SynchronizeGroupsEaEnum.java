@@ -6,15 +6,16 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class ConnectionResponseContentMiicardStrategy {
-    public static final ConnectionResponseContentMiicardStrategy MIICARD =
-            new ConnectionResponseContentMiicardStrategy(Value.MIICARD, "miicard");
+public final class SynchronizeGroupsEaEnum {
+    public static final SynchronizeGroupsEaEnum ALL = new SynchronizeGroupsEaEnum(Value.ALL, "all");
+
+    public static final SynchronizeGroupsEaEnum OFF = new SynchronizeGroupsEaEnum(Value.OFF, "off");
 
     private final Value value;
 
     private final String string;
 
-    ConnectionResponseContentMiicardStrategy(Value value, String string) {
+    SynchronizeGroupsEaEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -32,8 +33,8 @@ public final class ConnectionResponseContentMiicardStrategy {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof ConnectionResponseContentMiicardStrategy
-                        && this.string.equals(((ConnectionResponseContentMiicardStrategy) other).string));
+                || (other instanceof SynchronizeGroupsEaEnum
+                        && this.string.equals(((SynchronizeGroupsEaEnum) other).string));
     }
 
     @java.lang.Override
@@ -43,8 +44,10 @@ public final class ConnectionResponseContentMiicardStrategy {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case MIICARD:
-                return visitor.visitMiicard();
+            case ALL:
+                return visitor.visitAll();
+            case OFF:
+                return visitor.visitOff();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -52,23 +55,29 @@ public final class ConnectionResponseContentMiicardStrategy {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static ConnectionResponseContentMiicardStrategy valueOf(String value) {
+    public static SynchronizeGroupsEaEnum valueOf(String value) {
         switch (value) {
-            case "miicard":
-                return MIICARD;
+            case "all":
+                return ALL;
+            case "off":
+                return OFF;
             default:
-                return new ConnectionResponseContentMiicardStrategy(Value.UNKNOWN, value);
+                return new SynchronizeGroupsEaEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        MIICARD,
+        ALL,
+
+        OFF,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitMiicard();
+        T visitAll();
+
+        T visitOff();
 
         T visitUnknown(String unknownType);
     }

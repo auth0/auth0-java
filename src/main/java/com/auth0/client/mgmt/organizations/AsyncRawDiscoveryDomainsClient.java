@@ -53,6 +53,7 @@ public class AsyncRawDiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<OrganizationDiscoveryDomain>>> list(
             String id) {
@@ -62,6 +63,7 @@ public class AsyncRawDiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<OrganizationDiscoveryDomain>>> list(
             String id, RequestOptions requestOptions) {
@@ -71,6 +73,7 @@ public class AsyncRawDiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<OrganizationDiscoveryDomain>>> list(
             String id, ListOrganizationDiscoveryDomainsRequestParameters request) {
@@ -79,6 +82,7 @@ public class AsyncRawDiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<OrganizationDiscoveryDomain>>> list(
             String id, ListOrganizationDiscoveryDomainsRequestParameters request, RequestOptions requestOptions) {
@@ -297,6 +301,7 @@ public class AsyncRawDiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by domain name.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetOrganizationDiscoveryDomainByNameResponseContent>> getByName(
             String id, String discoveryDomain) {
@@ -305,6 +310,7 @@ public class AsyncRawDiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by domain name.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetOrganizationDiscoveryDomainByNameResponseContent>> getByName(
             String id, String discoveryDomain, RequestOptions requestOptions) {
@@ -393,6 +399,7 @@ public class AsyncRawDiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by ID.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetOrganizationDiscoveryDomainResponseContent>> get(
             String id, String discoveryDomainId) {
@@ -401,6 +408,7 @@ public class AsyncRawDiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by ID.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetOrganizationDiscoveryDomainResponseContent>> get(
             String id, String discoveryDomainId, RequestOptions requestOptions) {
