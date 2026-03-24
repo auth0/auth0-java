@@ -46,7 +46,7 @@ public final class UpdateResourceServerRequestContent {
 
     private final OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy;
 
-    private final Optional<List<Object>> authorizationDetails;
+    private final OptionalNullable<List<Object>> authorizationDetails;
 
     private final OptionalNullable<ResourceServerProofOfPossession> proofOfPossession;
 
@@ -66,7 +66,7 @@ public final class UpdateResourceServerRequestContent {
             Optional<Boolean> enforcePolicies,
             OptionalNullable<ResourceServerTokenEncryption> tokenEncryption,
             OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy,
-            Optional<List<Object>> authorizationDetails,
+            OptionalNullable<List<Object>> authorizationDetails,
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
             Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
             Map<String, Object> additionalProperties) {
@@ -171,8 +171,12 @@ public final class UpdateResourceServerRequestContent {
         return consentPolicy;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("authorization_details")
-    public Optional<List<Object>> getAuthorizationDetails() {
+    public OptionalNullable<List<Object>> getAuthorizationDetails() {
+        if (authorizationDetails == null) {
+            return OptionalNullable.absent();
+        }
         return authorizationDetails;
     }
 
@@ -200,6 +204,12 @@ public final class UpdateResourceServerRequestContent {
     @JsonProperty("consent_policy")
     private OptionalNullable<ResourceServerConsentPolicyEnum> _getConsentPolicy() {
         return consentPolicy;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("authorization_details")
+    private OptionalNullable<List<Object>> _getAuthorizationDetails() {
+        return authorizationDetails;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -289,7 +299,7 @@ public final class UpdateResourceServerRequestContent {
 
         private OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy = OptionalNullable.absent();
 
-        private Optional<List<Object>> authorizationDetails = Optional.empty();
+        private OptionalNullable<List<Object>> authorizationDetails = OptionalNullable.absent();
 
         private OptionalNullable<ResourceServerProofOfPossession> proofOfPossession = OptionalNullable.absent();
 
@@ -505,13 +515,33 @@ public final class UpdateResourceServerRequestContent {
         }
 
         @JsonSetter(value = "authorization_details", nulls = Nulls.SKIP)
-        public Builder authorizationDetails(Optional<List<Object>> authorizationDetails) {
+        public Builder authorizationDetails(@Nullable OptionalNullable<List<Object>> authorizationDetails) {
             this.authorizationDetails = authorizationDetails;
             return this;
         }
 
         public Builder authorizationDetails(List<Object> authorizationDetails) {
-            this.authorizationDetails = Optional.ofNullable(authorizationDetails);
+            this.authorizationDetails = OptionalNullable.of(authorizationDetails);
+            return this;
+        }
+
+        public Builder authorizationDetails(Optional<List<Object>> authorizationDetails) {
+            if (authorizationDetails.isPresent()) {
+                this.authorizationDetails = OptionalNullable.of(authorizationDetails.get());
+            } else {
+                this.authorizationDetails = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder authorizationDetails(com.auth0.client.mgmt.core.Nullable<List<Object>> authorizationDetails) {
+            if (authorizationDetails.isNull()) {
+                this.authorizationDetails = OptionalNullable.ofNull();
+            } else if (authorizationDetails.isEmpty()) {
+                this.authorizationDetails = OptionalNullable.absent();
+            } else {
+                this.authorizationDetails = OptionalNullable.of(authorizationDetails.get());
+            }
             return this;
         }
 

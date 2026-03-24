@@ -152,6 +152,9 @@ public final class TenantSettingsSupportedLocalesEnum {
 
     public static final TenantSettingsSupportedLocalesEnum NL = new TenantSettingsSupportedLocalesEnum(Value.NL, "nl");
 
+    public static final TenantSettingsSupportedLocalesEnum ZH_MO =
+            new TenantSettingsSupportedLocalesEnum(Value.ZH_MO, "zh-MO");
+
     public static final TenantSettingsSupportedLocalesEnum VI = new TenantSettingsSupportedLocalesEnum(Value.VI, "vi");
 
     public static final TenantSettingsSupportedLocalesEnum BG = new TenantSettingsSupportedLocalesEnum(Value.BG, "bg");
@@ -352,6 +355,8 @@ public final class TenantSettingsSupportedLocalesEnum {
                 return visitor.visitRu();
             case NL:
                 return visitor.visitNl();
+            case ZH_MO:
+                return visitor.visitZhMo();
             case VI:
                 return visitor.visitVi();
             case BG:
@@ -523,6 +528,8 @@ public final class TenantSettingsSupportedLocalesEnum {
                 return RU;
             case "nl":
                 return NL;
+            case "zh-MO":
+                return ZH_MO;
             case "vi":
                 return VI;
             case "bg":
@@ -719,6 +726,8 @@ public final class TenantSettingsSupportedLocalesEnum {
 
         ZH_HK,
 
+        ZH_MO,
+
         ZH_TW,
 
         UNKNOWN
@@ -884,6 +893,8 @@ public final class TenantSettingsSupportedLocalesEnum {
         T visitZhCn();
 
         T visitZhHk();
+
+        T visitZhMo();
 
         T visitZhTw();
 

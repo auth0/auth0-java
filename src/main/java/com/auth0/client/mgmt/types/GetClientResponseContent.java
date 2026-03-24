@@ -64,7 +64,7 @@ public final class GetClientResponseContent {
 
     private final Optional<ClientJwtConfiguration> jwtConfiguration;
 
-    private final Optional<List<ClientSigningKey>> signingKeys;
+    private final OptionalNullable<List<ClientSigningKey>> signingKeys;
 
     private final OptionalNullable<ClientEncryptionKey> encryptionKey;
 
@@ -153,7 +153,7 @@ public final class GetClientResponseContent {
             Optional<ClientOidcBackchannelLogoutSettings> oidcLogout,
             Optional<List<String>> grantTypes,
             Optional<ClientJwtConfiguration> jwtConfiguration,
-            Optional<List<ClientSigningKey>> signingKeys,
+            OptionalNullable<List<ClientSigningKey>> signingKeys,
             OptionalNullable<ClientEncryptionKey> encryptionKey,
             Optional<Boolean> sso,
             Optional<Boolean> ssoDisabled,
@@ -395,8 +395,12 @@ public final class GetClientResponseContent {
         return jwtConfiguration;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("signing_keys")
-    public Optional<List<ClientSigningKey>> getSigningKeys() {
+    public OptionalNullable<List<ClientSigningKey>> getSigningKeys() {
+        if (signingKeys == null) {
+            return OptionalNullable.absent();
+        }
         return signingKeys;
     }
 
@@ -641,6 +645,12 @@ public final class GetClientResponseContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("signing_keys")
+    private OptionalNullable<List<ClientSigningKey>> _getSigningKeys() {
+        return signingKeys;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("encryption_key")
     private OptionalNullable<ClientEncryptionKey> _getEncryptionKey() {
         return encryptionKey;
@@ -853,7 +863,7 @@ public final class GetClientResponseContent {
 
         private Optional<ClientJwtConfiguration> jwtConfiguration = Optional.empty();
 
-        private Optional<List<ClientSigningKey>> signingKeys = Optional.empty();
+        private OptionalNullable<List<ClientSigningKey>> signingKeys = OptionalNullable.absent();
 
         private OptionalNullable<ClientEncryptionKey> encryptionKey = OptionalNullable.absent();
 
@@ -1272,13 +1282,33 @@ public final class GetClientResponseContent {
         }
 
         @JsonSetter(value = "signing_keys", nulls = Nulls.SKIP)
-        public Builder signingKeys(Optional<List<ClientSigningKey>> signingKeys) {
+        public Builder signingKeys(@Nullable OptionalNullable<List<ClientSigningKey>> signingKeys) {
             this.signingKeys = signingKeys;
             return this;
         }
 
         public Builder signingKeys(List<ClientSigningKey> signingKeys) {
-            this.signingKeys = Optional.ofNullable(signingKeys);
+            this.signingKeys = OptionalNullable.of(signingKeys);
+            return this;
+        }
+
+        public Builder signingKeys(Optional<List<ClientSigningKey>> signingKeys) {
+            if (signingKeys.isPresent()) {
+                this.signingKeys = OptionalNullable.of(signingKeys.get());
+            } else {
+                this.signingKeys = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder signingKeys(com.auth0.client.mgmt.core.Nullable<List<ClientSigningKey>> signingKeys) {
+            if (signingKeys.isNull()) {
+                this.signingKeys = OptionalNullable.ofNull();
+            } else if (signingKeys.isEmpty()) {
+                this.signingKeys = OptionalNullable.absent();
+            } else {
+                this.signingKeys = OptionalNullable.of(signingKeys.get());
+            }
             return this;
         }
 

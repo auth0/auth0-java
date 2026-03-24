@@ -34,6 +34,8 @@ public final class PublicKeyCredential {
 
     private final Optional<OffsetDateTime> expiresAt;
 
+    private final Optional<String> kid;
+
     private final Map<String, Object> additionalProperties;
 
     private PublicKeyCredential(
@@ -43,6 +45,7 @@ public final class PublicKeyCredential {
             Optional<PublicKeyCredentialAlgorithmEnum> alg,
             Optional<Boolean> parseExpiryFromCert,
             Optional<OffsetDateTime> expiresAt,
+            Optional<String> kid,
             Map<String, Object> additionalProperties) {
         this.credentialType = credentialType;
         this.name = name;
@@ -50,6 +53,7 @@ public final class PublicKeyCredential {
         this.alg = alg;
         this.parseExpiryFromCert = parseExpiryFromCert;
         this.expiresAt = expiresAt;
+        this.kid = kid;
         this.additionalProperties = additionalProperties;
     }
 
@@ -95,6 +99,14 @@ public final class PublicKeyCredential {
         return expiresAt;
     }
 
+    /**
+     * @return Optional kid (Key ID), used to uniquely identify the credential. If not specified, a kid value will be auto-generated. The kid header parameter in JWTs sent by your client should match this value. Valid format is [0-9a-zA-Z-_]{10,64}
+     */
+    @JsonProperty("kid")
+    public Optional<String> getKid() {
+        return kid;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -112,13 +124,14 @@ public final class PublicKeyCredential {
                 && pem.equals(other.pem)
                 && alg.equals(other.alg)
                 && parseExpiryFromCert.equals(other.parseExpiryFromCert)
-                && expiresAt.equals(other.expiresAt);
+                && expiresAt.equals(other.expiresAt)
+                && kid.equals(other.kid);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.credentialType, this.name, this.pem, this.alg, this.parseExpiryFromCert, this.expiresAt);
+                this.credentialType, this.name, this.pem, this.alg, this.parseExpiryFromCert, this.expiresAt, this.kid);
     }
 
     @java.lang.Override
@@ -174,6 +187,13 @@ public final class PublicKeyCredential {
         _FinalStage expiresAt(Optional<OffsetDateTime> expiresAt);
 
         _FinalStage expiresAt(OffsetDateTime expiresAt);
+
+        /**
+         * <p>Optional kid (Key ID), used to uniquely identify the credential. If not specified, a kid value will be auto-generated. The kid header parameter in JWTs sent by your client should match this value. Valid format is [0-9a-zA-Z-_]{10,64}</p>
+         */
+        _FinalStage kid(Optional<String> kid);
+
+        _FinalStage kid(String kid);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -181,6 +201,8 @@ public final class PublicKeyCredential {
         private PublicKeyCredentialTypeEnum credentialType;
 
         private String pem;
+
+        private Optional<String> kid = Optional.empty();
 
         private Optional<OffsetDateTime> expiresAt = Optional.empty();
 
@@ -203,6 +225,7 @@ public final class PublicKeyCredential {
             alg(other.getAlg());
             parseExpiryFromCert(other.getParseExpiryFromCert());
             expiresAt(other.getExpiresAt());
+            kid(other.getKid());
             return this;
         }
 
@@ -222,6 +245,26 @@ public final class PublicKeyCredential {
         @JsonSetter("pem")
         public _FinalStage pem(@NotNull String pem) {
             this.pem = Objects.requireNonNull(pem, "pem must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Optional kid (Key ID), used to uniquely identify the credential. If not specified, a kid value will be auto-generated. The kid header parameter in JWTs sent by your client should match this value. Valid format is [0-9a-zA-Z-_]{10,64}</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage kid(String kid) {
+            this.kid = Optional.ofNullable(kid);
+            return this;
+        }
+
+        /**
+         * <p>Optional kid (Key ID), used to uniquely identify the credential. If not specified, a kid value will be auto-generated. The kid header parameter in JWTs sent by your client should match this value. Valid format is [0-9a-zA-Z-_]{10,64}</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "kid", nulls = Nulls.SKIP)
+        public _FinalStage kid(Optional<String> kid) {
+            this.kid = kid;
             return this;
         }
 
@@ -301,7 +344,7 @@ public final class PublicKeyCredential {
         @java.lang.Override
         public PublicKeyCredential build() {
             return new PublicKeyCredential(
-                    credentialType, name, pem, alg, parseExpiryFromCert, expiresAt, additionalProperties);
+                    credentialType, name, pem, alg, parseExpiryFromCert, expiresAt, kid, additionalProperties);
         }
 
         @java.lang.Override

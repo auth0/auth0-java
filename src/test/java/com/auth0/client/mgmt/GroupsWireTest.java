@@ -42,7 +42,7 @@ public class GroupsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"groups\":[{\"id\":\"id\",\"name\":\"name\",\"external_id\":\"external_id\",\"connection_id\":\"connection_id\",\"organization_id\":\"organization_id\",\"tenant_name\":\"tenant_name\",\"description\":\"description\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\",\"start\":1.1,\"limit\":1.1,\"total\":1.1}"));
+                                "{\"groups\":[{\"id\":\"id\",\"name\":\"name\",\"external_id\":\"external_id\",\"connection_id\":\"connection_id\",\"tenant_name\":\"tenant_name\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\",\"start\":1.1,\"limit\":1.1,\"total\":1.1}"));
         SyncPagingIterable<Group> response = client.groups()
                 .list(ListGroupsRequestParameters.builder()
                         .connectionId(OptionalNullable.of("connection_id"))
@@ -69,7 +69,7 @@ public class GroupsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"external_id\":\"external_id\",\"connection_id\":\"connection_id\",\"organization_id\":\"organization_id\",\"tenant_name\":\"tenant_name\",\"description\":\"description\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"external_id\":\"external_id\",\"connection_id\":\"connection_id\",\"tenant_name\":\"tenant_name\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
         GetGroupResponseContent response = client.groups().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -84,9 +84,7 @@ public class GroupsWireTest {
                 + "  \"name\": \"name\",\n"
                 + "  \"external_id\": \"external_id\",\n"
                 + "  \"connection_id\": \"connection_id\",\n"
-                + "  \"organization_id\": \"organization_id\",\n"
                 + "  \"tenant_name\": \"tenant_name\",\n"
-                + "  \"description\": \"description\",\n"
                 + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
                 + "  \"updated_at\": \"2024-01-15T09:30:00Z\"\n"
                 + "}";

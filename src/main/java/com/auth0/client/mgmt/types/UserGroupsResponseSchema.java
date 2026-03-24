@@ -3,9 +3,7 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -19,7 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UserGroupsResponseSchema.Builder.class)
@@ -32,11 +29,7 @@ public final class UserGroupsResponseSchema implements IGroup {
 
     private final Optional<String> connectionId;
 
-    private final OptionalNullable<String> organizationId;
-
     private final Optional<String> tenantName;
-
-    private final OptionalNullable<String> description;
 
     private final Optional<OffsetDateTime> createdAt;
 
@@ -51,9 +44,7 @@ public final class UserGroupsResponseSchema implements IGroup {
             Optional<String> name,
             Optional<String> externalId,
             Optional<String> connectionId,
-            OptionalNullable<String> organizationId,
             Optional<String> tenantName,
-            OptionalNullable<String> description,
             Optional<OffsetDateTime> createdAt,
             Optional<OffsetDateTime> updatedAt,
             Optional<OffsetDateTime> membershipCreatedAt,
@@ -62,9 +53,7 @@ public final class UserGroupsResponseSchema implements IGroup {
         this.name = name;
         this.externalId = externalId;
         this.connectionId = connectionId;
-        this.organizationId = organizationId;
         this.tenantName = tenantName;
-        this.description = description;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.membershipCreatedAt = membershipCreatedAt;
@@ -81,7 +70,7 @@ public final class UserGroupsResponseSchema implements IGroup {
     }
 
     /**
-     * @return Name of the group. Must be unique within its scope (connection, organization, or tenant). Must contain between 1 and 128 printable ASCII characters.
+     * @return Name of the group. Must be unique within its connection. Must contain between 1 and 128 printable ASCII characters.
      */
     @JsonProperty("name")
     @java.lang.Override
@@ -108,35 +97,12 @@ public final class UserGroupsResponseSchema implements IGroup {
     }
 
     /**
-     * @return Identifier for the organization this group belongs to (if an organization group).
-     */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("organization_id")
-    @java.lang.Override
-    public OptionalNullable<String> getOrganizationId() {
-        if (organizationId == null) {
-            return OptionalNullable.absent();
-        }
-        return organizationId;
-    }
-
-    /**
      * @return Identifier for the tenant this group belongs to.
      */
     @JsonProperty("tenant_name")
     @java.lang.Override
     public Optional<String> getTenantName() {
         return tenantName;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("description")
-    @java.lang.Override
-    public OptionalNullable<String> getDescription() {
-        if (description == null) {
-            return OptionalNullable.absent();
-        }
-        return description;
     }
 
     /**
@@ -165,18 +131,6 @@ public final class UserGroupsResponseSchema implements IGroup {
         return membershipCreatedAt;
     }
 
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("organization_id")
-    private OptionalNullable<String> _getOrganizationId() {
-        return organizationId;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("description")
-    private OptionalNullable<String> _getDescription() {
-        return description;
-    }
-
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -193,9 +147,7 @@ public final class UserGroupsResponseSchema implements IGroup {
                 && name.equals(other.name)
                 && externalId.equals(other.externalId)
                 && connectionId.equals(other.connectionId)
-                && organizationId.equals(other.organizationId)
                 && tenantName.equals(other.tenantName)
-                && description.equals(other.description)
                 && createdAt.equals(other.createdAt)
                 && updatedAt.equals(other.updatedAt)
                 && membershipCreatedAt.equals(other.membershipCreatedAt);
@@ -208,9 +160,7 @@ public final class UserGroupsResponseSchema implements IGroup {
                 this.name,
                 this.externalId,
                 this.connectionId,
-                this.organizationId,
                 this.tenantName,
-                this.description,
                 this.createdAt,
                 this.updatedAt,
                 this.membershipCreatedAt);
@@ -235,11 +185,7 @@ public final class UserGroupsResponseSchema implements IGroup {
 
         private Optional<String> connectionId = Optional.empty();
 
-        private OptionalNullable<String> organizationId = OptionalNullable.absent();
-
         private Optional<String> tenantName = Optional.empty();
-
-        private OptionalNullable<String> description = OptionalNullable.absent();
 
         private Optional<OffsetDateTime> createdAt = Optional.empty();
 
@@ -257,9 +203,7 @@ public final class UserGroupsResponseSchema implements IGroup {
             name(other.getName());
             externalId(other.getExternalId());
             connectionId(other.getConnectionId());
-            organizationId(other.getOrganizationId());
             tenantName(other.getTenantName());
-            description(other.getDescription());
             createdAt(other.getCreatedAt());
             updatedAt(other.getUpdatedAt());
             membershipCreatedAt(other.getMembershipCreatedAt());
@@ -281,7 +225,7 @@ public final class UserGroupsResponseSchema implements IGroup {
         }
 
         /**
-         * <p>Name of the group. Must be unique within its scope (connection, organization, or tenant). Must contain between 1 and 128 printable ASCII characters.</p>
+         * <p>Name of the group. Must be unique within its connection. Must contain between 1 and 128 printable ASCII characters.</p>
          */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
@@ -323,40 +267,6 @@ public final class UserGroupsResponseSchema implements IGroup {
         }
 
         /**
-         * <p>Identifier for the organization this group belongs to (if an organization group).</p>
-         */
-        @JsonSetter(value = "organization_id", nulls = Nulls.SKIP)
-        public Builder organizationId(@Nullable OptionalNullable<String> organizationId) {
-            this.organizationId = organizationId;
-            return this;
-        }
-
-        public Builder organizationId(String organizationId) {
-            this.organizationId = OptionalNullable.of(organizationId);
-            return this;
-        }
-
-        public Builder organizationId(Optional<String> organizationId) {
-            if (organizationId.isPresent()) {
-                this.organizationId = OptionalNullable.of(organizationId.get());
-            } else {
-                this.organizationId = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        public Builder organizationId(com.auth0.client.mgmt.core.Nullable<String> organizationId) {
-            if (organizationId.isNull()) {
-                this.organizationId = OptionalNullable.ofNull();
-            } else if (organizationId.isEmpty()) {
-                this.organizationId = OptionalNullable.absent();
-            } else {
-                this.organizationId = OptionalNullable.of(organizationId.get());
-            }
-            return this;
-        }
-
-        /**
          * <p>Identifier for the tenant this group belongs to.</p>
          */
         @JsonSetter(value = "tenant_name", nulls = Nulls.SKIP)
@@ -367,37 +277,6 @@ public final class UserGroupsResponseSchema implements IGroup {
 
         public Builder tenantName(String tenantName) {
             this.tenantName = Optional.ofNullable(tenantName);
-            return this;
-        }
-
-        @JsonSetter(value = "description", nulls = Nulls.SKIP)
-        public Builder description(@Nullable OptionalNullable<String> description) {
-            this.description = description;
-            return this;
-        }
-
-        public Builder description(String description) {
-            this.description = OptionalNullable.of(description);
-            return this;
-        }
-
-        public Builder description(Optional<String> description) {
-            if (description.isPresent()) {
-                this.description = OptionalNullable.of(description.get());
-            } else {
-                this.description = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        public Builder description(com.auth0.client.mgmt.core.Nullable<String> description) {
-            if (description.isNull()) {
-                this.description = OptionalNullable.ofNull();
-            } else if (description.isEmpty()) {
-                this.description = OptionalNullable.absent();
-            } else {
-                this.description = OptionalNullable.of(description.get());
-            }
             return this;
         }
 
@@ -449,9 +328,7 @@ public final class UserGroupsResponseSchema implements IGroup {
                     name,
                     externalId,
                     connectionId,
-                    organizationId,
                     tenantName,
-                    description,
                     createdAt,
                     updatedAt,
                     membershipCreatedAt,

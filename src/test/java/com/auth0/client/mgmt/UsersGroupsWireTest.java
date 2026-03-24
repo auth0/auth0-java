@@ -41,7 +41,7 @@ public class UsersGroupsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"groups\":[{\"id\":\"id\",\"name\":\"name\",\"external_id\":\"external_id\",\"connection_id\":\"connection_id\",\"organization_id\":\"organization_id\",\"tenant_name\":\"tenant_name\",\"description\":\"description\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"membership_created_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\",\"start\":1.1,\"limit\":1.1,\"total\":1.1}"));
+                                "{\"groups\":[{\"id\":\"id\",\"name\":\"name\",\"external_id\":\"external_id\",\"connection_id\":\"connection_id\",\"tenant_name\":\"tenant_name\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"membership_created_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\",\"start\":1.1,\"limit\":1.1,\"total\":1.1}"));
         SyncPagingIterable<UserGroupsResponseSchema> response = client.users()
                 .groups()
                 .get(

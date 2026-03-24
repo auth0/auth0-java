@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,18 +19,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdateFlowRequestContent.Builder.class)
 public final class UpdateFlowRequestContent {
     private final Optional<String> name;
 
-    private final Optional<List<FlowAction>> actions;
+    private final OptionalNullable<List<FlowAction>> actions;
 
     private final Map<String, Object> additionalProperties;
 
     private UpdateFlowRequestContent(
-            Optional<String> name, Optional<List<FlowAction>> actions, Map<String, Object> additionalProperties) {
+            Optional<String> name,
+            OptionalNullable<List<FlowAction>> actions,
+            Map<String, Object> additionalProperties) {
         this.name = name;
         this.actions = actions;
         this.additionalProperties = additionalProperties;
@@ -39,8 +44,18 @@ public final class UpdateFlowRequestContent {
         return name;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("actions")
-    public Optional<List<FlowAction>> getActions() {
+    public OptionalNullable<List<FlowAction>> getActions() {
+        if (actions == null) {
+            return OptionalNullable.absent();
+        }
+        return actions;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("actions")
+    private OptionalNullable<List<FlowAction>> _getActions() {
         return actions;
     }
 
@@ -77,7 +92,7 @@ public final class UpdateFlowRequestContent {
     public static final class Builder {
         private Optional<String> name = Optional.empty();
 
-        private Optional<List<FlowAction>> actions = Optional.empty();
+        private OptionalNullable<List<FlowAction>> actions = OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -102,13 +117,33 @@ public final class UpdateFlowRequestContent {
         }
 
         @JsonSetter(value = "actions", nulls = Nulls.SKIP)
-        public Builder actions(Optional<List<FlowAction>> actions) {
+        public Builder actions(@Nullable OptionalNullable<List<FlowAction>> actions) {
             this.actions = actions;
             return this;
         }
 
         public Builder actions(List<FlowAction> actions) {
-            this.actions = Optional.ofNullable(actions);
+            this.actions = OptionalNullable.of(actions);
+            return this;
+        }
+
+        public Builder actions(Optional<List<FlowAction>> actions) {
+            if (actions.isPresent()) {
+                this.actions = OptionalNullable.of(actions.get());
+            } else {
+                this.actions = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder actions(com.auth0.client.mgmt.core.Nullable<List<FlowAction>> actions) {
+            if (actions.isNull()) {
+                this.actions = OptionalNullable.ofNull();
+            } else if (actions.isEmpty()) {
+                this.actions = OptionalNullable.absent();
+            } else {
+                this.actions = OptionalNullable.of(actions.get());
+            }
             return this;
         }
 

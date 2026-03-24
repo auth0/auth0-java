@@ -873,7 +873,6 @@ Create a client grant for a machine-to-machine login flow. To learn more, read <
 client.clientGrants().create(
     CreateClientGrantRequestContent
         .builder()
-        .clientId("client_id")
         .audience("audience")
         .build()
 );
@@ -891,7 +890,7 @@ client.clientGrants().create(
 <dl>
 <dd>
 
-**clientId:** `String` — ID of the client.
+**clientId:** `Optional<String>` — ID of the client.
     
 </dd>
 </dl>
@@ -1337,7 +1336,7 @@ client.clients().list(
 <dl>
 <dd>
 
-**q:** `Optional<String>` — Advanced Query in <a href="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
+**q:** `Optional<String>` — Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
     
 </dd>
 </dl>
@@ -3648,7 +3647,7 @@ client.customDomains().list(
 <dl>
 <dd>
 
-**q:** `Optional<String>` — Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.
+**q:** `Optional<String>` — Query in <a href ="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene query string syntax</a>.
     
 </dd>
 </dl>
@@ -3794,6 +3793,104 @@ client.customDomains().create(
 <dd>
 
 **relyingPartyIdentifier:** `Optional<String>` — Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not provided, the full domain will be used.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customDomains.getDefault() -> GetDefaultDomainResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the tenant's default domain.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customDomains().getDefault();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customDomains.setDefault(request) -> UpdateDefaultDomainResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Set the default custom domain for the tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customDomains().setDefault(
+    SetDefaultCustomDomainRequestContent
+        .builder()
+        .domain("domain")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**domain:** `String` — The domain to set as the default custom domain. Must be a verified custom domain or the canonical domain.
     
 </dd>
 </dl>
@@ -12694,7 +12791,7 @@ client.users().list(
 <dl>
 <dd>
 
-**q:** `Optional<String>` — Query in <a target='_new' href ='http://www.lucenetutorial.com/lucene-query-syntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.
+**q:** `Optional<String>` — Query in <a target='_new' href ='https://lucene.apache.org/core/2_9_4/queryparsersyntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.
     
 </dd>
 </dl>
@@ -17228,6 +17325,14 @@ client.clients().credentials().create(
 <dd>
 
 **expiresAt:** `Optional<OffsetDateTime>` — The ISO 8601 formatted date representing the expiration of the credential. If not specified (not recommended), the credential never expires. Applies to `public_key` credential type.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**kid:** `Optional<String>` — Optional kid (Key ID), used to uniquely identify the credential. If not specified, a kid value will be auto-generated. The kid header parameter in JWTs sent by your client should match this value. Valid format is [0-9a-zA-Z-_]{10,64}
     
 </dd>
 </dl>
@@ -23755,6 +23860,7 @@ client.organizations().clientGrants().delete("id", "grant_id");
 <dd>
 
 Retrieve list of all organization discovery domains associated with the specified organization.
+This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 </dd>
 </dl>
 </dd>
@@ -23920,7 +24026,7 @@ client.organizations().discoveryDomains().create(
 <dd>
 
 Retrieve details about a single organization discovery domain specified by domain name.
-
+This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 </dd>
 </dl>
 </dd>
@@ -23982,7 +24088,8 @@ client.organizations().discoveryDomains().getByName("id", "discovery_domain");
 <dl>
 <dd>
 
-Retrieve details about a single organization discovery domain specified by ID. 
+Retrieve details about a single organization discovery domain specified by ID.
+This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 </dd>
 </dl>
 </dd>
