@@ -49,6 +49,8 @@ src/main/java/com/auth0/client/ClientCredentialsTokenProvider.java
 src/main/java/com/auth0/client/ManagementApiWithTokenProvider.java
 src/main/java/com/auth0/client/TokenProvider.java
 src/main/java/com/auth0/client/interceptors/
+src/main/java/com/auth0/client/mgmt/core/CustomDomainInterceptor.java
+ src/main/java/com/auth0/client/mgmt/CustomDomainHeader.java
 
 # Custom OAuth client credentials support
 src/main/java/com/auth0/client/mgmt/core/RequestOptions.java
@@ -63,6 +65,8 @@ src/main/java/com/auth0/client/mgmt/ManagementApiBuilder.java
 src/test/java/com/auth0/client/mgmt/DynamicTokenManagementTest.java
 src/test/java/com/auth0/client/mgmt/OAuthTokenSupplierTest.java
 src/test/java/com/auth0/client/mgmt/ManagementApiBuilderTest.java
+src/test/java/com/auth0/client/mgmt/CustomDomainInterceptorTest.java
+src/test/java/com/auth0/client/mgmt/CustomDomainHeaderIntegrationTest.java
 
 # Configuration files from auth0-real
 .codecov.yml
