@@ -28,8 +28,7 @@ public class CustomDomainInterceptorTest {
 
     @Test
     public void testOrganizationsInvitations() {
-        Assertions.assertTrue(
-                CustomDomainInterceptor.isWhitelisted("/api/v2/organizations/org_123/invitations"));
+        Assertions.assertTrue(CustomDomainInterceptor.isWhitelisted("/api/v2/organizations/org_123/invitations"));
     }
 
     @Test
@@ -109,8 +108,7 @@ public class CustomDomainInterceptorTest {
 
     @Test
     public void testOrganizationsMembersNotWhitelisted() {
-        Assertions.assertFalse(
-                CustomDomainInterceptor.isWhitelisted("/api/v2/organizations/org_123/members"));
+        Assertions.assertFalse(CustomDomainInterceptor.isWhitelisted("/api/v2/organizations/org_123/members"));
     }
 
     // --- Paths without /api/v2 prefix (direct base URL) ---

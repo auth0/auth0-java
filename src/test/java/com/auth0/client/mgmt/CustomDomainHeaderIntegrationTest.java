@@ -17,8 +17,7 @@ import org.junit.jupiter.api.Test;
  */
 public class CustomDomainHeaderIntegrationTest {
 
-    private static final String USERS_RESPONSE =
-            "{\"start\":0,\"limit\":50,\"length\":0,\"total\":0,\"users\":[]}";
+    private static final String USERS_RESPONSE = "{\"start\":0,\"limit\":50,\"length\":0,\"total\":0,\"users\":[]}";
     private static final String CONNECTIONS_RESPONSE = "{\"connections\":[]}";
     private static final String CUSTOM_DOMAINS_RESPONSE = "[]";
     private static final String TICKET_RESPONSE = "{\"ticket\":\"https://example.com\"}";
@@ -48,8 +47,7 @@ public class CustomDomainHeaderIntegrationTest {
         client.users().list();
 
         RecordedRequest request = server.takeRequest();
-        Assertions.assertEquals(
-                "login.mycompany.com", request.getHeader(CustomDomainInterceptor.HEADER_NAME));
+        Assertions.assertEquals("login.mycompany.com", request.getHeader(CustomDomainInterceptor.HEADER_NAME));
     }
 
     @Test
@@ -76,12 +74,10 @@ public class CustomDomainHeaderIntegrationTest {
                 .build();
 
         server.enqueue(new MockResponse().setResponseCode(200).setBody(USERS_RESPONSE));
-        client.users()
-                .list(ListUsersRequestParameters.builder().build(), CustomDomainHeader.of("other.mycompany.com"));
+        client.users().list(ListUsersRequestParameters.builder().build(), CustomDomainHeader.of("other.mycompany.com"));
 
         RecordedRequest request = server.takeRequest();
-        Assertions.assertEquals(
-                "other.mycompany.com", request.getHeader(CustomDomainInterceptor.HEADER_NAME));
+        Assertions.assertEquals("other.mycompany.com", request.getHeader(CustomDomainInterceptor.HEADER_NAME));
     }
 
     @Test
@@ -114,8 +110,7 @@ public class CustomDomainHeaderIntegrationTest {
 
         RecordedRequest request = server.takeRequest();
         // Without the interceptor registered (no customDomain on builder), the header passes through as-is
-        Assertions.assertEquals(
-                "login.mycompany.com", request.getHeader(CustomDomainInterceptor.HEADER_NAME));
+        Assertions.assertEquals("login.mycompany.com", request.getHeader(CustomDomainInterceptor.HEADER_NAME));
     }
 
     @Test
@@ -133,8 +128,7 @@ public class CustomDomainHeaderIntegrationTest {
                         .build());
 
         RecordedRequest request = server.takeRequest();
-        Assertions.assertEquals(
-                "login.mycompany.com", request.getHeader(CustomDomainInterceptor.HEADER_NAME));
+        Assertions.assertEquals("login.mycompany.com", request.getHeader(CustomDomainInterceptor.HEADER_NAME));
     }
 
     @Test
@@ -155,7 +149,6 @@ public class CustomDomainHeaderIntegrationTest {
     @Test
     public void testCustomDomainHeaderHelperCreatesValidRequestOptions() {
         RequestOptions options = CustomDomainHeader.of("login.mycompany.com");
-        Assertions.assertEquals(
-                "login.mycompany.com", options.getHeaders().get(CustomDomainInterceptor.HEADER_NAME));
+        Assertions.assertEquals("login.mycompany.com", options.getHeaders().get(CustomDomainInterceptor.HEADER_NAME));
     }
 }
