@@ -101,7 +101,7 @@ public final class CreateConnectionRequestContent {
     }
 
     /**
-     * @return DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
+     * @return Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
      */
     @JsonProperty("enabled_clients")
     public Optional<List<String>> getEnabledClients() {
@@ -229,7 +229,7 @@ public final class CreateConnectionRequestContent {
         _FinalStage options(ConnectionPropertiesOptions options);
 
         /**
-         * <p>DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
+         * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
          */
         _FinalStage enabledClients(Optional<List<String>> enabledClients);
 
@@ -433,7 +433,7 @@ public final class CreateConnectionRequestContent {
         }
 
         /**
-         * <p>DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
+         * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -443,7 +443,7 @@ public final class CreateConnectionRequestContent {
         }
 
         /**
-         * <p>DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
+         * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)

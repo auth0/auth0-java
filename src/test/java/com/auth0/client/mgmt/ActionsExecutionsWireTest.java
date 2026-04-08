@@ -38,7 +38,7 @@ public class ActionsExecutionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"trigger_id\":\"trigger_id\",\"status\":\"unspecified\",\"results\":[{\"action_name\":\"action_name\",\"started_at\":\"2024-01-15T09:30:00Z\",\"ended_at\":\"2024-01-15T09:30:00Z\"}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"trigger_id\":\"post-login\",\"status\":\"unspecified\",\"results\":[{\"action_name\":\"action_name\",\"started_at\":\"2024-01-15T09:30:00Z\",\"ended_at\":\"2024-01-15T09:30:00Z\"}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
         GetActionExecutionResponseContent response =
                 client.actions().executions().get("id");
         RecordedRequest request = server.takeRequest();
@@ -51,7 +51,7 @@ public class ActionsExecutionsWireTest {
         String expectedResponseBody = ""
                 + "{\n"
                 + "  \"id\": \"id\",\n"
-                + "  \"trigger_id\": \"trigger_id\",\n"
+                + "  \"trigger_id\": \"post-login\",\n"
                 + "  \"status\": \"unspecified\",\n"
                 + "  \"results\": [\n"
                 + "    {\n"

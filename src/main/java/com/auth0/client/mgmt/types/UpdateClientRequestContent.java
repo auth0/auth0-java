@@ -102,7 +102,7 @@ public final class UpdateClientRequestContent {
 
     private final OptionalNullable<ClientOrganizationRequireBehaviorPatchEnum> organizationRequireBehavior;
 
-    private final Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods;
+    private final OptionalNullable<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods;
 
     private final OptionalNullable<ClientAuthenticationMethod> clientAuthenticationMethods;
 
@@ -122,7 +122,7 @@ public final class UpdateClientRequestContent {
 
     private final OptionalNullable<ExpressConfigurationOrNull> expressConfiguration;
 
-    private final Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
+    private final OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
 
     private final Map<String, Object> additionalProperties;
 
@@ -166,7 +166,7 @@ public final class UpdateClientRequestContent {
             OptionalNullable<ClientDefaultOrganization> defaultOrganization,
             OptionalNullable<ClientOrganizationUsagePatchEnum> organizationUsage,
             OptionalNullable<ClientOrganizationRequireBehaviorPatchEnum> organizationRequireBehavior,
-            Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods,
+            OptionalNullable<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods,
             OptionalNullable<ClientAuthenticationMethod> clientAuthenticationMethods,
             Optional<Boolean> requirePushedAuthorizationRequests,
             Optional<Boolean> requireProofOfPossession,
@@ -176,7 +176,7 @@ public final class UpdateClientRequestContent {
             OptionalNullable<ClientTokenExchangeConfigurationOrNull> tokenExchange,
             OptionalNullable<Integer> parRequestExpiry,
             OptionalNullable<ExpressConfigurationOrNull> expressConfiguration,
-            Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
+            OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
@@ -543,8 +543,12 @@ public final class UpdateClientRequestContent {
     /**
      * @return Defines the available methods for organization discovery during the <code>pre_login_prompt</code>. Users can discover their organization either by <code>email</code>, <code>organization_name</code> or both.
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("organization_discovery_methods")
-    public Optional<List<ClientOrganizationDiscoveryEnum>> getOrganizationDiscoveryMethods() {
+    public OptionalNullable<List<ClientOrganizationDiscoveryEnum>> getOrganizationDiscoveryMethods() {
+        if (organizationDiscoveryMethods == null) {
+            return OptionalNullable.absent();
+        }
         return organizationDiscoveryMethods;
     }
 
@@ -631,8 +635,12 @@ public final class UpdateClientRequestContent {
         return expressConfiguration;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("async_approval_notification_channels")
-    public Optional<List<AsyncApprovalNotificationsChannelsEnum>> getAsyncApprovalNotificationChannels() {
+    public OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> getAsyncApprovalNotificationChannels() {
+        if (asyncApprovalNotificationChannels == null) {
+            return OptionalNullable.absent();
+        }
         return asyncApprovalNotificationChannels;
     }
 
@@ -691,6 +699,12 @@ public final class UpdateClientRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("organization_discovery_methods")
+    private OptionalNullable<List<ClientOrganizationDiscoveryEnum>> _getOrganizationDiscoveryMethods() {
+        return organizationDiscoveryMethods;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("client_authentication_methods")
     private OptionalNullable<ClientAuthenticationMethod> _getClientAuthenticationMethods() {
         return clientAuthenticationMethods;
@@ -724,6 +738,12 @@ public final class UpdateClientRequestContent {
     @JsonProperty("express_configuration")
     private OptionalNullable<ExpressConfigurationOrNull> _getExpressConfiguration() {
         return expressConfiguration;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("async_approval_notification_channels")
+    private OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> _getAsyncApprovalNotificationChannels() {
+        return asyncApprovalNotificationChannels;
     }
 
     @java.lang.Override
@@ -937,7 +957,8 @@ public final class UpdateClientRequestContent {
         private OptionalNullable<ClientOrganizationRequireBehaviorPatchEnum> organizationRequireBehavior =
                 OptionalNullable.absent();
 
-        private Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods = Optional.empty();
+        private OptionalNullable<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods =
+                OptionalNullable.absent();
 
         private OptionalNullable<ClientAuthenticationMethod> clientAuthenticationMethods = OptionalNullable.absent();
 
@@ -957,8 +978,8 @@ public final class UpdateClientRequestContent {
 
         private OptionalNullable<ExpressConfigurationOrNull> expressConfiguration = OptionalNullable.absent();
 
-        private Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
-                Optional.empty();
+        private OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
+                OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -1723,14 +1744,37 @@ public final class UpdateClientRequestContent {
          */
         @JsonSetter(value = "organization_discovery_methods", nulls = Nulls.SKIP)
         public Builder organizationDiscoveryMethods(
-                Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods) {
+                @Nullable OptionalNullable<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods) {
             this.organizationDiscoveryMethods = organizationDiscoveryMethods;
             return this;
         }
 
         public Builder organizationDiscoveryMethods(
                 List<ClientOrganizationDiscoveryEnum> organizationDiscoveryMethods) {
-            this.organizationDiscoveryMethods = Optional.ofNullable(organizationDiscoveryMethods);
+            this.organizationDiscoveryMethods = OptionalNullable.of(organizationDiscoveryMethods);
+            return this;
+        }
+
+        public Builder organizationDiscoveryMethods(
+                Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods) {
+            if (organizationDiscoveryMethods.isPresent()) {
+                this.organizationDiscoveryMethods = OptionalNullable.of(organizationDiscoveryMethods.get());
+            } else {
+                this.organizationDiscoveryMethods = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder organizationDiscoveryMethods(
+                com.auth0.client.mgmt.core.Nullable<List<ClientOrganizationDiscoveryEnum>>
+                        organizationDiscoveryMethods) {
+            if (organizationDiscoveryMethods.isNull()) {
+                this.organizationDiscoveryMethods = OptionalNullable.ofNull();
+            } else if (organizationDiscoveryMethods.isEmpty()) {
+                this.organizationDiscoveryMethods = OptionalNullable.absent();
+            } else {
+                this.organizationDiscoveryMethods = OptionalNullable.of(organizationDiscoveryMethods.get());
+            }
             return this;
         }
 
@@ -1981,14 +2025,39 @@ public final class UpdateClientRequestContent {
 
         @JsonSetter(value = "async_approval_notification_channels", nulls = Nulls.SKIP)
         public Builder asyncApprovalNotificationChannels(
-                Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels) {
+                @Nullable
+                        OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>>
+                                asyncApprovalNotificationChannels) {
             this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
             return this;
         }
 
         public Builder asyncApprovalNotificationChannels(
                 List<AsyncApprovalNotificationsChannelsEnum> asyncApprovalNotificationChannels) {
-            this.asyncApprovalNotificationChannels = Optional.ofNullable(asyncApprovalNotificationChannels);
+            this.asyncApprovalNotificationChannels = OptionalNullable.of(asyncApprovalNotificationChannels);
+            return this;
+        }
+
+        public Builder asyncApprovalNotificationChannels(
+                Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels) {
+            if (asyncApprovalNotificationChannels.isPresent()) {
+                this.asyncApprovalNotificationChannels = OptionalNullable.of(asyncApprovalNotificationChannels.get());
+            } else {
+                this.asyncApprovalNotificationChannels = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder asyncApprovalNotificationChannels(
+                com.auth0.client.mgmt.core.Nullable<List<AsyncApprovalNotificationsChannelsEnum>>
+                        asyncApprovalNotificationChannels) {
+            if (asyncApprovalNotificationChannels.isNull()) {
+                this.asyncApprovalNotificationChannels = OptionalNullable.ofNull();
+            } else if (asyncApprovalNotificationChannels.isEmpty()) {
+                this.asyncApprovalNotificationChannels = OptionalNullable.absent();
+            } else {
+                this.asyncApprovalNotificationChannels = OptionalNullable.of(asyncApprovalNotificationChannels.get());
+            }
             return this;
         }
 

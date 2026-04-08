@@ -60,6 +60,8 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
 
     private final OptionalNullable<ConnectionPasswordNoPersonalInfoOptions> passwordNoPersonalInfo;
 
+    private final Optional<ConnectionPasswordOptions> passwordOptions;
+
     private final Optional<List<ConnectionIdentifierPrecedenceEnum>> precedence;
 
     private final Optional<Boolean> realmFallback;
@@ -89,6 +91,7 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
             OptionalNullable<ConnectionPasswordDictionaryOptions> passwordDictionary,
             OptionalNullable<ConnectionPasswordHistoryOptions> passwordHistory,
             OptionalNullable<ConnectionPasswordNoPersonalInfoOptions> passwordNoPersonalInfo,
+            Optional<ConnectionPasswordOptions> passwordOptions,
             Optional<List<ConnectionIdentifierPrecedenceEnum>> precedence,
             Optional<Boolean> realmFallback,
             Optional<Boolean> requiresUsername,
@@ -112,6 +115,7 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
         this.passwordDictionary = passwordDictionary;
         this.passwordHistory = passwordHistory;
         this.passwordNoPersonalInfo = passwordNoPersonalInfo;
+        this.passwordOptions = passwordOptions;
         this.precedence = precedence;
         this.realmFallback = realmFallback;
         this.requiresUsername = requiresUsername;
@@ -238,6 +242,11 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
         return passwordNoPersonalInfo;
     }
 
+    @JsonProperty("password_options")
+    public Optional<ConnectionPasswordOptions> getPasswordOptions() {
+        return passwordOptions;
+    }
+
     @JsonProperty("precedence")
     public Optional<List<ConnectionIdentifierPrecedenceEnum>> getPrecedence() {
         return precedence;
@@ -340,6 +349,7 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
                 && passwordDictionary.equals(other.passwordDictionary)
                 && passwordHistory.equals(other.passwordHistory)
                 && passwordNoPersonalInfo.equals(other.passwordNoPersonalInfo)
+                && passwordOptions.equals(other.passwordOptions)
                 && precedence.equals(other.precedence)
                 && realmFallback.equals(other.realmFallback)
                 && requiresUsername.equals(other.requiresUsername)
@@ -367,6 +377,7 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
                 this.passwordDictionary,
                 this.passwordHistory,
                 this.passwordNoPersonalInfo,
+                this.passwordOptions,
                 this.precedence,
                 this.realmFallback,
                 this.requiresUsername,
@@ -422,6 +433,8 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
         private OptionalNullable<ConnectionPasswordNoPersonalInfoOptions> passwordNoPersonalInfo =
                 OptionalNullable.absent();
 
+        private Optional<ConnectionPasswordOptions> passwordOptions = Optional.empty();
+
         private Optional<List<ConnectionIdentifierPrecedenceEnum>> precedence = Optional.empty();
 
         private Optional<Boolean> realmFallback = Optional.empty();
@@ -454,6 +467,7 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
             passwordDictionary(other.getPasswordDictionary());
             passwordHistory(other.getPasswordHistory());
             passwordNoPersonalInfo(other.getPasswordNoPersonalInfo());
+            passwordOptions(other.getPasswordOptions());
             precedence(other.getPrecedence());
             realmFallback(other.getRealmFallback());
             requiresUsername(other.getRequiresUsername());
@@ -811,6 +825,17 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
             return this;
         }
 
+        @JsonSetter(value = "password_options", nulls = Nulls.SKIP)
+        public Builder passwordOptions(Optional<ConnectionPasswordOptions> passwordOptions) {
+            this.passwordOptions = passwordOptions;
+            return this;
+        }
+
+        public Builder passwordOptions(ConnectionPasswordOptions passwordOptions) {
+            this.passwordOptions = Optional.ofNullable(passwordOptions);
+            return this;
+        }
+
         @JsonSetter(value = "precedence", nulls = Nulls.SKIP)
         public Builder precedence(Optional<List<ConnectionIdentifierPrecedenceEnum>> precedence) {
             this.precedence = precedence;
@@ -895,6 +920,7 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
                     passwordDictionary,
                     passwordHistory,
                     passwordNoPersonalInfo,
+                    passwordOptions,
                     precedence,
                     realmFallback,
                     requiresUsername,

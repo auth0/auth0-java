@@ -6,15 +6,18 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class ConnectionResponseContentRenrenStrategy {
-    public static final ConnectionResponseContentRenrenStrategy RENREN =
-            new ConnectionResponseContentRenrenStrategy(Value.RENREN, "renren");
+public final class ClientExternalMetadataCreatedByEnum {
+    public static final ClientExternalMetadataCreatedByEnum ADMIN =
+            new ClientExternalMetadataCreatedByEnum(Value.ADMIN, "admin");
+
+    public static final ClientExternalMetadataCreatedByEnum CLIENT =
+            new ClientExternalMetadataCreatedByEnum(Value.CLIENT, "client");
 
     private final Value value;
 
     private final String string;
 
-    ConnectionResponseContentRenrenStrategy(Value value, String string) {
+    ClientExternalMetadataCreatedByEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -32,8 +35,8 @@ public final class ConnectionResponseContentRenrenStrategy {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof ConnectionResponseContentRenrenStrategy
-                        && this.string.equals(((ConnectionResponseContentRenrenStrategy) other).string));
+                || (other instanceof ClientExternalMetadataCreatedByEnum
+                        && this.string.equals(((ClientExternalMetadataCreatedByEnum) other).string));
     }
 
     @java.lang.Override
@@ -43,8 +46,10 @@ public final class ConnectionResponseContentRenrenStrategy {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case RENREN:
-                return visitor.visitRenren();
+            case ADMIN:
+                return visitor.visitAdmin();
+            case CLIENT:
+                return visitor.visitClient();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -52,23 +57,29 @@ public final class ConnectionResponseContentRenrenStrategy {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static ConnectionResponseContentRenrenStrategy valueOf(String value) {
+    public static ClientExternalMetadataCreatedByEnum valueOf(String value) {
         switch (value) {
-            case "renren":
-                return RENREN;
+            case "admin":
+                return ADMIN;
+            case "client":
+                return CLIENT;
             default:
-                return new ConnectionResponseContentRenrenStrategy(Value.UNKNOWN, value);
+                return new ClientExternalMetadataCreatedByEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        RENREN,
+        ADMIN,
+
+        CLIENT,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitRenren();
+        T visitAdmin();
+
+        T visitClient();
 
         T visitUnknown(String unknownType);
     }

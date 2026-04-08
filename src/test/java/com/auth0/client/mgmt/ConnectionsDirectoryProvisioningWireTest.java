@@ -45,7 +45,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"directory_provisionings\":[{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}],\"next\":\"next\"}"));
+                                "{\"directory_provisionings\":[{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"synchronize_groups\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}],\"next\":\"next\"}"));
         SyncPagingIterable<DirectoryProvisioning> response = client.connections()
                 .directoryProvisioning()
                 .list(ListDirectoryProvisioningsRequestParameters.builder()
@@ -68,7 +68,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
+                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"synchronize_groups\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
         GetDirectoryProvisioningResponseContent response =
                 client.connections().directoryProvisioning().get("id");
         RecordedRequest request = server.takeRequest();
@@ -90,6 +90,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 + "    }\n"
                 + "  ],\n"
                 + "  \"synchronize_automatically\": true,\n"
+                + "  \"synchronize_groups\": \"synchronize_groups\",\n"
                 + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
                 + "  \"updated_at\": \"2024-01-15T09:30:00Z\",\n"
                 + "  \"last_synchronization_at\": \"2024-01-15T09:30:00Z\",\n"
@@ -133,7 +134,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
+                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"synchronize_groups\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
         CreateDirectoryProvisioningResponseContent response =
                 client.connections().directoryProvisioning().create("id", OptionalNullable.absent());
         RecordedRequest request = server.takeRequest();
@@ -155,6 +156,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 + "    }\n"
                 + "  ],\n"
                 + "  \"synchronize_automatically\": true,\n"
+                + "  \"synchronize_groups\": \"synchronize_groups\",\n"
                 + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
                 + "  \"updated_at\": \"2024-01-15T09:30:00Z\",\n"
                 + "  \"last_synchronization_at\": \"2024-01-15T09:30:00Z\",\n"
@@ -207,7 +209,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
+                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"synchronize_groups\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
         UpdateDirectoryProvisioningResponseContent response =
                 client.connections().directoryProvisioning().update("id", OptionalNullable.absent());
         RecordedRequest request = server.takeRequest();
@@ -229,6 +231,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 + "    }\n"
                 + "  ],\n"
                 + "  \"synchronize_automatically\": true,\n"
+                + "  \"synchronize_groups\": \"synchronize_groups\",\n"
                 + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
                 + "  \"updated_at\": \"2024-01-15T09:30:00Z\",\n"
                 + "  \"last_synchronization_at\": \"2024-01-15T09:30:00Z\",\n"

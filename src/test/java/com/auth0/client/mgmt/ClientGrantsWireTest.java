@@ -76,7 +76,6 @@ public class ClientGrantsWireTest {
                                 "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}"));
         CreateClientGrantResponseContent response = client.clientGrants()
                 .create(CreateClientGrantRequestContent.builder()
-                        .clientId("client_id")
                         .audience("audience")
                         .build());
         RecordedRequest request = server.takeRequest();
@@ -84,8 +83,7 @@ public class ClientGrantsWireTest {
         Assertions.assertEquals("POST", request.getMethod());
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
-        String expectedRequestBody =
-                "" + "{\n" + "  \"client_id\": \"client_id\",\n" + "  \"audience\": \"audience\"\n" + "}";
+        String expectedRequestBody = "" + "{\n" + "  \"audience\": \"audience\"\n" + "}";
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
         Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
