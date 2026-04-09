@@ -13,6 +13,12 @@ public final class SelfServiceProfileSsoTicketProvisioningScopeEnum {
     public static final SelfServiceProfileSsoTicketProvisioningScopeEnum DELETE_USERS =
             new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.DELETE_USERS, "delete:users");
 
+    public static final SelfServiceProfileSsoTicketProvisioningScopeEnum GET_GROUPS =
+            new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.GET_GROUPS, "get:groups");
+
+    public static final SelfServiceProfileSsoTicketProvisioningScopeEnum DELETE_GROUPS =
+            new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.DELETE_GROUPS, "delete:groups");
+
     public static final SelfServiceProfileSsoTicketProvisioningScopeEnum GET_USERS =
             new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.GET_USERS, "get:users");
 
@@ -21,6 +27,15 @@ public final class SelfServiceProfileSsoTicketProvisioningScopeEnum {
 
     public static final SelfServiceProfileSsoTicketProvisioningScopeEnum POST_USERS =
             new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.POST_USERS, "post:users");
+
+    public static final SelfServiceProfileSsoTicketProvisioningScopeEnum POST_GROUPS =
+            new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.POST_GROUPS, "post:groups");
+
+    public static final SelfServiceProfileSsoTicketProvisioningScopeEnum PATCH_GROUPS =
+            new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.PATCH_GROUPS, "patch:groups");
+
+    public static final SelfServiceProfileSsoTicketProvisioningScopeEnum PUT_GROUPS =
+            new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.PUT_GROUPS, "put:groups");
 
     private final Value value;
 
@@ -59,12 +74,22 @@ public final class SelfServiceProfileSsoTicketProvisioningScopeEnum {
                 return visitor.visitPatchUsers();
             case DELETE_USERS:
                 return visitor.visitDeleteUsers();
+            case GET_GROUPS:
+                return visitor.visitGetGroups();
+            case DELETE_GROUPS:
+                return visitor.visitDeleteGroups();
             case GET_USERS:
                 return visitor.visitGetUsers();
             case PUT_USERS:
                 return visitor.visitPutUsers();
             case POST_USERS:
                 return visitor.visitPostUsers();
+            case POST_GROUPS:
+                return visitor.visitPostGroups();
+            case PATCH_GROUPS:
+                return visitor.visitPatchGroups();
+            case PUT_GROUPS:
+                return visitor.visitPutGroups();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -78,12 +103,22 @@ public final class SelfServiceProfileSsoTicketProvisioningScopeEnum {
                 return PATCH_USERS;
             case "delete:users":
                 return DELETE_USERS;
+            case "get:groups":
+                return GET_GROUPS;
+            case "delete:groups":
+                return DELETE_GROUPS;
             case "get:users":
                 return GET_USERS;
             case "put:users":
                 return PUT_USERS;
             case "post:users":
                 return POST_USERS;
+            case "post:groups":
+                return POST_GROUPS;
+            case "patch:groups":
+                return PATCH_GROUPS;
+            case "put:groups":
+                return PUT_GROUPS;
             default:
                 return new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.UNKNOWN, value);
         }
@@ -100,6 +135,16 @@ public final class SelfServiceProfileSsoTicketProvisioningScopeEnum {
 
         DELETE_USERS,
 
+        GET_GROUPS,
+
+        POST_GROUPS,
+
+        PUT_GROUPS,
+
+        PATCH_GROUPS,
+
+        DELETE_GROUPS,
+
         UNKNOWN
     }
 
@@ -113,6 +158,16 @@ public final class SelfServiceProfileSsoTicketProvisioningScopeEnum {
         T visitPatchUsers();
 
         T visitDeleteUsers();
+
+        T visitGetGroups();
+
+        T visitPostGroups();
+
+        T visitPutGroups();
+
+        T visitPatchGroups();
+
+        T visitDeleteGroups();
 
         T visitUnknown(String unknownType);
     }

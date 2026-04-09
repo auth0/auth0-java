@@ -23,6 +23,10 @@ public final class RequestOptions {
 
     private final Map<String, Supplier<String>> headerSuppliers;
 
+    private final Map<String, String> queryParameters;
+
+    private final Map<String, Supplier<String>> queryParameterSuppliers;
+
     // Per-request OAuth credentials
     private final String clientId;
 
@@ -41,6 +45,8 @@ public final class RequestOptions {
             TimeUnit timeoutTimeUnit,
             Map<String, String> headers,
             Map<String, Supplier<String>> headerSuppliers,
+            Map<String, String> queryParameters,
+            Map<String, Supplier<String>> queryParameterSuppliers,
             String clientId,
             String clientSecret,
             String audience,
@@ -50,6 +56,8 @@ public final class RequestOptions {
         this.timeoutTimeUnit = timeoutTimeUnit;
         this.headers = headers;
         this.headerSuppliers = headerSuppliers;
+        this.queryParameters = queryParameters;
+        this.queryParameterSuppliers = queryParameterSuppliers;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.audience = audience;
@@ -131,6 +139,14 @@ public final class RequestOptions {
         return headers;
     }
 
+    public Map<String, String> getQueryParameters() {
+        Map<String, String> queryParameters = new HashMap<>(this.queryParameters);
+        this.queryParameterSuppliers.forEach((key, supplier) -> {
+            queryParameters.put(key, supplier.get());
+        });
+        return queryParameters;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -145,6 +161,10 @@ public final class RequestOptions {
         private final Map<String, String> headers = new HashMap<>();
 
         private final Map<String, Supplier<String>> headerSuppliers = new HashMap<>();
+
+        private final Map<String, String> queryParameters = new HashMap<>();
+
+        private final Map<String, Supplier<String>> queryParameterSuppliers = new HashMap<>();
 
         private String clientId = null;
 
@@ -228,6 +248,16 @@ public final class RequestOptions {
             return this;
         }
 
+        public Builder addQueryParameter(String key, String value) {
+            this.queryParameters.put(key, value);
+            return this;
+        }
+
+        public Builder addQueryParameter(String key, Supplier<String> value) {
+            this.queryParameterSuppliers.put(key, value);
+            return this;
+        }
+
         public RequestOptions build() {
             return new RequestOptions(
                     token,
@@ -235,6 +265,8 @@ public final class RequestOptions {
                     timeoutTimeUnit,
                     headers,
                     headerSuppliers,
+                    queryParameters,
+                    queryParameterSuppliers,
                     clientId,
                     clientSecret,
                     audience,

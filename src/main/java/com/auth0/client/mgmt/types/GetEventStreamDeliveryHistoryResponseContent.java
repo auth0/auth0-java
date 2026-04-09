@@ -155,6 +155,10 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
     public interface _FinalStage {
         GetEventStreamDeliveryHistoryResponseContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Results of delivery attempts</p>
          */
@@ -289,6 +293,18 @@ public final class GetEventStreamDeliveryHistoryResponseContent {
         public GetEventStreamDeliveryHistoryResponseContent build() {
             return new GetEventStreamDeliveryHistoryResponseContent(
                     id, eventStreamId, status, eventType, attempts, event, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

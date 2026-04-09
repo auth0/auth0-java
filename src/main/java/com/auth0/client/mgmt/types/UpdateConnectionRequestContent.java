@@ -28,7 +28,7 @@ public final class UpdateConnectionRequestContent {
 
     private final OptionalNullable<UpdateConnectionOptions> options;
 
-    private final Optional<List<String>> enabledClients;
+    private final OptionalNullable<List<String>> enabledClients;
 
     private final Optional<Boolean> isDomainConnection;
 
@@ -47,7 +47,7 @@ public final class UpdateConnectionRequestContent {
     private UpdateConnectionRequestContent(
             Optional<String> displayName,
             OptionalNullable<UpdateConnectionOptions> options,
-            Optional<List<String>> enabledClients,
+            OptionalNullable<List<String>> enabledClients,
             Optional<Boolean> isDomainConnection,
             Optional<Boolean> showAsButton,
             Optional<List<String>> realms,
@@ -87,13 +87,17 @@ public final class UpdateConnectionRequestContent {
     /**
      * @return DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable or disable the connection for any clients.
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("enabled_clients")
-    public Optional<List<String>> getEnabledClients() {
+    public OptionalNullable<List<String>> getEnabledClients() {
+        if (enabledClients == null) {
+            return OptionalNullable.absent();
+        }
         return enabledClients;
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; promotes to a domain-level connection so that third-party applications can use it. &lt;code&gt;false&lt;/code&gt; does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to &lt;code&gt;false&lt;/code&gt;.)
+     * @return <code>true</code> promotes to a domain-level connection so that third-party applications can use it. <code>false</code> does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to <code>false</code>.)
      */
     @JsonProperty("is_domain_connection")
     public Optional<Boolean> getIsDomainConnection() {
@@ -101,7 +105,7 @@ public final class UpdateConnectionRequestContent {
     }
 
     /**
-     * @return Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to &lt;code&gt;false&lt;/code&gt;.)
+     * @return Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to <code>false</code>.)
      */
     @JsonProperty("show_as_button")
     public Optional<Boolean> getShowAsButton() {
@@ -135,6 +139,12 @@ public final class UpdateConnectionRequestContent {
     @JsonProperty("options")
     private OptionalNullable<UpdateConnectionOptions> _getOptions() {
         return options;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("enabled_clients")
+    private OptionalNullable<List<String>> _getEnabledClients() {
+        return enabledClients;
     }
 
     @java.lang.Override
@@ -189,7 +199,7 @@ public final class UpdateConnectionRequestContent {
 
         private OptionalNullable<UpdateConnectionOptions> options = OptionalNullable.absent();
 
-        private Optional<List<String>> enabledClients = Optional.empty();
+        private OptionalNullable<List<String>> enabledClients = OptionalNullable.absent();
 
         private Optional<Boolean> isDomainConnection = Optional.empty();
 
@@ -270,18 +280,38 @@ public final class UpdateConnectionRequestContent {
          * <p>DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable or disable the connection for any clients.</p>
          */
         @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
-        public Builder enabledClients(Optional<List<String>> enabledClients) {
+        public Builder enabledClients(@Nullable OptionalNullable<List<String>> enabledClients) {
             this.enabledClients = enabledClients;
             return this;
         }
 
         public Builder enabledClients(List<String> enabledClients) {
-            this.enabledClients = Optional.ofNullable(enabledClients);
+            this.enabledClients = OptionalNullable.of(enabledClients);
+            return this;
+        }
+
+        public Builder enabledClients(Optional<List<String>> enabledClients) {
+            if (enabledClients.isPresent()) {
+                this.enabledClients = OptionalNullable.of(enabledClients.get());
+            } else {
+                this.enabledClients = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder enabledClients(com.auth0.client.mgmt.core.Nullable<List<String>> enabledClients) {
+            if (enabledClients.isNull()) {
+                this.enabledClients = OptionalNullable.ofNull();
+            } else if (enabledClients.isEmpty()) {
+                this.enabledClients = OptionalNullable.absent();
+            } else {
+                this.enabledClients = OptionalNullable.of(enabledClients.get());
+            }
             return this;
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; promotes to a domain-level connection so that third-party applications can use it. &lt;code&gt;false&lt;/code&gt; does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
+         * <p><code>true</code> promotes to a domain-level connection so that third-party applications can use it. <code>false</code> does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to <code>false</code>.)</p>
          */
         @JsonSetter(value = "is_domain_connection", nulls = Nulls.SKIP)
         public Builder isDomainConnection(Optional<Boolean> isDomainConnection) {
@@ -295,7 +325,7 @@ public final class UpdateConnectionRequestContent {
         }
 
         /**
-         * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
+         * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to <code>false</code>.)</p>
          */
         @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
         public Builder showAsButton(Optional<Boolean> showAsButton) {
@@ -367,6 +397,16 @@ public final class UpdateConnectionRequestContent {
                     authentication,
                     connectedAccounts,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

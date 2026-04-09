@@ -40,6 +40,10 @@ public class RawDeliveriesClient {
         return list(id, ListEventStreamDeliveriesRequestParameters.builder().build());
     }
 
+    public ManagementApiHttpResponse<List<EventStreamDelivery>> list(String id, RequestOptions requestOptions) {
+        return list(id, ListEventStreamDeliveriesRequestParameters.builder().build(), requestOptions);
+    }
+
     public ManagementApiHttpResponse<List<EventStreamDelivery>> list(
             String id, ListEventStreamDeliveriesRequestParameters request) {
         return list(id, request, null);
@@ -73,6 +77,11 @@ public class RawDeliveriesClient {
                     httpUrl, "from", request.getFrom().orElse(null), false);
         }
         QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -128,15 +137,19 @@ public class RawDeliveriesClient {
 
     public ManagementApiHttpResponse<GetEventStreamDeliveryHistoryResponseContent> getHistory(
             String id, String eventId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("event-streams")
                 .addPathSegment(id)
                 .addPathSegments("deliveries")
-                .addPathSegment(eventId)
-                .build();
+                .addPathSegment(eventId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

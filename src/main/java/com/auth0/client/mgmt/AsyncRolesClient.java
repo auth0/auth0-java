@@ -44,7 +44,7 @@ public class AsyncRolesClient {
 
     /**
      * Retrieve detailed list of user roles created in your tenant.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public CompletableFuture<SyncPagingIterable<Role>> list() {
         return this.rawClient.list().thenApply(response -> response.body());
@@ -52,7 +52,15 @@ public class AsyncRolesClient {
 
     /**
      * Retrieve detailed list of user roles created in your tenant.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     */
+    public CompletableFuture<SyncPagingIterable<Role>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve detailed list of user roles created in your tenant.
+     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public CompletableFuture<SyncPagingIterable<Role>> list(ListRolesRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
@@ -60,7 +68,7 @@ public class AsyncRolesClient {
 
     /**
      * Retrieve detailed list of user roles created in your tenant.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public CompletableFuture<SyncPagingIterable<Role>> list(
             ListRolesRequestParameters request, RequestOptions requestOptions) {
@@ -68,16 +76,16 @@ public class AsyncRolesClient {
     }
 
     /**
-     * Create a user role for &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;Role-Based Access Control&lt;/a&gt;.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
+     * Create a user role for <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+     * <p><b>Note</b>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
      */
     public CompletableFuture<CreateRoleResponseContent> create(CreateRoleRequestContent request) {
         return this.rawClient.create(request).thenApply(response -> response.body());
     }
 
     /**
-     * Create a user role for &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;Role-Based Access Control&lt;/a&gt;.
-     * <p>&lt;b&gt;Note&lt;/b&gt;: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
+     * Create a user role for <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+     * <p><b>Note</b>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
      */
     public CompletableFuture<CreateRoleResponseContent> create(
             CreateRoleRequestContent request, RequestOptions requestOptions) {
@@ -85,49 +93,56 @@ public class AsyncRolesClient {
     }
 
     /**
-     * Retrieve details about a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Retrieve details about a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public CompletableFuture<GetRoleResponseContent> get(String id) {
         return this.rawClient.get(id).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve details about a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Retrieve details about a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public CompletableFuture<GetRoleResponseContent> get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**
-     * Delete a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
+     * Delete a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
      */
     public CompletableFuture<Void> delete(String id) {
         return this.rawClient.delete(id).thenApply(response -> response.body());
     }
 
     /**
-     * Delete a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
+     * Delete a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
      */
     public CompletableFuture<Void> delete(String id, RequestOptions requestOptions) {
         return this.rawClient.delete(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**
-     * Modify the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public CompletableFuture<UpdateRoleResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
     }
 
     /**
-     * Modify the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+     */
+    public CompletableFuture<UpdateRoleResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public CompletableFuture<UpdateRoleResponseContent> update(String id, UpdateRoleRequestContent request) {
         return this.rawClient.update(id, request).thenApply(response -> response.body());
     }
 
     /**
-     * Modify the details of a specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;user role&lt;/a&gt; specified by ID.
+     * Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
      */
     public CompletableFuture<UpdateRoleResponseContent> update(
             String id, UpdateRoleRequestContent request, RequestOptions requestOptions) {

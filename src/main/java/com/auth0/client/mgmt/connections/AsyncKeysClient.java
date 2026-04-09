@@ -7,6 +7,8 @@ import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.types.ConnectionKey;
+import com.auth0.client.mgmt.types.PostConnectionKeysRequestContent;
+import com.auth0.client.mgmt.types.PostConnectionsKeysResponseContentItem;
 import com.auth0.client.mgmt.types.RotateConnectionKeysRequestContent;
 import com.auth0.client.mgmt.types.RotateConnectionsKeysResponseContent;
 import java.util.List;
@@ -44,10 +46,48 @@ public class AsyncKeysClient {
     }
 
     /**
+     * Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+     */
+    public CompletableFuture<List<PostConnectionsKeysResponseContentItem>> create(String id) {
+        return this.rawClient.create(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+     */
+    public CompletableFuture<List<PostConnectionsKeysResponseContentItem>> create(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.create(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+     */
+    public CompletableFuture<List<PostConnectionsKeysResponseContentItem>> create(
+            String id, OptionalNullable<PostConnectionKeysRequestContent> request) {
+        return this.rawClient.create(id, request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+     */
+    public CompletableFuture<List<PostConnectionsKeysResponseContentItem>> create(
+            String id, OptionalNullable<PostConnectionKeysRequestContent> request, RequestOptions requestOptions) {
+        return this.rawClient.create(id, request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
      * Rotates the connection keys for the Okta or OIDC connection strategies.
      */
     public CompletableFuture<RotateConnectionsKeysResponseContent> rotate(String id) {
         return this.rawClient.rotate(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Rotates the connection keys for the Okta or OIDC connection strategies.
+     */
+    public CompletableFuture<RotateConnectionsKeysResponseContent> rotate(String id, RequestOptions requestOptions) {
+        return this.rawClient.rotate(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**

@@ -42,7 +42,7 @@ public final class TenantSettingsPasswordPage {
     }
 
     /**
-     * @return Custom change password HTML (&lt;a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'&gt;Liquid syntax&lt;/a&gt; supported).
+     * @return Custom change password HTML (<a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'>Liquid syntax</a> supported).
      */
     @JsonProperty("html")
     public Optional<String> getHtml() {
@@ -110,7 +110,7 @@ public final class TenantSettingsPasswordPage {
         }
 
         /**
-         * <p>Custom change password HTML (&lt;a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'&gt;Liquid syntax&lt;/a&gt; supported).</p>
+         * <p>Custom change password HTML (<a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'>Liquid syntax</a> supported).</p>
          */
         @JsonSetter(value = "html", nulls = Nulls.SKIP)
         public Builder html(Optional<String> html) {
@@ -125,6 +125,16 @@ public final class TenantSettingsPasswordPage {
 
         public TenantSettingsPasswordPage build() {
             return new TenantSettingsPasswordPage(enabled, html, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

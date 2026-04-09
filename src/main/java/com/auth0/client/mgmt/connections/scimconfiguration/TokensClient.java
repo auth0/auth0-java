@@ -28,14 +28,14 @@ public class TokensClient {
     }
 
     /**
-     * Retrieves all scim tokens by its connection &lt;code&gt;id&lt;/code&gt;.
+     * Retrieves all scim tokens by its connection <code>id</code>.
      */
     public List<ScimTokenItem> get(String id) {
         return this.rawClient.get(id).body();
     }
 
     /**
-     * Retrieves all scim tokens by its connection &lt;code&gt;id&lt;/code&gt;.
+     * Retrieves all scim tokens by its connection <code>id</code>.
      */
     public List<ScimTokenItem> get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).body();
@@ -46,6 +46,13 @@ public class TokensClient {
      */
     public CreateScimTokenResponseContent create(String id) {
         return this.rawClient.create(id).body();
+    }
+
+    /**
+     * Create a scim token for a scim client.
+     */
+    public CreateScimTokenResponseContent create(String id, RequestOptions requestOptions) {
+        return this.rawClient.create(id, requestOptions).body();
     }
 
     /**
@@ -64,14 +71,14 @@ public class TokensClient {
     }
 
     /**
-     * Deletes a scim token by its connection &lt;code&gt;id&lt;/code&gt; and &lt;code&gt;tokenId&lt;/code&gt;.
+     * Deletes a scim token by its connection <code>id</code> and <code>tokenId</code>.
      */
     public void delete(String id, String tokenId) {
         this.rawClient.delete(id, tokenId).body();
     }
 
     /**
-     * Deletes a scim token by its connection &lt;code&gt;id&lt;/code&gt; and &lt;code&gt;tokenId&lt;/code&gt;.
+     * Deletes a scim token by its connection <code>id</code> and <code>tokenId</code>.
      */
     public void delete(String id, String tokenId, RequestOptions requestOptions) {
         this.rawClient.delete(id, tokenId, requestOptions).body();

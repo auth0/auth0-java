@@ -68,7 +68,7 @@ public final class ListLogsRequestParameters {
     }
 
     /**
-     * @return Number of results per page. Paging is disabled if parameter not sent. Default: &lt;code&gt;50&lt;/code&gt;. Max value: &lt;code&gt;100&lt;/code&gt;
+     * @return Number of results per page. Paging is disabled if parameter not sent. Default: <code>50</code>. Max value: <code>100</code>
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("per_page")
@@ -77,7 +77,7 @@ public final class ListLogsRequestParameters {
     }
 
     /**
-     * @return Field to use for sorting appended with &lt;code&gt;:1&lt;/code&gt;  for ascending and &lt;code&gt;:-1&lt;/code&gt; for descending. e.g. &lt;code&gt;date:-1&lt;/code&gt;
+     * @return Field to use for sorting appended with <code>:1</code>  for ascending and <code>:-1</code> for descending. e.g. <code>date:-1</code>
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("sort")
@@ -89,7 +89,7 @@ public final class ListLogsRequestParameters {
     }
 
     /**
-     * @return Comma-separated list of fields to include or exclude (based on value provided for &lt;code&gt;include_fields&lt;/code&gt;) in the result. Leave empty to retrieve all fields.
+     * @return Comma-separated list of fields to include or exclude (based on value provided for <code>include_fields</code>) in the result. Leave empty to retrieve all fields.
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("fields")
@@ -101,7 +101,7 @@ public final class ListLogsRequestParameters {
     }
 
     /**
-     * @return Whether specified fields are to be included (&lt;code&gt;true&lt;/code&gt;) or excluded (&lt;code&gt;false&lt;/code&gt;)
+     * @return Whether specified fields are to be included (<code>true</code>) or excluded (<code>false</code>)
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("include_fields")
@@ -262,7 +262,7 @@ public final class ListLogsRequestParameters {
         }
 
         /**
-         * <p>Number of results per page. Paging is disabled if parameter not sent. Default: &lt;code&gt;50&lt;/code&gt;. Max value: &lt;code&gt;100&lt;/code&gt;</p>
+         * <p>Number of results per page. Paging is disabled if parameter not sent. Default: <code>50</code>. Max value: <code>100</code></p>
          */
         @JsonSetter(value = "per_page", nulls = Nulls.SKIP)
         public Builder perPage(OptionalNullable<Integer> perPage) {
@@ -296,7 +296,7 @@ public final class ListLogsRequestParameters {
         }
 
         /**
-         * <p>Field to use for sorting appended with &lt;code&gt;:1&lt;/code&gt;  for ascending and &lt;code&gt;:-1&lt;/code&gt; for descending. e.g. &lt;code&gt;date:-1&lt;/code&gt;</p>
+         * <p>Field to use for sorting appended with <code>:1</code>  for ascending and <code>:-1</code> for descending. e.g. <code>date:-1</code></p>
          */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
         public Builder sort(@org.jetbrains.annotations.Nullable OptionalNullable<String> sort) {
@@ -330,7 +330,7 @@ public final class ListLogsRequestParameters {
         }
 
         /**
-         * <p>Comma-separated list of fields to include or exclude (based on value provided for &lt;code&gt;include_fields&lt;/code&gt;) in the result. Leave empty to retrieve all fields.</p>
+         * <p>Comma-separated list of fields to include or exclude (based on value provided for <code>include_fields</code>) in the result. Leave empty to retrieve all fields.</p>
          */
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
         public Builder fields(@org.jetbrains.annotations.Nullable OptionalNullable<String> fields) {
@@ -364,7 +364,7 @@ public final class ListLogsRequestParameters {
         }
 
         /**
-         * <p>Whether specified fields are to be included (&lt;code&gt;true&lt;/code&gt;) or excluded (&lt;code&gt;false&lt;/code&gt;)</p>
+         * <p>Whether specified fields are to be included (<code>true</code>) or excluded (<code>false</code>)</p>
          */
         @JsonSetter(value = "include_fields", nulls = Nulls.SKIP)
         public Builder includeFields(@org.jetbrains.annotations.Nullable OptionalNullable<Boolean> includeFields) {
@@ -470,6 +470,16 @@ public final class ListLogsRequestParameters {
         public ListLogsRequestParameters build() {
             return new ListLogsRequestParameters(
                     page, perPage, sort, fields, includeFields, includeTotals, search, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

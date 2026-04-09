@@ -42,7 +42,7 @@ public final class ListEventStreamsResponseContent {
     }
 
     /**
-     * @return Opaque identifier for use with the &lt;i&gt;from&lt;/i&gt; query parameter for the next page of results.
+     * @return Opaque identifier for use with the <i>from</i> query parameter for the next page of results.
      */
     @JsonProperty("next")
     public Optional<String> getNext() {
@@ -107,7 +107,7 @@ public final class ListEventStreamsResponseContent {
         }
 
         /**
-         * <p>Opaque identifier for use with the &lt;i&gt;from&lt;/i&gt; query parameter for the next page of results.</p>
+         * <p>Opaque identifier for use with the <i>from</i> query parameter for the next page of results.</p>
          */
         @JsonSetter(value = "next", nulls = Nulls.SKIP)
         public Builder next(Optional<String> next) {
@@ -122,6 +122,16 @@ public final class ListEventStreamsResponseContent {
 
         public ListEventStreamsResponseContent build() {
             return new ListEventStreamsResponseContent(eventStreams, next, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

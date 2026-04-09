@@ -19,20 +19,21 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ActionTriggerCompatibleTrigger.Builder.class)
 public final class ActionTriggerCompatibleTrigger {
-    private final String id;
+    private final ActionTriggerTypeEnum id;
 
     private final String version;
 
     private final Map<String, Object> additionalProperties;
 
-    private ActionTriggerCompatibleTrigger(String id, String version, Map<String, Object> additionalProperties) {
+    private ActionTriggerCompatibleTrigger(
+            ActionTriggerTypeEnum id, String version, Map<String, Object> additionalProperties) {
         this.id = id;
         this.version = version;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("id")
-    public String getId() {
+    public ActionTriggerTypeEnum getId() {
         return id;
     }
 
@@ -74,7 +75,7 @@ public final class ActionTriggerCompatibleTrigger {
     }
 
     public interface IdStage {
-        VersionStage id(@NotNull String id);
+        VersionStage id(@NotNull ActionTriggerTypeEnum id);
 
         Builder from(ActionTriggerCompatibleTrigger other);
     }
@@ -88,11 +89,15 @@ public final class ActionTriggerCompatibleTrigger {
 
     public interface _FinalStage {
         ActionTriggerCompatibleTrigger build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements IdStage, VersionStage, _FinalStage {
-        private String id;
+        private ActionTriggerTypeEnum id;
 
         private String version;
 
@@ -110,7 +115,7 @@ public final class ActionTriggerCompatibleTrigger {
 
         @java.lang.Override
         @JsonSetter("id")
-        public VersionStage id(@NotNull String id) {
+        public VersionStage id(@NotNull ActionTriggerTypeEnum id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
@@ -130,6 +135,18 @@ public final class ActionTriggerCompatibleTrigger {
         @java.lang.Override
         public ActionTriggerCompatibleTrigger build() {
             return new ActionTriggerCompatibleTrigger(id, version, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

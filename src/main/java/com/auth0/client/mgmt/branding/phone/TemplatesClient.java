@@ -37,6 +37,10 @@ public class TemplatesClient {
         return this.rawClient.list().body();
     }
 
+    public ListPhoneTemplatesResponseContent list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
     public ListPhoneTemplatesResponseContent list(ListPhoneTemplatesRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -48,6 +52,10 @@ public class TemplatesClient {
 
     public CreatePhoneTemplateResponseContent create() {
         return this.rawClient.create().body();
+    }
+
+    public CreatePhoneTemplateResponseContent create(RequestOptions requestOptions) {
+        return this.rawClient.create(requestOptions).body();
     }
 
     public CreatePhoneTemplateResponseContent create(CreatePhoneTemplateRequestContent request) {
@@ -77,6 +85,10 @@ public class TemplatesClient {
 
     public UpdatePhoneTemplateResponseContent update(String id) {
         return this.rawClient.update(id).body();
+    }
+
+    public UpdatePhoneTemplateResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
     }
 
     public UpdatePhoneTemplateResponseContent update(String id, UpdatePhoneTemplateRequestContent request) {

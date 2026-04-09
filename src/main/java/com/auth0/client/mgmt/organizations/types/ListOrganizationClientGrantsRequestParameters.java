@@ -58,7 +58,7 @@ public final class ListOrganizationClientGrantsRequestParameters {
     }
 
     /**
-     * @return Optional filter on the ID of the client grant. Must be URL encoded and may be specified multiple times (max 10).&lt;br /&gt;&lt;b&gt;e.g.&lt;/b&gt; &lt;i&gt;../client-grants?grant_ids=id1&amp;grant_ids=id2&lt;/i&gt;
+     * @return Optional filter on the ID of the client grant. Must be URL encoded and may be specified multiple times (max 10).<b>e.g.</b> <i>../client-grants?grant_ids=id1&amp;grant_ids=id2</i>
      */
     @JsonIgnore
     public Optional<List<String>> getGrantIds() {
@@ -202,7 +202,7 @@ public final class ListOrganizationClientGrantsRequestParameters {
         }
 
         /**
-         * <p>Optional filter on the ID of the client grant. Must be URL encoded and may be specified multiple times (max 10).&lt;br /&gt;&lt;b&gt;e.g.&lt;/b&gt; &lt;i&gt;../client-grants?grant_ids=id1&amp;grant_ids=id2&lt;/i&gt;</p>
+         * <p>Optional filter on the ID of the client grant. Must be URL encoded and may be specified multiple times (max 10).<b>e.g.</b> <i>../client-grants?grant_ids=id1&amp;grant_ids=id2</i></p>
          */
         @JsonSetter(value = "grant_ids", nulls = Nulls.SKIP)
         public Builder grantIds(@Nullable Optional<List<String>> grantIds) {
@@ -404,6 +404,16 @@ public final class ListOrganizationClientGrantsRequestParameters {
         public ListOrganizationClientGrantsRequestParameters build() {
             return new ListOrganizationClientGrantsRequestParameters(
                     grantIds, audience, clientId, page, perPage, includeTotals, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

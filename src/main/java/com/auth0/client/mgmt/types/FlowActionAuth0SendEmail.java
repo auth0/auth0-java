@@ -148,6 +148,10 @@ public final class FlowActionAuth0SendEmail {
     public interface _FinalStage {
         FlowActionAuth0SendEmail build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage alias(Optional<String> alias);
 
         _FinalStage alias(String alias);
@@ -265,6 +269,18 @@ public final class FlowActionAuth0SendEmail {
         public FlowActionAuth0SendEmail build() {
             return new FlowActionAuth0SendEmail(
                     id, alias, type, action, allowFailure, maskOutput, params, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

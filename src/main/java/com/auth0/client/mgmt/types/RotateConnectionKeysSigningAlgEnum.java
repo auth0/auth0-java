@@ -16,8 +16,17 @@ public final class RotateConnectionKeysSigningAlgEnum {
     public static final RotateConnectionKeysSigningAlgEnum ES256 =
             new RotateConnectionKeysSigningAlgEnum(Value.ES256, "ES256");
 
+    public static final RotateConnectionKeysSigningAlgEnum PS384 =
+            new RotateConnectionKeysSigningAlgEnum(Value.PS384, "PS384");
+
+    public static final RotateConnectionKeysSigningAlgEnum ES384 =
+            new RotateConnectionKeysSigningAlgEnum(Value.ES384, "ES384");
+
     public static final RotateConnectionKeysSigningAlgEnum RS256 =
             new RotateConnectionKeysSigningAlgEnum(Value.RS256, "RS256");
+
+    public static final RotateConnectionKeysSigningAlgEnum RS384 =
+            new RotateConnectionKeysSigningAlgEnum(Value.RS384, "RS384");
 
     private final Value value;
 
@@ -58,8 +67,14 @@ public final class RotateConnectionKeysSigningAlgEnum {
                 return visitor.visitPs256();
             case ES256:
                 return visitor.visitEs256();
+            case PS384:
+                return visitor.visitPs384();
+            case ES384:
+                return visitor.visitEs384();
             case RS256:
                 return visitor.visitRs256();
+            case RS384:
+                return visitor.visitRs384();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -75,8 +90,14 @@ public final class RotateConnectionKeysSigningAlgEnum {
                 return PS256;
             case "ES256":
                 return ES256;
+            case "PS384":
+                return PS384;
+            case "ES384":
+                return ES384;
             case "RS256":
                 return RS256;
+            case "RS384":
+                return RS384;
             default:
                 return new RotateConnectionKeysSigningAlgEnum(Value.UNKNOWN, value);
         }
@@ -85,11 +106,17 @@ public final class RotateConnectionKeysSigningAlgEnum {
     public enum Value {
         RS256,
 
+        RS384,
+
         RS512,
 
         PS256,
 
+        PS384,
+
         ES256,
+
+        ES384,
 
         UNKNOWN
     }
@@ -97,11 +124,17 @@ public final class RotateConnectionKeysSigningAlgEnum {
     public interface Visitor<T> {
         T visitRs256();
 
+        T visitRs384();
+
         T visitRs512();
 
         T visitPs256();
 
+        T visitPs384();
+
         T visitEs256();
+
+        T visitEs384();
 
         T visitUnknown(String unknownType);
     }

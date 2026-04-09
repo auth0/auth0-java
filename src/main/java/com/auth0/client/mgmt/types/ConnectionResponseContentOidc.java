@@ -22,17 +22,16 @@ import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionResponseContentOidc.Builder.class)
-public final class ConnectionResponseContentOidc
-        implements IConnectionResponseCommon, ICreateConnectionCommon, IConnectionCommon {
-    private final Optional<String> id;
+public final class ConnectionResponseContentOidc implements IConnectionResponseCommon, ICreateConnectionCommon {
+    private final String id;
 
     private final Optional<List<String>> realms;
 
-    private final Optional<String> name;
-
-    private final Optional<String> displayName;
+    private final String name;
 
     private final Optional<List<String>> enabledClients;
+
+    private final Optional<String> displayName;
 
     private final Optional<Boolean> isDomainConnection;
 
@@ -51,11 +50,11 @@ public final class ConnectionResponseContentOidc
     private final Map<String, Object> additionalProperties;
 
     private ConnectionResponseContentOidc(
-            Optional<String> id,
+            String id,
             Optional<List<String>> realms,
-            Optional<String> name,
-            Optional<String> displayName,
+            String name,
             Optional<List<String>> enabledClients,
+            Optional<String> displayName,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             ConnectionResponseContentOidcStrategy strategy,
@@ -67,8 +66,8 @@ public final class ConnectionResponseContentOidc
         this.id = id;
         this.realms = realms;
         this.name = name;
-        this.displayName = displayName;
         this.enabledClients = enabledClients;
+        this.displayName = displayName;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
         this.strategy = strategy;
@@ -81,7 +80,7 @@ public final class ConnectionResponseContentOidc
 
     @JsonProperty("id")
     @java.lang.Override
-    public Optional<String> getId() {
+    public String getId() {
         return id;
     }
 
@@ -93,20 +92,23 @@ public final class ConnectionResponseContentOidc
 
     @JsonProperty("name")
     @java.lang.Override
-    public Optional<String> getName() {
+    public String getName() {
         return name;
+    }
+
+    /**
+     * @return Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
+     */
+    @JsonProperty("enabled_clients")
+    @java.lang.Override
+    public Optional<List<String>> getEnabledClients() {
+        return enabledClients;
     }
 
     @JsonProperty("display_name")
     @java.lang.Override
     public Optional<String> getDisplayName() {
         return displayName;
-    }
-
-    @JsonProperty("enabled_clients")
-    @java.lang.Override
-    public Optional<List<String>> getEnabledClients() {
-        return enabledClients;
     }
 
     @JsonProperty("is_domain_connection")
@@ -161,8 +163,8 @@ public final class ConnectionResponseContentOidc
         return id.equals(other.id)
                 && realms.equals(other.realms)
                 && name.equals(other.name)
-                && displayName.equals(other.displayName)
                 && enabledClients.equals(other.enabledClients)
+                && displayName.equals(other.displayName)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
                 && strategy.equals(other.strategy)
@@ -178,8 +180,8 @@ public final class ConnectionResponseContentOidc
                 this.id,
                 this.realms,
                 this.name,
-                this.displayName,
                 this.enabledClients,
+                this.displayName,
                 this.isDomainConnection,
                 this.metadata,
                 this.strategy,
@@ -194,38 +196,45 @@ public final class ConnectionResponseContentOidc
         return ObjectMappers.stringify(this);
     }
 
-    public static StrategyStage builder() {
+    public static IdStage builder() {
         return new Builder();
+    }
+
+    public interface IdStage {
+        NameStage id(@NotNull String id);
+
+        Builder from(ConnectionResponseContentOidc other);
+    }
+
+    public interface NameStage {
+        StrategyStage name(@NotNull String name);
     }
 
     public interface StrategyStage {
         _FinalStage strategy(@NotNull ConnectionResponseContentOidcStrategy strategy);
-
-        Builder from(ConnectionResponseContentOidc other);
     }
 
     public interface _FinalStage {
         ConnectionResponseContentOidc build();
 
-        _FinalStage id(Optional<String> id);
+        _FinalStage additionalProperty(String key, Object value);
 
-        _FinalStage id(String id);
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
         _FinalStage realms(Optional<List<String>> realms);
 
         _FinalStage realms(List<String> realms);
 
-        _FinalStage name(Optional<String> name);
+        /**
+         * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
+         */
+        _FinalStage enabledClients(Optional<List<String>> enabledClients);
 
-        _FinalStage name(String name);
+        _FinalStage enabledClients(List<String> enabledClients);
 
         _FinalStage displayName(Optional<String> displayName);
 
         _FinalStage displayName(String displayName);
-
-        _FinalStage enabledClients(Optional<List<String>> enabledClients);
-
-        _FinalStage enabledClients(List<String> enabledClients);
 
         _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection);
 
@@ -253,7 +262,11 @@ public final class ConnectionResponseContentOidc
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements StrategyStage, _FinalStage {
+    public static final class Builder implements IdStage, NameStage, StrategyStage, _FinalStage {
+        private String id;
+
+        private String name;
+
         private ConnectionResponseContentOidcStrategy strategy;
 
         private Optional<Boolean> showAsButton = Optional.empty();
@@ -268,15 +281,11 @@ public final class ConnectionResponseContentOidc
 
         private Optional<Boolean> isDomainConnection = Optional.empty();
 
-        private Optional<List<String>> enabledClients = Optional.empty();
-
         private Optional<String> displayName = Optional.empty();
 
-        private Optional<String> name = Optional.empty();
+        private Optional<List<String>> enabledClients = Optional.empty();
 
         private Optional<List<String>> realms = Optional.empty();
-
-        private Optional<String> id = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -288,8 +297,8 @@ public final class ConnectionResponseContentOidc
             id(other.getId());
             realms(other.getRealms());
             name(other.getName());
-            displayName(other.getDisplayName());
             enabledClients(other.getEnabledClients());
+            displayName(other.getDisplayName());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
             strategy(other.getStrategy());
@@ -297,6 +306,20 @@ public final class ConnectionResponseContentOidc
             connectedAccounts(other.getConnectedAccounts());
             options(other.getOptions());
             showAsButton(other.getShowAsButton());
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("id")
+        public NameStage id(@NotNull String id) {
+            this.id = Objects.requireNonNull(id, "id must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("name")
+        public StrategyStage name(@NotNull String name) {
+            this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
@@ -386,19 +409,6 @@ public final class ConnectionResponseContentOidc
         }
 
         @java.lang.Override
-        public _FinalStage enabledClients(List<String> enabledClients) {
-            this.enabledClients = Optional.ofNullable(enabledClients);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
-        public _FinalStage enabledClients(Optional<List<String>> enabledClients) {
-            this.enabledClients = enabledClients;
-            return this;
-        }
-
-        @java.lang.Override
         public _FinalStage displayName(String displayName) {
             this.displayName = Optional.ofNullable(displayName);
             return this;
@@ -411,16 +421,23 @@ public final class ConnectionResponseContentOidc
             return this;
         }
 
+        /**
+         * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
-        public _FinalStage name(String name) {
-            this.name = Optional.ofNullable(name);
+        public _FinalStage enabledClients(List<String> enabledClients) {
+            this.enabledClients = Optional.ofNullable(enabledClients);
             return this;
         }
 
+        /**
+         * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
+         */
         @java.lang.Override
-        @JsonSetter(value = "name", nulls = Nulls.SKIP)
-        public _FinalStage name(Optional<String> name) {
-            this.name = name;
+        @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
+        public _FinalStage enabledClients(Optional<List<String>> enabledClients) {
+            this.enabledClients = enabledClients;
             return this;
         }
 
@@ -438,26 +455,13 @@ public final class ConnectionResponseContentOidc
         }
 
         @java.lang.Override
-        public _FinalStage id(String id) {
-            this.id = Optional.ofNullable(id);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "id", nulls = Nulls.SKIP)
-        public _FinalStage id(Optional<String> id) {
-            this.id = id;
-            return this;
-        }
-
-        @java.lang.Override
         public ConnectionResponseContentOidc build() {
             return new ConnectionResponseContentOidc(
                     id,
                     realms,
                     name,
-                    displayName,
                     enabledClients,
+                    displayName,
                     isDomainConnection,
                     metadata,
                     strategy,
@@ -466,6 +470,18 @@ public final class ConnectionResponseContentOidc
                     options,
                     showAsButton,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

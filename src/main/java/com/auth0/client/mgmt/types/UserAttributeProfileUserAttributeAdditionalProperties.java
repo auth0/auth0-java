@@ -98,6 +98,9 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
         return oidcMapping;
     }
 
+    /**
+     * @return SAML mapping for this attribute
+     */
     @JsonProperty("saml_mapping")
     public Optional<List<String>> getSamlMapping() {
         return samlMapping;
@@ -194,10 +197,17 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
     public interface _FinalStage {
         UserAttributeProfileUserAttributeAdditionalProperties build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage oidcMapping(Optional<UserAttributeProfileOidcMapping> oidcMapping);
 
         _FinalStage oidcMapping(UserAttributeProfileOidcMapping oidcMapping);
 
+        /**
+         * <p>SAML mapping for this attribute</p>
+         */
         _FinalStage samlMapping(Optional<List<String>> samlMapping);
 
         _FinalStage samlMapping(List<String> samlMapping);
@@ -332,12 +342,19 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
             return this;
         }
 
+        /**
+         * <p>SAML mapping for this attribute</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage samlMapping(List<String> samlMapping) {
             this.samlMapping = Optional.ofNullable(samlMapping);
             return this;
         }
 
+        /**
+         * <p>SAML mapping for this attribute</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "saml_mapping", nulls = Nulls.SKIP)
         public _FinalStage samlMapping(Optional<List<String>> samlMapping) {
@@ -370,6 +387,18 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
                     scimMapping,
                     strategyOverrides,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

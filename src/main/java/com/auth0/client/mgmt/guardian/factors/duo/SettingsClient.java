@@ -52,6 +52,13 @@ public class SettingsClient {
     /**
      * Set the DUO account configuration and other properties specific to this factor.
      */
+    public SetGuardianFactorDuoSettingsResponseContent set(RequestOptions requestOptions) {
+        return this.rawClient.set(requestOptions).body();
+    }
+
+    /**
+     * Set the DUO account configuration and other properties specific to this factor.
+     */
     public SetGuardianFactorDuoSettingsResponseContent set(SetGuardianFactorDuoSettingsRequestContent request) {
         return this.rawClient.set(request).body();
     }
@@ -66,6 +73,10 @@ public class SettingsClient {
 
     public UpdateGuardianFactorDuoSettingsResponseContent update() {
         return this.rawClient.update().body();
+    }
+
+    public UpdateGuardianFactorDuoSettingsResponseContent update(RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).body();
     }
 
     public UpdateGuardianFactorDuoSettingsResponseContent update(

@@ -269,6 +269,9 @@ public final class CreateClientRequestContent {
         return oidcLogout;
     }
 
+    /**
+     * @return Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
+     */
     @JsonProperty("oidc_backchannel_logout")
     public Optional<ClientOidcBackchannelLogoutSettings> getOidcBackchannelLogout() {
         return oidcBackchannelLogout;
@@ -292,7 +295,7 @@ public final class CreateClientRequestContent {
     }
 
     /**
-     * @return Comma-separated list of allowed origins for use with &lt;a href='https://auth0.com/docs/cross-origin-authentication'&gt;Cross-Origin Authentication&lt;/a&gt;, &lt;a href='https://auth0.com/docs/flows/concepts/device-auth'&gt;Device Flow&lt;/a&gt;, and &lt;a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'&gt;web message response mode&lt;/a&gt;.
+     * @return Comma-separated list of allowed origins for use with <a href='https://auth0.com/docs/cross-origin-authentication'>Cross-Origin Authentication</a>, <a href='https://auth0.com/docs/flows/concepts/device-auth'>Device Flow</a>, and <a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'>web message response mode</a>.
      */
     @JsonProperty("web_origins")
     public Optional<List<String>> getWebOrigins() {
@@ -358,7 +361,7 @@ public final class CreateClientRequestContent {
     }
 
     /**
-     * @return Whether this client conforms to &lt;a href='https://auth0.com/docs/api-auth/tutorials/adoption'&gt;strict OIDC specifications&lt;/a&gt; (true) or uses legacy features (false).
+     * @return Whether this client conforms to <a href='https://auth0.com/docs/api-auth/tutorials/adoption'>strict OIDC specifications</a> (true) or uses legacy features (false).
      */
     @JsonProperty("oidc_conformant")
     public Optional<Boolean> getOidcConformant() {
@@ -404,7 +407,7 @@ public final class CreateClientRequestContent {
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; to disable Single Sign On, &lt;code&gt;false&lt;/code&gt; otherwise (default: &lt;code&gt;false&lt;/code&gt;)
+     * @return <code>true</code> to disable Single Sign On, <code>false</code> otherwise (default: <code>false</code>)
      */
     @JsonProperty("sso_disabled")
     public Optional<Boolean> getSsoDisabled() {
@@ -412,7 +415,7 @@ public final class CreateClientRequestContent {
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; if the custom login page is to be used, &lt;code&gt;false&lt;/code&gt; otherwise. Defaults to &lt;code&gt;true&lt;/code&gt;
+     * @return <code>true</code> if the custom login page is to be used, <code>false</code> otherwise. Defaults to <code>true</code>
      */
     @JsonProperty("custom_login_page_on")
     public Optional<Boolean> getCustomLoginPageOn() {
@@ -769,6 +772,10 @@ public final class CreateClientRequestContent {
     public interface _FinalStage {
         CreateClientRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Free text description of this client (max length: 140 characters).</p>
          */
@@ -794,6 +801,9 @@ public final class CreateClientRequestContent {
 
         _FinalStage oidcLogout(ClientOidcBackchannelLogoutSettings oidcLogout);
 
+        /**
+         * <p>Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)</p>
+         */
         _FinalStage oidcBackchannelLogout(Optional<ClientOidcBackchannelLogoutSettings> oidcBackchannelLogout);
 
         _FinalStage oidcBackchannelLogout(ClientOidcBackchannelLogoutSettings oidcBackchannelLogout);
@@ -815,7 +825,7 @@ public final class CreateClientRequestContent {
         _FinalStage allowedOrigins(List<String> allowedOrigins);
 
         /**
-         * <p>Comma-separated list of allowed origins for use with &lt;a href='https://auth0.com/docs/cross-origin-authentication'&gt;Cross-Origin Authentication&lt;/a&gt;, &lt;a href='https://auth0.com/docs/flows/concepts/device-auth'&gt;Device Flow&lt;/a&gt;, and &lt;a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'&gt;web message response mode&lt;/a&gt;.</p>
+         * <p>Comma-separated list of allowed origins for use with <a href='https://auth0.com/docs/cross-origin-authentication'>Cross-Origin Authentication</a>, <a href='https://auth0.com/docs/flows/concepts/device-auth'>Device Flow</a>, and <a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'>web message response mode</a>.</p>
          */
         _FinalStage webOrigins(Optional<List<String>> webOrigins);
 
@@ -872,7 +882,7 @@ public final class CreateClientRequestContent {
         _FinalStage isFirstParty(Boolean isFirstParty);
 
         /**
-         * <p>Whether this client conforms to &lt;a href='https://auth0.com/docs/api-auth/tutorials/adoption'&gt;strict OIDC specifications&lt;/a&gt; (true) or uses legacy features (false).</p>
+         * <p>Whether this client conforms to <a href='https://auth0.com/docs/api-auth/tutorials/adoption'>strict OIDC specifications</a> (true) or uses legacy features (false).</p>
          */
         _FinalStage oidcConformant(Optional<Boolean> oidcConformant);
 
@@ -912,14 +922,14 @@ public final class CreateClientRequestContent {
         _FinalStage crossOriginLoc(String crossOriginLoc);
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; to disable Single Sign On, &lt;code&gt;false&lt;/code&gt; otherwise (default: &lt;code&gt;false&lt;/code&gt;)</p>
+         * <p><code>true</code> to disable Single Sign On, <code>false</code> otherwise (default: <code>false</code>)</p>
          */
         _FinalStage ssoDisabled(Optional<Boolean> ssoDisabled);
 
         _FinalStage ssoDisabled(Boolean ssoDisabled);
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; if the custom login page is to be used, &lt;code&gt;false&lt;/code&gt; otherwise. Defaults to &lt;code&gt;true&lt;/code&gt;</p>
+         * <p><code>true</code> if the custom login page is to be used, <code>false</code> otherwise. Defaults to <code>true</code></p>
          */
         _FinalStage customLoginPageOn(Optional<Boolean> customLoginPageOn);
 
@@ -1766,7 +1776,7 @@ public final class CreateClientRequestContent {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; if the custom login page is to be used, &lt;code&gt;false&lt;/code&gt; otherwise. Defaults to &lt;code&gt;true&lt;/code&gt;</p>
+         * <p><code>true</code> if the custom login page is to be used, <code>false</code> otherwise. Defaults to <code>true</code></p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1776,7 +1786,7 @@ public final class CreateClientRequestContent {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; if the custom login page is to be used, &lt;code&gt;false&lt;/code&gt; otherwise. Defaults to &lt;code&gt;true&lt;/code&gt;</p>
+         * <p><code>true</code> if the custom login page is to be used, <code>false</code> otherwise. Defaults to <code>true</code></p>
          */
         @java.lang.Override
         @JsonSetter(value = "custom_login_page_on", nulls = Nulls.SKIP)
@@ -1786,7 +1796,7 @@ public final class CreateClientRequestContent {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; to disable Single Sign On, &lt;code&gt;false&lt;/code&gt; otherwise (default: &lt;code&gt;false&lt;/code&gt;)</p>
+         * <p><code>true</code> to disable Single Sign On, <code>false</code> otherwise (default: <code>false</code>)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1796,7 +1806,7 @@ public final class CreateClientRequestContent {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; to disable Single Sign On, &lt;code&gt;false&lt;/code&gt; otherwise (default: &lt;code&gt;false&lt;/code&gt;)</p>
+         * <p><code>true</code> to disable Single Sign On, <code>false</code> otherwise (default: <code>false</code>)</p>
          */
         @java.lang.Override
         @JsonSetter(value = "sso_disabled", nulls = Nulls.SKIP)
@@ -1914,7 +1924,7 @@ public final class CreateClientRequestContent {
         }
 
         /**
-         * <p>Whether this client conforms to &lt;a href='https://auth0.com/docs/api-auth/tutorials/adoption'&gt;strict OIDC specifications&lt;/a&gt; (true) or uses legacy features (false).</p>
+         * <p>Whether this client conforms to <a href='https://auth0.com/docs/api-auth/tutorials/adoption'>strict OIDC specifications</a> (true) or uses legacy features (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1924,7 +1934,7 @@ public final class CreateClientRequestContent {
         }
 
         /**
-         * <p>Whether this client conforms to &lt;a href='https://auth0.com/docs/api-auth/tutorials/adoption'&gt;strict OIDC specifications&lt;/a&gt; (true) or uses legacy features (false).</p>
+         * <p>Whether this client conforms to <a href='https://auth0.com/docs/api-auth/tutorials/adoption'>strict OIDC specifications</a> (true) or uses legacy features (false).</p>
          */
         @java.lang.Override
         @JsonSetter(value = "oidc_conformant", nulls = Nulls.SKIP)
@@ -2081,7 +2091,7 @@ public final class CreateClientRequestContent {
         }
 
         /**
-         * <p>Comma-separated list of allowed origins for use with &lt;a href='https://auth0.com/docs/cross-origin-authentication'&gt;Cross-Origin Authentication&lt;/a&gt;, &lt;a href='https://auth0.com/docs/flows/concepts/device-auth'&gt;Device Flow&lt;/a&gt;, and &lt;a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'&gt;web message response mode&lt;/a&gt;.</p>
+         * <p>Comma-separated list of allowed origins for use with <a href='https://auth0.com/docs/cross-origin-authentication'>Cross-Origin Authentication</a>, <a href='https://auth0.com/docs/flows/concepts/device-auth'>Device Flow</a>, and <a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'>web message response mode</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -2091,7 +2101,7 @@ public final class CreateClientRequestContent {
         }
 
         /**
-         * <p>Comma-separated list of allowed origins for use with &lt;a href='https://auth0.com/docs/cross-origin-authentication'&gt;Cross-Origin Authentication&lt;/a&gt;, &lt;a href='https://auth0.com/docs/flows/concepts/device-auth'&gt;Device Flow&lt;/a&gt;, and &lt;a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'&gt;web message response mode&lt;/a&gt;.</p>
+         * <p>Comma-separated list of allowed origins for use with <a href='https://auth0.com/docs/cross-origin-authentication'>Cross-Origin Authentication</a>, <a href='https://auth0.com/docs/flows/concepts/device-auth'>Device Flow</a>, and <a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'>web message response mode</a>.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "web_origins", nulls = Nulls.SKIP)
@@ -2157,12 +2167,19 @@ public final class CreateClientRequestContent {
             return this;
         }
 
+        /**
+         * <p>Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage oidcBackchannelLogout(ClientOidcBackchannelLogoutSettings oidcBackchannelLogout) {
             this.oidcBackchannelLogout = Optional.ofNullable(oidcBackchannelLogout);
             return this;
         }
 
+        /**
+         * <p>Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "oidc_backchannel_logout", nulls = Nulls.SKIP)
         public _FinalStage oidcBackchannelLogout(Optional<ClientOidcBackchannelLogoutSettings> oidcBackchannelLogout) {
@@ -2297,6 +2314,18 @@ public final class CreateClientRequestContent {
                     expressConfiguration,
                     asyncApprovalNotificationChannels,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

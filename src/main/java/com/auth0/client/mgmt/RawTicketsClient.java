@@ -49,10 +49,14 @@ public class RawTicketsClient {
      */
     public ManagementApiHttpResponse<VerifyEmailTicketResponseContent> verifyEmail(
             VerifyEmailTicketRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("tickets/email-verification")
-                .build();
+                .addPathSegments("tickets/email-verification");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -61,7 +65,7 @@ public class RawTicketsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -121,6 +125,15 @@ public class RawTicketsClient {
      * <p>Note: This endpoint does not verify the given user’s identity. If you call this endpoint within your application, you must design your application to verify the user’s identity.</p>
      */
     public ManagementApiHttpResponse<ChangePasswordTicketResponseContent> changePassword(
+            RequestOptions requestOptions) {
+        return changePassword(ChangePasswordTicketRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Create a password change ticket for a given user. A password change ticket is a generated URL that the user can consume to start a reset password flow.
+     * <p>Note: This endpoint does not verify the given user’s identity. If you call this endpoint within your application, you must design your application to verify the user’s identity.</p>
+     */
+    public ManagementApiHttpResponse<ChangePasswordTicketResponseContent> changePassword(
             ChangePasswordTicketRequestContent request) {
         return changePassword(request, null);
     }
@@ -131,10 +144,14 @@ public class RawTicketsClient {
      */
     public ManagementApiHttpResponse<ChangePasswordTicketResponseContent> changePassword(
             ChangePasswordTicketRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("tickets/password-change")
-                .build();
+                .addPathSegments("tickets/password-change");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -143,7 +160,7 @@ public class RawTicketsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

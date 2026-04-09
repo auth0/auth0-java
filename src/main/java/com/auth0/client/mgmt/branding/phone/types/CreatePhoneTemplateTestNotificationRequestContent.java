@@ -45,6 +45,9 @@ public final class CreatePhoneTemplateTestNotificationRequestContent {
         return to;
     }
 
+    /**
+     * @return Medium to use to send the notification
+     */
     @JsonProperty("delivery_method")
     public Optional<PhoneProviderDeliveryMethodEnum> getDeliveryMethod() {
         return deliveryMethod;
@@ -92,6 +95,13 @@ public final class CreatePhoneTemplateTestNotificationRequestContent {
     public interface _FinalStage {
         CreatePhoneTemplateTestNotificationRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>Medium to use to send the notification</p>
+         */
         _FinalStage deliveryMethod(Optional<PhoneProviderDeliveryMethodEnum> deliveryMethod);
 
         _FinalStage deliveryMethod(PhoneProviderDeliveryMethodEnum deliveryMethod);
@@ -127,12 +137,19 @@ public final class CreatePhoneTemplateTestNotificationRequestContent {
             return this;
         }
 
+        /**
+         * <p>Medium to use to send the notification</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage deliveryMethod(PhoneProviderDeliveryMethodEnum deliveryMethod) {
             this.deliveryMethod = Optional.ofNullable(deliveryMethod);
             return this;
         }
 
+        /**
+         * <p>Medium to use to send the notification</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "delivery_method", nulls = Nulls.SKIP)
         public _FinalStage deliveryMethod(Optional<PhoneProviderDeliveryMethodEnum> deliveryMethod) {
@@ -143,6 +160,18 @@ public final class CreatePhoneTemplateTestNotificationRequestContent {
         @java.lang.Override
         public CreatePhoneTemplateTestNotificationRequestContent build() {
             return new CreatePhoneTemplateTestNotificationRequestContent(to, deliveryMethod, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

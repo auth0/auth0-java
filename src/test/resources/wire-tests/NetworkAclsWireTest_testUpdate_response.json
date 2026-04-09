@@ -1,0 +1,94 @@
+{
+  "id": "id",
+  "description": "description",
+  "active": true,
+  "priority": 1.1,
+  "rule": {
+    "action": {
+      "block": true,
+      "allow": true,
+      "log": true,
+      "redirect": true,
+      "redirect_uri": "redirect_uri"
+    },
+    "match": {
+      "asns": [
+        1
+      ],
+      "auth0_managed": [
+        "auth0_managed"
+      ],
+      "geo_country_codes": [
+        "geo_country_codes"
+      ],
+      "geo_subdivision_codes": [
+        "geo_subdivision_codes"
+      ],
+      "ipv4_cidrs": [
+        "ipv4_cidrs"
+      ],
+      "ipv6_cidrs": [
+        "ipv6_cidrs"
+      ],
+      "ja3_fingerprints": [
+        "ja3_fingerprints"
+      ],
+      "ja4_fingerprints": [
+        "ja4_fingerprints"
+      ],
+      "user_agents": [
+        "user_agents"
+      ],
+      "hostnames": [
+        "hostnames"
+      ],
+      "connecting_ipv4_cidrs": [
+        "connecting_ipv4_cidrs"
+      ],
+      "connecting_ipv6_cidrs": [
+        "connecting_ipv6_cidrs"
+      ]
+    },
+    "not_match": {
+      "asns": [
+        1
+      ],
+      "auth0_managed": [
+        "auth0_managed"
+      ],
+      "geo_country_codes": [
+        "geo_country_codes"
+      ],
+      "geo_subdivision_codes": [
+        "geo_subdivision_codes"
+      ],
+      "ipv4_cidrs": [
+        "ipv4_cidrs"
+      ],
+      "ipv6_cidrs": [
+        "ipv6_cidrs"
+      ],
+      "ja3_fingerprints": [
+        "ja3_fingerprints"
+      ],
+      "ja4_fingerprints": [
+        "ja4_fingerprints"
+      ],
+      "user_agents": [
+        "user_agents"
+      ],
+      "hostnames": [
+        "hostnames"
+      ],
+      "connecting_ipv4_cidrs": [
+        "connecting_ipv4_cidrs"
+      ],
+      "connecting_ipv6_cidrs": [
+        "connecting_ipv6_cidrs"
+      ]
+    },
+    "scope": "management"
+  },
+  "created_at": "created_at",
+  "updated_at": "updated_at"
+}

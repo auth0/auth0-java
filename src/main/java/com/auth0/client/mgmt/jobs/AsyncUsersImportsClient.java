@@ -30,7 +30,7 @@ public class AsyncUsersImportsClient {
     }
 
     /**
-     * Import users from a &lt;a href=&quot;https://auth0.com/docs/users/references/bulk-import-database-schema-examples&quot;&gt;formatted file&lt;/a&gt; into a connection via a long-running job. When importing users, with or without upsert, the <code>email_verified</code> is set to <code>false</code> when the email address is added or updated. Users must verify their email address. To avoid this behavior, set <code>email_verified</code> to <code>true</code> in the imported data.
+     * Import users from a <a href="https://auth0.com/docs/users/references/bulk-import-database-schema-examples">formatted file</a> into a connection via a long-running job. When importing users, with or without upsert, the <code>email_verified</code> is set to <code>false</code> when the email address is added or updated. Users must verify their email address. To avoid this behavior, set <code>email_verified</code> to <code>true</code> in the imported data.
      */
     public CompletableFuture<CreateImportUsersResponseContent> create(
             File users, CreateImportUsersRequestContent request) {
@@ -38,7 +38,7 @@ public class AsyncUsersImportsClient {
     }
 
     /**
-     * Import users from a &lt;a href=&quot;https://auth0.com/docs/users/references/bulk-import-database-schema-examples&quot;&gt;formatted file&lt;/a&gt; into a connection via a long-running job. When importing users, with or without upsert, the <code>email_verified</code> is set to <code>false</code> when the email address is added or updated. Users must verify their email address. To avoid this behavior, set <code>email_verified</code> to <code>true</code> in the imported data.
+     * Import users from a <a href="https://auth0.com/docs/users/references/bulk-import-database-schema-examples">formatted file</a> into a connection via a long-running job. When importing users, with or without upsert, the <code>email_verified</code> is set to <code>false</code> when the email address is added or updated. Users must verify their email address. To avoid this behavior, set <code>email_verified</code> to <code>true</code> in the imported data.
      */
     public CompletableFuture<CreateImportUsersResponseContent> create(
             File users, CreateImportUsersRequestContent request, RequestOptions requestOptions) {

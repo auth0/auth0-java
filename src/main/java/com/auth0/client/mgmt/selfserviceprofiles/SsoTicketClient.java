@@ -35,6 +35,13 @@ public class SsoTicketClient {
     /**
      * Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
      */
+    public CreateSelfServiceProfileSsoTicketResponseContent create(String id, RequestOptions requestOptions) {
+        return this.rawClient.create(id, requestOptions).body();
+    }
+
+    /**
+     * Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
+     */
     public CreateSelfServiceProfileSsoTicketResponseContent create(
             String id, CreateSelfServiceProfileSsoTicketRequestContent request) {
         return this.rawClient.create(id, request).body();

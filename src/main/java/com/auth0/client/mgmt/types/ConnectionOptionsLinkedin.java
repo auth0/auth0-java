@@ -23,87 +23,69 @@ import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsLinkedin.Builder.class)
-public final class ConnectionOptionsLinkedin implements IConnectionOptionsOAuth2Common, IConnectionOptionsCommon {
+public final class ConnectionOptionsLinkedin implements IConnectionOptionsCommon {
+    private final Optional<List<String>> nonPersistentAttrs;
+
     private final Optional<String> clientId;
 
     private final Optional<String> clientSecret;
 
-    private final Optional<ConnectionScopeOAuth2> scope;
+    private final Optional<List<String>> freeformScopes;
+
+    private final Optional<List<String>> scope;
 
     private final Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes;
+
+    private final Optional<Integer> strategyVersion;
 
     private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             upstreamParams;
 
-    private final Optional<List<String>> nonPersistentAttrs;
-
-    private final Optional<Integer> strategyVersion;
-
     private final Optional<Boolean> basicProfile;
 
     private final Optional<Boolean> email;
+
+    private final Optional<Boolean> fullProfile;
+
+    private final Optional<Boolean> network;
+
+    private final Optional<Boolean> openid;
 
     private final Optional<Boolean> profile;
 
     private final Map<String, Object> additionalProperties;
 
     private ConnectionOptionsLinkedin(
+            Optional<List<String>> nonPersistentAttrs,
             Optional<String> clientId,
             Optional<String> clientSecret,
-            Optional<ConnectionScopeOAuth2> scope,
+            Optional<List<String>> freeformScopes,
+            Optional<List<String>> scope,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
-            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
-            Optional<List<String>> nonPersistentAttrs,
             Optional<Integer> strategyVersion,
+            OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<Boolean> basicProfile,
             Optional<Boolean> email,
+            Optional<Boolean> fullProfile,
+            Optional<Boolean> network,
+            Optional<Boolean> openid,
             Optional<Boolean> profile,
             Map<String, Object> additionalProperties) {
+        this.nonPersistentAttrs = nonPersistentAttrs;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
+        this.freeformScopes = freeformScopes;
         this.scope = scope;
         this.setUserRootAttributes = setUserRootAttributes;
-        this.upstreamParams = upstreamParams;
-        this.nonPersistentAttrs = nonPersistentAttrs;
         this.strategyVersion = strategyVersion;
+        this.upstreamParams = upstreamParams;
         this.basicProfile = basicProfile;
         this.email = email;
+        this.fullProfile = fullProfile;
+        this.network = network;
+        this.openid = openid;
         this.profile = profile;
         this.additionalProperties = additionalProperties;
-    }
-
-    @JsonProperty("client_id")
-    @java.lang.Override
-    public Optional<String> getClientId() {
-        return clientId;
-    }
-
-    @JsonProperty("client_secret")
-    @java.lang.Override
-    public Optional<String> getClientSecret() {
-        return clientSecret;
-    }
-
-    @JsonProperty("scope")
-    @java.lang.Override
-    public Optional<ConnectionScopeOAuth2> getScope() {
-        return scope;
-    }
-
-    @JsonProperty("set_user_root_attributes")
-    @java.lang.Override
-    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
-        return setUserRootAttributes;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("upstream_params")
-    @java.lang.Override
-    public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
-        if (upstreamParams == null) {
-            return OptionalNullable.absent();
-        }
-        return upstreamParams;
     }
 
     @JsonProperty("non_persistent_attrs")
@@ -112,13 +94,50 @@ public final class ConnectionOptionsLinkedin implements IConnectionOptionsOAuth2
         return nonPersistentAttrs;
     }
 
+    @JsonProperty("client_id")
+    public Optional<String> getClientId() {
+        return clientId;
+    }
+
+    @JsonProperty("client_secret")
+    public Optional<String> getClientSecret() {
+        return clientSecret;
+    }
+
+    @JsonProperty("freeform_scopes")
+    public Optional<List<String>> getFreeformScopes() {
+        return freeformScopes;
+    }
+
+    @JsonProperty("scope")
+    public Optional<List<String>> getScope() {
+        return scope;
+    }
+
+    @JsonProperty("set_user_root_attributes")
+    public Optional<ConnectionSetUserRootAttributesEnum> getSetUserRootAttributes() {
+        return setUserRootAttributes;
+    }
+
+    /**
+     * @return The strategy_version property determines which LinkedIn API version and OAuth scopes are used for authentication. Version 1 uses legacy scopes (r_basicprofile, r_fullprofile, r_network), Version 2 uses updated scopes (r_liteprofile, r_basicprofile), and Version 3 uses OpenID Connect scopes (profile, email, openid). If not specified, the connection defaults to Version 3.
+     */
     @JsonProperty("strategy_version")
     public Optional<Integer> getStrategyVersion() {
         return strategyVersion;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("upstream_params")
+    public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
+        if (upstreamParams == null) {
+            return OptionalNullable.absent();
+        }
+        return upstreamParams;
+    }
+
     /**
-     * @return When enabled, requests the basic_profile scope from LinkedIn to access basic profile information.
+     * @return Request the LinkedIn lite profile scope (r_liteprofile) to retrieve member id, localized first/last name, and profile picture. Off by default.
      */
     @JsonProperty("basic_profile")
     public Optional<Boolean> getBasicProfile() {
@@ -126,7 +145,7 @@ public final class ConnectionOptionsLinkedin implements IConnectionOptionsOAuth2
     }
 
     /**
-     * @return When enabled, requests the email scope from LinkedIn to access the user's email address.
+     * @return Request the email address scope (r_emailaddress) to return the member's primary email. Off by default.
      */
     @JsonProperty("email")
     public Optional<Boolean> getEmail() {
@@ -134,7 +153,31 @@ public final class ConnectionOptionsLinkedin implements IConnectionOptionsOAuth2
     }
 
     /**
-     * @return When enabled, requests the profile scope from LinkedIn to access profile information.
+     * @return Request the legacy full profile scope (r_fullprofile) for extended attributes. Deprecated by LinkedIn; use only if enabled for your app. Off by default.
+     */
+    @JsonProperty("full_profile")
+    public Optional<Boolean> getFullProfile() {
+        return fullProfile;
+    }
+
+    /**
+     * @return Request legacy network access (first-degree connections). Deprecated by LinkedIn and typically unavailable to new apps. Off by default.
+     */
+    @JsonProperty("network")
+    public Optional<Boolean> getNetwork() {
+        return network;
+    }
+
+    /**
+     * @return Request OpenID Connect authentication support (openid scope). When enabled, the connection will request the 'openid' scope from LinkedIn, allowing the use of OpenID Connect flows for authentication and enabling the issuance of ID tokens. This is off by default and should only be enabled if your LinkedIn application is configured for OpenID Connect.
+     */
+    @JsonProperty("openid")
+    public Optional<Boolean> getOpenid() {
+        return openid;
+    }
+
+    /**
+     * @return Always-true flag that ensures the LinkedIn profile scope (r_basicprofile/r_liteprofile/profile) is requested.
      */
     @JsonProperty("profile")
     public Optional<Boolean> getProfile() {
@@ -160,30 +203,38 @@ public final class ConnectionOptionsLinkedin implements IConnectionOptionsOAuth2
     }
 
     private boolean equalTo(ConnectionOptionsLinkedin other) {
-        return clientId.equals(other.clientId)
+        return nonPersistentAttrs.equals(other.nonPersistentAttrs)
+                && clientId.equals(other.clientId)
                 && clientSecret.equals(other.clientSecret)
+                && freeformScopes.equals(other.freeformScopes)
                 && scope.equals(other.scope)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
-                && upstreamParams.equals(other.upstreamParams)
-                && nonPersistentAttrs.equals(other.nonPersistentAttrs)
                 && strategyVersion.equals(other.strategyVersion)
+                && upstreamParams.equals(other.upstreamParams)
                 && basicProfile.equals(other.basicProfile)
                 && email.equals(other.email)
+                && fullProfile.equals(other.fullProfile)
+                && network.equals(other.network)
+                && openid.equals(other.openid)
                 && profile.equals(other.profile);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.nonPersistentAttrs,
                 this.clientId,
                 this.clientSecret,
+                this.freeformScopes,
                 this.scope,
                 this.setUserRootAttributes,
-                this.upstreamParams,
-                this.nonPersistentAttrs,
                 this.strategyVersion,
+                this.upstreamParams,
                 this.basicProfile,
                 this.email,
+                this.fullProfile,
+                this.network,
+                this.openid,
                 this.profile);
     }
 
@@ -198,24 +249,32 @@ public final class ConnectionOptionsLinkedin implements IConnectionOptionsOAuth2
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+
         private Optional<String> clientId = Optional.empty();
 
         private Optional<String> clientSecret = Optional.empty();
 
-        private Optional<ConnectionScopeOAuth2> scope = Optional.empty();
+        private Optional<List<String>> freeformScopes = Optional.empty();
+
+        private Optional<List<String>> scope = Optional.empty();
 
         private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
+
+        private Optional<Integer> strategyVersion = Optional.empty();
 
         private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
                 OptionalNullable.absent();
 
-        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
-
-        private Optional<Integer> strategyVersion = Optional.empty();
-
         private Optional<Boolean> basicProfile = Optional.empty();
 
         private Optional<Boolean> email = Optional.empty();
+
+        private Optional<Boolean> fullProfile = Optional.empty();
+
+        private Optional<Boolean> network = Optional.empty();
+
+        private Optional<Boolean> openid = Optional.empty();
 
         private Optional<Boolean> profile = Optional.empty();
 
@@ -225,16 +284,31 @@ public final class ConnectionOptionsLinkedin implements IConnectionOptionsOAuth2
         private Builder() {}
 
         public Builder from(ConnectionOptionsLinkedin other) {
+            nonPersistentAttrs(other.getNonPersistentAttrs());
             clientId(other.getClientId());
             clientSecret(other.getClientSecret());
+            freeformScopes(other.getFreeformScopes());
             scope(other.getScope());
             setUserRootAttributes(other.getSetUserRootAttributes());
-            upstreamParams(other.getUpstreamParams());
-            nonPersistentAttrs(other.getNonPersistentAttrs());
             strategyVersion(other.getStrategyVersion());
+            upstreamParams(other.getUpstreamParams());
             basicProfile(other.getBasicProfile());
             email(other.getEmail());
+            fullProfile(other.getFullProfile());
+            network(other.getNetwork());
+            openid(other.getOpenid());
             profile(other.getProfile());
+            return this;
+        }
+
+        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
+        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
+            this.nonPersistentAttrs = nonPersistentAttrs;
+            return this;
+        }
+
+        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
+            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
             return this;
         }
 
@@ -260,13 +334,24 @@ public final class ConnectionOptionsLinkedin implements IConnectionOptionsOAuth2
             return this;
         }
 
+        @JsonSetter(value = "freeform_scopes", nulls = Nulls.SKIP)
+        public Builder freeformScopes(Optional<List<String>> freeformScopes) {
+            this.freeformScopes = freeformScopes;
+            return this;
+        }
+
+        public Builder freeformScopes(List<String> freeformScopes) {
+            this.freeformScopes = Optional.ofNullable(freeformScopes);
+            return this;
+        }
+
         @JsonSetter(value = "scope", nulls = Nulls.SKIP)
-        public Builder scope(Optional<ConnectionScopeOAuth2> scope) {
+        public Builder scope(Optional<List<String>> scope) {
             this.scope = scope;
             return this;
         }
 
-        public Builder scope(ConnectionScopeOAuth2 scope) {
+        public Builder scope(List<String> scope) {
             this.scope = Optional.ofNullable(scope);
             return this;
         }
@@ -279,6 +364,20 @@ public final class ConnectionOptionsLinkedin implements IConnectionOptionsOAuth2
 
         public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
             this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
+            return this;
+        }
+
+        /**
+         * <p>The strategy_version property determines which LinkedIn API version and OAuth scopes are used for authentication. Version 1 uses legacy scopes (r_basicprofile, r_fullprofile, r_network), Version 2 uses updated scopes (r_liteprofile, r_basicprofile), and Version 3 uses OpenID Connect scopes (profile, email, openid). If not specified, the connection defaults to Version 3.</p>
+         */
+        @JsonSetter(value = "strategy_version", nulls = Nulls.SKIP)
+        public Builder strategyVersion(Optional<Integer> strategyVersion) {
+            this.strategyVersion = strategyVersion;
+            return this;
+        }
+
+        public Builder strategyVersion(Integer strategyVersion) {
+            this.strategyVersion = Optional.ofNullable(strategyVersion);
             return this;
         }
 
@@ -321,30 +420,8 @@ public final class ConnectionOptionsLinkedin implements IConnectionOptionsOAuth2
             return this;
         }
 
-        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
-        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
-            this.nonPersistentAttrs = nonPersistentAttrs;
-            return this;
-        }
-
-        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
-            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
-            return this;
-        }
-
-        @JsonSetter(value = "strategy_version", nulls = Nulls.SKIP)
-        public Builder strategyVersion(Optional<Integer> strategyVersion) {
-            this.strategyVersion = strategyVersion;
-            return this;
-        }
-
-        public Builder strategyVersion(Integer strategyVersion) {
-            this.strategyVersion = Optional.ofNullable(strategyVersion);
-            return this;
-        }
-
         /**
-         * <p>When enabled, requests the basic_profile scope from LinkedIn to access basic profile information.</p>
+         * <p>Request the LinkedIn lite profile scope (r_liteprofile) to retrieve member id, localized first/last name, and profile picture. Off by default.</p>
          */
         @JsonSetter(value = "basic_profile", nulls = Nulls.SKIP)
         public Builder basicProfile(Optional<Boolean> basicProfile) {
@@ -358,7 +435,7 @@ public final class ConnectionOptionsLinkedin implements IConnectionOptionsOAuth2
         }
 
         /**
-         * <p>When enabled, requests the email scope from LinkedIn to access the user's email address.</p>
+         * <p>Request the email address scope (r_emailaddress) to return the member's primary email. Off by default.</p>
          */
         @JsonSetter(value = "email", nulls = Nulls.SKIP)
         public Builder email(Optional<Boolean> email) {
@@ -372,7 +449,49 @@ public final class ConnectionOptionsLinkedin implements IConnectionOptionsOAuth2
         }
 
         /**
-         * <p>When enabled, requests the profile scope from LinkedIn to access profile information.</p>
+         * <p>Request the legacy full profile scope (r_fullprofile) for extended attributes. Deprecated by LinkedIn; use only if enabled for your app. Off by default.</p>
+         */
+        @JsonSetter(value = "full_profile", nulls = Nulls.SKIP)
+        public Builder fullProfile(Optional<Boolean> fullProfile) {
+            this.fullProfile = fullProfile;
+            return this;
+        }
+
+        public Builder fullProfile(Boolean fullProfile) {
+            this.fullProfile = Optional.ofNullable(fullProfile);
+            return this;
+        }
+
+        /**
+         * <p>Request legacy network access (first-degree connections). Deprecated by LinkedIn and typically unavailable to new apps. Off by default.</p>
+         */
+        @JsonSetter(value = "network", nulls = Nulls.SKIP)
+        public Builder network(Optional<Boolean> network) {
+            this.network = network;
+            return this;
+        }
+
+        public Builder network(Boolean network) {
+            this.network = Optional.ofNullable(network);
+            return this;
+        }
+
+        /**
+         * <p>Request OpenID Connect authentication support (openid scope). When enabled, the connection will request the 'openid' scope from LinkedIn, allowing the use of OpenID Connect flows for authentication and enabling the issuance of ID tokens. This is off by default and should only be enabled if your LinkedIn application is configured for OpenID Connect.</p>
+         */
+        @JsonSetter(value = "openid", nulls = Nulls.SKIP)
+        public Builder openid(Optional<Boolean> openid) {
+            this.openid = openid;
+            return this;
+        }
+
+        public Builder openid(Boolean openid) {
+            this.openid = Optional.ofNullable(openid);
+            return this;
+        }
+
+        /**
+         * <p>Always-true flag that ensures the LinkedIn profile scope (r_basicprofile/r_liteprofile/profile) is requested.</p>
          */
         @JsonSetter(value = "profile", nulls = Nulls.SKIP)
         public Builder profile(Optional<Boolean> profile) {
@@ -387,17 +506,31 @@ public final class ConnectionOptionsLinkedin implements IConnectionOptionsOAuth2
 
         public ConnectionOptionsLinkedin build() {
             return new ConnectionOptionsLinkedin(
+                    nonPersistentAttrs,
                     clientId,
                     clientSecret,
+                    freeformScopes,
                     scope,
                     setUserRootAttributes,
-                    upstreamParams,
-                    nonPersistentAttrs,
                     strategyVersion,
+                    upstreamParams,
                     basicProfile,
                     email,
+                    fullProfile,
+                    network,
+                    openid,
                     profile,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

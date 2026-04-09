@@ -30,7 +30,7 @@ runs:
         export JAVA_HOME=${SDKMAN_DIR}/candidates/java/current
         echo "JAVA_HOME is set to $JAVA_HOME"
 
-    - uses: gradle/wrapper-validation-action@56b90f209b02bf6d1deae490e9ef18b21a389cd4 # pin@1.1.0
+    - uses: gradle/actions/wrapper-validation@v5
       env:
         JAVA_HOME: ${{ env.JAVA_HOME }}
 

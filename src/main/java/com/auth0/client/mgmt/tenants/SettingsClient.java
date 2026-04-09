@@ -37,6 +37,13 @@ public class SettingsClient {
     /**
      * Retrieve tenant settings. A list of fields to include or exclude may also be specified.
      */
+    public GetTenantSettingsResponseContent get(RequestOptions requestOptions) {
+        return this.rawClient.get(requestOptions).body();
+    }
+
+    /**
+     * Retrieve tenant settings. A list of fields to include or exclude may also be specified.
+     */
     public GetTenantSettingsResponseContent get(GetTenantSettingsRequestParameters request) {
         return this.rawClient.get(request).body();
     }
@@ -54,6 +61,13 @@ public class SettingsClient {
      */
     public UpdateTenantSettingsResponseContent update() {
         return this.rawClient.update().body();
+    }
+
+    /**
+     * Update settings for a tenant.
+     */
+    public UpdateTenantSettingsResponseContent update(RequestOptions requestOptions) {
+        return this.rawClient.update(requestOptions).body();
     }
 
     /**

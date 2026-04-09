@@ -157,5 +157,15 @@ public final class UserBlockIdentifier {
         public UserBlockIdentifier build() {
             return new UserBlockIdentifier(identifier, ip, connection, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

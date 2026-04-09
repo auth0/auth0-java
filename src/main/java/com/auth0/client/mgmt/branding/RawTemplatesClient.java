@@ -42,12 +42,16 @@ public class RawTemplatesClient {
 
     public ManagementApiHttpResponse<GetUniversalLoginTemplateResponseContent> getUniversalLogin(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("branding/templates/universal-login")
-                .build();
+                .addPathSegments("branding/templates/universal-login");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -96,16 +100,16 @@ public class RawTemplatesClient {
 
     /**
      * Update the Universal Login branding template.
-     * <p>&lt;p&gt;When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;application/json&lt;/code&gt;:&lt;/p&gt;
-     * &lt;pre&gt;
+     * <p><p>When <code>content-type</code> header is set to <code>application/json</code>:</p>
+     * <pre>
      * {
      *   &quot;template&quot;: &quot;&amp;lt;!DOCTYPE html&amp;gt;{% assign resolved_dir = dir | default: &quot;auto&quot; %}&amp;lt;html lang=&quot;{{locale}}&quot; dir=&quot;{{resolved_dir}}&quot;&amp;gt;&amp;lt;head&amp;gt;{%- auth0:head -%}&amp;lt;/head&amp;gt;&amp;lt;body class=&quot;_widget-auto-layout&quot;&amp;gt;{%- auth0:widget -%}&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&quot;
      * }
-     * &lt;/pre&gt;</p>
-     * <p>&lt;p&gt;
-     *   When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;text/html&lt;/code&gt;:
-     * &lt;/p&gt;
-     * &lt;pre&gt;
+     * </pre></p>
+     * <p><p>
+     *   When <code>content-type</code> header is set to <code>text/html</code>:
+     * </p>
+     * <pre>
      * &amp;lt!DOCTYPE html&amp;gt;
      * {% assign resolved_dir = dir | default: &quot;auto&quot; %}
      * &amp;lt;html lang=&quot;{{locale}}&quot; dir=&quot;{{resolved_dir}}&quot;&amp;gt;
@@ -116,7 +120,7 @@ public class RawTemplatesClient {
      *     {%- auth0:widget -%}
      *   &amp;lt;/body&amp;gt;
      * &amp;lt;/html&amp;gt;
-     * &lt;/pre&gt;</p>
+     * </pre></p>
      */
     public ManagementApiHttpResponse<Void> updateUniversalLogin(UpdateUniversalLoginTemplateRequestContent request) {
         return updateUniversalLogin(request, null);
@@ -124,16 +128,16 @@ public class RawTemplatesClient {
 
     /**
      * Update the Universal Login branding template.
-     * <p>&lt;p&gt;When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;application/json&lt;/code&gt;:&lt;/p&gt;
-     * &lt;pre&gt;
+     * <p><p>When <code>content-type</code> header is set to <code>application/json</code>:</p>
+     * <pre>
      * {
      *   &quot;template&quot;: &quot;&amp;lt;!DOCTYPE html&amp;gt;{% assign resolved_dir = dir | default: &quot;auto&quot; %}&amp;lt;html lang=&quot;{{locale}}&quot; dir=&quot;{{resolved_dir}}&quot;&amp;gt;&amp;lt;head&amp;gt;{%- auth0:head -%}&amp;lt;/head&amp;gt;&amp;lt;body class=&quot;_widget-auto-layout&quot;&amp;gt;{%- auth0:widget -%}&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&quot;
      * }
-     * &lt;/pre&gt;</p>
-     * <p>&lt;p&gt;
-     *   When &lt;code&gt;content-type&lt;/code&gt; header is set to &lt;code&gt;text/html&lt;/code&gt;:
-     * &lt;/p&gt;
-     * &lt;pre&gt;
+     * </pre></p>
+     * <p><p>
+     *   When <code>content-type</code> header is set to <code>text/html</code>:
+     * </p>
+     * <pre>
      * &amp;lt!DOCTYPE html&amp;gt;
      * {% assign resolved_dir = dir | default: &quot;auto&quot; %}
      * &amp;lt;html lang=&quot;{{locale}}&quot; dir=&quot;{{resolved_dir}}&quot;&amp;gt;
@@ -144,14 +148,18 @@ public class RawTemplatesClient {
      *     {%- auth0:widget -%}
      *   &amp;lt;/body&amp;gt;
      * &amp;lt;/html&amp;gt;
-     * &lt;/pre&gt;</p>
+     * </pre></p>
      */
     public ManagementApiHttpResponse<Void> updateUniversalLogin(
             UpdateUniversalLoginTemplateRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("branding/templates/universal-login")
-                .build();
+                .addPathSegments("branding/templates/universal-login");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -160,7 +168,7 @@ public class RawTemplatesClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -213,12 +221,16 @@ public class RawTemplatesClient {
     }
 
     public ManagementApiHttpResponse<Void> deleteUniversalLogin(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("branding/templates/universal-login")
-                .build();
+                .addPathSegments("branding/templates/universal-login");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

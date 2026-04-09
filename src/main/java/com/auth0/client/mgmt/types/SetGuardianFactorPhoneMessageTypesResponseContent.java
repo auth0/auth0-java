@@ -101,5 +101,15 @@ public final class SetGuardianFactorPhoneMessageTypesResponseContent {
         public SetGuardianFactorPhoneMessageTypesResponseContent build() {
             return new SetGuardianFactorPhoneMessageTypesResponseContent(messageTypes, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

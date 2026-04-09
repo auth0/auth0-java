@@ -44,6 +44,13 @@ public class AsyncRenderingClient {
     /**
      * Get render setting configurations for all screens.
      */
+    public CompletableFuture<SyncPagingIterable<ListAculsResponseContentItem>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Get render setting configurations for all screens.
+     */
     public CompletableFuture<SyncPagingIterable<ListAculsResponseContentItem>> list(
             ListAculsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
@@ -58,14 +65,14 @@ public class AsyncRenderingClient {
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public CompletableFuture<BulkUpdateAculResponseContent> bulkUpdate(BulkUpdateAculRequestContent request) {
         return this.rawClient.bulkUpdate(request).thenApply(response -> response.body());
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public CompletableFuture<BulkUpdateAculResponseContent> bulkUpdate(
             BulkUpdateAculRequestContent request, RequestOptions requestOptions) {
@@ -88,14 +95,22 @@ public class AsyncRenderingClient {
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public CompletableFuture<UpdateAculResponseContent> update(PromptGroupNameEnum prompt, ScreenGroupNameEnum screen) {
         return this.rawClient.update(prompt, screen).thenApply(response -> response.body());
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+     */
+    public CompletableFuture<UpdateAculResponseContent> update(
+            PromptGroupNameEnum prompt, ScreenGroupNameEnum screen, RequestOptions requestOptions) {
+        return this.rawClient.update(prompt, screen, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public CompletableFuture<UpdateAculResponseContent> update(
             PromptGroupNameEnum prompt, ScreenGroupNameEnum screen, UpdateAculRequestContent request) {
@@ -103,7 +118,7 @@ public class AsyncRenderingClient {
     }
 
     /**
-     * Learn more about &lt;a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'&gt;configuring render settings&lt;/a&gt; for advanced customization.
+     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
      */
     public CompletableFuture<UpdateAculResponseContent> update(
             PromptGroupNameEnum prompt,

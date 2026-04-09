@@ -38,6 +38,14 @@ public class AsyncGroupsClient {
      * List all groups to which this user belongs.
      */
     public CompletableFuture<SyncPagingIterable<UserGroupsResponseSchema>> get(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * List all groups to which this user belongs.
+     */
+    public CompletableFuture<SyncPagingIterable<UserGroupsResponseSchema>> get(
             String id, GetUserGroupsRequestParameters request) {
         return this.rawClient.get(id, request).thenApply(response -> response.body());
     }

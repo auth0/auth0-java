@@ -10,10 +10,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -23,7 +25,7 @@ public final class SetNetworkAclRequestContent {
 
     private final boolean active;
 
-    private final double priority;
+    private final Optional<Double> priority;
 
     private final NetworkAclRule rule;
 
@@ -32,7 +34,7 @@ public final class SetNetworkAclRequestContent {
     private SetNetworkAclRequestContent(
             String description,
             boolean active,
-            double priority,
+            Optional<Double> priority,
             NetworkAclRule rule,
             Map<String, Object> additionalProperties) {
         this.description = description;
@@ -59,7 +61,7 @@ public final class SetNetworkAclRequestContent {
      * @return Indicates the order in which the ACL will be evaluated relative to other ACL rules.
      */
     @JsonProperty("priority")
-    public double getPriority() {
+    public Optional<Double> getPriority() {
         return priority;
     }
 
@@ -82,7 +84,7 @@ public final class SetNetworkAclRequestContent {
     private boolean equalTo(SetNetworkAclRequestContent other) {
         return description.equals(other.description)
                 && active == other.active
-                && priority == other.priority
+                && priority.equals(other.priority)
                 && rule.equals(other.rule);
     }
 
@@ -110,14 +112,7 @@ public final class SetNetworkAclRequestContent {
         /**
          * <p>Indicates whether or not this access control list is actively being used</p>
          */
-        PriorityStage active(boolean active);
-    }
-
-    public interface PriorityStage {
-        /**
-         * <p>Indicates the order in which the ACL will be evaluated relative to other ACL rules.</p>
-         */
-        RuleStage priority(double priority);
+        RuleStage active(boolean active);
     }
 
     public interface RuleStage {
@@ -126,17 +121,28 @@ public final class SetNetworkAclRequestContent {
 
     public interface _FinalStage {
         SetNetworkAclRequestContent build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>Indicates the order in which the ACL will be evaluated relative to other ACL rules.</p>
+         */
+        _FinalStage priority(Optional<Double> priority);
+
+        _FinalStage priority(Double priority);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements DescriptionStage, ActiveStage, PriorityStage, RuleStage, _FinalStage {
+    public static final class Builder implements DescriptionStage, ActiveStage, RuleStage, _FinalStage {
         private String description;
 
         private boolean active;
 
-        private double priority;
-
         private NetworkAclRule rule;
+
+        private Optional<Double> priority = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -166,20 +172,8 @@ public final class SetNetworkAclRequestContent {
          */
         @java.lang.Override
         @JsonSetter("active")
-        public PriorityStage active(boolean active) {
+        public RuleStage active(boolean active) {
             this.active = active;
-            return this;
-        }
-
-        /**
-         * <p>Indicates the order in which the ACL will be evaluated relative to other ACL rules.</p>
-         * <p>Indicates the order in which the ACL will be evaluated relative to other ACL rules.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("priority")
-        public RuleStage priority(double priority) {
-            this.priority = priority;
             return this;
         }
 
@@ -190,9 +184,41 @@ public final class SetNetworkAclRequestContent {
             return this;
         }
 
+        /**
+         * <p>Indicates the order in which the ACL will be evaluated relative to other ACL rules.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage priority(Double priority) {
+            this.priority = Optional.ofNullable(priority);
+            return this;
+        }
+
+        /**
+         * <p>Indicates the order in which the ACL will be evaluated relative to other ACL rules.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "priority", nulls = Nulls.SKIP)
+        public _FinalStage priority(Optional<Double> priority) {
+            this.priority = priority;
+            return this;
+        }
+
         @java.lang.Override
         public SetNetworkAclRequestContent build() {
             return new SetNetworkAclRequestContent(description, active, priority, rule, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

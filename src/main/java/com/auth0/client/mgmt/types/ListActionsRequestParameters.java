@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListActionsRequestParameters.Builder.class)
 public final class ListActionsRequestParameters {
-    private final OptionalNullable<String> triggerId;
+    private final OptionalNullable<ActionTriggerTypeEnum> triggerId;
 
     private final OptionalNullable<String> actionName;
 
@@ -38,7 +38,7 @@ public final class ListActionsRequestParameters {
     private final Map<String, Object> additionalProperties;
 
     private ListActionsRequestParameters(
-            OptionalNullable<String> triggerId,
+            OptionalNullable<ActionTriggerTypeEnum> triggerId,
             OptionalNullable<String> actionName,
             OptionalNullable<Boolean> deployed,
             OptionalNullable<Integer> page,
@@ -59,7 +59,7 @@ public final class ListActionsRequestParameters {
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("triggerId")
-    public OptionalNullable<String> getTriggerId() {
+    public OptionalNullable<ActionTriggerTypeEnum> getTriggerId() {
         if (triggerId == null) {
             return OptionalNullable.absent();
         }
@@ -122,7 +122,7 @@ public final class ListActionsRequestParameters {
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("triggerId")
-    private OptionalNullable<String> _getTriggerId() {
+    private OptionalNullable<ActionTriggerTypeEnum> _getTriggerId() {
         return triggerId;
     }
 
@@ -180,7 +180,7 @@ public final class ListActionsRequestParameters {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private OptionalNullable<String> triggerId = OptionalNullable.absent();
+        private OptionalNullable<ActionTriggerTypeEnum> triggerId = OptionalNullable.absent();
 
         private OptionalNullable<String> actionName = OptionalNullable.absent();
 
@@ -211,17 +211,17 @@ public final class ListActionsRequestParameters {
          * <p>An actions extensibility point.</p>
          */
         @JsonSetter(value = "triggerId", nulls = Nulls.SKIP)
-        public Builder triggerId(@Nullable OptionalNullable<String> triggerId) {
+        public Builder triggerId(@Nullable OptionalNullable<ActionTriggerTypeEnum> triggerId) {
             this.triggerId = triggerId;
             return this;
         }
 
-        public Builder triggerId(String triggerId) {
+        public Builder triggerId(ActionTriggerTypeEnum triggerId) {
             this.triggerId = OptionalNullable.of(triggerId);
             return this;
         }
 
-        public Builder triggerId(Optional<String> triggerId) {
+        public Builder triggerId(Optional<ActionTriggerTypeEnum> triggerId) {
             if (triggerId.isPresent()) {
                 this.triggerId = OptionalNullable.of(triggerId.get());
             } else {
@@ -230,7 +230,7 @@ public final class ListActionsRequestParameters {
             return this;
         }
 
-        public Builder triggerId(com.auth0.client.mgmt.core.Nullable<String> triggerId) {
+        public Builder triggerId(com.auth0.client.mgmt.core.Nullable<ActionTriggerTypeEnum> triggerId) {
             if (triggerId.isNull()) {
                 this.triggerId = OptionalNullable.ofNull();
             } else if (triggerId.isEmpty()) {
@@ -414,6 +414,16 @@ public final class ListActionsRequestParameters {
         public ListActionsRequestParameters build() {
             return new ListActionsRequestParameters(
                     triggerId, actionName, deployed, page, perPage, installed, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

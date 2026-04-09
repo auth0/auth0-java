@@ -50,6 +50,13 @@ public class AsyncDirectoryProvisioningClient {
     /**
      * Retrieve a list of directory provisioning configurations of a tenant.
      */
+    public CompletableFuture<SyncPagingIterable<DirectoryProvisioning>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a list of directory provisioning configurations of a tenant.
+     */
     public CompletableFuture<SyncPagingIterable<DirectoryProvisioning>> list(
             ListDirectoryProvisioningsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
@@ -82,6 +89,14 @@ public class AsyncDirectoryProvisioningClient {
      */
     public CompletableFuture<CreateDirectoryProvisioningResponseContent> create(String id) {
         return this.rawClient.create(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Create a directory provisioning configuration for a connection.
+     */
+    public CompletableFuture<CreateDirectoryProvisioningResponseContent> create(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.create(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -121,6 +136,14 @@ public class AsyncDirectoryProvisioningClient {
      */
     public CompletableFuture<UpdateDirectoryProvisioningResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update the directory provisioning configuration of a connection.
+     */
+    public CompletableFuture<UpdateDirectoryProvisioningResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**

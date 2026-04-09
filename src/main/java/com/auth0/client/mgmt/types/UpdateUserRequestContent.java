@@ -150,11 +150,17 @@ public final class UpdateUserRequestContent {
         return phoneVerified;
     }
 
+    /**
+     * @return User metadata to which this user has read/write access.
+     */
     @JsonProperty("user_metadata")
     public Optional<Map<String, Object>> getUserMetadata() {
         return userMetadata;
     }
 
+    /**
+     * @return User metadata to which this user has read-only access.
+     */
     @JsonProperty("app_metadata")
     public Optional<Map<String, Object>> getAppMetadata() {
         return appMetadata;
@@ -569,6 +575,9 @@ public final class UpdateUserRequestContent {
             return this;
         }
 
+        /**
+         * <p>User metadata to which this user has read/write access.</p>
+         */
         @JsonSetter(value = "user_metadata", nulls = Nulls.SKIP)
         public Builder userMetadata(Optional<Map<String, Object>> userMetadata) {
             this.userMetadata = userMetadata;
@@ -580,6 +589,9 @@ public final class UpdateUserRequestContent {
             return this;
         }
 
+        /**
+         * <p>User metadata to which this user has read-only access.</p>
+         */
         @JsonSetter(value = "app_metadata", nulls = Nulls.SKIP)
         public Builder appMetadata(Optional<Map<String, Object>> appMetadata) {
             this.appMetadata = appMetadata;
@@ -906,6 +918,16 @@ public final class UpdateUserRequestContent {
                     clientId,
                     username,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

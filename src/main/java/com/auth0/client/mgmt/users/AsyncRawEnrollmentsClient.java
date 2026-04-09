@@ -38,25 +38,29 @@ public class AsyncRawEnrollmentsClient {
     }
 
     /**
-     * Retrieve the first &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors&quot;&gt;multi-factor authentication&lt;/a&gt; enrollment that a specific user has confirmed.
+     * Retrieve the first <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors">multi-factor authentication</a> enrollment that a specific user has confirmed.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<UsersEnrollment>>> get(String id) {
         return get(id, null);
     }
 
     /**
-     * Retrieve the first &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors&quot;&gt;multi-factor authentication&lt;/a&gt; enrollment that a specific user has confirmed.
+     * Retrieve the first <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors">multi-factor authentication</a> enrollment that a specific user has confirmed.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<UsersEnrollment>>> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users")
                 .addPathSegment(id)
-                .addPathSegments("enrollments")
-                .build();
+                .addPathSegments("enrollments");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

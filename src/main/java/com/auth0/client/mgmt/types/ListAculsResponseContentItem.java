@@ -32,13 +32,13 @@ public final class ListAculsResponseContentItem {
 
     private final Optional<AculRenderingModeEnum> renderingMode;
 
-    private final Optional<List<AculContextConfigurationItem>> contextConfiguration;
+    private final OptionalNullable<List<AculContextConfigurationItem>> contextConfiguration;
 
     private final OptionalNullable<Boolean> defaultHeadTagsDisabled;
 
     private final OptionalNullable<Boolean> usePageTemplate;
 
-    private final Optional<List<AculHeadTag>> headTags;
+    private final OptionalNullable<List<AculHeadTag>> headTags;
 
     private final OptionalNullable<AculFilters> filters;
 
@@ -49,10 +49,10 @@ public final class ListAculsResponseContentItem {
             Optional<String> prompt,
             Optional<String> screen,
             Optional<AculRenderingModeEnum> renderingMode,
-            Optional<List<AculContextConfigurationItem>> contextConfiguration,
+            OptionalNullable<List<AculContextConfigurationItem>> contextConfiguration,
             OptionalNullable<Boolean> defaultHeadTagsDisabled,
             OptionalNullable<Boolean> usePageTemplate,
-            Optional<List<AculHeadTag>> headTags,
+            OptionalNullable<List<AculHeadTag>> headTags,
             OptionalNullable<AculFilters> filters,
             Map<String, Object> additionalProperties) {
         this.tenant = tenant;
@@ -91,13 +91,20 @@ public final class ListAculsResponseContentItem {
         return screen;
     }
 
+    /**
+     * @return Rendering mode
+     */
     @JsonProperty("rendering_mode")
     public Optional<AculRenderingModeEnum> getRenderingMode() {
         return renderingMode;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("context_configuration")
-    public Optional<List<AculContextConfigurationItem>> getContextConfiguration() {
+    public OptionalNullable<List<AculContextConfigurationItem>> getContextConfiguration() {
+        if (contextConfiguration == null) {
+            return OptionalNullable.absent();
+        }
         return contextConfiguration;
     }
 
@@ -128,8 +135,12 @@ public final class ListAculsResponseContentItem {
     /**
      * @return An array of head tags
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("head_tags")
-    public Optional<List<AculHeadTag>> getHeadTags() {
+    public OptionalNullable<List<AculHeadTag>> getHeadTags() {
+        if (headTags == null) {
+            return OptionalNullable.absent();
+        }
         return headTags;
     }
 
@@ -143,6 +154,12 @@ public final class ListAculsResponseContentItem {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("context_configuration")
+    private OptionalNullable<List<AculContextConfigurationItem>> _getContextConfiguration() {
+        return contextConfiguration;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("default_head_tags_disabled")
     private OptionalNullable<Boolean> _getDefaultHeadTagsDisabled() {
         return defaultHeadTagsDisabled;
@@ -152,6 +169,12 @@ public final class ListAculsResponseContentItem {
     @JsonProperty("use_page_template")
     private OptionalNullable<Boolean> _getUsePageTemplate() {
         return usePageTemplate;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("head_tags")
+    private OptionalNullable<List<AculHeadTag>> _getHeadTags() {
+        return headTags;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -216,13 +239,13 @@ public final class ListAculsResponseContentItem {
 
         private Optional<AculRenderingModeEnum> renderingMode = Optional.empty();
 
-        private Optional<List<AculContextConfigurationItem>> contextConfiguration = Optional.empty();
+        private OptionalNullable<List<AculContextConfigurationItem>> contextConfiguration = OptionalNullable.absent();
 
         private OptionalNullable<Boolean> defaultHeadTagsDisabled = OptionalNullable.absent();
 
         private OptionalNullable<Boolean> usePageTemplate = OptionalNullable.absent();
 
-        private Optional<List<AculHeadTag>> headTags = Optional.empty();
+        private OptionalNullable<List<AculHeadTag>> headTags = OptionalNullable.absent();
 
         private OptionalNullable<AculFilters> filters = OptionalNullable.absent();
 
@@ -286,6 +309,9 @@ public final class ListAculsResponseContentItem {
             return this;
         }
 
+        /**
+         * <p>Rendering mode</p>
+         */
         @JsonSetter(value = "rendering_mode", nulls = Nulls.SKIP)
         public Builder renderingMode(Optional<AculRenderingModeEnum> renderingMode) {
             this.renderingMode = renderingMode;
@@ -298,13 +324,35 @@ public final class ListAculsResponseContentItem {
         }
 
         @JsonSetter(value = "context_configuration", nulls = Nulls.SKIP)
-        public Builder contextConfiguration(Optional<List<AculContextConfigurationItem>> contextConfiguration) {
+        public Builder contextConfiguration(
+                @Nullable OptionalNullable<List<AculContextConfigurationItem>> contextConfiguration) {
             this.contextConfiguration = contextConfiguration;
             return this;
         }
 
         public Builder contextConfiguration(List<AculContextConfigurationItem> contextConfiguration) {
-            this.contextConfiguration = Optional.ofNullable(contextConfiguration);
+            this.contextConfiguration = OptionalNullable.of(contextConfiguration);
+            return this;
+        }
+
+        public Builder contextConfiguration(Optional<List<AculContextConfigurationItem>> contextConfiguration) {
+            if (contextConfiguration.isPresent()) {
+                this.contextConfiguration = OptionalNullable.of(contextConfiguration.get());
+            } else {
+                this.contextConfiguration = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder contextConfiguration(
+                com.auth0.client.mgmt.core.Nullable<List<AculContextConfigurationItem>> contextConfiguration) {
+            if (contextConfiguration.isNull()) {
+                this.contextConfiguration = OptionalNullable.ofNull();
+            } else if (contextConfiguration.isEmpty()) {
+                this.contextConfiguration = OptionalNullable.absent();
+            } else {
+                this.contextConfiguration = OptionalNullable.of(contextConfiguration.get());
+            }
             return this;
         }
 
@@ -380,13 +428,33 @@ public final class ListAculsResponseContentItem {
          * <p>An array of head tags</p>
          */
         @JsonSetter(value = "head_tags", nulls = Nulls.SKIP)
-        public Builder headTags(Optional<List<AculHeadTag>> headTags) {
+        public Builder headTags(@Nullable OptionalNullable<List<AculHeadTag>> headTags) {
             this.headTags = headTags;
             return this;
         }
 
         public Builder headTags(List<AculHeadTag> headTags) {
-            this.headTags = Optional.ofNullable(headTags);
+            this.headTags = OptionalNullable.of(headTags);
+            return this;
+        }
+
+        public Builder headTags(Optional<List<AculHeadTag>> headTags) {
+            if (headTags.isPresent()) {
+                this.headTags = OptionalNullable.of(headTags.get());
+            } else {
+                this.headTags = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder headTags(com.auth0.client.mgmt.core.Nullable<List<AculHeadTag>> headTags) {
+            if (headTags.isNull()) {
+                this.headTags = OptionalNullable.ofNull();
+            } else if (headTags.isEmpty()) {
+                this.headTags = OptionalNullable.absent();
+            } else {
+                this.headTags = OptionalNullable.of(headTags.get());
+            }
             return this;
         }
 
@@ -433,6 +501,16 @@ public final class ListAculsResponseContentItem {
                     headTags,
                     filters,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

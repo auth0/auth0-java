@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 public final class SelfServiceProfileSsoTicketConnectionOptions {
     private final OptionalNullable<String> iconUrl;
 
-    private final Optional<List<String>> domainAliases;
+    private final OptionalNullable<List<String>> domainAliases;
 
     private final OptionalNullable<SelfServiceProfileSsoTicketIdpInitiatedOptions> idpinitiated;
 
@@ -34,7 +34,7 @@ public final class SelfServiceProfileSsoTicketConnectionOptions {
 
     private SelfServiceProfileSsoTicketConnectionOptions(
             OptionalNullable<String> iconUrl,
-            Optional<List<String>> domainAliases,
+            OptionalNullable<List<String>> domainAliases,
             OptionalNullable<SelfServiceProfileSsoTicketIdpInitiatedOptions> idpinitiated,
             Map<String, Object> additionalProperties) {
         this.iconUrl = iconUrl;
@@ -58,8 +58,12 @@ public final class SelfServiceProfileSsoTicketConnectionOptions {
     /**
      * @return List of domain_aliases that can be authenticated in the Identity Provider
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("domain_aliases")
-    public Optional<List<String>> getDomainAliases() {
+    public OptionalNullable<List<String>> getDomainAliases() {
+        if (domainAliases == null) {
+            return OptionalNullable.absent();
+        }
         return domainAliases;
     }
 
@@ -76,6 +80,12 @@ public final class SelfServiceProfileSsoTicketConnectionOptions {
     @JsonProperty("icon_url")
     private OptionalNullable<String> _getIconUrl() {
         return iconUrl;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("domain_aliases")
+    private OptionalNullable<List<String>> _getDomainAliases() {
+        return domainAliases;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -120,7 +130,7 @@ public final class SelfServiceProfileSsoTicketConnectionOptions {
     public static final class Builder {
         private OptionalNullable<String> iconUrl = OptionalNullable.absent();
 
-        private Optional<List<String>> domainAliases = Optional.empty();
+        private OptionalNullable<List<String>> domainAliases = OptionalNullable.absent();
 
         private OptionalNullable<SelfServiceProfileSsoTicketIdpInitiatedOptions> idpinitiated =
                 OptionalNullable.absent();
@@ -175,13 +185,33 @@ public final class SelfServiceProfileSsoTicketConnectionOptions {
          * <p>List of domain_aliases that can be authenticated in the Identity Provider</p>
          */
         @JsonSetter(value = "domain_aliases", nulls = Nulls.SKIP)
-        public Builder domainAliases(Optional<List<String>> domainAliases) {
+        public Builder domainAliases(@Nullable OptionalNullable<List<String>> domainAliases) {
             this.domainAliases = domainAliases;
             return this;
         }
 
         public Builder domainAliases(List<String> domainAliases) {
-            this.domainAliases = Optional.ofNullable(domainAliases);
+            this.domainAliases = OptionalNullable.of(domainAliases);
+            return this;
+        }
+
+        public Builder domainAliases(Optional<List<String>> domainAliases) {
+            if (domainAliases.isPresent()) {
+                this.domainAliases = OptionalNullable.of(domainAliases.get());
+            } else {
+                this.domainAliases = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder domainAliases(com.auth0.client.mgmt.core.Nullable<List<String>> domainAliases) {
+            if (domainAliases.isNull()) {
+                this.domainAliases = OptionalNullable.ofNull();
+            } else if (domainAliases.isEmpty()) {
+                this.domainAliases = OptionalNullable.absent();
+            } else {
+                this.domainAliases = OptionalNullable.of(domainAliases.get());
+            }
             return this;
         }
 
@@ -221,6 +251,16 @@ public final class SelfServiceProfileSsoTicketConnectionOptions {
         public SelfServiceProfileSsoTicketConnectionOptions build() {
             return new SelfServiceProfileSsoTicketConnectionOptions(
                     iconUrl, domainAliases, idpinitiated, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

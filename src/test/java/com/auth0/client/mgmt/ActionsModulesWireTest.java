@@ -390,7 +390,7 @@ public class ActionsModulesWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"actions\":[{\"action_id\":\"action_id\",\"action_name\":\"action_name\",\"module_version_id\":\"module_version_id\",\"module_version_number\":1,\"supported_triggers\":[{\"id\":\"id\"}]}],\"total\":1,\"page\":1,\"per_page\":1}"));
+                                "{\"actions\":[{\"action_id\":\"action_id\",\"action_name\":\"action_name\",\"module_version_id\":\"module_version_id\",\"module_version_number\":1,\"supported_triggers\":[{\"id\":\"post-login\"}]}],\"total\":1,\"page\":1,\"per_page\":1}"));
         SyncPagingIterable<ActionModuleAction> response = client.actions()
                 .modules()
                 .listActions(

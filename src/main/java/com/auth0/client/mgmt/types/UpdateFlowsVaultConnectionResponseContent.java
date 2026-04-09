@@ -246,6 +246,10 @@ public final class UpdateFlowsVaultConnectionResponseContent {
     public interface _FinalStage {
         UpdateFlowsVaultConnectionResponseContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Flows Vault Connection environment.</p>
          */
@@ -471,6 +475,18 @@ public final class UpdateFlowsVaultConnectionResponseContent {
                     refreshedAt,
                     fingerprint,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

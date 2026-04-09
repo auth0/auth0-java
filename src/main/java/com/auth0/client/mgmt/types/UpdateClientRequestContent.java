@@ -102,7 +102,7 @@ public final class UpdateClientRequestContent {
 
     private final OptionalNullable<ClientOrganizationRequireBehaviorPatchEnum> organizationRequireBehavior;
 
-    private final Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods;
+    private final OptionalNullable<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods;
 
     private final OptionalNullable<ClientAuthenticationMethod> clientAuthenticationMethods;
 
@@ -122,7 +122,7 @@ public final class UpdateClientRequestContent {
 
     private final OptionalNullable<ExpressConfigurationOrNull> expressConfiguration;
 
-    private final Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
+    private final OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
 
     private final Map<String, Object> additionalProperties;
 
@@ -166,7 +166,7 @@ public final class UpdateClientRequestContent {
             OptionalNullable<ClientDefaultOrganization> defaultOrganization,
             OptionalNullable<ClientOrganizationUsagePatchEnum> organizationUsage,
             OptionalNullable<ClientOrganizationRequireBehaviorPatchEnum> organizationRequireBehavior,
-            Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods,
+            OptionalNullable<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods,
             OptionalNullable<ClientAuthenticationMethod> clientAuthenticationMethods,
             Optional<Boolean> requirePushedAuthorizationRequests,
             Optional<Boolean> requireProofOfPossession,
@@ -176,7 +176,7 @@ public final class UpdateClientRequestContent {
             OptionalNullable<ClientTokenExchangeConfigurationOrNull> tokenExchange,
             OptionalNullable<Integer> parRequestExpiry,
             OptionalNullable<ExpressConfigurationOrNull> expressConfiguration,
-            Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
+            OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
@@ -240,7 +240,7 @@ public final class UpdateClientRequestContent {
     }
 
     /**
-     * @return Free text description of the purpose of the Client. (Max character length: &lt;code&gt;140&lt;/code&gt;)
+     * @return Free text description of the purpose of the Client. (Max character length: <code>140</code>)
      */
     @JsonProperty("description")
     public Optional<String> getDescription() {
@@ -276,6 +276,9 @@ public final class UpdateClientRequestContent {
         return oidcLogout;
     }
 
+    /**
+     * @return Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
+     */
     @JsonProperty("oidc_backchannel_logout")
     public Optional<ClientOidcBackchannelLogoutSettings> getOidcBackchannelLogout() {
         return oidcBackchannelLogout;
@@ -338,11 +341,17 @@ public final class UpdateClientRequestContent {
         return allowedLogoutUrls;
     }
 
+    /**
+     * @return An object that holds settings related to how JWTs are created
+     */
     @JsonProperty("jwt_configuration")
     public Optional<ClientJwtConfiguration> getJwtConfiguration() {
         return jwtConfiguration;
     }
 
+    /**
+     * @return The client's encryption key
+     */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("encryption_key")
     public OptionalNullable<ClientEncryptionKey> getEncryptionKey() {
@@ -353,7 +362,7 @@ public final class UpdateClientRequestContent {
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; to use Auth0 instead of the IdP to do Single Sign On, &lt;code&gt;false&lt;/code&gt; otherwise (default: &lt;code&gt;false&lt;/code&gt;)
+     * @return <code>true</code> to use Auth0 instead of the IdP to do Single Sign On, <code>false</code> otherwise (default: <code>false</code>)
      */
     @JsonProperty("sso")
     public Optional<Boolean> getSso() {
@@ -361,7 +370,7 @@ public final class UpdateClientRequestContent {
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; if this client can be used to make cross-origin authentication requests, &lt;code&gt;false&lt;/code&gt; otherwise if cross origin is disabled
+     * @return <code>true</code> if this client can be used to make cross-origin authentication requests, <code>false</code> otherwise if cross origin is disabled
      */
     @JsonProperty("cross_origin_authentication")
     public Optional<Boolean> getCrossOriginAuthentication() {
@@ -381,7 +390,7 @@ public final class UpdateClientRequestContent {
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; to disable Single Sign On, &lt;code&gt;false&lt;/code&gt; otherwise (default: &lt;code&gt;false&lt;/code&gt;)
+     * @return <code>true</code> to disable Single Sign On, <code>false</code> otherwise (default: <code>false</code>)
      */
     @JsonProperty("sso_disabled")
     public Optional<Boolean> getSsoDisabled() {
@@ -389,7 +398,7 @@ public final class UpdateClientRequestContent {
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; if the custom login page is to be used, &lt;code&gt;false&lt;/code&gt; otherwise.
+     * @return <code>true</code> if the custom login page is to be used, <code>false</code> otherwise.
      */
     @JsonProperty("custom_login_page_on")
     public Optional<Boolean> getCustomLoginPageOn() {
@@ -474,6 +483,9 @@ public final class UpdateClientRequestContent {
         return clientMetadata;
     }
 
+    /**
+     * @return Configuration related to native mobile apps
+     */
     @JsonProperty("mobile")
     public Optional<ClientMobile> getMobile() {
         return mobile;
@@ -531,8 +543,12 @@ public final class UpdateClientRequestContent {
     /**
      * @return Defines the available methods for organization discovery during the <code>pre_login_prompt</code>. Users can discover their organization either by <code>email</code>, <code>organization_name</code> or both.
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("organization_discovery_methods")
-    public Optional<List<ClientOrganizationDiscoveryEnum>> getOrganizationDiscoveryMethods() {
+    public OptionalNullable<List<ClientOrganizationDiscoveryEnum>> getOrganizationDiscoveryMethods() {
+        if (organizationDiscoveryMethods == null) {
+            return OptionalNullable.absent();
+        }
         return organizationDiscoveryMethods;
     }
 
@@ -619,8 +635,12 @@ public final class UpdateClientRequestContent {
         return expressConfiguration;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("async_approval_notification_channels")
-    public Optional<List<AsyncApprovalNotificationsChannelsEnum>> getAsyncApprovalNotificationChannels() {
+    public OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> getAsyncApprovalNotificationChannels() {
+        if (asyncApprovalNotificationChannels == null) {
+            return OptionalNullable.absent();
+        }
         return asyncApprovalNotificationChannels;
     }
 
@@ -679,6 +699,12 @@ public final class UpdateClientRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("organization_discovery_methods")
+    private OptionalNullable<List<ClientOrganizationDiscoveryEnum>> _getOrganizationDiscoveryMethods() {
+        return organizationDiscoveryMethods;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("client_authentication_methods")
     private OptionalNullable<ClientAuthenticationMethod> _getClientAuthenticationMethods() {
         return clientAuthenticationMethods;
@@ -712,6 +738,12 @@ public final class UpdateClientRequestContent {
     @JsonProperty("express_configuration")
     private OptionalNullable<ExpressConfigurationOrNull> _getExpressConfiguration() {
         return expressConfiguration;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("async_approval_notification_channels")
+    private OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> _getAsyncApprovalNotificationChannels() {
+        return asyncApprovalNotificationChannels;
     }
 
     @java.lang.Override
@@ -925,7 +957,8 @@ public final class UpdateClientRequestContent {
         private OptionalNullable<ClientOrganizationRequireBehaviorPatchEnum> organizationRequireBehavior =
                 OptionalNullable.absent();
 
-        private Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods = Optional.empty();
+        private OptionalNullable<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods =
+                OptionalNullable.absent();
 
         private OptionalNullable<ClientAuthenticationMethod> clientAuthenticationMethods = OptionalNullable.absent();
 
@@ -945,8 +978,8 @@ public final class UpdateClientRequestContent {
 
         private OptionalNullable<ExpressConfigurationOrNull> expressConfiguration = OptionalNullable.absent();
 
-        private Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
-                Optional.empty();
+        private OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
+                OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -1022,7 +1055,7 @@ public final class UpdateClientRequestContent {
         }
 
         /**
-         * <p>Free text description of the purpose of the Client. (Max character length: &lt;code&gt;140&lt;/code&gt;)</p>
+         * <p>Free text description of the purpose of the Client. (Max character length: <code>140</code>)</p>
          */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
@@ -1088,6 +1121,9 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        /**
+         * <p>Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)</p>
+         */
         @JsonSetter(value = "oidc_backchannel_logout", nulls = Nulls.SKIP)
         public Builder oidcBackchannelLogout(Optional<ClientOidcBackchannelLogoutSettings> oidcBackchannelLogout) {
             this.oidcBackchannelLogout = oidcBackchannelLogout;
@@ -1215,6 +1251,9 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        /**
+         * <p>An object that holds settings related to how JWTs are created</p>
+         */
         @JsonSetter(value = "jwt_configuration", nulls = Nulls.SKIP)
         public Builder jwtConfiguration(Optional<ClientJwtConfiguration> jwtConfiguration) {
             this.jwtConfiguration = jwtConfiguration;
@@ -1226,6 +1265,9 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        /**
+         * <p>The client's encryption key</p>
+         */
         @JsonSetter(value = "encryption_key", nulls = Nulls.SKIP)
         public Builder encryptionKey(@Nullable OptionalNullable<ClientEncryptionKey> encryptionKey) {
             this.encryptionKey = encryptionKey;
@@ -1258,7 +1300,7 @@ public final class UpdateClientRequestContent {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; to use Auth0 instead of the IdP to do Single Sign On, &lt;code&gt;false&lt;/code&gt; otherwise (default: &lt;code&gt;false&lt;/code&gt;)</p>
+         * <p><code>true</code> to use Auth0 instead of the IdP to do Single Sign On, <code>false</code> otherwise (default: <code>false</code>)</p>
          */
         @JsonSetter(value = "sso", nulls = Nulls.SKIP)
         public Builder sso(Optional<Boolean> sso) {
@@ -1272,7 +1314,7 @@ public final class UpdateClientRequestContent {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; if this client can be used to make cross-origin authentication requests, &lt;code&gt;false&lt;/code&gt; otherwise if cross origin is disabled</p>
+         * <p><code>true</code> if this client can be used to make cross-origin authentication requests, <code>false</code> otherwise if cross origin is disabled</p>
          */
         @JsonSetter(value = "cross_origin_authentication", nulls = Nulls.SKIP)
         public Builder crossOriginAuthentication(Optional<Boolean> crossOriginAuthentication) {
@@ -1320,7 +1362,7 @@ public final class UpdateClientRequestContent {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; to disable Single Sign On, &lt;code&gt;false&lt;/code&gt; otherwise (default: &lt;code&gt;false&lt;/code&gt;)</p>
+         * <p><code>true</code> to disable Single Sign On, <code>false</code> otherwise (default: <code>false</code>)</p>
          */
         @JsonSetter(value = "sso_disabled", nulls = Nulls.SKIP)
         public Builder ssoDisabled(Optional<Boolean> ssoDisabled) {
@@ -1334,7 +1376,7 @@ public final class UpdateClientRequestContent {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; if the custom login page is to be used, &lt;code&gt;false&lt;/code&gt; otherwise.</p>
+         * <p><code>true</code> if the custom login page is to be used, <code>false</code> otherwise.</p>
          */
         @JsonSetter(value = "custom_login_page_on", nulls = Nulls.SKIP)
         public Builder customLoginPageOn(Optional<Boolean> customLoginPageOn) {
@@ -1526,6 +1568,9 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        /**
+         * <p>Configuration related to native mobile apps</p>
+         */
         @JsonSetter(value = "mobile", nulls = Nulls.SKIP)
         public Builder mobile(Optional<ClientMobile> mobile) {
             this.mobile = mobile;
@@ -1699,14 +1744,37 @@ public final class UpdateClientRequestContent {
          */
         @JsonSetter(value = "organization_discovery_methods", nulls = Nulls.SKIP)
         public Builder organizationDiscoveryMethods(
-                Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods) {
+                @Nullable OptionalNullable<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods) {
             this.organizationDiscoveryMethods = organizationDiscoveryMethods;
             return this;
         }
 
         public Builder organizationDiscoveryMethods(
                 List<ClientOrganizationDiscoveryEnum> organizationDiscoveryMethods) {
-            this.organizationDiscoveryMethods = Optional.ofNullable(organizationDiscoveryMethods);
+            this.organizationDiscoveryMethods = OptionalNullable.of(organizationDiscoveryMethods);
+            return this;
+        }
+
+        public Builder organizationDiscoveryMethods(
+                Optional<List<ClientOrganizationDiscoveryEnum>> organizationDiscoveryMethods) {
+            if (organizationDiscoveryMethods.isPresent()) {
+                this.organizationDiscoveryMethods = OptionalNullable.of(organizationDiscoveryMethods.get());
+            } else {
+                this.organizationDiscoveryMethods = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder organizationDiscoveryMethods(
+                com.auth0.client.mgmt.core.Nullable<List<ClientOrganizationDiscoveryEnum>>
+                        organizationDiscoveryMethods) {
+            if (organizationDiscoveryMethods.isNull()) {
+                this.organizationDiscoveryMethods = OptionalNullable.ofNull();
+            } else if (organizationDiscoveryMethods.isEmpty()) {
+                this.organizationDiscoveryMethods = OptionalNullable.absent();
+            } else {
+                this.organizationDiscoveryMethods = OptionalNullable.of(organizationDiscoveryMethods.get());
+            }
             return this;
         }
 
@@ -1957,14 +2025,39 @@ public final class UpdateClientRequestContent {
 
         @JsonSetter(value = "async_approval_notification_channels", nulls = Nulls.SKIP)
         public Builder asyncApprovalNotificationChannels(
-                Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels) {
+                @Nullable
+                        OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>>
+                                asyncApprovalNotificationChannels) {
             this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
             return this;
         }
 
         public Builder asyncApprovalNotificationChannels(
                 List<AsyncApprovalNotificationsChannelsEnum> asyncApprovalNotificationChannels) {
-            this.asyncApprovalNotificationChannels = Optional.ofNullable(asyncApprovalNotificationChannels);
+            this.asyncApprovalNotificationChannels = OptionalNullable.of(asyncApprovalNotificationChannels);
+            return this;
+        }
+
+        public Builder asyncApprovalNotificationChannels(
+                Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels) {
+            if (asyncApprovalNotificationChannels.isPresent()) {
+                this.asyncApprovalNotificationChannels = OptionalNullable.of(asyncApprovalNotificationChannels.get());
+            } else {
+                this.asyncApprovalNotificationChannels = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder asyncApprovalNotificationChannels(
+                com.auth0.client.mgmt.core.Nullable<List<AsyncApprovalNotificationsChannelsEnum>>
+                        asyncApprovalNotificationChannels) {
+            if (asyncApprovalNotificationChannels.isNull()) {
+                this.asyncApprovalNotificationChannels = OptionalNullable.ofNull();
+            } else if (asyncApprovalNotificationChannels.isEmpty()) {
+                this.asyncApprovalNotificationChannels = OptionalNullable.absent();
+            } else {
+                this.asyncApprovalNotificationChannels = OptionalNullable.of(asyncApprovalNotificationChannels.get());
+            }
             return this;
         }
 
@@ -2021,6 +2114,16 @@ public final class UpdateClientRequestContent {
                     expressConfiguration,
                     asyncApprovalNotificationChannels,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

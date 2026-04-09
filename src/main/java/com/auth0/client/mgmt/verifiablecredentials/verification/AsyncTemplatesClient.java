@@ -43,6 +43,14 @@ public class AsyncTemplatesClient {
      * List a verifiable credential templates.
      */
     public CompletableFuture<SyncPagingIterable<VerifiableCredentialTemplateResponse>> list(
+            RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * List a verifiable credential templates.
+     */
+    public CompletableFuture<SyncPagingIterable<VerifiableCredentialTemplateResponse>> list(
             ListVerifiableCredentialTemplatesRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
@@ -105,6 +113,14 @@ public class AsyncTemplatesClient {
      */
     public CompletableFuture<UpdateVerifiableCredentialTemplateResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update a verifiable credential template.
+     */
+    public CompletableFuture<UpdateVerifiableCredentialTemplateResponseContent> update(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
     }
 
     /**

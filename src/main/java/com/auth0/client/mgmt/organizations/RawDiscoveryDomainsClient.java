@@ -48,6 +48,7 @@ public class RawDiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<OrganizationDiscoveryDomain>> list(String id) {
         return list(
@@ -56,6 +57,17 @@ public class RawDiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<OrganizationDiscoveryDomain>> list(
+            String id, RequestOptions requestOptions) {
+        return list(
+                id, ListOrganizationDiscoveryDomainsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<OrganizationDiscoveryDomain>> list(
             String id, ListOrganizationDiscoveryDomainsRequestParameters request) {
@@ -64,6 +76,7 @@ public class RawDiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<OrganizationDiscoveryDomain>> list(
             String id, ListOrganizationDiscoveryDomainsRequestParameters request, RequestOptions requestOptions) {
@@ -77,6 +90,11 @@ public class RawDiscoveryDomainsClient {
                     httpUrl, "from", request.getFrom().orElse(null), false);
         }
         QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -149,12 +167,16 @@ public class RawDiscoveryDomainsClient {
      */
     public ManagementApiHttpResponse<CreateOrganizationDiscoveryDomainResponseContent> create(
             String id, CreateOrganizationDiscoveryDomainRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
-                .addPathSegments("discovery-domains")
-                .build();
+                .addPathSegments("discovery-domains");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -163,7 +185,7 @@ public class RawDiscoveryDomainsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -216,6 +238,7 @@ public class RawDiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by domain name.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public ManagementApiHttpResponse<GetOrganizationDiscoveryDomainByNameResponseContent> getByName(
             String id, String discoveryDomain) {
@@ -224,18 +247,23 @@ public class RawDiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by domain name.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public ManagementApiHttpResponse<GetOrganizationDiscoveryDomainByNameResponseContent> getByName(
             String id, String discoveryDomain, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
                 .addPathSegments("discovery-domains/name")
-                .addPathSegment(discoveryDomain)
-                .build();
+                .addPathSegment(discoveryDomain);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -284,6 +312,7 @@ public class RawDiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by ID.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public ManagementApiHttpResponse<GetOrganizationDiscoveryDomainResponseContent> get(
             String id, String discoveryDomainId) {
@@ -292,18 +321,23 @@ public class RawDiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by ID.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public ManagementApiHttpResponse<GetOrganizationDiscoveryDomainResponseContent> get(
             String id, String discoveryDomainId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
                 .addPathSegments("discovery-domains")
-                .addPathSegment(discoveryDomainId)
-                .build();
+                .addPathSegment(discoveryDomainId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -361,15 +395,19 @@ public class RawDiscoveryDomainsClient {
      * Remove a discovery domain from an organization. This action cannot be undone.
      */
     public ManagementApiHttpResponse<Void> delete(String id, String discoveryDomainId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
                 .addPathSegments("discovery-domains")
-                .addPathSegment(discoveryDomainId)
-                .build();
+                .addPathSegment(discoveryDomainId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -411,7 +449,7 @@ public class RawDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
      */
     public ManagementApiHttpResponse<UpdateOrganizationDiscoveryDomainResponseContent> update(
             String id, String discoveryDomainId) {
@@ -422,7 +460,19 @@ public class RawDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
+     */
+    public ManagementApiHttpResponse<UpdateOrganizationDiscoveryDomainResponseContent> update(
+            String id, String discoveryDomainId, RequestOptions requestOptions) {
+        return update(
+                id,
+                discoveryDomainId,
+                UpdateOrganizationDiscoveryDomainRequestContent.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
      */
     public ManagementApiHttpResponse<UpdateOrganizationDiscoveryDomainResponseContent> update(
             String id, String discoveryDomainId, UpdateOrganizationDiscoveryDomainRequestContent request) {
@@ -430,20 +480,24 @@ public class RawDiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
      */
     public ManagementApiHttpResponse<UpdateOrganizationDiscoveryDomainResponseContent> update(
             String id,
             String discoveryDomainId,
             UpdateOrganizationDiscoveryDomainRequestContent request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(id)
                 .addPathSegments("discovery-domains")
-                .addPathSegment(discoveryDomainId)
-                .build();
+                .addPathSegment(discoveryDomainId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -452,7 +506,7 @@ public class RawDiscoveryDomainsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

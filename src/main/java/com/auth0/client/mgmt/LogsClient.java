@@ -29,26 +29,26 @@ public class LogsClient {
 
     /**
      * Retrieve log entries that match the specified search criteria (or all log entries if no criteria specified).
-     * <p>Set custom search criteria using the &lt;code&gt;q&lt;/code&gt; parameter, or search from a specific log ID (&lt;i&gt;&quot;search from checkpoint&quot;&lt;/i&gt;).</p>
-     * <p>For more information on all possible event types, their respective acronyms, and descriptions, see &lt;a href=&quot;https://auth0.com/docs/logs/log-event-type-codes&quot;&gt;Log Event Type Codes&lt;/a&gt;.</p>
-     * <p>&lt;h5&gt;To set custom search criteria, use the following parameters:&lt;/h5&gt;</p>
-     * <p>&lt;ul&gt;
-     *     &lt;li&gt;&lt;b&gt;q:&lt;/b&gt; Search Criteria using &lt;a href=&quot;https://auth0.com/docs/logs/log-search-query-syntax&quot;&gt;Query String Syntax&lt;/a&gt;&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;page:&lt;/b&gt; Page index of the results to return. First page is 0.&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;per_page:&lt;/b&gt; Number of results per page.&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;sort:&lt;/b&gt; Field to use for sorting appended with `:1` for ascending and `:-1` for descending. e.g. `date:-1`&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;fields:&lt;/b&gt; Comma-separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields.&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;include_fields:&lt;/b&gt; Whether specified fields are to be included (true) or excluded (false).&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;include_totals:&lt;/b&gt; Return results inside an object that contains the total result count (true) or as a direct array of results (false, default). &lt;b&gt;Deprecated:&lt;/b&gt; this field is deprecated and should be removed from use. See &lt;a href=&quot;https://auth0.com/docs/product-lifecycle/deprecations-and-migrations/migrate-to-tenant-log-search-v3#pagination&quot;&gt;Search Engine V3 Breaking Changes&lt;/a&gt;&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>For more information on the list of fields that can be used in &lt;code&gt;fields&lt;/code&gt; and &lt;code&gt;sort&lt;/code&gt;, see &lt;a href=&quot;https://auth0.com/docs/logs/log-search-query-syntax#searchable-fields&quot;&gt;Searchable Fields&lt;/a&gt;.</p>
-     * <p>Auth0 &lt;a href=&quot;https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#limitations&quot;&gt;limits the number of logs&lt;/a&gt; you can return by search criteria to 100 logs per request. Furthermore, you may paginate only through 1,000 search results. If you exceed this threshold, please redefine your search or use the &lt;a href=&quot;https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#retrieve-logs-by-checkpoint&quot;&gt;get logs by checkpoint method&lt;/a&gt;.</p>
-     * <p>&lt;h5&gt;To search from a checkpoint log ID, use the following parameters:&lt;/h5&gt;
-     * &lt;ul&gt;
-     *     &lt;li&gt;&lt;b&gt;from:&lt;/b&gt; Log Event ID from which to start retrieving logs. You can limit the number of logs returned using the &lt;code&gt;take&lt;/code&gt; parameter. If you use &lt;code&gt;from&lt;/code&gt; at the same time as &lt;code&gt;q&lt;/code&gt;, &lt;code&gt;from&lt;/code&gt; takes precedence and &lt;code&gt;q&lt;/code&gt; is ignored.&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;take:&lt;/b&gt; Number of entries to retrieve when using the &lt;code&gt;from&lt;/code&gt; parameter.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;strong&gt;Important:&lt;/strong&gt; When fetching logs from a checkpoint log ID, any parameter other than &lt;code&gt;from&lt;/code&gt; and &lt;code&gt;take&lt;/code&gt; will be ignored, and date ordering is not guaranteed.</p>
+     * <p>Set custom search criteria using the <code>q</code> parameter, or search from a specific log ID (<i>&quot;search from checkpoint&quot;</i>).</p>
+     * <p>For more information on all possible event types, their respective acronyms, and descriptions, see <a href="https://auth0.com/docs/logs/log-event-type-codes">Log Event Type Codes</a>.</p>
+     * <p><h5>To set custom search criteria, use the following parameters:</h5></p>
+     * <p><ul>
+     *     <li><b>q:</b> Search Criteria using <a href="https://auth0.com/docs/logs/log-search-query-syntax">Query String Syntax</a></li>
+     *     <li><b>page:</b> Page index of the results to return. First page is 0.</li>
+     *     <li><b>per_page:</b> Number of results per page.</li>
+     *     <li><b>sort:</b> Field to use for sorting appended with `:1` for ascending and `:-1` for descending. e.g. `date:-1`</li>
+     *     <li><b>fields:</b> Comma-separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields.</li>
+     *     <li><b>include_fields:</b> Whether specified fields are to be included (true) or excluded (false).</li>
+     *     <li><b>include_totals:</b> Return results inside an object that contains the total result count (true) or as a direct array of results (false, default). <b>Deprecated:</b> this field is deprecated and should be removed from use. See <a href="https://auth0.com/docs/product-lifecycle/deprecations-and-migrations/migrate-to-tenant-log-search-v3#pagination">Search Engine V3 Breaking Changes</a></li>
+     * </ul></p>
+     * <p>For more information on the list of fields that can be used in <code>fields</code> and <code>sort</code>, see <a href="https://auth0.com/docs/logs/log-search-query-syntax#searchable-fields">Searchable Fields</a>.</p>
+     * <p>Auth0 <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#limitations">limits the number of logs</a> you can return by search criteria to 100 logs per request. Furthermore, you may paginate only through 1,000 search results. If you exceed this threshold, please redefine your search or use the <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#retrieve-logs-by-checkpoint">get logs by checkpoint method</a>.</p>
+     * <p><h5>To search from a checkpoint log ID, use the following parameters:</h5>
+     * <ul>
+     *     <li><b>from:</b> Log Event ID from which to start retrieving logs. You can limit the number of logs returned using the <code>take</code> parameter. If you use <code>from</code> at the same time as <code>q</code>, <code>from</code> takes precedence and <code>q</code> is ignored.</li>
+     *     <li><b>take:</b> Number of entries to retrieve when using the <code>from</code> parameter.</li>
+     * </ul></p>
+     * <p><strong>Important:</strong> When fetching logs from a checkpoint log ID, any parameter other than <code>from</code> and <code>take</code> will be ignored, and date ordering is not guaranteed.</p>
      */
     public SyncPagingIterable<Log> list() {
         return this.rawClient.list().body();
@@ -56,26 +56,53 @@ public class LogsClient {
 
     /**
      * Retrieve log entries that match the specified search criteria (or all log entries if no criteria specified).
-     * <p>Set custom search criteria using the &lt;code&gt;q&lt;/code&gt; parameter, or search from a specific log ID (&lt;i&gt;&quot;search from checkpoint&quot;&lt;/i&gt;).</p>
-     * <p>For more information on all possible event types, their respective acronyms, and descriptions, see &lt;a href=&quot;https://auth0.com/docs/logs/log-event-type-codes&quot;&gt;Log Event Type Codes&lt;/a&gt;.</p>
-     * <p>&lt;h5&gt;To set custom search criteria, use the following parameters:&lt;/h5&gt;</p>
-     * <p>&lt;ul&gt;
-     *     &lt;li&gt;&lt;b&gt;q:&lt;/b&gt; Search Criteria using &lt;a href=&quot;https://auth0.com/docs/logs/log-search-query-syntax&quot;&gt;Query String Syntax&lt;/a&gt;&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;page:&lt;/b&gt; Page index of the results to return. First page is 0.&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;per_page:&lt;/b&gt; Number of results per page.&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;sort:&lt;/b&gt; Field to use for sorting appended with `:1` for ascending and `:-1` for descending. e.g. `date:-1`&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;fields:&lt;/b&gt; Comma-separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields.&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;include_fields:&lt;/b&gt; Whether specified fields are to be included (true) or excluded (false).&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;include_totals:&lt;/b&gt; Return results inside an object that contains the total result count (true) or as a direct array of results (false, default). &lt;b&gt;Deprecated:&lt;/b&gt; this field is deprecated and should be removed from use. See &lt;a href=&quot;https://auth0.com/docs/product-lifecycle/deprecations-and-migrations/migrate-to-tenant-log-search-v3#pagination&quot;&gt;Search Engine V3 Breaking Changes&lt;/a&gt;&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>For more information on the list of fields that can be used in &lt;code&gt;fields&lt;/code&gt; and &lt;code&gt;sort&lt;/code&gt;, see &lt;a href=&quot;https://auth0.com/docs/logs/log-search-query-syntax#searchable-fields&quot;&gt;Searchable Fields&lt;/a&gt;.</p>
-     * <p>Auth0 &lt;a href=&quot;https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#limitations&quot;&gt;limits the number of logs&lt;/a&gt; you can return by search criteria to 100 logs per request. Furthermore, you may paginate only through 1,000 search results. If you exceed this threshold, please redefine your search or use the &lt;a href=&quot;https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#retrieve-logs-by-checkpoint&quot;&gt;get logs by checkpoint method&lt;/a&gt;.</p>
-     * <p>&lt;h5&gt;To search from a checkpoint log ID, use the following parameters:&lt;/h5&gt;
-     * &lt;ul&gt;
-     *     &lt;li&gt;&lt;b&gt;from:&lt;/b&gt; Log Event ID from which to start retrieving logs. You can limit the number of logs returned using the &lt;code&gt;take&lt;/code&gt; parameter. If you use &lt;code&gt;from&lt;/code&gt; at the same time as &lt;code&gt;q&lt;/code&gt;, &lt;code&gt;from&lt;/code&gt; takes precedence and &lt;code&gt;q&lt;/code&gt; is ignored.&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;take:&lt;/b&gt; Number of entries to retrieve when using the &lt;code&gt;from&lt;/code&gt; parameter.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;strong&gt;Important:&lt;/strong&gt; When fetching logs from a checkpoint log ID, any parameter other than &lt;code&gt;from&lt;/code&gt; and &lt;code&gt;take&lt;/code&gt; will be ignored, and date ordering is not guaranteed.</p>
+     * <p>Set custom search criteria using the <code>q</code> parameter, or search from a specific log ID (<i>&quot;search from checkpoint&quot;</i>).</p>
+     * <p>For more information on all possible event types, their respective acronyms, and descriptions, see <a href="https://auth0.com/docs/logs/log-event-type-codes">Log Event Type Codes</a>.</p>
+     * <p><h5>To set custom search criteria, use the following parameters:</h5></p>
+     * <p><ul>
+     *     <li><b>q:</b> Search Criteria using <a href="https://auth0.com/docs/logs/log-search-query-syntax">Query String Syntax</a></li>
+     *     <li><b>page:</b> Page index of the results to return. First page is 0.</li>
+     *     <li><b>per_page:</b> Number of results per page.</li>
+     *     <li><b>sort:</b> Field to use for sorting appended with `:1` for ascending and `:-1` for descending. e.g. `date:-1`</li>
+     *     <li><b>fields:</b> Comma-separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields.</li>
+     *     <li><b>include_fields:</b> Whether specified fields are to be included (true) or excluded (false).</li>
+     *     <li><b>include_totals:</b> Return results inside an object that contains the total result count (true) or as a direct array of results (false, default). <b>Deprecated:</b> this field is deprecated and should be removed from use. See <a href="https://auth0.com/docs/product-lifecycle/deprecations-and-migrations/migrate-to-tenant-log-search-v3#pagination">Search Engine V3 Breaking Changes</a></li>
+     * </ul></p>
+     * <p>For more information on the list of fields that can be used in <code>fields</code> and <code>sort</code>, see <a href="https://auth0.com/docs/logs/log-search-query-syntax#searchable-fields">Searchable Fields</a>.</p>
+     * <p>Auth0 <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#limitations">limits the number of logs</a> you can return by search criteria to 100 logs per request. Furthermore, you may paginate only through 1,000 search results. If you exceed this threshold, please redefine your search or use the <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#retrieve-logs-by-checkpoint">get logs by checkpoint method</a>.</p>
+     * <p><h5>To search from a checkpoint log ID, use the following parameters:</h5>
+     * <ul>
+     *     <li><b>from:</b> Log Event ID from which to start retrieving logs. You can limit the number of logs returned using the <code>take</code> parameter. If you use <code>from</code> at the same time as <code>q</code>, <code>from</code> takes precedence and <code>q</code> is ignored.</li>
+     *     <li><b>take:</b> Number of entries to retrieve when using the <code>from</code> parameter.</li>
+     * </ul></p>
+     * <p><strong>Important:</strong> When fetching logs from a checkpoint log ID, any parameter other than <code>from</code> and <code>take</code> will be ignored, and date ordering is not guaranteed.</p>
+     */
+    public SyncPagingIterable<Log> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve log entries that match the specified search criteria (or all log entries if no criteria specified).
+     * <p>Set custom search criteria using the <code>q</code> parameter, or search from a specific log ID (<i>&quot;search from checkpoint&quot;</i>).</p>
+     * <p>For more information on all possible event types, their respective acronyms, and descriptions, see <a href="https://auth0.com/docs/logs/log-event-type-codes">Log Event Type Codes</a>.</p>
+     * <p><h5>To set custom search criteria, use the following parameters:</h5></p>
+     * <p><ul>
+     *     <li><b>q:</b> Search Criteria using <a href="https://auth0.com/docs/logs/log-search-query-syntax">Query String Syntax</a></li>
+     *     <li><b>page:</b> Page index of the results to return. First page is 0.</li>
+     *     <li><b>per_page:</b> Number of results per page.</li>
+     *     <li><b>sort:</b> Field to use for sorting appended with `:1` for ascending and `:-1` for descending. e.g. `date:-1`</li>
+     *     <li><b>fields:</b> Comma-separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields.</li>
+     *     <li><b>include_fields:</b> Whether specified fields are to be included (true) or excluded (false).</li>
+     *     <li><b>include_totals:</b> Return results inside an object that contains the total result count (true) or as a direct array of results (false, default). <b>Deprecated:</b> this field is deprecated and should be removed from use. See <a href="https://auth0.com/docs/product-lifecycle/deprecations-and-migrations/migrate-to-tenant-log-search-v3#pagination">Search Engine V3 Breaking Changes</a></li>
+     * </ul></p>
+     * <p>For more information on the list of fields that can be used in <code>fields</code> and <code>sort</code>, see <a href="https://auth0.com/docs/logs/log-search-query-syntax#searchable-fields">Searchable Fields</a>.</p>
+     * <p>Auth0 <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#limitations">limits the number of logs</a> you can return by search criteria to 100 logs per request. Furthermore, you may paginate only through 1,000 search results. If you exceed this threshold, please redefine your search or use the <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#retrieve-logs-by-checkpoint">get logs by checkpoint method</a>.</p>
+     * <p><h5>To search from a checkpoint log ID, use the following parameters:</h5>
+     * <ul>
+     *     <li><b>from:</b> Log Event ID from which to start retrieving logs. You can limit the number of logs returned using the <code>take</code> parameter. If you use <code>from</code> at the same time as <code>q</code>, <code>from</code> takes precedence and <code>q</code> is ignored.</li>
+     *     <li><b>take:</b> Number of entries to retrieve when using the <code>from</code> parameter.</li>
+     * </ul></p>
+     * <p><strong>Important:</strong> When fetching logs from a checkpoint log ID, any parameter other than <code>from</code> and <code>take</code> will be ignored, and date ordering is not guaranteed.</p>
      */
     public SyncPagingIterable<Log> list(ListLogsRequestParameters request) {
         return this.rawClient.list(request).body();
@@ -83,26 +110,26 @@ public class LogsClient {
 
     /**
      * Retrieve log entries that match the specified search criteria (or all log entries if no criteria specified).
-     * <p>Set custom search criteria using the &lt;code&gt;q&lt;/code&gt; parameter, or search from a specific log ID (&lt;i&gt;&quot;search from checkpoint&quot;&lt;/i&gt;).</p>
-     * <p>For more information on all possible event types, their respective acronyms, and descriptions, see &lt;a href=&quot;https://auth0.com/docs/logs/log-event-type-codes&quot;&gt;Log Event Type Codes&lt;/a&gt;.</p>
-     * <p>&lt;h5&gt;To set custom search criteria, use the following parameters:&lt;/h5&gt;</p>
-     * <p>&lt;ul&gt;
-     *     &lt;li&gt;&lt;b&gt;q:&lt;/b&gt; Search Criteria using &lt;a href=&quot;https://auth0.com/docs/logs/log-search-query-syntax&quot;&gt;Query String Syntax&lt;/a&gt;&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;page:&lt;/b&gt; Page index of the results to return. First page is 0.&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;per_page:&lt;/b&gt; Number of results per page.&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;sort:&lt;/b&gt; Field to use for sorting appended with `:1` for ascending and `:-1` for descending. e.g. `date:-1`&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;fields:&lt;/b&gt; Comma-separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields.&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;include_fields:&lt;/b&gt; Whether specified fields are to be included (true) or excluded (false).&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;include_totals:&lt;/b&gt; Return results inside an object that contains the total result count (true) or as a direct array of results (false, default). &lt;b&gt;Deprecated:&lt;/b&gt; this field is deprecated and should be removed from use. See &lt;a href=&quot;https://auth0.com/docs/product-lifecycle/deprecations-and-migrations/migrate-to-tenant-log-search-v3#pagination&quot;&gt;Search Engine V3 Breaking Changes&lt;/a&gt;&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>For more information on the list of fields that can be used in &lt;code&gt;fields&lt;/code&gt; and &lt;code&gt;sort&lt;/code&gt;, see &lt;a href=&quot;https://auth0.com/docs/logs/log-search-query-syntax#searchable-fields&quot;&gt;Searchable Fields&lt;/a&gt;.</p>
-     * <p>Auth0 &lt;a href=&quot;https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#limitations&quot;&gt;limits the number of logs&lt;/a&gt; you can return by search criteria to 100 logs per request. Furthermore, you may paginate only through 1,000 search results. If you exceed this threshold, please redefine your search or use the &lt;a href=&quot;https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#retrieve-logs-by-checkpoint&quot;&gt;get logs by checkpoint method&lt;/a&gt;.</p>
-     * <p>&lt;h5&gt;To search from a checkpoint log ID, use the following parameters:&lt;/h5&gt;
-     * &lt;ul&gt;
-     *     &lt;li&gt;&lt;b&gt;from:&lt;/b&gt; Log Event ID from which to start retrieving logs. You can limit the number of logs returned using the &lt;code&gt;take&lt;/code&gt; parameter. If you use &lt;code&gt;from&lt;/code&gt; at the same time as &lt;code&gt;q&lt;/code&gt;, &lt;code&gt;from&lt;/code&gt; takes precedence and &lt;code&gt;q&lt;/code&gt; is ignored.&lt;/li&gt;
-     *     &lt;li&gt;&lt;b&gt;take:&lt;/b&gt; Number of entries to retrieve when using the &lt;code&gt;from&lt;/code&gt; parameter.&lt;/li&gt;
-     * &lt;/ul&gt;</p>
-     * <p>&lt;strong&gt;Important:&lt;/strong&gt; When fetching logs from a checkpoint log ID, any parameter other than &lt;code&gt;from&lt;/code&gt; and &lt;code&gt;take&lt;/code&gt; will be ignored, and date ordering is not guaranteed.</p>
+     * <p>Set custom search criteria using the <code>q</code> parameter, or search from a specific log ID (<i>&quot;search from checkpoint&quot;</i>).</p>
+     * <p>For more information on all possible event types, their respective acronyms, and descriptions, see <a href="https://auth0.com/docs/logs/log-event-type-codes">Log Event Type Codes</a>.</p>
+     * <p><h5>To set custom search criteria, use the following parameters:</h5></p>
+     * <p><ul>
+     *     <li><b>q:</b> Search Criteria using <a href="https://auth0.com/docs/logs/log-search-query-syntax">Query String Syntax</a></li>
+     *     <li><b>page:</b> Page index of the results to return. First page is 0.</li>
+     *     <li><b>per_page:</b> Number of results per page.</li>
+     *     <li><b>sort:</b> Field to use for sorting appended with `:1` for ascending and `:-1` for descending. e.g. `date:-1`</li>
+     *     <li><b>fields:</b> Comma-separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields.</li>
+     *     <li><b>include_fields:</b> Whether specified fields are to be included (true) or excluded (false).</li>
+     *     <li><b>include_totals:</b> Return results inside an object that contains the total result count (true) or as a direct array of results (false, default). <b>Deprecated:</b> this field is deprecated and should be removed from use. See <a href="https://auth0.com/docs/product-lifecycle/deprecations-and-migrations/migrate-to-tenant-log-search-v3#pagination">Search Engine V3 Breaking Changes</a></li>
+     * </ul></p>
+     * <p>For more information on the list of fields that can be used in <code>fields</code> and <code>sort</code>, see <a href="https://auth0.com/docs/logs/log-search-query-syntax#searchable-fields">Searchable Fields</a>.</p>
+     * <p>Auth0 <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#limitations">limits the number of logs</a> you can return by search criteria to 100 logs per request. Furthermore, you may paginate only through 1,000 search results. If you exceed this threshold, please redefine your search or use the <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#retrieve-logs-by-checkpoint">get logs by checkpoint method</a>.</p>
+     * <p><h5>To search from a checkpoint log ID, use the following parameters:</h5>
+     * <ul>
+     *     <li><b>from:</b> Log Event ID from which to start retrieving logs. You can limit the number of logs returned using the <code>take</code> parameter. If you use <code>from</code> at the same time as <code>q</code>, <code>from</code> takes precedence and <code>q</code> is ignored.</li>
+     *     <li><b>take:</b> Number of entries to retrieve when using the <code>from</code> parameter.</li>
+     * </ul></p>
+     * <p><strong>Important:</strong> When fetching logs from a checkpoint log ID, any parameter other than <code>from</code> and <code>take</code> will be ignored, and date ordering is not guaranteed.</p>
      */
     public SyncPagingIterable<Log> list(ListLogsRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();

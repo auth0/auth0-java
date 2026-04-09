@@ -101,7 +101,7 @@ public final class CreateConnectionRequestContent {
     }
 
     /**
-     * @return DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
+     * @return Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
      */
     @JsonProperty("enabled_clients")
     public Optional<List<String>> getEnabledClients() {
@@ -109,7 +109,7 @@ public final class CreateConnectionRequestContent {
     }
 
     /**
-     * @return &lt;code&gt;true&lt;/code&gt; promotes to a domain-level connection so that third-party applications can use it. &lt;code&gt;false&lt;/code&gt; does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to &lt;code&gt;false&lt;/code&gt;.)
+     * @return <code>true</code> promotes to a domain-level connection so that third-party applications can use it. <code>false</code> does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to <code>false</code>.)
      */
     @JsonProperty("is_domain_connection")
     public Optional<Boolean> getIsDomainConnection() {
@@ -117,7 +117,7 @@ public final class CreateConnectionRequestContent {
     }
 
     /**
-     * @return Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to &lt;code&gt;false&lt;/code&gt;.)
+     * @return Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to <code>false</code>.)
      */
     @JsonProperty("show_as_button")
     public Optional<Boolean> getShowAsButton() {
@@ -213,6 +213,10 @@ public final class CreateConnectionRequestContent {
     public interface _FinalStage {
         CreateConnectionRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Connection name used in the new universal login experience</p>
          */
@@ -225,21 +229,21 @@ public final class CreateConnectionRequestContent {
         _FinalStage options(ConnectionPropertiesOptions options);
 
         /**
-         * <p>DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
+         * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
          */
         _FinalStage enabledClients(Optional<List<String>> enabledClients);
 
         _FinalStage enabledClients(List<String> enabledClients);
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; promotes to a domain-level connection so that third-party applications can use it. &lt;code&gt;false&lt;/code&gt; does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
+         * <p><code>true</code> promotes to a domain-level connection so that third-party applications can use it. <code>false</code> does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to <code>false</code>.)</p>
          */
         _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection);
 
         _FinalStage isDomainConnection(Boolean isDomainConnection);
 
         /**
-         * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
+         * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to <code>false</code>.)</p>
          */
         _FinalStage showAsButton(Optional<Boolean> showAsButton);
 
@@ -389,7 +393,7 @@ public final class CreateConnectionRequestContent {
         }
 
         /**
-         * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
+         * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to <code>false</code>.)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -399,7 +403,7 @@ public final class CreateConnectionRequestContent {
         }
 
         /**
-         * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
+         * <p>Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by HRD. (Defaults to <code>false</code>.)</p>
          */
         @java.lang.Override
         @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
@@ -409,7 +413,7 @@ public final class CreateConnectionRequestContent {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; promotes to a domain-level connection so that third-party applications can use it. &lt;code&gt;false&lt;/code&gt; does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
+         * <p><code>true</code> promotes to a domain-level connection so that third-party applications can use it. <code>false</code> does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to <code>false</code>.)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -419,7 +423,7 @@ public final class CreateConnectionRequestContent {
         }
 
         /**
-         * <p>&lt;code&gt;true&lt;/code&gt; promotes to a domain-level connection so that third-party applications can use it. &lt;code&gt;false&lt;/code&gt; does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to &lt;code&gt;false&lt;/code&gt;.)</p>
+         * <p><code>true</code> promotes to a domain-level connection so that third-party applications can use it. <code>false</code> does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to <code>false</code>.)</p>
          */
         @java.lang.Override
         @JsonSetter(value = "is_domain_connection", nulls = Nulls.SKIP)
@@ -429,7 +433,7 @@ public final class CreateConnectionRequestContent {
         }
 
         /**
-         * <p>DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
+         * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -439,7 +443,7 @@ public final class CreateConnectionRequestContent {
         }
 
         /**
-         * <p>DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
+         * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
@@ -496,6 +500,18 @@ public final class CreateConnectionRequestContent {
                     authentication,
                     connectedAccounts,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -21,10 +21,13 @@ import com.auth0.client.mgmt.types.CreateCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.CreateCustomDomainResponseContent;
 import com.auth0.client.mgmt.types.CustomDomain;
 import com.auth0.client.mgmt.types.GetCustomDomainResponseContent;
+import com.auth0.client.mgmt.types.GetDefaultDomainResponseContent;
 import com.auth0.client.mgmt.types.ListCustomDomainsRequestParameters;
+import com.auth0.client.mgmt.types.SetDefaultCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.TestCustomDomainResponseContent;
 import com.auth0.client.mgmt.types.UpdateCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.UpdateCustomDomainResponseContent;
+import com.auth0.client.mgmt.types.UpdateDefaultDomainResponseContent;
 import com.auth0.client.mgmt.types.VerifyCustomDomainResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -50,14 +53,21 @@ public class AsyncRawCustomDomainsClient {
     }
 
     /**
-     * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/custom-domains&quot;&gt;custom domains&lt;/a&gt;.
+     * Retrieve details on <a href="https://auth0.com/docs/custom-domains">custom domains</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<CustomDomain>>> list() {
         return list(ListCustomDomainsRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/custom-domains&quot;&gt;custom domains&lt;/a&gt;.
+     * Retrieve details on <a href="https://auth0.com/docs/custom-domains">custom domains</a>.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<List<CustomDomain>>> list(RequestOptions requestOptions) {
+        return list(ListCustomDomainsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve details on <a href="https://auth0.com/docs/custom-domains">custom domains</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<CustomDomain>>> list(
             ListCustomDomainsRequestParameters request) {
@@ -65,7 +75,7 @@ public class AsyncRawCustomDomainsClient {
     }
 
     /**
-     * Retrieve details on &lt;a href=&quot;https://auth0.com/docs/custom-domains&quot;&gt;custom domains&lt;/a&gt;.
+     * Retrieve details on <a href="https://auth0.com/docs/custom-domains">custom domains</a>.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<CustomDomain>>> list(
             ListCustomDomainsRequestParameters request, RequestOptions requestOptions) {
@@ -86,6 +96,11 @@ public class AsyncRawCustomDomainsClient {
         if (!request.getSort().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "sort", request.getSort().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -183,10 +198,14 @@ public class AsyncRawCustomDomainsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateCustomDomainResponseContent>> create(
             CreateCustomDomainRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("custom-domains")
-                .build();
+                .addPathSegments("custom-domains");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -195,7 +214,7 @@ public class AsyncRawCustomDomainsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -268,6 +287,174 @@ public class AsyncRawCustomDomainsClient {
     }
 
     /**
+     * Retrieve the tenant's default domain.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<GetDefaultDomainResponseContent>> getDefault() {
+        return getDefault(null);
+    }
+
+    /**
+     * Retrieve the tenant's default domain.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<GetDefaultDomainResponseContent>> getDefault(
+            RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("custom-domains/default");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<ManagementApiHttpResponse<GetDefaultDomainResponseContent>> future =
+                new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        future.complete(new ManagementApiHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBodyString, GetDefaultDomainResponseContent.class),
+                                response));
+                        return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    /**
+     * Set the default custom domain for the tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateDefaultDomainResponseContent>> setDefault(
+            SetDefaultCustomDomainRequestContent request) {
+        return setDefault(request, null);
+    }
+
+    /**
+     * Set the default custom domain for the tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateDefaultDomainResponseContent>> setDefault(
+            SetDefaultCustomDomainRequestContent request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("custom-domains/default");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new ManagementException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("PATCH", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<ManagementApiHttpResponse<UpdateDefaultDomainResponseContent>> future =
+                new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        future.complete(new ManagementApiHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBodyString, UpdateDefaultDomainResponseContent.class),
+                                response));
+                        return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    /**
      * Retrieve a custom domain configuration and status.
      */
     public CompletableFuture<ManagementApiHttpResponse<GetCustomDomainResponseContent>> get(String id) {
@@ -279,13 +466,17 @@ public class AsyncRawCustomDomainsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetCustomDomainResponseContent>> get(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("custom-domains")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -366,13 +557,17 @@ public class AsyncRawCustomDomainsClient {
      * Delete a custom domain and stop serving requests for it.
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("custom-domains")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -441,11 +636,11 @@ public class AsyncRawCustomDomainsClient {
      * <li>custom_client_ip_header</li>
      * <li>tls_policy</li>
      * </ul>
-     * <p>&lt;h5&gt;Updating CUSTOM_CLIENT_IP_HEADER for a custom domain&lt;/h5&gt;To update the &lt;code&gt;custom_client_ip_header&lt;/code&gt; for a domain, the body to
+     * <p><h5>Updating CUSTOM_CLIENT_IP_HEADER for a custom domain</h5>To update the <code>custom_client_ip_header</code> for a domain, the body to
      * send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating TLS_POLICY for a custom domain&lt;/h5&gt;To update the &lt;code&gt;tls_policy&lt;/code&gt; for a domain, the body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;tls_policy&quot;: &quot;recommended&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
+     * <pre><code>{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }</code></pre></p>
+     * <p><h5>Updating TLS_POLICY for a custom domain</h5>To update the <code>tls_policy</code> for a domain, the body to send should be:
+     * <pre><code>{ &quot;tls_policy&quot;: &quot;recommended&quot; }</code></pre></p>
      * <p>TLS Policies:</p>
      * <ul>
      * <li>recommended - for modern usage this includes TLS 1.2 only</li>
@@ -453,7 +648,7 @@ public class AsyncRawCustomDomainsClient {
      * <p>Some considerations:</p>
      * <ul>
      * <li>The TLS ciphers and protocols available in each TLS policy follow industry recommendations, and may be updated occasionally.</li>
-     * <li>The &lt;code&gt;compatible&lt;/code&gt; TLS policy is no longer supported.</li>
+     * <li>The <code>compatible</code> TLS policy is no longer supported.</li>
      * </ul>
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateCustomDomainResponseContent>> update(String id) {
@@ -467,11 +662,11 @@ public class AsyncRawCustomDomainsClient {
      * <li>custom_client_ip_header</li>
      * <li>tls_policy</li>
      * </ul>
-     * <p>&lt;h5&gt;Updating CUSTOM_CLIENT_IP_HEADER for a custom domain&lt;/h5&gt;To update the &lt;code&gt;custom_client_ip_header&lt;/code&gt; for a domain, the body to
+     * <p><h5>Updating CUSTOM_CLIENT_IP_HEADER for a custom domain</h5>To update the <code>custom_client_ip_header</code> for a domain, the body to
      * send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating TLS_POLICY for a custom domain&lt;/h5&gt;To update the &lt;code&gt;tls_policy&lt;/code&gt; for a domain, the body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;tls_policy&quot;: &quot;recommended&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
+     * <pre><code>{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }</code></pre></p>
+     * <p><h5>Updating TLS_POLICY for a custom domain</h5>To update the <code>tls_policy</code> for a domain, the body to send should be:
+     * <pre><code>{ &quot;tls_policy&quot;: &quot;recommended&quot; }</code></pre></p>
      * <p>TLS Policies:</p>
      * <ul>
      * <li>recommended - for modern usage this includes TLS 1.2 only</li>
@@ -479,7 +674,34 @@ public class AsyncRawCustomDomainsClient {
      * <p>Some considerations:</p>
      * <ul>
      * <li>The TLS ciphers and protocols available in each TLS policy follow industry recommendations, and may be updated occasionally.</li>
-     * <li>The &lt;code&gt;compatible&lt;/code&gt; TLS policy is no longer supported.</li>
+     * <li>The <code>compatible</code> TLS policy is no longer supported.</li>
+     * </ul>
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateCustomDomainResponseContent>> update(
+            String id, RequestOptions requestOptions) {
+        return update(id, UpdateCustomDomainRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update a custom domain.
+     * <p>These are the attributes that can be updated:</p>
+     * <ul>
+     * <li>custom_client_ip_header</li>
+     * <li>tls_policy</li>
+     * </ul>
+     * <p><h5>Updating CUSTOM_CLIENT_IP_HEADER for a custom domain</h5>To update the <code>custom_client_ip_header</code> for a domain, the body to
+     * send should be:
+     * <pre><code>{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }</code></pre></p>
+     * <p><h5>Updating TLS_POLICY for a custom domain</h5>To update the <code>tls_policy</code> for a domain, the body to send should be:
+     * <pre><code>{ &quot;tls_policy&quot;: &quot;recommended&quot; }</code></pre></p>
+     * <p>TLS Policies:</p>
+     * <ul>
+     * <li>recommended - for modern usage this includes TLS 1.2 only</li>
+     * </ul>
+     * <p>Some considerations:</p>
+     * <ul>
+     * <li>The TLS ciphers and protocols available in each TLS policy follow industry recommendations, and may be updated occasionally.</li>
+     * <li>The <code>compatible</code> TLS policy is no longer supported.</li>
      * </ul>
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateCustomDomainResponseContent>> update(
@@ -494,11 +716,11 @@ public class AsyncRawCustomDomainsClient {
      * <li>custom_client_ip_header</li>
      * <li>tls_policy</li>
      * </ul>
-     * <p>&lt;h5&gt;Updating CUSTOM_CLIENT_IP_HEADER for a custom domain&lt;/h5&gt;To update the &lt;code&gt;custom_client_ip_header&lt;/code&gt; for a domain, the body to
+     * <p><h5>Updating CUSTOM_CLIENT_IP_HEADER for a custom domain</h5>To update the <code>custom_client_ip_header</code> for a domain, the body to
      * send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
-     * <p>&lt;h5&gt;Updating TLS_POLICY for a custom domain&lt;/h5&gt;To update the &lt;code&gt;tls_policy&lt;/code&gt; for a domain, the body to send should be:
-     * &lt;pre&gt;&lt;code&gt;{ &quot;tls_policy&quot;: &quot;recommended&quot; }&lt;/code&gt;&lt;/pre&gt;</p>
+     * <pre><code>{ &quot;custom_client_ip_header&quot;: &quot;cf-connecting-ip&quot; }</code></pre></p>
+     * <p><h5>Updating TLS_POLICY for a custom domain</h5>To update the <code>tls_policy</code> for a domain, the body to send should be:
+     * <pre><code>{ &quot;tls_policy&quot;: &quot;recommended&quot; }</code></pre></p>
      * <p>TLS Policies:</p>
      * <ul>
      * <li>recommended - for modern usage this includes TLS 1.2 only</li>
@@ -506,16 +728,20 @@ public class AsyncRawCustomDomainsClient {
      * <p>Some considerations:</p>
      * <ul>
      * <li>The TLS ciphers and protocols available in each TLS policy follow industry recommendations, and may be updated occasionally.</li>
-     * <li>The &lt;code&gt;compatible&lt;/code&gt; TLS policy is no longer supported.</li>
+     * <li>The <code>compatible</code> TLS policy is no longer supported.</li>
      * </ul>
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateCustomDomainResponseContent>> update(
             String id, UpdateCustomDomainRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("custom-domains")
-                .addPathSegment(id)
-                .build();
+                .addPathSegment(id);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -524,7 +750,7 @@ public class AsyncRawCustomDomainsClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -603,14 +829,18 @@ public class AsyncRawCustomDomainsClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<TestCustomDomainResponseContent>> test(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("custom-domains")
                 .addPathSegment(id)
-                .addPathSegments("test")
-                .build();
+                .addPathSegments("test");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -683,10 +913,10 @@ public class AsyncRawCustomDomainsClient {
 
     /**
      * Run the verification process on a custom domain.
-     * <p>Note: Check the &lt;code&gt;status&lt;/code&gt; field to see its verification status. Once verification is complete, it may take up to 10 minutes before the custom domain can start accepting requests.</p>
-     * <p>For &lt;code&gt;self_managed_certs&lt;/code&gt;, when the custom domain is verified for the first time, the response will also include the &lt;code&gt;cname_api_key&lt;/code&gt; which you will need to configure your proxy. This key must be kept secret, and is used to validate the proxy requests.</p>
-     * <p>&lt;a href=&quot;https://auth0.com/docs/custom-domains#step-2-verify-ownership&quot;&gt;Learn more&lt;/a&gt; about verifying custom domains that use Auth0 Managed certificates.
-     * &lt;a href=&quot;https://auth0.com/docs/custom-domains/self-managed-certificates#step-2-verify-ownership&quot;&gt;Learn more&lt;/a&gt; about verifying custom domains that use Self Managed certificates.</p>
+     * <p>Note: Check the <code>status</code> field to see its verification status. Once verification is complete, it may take up to 10 minutes before the custom domain can start accepting requests.</p>
+     * <p>For <code>self_managed_certs</code>, when the custom domain is verified for the first time, the response will also include the <code>cname_api_key</code> which you will need to configure your proxy. This key must be kept secret, and is used to validate the proxy requests.</p>
+     * <p><a href="https://auth0.com/docs/custom-domains#step-2-verify-ownership">Learn more</a> about verifying custom domains that use Auth0 Managed certificates.
+     * <a href="https://auth0.com/docs/custom-domains/self-managed-certificates#step-2-verify-ownership">Learn more</a> about verifying custom domains that use Self Managed certificates.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<VerifyCustomDomainResponseContent>> verify(String id) {
         return verify(id, null);
@@ -694,21 +924,25 @@ public class AsyncRawCustomDomainsClient {
 
     /**
      * Run the verification process on a custom domain.
-     * <p>Note: Check the &lt;code&gt;status&lt;/code&gt; field to see its verification status. Once verification is complete, it may take up to 10 minutes before the custom domain can start accepting requests.</p>
-     * <p>For &lt;code&gt;self_managed_certs&lt;/code&gt;, when the custom domain is verified for the first time, the response will also include the &lt;code&gt;cname_api_key&lt;/code&gt; which you will need to configure your proxy. This key must be kept secret, and is used to validate the proxy requests.</p>
-     * <p>&lt;a href=&quot;https://auth0.com/docs/custom-domains#step-2-verify-ownership&quot;&gt;Learn more&lt;/a&gt; about verifying custom domains that use Auth0 Managed certificates.
-     * &lt;a href=&quot;https://auth0.com/docs/custom-domains/self-managed-certificates#step-2-verify-ownership&quot;&gt;Learn more&lt;/a&gt; about verifying custom domains that use Self Managed certificates.</p>
+     * <p>Note: Check the <code>status</code> field to see its verification status. Once verification is complete, it may take up to 10 minutes before the custom domain can start accepting requests.</p>
+     * <p>For <code>self_managed_certs</code>, when the custom domain is verified for the first time, the response will also include the <code>cname_api_key</code> which you will need to configure your proxy. This key must be kept secret, and is used to validate the proxy requests.</p>
+     * <p><a href="https://auth0.com/docs/custom-domains#step-2-verify-ownership">Learn more</a> about verifying custom domains that use Auth0 Managed certificates.
+     * <a href="https://auth0.com/docs/custom-domains/self-managed-certificates#step-2-verify-ownership">Learn more</a> about verifying custom domains that use Self Managed certificates.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<VerifyCustomDomainResponseContent>> verify(
             String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("custom-domains")
                 .addPathSegment(id)
-                .addPathSegments("verify")
-                .build();
+                .addPathSegments("verify");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

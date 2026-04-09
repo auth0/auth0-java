@@ -64,7 +64,7 @@ public final class ListOrganizationsRequestParameters {
     }
 
     /**
-     * @return Field to sort by. Use &lt;code&gt;field:order&lt;/code&gt; where order is &lt;code&gt;1&lt;/code&gt; for ascending and &lt;code&gt;-1&lt;/code&gt; for descending. e.g. &lt;code&gt;created_at:1&lt;/code&gt;. We currently support sorting by the following fields: &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;display_name&lt;/code&gt; and &lt;code&gt;created_at&lt;/code&gt;.
+     * @return Field to sort by. Use <code>field:order</code> where order is <code>1</code> for ascending and <code>-1</code> for descending. e.g. <code>created_at:1</code>. We currently support sorting by the following fields: <code>name</code>, <code>display_name</code> and <code>created_at</code>.
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("sort")
@@ -206,7 +206,7 @@ public final class ListOrganizationsRequestParameters {
         }
 
         /**
-         * <p>Field to sort by. Use &lt;code&gt;field:order&lt;/code&gt; where order is &lt;code&gt;1&lt;/code&gt; for ascending and &lt;code&gt;-1&lt;/code&gt; for descending. e.g. &lt;code&gt;created_at:1&lt;/code&gt;. We currently support sorting by the following fields: &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;display_name&lt;/code&gt; and &lt;code&gt;created_at&lt;/code&gt;.</p>
+         * <p>Field to sort by. Use <code>field:order</code> where order is <code>1</code> for ascending and <code>-1</code> for descending. e.g. <code>created_at:1</code>. We currently support sorting by the following fields: <code>name</code>, <code>display_name</code> and <code>created_at</code>.</p>
          */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
         public Builder sort(@Nullable OptionalNullable<String> sort) {
@@ -241,6 +241,16 @@ public final class ListOrganizationsRequestParameters {
 
         public ListOrganizationsRequestParameters build() {
             return new ListOrganizationsRequestParameters(from, take, sort, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

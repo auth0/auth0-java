@@ -50,6 +50,13 @@ public class StatsClient {
     /**
      * Retrieve the number of logins, signups and breached-password detections (subscription required) that occurred each day within a specified date range.
      */
+    public List<DailyStats> getDaily(RequestOptions requestOptions) {
+        return this.rawClient.getDaily(requestOptions).body();
+    }
+
+    /**
+     * Retrieve the number of logins, signups and breached-password detections (subscription required) that occurred each day within a specified date range.
+     */
     public List<DailyStats> getDaily(GetDailyStatsRequestParameters request) {
         return this.rawClient.getDaily(request).body();
     }

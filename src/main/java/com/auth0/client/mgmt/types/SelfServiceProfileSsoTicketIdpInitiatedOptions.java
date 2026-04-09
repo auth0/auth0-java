@@ -52,7 +52,7 @@ public final class SelfServiceProfileSsoTicketIdpInitiatedOptions {
     }
 
     /**
-     * @return Default application &lt;code&gt;client_id&lt;/code&gt; user is redirected to after validated SAML response
+     * @return Default application <code>client_id</code> user is redirected to after validated SAML response
      */
     @JsonProperty("client_id")
     public Optional<String> getClientId() {
@@ -65,7 +65,7 @@ public final class SelfServiceProfileSsoTicketIdpInitiatedOptions {
     }
 
     /**
-     * @return Query string options to customize the behaviour for OpenID Connect when &lt;code&gt;idpinitiated.client_protocol&lt;/code&gt; is &lt;code&gt;oauth2&lt;/code&gt;. Allowed parameters: &lt;code&gt;redirect_uri&lt;/code&gt;, &lt;code&gt;scope&lt;/code&gt;, &lt;code&gt;response_type&lt;/code&gt;. For example, &lt;code&gt;redirect_uri=https://jwt.io&amp;scope=openid email&amp;response_type=token&lt;/code&gt;
+     * @return Query string options to customize the behaviour for OpenID Connect when <code>idpinitiated.client_protocol</code> is <code>oauth2</code>. Allowed parameters: <code>redirect_uri</code>, <code>scope</code>, <code>response_type</code>. For example, <code>redirect_uri=https://jwt.io&amp;scope=openid email&amp;response_type=token</code>
      */
     @JsonProperty("client_authorizequery")
     public Optional<String> getClientAuthorizequery() {
@@ -143,7 +143,7 @@ public final class SelfServiceProfileSsoTicketIdpInitiatedOptions {
         }
 
         /**
-         * <p>Default application &lt;code&gt;client_id&lt;/code&gt; user is redirected to after validated SAML response</p>
+         * <p>Default application <code>client_id</code> user is redirected to after validated SAML response</p>
          */
         @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
         public Builder clientId(Optional<String> clientId) {
@@ -169,7 +169,7 @@ public final class SelfServiceProfileSsoTicketIdpInitiatedOptions {
         }
 
         /**
-         * <p>Query string options to customize the behaviour for OpenID Connect when &lt;code&gt;idpinitiated.client_protocol&lt;/code&gt; is &lt;code&gt;oauth2&lt;/code&gt;. Allowed parameters: &lt;code&gt;redirect_uri&lt;/code&gt;, &lt;code&gt;scope&lt;/code&gt;, &lt;code&gt;response_type&lt;/code&gt;. For example, &lt;code&gt;redirect_uri=https://jwt.io&amp;scope=openid email&amp;response_type=token&lt;/code&gt;</p>
+         * <p>Query string options to customize the behaviour for OpenID Connect when <code>idpinitiated.client_protocol</code> is <code>oauth2</code>. Allowed parameters: <code>redirect_uri</code>, <code>scope</code>, <code>response_type</code>. For example, <code>redirect_uri=https://jwt.io&amp;scope=openid email&amp;response_type=token</code></p>
          */
         @JsonSetter(value = "client_authorizequery", nulls = Nulls.SKIP)
         public Builder clientAuthorizequery(Optional<String> clientAuthorizequery) {
@@ -185,6 +185,16 @@ public final class SelfServiceProfileSsoTicketIdpInitiatedOptions {
         public SelfServiceProfileSsoTicketIdpInitiatedOptions build() {
             return new SelfServiceProfileSsoTicketIdpInitiatedOptions(
                     enabled, clientId, clientProtocol, clientAuthorizequery, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

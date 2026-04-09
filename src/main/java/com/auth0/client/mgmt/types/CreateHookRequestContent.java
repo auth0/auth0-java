@@ -77,6 +77,9 @@ public final class CreateHookRequestContent {
         return dependencies;
     }
 
+    /**
+     * @return Execution stage of this rule. Can be <code>credentials-exchange</code>, <code>pre-user-registration</code>, <code>post-user-registration</code>, <code>post-change-password</code>, or <code>send-phone-message</code>.
+     */
     @JsonProperty("triggerId")
     public HookTriggerIdEnum getTriggerId() {
         return triggerId;
@@ -132,11 +135,18 @@ public final class CreateHookRequestContent {
     }
 
     public interface TriggerIdStage {
+        /**
+         * <p>Execution stage of this rule. Can be <code>credentials-exchange</code>, <code>pre-user-registration</code>, <code>post-user-registration</code>, <code>post-change-password</code>, or <code>send-phone-message</code>.</p>
+         */
         _FinalStage triggerId(@NotNull HookTriggerIdEnum triggerId);
     }
 
     public interface _FinalStage {
         CreateHookRequestContent build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
         /**
          * <p>Whether this hook will be executed (true) or ignored (false).</p>
@@ -201,6 +211,11 @@ public final class CreateHookRequestContent {
             return this;
         }
 
+        /**
+         * <p>Execution stage of this rule. Can be <code>credentials-exchange</code>, <code>pre-user-registration</code>, <code>post-user-registration</code>, <code>post-change-password</code>, or <code>send-phone-message</code>.</p>
+         * <p>Execution stage of this rule. Can be <code>credentials-exchange</code>, <code>pre-user-registration</code>, <code>post-user-registration</code>, <code>post-change-password</code>, or <code>send-phone-message</code>.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("triggerId")
         public _FinalStage triggerId(@NotNull HookTriggerIdEnum triggerId) {
@@ -244,6 +259,18 @@ public final class CreateHookRequestContent {
         @java.lang.Override
         public CreateHookRequestContent build() {
             return new CreateHookRequestContent(name, script, enabled, dependencies, triggerId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

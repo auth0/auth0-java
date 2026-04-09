@@ -32,6 +32,10 @@ public class AsyncDeliveriesClient {
         return this.rawClient.list(id).thenApply(response -> response.body());
     }
 
+    public CompletableFuture<List<EventStreamDelivery>> list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<List<EventStreamDelivery>> list(
             String id, ListEventStreamDeliveriesRequestParameters request) {
         return this.rawClient.list(id, request).thenApply(response -> response.body());

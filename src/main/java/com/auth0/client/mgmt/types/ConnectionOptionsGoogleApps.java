@@ -36,6 +36,8 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
 
     private final Optional<Boolean> allowSettingLoginScopes;
 
+    private final Optional<Boolean> apiEnableGroups;
+
     private final Optional<Boolean> apiEnableUsers;
 
     private final String clientId;
@@ -85,6 +87,7 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
             Optional<OffsetDateTime> adminAccessTokenExpiresin,
             Optional<String> adminRefreshToken,
             Optional<Boolean> allowSettingLoginScopes,
+            Optional<Boolean> apiEnableGroups,
             Optional<Boolean> apiEnableUsers,
             String clientId,
             Optional<String> clientSecret,
@@ -111,6 +114,7 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
         this.adminAccessTokenExpiresin = adminAccessTokenExpiresin;
         this.adminRefreshToken = adminRefreshToken;
         this.allowSettingLoginScopes = allowSettingLoginScopes;
+        this.apiEnableGroups = apiEnableGroups;
         this.apiEnableUsers = apiEnableUsers;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
@@ -161,6 +165,11 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
     @JsonProperty("allow_setting_login_scopes")
     public Optional<Boolean> getAllowSettingLoginScopes() {
         return allowSettingLoginScopes;
+    }
+
+    @JsonProperty("api_enable_groups")
+    public Optional<Boolean> getApiEnableGroups() {
+        return apiEnableGroups;
     }
 
     @JsonProperty("api_enable_users")
@@ -313,6 +322,7 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
                 && adminAccessTokenExpiresin.equals(other.adminAccessTokenExpiresin)
                 && adminRefreshToken.equals(other.adminRefreshToken)
                 && allowSettingLoginScopes.equals(other.allowSettingLoginScopes)
+                && apiEnableGroups.equals(other.apiEnableGroups)
                 && apiEnableUsers.equals(other.apiEnableUsers)
                 && clientId.equals(other.clientId)
                 && clientSecret.equals(other.clientSecret)
@@ -343,6 +353,7 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
                 this.adminAccessTokenExpiresin,
                 this.adminRefreshToken,
                 this.allowSettingLoginScopes,
+                this.apiEnableGroups,
                 this.apiEnableUsers,
                 this.clientId,
                 this.clientSecret,
@@ -383,6 +394,10 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
     public interface _FinalStage {
         ConnectionOptionsGoogleApps build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs);
 
         _FinalStage nonPersistentAttrs(List<String> nonPersistentAttrs);
@@ -405,6 +420,10 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
         _FinalStage allowSettingLoginScopes(Optional<Boolean> allowSettingLoginScopes);
 
         _FinalStage allowSettingLoginScopes(Boolean allowSettingLoginScopes);
+
+        _FinalStage apiEnableGroups(Optional<Boolean> apiEnableGroups);
+
+        _FinalStage apiEnableGroups(Boolean apiEnableGroups);
 
         _FinalStage apiEnableUsers(Optional<Boolean> apiEnableUsers);
 
@@ -561,6 +580,8 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
 
         private Optional<Boolean> apiEnableUsers = Optional.empty();
 
+        private Optional<Boolean> apiEnableGroups = Optional.empty();
+
         private Optional<Boolean> allowSettingLoginScopes = Optional.empty();
 
         private Optional<String> adminRefreshToken = Optional.empty();
@@ -583,6 +604,7 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
             adminAccessTokenExpiresin(other.getAdminAccessTokenExpiresin());
             adminRefreshToken(other.getAdminRefreshToken());
             allowSettingLoginScopes(other.getAllowSettingLoginScopes());
+            apiEnableGroups(other.getApiEnableGroups());
             apiEnableUsers(other.getApiEnableUsers());
             clientId(other.getClientId());
             clientSecret(other.getClientSecret());
@@ -946,6 +968,19 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
             return this;
         }
 
+        @java.lang.Override
+        public _FinalStage apiEnableGroups(Boolean apiEnableGroups) {
+            this.apiEnableGroups = Optional.ofNullable(apiEnableGroups);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "api_enable_groups", nulls = Nulls.SKIP)
+        public _FinalStage apiEnableGroups(Optional<Boolean> apiEnableGroups) {
+            this.apiEnableGroups = apiEnableGroups;
+            return this;
+        }
+
         /**
          * <p>When true, allows customization of OAuth scopes requested during user login. Custom scopes are appended to the mandatory email and profile scopes. When false or omitted, only the default email and profile scopes are used. This property is automatically enabled when Token Vault or Connected Accounts features are activated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -1026,6 +1061,7 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
                     adminAccessTokenExpiresin,
                     adminRefreshToken,
                     allowSettingLoginScopes,
+                    apiEnableGroups,
                     apiEnableUsers,
                     clientId,
                     clientSecret,
@@ -1047,6 +1083,18 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
                     tenantDomain,
                     upstreamParams,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

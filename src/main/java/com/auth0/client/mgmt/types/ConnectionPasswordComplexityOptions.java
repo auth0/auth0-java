@@ -98,5 +98,15 @@ public final class ConnectionPasswordComplexityOptions {
         public ConnectionPasswordComplexityOptions build() {
             return new ConnectionPasswordComplexityOptions(minLength, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

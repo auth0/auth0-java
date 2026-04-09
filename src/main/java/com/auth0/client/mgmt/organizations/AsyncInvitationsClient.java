@@ -32,14 +32,22 @@ public class AsyncInvitationsClient {
     }
 
     /**
-     * Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members&quot;&gt;Invite Organization Members&lt;/a&gt;.
+     * Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
      */
     public CompletableFuture<SyncPagingIterable<OrganizationInvitation>> list(String id) {
         return this.rawClient.list(id).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members&quot;&gt;Invite Organization Members&lt;/a&gt;.
+     * Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
+     */
+    public CompletableFuture<SyncPagingIterable<OrganizationInvitation>> list(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
      */
     public CompletableFuture<SyncPagingIterable<OrganizationInvitation>> list(
             String id, ListOrganizationInvitationsRequestParameters request) {
@@ -47,7 +55,7 @@ public class AsyncInvitationsClient {
     }
 
     /**
-     * Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members&quot;&gt;Invite Organization Members&lt;/a&gt;.
+     * Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
      */
     public CompletableFuture<SyncPagingIterable<OrganizationInvitation>> list(
             String id, ListOrganizationInvitationsRequestParameters request, RequestOptions requestOptions) {
@@ -55,7 +63,7 @@ public class AsyncInvitationsClient {
     }
 
     /**
-     * Create a user invitation for a specific Organization. Upon creation, the listed user receives an email inviting them to join the Organization. To learn more about Organization invitations, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members&quot;&gt;Invite Organization Members&lt;/a&gt;.
+     * Create a user invitation for a specific Organization. Upon creation, the listed user receives an email inviting them to join the Organization. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
      */
     public CompletableFuture<CreateOrganizationInvitationResponseContent> create(
             String id, CreateOrganizationInvitationRequestContent request) {
@@ -63,7 +71,7 @@ public class AsyncInvitationsClient {
     }
 
     /**
-     * Create a user invitation for a specific Organization. Upon creation, the listed user receives an email inviting them to join the Organization. To learn more about Organization invitations, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members&quot;&gt;Invite Organization Members&lt;/a&gt;.
+     * Create a user invitation for a specific Organization. Upon creation, the listed user receives an email inviting them to join the Organization. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
      */
     public CompletableFuture<CreateOrganizationInvitationResponseContent> create(
             String id, CreateOrganizationInvitationRequestContent request, RequestOptions requestOptions) {
@@ -72,6 +80,11 @@ public class AsyncInvitationsClient {
 
     public CompletableFuture<GetOrganizationInvitationResponseContent> get(String id, String invitationId) {
         return this.rawClient.get(id, invitationId).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<GetOrganizationInvitationResponseContent> get(
+            String id, String invitationId, RequestOptions requestOptions) {
+        return this.rawClient.get(id, invitationId, requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<GetOrganizationInvitationResponseContent> get(

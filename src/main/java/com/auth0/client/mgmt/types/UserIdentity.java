@@ -68,6 +68,9 @@ public final class UserIdentity {
         return connection;
     }
 
+    /**
+     * @return user_id of this identity.
+     */
     @JsonProperty("user_id")
     public UserId getUserId() {
         return userId;
@@ -172,6 +175,9 @@ public final class UserIdentity {
     }
 
     public interface UserIdStage {
+        /**
+         * <p>user_id of this identity.</p>
+         */
         ProviderStage userId(@NotNull UserId userId);
     }
 
@@ -184,6 +190,10 @@ public final class UserIdentity {
 
     public interface _FinalStage {
         UserIdentity build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
         _FinalStage profileData(Optional<UserProfileData> profileData);
 
@@ -266,6 +276,11 @@ public final class UserIdentity {
             return this;
         }
 
+        /**
+         * <p>user_id of this identity.</p>
+         * <p>user_id of this identity.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("user_id")
         public ProviderStage userId(@NotNull UserId userId) {
@@ -390,6 +405,18 @@ public final class UserIdentity {
                     accessTokenSecret,
                     refreshToken,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -25,14 +25,18 @@ public final class UpdateDirectoryProvisioningRequestContent {
 
     private final Optional<Boolean> synchronizeAutomatically;
 
+    private final Optional<String> synchronizeGroups;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateDirectoryProvisioningRequestContent(
             Optional<List<DirectoryProvisioningMappingItem>> mapping,
             Optional<Boolean> synchronizeAutomatically,
+            Optional<String> synchronizeGroups,
             Map<String, Object> additionalProperties) {
         this.mapping = mapping;
         this.synchronizeAutomatically = synchronizeAutomatically;
+        this.synchronizeGroups = synchronizeGroups;
         this.additionalProperties = additionalProperties;
     }
 
@@ -52,6 +56,11 @@ public final class UpdateDirectoryProvisioningRequestContent {
         return synchronizeAutomatically;
     }
 
+    @JsonProperty("synchronize_groups")
+    public Optional<String> getSynchronizeGroups() {
+        return synchronizeGroups;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -65,12 +74,14 @@ public final class UpdateDirectoryProvisioningRequestContent {
     }
 
     private boolean equalTo(UpdateDirectoryProvisioningRequestContent other) {
-        return mapping.equals(other.mapping) && synchronizeAutomatically.equals(other.synchronizeAutomatically);
+        return mapping.equals(other.mapping)
+                && synchronizeAutomatically.equals(other.synchronizeAutomatically)
+                && synchronizeGroups.equals(other.synchronizeGroups);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.mapping, this.synchronizeAutomatically);
+        return Objects.hash(this.mapping, this.synchronizeAutomatically, this.synchronizeGroups);
     }
 
     @java.lang.Override
@@ -88,6 +99,8 @@ public final class UpdateDirectoryProvisioningRequestContent {
 
         private Optional<Boolean> synchronizeAutomatically = Optional.empty();
 
+        private Optional<String> synchronizeGroups = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -96,6 +109,7 @@ public final class UpdateDirectoryProvisioningRequestContent {
         public Builder from(UpdateDirectoryProvisioningRequestContent other) {
             mapping(other.getMapping());
             synchronizeAutomatically(other.getSynchronizeAutomatically());
+            synchronizeGroups(other.getSynchronizeGroups());
             return this;
         }
 
@@ -127,9 +141,30 @@ public final class UpdateDirectoryProvisioningRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "synchronize_groups", nulls = Nulls.SKIP)
+        public Builder synchronizeGroups(Optional<String> synchronizeGroups) {
+            this.synchronizeGroups = synchronizeGroups;
+            return this;
+        }
+
+        public Builder synchronizeGroups(String synchronizeGroups) {
+            this.synchronizeGroups = Optional.ofNullable(synchronizeGroups);
+            return this;
+        }
+
         public UpdateDirectoryProvisioningRequestContent build() {
             return new UpdateDirectoryProvisioningRequestContent(
-                    mapping, synchronizeAutomatically, additionalProperties);
+                    mapping, synchronizeAutomatically, synchronizeGroups, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

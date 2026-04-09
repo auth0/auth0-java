@@ -139,6 +139,10 @@ public final class UpdateFlowResponseContent {
     public interface _FinalStage {
         UpdateFlowResponseContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage actions(Optional<List<FlowAction>> actions);
 
         _FinalStage actions(List<FlowAction> actions);
@@ -236,6 +240,18 @@ public final class UpdateFlowResponseContent {
         public UpdateFlowResponseContent build() {
             return new UpdateFlowResponseContent(
                     id, name, actions, createdAt, updatedAt, executedAt, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

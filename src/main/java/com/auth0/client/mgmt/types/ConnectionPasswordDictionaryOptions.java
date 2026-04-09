@@ -86,6 +86,10 @@ public final class ConnectionPasswordDictionaryOptions {
     public interface _FinalStage {
         ConnectionPasswordDictionaryOptions build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Custom Password Dictionary. An array of up to 200 entries.</p>
          */
@@ -142,6 +146,18 @@ public final class ConnectionPasswordDictionaryOptions {
         @java.lang.Override
         public ConnectionPasswordDictionaryOptions build() {
             return new ConnectionPasswordDictionaryOptions(enable, dictionary, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

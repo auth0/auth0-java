@@ -97,6 +97,10 @@ public final class SetGuardianFactorPhoneTemplatesResponseContent {
 
     public interface _FinalStage {
         SetGuardianFactorPhoneTemplatesResponseContent build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -146,6 +150,18 @@ public final class SetGuardianFactorPhoneTemplatesResponseContent {
         public SetGuardianFactorPhoneTemplatesResponseContent build() {
             return new SetGuardianFactorPhoneTemplatesResponseContent(
                     enrollmentMessage, verificationMessage, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

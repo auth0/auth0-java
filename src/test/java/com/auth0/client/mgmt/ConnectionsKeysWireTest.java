@@ -3,6 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.ConnectionKey;
+import com.auth0.client.mgmt.types.PostConnectionsKeysResponseContentItem;
 import com.auth0.client.mgmt.types.RotateConnectionsKeysResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -59,6 +60,69 @@ public class ConnectionsKeysWireTest {
                 + "    \"current\": true,\n"
                 + "    \"next\": true,\n"
                 + "    \"previous\": true,\n"
+                + "    \"current_since\": \"current_since\",\n"
+                + "    \"fingerprint\": \"fingerprint\",\n"
+                + "    \"thumbprint\": \"thumbprint\",\n"
+                + "    \"algorithm\": \"algorithm\",\n"
+                + "    \"key_use\": \"encryption\",\n"
+                + "    \"subject_dn\": \"subject_dn\"\n"
+                + "  }\n"
+                + "]";
+        JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
+        JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
+        Assertions.assertTrue(
+                jsonEquals(expectedResponseNode, actualResponseNode),
+                "Response body structure does not match expected");
+        if (actualResponseNode.has("type") || actualResponseNode.has("_type") || actualResponseNode.has("kind")) {
+            String discriminator = null;
+            if (actualResponseNode.has("type"))
+                discriminator = actualResponseNode.get("type").asText();
+            else if (actualResponseNode.has("_type"))
+                discriminator = actualResponseNode.get("_type").asText();
+            else if (actualResponseNode.has("kind"))
+                discriminator = actualResponseNode.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualResponseNode.isNull()) {
+            Assertions.assertTrue(
+                    actualResponseNode.isObject() || actualResponseNode.isArray() || actualResponseNode.isValueNode(),
+                    "response should be a valid JSON value");
+        }
+
+        if (actualResponseNode.isArray()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Array should have valid size");
+        }
+        if (actualResponseNode.isObject()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
+        }
+    }
+
+    @Test
+    public void testCreate() throws Exception {
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "[{\"kid\":\"kid\",\"cert\":\"cert\",\"pkcs\":\"pkcs\",\"current\":true,\"next\":true,\"current_since\":\"current_since\",\"fingerprint\":\"fingerprint\",\"thumbprint\":\"thumbprint\",\"algorithm\":\"algorithm\",\"key_use\":\"encryption\",\"subject_dn\":\"subject_dn\"}]"));
+        List<PostConnectionsKeysResponseContentItem> response =
+                client.connections().keys().create("id", OptionalNullable.absent());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("POST", request.getMethod());
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        String actualResponseJson = objectMapper.writeValueAsString(response);
+        String expectedResponseBody = ""
+                + "[\n"
+                + "  {\n"
+                + "    \"kid\": \"kid\",\n"
+                + "    \"cert\": \"cert\",\n"
+                + "    \"pkcs\": \"pkcs\",\n"
+                + "    \"current\": true,\n"
+                + "    \"next\": true,\n"
                 + "    \"current_since\": \"current_since\",\n"
                 + "    \"fingerprint\": \"fingerprint\",\n"
                 + "    \"thumbprint\": \"thumbprint\",\n"

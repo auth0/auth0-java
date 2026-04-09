@@ -45,6 +45,9 @@ public final class LinkUserIdentityRequestContent {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Identity provider of the secondary user account being linked.
+     */
     @JsonProperty("provider")
     public Optional<UserIdentityProviderEnum> getProvider() {
         return provider;
@@ -126,6 +129,9 @@ public final class LinkUserIdentityRequestContent {
             return this;
         }
 
+        /**
+         * <p>Identity provider of the secondary user account being linked.</p>
+         */
         @JsonSetter(value = "provider", nulls = Nulls.SKIP)
         public Builder provider(Optional<UserIdentityProviderEnum> provider) {
             this.provider = provider;
@@ -178,6 +184,16 @@ public final class LinkUserIdentityRequestContent {
 
         public LinkUserIdentityRequestContent build() {
             return new LinkUserIdentityRequestContent(provider, connectionId, userId, linkWith, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

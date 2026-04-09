@@ -9,6 +9,7 @@ import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.ActionBinding;
+import com.auth0.client.mgmt.types.ActionTriggerTypeEnum;
 import com.auth0.client.mgmt.types.UpdateActionBindingsResponseContent;
 
 public class BindingsClient {
@@ -31,15 +32,22 @@ public class BindingsClient {
     /**
      * Retrieve the actions that are bound to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The list of actions returned reflects the order in which they will be executed during the appropriate flow.
      */
-    public SyncPagingIterable<ActionBinding> list(String triggerId) {
+    public SyncPagingIterable<ActionBinding> list(ActionTriggerTypeEnum triggerId) {
         return this.rawClient.list(triggerId).body();
     }
 
     /**
      * Retrieve the actions that are bound to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The list of actions returned reflects the order in which they will be executed during the appropriate flow.
      */
+    public SyncPagingIterable<ActionBinding> list(ActionTriggerTypeEnum triggerId, RequestOptions requestOptions) {
+        return this.rawClient.list(triggerId, requestOptions).body();
+    }
+
+    /**
+     * Retrieve the actions that are bound to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The list of actions returned reflects the order in which they will be executed during the appropriate flow.
+     */
     public SyncPagingIterable<ActionBinding> list(
-            String triggerId, ListActionTriggerBindingsRequestParameters request) {
+            ActionTriggerTypeEnum triggerId, ListActionTriggerBindingsRequestParameters request) {
         return this.rawClient.list(triggerId, request).body();
     }
 
@@ -47,14 +55,16 @@ public class BindingsClient {
      * Retrieve the actions that are bound to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The list of actions returned reflects the order in which they will be executed during the appropriate flow.
      */
     public SyncPagingIterable<ActionBinding> list(
-            String triggerId, ListActionTriggerBindingsRequestParameters request, RequestOptions requestOptions) {
+            ActionTriggerTypeEnum triggerId,
+            ListActionTriggerBindingsRequestParameters request,
+            RequestOptions requestOptions) {
         return this.rawClient.list(triggerId, request, requestOptions).body();
     }
 
     /**
      * Update the actions that are bound (i.e. attached) to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The order in which the actions are provided will determine the order in which they are executed.
      */
-    public UpdateActionBindingsResponseContent updateMany(String triggerId) {
+    public UpdateActionBindingsResponseContent updateMany(ActionTriggerTypeEnum triggerId) {
         return this.rawClient.updateMany(triggerId).body();
     }
 
@@ -62,7 +72,15 @@ public class BindingsClient {
      * Update the actions that are bound (i.e. attached) to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The order in which the actions are provided will determine the order in which they are executed.
      */
     public UpdateActionBindingsResponseContent updateMany(
-            String triggerId, UpdateActionBindingsRequestContent request) {
+            ActionTriggerTypeEnum triggerId, RequestOptions requestOptions) {
+        return this.rawClient.updateMany(triggerId, requestOptions).body();
+    }
+
+    /**
+     * Update the actions that are bound (i.e. attached) to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The order in which the actions are provided will determine the order in which they are executed.
+     */
+    public UpdateActionBindingsResponseContent updateMany(
+            ActionTriggerTypeEnum triggerId, UpdateActionBindingsRequestContent request) {
         return this.rawClient.updateMany(triggerId, request).body();
     }
 
@@ -70,7 +88,9 @@ public class BindingsClient {
      * Update the actions that are bound (i.e. attached) to a trigger. Once an action is created and deployed, it must be attached (i.e. bound) to a trigger so that it will be executed as part of a flow. The order in which the actions are provided will determine the order in which they are executed.
      */
     public UpdateActionBindingsResponseContent updateMany(
-            String triggerId, UpdateActionBindingsRequestContent request, RequestOptions requestOptions) {
+            ActionTriggerTypeEnum triggerId,
+            UpdateActionBindingsRequestContent request,
+            RequestOptions requestOptions) {
         return this.rawClient.updateMany(triggerId, request, requestOptions).body();
     }
 }

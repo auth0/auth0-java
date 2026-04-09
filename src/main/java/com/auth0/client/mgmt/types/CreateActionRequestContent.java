@@ -182,6 +182,10 @@ public final class CreateActionRequestContent {
     public interface _FinalStage {
         CreateActionRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The list of triggers that this action supports. At this time, an action can only target a single trigger at a time.</p>
          */
@@ -449,6 +453,18 @@ public final class CreateActionRequestContent {
                     modules,
                     deploy,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

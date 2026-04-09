@@ -31,7 +31,7 @@ client.actions().list(
     ListActionsRequestParameters
         .builder()
         .triggerId(
-            OptionalNullable.of("triggerId")
+            OptionalNullable.of(ActionTriggerTypeEnum.POST_LOGIN)
         )
         .actionName(
             OptionalNullable.of("actionName")
@@ -64,7 +64,7 @@ client.actions().list(
 <dl>
 <dd>
 
-**triggerId:** `Optional<String>` — An actions extensibility point.
+**triggerId:** `Optional<ActionTriggerTypeEnum>` — An actions extensibility point.
     
 </dd>
 </dl>
@@ -151,7 +151,7 @@ client.actions().create(
             Arrays.asList(
                 ActionTrigger
                     .builder()
-                    .id("id")
+                    .id(ActionTriggerTypeEnum.POST_LOGIN)
                     .build()
             )
         )
@@ -873,7 +873,6 @@ Create a client grant for a machine-to-machine login flow. To learn more, read <
 client.clientGrants().create(
     CreateClientGrantRequestContent
         .builder()
-        .clientId("client_id")
         .audience("audience")
         .build()
 );
@@ -891,7 +890,7 @@ client.clientGrants().create(
 <dl>
 <dd>
 
-**clientId:** `String` — ID of the client.
+**clientId:** `Optional<String>` — ID of the client.
     
 </dd>
 </dl>
@@ -1254,6 +1253,9 @@ client.clients().list(
         .appType(
             OptionalNullable.of("app_type")
         )
+        .externalClientId(
+            OptionalNullable.of("external_client_id")
+        )
         .q(
             OptionalNullable.of("q")
         )
@@ -1337,7 +1339,15 @@ client.clients().list(
 <dl>
 <dd>
 
-**q:** `Optional<String>` — Advanced Query in <a href="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
+**externalClientId:** `Optional<String>` — Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `Optional<String>` — Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
     
 </dd>
 </dl>
@@ -1449,7 +1459,7 @@ client.clients().create(
 <dl>
 <dd>
 
-**oidcBackchannelLogout:** `Optional<ClientOidcBackchannelLogoutSettings>` 
+**oidcBackchannelLogout:** `Optional<ClientOidcBackchannelLogoutSettings>` — Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
     
 </dd>
 </dl>
@@ -1817,6 +1827,131 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 </dl>
 </details>
 
+<details><summary><code>client.clients.previewCimdMetadata(request) -> PreviewCimdMetadataResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+
+      Fetches and validates a Client ID Metadata Document without creating a client.
+      Returns the raw metadata and how it would be mapped to Auth0 client fields.
+      This endpoint is useful for testing metadata URIs before creating CIMD clients.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.clients().previewCimdMetadata(
+    PreviewCimdMetadataRequestContent
+        .builder()
+        .externalClientId("external_client_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**externalClientId:** `String` — URL to the Client ID Metadata Document
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clients.registerCimdClient(request) -> RegisterCimdClientResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+
+      Idempotent registration for Client ID Metadata Document (CIMD) clients.
+      Uses external_client_id as the unique identifier for upsert operations.
+      **Create:** Returns 201 when a new client is created (requires \
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.clients().registerCimdClient(
+    RegisterCimdClientRequestContent
+        .builder()
+        .externalClientId("external_client_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**externalClientId:** `String` — URL to the Client ID Metadata Document. Acts as the unique identifier for upsert operations.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.clients.get(id) -> GetClientResponseContent</code></summary>
 <dl>
 <dd>
@@ -2093,7 +2228,7 @@ client.clients().update(
 <dl>
 <dd>
 
-**oidcBackchannelLogout:** `Optional<ClientOidcBackchannelLogoutSettings>` 
+**oidcBackchannelLogout:** `Optional<ClientOidcBackchannelLogoutSettings>` — Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
     
 </dd>
 </dl>
@@ -2157,7 +2292,7 @@ client.clients().update(
 <dl>
 <dd>
 
-**jwtConfiguration:** `Optional<ClientJwtConfiguration>` 
+**jwtConfiguration:** `Optional<ClientJwtConfiguration>` — An object that holds settings related to how JWTs are created
     
 </dd>
 </dl>
@@ -2165,7 +2300,7 @@ client.clients().update(
 <dl>
 <dd>
 
-**encryptionKey:** `Optional<ClientEncryptionKey>` 
+**encryptionKey:** `Optional<ClientEncryptionKey>` — The client's encryption key
     
 </dd>
 </dl>
@@ -2301,7 +2436,7 @@ client.clients().update(
 <dl>
 <dd>
 
-**mobile:** `Optional<ClientMobile>` 
+**mobile:** `Optional<ClientMobile>` — Configuration related to native mobile apps
     
 </dd>
 </dl>
@@ -3205,7 +3340,7 @@ client.connections().create(
 <dl>
 <dd>
 
-**enabledClients:** `Optional<List<String>>` — DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
+**enabledClients:** `Optional<List<String>>` — Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
     
 </dd>
 </dl>
@@ -3648,7 +3783,7 @@ client.customDomains().list(
 <dl>
 <dd>
 
-**q:** `Optional<String>` — Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.
+**q:** `Optional<String>` — Query in <a href ="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene query string syntax</a>.
     
 </dd>
 </dl>
@@ -3794,6 +3929,104 @@ client.customDomains().create(
 <dd>
 
 **relyingPartyIdentifier:** `Optional<String>` — Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not provided, the full domain will be used.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customDomains.getDefault() -> GetDefaultDomainResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the tenant's default domain.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customDomains().getDefault();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customDomains.setDefault(request) -> UpdateDefaultDomainResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Set the default custom domain for the tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customDomains().setDefault(
+    SetDefaultCustomDomainRequestContent
+        .builder()
+        .domain("domain")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**domain:** `String` — The domain to set as the default custom domain. Must be a verified custom domain or the canonical domain.
     
 </dd>
 </dl>
@@ -3991,7 +4224,7 @@ client.customDomains().update(
 <dl>
 <dd>
 
-**tlsPolicy:** `Optional<CustomDomainTlsPolicyEnum>` 
+**tlsPolicy:** `Optional<CustomDomainTlsPolicyEnum>` — recommended includes TLS 1.2
     
 </dd>
 </dl>
@@ -6306,6 +6539,60 @@ client.groups().get("id");
 </dl>
 </details>
 
+<details><summary><code>client.groups.delete(id)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a group by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.groups().delete("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — Unique identifier for the group (service-generated).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Hooks
 <details><summary><code>client.hooks.list() -> SyncPagingIterable&amp;lt;Hook&amp;gt;</code></summary>
 <dl>
@@ -6504,7 +6791,7 @@ client.hooks().create(
 <dl>
 <dd>
 
-**triggerId:** `HookTriggerIdEnum` 
+**triggerId:** `HookTriggerIdEnum` — Execution stage of this rule. Can be `credentials-exchange`, `pre-user-registration`, `post-user-registration`, `post-change-password`, or `send-phone-message`.
     
 </dd>
 </dl>
@@ -7763,7 +8050,6 @@ client.networkAcls().create(
         .builder()
         .description("description")
         .active(true)
-        .priority(1.1)
         .rule(
             NetworkAclRule
                 .builder()
@@ -7807,7 +8093,7 @@ client.networkAcls().create(
 <dl>
 <dd>
 
-**priority:** `Double` — Indicates the order in which the ACL will be evaluated relative to other ACL rules.
+**priority:** `Optional<Double>` — Indicates the order in which the ACL will be evaluated relative to other ACL rules.
     
 </dd>
 </dl>
@@ -7914,7 +8200,6 @@ client.networkAcls().set(
         .builder()
         .description("description")
         .active(true)
-        .priority(1.1)
         .rule(
             NetworkAclRule
                 .builder()
@@ -7966,7 +8251,7 @@ client.networkAcls().set(
 <dl>
 <dd>
 
-**priority:** `Double` — Indicates the order in which the ACL will be evaluated relative to other ACL rules.
+**priority:** `Optional<Double>` — Indicates the order in which the ACL will be evaluated relative to other ACL rules.
     
 </dd>
 </dl>
@@ -8710,6 +8995,120 @@ client.prompts().updateSettings(
 </details>
 
 ## RefreshTokens
+<details><summary><code>client.refreshTokens.list() -> SyncPagingIterable&amp;lt;RefreshTokenResponseContent&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of refresh tokens for a specific user, with optional filtering by client ID. Results are sorted by credential_id ascending.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.refreshTokens().list(
+    GetRefreshTokensRequestParameters
+        .builder()
+        .userId("user_id")
+        .clientId(
+            OptionalNullable.of("client_id")
+        )
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**userId:** `String` — ID of the user whose refresh tokens to retrieve. Required.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**clientId:** `Optional<String>` — Filter results by client ID. Only valid when user_id is provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — An opaque cursor from which to start the selection (exclusive). Expires after 24 hours. Obtained from the next property of a previous response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `Optional<String>` — Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeFields:** `Optional<Boolean>` — Whether specified fields are to be included (true) or excluded (false).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.refreshTokens.get(id) -> GetRefreshTokenResponseContent</code></summary>
 <dl>
 <dd>
@@ -8873,7 +9272,7 @@ client.refreshTokens().update(
 <dl>
 <dd>
 
-**refreshTokenMetadata:** `Optional<Map<String, Object>>` 
+**refreshTokenMetadata:** `Optional<Map<String, Object>>` — Metadata associated with the refresh token. Pass null or {} to remove all metadata.
     
 </dd>
 </dl>
@@ -9076,6 +9475,14 @@ client.resourceServers().create(
 <dd>
 
 **allowOfflineAccess:** `Optional<Boolean>` — Whether refresh tokens can be issued for this API (true) or not (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allowOnlineAccess:** `Optional<Boolean>` — Whether Online Refresh Tokens can be issued for this API (true) or not (false).
     
 </dd>
 </dl>
@@ -9379,6 +9786,14 @@ client.resourceServers().update(
 <dd>
 
 **allowOfflineAccess:** `Optional<Boolean>` — Whether refresh tokens can be issued for this API (true) or not (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allowOnlineAccess:** `Optional<Boolean>` — Whether Online Refresh Tokens can be issued for this API (true) or not (false).
     
 </dd>
 </dl>
@@ -10958,7 +11373,7 @@ client.sessions().update(
 <dl>
 <dd>
 
-**sessionMetadata:** `Optional<Map<String, Object>>` 
+**sessionMetadata:** `Optional<Map<String, Object>>` — Metadata associated with the session. Pass null or {} to remove all session_metadata.
     
 </dd>
 </dl>
@@ -12694,7 +13109,7 @@ client.users().list(
 <dl>
 <dd>
 
-**q:** `Optional<String>` — Query in <a target='_new' href ='http://www.lucenetutorial.com/lucene-query-syntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.
+**q:** `Optional<String>` — Query in <a target='_new' href ='https://lucene.apache.org/core/2_9_4/queryparsersyntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.
     
 </dd>
 </dl>
@@ -13295,7 +13710,7 @@ client.users().update(
 <dl>
 <dd>
 
-**userMetadata:** `Optional<Map<String, Object>>` 
+**userMetadata:** `Optional<Map<String, Object>>` — User metadata to which this user has read/write access.
     
 </dd>
 </dl>
@@ -13303,7 +13718,7 @@ client.users().update(
 <dl>
 <dd>
 
-**appMetadata:** `Optional<Map<String, Object>>` 
+**appMetadata:** `Optional<Map<String, Object>>` — User metadata to which this user has read-only access.
     
 </dd>
 </dl>
@@ -14585,7 +15000,7 @@ Retrieve the actions that are bound to a trigger. Once an action is created and 
 
 ```java
 client.actions().triggers().bindings().list(
-    "triggerId",
+    ActionTriggerTypeEnum.POST_LOGIN,
     ListActionTriggerBindingsRequestParameters
         .builder()
         .page(
@@ -14610,7 +15025,7 @@ client.actions().triggers().bindings().list(
 <dl>
 <dd>
 
-**triggerId:** `String` — An actions extensibility point.
+**triggerId:** `ActionTriggerTypeEnum` — An actions extensibility point.
     
 </dd>
 </dl>
@@ -14666,7 +15081,7 @@ Update the actions that are bound (i.e. attached) to a trigger. Once an action i
 
 ```java
 client.actions().triggers().bindings().updateMany(
-    "triggerId",
+    ActionTriggerTypeEnum.POST_LOGIN,
     UpdateActionBindingsRequestContent
         .builder()
         .build()
@@ -14685,7 +15100,7 @@ client.actions().triggers().bindings().updateMany(
 <dl>
 <dd>
 
-**triggerId:** `String` — An actions extensibility point.
+**triggerId:** `ActionTriggerTypeEnum` — An actions extensibility point.
     
 </dd>
 </dl>
@@ -16954,7 +17369,7 @@ client.branding().phone().templates().test(
 <dl>
 <dd>
 
-**deliveryMethod:** `Optional<PhoneProviderDeliveryMethodEnum>` 
+**deliveryMethod:** `Optional<PhoneProviderDeliveryMethodEnum>` — Medium to use to send the notification
     
 </dd>
 </dl>
@@ -17228,6 +17643,14 @@ client.clients().credentials().create(
 <dd>
 
 **expiresAt:** `Optional<OffsetDateTime>` — The ISO 8601 formatted date representing the expiration of the credential. If not specified (not recommended), the credential never expires. Applies to `public_key` credential type.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**kid:** `Optional<String>` — Optional kid (Key ID), used to uniquely identify the credential. If not specified, a kid value will be auto-generated. The kid header parameter in JWTs sent by your client should match this value. Valid format is [0-9a-zA-Z-_]{10,64}
     
 </dd>
 </dl>
@@ -17926,8 +18349,8 @@ client.connections().directoryProvisioning().getDefaultMapping("id");
 </dl>
 </details>
 
-## Connections Clients
-<details><summary><code>client.connections.clients.get(id) -> SyncPagingIterable&amp;lt;ConnectionEnabledClient&amp;gt;</code></summary>
+## Connections ScimConfiguration
+<details><summary><code>client.connections.scimConfiguration.list() -> SyncPagingIterable&amp;lt;ScimConfiguration&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -17939,9 +18362,7 @@ client.connections().directoryProvisioning().getDefaultMapping("id");
 <dl>
 <dd>
 
-Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
-
-<b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
+Retrieve a list of SCIM configurations of a tenant.
 </dd>
 </dl>
 </dd>
@@ -17956,15 +18377,14 @@ Retrieve all clients that have the specified <a href="https://auth0.com/docs/aut
 <dd>
 
 ```java
-client.connections().clients().get(
-    "id",
-    GetConnectionEnabledClientsRequestParameters
+client.connections().scimConfiguration().list(
+    ListScimConfigurationsRequestParameters
         .builder()
-        .take(
-            OptionalNullable.of(1)
-        )
         .from(
             OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
         )
         .build()
 );
@@ -17982,7 +18402,7 @@ client.connections().clients().get(
 <dl>
 <dd>
 
-**id:** `String` — The id of the connection for which enabled clients are to be retrieved
+**from:** `Optional<String>` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -17994,14 +18414,6 @@ client.connections().clients().get(
     
 </dd>
 </dl>
-
-<dl>
-<dd>
-
-**from:** `Optional<String>` — Optional Id from which to start selection.
-    
-</dd>
-</dl>
 </dd>
 </dl>
 
@@ -18010,184 +18422,6 @@ client.connections().clients().get(
 </dl>
 </details>
 
-<details><summary><code>client.connections.clients.update(id, request)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.connections().clients().update(
-    "id",
-    Arrays.asList(
-        UpdateEnabledClientConnectionsRequestContentItem
-            .builder()
-            .clientId("client_id")
-            .status(true)
-            .build()
-    )
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `String` — The id of the connection to modify
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `List<UpdateEnabledClientConnectionsRequestContentItem>` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Connections Keys
-<details><summary><code>client.connections.keys.get(id) -> List&amp;lt;ConnectionKey&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Gets the connection keys for the Okta or OIDC connection strategy.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.connections().keys().get("id");
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `String` — ID of the connection
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.connections.keys.rotate(id, request) -> RotateConnectionsKeysResponseContent</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Rotates the connection keys for the Okta or OIDC connection strategies.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.connections().keys().rotate(
-    "id",
-    OptionalNullable.absent()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `String` — ID of the connection
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Optional<RotateConnectionKeysRequestContent>` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Connections ScimConfiguration
 <details><summary><code>client.connections.scimConfiguration.get(id) -> GetScimConfigurationResponseContent</code></summary>
 <dl>
 <dd>
@@ -18487,6 +18721,332 @@ client.connections().scimConfiguration().getDefaultMapping("id");
 <dd>
 
 **id:** `String` — The id of the connection to retrieve its default SCIM mapping
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Connections Clients
+<details><summary><code>client.connections.clients.get(id) -> SyncPagingIterable&amp;lt;ConnectionEnabledClient&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+
+<b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connections().clients().get(
+    "id",
+    GetConnectionEnabledClientsRequestParameters
+        .builder()
+        .take(
+            OptionalNullable.of(1)
+        )
+        .from(
+            OptionalNullable.of("from")
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The id of the connection for which enabled clients are to be retrieved
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.clients.update(id, request)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connections().clients().update(
+    "id",
+    Arrays.asList(
+        UpdateEnabledClientConnectionsRequestContentItem
+            .builder()
+            .clientId("client_id")
+            .status(true)
+            .build()
+    )
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The id of the connection to modify
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `List<UpdateEnabledClientConnectionsRequestContentItem>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Connections Keys
+<details><summary><code>client.connections.keys.get(id) -> List&amp;lt;ConnectionKey&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Gets the connection keys for the Okta or OIDC connection strategy.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connections().keys().get("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the connection
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.keys.create(id, request) -> List&amp;lt;PostConnectionsKeysResponseContentItem&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connections().keys().create(
+    "id",
+    OptionalNullable.absent()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the connection
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Optional<PostConnectionKeysRequestContent>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.keys.rotate(id, request) -> RotateConnectionsKeysResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Rotates the connection keys for the Okta or OIDC connection strategies.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.connections().keys().rotate(
+    "id",
+    OptionalNullable.absent()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the connection
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Optional<RotateConnectionKeysRequestContent>` 
     
 </dd>
 </dl>
@@ -23618,6 +24178,7 @@ client.organizations().clientGrants().delete("id", "grant_id");
 <dd>
 
 Retrieve list of all organization discovery domains associated with the specified organization.
+This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 </dd>
 </dl>
 </dd>
@@ -23783,7 +24344,7 @@ client.organizations().discoveryDomains().create(
 <dd>
 
 Retrieve details about a single organization discovery domain specified by domain name.
-
+This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 </dd>
 </dl>
 </dd>
@@ -23845,7 +24406,8 @@ client.organizations().discoveryDomains().getByName("id", "discovery_domain");
 <dl>
 <dd>
 
-Retrieve details about a single organization discovery domain specified by ID. 
+Retrieve details about a single organization discovery domain specified by ID.
+This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 </dd>
 </dl>
 </dd>
@@ -25691,7 +26253,7 @@ client.prompts().rendering().update(
 <dl>
 <dd>
 
-**renderingMode:** `Optional<AculRenderingModeEnum>` 
+**renderingMode:** `Optional<AculRenderingModeEnum>` — Rendering mode
     
 </dd>
 </dl>
@@ -27089,7 +27651,7 @@ client.tenants().settings().update(
 <dl>
 <dd>
 
-**deviceFlow:** `Optional<TenantSettingsDeviceFlow>` 
+**deviceFlow:** `Optional<TenantSettingsDeviceFlow>` — Device Flow configuration.
     
 </dd>
 </dl>
@@ -27894,7 +28456,7 @@ client.users().authenticationMethods().update(
 <dl>
 <dd>
 
-**preferredAuthenticationMethod:** `Optional<PreferredAuthenticationMethodEnum>` 
+**preferredAuthenticationMethod:** `Optional<PreferredAuthenticationMethodEnum>` — Preferred phone authentication method
     
 </dd>
 </dl>
@@ -28388,7 +28950,7 @@ client.users().identities().link(
 <dl>
 <dd>
 
-**provider:** `Optional<UserIdentityProviderEnum>` 
+**provider:** `Optional<UserIdentityProviderEnum>` — Identity provider of the secondary user account being linked.
     
 </dd>
 </dl>

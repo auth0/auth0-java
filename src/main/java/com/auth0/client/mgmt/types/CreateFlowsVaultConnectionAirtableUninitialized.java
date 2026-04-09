@@ -90,6 +90,10 @@ public final class CreateFlowsVaultConnectionAirtableUninitialized {
 
     public interface _FinalStage {
         CreateFlowsVaultConnectionAirtableUninitialized build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -132,6 +136,18 @@ public final class CreateFlowsVaultConnectionAirtableUninitialized {
         @java.lang.Override
         public CreateFlowsVaultConnectionAirtableUninitialized build() {
             return new CreateFlowsVaultConnectionAirtableUninitialized(name, appId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -23,6 +23,8 @@ import java.util.Optional;
 public final class NetworkAclMatch {
     private final Optional<List<Integer>> asns;
 
+    private final Optional<List<String>> auth0Managed;
+
     private final Optional<List<String>> geoCountryCodes;
 
     private final Optional<List<String>> geoSubdivisionCodes;
@@ -37,10 +39,17 @@ public final class NetworkAclMatch {
 
     private final Optional<List<String>> userAgents;
 
+    private final Optional<List<String>> hostnames;
+
+    private final Optional<List<String>> connectingIpv4Cidrs;
+
+    private final Optional<List<String>> connectingIpv6Cidrs;
+
     private final Map<String, Object> additionalProperties;
 
     private NetworkAclMatch(
             Optional<List<Integer>> asns,
+            Optional<List<String>> auth0Managed,
             Optional<List<String>> geoCountryCodes,
             Optional<List<String>> geoSubdivisionCodes,
             Optional<List<String>> ipv4Cidrs,
@@ -48,8 +57,12 @@ public final class NetworkAclMatch {
             Optional<List<String>> ja3Fingerprints,
             Optional<List<String>> ja4Fingerprints,
             Optional<List<String>> userAgents,
+            Optional<List<String>> hostnames,
+            Optional<List<String>> connectingIpv4Cidrs,
+            Optional<List<String>> connectingIpv6Cidrs,
             Map<String, Object> additionalProperties) {
         this.asns = asns;
+        this.auth0Managed = auth0Managed;
         this.geoCountryCodes = geoCountryCodes;
         this.geoSubdivisionCodes = geoSubdivisionCodes;
         this.ipv4Cidrs = ipv4Cidrs;
@@ -57,12 +70,20 @@ public final class NetworkAclMatch {
         this.ja3Fingerprints = ja3Fingerprints;
         this.ja4Fingerprints = ja4Fingerprints;
         this.userAgents = userAgents;
+        this.hostnames = hostnames;
+        this.connectingIpv4Cidrs = connectingIpv4Cidrs;
+        this.connectingIpv6Cidrs = connectingIpv6Cidrs;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("asns")
     public Optional<List<Integer>> getAsns() {
         return asns;
+    }
+
+    @JsonProperty("auth0_managed")
+    public Optional<List<String>> getAuth0Managed() {
+        return auth0Managed;
     }
 
     @JsonProperty("geo_country_codes")
@@ -100,6 +121,21 @@ public final class NetworkAclMatch {
         return userAgents;
     }
 
+    @JsonProperty("hostnames")
+    public Optional<List<String>> getHostnames() {
+        return hostnames;
+    }
+
+    @JsonProperty("connecting_ipv4_cidrs")
+    public Optional<List<String>> getConnectingIpv4Cidrs() {
+        return connectingIpv4Cidrs;
+    }
+
+    @JsonProperty("connecting_ipv6_cidrs")
+    public Optional<List<String>> getConnectingIpv6Cidrs() {
+        return connectingIpv6Cidrs;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -113,26 +149,34 @@ public final class NetworkAclMatch {
 
     private boolean equalTo(NetworkAclMatch other) {
         return asns.equals(other.asns)
+                && auth0Managed.equals(other.auth0Managed)
                 && geoCountryCodes.equals(other.geoCountryCodes)
                 && geoSubdivisionCodes.equals(other.geoSubdivisionCodes)
                 && ipv4Cidrs.equals(other.ipv4Cidrs)
                 && ipv6Cidrs.equals(other.ipv6Cidrs)
                 && ja3Fingerprints.equals(other.ja3Fingerprints)
                 && ja4Fingerprints.equals(other.ja4Fingerprints)
-                && userAgents.equals(other.userAgents);
+                && userAgents.equals(other.userAgents)
+                && hostnames.equals(other.hostnames)
+                && connectingIpv4Cidrs.equals(other.connectingIpv4Cidrs)
+                && connectingIpv6Cidrs.equals(other.connectingIpv6Cidrs);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.asns,
+                this.auth0Managed,
                 this.geoCountryCodes,
                 this.geoSubdivisionCodes,
                 this.ipv4Cidrs,
                 this.ipv6Cidrs,
                 this.ja3Fingerprints,
                 this.ja4Fingerprints,
-                this.userAgents);
+                this.userAgents,
+                this.hostnames,
+                this.connectingIpv4Cidrs,
+                this.connectingIpv6Cidrs);
     }
 
     @java.lang.Override
@@ -148,6 +192,8 @@ public final class NetworkAclMatch {
     public static final class Builder {
         private Optional<List<Integer>> asns = Optional.empty();
 
+        private Optional<List<String>> auth0Managed = Optional.empty();
+
         private Optional<List<String>> geoCountryCodes = Optional.empty();
 
         private Optional<List<String>> geoSubdivisionCodes = Optional.empty();
@@ -162,6 +208,12 @@ public final class NetworkAclMatch {
 
         private Optional<List<String>> userAgents = Optional.empty();
 
+        private Optional<List<String>> hostnames = Optional.empty();
+
+        private Optional<List<String>> connectingIpv4Cidrs = Optional.empty();
+
+        private Optional<List<String>> connectingIpv6Cidrs = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -169,6 +221,7 @@ public final class NetworkAclMatch {
 
         public Builder from(NetworkAclMatch other) {
             asns(other.getAsns());
+            auth0Managed(other.getAuth0Managed());
             geoCountryCodes(other.getGeoCountryCodes());
             geoSubdivisionCodes(other.getGeoSubdivisionCodes());
             ipv4Cidrs(other.getIpv4Cidrs());
@@ -176,6 +229,9 @@ public final class NetworkAclMatch {
             ja3Fingerprints(other.getJa3Fingerprints());
             ja4Fingerprints(other.getJa4Fingerprints());
             userAgents(other.getUserAgents());
+            hostnames(other.getHostnames());
+            connectingIpv4Cidrs(other.getConnectingIpv4Cidrs());
+            connectingIpv6Cidrs(other.getConnectingIpv6Cidrs());
             return this;
         }
 
@@ -187,6 +243,17 @@ public final class NetworkAclMatch {
 
         public Builder asns(List<Integer> asns) {
             this.asns = Optional.ofNullable(asns);
+            return this;
+        }
+
+        @JsonSetter(value = "auth0_managed", nulls = Nulls.SKIP)
+        public Builder auth0Managed(Optional<List<String>> auth0Managed) {
+            this.auth0Managed = auth0Managed;
+            return this;
+        }
+
+        public Builder auth0Managed(List<String> auth0Managed) {
+            this.auth0Managed = Optional.ofNullable(auth0Managed);
             return this;
         }
 
@@ -267,9 +334,43 @@ public final class NetworkAclMatch {
             return this;
         }
 
+        @JsonSetter(value = "hostnames", nulls = Nulls.SKIP)
+        public Builder hostnames(Optional<List<String>> hostnames) {
+            this.hostnames = hostnames;
+            return this;
+        }
+
+        public Builder hostnames(List<String> hostnames) {
+            this.hostnames = Optional.ofNullable(hostnames);
+            return this;
+        }
+
+        @JsonSetter(value = "connecting_ipv4_cidrs", nulls = Nulls.SKIP)
+        public Builder connectingIpv4Cidrs(Optional<List<String>> connectingIpv4Cidrs) {
+            this.connectingIpv4Cidrs = connectingIpv4Cidrs;
+            return this;
+        }
+
+        public Builder connectingIpv4Cidrs(List<String> connectingIpv4Cidrs) {
+            this.connectingIpv4Cidrs = Optional.ofNullable(connectingIpv4Cidrs);
+            return this;
+        }
+
+        @JsonSetter(value = "connecting_ipv6_cidrs", nulls = Nulls.SKIP)
+        public Builder connectingIpv6Cidrs(Optional<List<String>> connectingIpv6Cidrs) {
+            this.connectingIpv6Cidrs = connectingIpv6Cidrs;
+            return this;
+        }
+
+        public Builder connectingIpv6Cidrs(List<String> connectingIpv6Cidrs) {
+            this.connectingIpv6Cidrs = Optional.ofNullable(connectingIpv6Cidrs);
+            return this;
+        }
+
         public NetworkAclMatch build() {
             return new NetworkAclMatch(
                     asns,
+                    auth0Managed,
                     geoCountryCodes,
                     geoSubdivisionCodes,
                     ipv4Cidrs,
@@ -277,7 +378,20 @@ public final class NetworkAclMatch {
                     ja3Fingerprints,
                     ja4Fingerprints,
                     userAgents,
+                    hostnames,
+                    connectingIpv4Cidrs,
+                    connectingIpv6Cidrs,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

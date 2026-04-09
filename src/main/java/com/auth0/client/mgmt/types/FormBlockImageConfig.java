@@ -93,6 +93,10 @@ public final class FormBlockImageConfig {
     public interface _FinalStage {
         FormBlockImageConfig build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage position(Optional<FormBlockImageConfigPositionEnum> position);
 
         _FinalStage position(FormBlockImageConfigPositionEnum position);
@@ -159,6 +163,18 @@ public final class FormBlockImageConfig {
         @java.lang.Override
         public FormBlockImageConfig build() {
             return new FormBlockImageConfig(src, position, height, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -45,12 +45,16 @@ public class RawBrandingClient {
      * Retrieve branding settings.
      */
     public ManagementApiHttpResponse<GetBrandingResponseContent> get(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("branding")
-                .build();
+                .addPathSegments("branding");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -100,6 +104,13 @@ public class RawBrandingClient {
     /**
      * Update branding settings.
      */
+    public ManagementApiHttpResponse<UpdateBrandingResponseContent> update(RequestOptions requestOptions) {
+        return update(UpdateBrandingRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update branding settings.
+     */
     public ManagementApiHttpResponse<UpdateBrandingResponseContent> update(UpdateBrandingRequestContent request) {
         return update(request, null);
     }
@@ -109,10 +120,14 @@ public class RawBrandingClient {
      */
     public ManagementApiHttpResponse<UpdateBrandingResponseContent> update(
             UpdateBrandingRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("branding")
-                .build();
+                .addPathSegments("branding");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -121,7 +136,7 @@ public class RawBrandingClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

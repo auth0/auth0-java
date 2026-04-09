@@ -154,6 +154,10 @@ public final class CreateLogStreamEventBridgeRequestBody {
     public interface _FinalStage {
         CreateLogStreamEventBridgeRequestBody build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>log stream name</p>
          */
@@ -331,6 +335,18 @@ public final class CreateLogStreamEventBridgeRequestBody {
         public CreateLogStreamEventBridgeRequestBody build() {
             return new CreateLogStreamEventBridgeRequestBody(
                     name, type, isPriority, filters, piiConfig, sink, startFrom, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

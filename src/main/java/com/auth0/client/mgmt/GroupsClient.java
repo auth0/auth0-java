@@ -43,6 +43,13 @@ public class GroupsClient {
     /**
      * List all groups in your tenant.
      */
+    public SyncPagingIterable<Group> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * List all groups in your tenant.
+     */
     public SyncPagingIterable<Group> list(ListGroupsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -66,6 +73,20 @@ public class GroupsClient {
      */
     public GetGroupResponseContent get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).body();
+    }
+
+    /**
+     * Delete a group by its ID.
+     */
+    public void delete(String id) {
+        this.rawClient.delete(id).body();
+    }
+
+    /**
+     * Delete a group by its ID.
+     */
+    public void delete(String id, RequestOptions requestOptions) {
+        this.rawClient.delete(id, requestOptions).body();
     }
 
     public MembersClient members() {

@@ -152,6 +152,10 @@ public final class GetBotDetectionSettingsResponseContent {
     public interface _FinalStage {
         GetBotDetectionSettingsResponseContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage allowlist(List<String> allowlist);
 
         _FinalStage addAllowlist(String allowlist);
@@ -270,6 +274,18 @@ public final class GetBotDetectionSettingsResponseContent {
                     allowlist,
                     monitoringModeEnabled,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

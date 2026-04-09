@@ -34,6 +34,8 @@ public final class DirectoryProvisioning {
 
     private final boolean synchronizeAutomatically;
 
+    private final Optional<String> synchronizeGroups;
+
     private final OffsetDateTime createdAt;
 
     private final OffsetDateTime updatedAt;
@@ -52,6 +54,7 @@ public final class DirectoryProvisioning {
             String strategy,
             List<DirectoryProvisioningMappingItem> mapping,
             boolean synchronizeAutomatically,
+            Optional<String> synchronizeGroups,
             OffsetDateTime createdAt,
             OffsetDateTime updatedAt,
             Optional<OffsetDateTime> lastSynchronizationAt,
@@ -63,6 +66,7 @@ public final class DirectoryProvisioning {
         this.strategy = strategy;
         this.mapping = mapping;
         this.synchronizeAutomatically = synchronizeAutomatically;
+        this.synchronizeGroups = synchronizeGroups;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.lastSynchronizationAt = lastSynchronizationAt;
@@ -109,6 +113,11 @@ public final class DirectoryProvisioning {
     @JsonProperty("synchronize_automatically")
     public boolean getSynchronizeAutomatically() {
         return synchronizeAutomatically;
+    }
+
+    @JsonProperty("synchronize_groups")
+    public Optional<String> getSynchronizeGroups() {
+        return synchronizeGroups;
     }
 
     /**
@@ -168,6 +177,7 @@ public final class DirectoryProvisioning {
                 && strategy.equals(other.strategy)
                 && mapping.equals(other.mapping)
                 && synchronizeAutomatically == other.synchronizeAutomatically
+                && synchronizeGroups.equals(other.synchronizeGroups)
                 && createdAt.equals(other.createdAt)
                 && updatedAt.equals(other.updatedAt)
                 && lastSynchronizationAt.equals(other.lastSynchronizationAt)
@@ -183,6 +193,7 @@ public final class DirectoryProvisioning {
                 this.strategy,
                 this.mapping,
                 this.synchronizeAutomatically,
+                this.synchronizeGroups,
                 this.createdAt,
                 this.updatedAt,
                 this.lastSynchronizationAt,
@@ -246,6 +257,10 @@ public final class DirectoryProvisioning {
     public interface _FinalStage {
         DirectoryProvisioning build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The mapping between Auth0 and IDP user attributes</p>
          */
@@ -254,6 +269,10 @@ public final class DirectoryProvisioning {
         _FinalStage addMapping(DirectoryProvisioningMappingItem mapping);
 
         _FinalStage addAllMapping(List<DirectoryProvisioningMappingItem> mapping);
+
+        _FinalStage synchronizeGroups(Optional<String> synchronizeGroups);
+
+        _FinalStage synchronizeGroups(String synchronizeGroups);
 
         /**
          * <p>The timestamp at which the connection was last synchronized</p>
@@ -304,6 +323,8 @@ public final class DirectoryProvisioning {
 
         private Optional<OffsetDateTime> lastSynchronizationAt = Optional.empty();
 
+        private Optional<String> synchronizeGroups = Optional.empty();
+
         private List<DirectoryProvisioningMappingItem> mapping = new ArrayList<>();
 
         @JsonAnySetter
@@ -318,6 +339,7 @@ public final class DirectoryProvisioning {
             strategy(other.getStrategy());
             mapping(other.getMapping());
             synchronizeAutomatically(other.getSynchronizeAutomatically());
+            synchronizeGroups(other.getSynchronizeGroups());
             createdAt(other.getCreatedAt());
             updatedAt(other.getUpdatedAt());
             lastSynchronizationAt(other.getLastSynchronizationAt());
@@ -458,6 +480,19 @@ public final class DirectoryProvisioning {
             return this;
         }
 
+        @java.lang.Override
+        public _FinalStage synchronizeGroups(String synchronizeGroups) {
+            this.synchronizeGroups = Optional.ofNullable(synchronizeGroups);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "synchronize_groups", nulls = Nulls.SKIP)
+        public _FinalStage synchronizeGroups(Optional<String> synchronizeGroups) {
+            this.synchronizeGroups = synchronizeGroups;
+            return this;
+        }
+
         /**
          * <p>The mapping between Auth0 and IDP user attributes</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -501,12 +536,25 @@ public final class DirectoryProvisioning {
                     strategy,
                     mapping,
                     synchronizeAutomatically,
+                    synchronizeGroups,
                     createdAt,
                     updatedAt,
                     lastSynchronizationAt,
                     lastSynchronizationStatus,
                     lastSynchronizationError,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -42,6 +42,13 @@ public class EncryptionClient {
     /**
      * Retrieve details of all the encryption keys associated with your tenant.
      */
+    public SyncPagingIterable<EncryptionKey> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve details of all the encryption keys associated with your tenant.
+     */
     public SyncPagingIterable<EncryptionKey> list(ListEncryptionKeysRequestParameters request) {
         return this.rawClient.list(request).body();
     }

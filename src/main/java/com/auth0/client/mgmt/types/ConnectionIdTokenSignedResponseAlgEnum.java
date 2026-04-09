@@ -10,14 +10,23 @@ public final class ConnectionIdTokenSignedResponseAlgEnum {
     public static final ConnectionIdTokenSignedResponseAlgEnum RS512 =
             new ConnectionIdTokenSignedResponseAlgEnum(Value.RS512, "RS512");
 
-    public static final ConnectionIdTokenSignedResponseAlgEnum PS256 =
-            new ConnectionIdTokenSignedResponseAlgEnum(Value.PS256, "PS256");
-
     public static final ConnectionIdTokenSignedResponseAlgEnum ES256 =
             new ConnectionIdTokenSignedResponseAlgEnum(Value.ES256, "ES256");
 
+    public static final ConnectionIdTokenSignedResponseAlgEnum PS256 =
+            new ConnectionIdTokenSignedResponseAlgEnum(Value.PS256, "PS256");
+
+    public static final ConnectionIdTokenSignedResponseAlgEnum ES384 =
+            new ConnectionIdTokenSignedResponseAlgEnum(Value.ES384, "ES384");
+
+    public static final ConnectionIdTokenSignedResponseAlgEnum PS384 =
+            new ConnectionIdTokenSignedResponseAlgEnum(Value.PS384, "PS384");
+
     public static final ConnectionIdTokenSignedResponseAlgEnum RS256 =
             new ConnectionIdTokenSignedResponseAlgEnum(Value.RS256, "RS256");
+
+    public static final ConnectionIdTokenSignedResponseAlgEnum RS384 =
+            new ConnectionIdTokenSignedResponseAlgEnum(Value.RS384, "RS384");
 
     private final Value value;
 
@@ -54,12 +63,18 @@ public final class ConnectionIdTokenSignedResponseAlgEnum {
         switch (value) {
             case RS512:
                 return visitor.visitRs512();
-            case PS256:
-                return visitor.visitPs256();
             case ES256:
                 return visitor.visitEs256();
+            case PS256:
+                return visitor.visitPs256();
+            case ES384:
+                return visitor.visitEs384();
+            case PS384:
+                return visitor.visitPs384();
             case RS256:
                 return visitor.visitRs256();
+            case RS384:
+                return visitor.visitRs384();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -71,37 +86,55 @@ public final class ConnectionIdTokenSignedResponseAlgEnum {
         switch (value) {
             case "RS512":
                 return RS512;
-            case "PS256":
-                return PS256;
             case "ES256":
                 return ES256;
+            case "PS256":
+                return PS256;
+            case "ES384":
+                return ES384;
+            case "PS384":
+                return PS384;
             case "RS256":
                 return RS256;
+            case "RS384":
+                return RS384;
             default:
                 return new ConnectionIdTokenSignedResponseAlgEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        RS256,
+        ES256,
 
-        RS512,
+        ES384,
 
         PS256,
 
-        ES256,
+        PS384,
+
+        RS256,
+
+        RS384,
+
+        RS512,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitRs256();
+        T visitEs256();
 
-        T visitRs512();
+        T visitEs384();
 
         T visitPs256();
 
-        T visitEs256();
+        T visitPs384();
+
+        T visitRs256();
+
+        T visitRs384();
+
+        T visitRs512();
 
         T visitUnknown(String unknownType);
     }

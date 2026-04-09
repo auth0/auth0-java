@@ -37,6 +37,8 @@ public final class CreateResourceServerRequestContent {
 
     private final Optional<Boolean> allowOfflineAccess;
 
+    private final Optional<Boolean> allowOnlineAccess;
+
     private final Optional<Integer> tokenLifetime;
 
     private final Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect;
@@ -49,7 +51,7 @@ public final class CreateResourceServerRequestContent {
 
     private final OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy;
 
-    private final Optional<List<Object>> authorizationDetails;
+    private final OptionalNullable<List<Object>> authorizationDetails;
 
     private final OptionalNullable<ResourceServerProofOfPossession> proofOfPossession;
 
@@ -64,13 +66,14 @@ public final class CreateResourceServerRequestContent {
             Optional<SigningAlgorithmEnum> signingAlg,
             Optional<String> signingSecret,
             Optional<Boolean> allowOfflineAccess,
+            Optional<Boolean> allowOnlineAccess,
             Optional<Integer> tokenLifetime,
             Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect,
             Optional<Boolean> skipConsentForVerifiableFirstPartyClients,
             Optional<Boolean> enforcePolicies,
             OptionalNullable<ResourceServerTokenEncryption> tokenEncryption,
             OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy,
-            Optional<List<Object>> authorizationDetails,
+            OptionalNullable<List<Object>> authorizationDetails,
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
             Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
             Map<String, Object> additionalProperties) {
@@ -80,6 +83,7 @@ public final class CreateResourceServerRequestContent {
         this.signingAlg = signingAlg;
         this.signingSecret = signingSecret;
         this.allowOfflineAccess = allowOfflineAccess;
+        this.allowOnlineAccess = allowOnlineAccess;
         this.tokenLifetime = tokenLifetime;
         this.tokenDialect = tokenDialect;
         this.skipConsentForVerifiableFirstPartyClients = skipConsentForVerifiableFirstPartyClients;
@@ -138,6 +142,14 @@ public final class CreateResourceServerRequestContent {
     }
 
     /**
+     * @return Whether Online Refresh Tokens can be issued for this API (true) or not (false).
+     */
+    @JsonProperty("allow_online_access")
+    public Optional<Boolean> getAllowOnlineAccess() {
+        return allowOnlineAccess;
+    }
+
+    /**
      * @return Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
      */
     @JsonProperty("token_lifetime")
@@ -184,8 +196,12 @@ public final class CreateResourceServerRequestContent {
         return consentPolicy;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("authorization_details")
-    public Optional<List<Object>> getAuthorizationDetails() {
+    public OptionalNullable<List<Object>> getAuthorizationDetails() {
+        if (authorizationDetails == null) {
+            return OptionalNullable.absent();
+        }
         return authorizationDetails;
     }
 
@@ -216,6 +232,12 @@ public final class CreateResourceServerRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("authorization_details")
+    private OptionalNullable<List<Object>> _getAuthorizationDetails() {
+        return authorizationDetails;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("proof_of_possession")
     private OptionalNullable<ResourceServerProofOfPossession> _getProofOfPossession() {
         return proofOfPossession;
@@ -240,6 +262,7 @@ public final class CreateResourceServerRequestContent {
                 && signingAlg.equals(other.signingAlg)
                 && signingSecret.equals(other.signingSecret)
                 && allowOfflineAccess.equals(other.allowOfflineAccess)
+                && allowOnlineAccess.equals(other.allowOnlineAccess)
                 && tokenLifetime.equals(other.tokenLifetime)
                 && tokenDialect.equals(other.tokenDialect)
                 && skipConsentForVerifiableFirstPartyClients.equals(other.skipConsentForVerifiableFirstPartyClients)
@@ -260,6 +283,7 @@ public final class CreateResourceServerRequestContent {
                 this.signingAlg,
                 this.signingSecret,
                 this.allowOfflineAccess,
+                this.allowOnlineAccess,
                 this.tokenLifetime,
                 this.tokenDialect,
                 this.skipConsentForVerifiableFirstPartyClients,
@@ -292,6 +316,10 @@ public final class CreateResourceServerRequestContent {
     public interface _FinalStage {
         CreateResourceServerRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Friendly name for this resource server. Can not contain <code>&lt;</code> or <code>&gt;</code> characters.</p>
          */
@@ -323,6 +351,13 @@ public final class CreateResourceServerRequestContent {
         _FinalStage allowOfflineAccess(Optional<Boolean> allowOfflineAccess);
 
         _FinalStage allowOfflineAccess(Boolean allowOfflineAccess);
+
+        /**
+         * <p>Whether Online Refresh Tokens can be issued for this API (true) or not (false).</p>
+         */
+        _FinalStage allowOnlineAccess(Optional<Boolean> allowOnlineAccess);
+
+        _FinalStage allowOnlineAccess(Boolean allowOnlineAccess);
 
         /**
          * <p>Expiration value (in seconds) for access tokens issued for this API from the token endpoint.</p>
@@ -366,9 +401,13 @@ public final class CreateResourceServerRequestContent {
 
         _FinalStage consentPolicy(com.auth0.client.mgmt.core.Nullable<ResourceServerConsentPolicyEnum> consentPolicy);
 
-        _FinalStage authorizationDetails(Optional<List<Object>> authorizationDetails);
+        _FinalStage authorizationDetails(@Nullable OptionalNullable<List<Object>> authorizationDetails);
 
         _FinalStage authorizationDetails(List<Object> authorizationDetails);
+
+        _FinalStage authorizationDetails(Optional<List<Object>> authorizationDetails);
+
+        _FinalStage authorizationDetails(com.auth0.client.mgmt.core.Nullable<List<Object>> authorizationDetails);
 
         _FinalStage proofOfPossession(@Nullable OptionalNullable<ResourceServerProofOfPossession> proofOfPossession);
 
@@ -392,7 +431,7 @@ public final class CreateResourceServerRequestContent {
 
         private OptionalNullable<ResourceServerProofOfPossession> proofOfPossession = OptionalNullable.absent();
 
-        private Optional<List<Object>> authorizationDetails = Optional.empty();
+        private OptionalNullable<List<Object>> authorizationDetails = OptionalNullable.absent();
 
         private OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy = OptionalNullable.absent();
 
@@ -405,6 +444,8 @@ public final class CreateResourceServerRequestContent {
         private Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect = Optional.empty();
 
         private Optional<Integer> tokenLifetime = Optional.empty();
+
+        private Optional<Boolean> allowOnlineAccess = Optional.empty();
 
         private Optional<Boolean> allowOfflineAccess = Optional.empty();
 
@@ -429,6 +470,7 @@ public final class CreateResourceServerRequestContent {
             signingAlg(other.getSigningAlg());
             signingSecret(other.getSigningSecret());
             allowOfflineAccess(other.getAllowOfflineAccess());
+            allowOnlineAccess(other.getAllowOnlineAccess());
             tokenLifetime(other.getTokenLifetime());
             tokenDialect(other.getTokenDialect());
             skipConsentForVerifiableFirstPartyClients(other.getSkipConsentForVerifiableFirstPartyClients());
@@ -505,14 +547,37 @@ public final class CreateResourceServerRequestContent {
         }
 
         @java.lang.Override
+        public _FinalStage authorizationDetails(
+                com.auth0.client.mgmt.core.Nullable<List<Object>> authorizationDetails) {
+            if (authorizationDetails.isNull()) {
+                this.authorizationDetails = OptionalNullable.ofNull();
+            } else if (authorizationDetails.isEmpty()) {
+                this.authorizationDetails = OptionalNullable.absent();
+            } else {
+                this.authorizationDetails = OptionalNullable.of(authorizationDetails.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage authorizationDetails(Optional<List<Object>> authorizationDetails) {
+            if (authorizationDetails.isPresent()) {
+                this.authorizationDetails = OptionalNullable.of(authorizationDetails.get());
+            } else {
+                this.authorizationDetails = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage authorizationDetails(List<Object> authorizationDetails) {
-            this.authorizationDetails = Optional.ofNullable(authorizationDetails);
+            this.authorizationDetails = OptionalNullable.of(authorizationDetails);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "authorization_details", nulls = Nulls.SKIP)
-        public _FinalStage authorizationDetails(Optional<List<Object>> authorizationDetails) {
+        public _FinalStage authorizationDetails(@Nullable OptionalNullable<List<Object>> authorizationDetails) {
             this.authorizationDetails = authorizationDetails;
             return this;
         }
@@ -666,6 +731,26 @@ public final class CreateResourceServerRequestContent {
         }
 
         /**
+         * <p>Whether Online Refresh Tokens can be issued for this API (true) or not (false).</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage allowOnlineAccess(Boolean allowOnlineAccess) {
+            this.allowOnlineAccess = Optional.ofNullable(allowOnlineAccess);
+            return this;
+        }
+
+        /**
+         * <p>Whether Online Refresh Tokens can be issued for this API (true) or not (false).</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "allow_online_access", nulls = Nulls.SKIP)
+        public _FinalStage allowOnlineAccess(Optional<Boolean> allowOnlineAccess) {
+            this.allowOnlineAccess = allowOnlineAccess;
+            return this;
+        }
+
+        /**
          * <p>Whether refresh tokens can be issued for this API (true) or not (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -767,6 +852,7 @@ public final class CreateResourceServerRequestContent {
                     signingAlg,
                     signingSecret,
                     allowOfflineAccess,
+                    allowOnlineAccess,
                     tokenLifetime,
                     tokenDialect,
                     skipConsentForVerifiableFirstPartyClients,
@@ -777,6 +863,18 @@ public final class CreateResourceServerRequestContent {
                     proofOfPossession,
                     subjectTypeAuthorization,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

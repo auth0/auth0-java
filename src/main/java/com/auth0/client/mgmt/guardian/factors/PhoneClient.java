@@ -36,21 +36,21 @@ public class PhoneClient {
     }
 
     /**
-     * Retrieve list of &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;phone-type MFA factors&lt;/a&gt; (i.e., sms and voice) that are enabled for your tenant.
+     * Retrieve list of <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">phone-type MFA factors</a> (i.e., sms and voice) that are enabled for your tenant.
      */
     public GetGuardianFactorPhoneMessageTypesResponseContent getMessageTypes() {
         return this.rawClient.getMessageTypes().body();
     }
 
     /**
-     * Retrieve list of &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;phone-type MFA factors&lt;/a&gt; (i.e., sms and voice) that are enabled for your tenant.
+     * Retrieve list of <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">phone-type MFA factors</a> (i.e., sms and voice) that are enabled for your tenant.
      */
     public GetGuardianFactorPhoneMessageTypesResponseContent getMessageTypes(RequestOptions requestOptions) {
         return this.rawClient.getMessageTypes(requestOptions).body();
     }
 
     /**
-     * Replace the list of &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;phone-type MFA factors&lt;/a&gt; (i.e., sms and voice) that are enabled for your tenant.
+     * Replace the list of <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">phone-type MFA factors</a> (i.e., sms and voice) that are enabled for your tenant.
      */
     public SetGuardianFactorPhoneMessageTypesResponseContent setMessageTypes(
             SetGuardianFactorPhoneMessageTypesRequestContent request) {
@@ -58,7 +58,7 @@ public class PhoneClient {
     }
 
     /**
-     * Replace the list of &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;phone-type MFA factors&lt;/a&gt; (i.e., sms and voice) that are enabled for your tenant.
+     * Replace the list of <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">phone-type MFA factors</a> (i.e., sms and voice) that are enabled for your tenant.
      */
     public SetGuardianFactorPhoneMessageTypesResponseContent setMessageTypes(
             SetGuardianFactorPhoneMessageTypesRequestContent request, RequestOptions requestOptions) {
@@ -66,28 +66,35 @@ public class PhoneClient {
     }
 
     /**
-     * Retrieve configuration details for a Twilio phone provider that has been set up in your tenant. To learn more, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;Configure SMS and Voice Notifications for MFA&lt;/a&gt;.
+     * Retrieve configuration details for a Twilio phone provider that has been set up in your tenant. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">Configure SMS and Voice Notifications for MFA</a>.
      */
     public GetGuardianFactorsProviderPhoneTwilioResponseContent getTwilioProvider() {
         return this.rawClient.getTwilioProvider().body();
     }
 
     /**
-     * Retrieve configuration details for a Twilio phone provider that has been set up in your tenant. To learn more, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;Configure SMS and Voice Notifications for MFA&lt;/a&gt;.
+     * Retrieve configuration details for a Twilio phone provider that has been set up in your tenant. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">Configure SMS and Voice Notifications for MFA</a>.
      */
     public GetGuardianFactorsProviderPhoneTwilioResponseContent getTwilioProvider(RequestOptions requestOptions) {
         return this.rawClient.getTwilioProvider(requestOptions).body();
     }
 
     /**
-     * Update the configuration of a Twilio phone provider that has been set up in your tenant. To learn more, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;Configure SMS and Voice Notifications for MFA&lt;/a&gt;.
+     * Update the configuration of a Twilio phone provider that has been set up in your tenant. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">Configure SMS and Voice Notifications for MFA</a>.
      */
     public SetGuardianFactorsProviderPhoneTwilioResponseContent setTwilioProvider() {
         return this.rawClient.setTwilioProvider().body();
     }
 
     /**
-     * Update the configuration of a Twilio phone provider that has been set up in your tenant. To learn more, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;Configure SMS and Voice Notifications for MFA&lt;/a&gt;.
+     * Update the configuration of a Twilio phone provider that has been set up in your tenant. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">Configure SMS and Voice Notifications for MFA</a>.
+     */
+    public SetGuardianFactorsProviderPhoneTwilioResponseContent setTwilioProvider(RequestOptions requestOptions) {
+        return this.rawClient.setTwilioProvider(requestOptions).body();
+    }
+
+    /**
+     * Update the configuration of a Twilio phone provider that has been set up in your tenant. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">Configure SMS and Voice Notifications for MFA</a>.
      */
     public SetGuardianFactorsProviderPhoneTwilioResponseContent setTwilioProvider(
             SetGuardianFactorsProviderPhoneTwilioRequestContent request) {
@@ -95,7 +102,7 @@ public class PhoneClient {
     }
 
     /**
-     * Update the configuration of a Twilio phone provider that has been set up in your tenant. To learn more, review &lt;a href=&quot;https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa&quot;&gt;Configure SMS and Voice Notifications for MFA&lt;/a&gt;.
+     * Update the configuration of a Twilio phone provider that has been set up in your tenant. To learn more, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors/configure-sms-voice-notifications-mfa">Configure SMS and Voice Notifications for MFA</a>.
      */
     public SetGuardianFactorsProviderPhoneTwilioResponseContent setTwilioProvider(
             SetGuardianFactorsProviderPhoneTwilioRequestContent request, RequestOptions requestOptions) {

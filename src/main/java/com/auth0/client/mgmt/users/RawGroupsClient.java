@@ -47,6 +47,14 @@ public class RawGroupsClient {
      * List all groups to which this user belongs.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<UserGroupsResponseSchema>> get(
+            String id, RequestOptions requestOptions) {
+        return get(id, GetUserGroupsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * List all groups to which this user belongs.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<UserGroupsResponseSchema>> get(
             String id, GetUserGroupsRequestParameters request) {
         return get(id, request, null);
     }
@@ -74,6 +82,11 @@ public class RawGroupsClient {
                     httpUrl, "from", request.getFrom().orElse(null), false);
         }
         QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)

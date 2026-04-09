@@ -46,6 +46,9 @@ public final class UpdateCustomDomainRequestContent {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return recommended includes TLS 1.2
+     */
     @JsonProperty("tls_policy")
     public Optional<CustomDomainTlsPolicyEnum> getTlsPolicy() {
         return tlsPolicy;
@@ -136,6 +139,9 @@ public final class UpdateCustomDomainRequestContent {
             return this;
         }
 
+        /**
+         * <p>recommended includes TLS 1.2</p>
+         */
         @JsonSetter(value = "tls_policy", nulls = Nulls.SKIP)
         public Builder tlsPolicy(Optional<CustomDomainTlsPolicyEnum> tlsPolicy) {
             this.tlsPolicy = tlsPolicy;
@@ -228,6 +234,16 @@ public final class UpdateCustomDomainRequestContent {
         public UpdateCustomDomainRequestContent build() {
             return new UpdateCustomDomainRequestContent(
                     tlsPolicy, customClientIpHeader, domainMetadata, relyingPartyIdentifier, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

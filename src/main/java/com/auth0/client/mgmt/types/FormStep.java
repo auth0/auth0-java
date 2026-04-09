@@ -119,6 +119,10 @@ public final class FormStep {
     public interface _FinalStage {
         FormStep build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage coordinates(Optional<FormNodeCoordinates> coordinates);
 
         _FinalStage coordinates(FormNodeCoordinates coordinates);
@@ -215,6 +219,18 @@ public final class FormStep {
         @java.lang.Override
         public FormStep build() {
             return new FormStep(id, type, coordinates, alias, config, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

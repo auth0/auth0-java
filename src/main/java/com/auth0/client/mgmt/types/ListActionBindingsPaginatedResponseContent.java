@@ -191,5 +191,15 @@ public final class ListActionBindingsPaginatedResponseContent {
         public ListActionBindingsPaginatedResponseContent build() {
             return new ListActionBindingsPaginatedResponseContent(total, page, perPage, bindings, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

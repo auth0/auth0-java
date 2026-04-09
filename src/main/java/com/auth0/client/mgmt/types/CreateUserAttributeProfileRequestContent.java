@@ -95,6 +95,10 @@ public final class CreateUserAttributeProfileRequestContent {
     public interface _FinalStage {
         CreateUserAttributeProfileRequestContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage userId(Optional<UserAttributeProfileUserId> userId);
 
         _FinalStage userId(UserAttributeProfileUserId userId);
@@ -178,6 +182,18 @@ public final class CreateUserAttributeProfileRequestContent {
         @java.lang.Override
         public CreateUserAttributeProfileRequestContent build() {
             return new CreateUserAttributeProfileRequestContent(name, userId, userAttributes, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

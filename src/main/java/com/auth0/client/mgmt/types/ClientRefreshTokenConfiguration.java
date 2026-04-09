@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,6 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ClientRefreshTokenConfiguration.Builder.class)
@@ -36,7 +39,7 @@ public final class ClientRefreshTokenConfiguration {
 
     private final Optional<Boolean> infiniteIdleTokenLifetime;
 
-    private final Optional<List<ClientRefreshTokenPolicy>> policies;
+    private final OptionalNullable<List<ClientRefreshTokenPolicy>> policies;
 
     private final Map<String, Object> additionalProperties;
 
@@ -48,7 +51,7 @@ public final class ClientRefreshTokenConfiguration {
             Optional<Boolean> infiniteTokenLifetime,
             Optional<Integer> idleTokenLifetime,
             Optional<Boolean> infiniteIdleTokenLifetime,
-            Optional<List<ClientRefreshTokenPolicy>> policies,
+            OptionalNullable<List<ClientRefreshTokenPolicy>> policies,
             Map<String, Object> additionalProperties) {
         this.rotationType = rotationType;
         this.expirationType = expirationType;
@@ -114,8 +117,18 @@ public final class ClientRefreshTokenConfiguration {
     /**
      * @return A collection of policies governing multi-resource refresh token exchange (MRRT), defining how refresh tokens can be used across different resource servers
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("policies")
-    public Optional<List<ClientRefreshTokenPolicy>> getPolicies() {
+    public OptionalNullable<List<ClientRefreshTokenPolicy>> getPolicies() {
+        if (policies == null) {
+            return OptionalNullable.absent();
+        }
+        return policies;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("policies")
+    private OptionalNullable<List<ClientRefreshTokenPolicy>> _getPolicies() {
         return policies;
     }
 
@@ -176,6 +189,10 @@ public final class ClientRefreshTokenConfiguration {
     public interface _FinalStage {
         ClientRefreshTokenConfiguration build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Period in seconds where the previous refresh token can be exchanged without triggering breach detection</p>
          */
@@ -214,9 +231,13 @@ public final class ClientRefreshTokenConfiguration {
         /**
          * <p>A collection of policies governing multi-resource refresh token exchange (MRRT), defining how refresh tokens can be used across different resource servers</p>
          */
-        _FinalStage policies(Optional<List<ClientRefreshTokenPolicy>> policies);
+        _FinalStage policies(@Nullable OptionalNullable<List<ClientRefreshTokenPolicy>> policies);
 
         _FinalStage policies(List<ClientRefreshTokenPolicy> policies);
+
+        _FinalStage policies(Optional<List<ClientRefreshTokenPolicy>> policies);
+
+        _FinalStage policies(com.auth0.client.mgmt.core.Nullable<List<ClientRefreshTokenPolicy>> policies);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -225,7 +246,7 @@ public final class ClientRefreshTokenConfiguration {
 
         private RefreshTokenExpirationTypeEnum expirationType;
 
-        private Optional<List<ClientRefreshTokenPolicy>> policies = Optional.empty();
+        private OptionalNullable<List<ClientRefreshTokenPolicy>> policies = OptionalNullable.absent();
 
         private Optional<Boolean> infiniteIdleTokenLifetime = Optional.empty();
 
@@ -274,8 +295,38 @@ public final class ClientRefreshTokenConfiguration {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
+        public _FinalStage policies(com.auth0.client.mgmt.core.Nullable<List<ClientRefreshTokenPolicy>> policies) {
+            if (policies.isNull()) {
+                this.policies = OptionalNullable.ofNull();
+            } else if (policies.isEmpty()) {
+                this.policies = OptionalNullable.absent();
+            } else {
+                this.policies = OptionalNullable.of(policies.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>A collection of policies governing multi-resource refresh token exchange (MRRT), defining how refresh tokens can be used across different resource servers</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage policies(Optional<List<ClientRefreshTokenPolicy>> policies) {
+            if (policies.isPresent()) {
+                this.policies = OptionalNullable.of(policies.get());
+            } else {
+                this.policies = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        /**
+         * <p>A collection of policies governing multi-resource refresh token exchange (MRRT), defining how refresh tokens can be used across different resource servers</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
         public _FinalStage policies(List<ClientRefreshTokenPolicy> policies) {
-            this.policies = Optional.ofNullable(policies);
+            this.policies = OptionalNullable.of(policies);
             return this;
         }
 
@@ -284,7 +335,7 @@ public final class ClientRefreshTokenConfiguration {
          */
         @java.lang.Override
         @JsonSetter(value = "policies", nulls = Nulls.SKIP)
-        public _FinalStage policies(Optional<List<ClientRefreshTokenPolicy>> policies) {
+        public _FinalStage policies(@Nullable OptionalNullable<List<ClientRefreshTokenPolicy>> policies) {
             this.policies = policies;
             return this;
         }
@@ -401,6 +452,18 @@ public final class ClientRefreshTokenConfiguration {
                     infiniteIdleTokenLifetime,
                     policies,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

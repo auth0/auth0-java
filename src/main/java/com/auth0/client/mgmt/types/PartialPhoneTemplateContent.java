@@ -120,5 +120,15 @@ public final class PartialPhoneTemplateContent {
         public PartialPhoneTemplateContent build() {
             return new PartialPhoneTemplateContent(from, body, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

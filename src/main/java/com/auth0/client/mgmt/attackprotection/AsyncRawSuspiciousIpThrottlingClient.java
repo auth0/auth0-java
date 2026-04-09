@@ -50,12 +50,16 @@ public class AsyncRawSuspiciousIpThrottlingClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<GetSuspiciousIpThrottlingSettingsResponseContent>> get(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("attack-protection/suspicious-ip-throttling")
-                .build();
+                .addPathSegments("attack-protection/suspicious-ip-throttling");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -128,6 +132,15 @@ public class AsyncRawSuspiciousIpThrottlingClient {
      * Update the details of the Suspicious IP Throttling configuration of your tenant.
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateSuspiciousIpThrottlingSettingsResponseContent>> update(
+            RequestOptions requestOptions) {
+        return update(
+                UpdateSuspiciousIpThrottlingSettingsRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update the details of the Suspicious IP Throttling configuration of your tenant.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<UpdateSuspiciousIpThrottlingSettingsResponseContent>> update(
             UpdateSuspiciousIpThrottlingSettingsRequestContent request) {
         return update(request, null);
     }
@@ -137,10 +150,14 @@ public class AsyncRawSuspiciousIpThrottlingClient {
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateSuspiciousIpThrottlingSettingsResponseContent>> update(
             UpdateSuspiciousIpThrottlingSettingsRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("attack-protection/suspicious-ip-throttling")
-                .build();
+                .addPathSegments("attack-protection/suspicious-ip-throttling");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -149,7 +166,7 @@ public class AsyncRawSuspiciousIpThrottlingClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

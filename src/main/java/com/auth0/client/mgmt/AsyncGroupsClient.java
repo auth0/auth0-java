@@ -44,6 +44,13 @@ public class AsyncGroupsClient {
     /**
      * List all groups in your tenant.
      */
+    public CompletableFuture<SyncPagingIterable<Group>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * List all groups in your tenant.
+     */
     public CompletableFuture<SyncPagingIterable<Group>> list(ListGroupsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
@@ -68,6 +75,20 @@ public class AsyncGroupsClient {
      */
     public CompletableFuture<GetGroupResponseContent> get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Delete a group by its ID.
+     */
+    public CompletableFuture<Void> delete(String id) {
+        return this.rawClient.delete(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Delete a group by its ID.
+     */
+    public CompletableFuture<Void> delete(String id, RequestOptions requestOptions) {
+        return this.rawClient.delete(id, requestOptions).thenApply(response -> response.body());
     }
 
     public AsyncMembersClient members() {

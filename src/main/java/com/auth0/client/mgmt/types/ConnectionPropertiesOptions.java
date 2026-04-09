@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 public final class ConnectionPropertiesOptions {
     private final OptionalNullable<ConnectionValidationOptions> validation;
 
-    private final Optional<List<String>> nonPersistentAttrs;
+    private final OptionalNullable<List<String>> nonPersistentAttrs;
 
     private final Optional<List<ConnectionIdentifierPrecedenceEnum>> precedence;
 
@@ -37,6 +37,8 @@ public final class ConnectionPropertiesOptions {
     private final Optional<Boolean> enabledDatabaseCustomization;
 
     private final Optional<Boolean> importMode;
+
+    private final OptionalNullable<Map<String, OptionalNullable<String>>> configuration;
 
     private final Optional<ConnectionCustomScripts> customScripts;
 
@@ -81,16 +83,19 @@ public final class ConnectionPropertiesOptions {
 
     private final OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens;
 
+    private final Optional<ConnectionPasswordOptions> passwordOptions;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectionPropertiesOptions(
             OptionalNullable<ConnectionValidationOptions> validation,
-            Optional<List<String>> nonPersistentAttrs,
+            OptionalNullable<List<String>> nonPersistentAttrs,
             Optional<List<ConnectionIdentifierPrecedenceEnum>> precedence,
             Optional<ConnectionAttributes> attributes,
             Optional<Boolean> enableScriptContext,
             Optional<Boolean> enabledDatabaseCustomization,
             Optional<Boolean> importMode,
+            OptionalNullable<Map<String, OptionalNullable<String>>> configuration,
             Optional<ConnectionCustomScripts> customScripts,
             OptionalNullable<ConnectionAuthenticationMethods> authenticationMethods,
             OptionalNullable<ConnectionPasskeyOptions> passkeyOptions,
@@ -112,6 +117,7 @@ public final class ConnectionPropertiesOptions {
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
             OptionalNullable<ConnectionGatewayAuthentication> gatewayAuthentication,
             OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens,
+            Optional<ConnectionPasswordOptions> passwordOptions,
             Map<String, Object> additionalProperties) {
         this.validation = validation;
         this.nonPersistentAttrs = nonPersistentAttrs;
@@ -120,6 +126,7 @@ public final class ConnectionPropertiesOptions {
         this.enableScriptContext = enableScriptContext;
         this.enabledDatabaseCustomization = enabledDatabaseCustomization;
         this.importMode = importMode;
+        this.configuration = configuration;
         this.customScripts = customScripts;
         this.authenticationMethods = authenticationMethods;
         this.passkeyOptions = passkeyOptions;
@@ -141,6 +148,7 @@ public final class ConnectionPropertiesOptions {
         this.setUserRootAttributes = setUserRootAttributes;
         this.gatewayAuthentication = gatewayAuthentication;
         this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
+        this.passwordOptions = passwordOptions;
         this.additionalProperties = additionalProperties;
     }
 
@@ -156,8 +164,12 @@ public final class ConnectionPropertiesOptions {
     /**
      * @return An array of user fields that should not be stored in the Auth0 database (https://auth0.com/docs/security/data-security/denylist)
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("non_persistent_attrs")
-    public Optional<List<String>> getNonPersistentAttrs() {
+    public OptionalNullable<List<String>> getNonPersistentAttrs() {
+        if (nonPersistentAttrs == null) {
+            return OptionalNullable.absent();
+        }
         return nonPersistentAttrs;
     }
 
@@ -196,6 +208,18 @@ public final class ConnectionPropertiesOptions {
     @JsonProperty("import_mode")
     public Optional<Boolean> getImportMode() {
         return importMode;
+    }
+
+    /**
+     * @return Stores encrypted string only configurations for connections
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("configuration")
+    public OptionalNullable<Map<String, OptionalNullable<String>>> getConfiguration() {
+        if (configuration == null) {
+            return OptionalNullable.absent();
+        }
+        return configuration;
     }
 
     @JsonProperty("customScripts")
@@ -343,10 +367,27 @@ public final class ConnectionPropertiesOptions {
         return federatedConnectionsAccessTokens;
     }
 
+    @JsonProperty("password_options")
+    public Optional<ConnectionPasswordOptions> getPasswordOptions() {
+        return passwordOptions;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("validation")
     private OptionalNullable<ConnectionValidationOptions> _getValidation() {
         return validation;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("non_persistent_attrs")
+    private OptionalNullable<List<String>> _getNonPersistentAttrs() {
+        return nonPersistentAttrs;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("configuration")
+    private OptionalNullable<Map<String, OptionalNullable<String>>> _getConfiguration() {
+        return configuration;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -429,6 +470,7 @@ public final class ConnectionPropertiesOptions {
                 && enableScriptContext.equals(other.enableScriptContext)
                 && enabledDatabaseCustomization.equals(other.enabledDatabaseCustomization)
                 && importMode.equals(other.importMode)
+                && configuration.equals(other.configuration)
                 && customScripts.equals(other.customScripts)
                 && authenticationMethods.equals(other.authenticationMethods)
                 && passkeyOptions.equals(other.passkeyOptions)
@@ -449,7 +491,8 @@ public final class ConnectionPropertiesOptions {
                 && upstreamParams.equals(other.upstreamParams)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
                 && gatewayAuthentication.equals(other.gatewayAuthentication)
-                && federatedConnectionsAccessTokens.equals(other.federatedConnectionsAccessTokens);
+                && federatedConnectionsAccessTokens.equals(other.federatedConnectionsAccessTokens)
+                && passwordOptions.equals(other.passwordOptions);
     }
 
     @java.lang.Override
@@ -462,6 +505,7 @@ public final class ConnectionPropertiesOptions {
                 this.enableScriptContext,
                 this.enabledDatabaseCustomization,
                 this.importMode,
+                this.configuration,
                 this.customScripts,
                 this.authenticationMethods,
                 this.passkeyOptions,
@@ -482,7 +526,8 @@ public final class ConnectionPropertiesOptions {
                 this.upstreamParams,
                 this.setUserRootAttributes,
                 this.gatewayAuthentication,
-                this.federatedConnectionsAccessTokens);
+                this.federatedConnectionsAccessTokens,
+                this.passwordOptions);
     }
 
     @java.lang.Override
@@ -498,7 +543,7 @@ public final class ConnectionPropertiesOptions {
     public static final class Builder {
         private OptionalNullable<ConnectionValidationOptions> validation = OptionalNullable.absent();
 
-        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+        private OptionalNullable<List<String>> nonPersistentAttrs = OptionalNullable.absent();
 
         private Optional<List<ConnectionIdentifierPrecedenceEnum>> precedence = Optional.empty();
 
@@ -509,6 +554,8 @@ public final class ConnectionPropertiesOptions {
         private Optional<Boolean> enabledDatabaseCustomization = Optional.empty();
 
         private Optional<Boolean> importMode = Optional.empty();
+
+        private OptionalNullable<Map<String, OptionalNullable<String>>> configuration = OptionalNullable.absent();
 
         private Optional<ConnectionCustomScripts> customScripts = Optional.empty();
 
@@ -556,6 +603,8 @@ public final class ConnectionPropertiesOptions {
         private OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens =
                 OptionalNullable.absent();
 
+        private Optional<ConnectionPasswordOptions> passwordOptions = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -569,6 +618,7 @@ public final class ConnectionPropertiesOptions {
             enableScriptContext(other.getEnableScriptContext());
             enabledDatabaseCustomization(other.getEnabledDatabaseCustomization());
             importMode(other.getImportMode());
+            configuration(other.getConfiguration());
             customScripts(other.getCustomScripts());
             authenticationMethods(other.getAuthenticationMethods());
             passkeyOptions(other.getPasskeyOptions());
@@ -590,6 +640,7 @@ public final class ConnectionPropertiesOptions {
             setUserRootAttributes(other.getSetUserRootAttributes());
             gatewayAuthentication(other.getGatewayAuthentication());
             federatedConnectionsAccessTokens(other.getFederatedConnectionsAccessTokens());
+            passwordOptions(other.getPasswordOptions());
             return this;
         }
 
@@ -628,13 +679,33 @@ public final class ConnectionPropertiesOptions {
          * <p>An array of user fields that should not be stored in the Auth0 database (https://auth0.com/docs/security/data-security/denylist)</p>
          */
         @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
-        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
+        public Builder nonPersistentAttrs(@Nullable OptionalNullable<List<String>> nonPersistentAttrs) {
             this.nonPersistentAttrs = nonPersistentAttrs;
             return this;
         }
 
         public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
-            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+            this.nonPersistentAttrs = OptionalNullable.of(nonPersistentAttrs);
+            return this;
+        }
+
+        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
+            if (nonPersistentAttrs.isPresent()) {
+                this.nonPersistentAttrs = OptionalNullable.of(nonPersistentAttrs.get());
+            } else {
+                this.nonPersistentAttrs = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder nonPersistentAttrs(com.auth0.client.mgmt.core.Nullable<List<String>> nonPersistentAttrs) {
+            if (nonPersistentAttrs.isNull()) {
+                this.nonPersistentAttrs = OptionalNullable.ofNull();
+            } else if (nonPersistentAttrs.isEmpty()) {
+                this.nonPersistentAttrs = OptionalNullable.absent();
+            } else {
+                this.nonPersistentAttrs = OptionalNullable.of(nonPersistentAttrs.get());
+            }
             return this;
         }
 
@@ -702,6 +773,41 @@ public final class ConnectionPropertiesOptions {
 
         public Builder importMode(Boolean importMode) {
             this.importMode = Optional.ofNullable(importMode);
+            return this;
+        }
+
+        /**
+         * <p>Stores encrypted string only configurations for connections</p>
+         */
+        @JsonSetter(value = "configuration", nulls = Nulls.SKIP)
+        public Builder configuration(@Nullable OptionalNullable<Map<String, OptionalNullable<String>>> configuration) {
+            this.configuration = configuration;
+            return this;
+        }
+
+        public Builder configuration(Map<String, OptionalNullable<String>> configuration) {
+            this.configuration = OptionalNullable.of(configuration);
+            return this;
+        }
+
+        public Builder configuration(Optional<Map<String, OptionalNullable<String>>> configuration) {
+            if (configuration.isPresent()) {
+                this.configuration = OptionalNullable.of(configuration.get());
+            } else {
+                this.configuration = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder configuration(
+                com.auth0.client.mgmt.core.Nullable<Map<String, OptionalNullable<String>>> configuration) {
+            if (configuration.isNull()) {
+                this.configuration = OptionalNullable.ofNull();
+            } else if (configuration.isEmpty()) {
+                this.configuration = OptionalNullable.absent();
+            } else {
+                this.configuration = OptionalNullable.of(configuration.get());
+            }
             return this;
         }
 
@@ -1164,6 +1270,17 @@ public final class ConnectionPropertiesOptions {
             return this;
         }
 
+        @JsonSetter(value = "password_options", nulls = Nulls.SKIP)
+        public Builder passwordOptions(Optional<ConnectionPasswordOptions> passwordOptions) {
+            this.passwordOptions = passwordOptions;
+            return this;
+        }
+
+        public Builder passwordOptions(ConnectionPasswordOptions passwordOptions) {
+            this.passwordOptions = Optional.ofNullable(passwordOptions);
+            return this;
+        }
+
         public ConnectionPropertiesOptions build() {
             return new ConnectionPropertiesOptions(
                     validation,
@@ -1173,6 +1290,7 @@ public final class ConnectionPropertiesOptions {
                     enableScriptContext,
                     enabledDatabaseCustomization,
                     importMode,
+                    configuration,
                     customScripts,
                     authenticationMethods,
                     passkeyOptions,
@@ -1194,7 +1312,18 @@ public final class ConnectionPropertiesOptions {
                     setUserRootAttributes,
                     gatewayAuthentication,
                     federatedConnectionsAccessTokens,
+                    passwordOptions,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

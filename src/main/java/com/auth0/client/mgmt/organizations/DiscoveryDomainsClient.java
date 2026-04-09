@@ -34,6 +34,7 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public SyncPagingIterable<OrganizationDiscoveryDomain> list(String id) {
         return this.rawClient.list(id).body();
@@ -41,6 +42,15 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
+     */
+    public SyncPagingIterable<OrganizationDiscoveryDomain> list(String id, RequestOptions requestOptions) {
+        return this.rawClient.list(id, requestOptions).body();
+    }
+
+    /**
+     * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public SyncPagingIterable<OrganizationDiscoveryDomain> list(
             String id, ListOrganizationDiscoveryDomainsRequestParameters request) {
@@ -49,6 +59,7 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public SyncPagingIterable<OrganizationDiscoveryDomain> list(
             String id, ListOrganizationDiscoveryDomainsRequestParameters request, RequestOptions requestOptions) {
@@ -73,6 +84,7 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by domain name.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public GetOrganizationDiscoveryDomainByNameResponseContent getByName(String id, String discoveryDomain) {
         return this.rawClient.getByName(id, discoveryDomain).body();
@@ -80,6 +92,7 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by domain name.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public GetOrganizationDiscoveryDomainByNameResponseContent getByName(
             String id, String discoveryDomain, RequestOptions requestOptions) {
@@ -88,6 +101,7 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by ID.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public GetOrganizationDiscoveryDomainResponseContent get(String id, String discoveryDomainId) {
         return this.rawClient.get(id, discoveryDomainId).body();
@@ -95,6 +109,7 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by ID.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public GetOrganizationDiscoveryDomainResponseContent get(
             String id, String discoveryDomainId, RequestOptions requestOptions) {
@@ -116,14 +131,22 @@ public class DiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
      */
     public UpdateOrganizationDiscoveryDomainResponseContent update(String id, String discoveryDomainId) {
         return this.rawClient.update(id, discoveryDomainId).body();
     }
 
     /**
-     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
+     */
+    public UpdateOrganizationDiscoveryDomainResponseContent update(
+            String id, String discoveryDomainId, RequestOptions requestOptions) {
+        return this.rawClient.update(id, discoveryDomainId, requestOptions).body();
+    }
+
+    /**
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
      */
     public UpdateOrganizationDiscoveryDomainResponseContent update(
             String id, String discoveryDomainId, UpdateOrganizationDiscoveryDomainRequestContent request) {
@@ -131,7 +154,7 @@ public class DiscoveryDomainsClient {
     }
 
     /**
-     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The &lt;code&gt;status&lt;/code&gt; field must be either &lt;code&gt;pending&lt;/code&gt; or &lt;code&gt;verified&lt;/code&gt;. The &lt;code&gt;use_for_organization_discovery&lt;/code&gt; field can be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (default: &lt;code&gt;true&lt;/code&gt;).
+     * Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
      */
     public UpdateOrganizationDiscoveryDomainResponseContent update(
             String id,

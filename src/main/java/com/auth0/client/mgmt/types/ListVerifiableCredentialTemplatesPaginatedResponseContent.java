@@ -40,7 +40,7 @@ public final class ListVerifiableCredentialTemplatesPaginatedResponseContent {
     }
 
     /**
-     * @return Opaque identifier for use with the &lt;i&gt;from&lt;/i&gt; query parameter for the next page of results.&lt;br/&gt;This identifier is valid for 24 hours.
+     * @return Opaque identifier for use with the <i>from</i> query parameter for the next page of results.<br/>This identifier is valid for 24 hours.
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("next")
@@ -110,7 +110,7 @@ public final class ListVerifiableCredentialTemplatesPaginatedResponseContent {
         }
 
         /**
-         * <p>Opaque identifier for use with the &lt;i&gt;from&lt;/i&gt; query parameter for the next page of results.&lt;br/&gt;This identifier is valid for 24 hours.</p>
+         * <p>Opaque identifier for use with the <i>from</i> query parameter for the next page of results.<br/>This identifier is valid for 24 hours.</p>
          */
         @JsonSetter(value = "next", nulls = Nulls.SKIP)
         public Builder next(@Nullable OptionalNullable<String> next) {
@@ -156,6 +156,16 @@ public final class ListVerifiableCredentialTemplatesPaginatedResponseContent {
 
         public ListVerifiableCredentialTemplatesPaginatedResponseContent build() {
             return new ListVerifiableCredentialTemplatesPaginatedResponseContent(next, templates, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

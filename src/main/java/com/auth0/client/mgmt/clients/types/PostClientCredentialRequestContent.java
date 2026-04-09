@@ -38,6 +38,8 @@ public final class PostClientCredentialRequestContent {
 
     private final Optional<OffsetDateTime> expiresAt;
 
+    private final Optional<String> kid;
+
     private final Map<String, Object> additionalProperties;
 
     private PostClientCredentialRequestContent(
@@ -48,6 +50,7 @@ public final class PostClientCredentialRequestContent {
             Optional<PublicKeyCredentialAlgorithmEnum> alg,
             Optional<Boolean> parseExpiryFromCert,
             Optional<OffsetDateTime> expiresAt,
+            Optional<String> kid,
             Map<String, Object> additionalProperties) {
         this.credentialType = credentialType;
         this.name = name;
@@ -56,6 +59,7 @@ public final class PostClientCredentialRequestContent {
         this.alg = alg;
         this.parseExpiryFromCert = parseExpiryFromCert;
         this.expiresAt = expiresAt;
+        this.kid = kid;
         this.additionalProperties = additionalProperties;
     }
 
@@ -109,6 +113,14 @@ public final class PostClientCredentialRequestContent {
         return expiresAt;
     }
 
+    /**
+     * @return Optional kid (Key ID), used to uniquely identify the credential. If not specified, a kid value will be auto-generated. The kid header parameter in JWTs sent by your client should match this value. Valid format is [0-9a-zA-Z-_]{10,64}
+     */
+    @JsonProperty("kid")
+    public Optional<String> getKid() {
+        return kid;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -128,7 +140,8 @@ public final class PostClientCredentialRequestContent {
                 && pem.equals(other.pem)
                 && alg.equals(other.alg)
                 && parseExpiryFromCert.equals(other.parseExpiryFromCert)
-                && expiresAt.equals(other.expiresAt);
+                && expiresAt.equals(other.expiresAt)
+                && kid.equals(other.kid);
     }
 
     @java.lang.Override
@@ -140,7 +153,8 @@ public final class PostClientCredentialRequestContent {
                 this.pem,
                 this.alg,
                 this.parseExpiryFromCert,
-                this.expiresAt);
+                this.expiresAt,
+                this.kid);
     }
 
     @java.lang.Override
@@ -160,6 +174,10 @@ public final class PostClientCredentialRequestContent {
 
     public interface _FinalStage {
         PostClientCredentialRequestContent build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
         /**
          * <p>Friendly name for a credential.</p>
@@ -199,11 +217,20 @@ public final class PostClientCredentialRequestContent {
         _FinalStage expiresAt(Optional<OffsetDateTime> expiresAt);
 
         _FinalStage expiresAt(OffsetDateTime expiresAt);
+
+        /**
+         * <p>Optional kid (Key ID), used to uniquely identify the credential. If not specified, a kid value will be auto-generated. The kid header parameter in JWTs sent by your client should match this value. Valid format is [0-9a-zA-Z-_]{10,64}</p>
+         */
+        _FinalStage kid(Optional<String> kid);
+
+        _FinalStage kid(String kid);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements CredentialTypeStage, _FinalStage {
         private ClientCredentialTypeEnum credentialType;
+
+        private Optional<String> kid = Optional.empty();
 
         private Optional<OffsetDateTime> expiresAt = Optional.empty();
 
@@ -231,6 +258,7 @@ public final class PostClientCredentialRequestContent {
             alg(other.getAlg());
             parseExpiryFromCert(other.getParseExpiryFromCert());
             expiresAt(other.getExpiresAt());
+            kid(other.getKid());
             return this;
         }
 
@@ -238,6 +266,26 @@ public final class PostClientCredentialRequestContent {
         @JsonSetter("credential_type")
         public _FinalStage credentialType(@NotNull ClientCredentialTypeEnum credentialType) {
             this.credentialType = Objects.requireNonNull(credentialType, "credentialType must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Optional kid (Key ID), used to uniquely identify the credential. If not specified, a kid value will be auto-generated. The kid header parameter in JWTs sent by your client should match this value. Valid format is [0-9a-zA-Z-_]{10,64}</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage kid(String kid) {
+            this.kid = Optional.ofNullable(kid);
+            return this;
+        }
+
+        /**
+         * <p>Optional kid (Key ID), used to uniquely identify the credential. If not specified, a kid value will be auto-generated. The kid header parameter in JWTs sent by your client should match this value. Valid format is [0-9a-zA-Z-_]{10,64}</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "kid", nulls = Nulls.SKIP)
+        public _FinalStage kid(Optional<String> kid) {
+            this.kid = kid;
             return this;
         }
 
@@ -357,7 +405,27 @@ public final class PostClientCredentialRequestContent {
         @java.lang.Override
         public PostClientCredentialRequestContent build() {
             return new PostClientCredentialRequestContent(
-                    credentialType, name, subjectDn, pem, alg, parseExpiryFromCert, expiresAt, additionalProperties);
+                    credentialType,
+                    name,
+                    subjectDn,
+                    pem,
+                    alg,
+                    parseExpiryFromCert,
+                    expiresAt,
+                    kid,
+                    additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

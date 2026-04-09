@@ -7,10 +7,13 @@ import com.auth0.client.mgmt.types.CreateCustomDomainResponseContent;
 import com.auth0.client.mgmt.types.CustomDomain;
 import com.auth0.client.mgmt.types.CustomDomainProvisioningTypeEnum;
 import com.auth0.client.mgmt.types.GetCustomDomainResponseContent;
+import com.auth0.client.mgmt.types.GetDefaultDomainResponseContent;
 import com.auth0.client.mgmt.types.ListCustomDomainsRequestParameters;
+import com.auth0.client.mgmt.types.SetDefaultCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.TestCustomDomainResponseContent;
 import com.auth0.client.mgmt.types.UpdateCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.UpdateCustomDomainResponseContent;
+import com.auth0.client.mgmt.types.UpdateDefaultDomainResponseContent;
 import com.auth0.client.mgmt.types.VerifyCustomDomainResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -187,6 +190,196 @@ public class CustomDomainsWireTest {
                 + "  \"is_default\": true,\n"
                 + "  \"status\": \"pending_verification\",\n"
                 + "  \"type\": \"auth0_managed_certs\",\n"
+                + "  \"verification\": {\n"
+                + "    \"methods\": [\n"
+                + "      {\n"
+                + "        \"name\": \"cname\",\n"
+                + "        \"record\": \"record\"\n"
+                + "      }\n"
+                + "    ],\n"
+                + "    \"status\": \"verified\",\n"
+                + "    \"error_msg\": \"error_msg\",\n"
+                + "    \"last_verified_at\": \"last_verified_at\"\n"
+                + "  },\n"
+                + "  \"custom_client_ip_header\": \"custom_client_ip_header\",\n"
+                + "  \"tls_policy\": \"tls_policy\",\n"
+                + "  \"domain_metadata\": {\n"
+                + "    \"key\": \"value\"\n"
+                + "  },\n"
+                + "  \"certificate\": {\n"
+                + "    \"status\": \"provisioning\",\n"
+                + "    \"error_msg\": \"error_msg\",\n"
+                + "    \"certificate_authority\": \"letsencrypt\",\n"
+                + "    \"renews_before\": \"renews_before\"\n"
+                + "  },\n"
+                + "  \"relying_party_identifier\": \"relying_party_identifier\"\n"
+                + "}";
+        JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
+        JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
+        Assertions.assertTrue(
+                jsonEquals(expectedResponseNode, actualResponseNode),
+                "Response body structure does not match expected");
+        if (actualResponseNode.has("type") || actualResponseNode.has("_type") || actualResponseNode.has("kind")) {
+            String discriminator = null;
+            if (actualResponseNode.has("type"))
+                discriminator = actualResponseNode.get("type").asText();
+            else if (actualResponseNode.has("_type"))
+                discriminator = actualResponseNode.get("_type").asText();
+            else if (actualResponseNode.has("kind"))
+                discriminator = actualResponseNode.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualResponseNode.isNull()) {
+            Assertions.assertTrue(
+                    actualResponseNode.isObject() || actualResponseNode.isArray() || actualResponseNode.isValueNode(),
+                    "response should be a valid JSON value");
+        }
+
+        if (actualResponseNode.isArray()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Array should have valid size");
+        }
+        if (actualResponseNode.isObject()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
+        }
+    }
+
+    @Test
+    public void testGetDefault() throws Exception {
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"is_default\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"origin_domain_name\":\"origin_domain_name\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"},\"relying_party_identifier\":\"relying_party_identifier\"}"));
+        GetDefaultDomainResponseContent response = client.customDomains().getDefault();
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("GET", request.getMethod());
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        String actualResponseJson = objectMapper.writeValueAsString(response);
+        String expectedResponseBody = ""
+                + "{\n"
+                + "  \"custom_domain_id\": \"custom_domain_id\",\n"
+                + "  \"domain\": \"domain\",\n"
+                + "  \"primary\": true,\n"
+                + "  \"is_default\": true,\n"
+                + "  \"status\": \"pending_verification\",\n"
+                + "  \"type\": \"auth0_managed_certs\",\n"
+                + "  \"origin_domain_name\": \"origin_domain_name\",\n"
+                + "  \"verification\": {\n"
+                + "    \"methods\": [\n"
+                + "      {\n"
+                + "        \"name\": \"cname\",\n"
+                + "        \"record\": \"record\"\n"
+                + "      }\n"
+                + "    ],\n"
+                + "    \"status\": \"verified\",\n"
+                + "    \"error_msg\": \"error_msg\",\n"
+                + "    \"last_verified_at\": \"last_verified_at\"\n"
+                + "  },\n"
+                + "  \"custom_client_ip_header\": \"custom_client_ip_header\",\n"
+                + "  \"tls_policy\": \"tls_policy\",\n"
+                + "  \"domain_metadata\": {\n"
+                + "    \"key\": \"value\"\n"
+                + "  },\n"
+                + "  \"certificate\": {\n"
+                + "    \"status\": \"provisioning\",\n"
+                + "    \"error_msg\": \"error_msg\",\n"
+                + "    \"certificate_authority\": \"letsencrypt\",\n"
+                + "    \"renews_before\": \"renews_before\"\n"
+                + "  },\n"
+                + "  \"relying_party_identifier\": \"relying_party_identifier\"\n"
+                + "}";
+        JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
+        JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
+        Assertions.assertTrue(
+                jsonEquals(expectedResponseNode, actualResponseNode),
+                "Response body structure does not match expected");
+        if (actualResponseNode.has("type") || actualResponseNode.has("_type") || actualResponseNode.has("kind")) {
+            String discriminator = null;
+            if (actualResponseNode.has("type"))
+                discriminator = actualResponseNode.get("type").asText();
+            else if (actualResponseNode.has("_type"))
+                discriminator = actualResponseNode.get("_type").asText();
+            else if (actualResponseNode.has("kind"))
+                discriminator = actualResponseNode.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualResponseNode.isNull()) {
+            Assertions.assertTrue(
+                    actualResponseNode.isObject() || actualResponseNode.isArray() || actualResponseNode.isValueNode(),
+                    "response should be a valid JSON value");
+        }
+
+        if (actualResponseNode.isArray()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Array should have valid size");
+        }
+        if (actualResponseNode.isObject()) {
+            Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
+        }
+    }
+
+    @Test
+    public void testSetDefault() throws Exception {
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"is_default\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"origin_domain_name\":\"origin_domain_name\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"},\"relying_party_identifier\":\"relying_party_identifier\"}"));
+        UpdateDefaultDomainResponseContent response = client.customDomains()
+                .setDefault(SetDefaultCustomDomainRequestContent.builder()
+                        .domain("domain")
+                        .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("PATCH", request.getMethod());
+        // Validate request body
+        String actualRequestBody = request.getBody().readUtf8();
+        String expectedRequestBody = "" + "{\n" + "  \"domain\": \"domain\"\n" + "}";
+        JsonNode actualJson = objectMapper.readTree(actualRequestBody);
+        JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
+        Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
+        if (actualJson.has("type") || actualJson.has("_type") || actualJson.has("kind")) {
+            String discriminator = null;
+            if (actualJson.has("type")) discriminator = actualJson.get("type").asText();
+            else if (actualJson.has("_type"))
+                discriminator = actualJson.get("_type").asText();
+            else if (actualJson.has("kind"))
+                discriminator = actualJson.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualJson.isNull()) {
+            Assertions.assertTrue(
+                    actualJson.isObject() || actualJson.isArray() || actualJson.isValueNode(),
+                    "request should be a valid JSON value");
+        }
+
+        if (actualJson.isArray()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Array should have valid size");
+        }
+        if (actualJson.isObject()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Object should have valid field count");
+        }
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        String actualResponseJson = objectMapper.writeValueAsString(response);
+        String expectedResponseBody = ""
+                + "{\n"
+                + "  \"custom_domain_id\": \"custom_domain_id\",\n"
+                + "  \"domain\": \"domain\",\n"
+                + "  \"primary\": true,\n"
+                + "  \"is_default\": true,\n"
+                + "  \"status\": \"pending_verification\",\n"
+                + "  \"type\": \"auth0_managed_certs\",\n"
+                + "  \"origin_domain_name\": \"origin_domain_name\",\n"
                 + "  \"verification\": {\n"
                 + "    \"methods\": [\n"
                 + "      {\n"

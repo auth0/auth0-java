@@ -64,6 +64,13 @@ public class AsyncActionsClient {
     /**
      * Retrieve all actions.
      */
+    public CompletableFuture<SyncPagingIterable<Action>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve all actions.
+     */
     public CompletableFuture<SyncPagingIterable<Action>> list(ListActionsRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
@@ -115,6 +122,13 @@ public class AsyncActionsClient {
     /**
      * Deletes an action and all of its associated versions. An action must be unbound from all triggers before it can be deleted.
      */
+    public CompletableFuture<Void> delete(String id, RequestOptions requestOptions) {
+        return this.rawClient.delete(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Deletes an action and all of its associated versions. An action must be unbound from all triggers before it can be deleted.
+     */
     public CompletableFuture<Void> delete(String id, DeleteActionRequestParameters request) {
         return this.rawClient.delete(id, request).thenApply(response -> response.body());
     }
@@ -128,21 +142,28 @@ public class AsyncActionsClient {
     }
 
     /**
-     * Update an existing action. If this action is currently bound to a trigger, updating it will &lt;strong&gt;not&lt;/strong&gt; affect any user flows until the action is deployed.
+     * Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
      */
     public CompletableFuture<UpdateActionResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
     }
 
     /**
-     * Update an existing action. If this action is currently bound to a trigger, updating it will &lt;strong&gt;not&lt;/strong&gt; affect any user flows until the action is deployed.
+     * Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
+     */
+    public CompletableFuture<UpdateActionResponseContent> update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
      */
     public CompletableFuture<UpdateActionResponseContent> update(String id, UpdateActionRequestContent request) {
         return this.rawClient.update(id, request).thenApply(response -> response.body());
     }
 
     /**
-     * Update an existing action. If this action is currently bound to a trigger, updating it will &lt;strong&gt;not&lt;/strong&gt; affect any user flows until the action is deployed.
+     * Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
      */
     public CompletableFuture<UpdateActionResponseContent> update(
             String id, UpdateActionRequestContent request, RequestOptions requestOptions) {

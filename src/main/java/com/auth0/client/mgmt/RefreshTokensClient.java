@@ -5,7 +5,10 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.GetRefreshTokenResponseContent;
+import com.auth0.client.mgmt.types.GetRefreshTokensRequestParameters;
+import com.auth0.client.mgmt.types.RefreshTokenResponseContent;
 import com.auth0.client.mgmt.types.UpdateRefreshTokenRequestContent;
 import com.auth0.client.mgmt.types.UpdateRefreshTokenResponseContent;
 
@@ -24,6 +27,21 @@ public class RefreshTokensClient {
      */
     public RawRefreshTokensClient withRawResponse() {
         return this.rawClient;
+    }
+
+    /**
+     * Retrieve a paginated list of refresh tokens for a specific user, with optional filtering by client ID. Results are sorted by credential_id ascending.
+     */
+    public SyncPagingIterable<RefreshTokenResponseContent> list(GetRefreshTokensRequestParameters request) {
+        return this.rawClient.list(request).body();
+    }
+
+    /**
+     * Retrieve a paginated list of refresh tokens for a specific user, with optional filtering by client ID. Results are sorted by credential_id ascending.
+     */
+    public SyncPagingIterable<RefreshTokenResponseContent> list(
+            GetRefreshTokensRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
@@ -59,6 +77,13 @@ public class RefreshTokensClient {
      */
     public UpdateRefreshTokenResponseContent update(String id) {
         return this.rawClient.update(id).body();
+    }
+
+    /**
+     * Update a refresh token by its ID.
+     */
+    public UpdateRefreshTokenResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
     }
 
     /**

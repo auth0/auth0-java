@@ -40,6 +40,14 @@ public class RolesClient {
      * Retrieve detailed list of roles assigned to a given user within the context of a specific Organization.
      * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action only returns the roles associated with the specified Organization; any roles assigned to the user within other Organizations are not included.</p>
      */
+    public SyncPagingIterable<Role> list(String id, String userId, RequestOptions requestOptions) {
+        return this.rawClient.list(id, userId, requestOptions).body();
+    }
+
+    /**
+     * Retrieve detailed list of roles assigned to a given user within the context of a specific Organization.
+     * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action only returns the roles associated with the specified Organization; any roles assigned to the user within other Organizations are not included.</p>
+     */
     public SyncPagingIterable<Role> list(
             String id, String userId, ListOrganizationMemberRolesRequestParameters request) {
         return this.rawClient.list(id, userId, request).body();
@@ -58,7 +66,7 @@ public class RolesClient {
     }
 
     /**
-     * Assign one or more &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;roles&lt;/a&gt; to a user to determine their access for a specific Organization.
+     * Assign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> to a user to determine their access for a specific Organization.
      * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action assigns roles to a user only for the specified Organization. Roles cannot be assigned to a user across multiple Organizations in the same call.</p>
      */
     public void assign(String id, String userId, AssignOrganizationMemberRolesRequestContent request) {
@@ -66,7 +74,7 @@ public class RolesClient {
     }
 
     /**
-     * Assign one or more &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;roles&lt;/a&gt; to a user to determine their access for a specific Organization.
+     * Assign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> to a user to determine their access for a specific Organization.
      * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action assigns roles to a user only for the specified Organization. Roles cannot be assigned to a user across multiple Organizations in the same call.</p>
      */
     public void assign(
@@ -78,7 +86,7 @@ public class RolesClient {
     }
 
     /**
-     * Remove one or more Organization-specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;roles&lt;/a&gt; from a given user.
+     * Remove one or more Organization-specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> from a given user.
      * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action removes roles from a user in relation to the specified Organization. Roles assigned to the user within a different Organization cannot be managed in the same call.</p>
      */
     public void delete(String id, String userId, DeleteOrganizationMemberRolesRequestContent request) {
@@ -86,7 +94,7 @@ public class RolesClient {
     }
 
     /**
-     * Remove one or more Organization-specific &lt;a href=&quot;https://auth0.com/docs/manage-users/access-control/rbac&quot;&gt;roles&lt;/a&gt; from a given user.
+     * Remove one or more Organization-specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> from a given user.
      * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action removes roles from a user in relation to the specified Organization. Roles assigned to the user within a different Organization cannot be managed in the same call.</p>
      */
     public void delete(

@@ -45,6 +45,15 @@ public class RawSsoTicketClient {
      * Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
      */
     public ManagementApiHttpResponse<CreateSelfServiceProfileSsoTicketResponseContent> create(
+            String id, RequestOptions requestOptions) {
+        return create(
+                id, CreateSelfServiceProfileSsoTicketRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
+     */
+    public ManagementApiHttpResponse<CreateSelfServiceProfileSsoTicketResponseContent> create(
             String id, CreateSelfServiceProfileSsoTicketRequestContent request) {
         return create(id, request, null);
     }
@@ -54,12 +63,16 @@ public class RawSsoTicketClient {
      */
     public ManagementApiHttpResponse<CreateSelfServiceProfileSsoTicketResponseContent> create(
             String id, CreateSelfServiceProfileSsoTicketRequestContent request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("self-service-profiles")
                 .addPathSegment(id)
-                .addPathSegments("sso-ticket")
-                .build();
+                .addPathSegments("sso-ticket");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -68,7 +81,7 @@ public class RawSsoTicketClient {
             throw new ManagementException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -126,16 +139,20 @@ public class RawSsoTicketClient {
      * Clients should treat these <code>202</code> responses as an acknowledgment that the request has been accepted and is in progress, even if the ticket was not found.
      */
     public ManagementApiHttpResponse<Void> revoke(String profileId, String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("self-service-profiles")
                 .addPathSegment(profileId)
                 .addPathSegments("sso-ticket")
                 .addPathSegment(id)
-                .addPathSegments("revoke")
-                .build();
+                .addPathSegments("revoke");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")

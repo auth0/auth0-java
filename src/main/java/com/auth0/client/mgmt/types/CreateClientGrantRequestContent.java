@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CreateClientGrantRequestContent.Builder.class)
 public final class CreateClientGrantRequestContent {
-    private final String clientId;
+    private final Optional<String> clientId;
 
     private final String audience;
 
@@ -41,7 +41,7 @@ public final class CreateClientGrantRequestContent {
     private final Map<String, Object> additionalProperties;
 
     private CreateClientGrantRequestContent(
-            String clientId,
+            Optional<String> clientId,
             String audience,
             Optional<ClientGrantOrganizationUsageEnum> organizationUsage,
             Optional<Boolean> allowAnyOrganization,
@@ -65,7 +65,7 @@ public final class CreateClientGrantRequestContent {
      * @return ID of the client.
      */
     @JsonProperty("client_id")
-    public String getClientId() {
+    public Optional<String> getClientId() {
         return clientId;
     }
 
@@ -159,17 +159,8 @@ public final class CreateClientGrantRequestContent {
         return ObjectMappers.stringify(this);
     }
 
-    public static ClientIdStage builder() {
+    public static AudienceStage builder() {
         return new Builder();
-    }
-
-    public interface ClientIdStage {
-        /**
-         * <p>ID of the client.</p>
-         */
-        AudienceStage clientId(@NotNull String clientId);
-
-        Builder from(CreateClientGrantRequestContent other);
     }
 
     public interface AudienceStage {
@@ -177,10 +168,23 @@ public final class CreateClientGrantRequestContent {
          * <p>The audience (API identifier) of this client grant</p>
          */
         _FinalStage audience(@NotNull String audience);
+
+        Builder from(CreateClientGrantRequestContent other);
     }
 
     public interface _FinalStage {
         CreateClientGrantRequestContent build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>ID of the client.</p>
+         */
+        _FinalStage clientId(Optional<String> clientId);
+
+        _FinalStage clientId(String clientId);
 
         _FinalStage organizationUsage(Optional<ClientGrantOrganizationUsageEnum> organizationUsage);
 
@@ -220,9 +224,7 @@ public final class CreateClientGrantRequestContent {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements ClientIdStage, AudienceStage, _FinalStage {
-        private String clientId;
-
+    public static final class Builder implements AudienceStage, _FinalStage {
         private String audience;
 
         private Optional<Boolean> allowAllScopes = Optional.empty();
@@ -236,6 +238,8 @@ public final class CreateClientGrantRequestContent {
         private Optional<Boolean> allowAnyOrganization = Optional.empty();
 
         private Optional<ClientGrantOrganizationUsageEnum> organizationUsage = Optional.empty();
+
+        private Optional<String> clientId = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -252,18 +256,6 @@ public final class CreateClientGrantRequestContent {
             subjectType(other.getSubjectType());
             authorizationDetailsTypes(other.getAuthorizationDetailsTypes());
             allowAllScopes(other.getAllowAllScopes());
-            return this;
-        }
-
-        /**
-         * <p>ID of the client.</p>
-         * <p>ID of the client.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("client_id")
-        public AudienceStage clientId(@NotNull String clientId) {
-            this.clientId = Objects.requireNonNull(clientId, "clientId must not be null");
             return this;
         }
 
@@ -385,6 +377,26 @@ public final class CreateClientGrantRequestContent {
             return this;
         }
 
+        /**
+         * <p>ID of the client.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage clientId(String clientId) {
+            this.clientId = Optional.ofNullable(clientId);
+            return this;
+        }
+
+        /**
+         * <p>ID of the client.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
+        public _FinalStage clientId(Optional<String> clientId) {
+            this.clientId = clientId;
+            return this;
+        }
+
         @java.lang.Override
         public CreateClientGrantRequestContent build() {
             return new CreateClientGrantRequestContent(
@@ -397,6 +409,18 @@ public final class CreateClientGrantRequestContent {
                     authorizationDetailsTypes,
                     allowAllScopes,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

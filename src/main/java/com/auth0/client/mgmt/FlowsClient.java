@@ -46,6 +46,10 @@ public class FlowsClient {
         return this.rawClient.list().body();
     }
 
+    public SyncPagingIterable<FlowSummary> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
     public SyncPagingIterable<FlowSummary> list(ListFlowsRequestParameters request) {
         return this.rawClient.list(request).body();
     }
@@ -66,6 +70,10 @@ public class FlowsClient {
         return this.rawClient.get(id).body();
     }
 
+    public GetFlowResponseContent get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).body();
+    }
+
     public GetFlowResponseContent get(String id, GetFlowRequestParameters request) {
         return this.rawClient.get(id, request).body();
     }
@@ -84,6 +92,10 @@ public class FlowsClient {
 
     public UpdateFlowResponseContent update(String id) {
         return this.rawClient.update(id).body();
+    }
+
+    public UpdateFlowResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
     }
 
     public UpdateFlowResponseContent update(String id, UpdateFlowRequestContent request) {

@@ -36,14 +36,21 @@ public class RawOrganizationsClient {
     }
 
     /**
-     * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations&quot;&gt;Auth0 Organizations&lt;/a&gt;.
+     * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<Organization>> list(String id) {
         return list(id, ListUserOrganizationsRequestParameters.builder().build());
     }
 
     /**
-     * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations&quot;&gt;Auth0 Organizations&lt;/a&gt;.
+     * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
+     */
+    public ManagementApiHttpResponse<SyncPagingIterable<Organization>> list(String id, RequestOptions requestOptions) {
+        return list(id, ListUserOrganizationsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<Organization>> list(
             String id, ListUserOrganizationsRequestParameters request) {
@@ -51,7 +58,7 @@ public class RawOrganizationsClient {
     }
 
     /**
-     * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review &lt;a href=&quot;https://auth0.com/docs/manage-users/organizations&quot;&gt;Auth0 Organizations&lt;/a&gt;.
+     * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<Organization>> list(
             String id, ListUserOrganizationsRequestParameters request, RequestOptions requestOptions) {
@@ -65,6 +72,11 @@ public class RawOrganizationsClient {
                 httpUrl, "per_page", request.getPerPage().orElse(50), false);
         QueryStringMapper.addQueryParameter(
                 httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
