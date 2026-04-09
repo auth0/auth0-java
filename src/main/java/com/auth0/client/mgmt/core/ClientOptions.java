@@ -4,11 +4,14 @@
 package com.auth0.client.mgmt.core;
 
 import com.auth0.net.Telemetry;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
 public final class ClientOptions {
@@ -100,6 +103,8 @@ public final class ClientOptions {
 
         private final Map<String, Supplier<String>> headerSuppliers = new HashMap<>();
 
+        private final List<Interceptor> interceptors = new ArrayList<>();
+
         private int maxRetries = 2;
 
         private Optional<Integer> timeout = Optional.empty();
@@ -150,6 +155,14 @@ public final class ClientOptions {
             return this;
         }
 
+        /**
+         * Add an OkHttp interceptor to the client.
+         */
+        public Builder addInterceptor(Interceptor interceptor) {
+            this.interceptors.add(interceptor);
+            return this;
+        }
+
         public ClientOptions build() {
             OkHttpClient.Builder httpClientBuilder =
                     this.httpClient != null ? this.httpClient.newBuilder() : new OkHttpClient.Builder();
@@ -167,6 +180,10 @@ public final class ClientOptions {
                         .writeTimeout(0, TimeUnit.SECONDS)
                         .readTimeout(0, TimeUnit.SECONDS)
                         .addInterceptor(new RetryInterceptor(this.maxRetries));
+            }
+
+            for (Interceptor interceptor : this.interceptors) {
+                httpClientBuilder.addInterceptor(interceptor);
             }
 
             this.httpClient = httpClientBuilder.build();
