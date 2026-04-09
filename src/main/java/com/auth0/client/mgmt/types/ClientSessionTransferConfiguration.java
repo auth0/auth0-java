@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ClientSessionTransferConfiguration.Builder.class)
@@ -25,7 +28,8 @@ public final class ClientSessionTransferConfiguration {
 
     private final Optional<Boolean> enforceCascadeRevocation;
 
-    private final Optional<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>> allowedAuthenticationMethods;
+    private final OptionalNullable<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>>
+            allowedAuthenticationMethods;
 
     private final Optional<ClientSessionTransferDeviceBindingEnum> enforceDeviceBinding;
 
@@ -38,7 +42,7 @@ public final class ClientSessionTransferConfiguration {
     private ClientSessionTransferConfiguration(
             Optional<Boolean> canCreateSessionTransferToken,
             Optional<Boolean> enforceCascadeRevocation,
-            Optional<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>> allowedAuthenticationMethods,
+            OptionalNullable<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>> allowedAuthenticationMethods,
             Optional<ClientSessionTransferDeviceBindingEnum> enforceDeviceBinding,
             Optional<Boolean> allowRefreshToken,
             Optional<Boolean> enforceOnlineRefreshTokens,
@@ -71,8 +75,13 @@ public final class ClientSessionTransferConfiguration {
     /**
      * @return Indicates whether an app can create a session from a Session Transfer Token received via indicated methods. Can include <code>cookie</code> and/or <code>query</code>. Usually configured in the web application. Default value is an empty array [].
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("allowed_authentication_methods")
-    public Optional<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>> getAllowedAuthenticationMethods() {
+    public OptionalNullable<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>>
+            getAllowedAuthenticationMethods() {
+        if (allowedAuthenticationMethods == null) {
+            return OptionalNullable.absent();
+        }
         return allowedAuthenticationMethods;
     }
 
@@ -95,6 +104,13 @@ public final class ClientSessionTransferConfiguration {
     @JsonProperty("enforce_online_refresh_tokens")
     public Optional<Boolean> getEnforceOnlineRefreshTokens() {
         return enforceOnlineRefreshTokens;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("allowed_authentication_methods")
+    private OptionalNullable<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>>
+            _getAllowedAuthenticationMethods() {
+        return allowedAuthenticationMethods;
     }
 
     @java.lang.Override
@@ -144,8 +160,8 @@ public final class ClientSessionTransferConfiguration {
 
         private Optional<Boolean> enforceCascadeRevocation = Optional.empty();
 
-        private Optional<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>> allowedAuthenticationMethods =
-                Optional.empty();
+        private OptionalNullable<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>>
+                allowedAuthenticationMethods = OptionalNullable.absent();
 
         private Optional<ClientSessionTransferDeviceBindingEnum> enforceDeviceBinding = Optional.empty();
 
@@ -201,14 +217,39 @@ public final class ClientSessionTransferConfiguration {
          */
         @JsonSetter(value = "allowed_authentication_methods", nulls = Nulls.SKIP)
         public Builder allowedAuthenticationMethods(
-                Optional<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>> allowedAuthenticationMethods) {
+                @Nullable
+                        OptionalNullable<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>>
+                                allowedAuthenticationMethods) {
             this.allowedAuthenticationMethods = allowedAuthenticationMethods;
             return this;
         }
 
         public Builder allowedAuthenticationMethods(
                 List<ClientSessionTransferAllowedAuthenticationMethodsEnum> allowedAuthenticationMethods) {
-            this.allowedAuthenticationMethods = Optional.ofNullable(allowedAuthenticationMethods);
+            this.allowedAuthenticationMethods = OptionalNullable.of(allowedAuthenticationMethods);
+            return this;
+        }
+
+        public Builder allowedAuthenticationMethods(
+                Optional<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>> allowedAuthenticationMethods) {
+            if (allowedAuthenticationMethods.isPresent()) {
+                this.allowedAuthenticationMethods = OptionalNullable.of(allowedAuthenticationMethods.get());
+            } else {
+                this.allowedAuthenticationMethods = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder allowedAuthenticationMethods(
+                com.auth0.client.mgmt.core.Nullable<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>>
+                        allowedAuthenticationMethods) {
+            if (allowedAuthenticationMethods.isNull()) {
+                this.allowedAuthenticationMethods = OptionalNullable.ofNull();
+            } else if (allowedAuthenticationMethods.isEmpty()) {
+                this.allowedAuthenticationMethods = OptionalNullable.absent();
+            } else {
+                this.allowedAuthenticationMethods = OptionalNullable.of(allowedAuthenticationMethods.get());
+            }
             return this;
         }
 

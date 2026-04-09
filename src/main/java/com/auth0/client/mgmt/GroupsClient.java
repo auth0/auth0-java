@@ -75,6 +75,20 @@ public class GroupsClient {
         return this.rawClient.get(id, requestOptions).body();
     }
 
+    /**
+     * Delete a group by its ID.
+     */
+    public void delete(String id) {
+        this.rawClient.delete(id).body();
+    }
+
+    /**
+     * Delete a group by its ID.
+     */
+    public void delete(String id, RequestOptions requestOptions) {
+        this.rawClient.delete(id, requestOptions).body();
+    }
+
     public MembersClient members() {
         return this.membersClient.get();
     }

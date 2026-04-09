@@ -39,6 +39,8 @@ public final class ListClientsRequestParameters {
 
     private final OptionalNullable<String> appType;
 
+    private final OptionalNullable<String> externalClientId;
+
     private final OptionalNullable<String> q;
 
     private final Map<String, Object> additionalProperties;
@@ -52,6 +54,7 @@ public final class ListClientsRequestParameters {
             OptionalNullable<Boolean> isGlobal,
             OptionalNullable<Boolean> isFirstParty,
             OptionalNullable<String> appType,
+            OptionalNullable<String> externalClientId,
             OptionalNullable<String> q,
             Map<String, Object> additionalProperties) {
         this.fields = fields;
@@ -62,6 +65,7 @@ public final class ListClientsRequestParameters {
         this.isGlobal = isGlobal;
         this.isFirstParty = isFirstParty;
         this.appType = appType;
+        this.externalClientId = externalClientId;
         this.q = q;
         this.additionalProperties = additionalProperties;
     }
@@ -154,7 +158,19 @@ public final class ListClientsRequestParameters {
     }
 
     /**
-     * @return Advanced Query in <a href="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene</a> syntax.<b>Permitted Queries</b>:<ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
+     * @return Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("external_client_id")
+    public OptionalNullable<String> getExternalClientId() {
+        if (externalClientId == null) {
+            return OptionalNullable.absent();
+        }
+        return externalClientId;
+    }
+
+    /**
+     * @return Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<b>Permitted Queries</b>:<ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("q")
@@ -196,6 +212,12 @@ public final class ListClientsRequestParameters {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("external_client_id")
+    private OptionalNullable<String> _getExternalClientId() {
+        return externalClientId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("q")
     private OptionalNullable<String> _getQ() {
         return q;
@@ -221,6 +243,7 @@ public final class ListClientsRequestParameters {
                 && isGlobal.equals(other.isGlobal)
                 && isFirstParty.equals(other.isFirstParty)
                 && appType.equals(other.appType)
+                && externalClientId.equals(other.externalClientId)
                 && q.equals(other.q);
     }
 
@@ -235,6 +258,7 @@ public final class ListClientsRequestParameters {
                 this.isGlobal,
                 this.isFirstParty,
                 this.appType,
+                this.externalClientId,
                 this.q);
     }
 
@@ -265,6 +289,8 @@ public final class ListClientsRequestParameters {
 
         private OptionalNullable<String> appType = OptionalNullable.absent();
 
+        private OptionalNullable<String> externalClientId = OptionalNullable.absent();
+
         private OptionalNullable<String> q = OptionalNullable.absent();
 
         @JsonAnySetter
@@ -281,6 +307,7 @@ public final class ListClientsRequestParameters {
             isGlobal(other.getIsGlobal());
             isFirstParty(other.getIsFirstParty());
             appType(other.getAppType());
+            externalClientId(other.getExternalClientId());
             q(other.getQ());
             return this;
         }
@@ -558,7 +585,41 @@ public final class ListClientsRequestParameters {
         }
 
         /**
-         * <p>Advanced Query in <a href="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene</a> syntax.<b>Permitted Queries</b>:<ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i></p>
+         * <p>Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.</p>
+         */
+        @JsonSetter(value = "external_client_id", nulls = Nulls.SKIP)
+        public Builder externalClientId(@Nullable OptionalNullable<String> externalClientId) {
+            this.externalClientId = externalClientId;
+            return this;
+        }
+
+        public Builder externalClientId(String externalClientId) {
+            this.externalClientId = OptionalNullable.of(externalClientId);
+            return this;
+        }
+
+        public Builder externalClientId(Optional<String> externalClientId) {
+            if (externalClientId.isPresent()) {
+                this.externalClientId = OptionalNullable.of(externalClientId.get());
+            } else {
+                this.externalClientId = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder externalClientId(com.auth0.client.mgmt.core.Nullable<String> externalClientId) {
+            if (externalClientId.isNull()) {
+                this.externalClientId = OptionalNullable.ofNull();
+            } else if (externalClientId.isEmpty()) {
+                this.externalClientId = OptionalNullable.absent();
+            } else {
+                this.externalClientId = OptionalNullable.of(externalClientId.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<b>Permitted Queries</b>:<ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i></p>
          */
         @JsonSetter(value = "q", nulls = Nulls.SKIP)
         public Builder q(@Nullable OptionalNullable<String> q) {
@@ -601,6 +662,7 @@ public final class ListClientsRequestParameters {
                     isGlobal,
                     isFirstParty,
                     appType,
+                    externalClientId,
                     q,
                     additionalProperties);
         }

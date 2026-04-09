@@ -48,9 +48,6 @@ public final class ConnectionIdentityProviderEnum {
     public static final ConnectionIdentityProviderEnum SALESFORCE_SANDBOX =
             new ConnectionIdentityProviderEnum(Value.SALESFORCE_SANDBOX, "salesforce-sandbox");
 
-    public static final ConnectionIdentityProviderEnum MIICARD =
-            new ConnectionIdentityProviderEnum(Value.MIICARD, "miicard");
-
     public static final ConnectionIdentityProviderEnum FACEBOOK =
             new ConnectionIdentityProviderEnum(Value.FACEBOOK, "facebook");
 
@@ -81,8 +78,6 @@ public final class ConnectionIdentityProviderEnum {
 
     public static final ConnectionIdentityProviderEnum SMS = new ConnectionIdentityProviderEnum(Value.SMS, "sms");
 
-    public static final ConnectionIdentityProviderEnum AOL = new ConnectionIdentityProviderEnum(Value.AOL, "aol");
-
     public static final ConnectionIdentityProviderEnum TWITTER =
             new ConnectionIdentityProviderEnum(Value.TWITTER, "twitter");
 
@@ -100,9 +95,6 @@ public final class ConnectionIdentityProviderEnum {
 
     public static final ConnectionIdentityProviderEnum PAYPAL_SANDBOX =
             new ConnectionIdentityProviderEnum(Value.PAYPAL_SANDBOX, "paypal-sandbox");
-
-    public static final ConnectionIdentityProviderEnum RENREN =
-            new ConnectionIdentityProviderEnum(Value.RENREN, "renren");
 
     public static final ConnectionIdentityProviderEnum SAMLP = new ConnectionIdentityProviderEnum(Value.SAMLP, "samlp");
 
@@ -123,13 +115,7 @@ public final class ConnectionIdentityProviderEnum {
 
     public static final ConnectionIdentityProviderEnum WAAD = new ConnectionIdentityProviderEnum(Value.WAAD, "waad");
 
-    public static final ConnectionIdentityProviderEnum THECITY_SANDBOX =
-            new ConnectionIdentityProviderEnum(Value.THECITY_SANDBOX, "thecity-sandbox");
-
     public static final ConnectionIdentityProviderEnum OIDC = new ConnectionIdentityProviderEnum(Value.OIDC, "oidc");
-
-    public static final ConnectionIdentityProviderEnum YAMMER =
-            new ConnectionIdentityProviderEnum(Value.YAMMER, "yammer");
 
     public static final ConnectionIdentityProviderEnum EVERNOTE_SANDBOX =
             new ConnectionIdentityProviderEnum(Value.EVERNOTE_SANDBOX, "evernote-sandbox");
@@ -169,9 +155,6 @@ public final class ConnectionIdentityProviderEnum {
 
     public static final ConnectionIdentityProviderEnum LINKEDIN =
             new ConnectionIdentityProviderEnum(Value.LINKEDIN, "linkedin");
-
-    public static final ConnectionIdentityProviderEnum THECITY =
-            new ConnectionIdentityProviderEnum(Value.THECITY, "thecity");
 
     private final Value value;
 
@@ -236,8 +219,6 @@ public final class ConnectionIdentityProviderEnum {
                 return visitor.visitShopify();
             case SALESFORCE_SANDBOX:
                 return visitor.visitSalesforceSandbox();
-            case MIICARD:
-                return visitor.visitMiicard();
             case FACEBOOK:
                 return visitor.visitFacebook();
             case OAUTH1:
@@ -260,8 +241,6 @@ public final class ConnectionIdentityProviderEnum {
                 return visitor.visitOffice365();
             case SMS:
                 return visitor.visitSms();
-            case AOL:
-                return visitor.visitAol();
             case TWITTER:
                 return visitor.visitTwitter();
             case WINDOWSLIVE:
@@ -276,8 +255,6 @@ public final class ConnectionIdentityProviderEnum {
                 return visitor.visitBitly();
             case PAYPAL_SANDBOX:
                 return visitor.visitPaypalSandbox();
-            case RENREN:
-                return visitor.visitRenren();
             case SAMLP:
                 return visitor.visitSamlp();
             case DROPBOX:
@@ -292,12 +269,8 @@ public final class ConnectionIdentityProviderEnum {
                 return visitor.visitThirtysevensignals();
             case WAAD:
                 return visitor.visitWaad();
-            case THECITY_SANDBOX:
-                return visitor.visitThecitySandbox();
             case OIDC:
                 return visitor.visitOidc();
-            case YAMMER:
-                return visitor.visitYammer();
             case EVERNOTE_SANDBOX:
                 return visitor.visitEvernoteSandbox();
             case SALESFORCE_COMMUNITY:
@@ -328,8 +301,6 @@ public final class ConnectionIdentityProviderEnum {
                 return visitor.visitPaypal();
             case LINKEDIN:
                 return visitor.visitLinkedin();
-            case THECITY:
-                return visitor.visitThecity();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -369,8 +340,6 @@ public final class ConnectionIdentityProviderEnum {
                 return SHOPIFY;
             case "salesforce-sandbox":
                 return SALESFORCE_SANDBOX;
-            case "miicard":
-                return MIICARD;
             case "facebook":
                 return FACEBOOK;
             case "oauth1":
@@ -393,8 +362,6 @@ public final class ConnectionIdentityProviderEnum {
                 return OFFICE365;
             case "sms":
                 return SMS;
-            case "aol":
-                return AOL;
             case "twitter":
                 return TWITTER;
             case "windowslive":
@@ -409,8 +376,6 @@ public final class ConnectionIdentityProviderEnum {
                 return BITLY;
             case "paypal-sandbox":
                 return PAYPAL_SANDBOX;
-            case "renren":
-                return RENREN;
             case "samlp":
                 return SAMLP;
             case "dropbox":
@@ -425,12 +390,8 @@ public final class ConnectionIdentityProviderEnum {
                 return THIRTYSEVENSIGNALS;
             case "waad":
                 return WAAD;
-            case "thecity-sandbox":
-                return THECITY_SANDBOX;
             case "oidc":
                 return OIDC;
-            case "yammer":
-                return YAMMER;
             case "evernote-sandbox":
                 return EVERNOTE_SANDBOX;
             case "salesforce-community":
@@ -461,8 +422,6 @@ public final class ConnectionIdentityProviderEnum {
                 return PAYPAL;
             case "linkedin":
                 return LINKEDIN;
-            case "thecity":
-                return THECITY;
             default:
                 return new ConnectionIdentityProviderEnum(Value.UNKNOWN, value);
         }
@@ -480,8 +439,6 @@ public final class ConnectionIdentityProviderEnum {
         DROPBOX,
 
         BITBUCKET,
-
-        AOL,
 
         AUTH0OIDC,
 
@@ -527,8 +484,6 @@ public final class ConnectionIdentityProviderEnum {
 
         LINKEDIN,
 
-        MIICARD,
-
         OAUTH1,
 
         OAUTH2,
@@ -546,8 +501,6 @@ public final class ConnectionIdentityProviderEnum {
         PINGFEDERATE,
 
         PLANNINGCENTER,
-
-        RENREN,
 
         SALESFORCE_COMMUNITY,
 
@@ -567,10 +520,6 @@ public final class ConnectionIdentityProviderEnum {
 
         SOUNDCLOUD,
 
-        THECITY_SANDBOX,
-
-        THECITY,
-
         THIRTYSEVENSIGNALS,
 
         TWITTER,
@@ -589,8 +538,6 @@ public final class ConnectionIdentityProviderEnum {
 
         YAHOO,
 
-        YAMMER,
-
         YANDEX,
 
         UNKNOWN
@@ -608,8 +555,6 @@ public final class ConnectionIdentityProviderEnum {
         T visitDropbox();
 
         T visitBitbucket();
-
-        T visitAol();
 
         T visitAuth0Oidc();
 
@@ -655,8 +600,6 @@ public final class ConnectionIdentityProviderEnum {
 
         T visitLinkedin();
 
-        T visitMiicard();
-
         T visitOauth1();
 
         T visitOauth2();
@@ -674,8 +617,6 @@ public final class ConnectionIdentityProviderEnum {
         T visitPingfederate();
 
         T visitPlanningcenter();
-
-        T visitRenren();
 
         T visitSalesforceCommunity();
 
@@ -695,10 +636,6 @@ public final class ConnectionIdentityProviderEnum {
 
         T visitSoundcloud();
 
-        T visitThecitySandbox();
-
-        T visitThecity();
-
         T visitThirtysevensignals();
 
         T visitTwitter();
@@ -716,8 +653,6 @@ public final class ConnectionIdentityProviderEnum {
         T visitWordpress();
 
         T visitYahoo();
-
-        T visitYammer();
 
         T visitYandex();
 

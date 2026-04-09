@@ -15,6 +15,10 @@ import com.auth0.client.mgmt.types.CreateClientResponseContent;
 import com.auth0.client.mgmt.types.GetClientRequestParameters;
 import com.auth0.client.mgmt.types.GetClientResponseContent;
 import com.auth0.client.mgmt.types.ListClientsRequestParameters;
+import com.auth0.client.mgmt.types.PreviewCimdMetadataRequestContent;
+import com.auth0.client.mgmt.types.PreviewCimdMetadataResponseContent;
+import com.auth0.client.mgmt.types.RegisterCimdClientRequestContent;
+import com.auth0.client.mgmt.types.RegisterCimdClientResponseContent;
 import com.auth0.client.mgmt.types.RotateClientSecretResponseContent;
 import com.auth0.client.mgmt.types.UpdateClientRequestContent;
 import com.auth0.client.mgmt.types.UpdateClientResponseContent;
@@ -236,6 +240,46 @@ public class AsyncClientsClient {
     public CompletableFuture<CreateClientResponseContent> create(
             CreateClientRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Fetches and validates a Client ID Metadata Document without creating a client.
+     * Returns the raw metadata and how it would be mapped to Auth0 client fields.
+     * This endpoint is useful for testing metadata URIs before creating CIMD clients.
+     */
+    public CompletableFuture<PreviewCimdMetadataResponseContent> previewCimdMetadata(
+            PreviewCimdMetadataRequestContent request) {
+        return this.rawClient.previewCimdMetadata(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Fetches and validates a Client ID Metadata Document without creating a client.
+     * Returns the raw metadata and how it would be mapped to Auth0 client fields.
+     * This endpoint is useful for testing metadata URIs before creating CIMD clients.
+     */
+    public CompletableFuture<PreviewCimdMetadataResponseContent> previewCimdMetadata(
+            PreviewCimdMetadataRequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.previewCimdMetadata(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Idempotent registration for Client ID Metadata Document (CIMD) clients.
+     * Uses external_client_id as the unique identifier for upsert operations.
+     * <strong>Create:</strong> Returns 201 when a new client is created (requires \
+     */
+    public CompletableFuture<RegisterCimdClientResponseContent> registerCimdClient(
+            RegisterCimdClientRequestContent request) {
+        return this.rawClient.registerCimdClient(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Idempotent registration for Client ID Metadata Document (CIMD) clients.
+     * Uses external_client_id as the unique identifier for upsert operations.
+     * <strong>Create:</strong> Returns 201 when a new client is created (requires \
+     */
+    public CompletableFuture<RegisterCimdClientResponseContent> registerCimdClient(
+            RegisterCimdClientRequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.registerCimdClient(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**

@@ -38,7 +38,7 @@ public class ActionsTriggersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"triggers\":[{\"id\":\"id\",\"version\":\"version\",\"status\":\"status\",\"runtimes\":[\"runtimes\"],\"default_runtime\":\"default_runtime\",\"compatible_triggers\":[{\"id\":\"id\",\"version\":\"version\"}],\"binding_policy\":\"trigger-bound\"}]}"));
+                                "{\"triggers\":[{\"id\":\"post-login\",\"version\":\"version\",\"status\":\"status\",\"runtimes\":[\"runtimes\"],\"default_runtime\":\"default_runtime\",\"compatible_triggers\":[{\"id\":\"post-login\",\"version\":\"version\"}],\"binding_policy\":\"trigger-bound\"}]}"));
         ListActionTriggersResponseContent response = client.actions().triggers().list();
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -51,7 +51,7 @@ public class ActionsTriggersWireTest {
                 + "{\n"
                 + "  \"triggers\": [\n"
                 + "    {\n"
-                + "      \"id\": \"id\",\n"
+                + "      \"id\": \"post-login\",\n"
                 + "      \"version\": \"version\",\n"
                 + "      \"status\": \"status\",\n"
                 + "      \"runtimes\": [\n"
@@ -60,7 +60,7 @@ public class ActionsTriggersWireTest {
                 + "      \"default_runtime\": \"default_runtime\",\n"
                 + "      \"compatible_triggers\": [\n"
                 + "        {\n"
-                + "          \"id\": \"id\",\n"
+                + "          \"id\": \"post-login\",\n"
                 + "          \"version\": \"version\"\n"
                 + "        }\n"
                 + "      ],\n"

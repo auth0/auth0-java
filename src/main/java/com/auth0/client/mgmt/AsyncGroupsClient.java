@@ -77,6 +77,20 @@ public class AsyncGroupsClient {
         return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
     }
 
+    /**
+     * Delete a group by its ID.
+     */
+    public CompletableFuture<Void> delete(String id) {
+        return this.rawClient.delete(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Delete a group by its ID.
+     */
+    public CompletableFuture<Void> delete(String id, RequestOptions requestOptions) {
+        return this.rawClient.delete(id, requestOptions).thenApply(response -> response.body());
+    }
+
     public AsyncMembersClient members() {
         return this.membersClient.get();
     }

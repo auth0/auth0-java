@@ -35,6 +35,8 @@ public final class EventStreamWebhookAuthorizationResponse {
             return visitor.visit((EventStreamWebhookBasicAuth) this.value);
         } else if (this.type == 1) {
             return visitor.visit((EventStreamWebhookBearerAuth) this.value);
+        } else if (this.type == 2) {
+            return visitor.visit((EventStreamWebhookCustomHeaderAuth) this.value);
         }
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
@@ -68,10 +70,16 @@ public final class EventStreamWebhookAuthorizationResponse {
         return new EventStreamWebhookAuthorizationResponse(value, 1);
     }
 
+    public static EventStreamWebhookAuthorizationResponse of(EventStreamWebhookCustomHeaderAuth value) {
+        return new EventStreamWebhookAuthorizationResponse(value, 2);
+    }
+
     public interface Visitor<T> {
         T visit(EventStreamWebhookBasicAuth value);
 
         T visit(EventStreamWebhookBearerAuth value);
+
+        T visit(EventStreamWebhookCustomHeaderAuth value);
     }
 
     static final class Deserializer extends StdDeserializer<EventStreamWebhookAuthorizationResponse> {
@@ -89,6 +97,10 @@ public final class EventStreamWebhookAuthorizationResponse {
             }
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, EventStreamWebhookBearerAuth.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, EventStreamWebhookCustomHeaderAuth.class));
             } catch (RuntimeException e) {
             }
             throw new JsonParseException(p, "Failed to deserialize");

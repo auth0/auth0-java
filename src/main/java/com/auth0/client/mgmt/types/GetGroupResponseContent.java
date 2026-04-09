@@ -3,9 +3,7 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -20,7 +18,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = GetGroupResponseContent.Builder.class)
@@ -33,11 +30,7 @@ public final class GetGroupResponseContent {
 
     private final Optional<String> connectionId;
 
-    private final OptionalNullable<String> organizationId;
-
     private final String tenantName;
-
-    private final OptionalNullable<String> description;
 
     private final OffsetDateTime createdAt;
 
@@ -50,9 +43,7 @@ public final class GetGroupResponseContent {
             String name,
             Optional<String> externalId,
             Optional<String> connectionId,
-            OptionalNullable<String> organizationId,
             String tenantName,
-            OptionalNullable<String> description,
             OffsetDateTime createdAt,
             OffsetDateTime updatedAt,
             Map<String, Object> additionalProperties) {
@@ -60,9 +51,7 @@ public final class GetGroupResponseContent {
         this.name = name;
         this.externalId = externalId;
         this.connectionId = connectionId;
-        this.organizationId = organizationId;
         this.tenantName = tenantName;
-        this.description = description;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.additionalProperties = additionalProperties;
@@ -77,7 +66,7 @@ public final class GetGroupResponseContent {
     }
 
     /**
-     * @return Name of the group. Must be unique within its scope (connection, organization, or tenant). Must contain between 1 and 128 printable ASCII characters.
+     * @return Name of the group. Must be unique within its connection. Must contain between 1 and 128 printable ASCII characters.
      */
     @JsonProperty("name")
     public String getName() {
@@ -101,32 +90,11 @@ public final class GetGroupResponseContent {
     }
 
     /**
-     * @return Identifier for the organization this group belongs to (if an organization group).
-     */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("organization_id")
-    public OptionalNullable<String> getOrganizationId() {
-        if (organizationId == null) {
-            return OptionalNullable.absent();
-        }
-        return organizationId;
-    }
-
-    /**
      * @return Identifier for the tenant this group belongs to.
      */
     @JsonProperty("tenant_name")
     public String getTenantName() {
         return tenantName;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("description")
-    public OptionalNullable<String> getDescription() {
-        if (description == null) {
-            return OptionalNullable.absent();
-        }
-        return description;
     }
 
     /**
@@ -145,18 +113,6 @@ public final class GetGroupResponseContent {
         return updatedAt;
     }
 
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("organization_id")
-    private OptionalNullable<String> _getOrganizationId() {
-        return organizationId;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("description")
-    private OptionalNullable<String> _getDescription() {
-        return description;
-    }
-
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -173,9 +129,7 @@ public final class GetGroupResponseContent {
                 && name.equals(other.name)
                 && externalId.equals(other.externalId)
                 && connectionId.equals(other.connectionId)
-                && organizationId.equals(other.organizationId)
                 && tenantName.equals(other.tenantName)
-                && description.equals(other.description)
                 && createdAt.equals(other.createdAt)
                 && updatedAt.equals(other.updatedAt);
     }
@@ -187,9 +141,7 @@ public final class GetGroupResponseContent {
                 this.name,
                 this.externalId,
                 this.connectionId,
-                this.organizationId,
                 this.tenantName,
-                this.description,
                 this.createdAt,
                 this.updatedAt);
     }
@@ -214,7 +166,7 @@ public final class GetGroupResponseContent {
 
     public interface NameStage {
         /**
-         * <p>Name of the group. Must be unique within its scope (connection, organization, or tenant). Must contain between 1 and 128 printable ASCII characters.</p>
+         * <p>Name of the group. Must be unique within its connection. Must contain between 1 and 128 printable ASCII characters.</p>
          */
         TenantNameStage name(@NotNull String name);
     }
@@ -260,25 +212,6 @@ public final class GetGroupResponseContent {
         _FinalStage connectionId(Optional<String> connectionId);
 
         _FinalStage connectionId(String connectionId);
-
-        /**
-         * <p>Identifier for the organization this group belongs to (if an organization group).</p>
-         */
-        _FinalStage organizationId(@Nullable OptionalNullable<String> organizationId);
-
-        _FinalStage organizationId(String organizationId);
-
-        _FinalStage organizationId(Optional<String> organizationId);
-
-        _FinalStage organizationId(com.auth0.client.mgmt.core.Nullable<String> organizationId);
-
-        _FinalStage description(@Nullable OptionalNullable<String> description);
-
-        _FinalStage description(String description);
-
-        _FinalStage description(Optional<String> description);
-
-        _FinalStage description(com.auth0.client.mgmt.core.Nullable<String> description);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -293,10 +226,6 @@ public final class GetGroupResponseContent {
         private OffsetDateTime createdAt;
 
         private OffsetDateTime updatedAt;
-
-        private OptionalNullable<String> description = OptionalNullable.absent();
-
-        private OptionalNullable<String> organizationId = OptionalNullable.absent();
 
         private Optional<String> connectionId = Optional.empty();
 
@@ -313,9 +242,7 @@ public final class GetGroupResponseContent {
             name(other.getName());
             externalId(other.getExternalId());
             connectionId(other.getConnectionId());
-            organizationId(other.getOrganizationId());
             tenantName(other.getTenantName());
-            description(other.getDescription());
             createdAt(other.getCreatedAt());
             updatedAt(other.getUpdatedAt());
             return this;
@@ -334,8 +261,8 @@ public final class GetGroupResponseContent {
         }
 
         /**
-         * <p>Name of the group. Must be unique within its scope (connection, organization, or tenant). Must contain between 1 and 128 printable ASCII characters.</p>
-         * <p>Name of the group. Must be unique within its scope (connection, organization, or tenant). Must contain between 1 and 128 printable ASCII characters.</p>
+         * <p>Name of the group. Must be unique within its connection. Must contain between 1 and 128 printable ASCII characters.</p>
+         * <p>Name of the group. Must be unique within its connection. Must contain between 1 and 128 printable ASCII characters.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -378,91 +305,6 @@ public final class GetGroupResponseContent {
         @JsonSetter("updated_at")
         public _FinalStage updatedAt(@NotNull OffsetDateTime updatedAt) {
             this.updatedAt = Objects.requireNonNull(updatedAt, "updatedAt must not be null");
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage description(com.auth0.client.mgmt.core.Nullable<String> description) {
-            if (description.isNull()) {
-                this.description = OptionalNullable.ofNull();
-            } else if (description.isEmpty()) {
-                this.description = OptionalNullable.absent();
-            } else {
-                this.description = OptionalNullable.of(description.get());
-            }
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage description(Optional<String> description) {
-            if (description.isPresent()) {
-                this.description = OptionalNullable.of(description.get());
-            } else {
-                this.description = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage description(String description) {
-            this.description = OptionalNullable.of(description);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "description", nulls = Nulls.SKIP)
-        public _FinalStage description(@Nullable OptionalNullable<String> description) {
-            this.description = description;
-            return this;
-        }
-
-        /**
-         * <p>Identifier for the organization this group belongs to (if an organization group).</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage organizationId(com.auth0.client.mgmt.core.Nullable<String> organizationId) {
-            if (organizationId.isNull()) {
-                this.organizationId = OptionalNullable.ofNull();
-            } else if (organizationId.isEmpty()) {
-                this.organizationId = OptionalNullable.absent();
-            } else {
-                this.organizationId = OptionalNullable.of(organizationId.get());
-            }
-            return this;
-        }
-
-        /**
-         * <p>Identifier for the organization this group belongs to (if an organization group).</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage organizationId(Optional<String> organizationId) {
-            if (organizationId.isPresent()) {
-                this.organizationId = OptionalNullable.of(organizationId.get());
-            } else {
-                this.organizationId = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        /**
-         * <p>Identifier for the organization this group belongs to (if an organization group).</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage organizationId(String organizationId) {
-            this.organizationId = OptionalNullable.of(organizationId);
-            return this;
-        }
-
-        /**
-         * <p>Identifier for the organization this group belongs to (if an organization group).</p>
-         */
-        @java.lang.Override
-        @JsonSetter(value = "organization_id", nulls = Nulls.SKIP)
-        public _FinalStage organizationId(@Nullable OptionalNullable<String> organizationId) {
-            this.organizationId = organizationId;
             return this;
         }
 
@@ -509,16 +351,7 @@ public final class GetGroupResponseContent {
         @java.lang.Override
         public GetGroupResponseContent build() {
             return new GetGroupResponseContent(
-                    id,
-                    name,
-                    externalId,
-                    connectionId,
-                    organizationId,
-                    tenantName,
-                    description,
-                    createdAt,
-                    updatedAt,
-                    additionalProperties);
+                    id, name, externalId, connectionId, tenantName, createdAt, updatedAt, additionalProperties);
         }
 
         @java.lang.Override

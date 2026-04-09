@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ActionTrigger.Builder.class)
 public final class ActionTrigger {
-    private final String id;
+    private final ActionTriggerTypeEnum id;
 
     private final Optional<String> version;
 
@@ -39,7 +39,7 @@ public final class ActionTrigger {
     private final Map<String, Object> additionalProperties;
 
     private ActionTrigger(
-            String id,
+            ActionTriggerTypeEnum id,
             Optional<String> version,
             Optional<String> status,
             Optional<List<String>> runtimes,
@@ -58,7 +58,7 @@ public final class ActionTrigger {
     }
 
     @JsonProperty("id")
-    public String getId() {
+    public ActionTriggerTypeEnum getId() {
         return id;
     }
 
@@ -150,7 +150,7 @@ public final class ActionTrigger {
     }
 
     public interface IdStage {
-        _FinalStage id(@NotNull String id);
+        _FinalStage id(@NotNull ActionTriggerTypeEnum id);
 
         Builder from(ActionTrigger other);
     }
@@ -204,7 +204,7 @@ public final class ActionTrigger {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements IdStage, _FinalStage {
-        private String id;
+        private ActionTriggerTypeEnum id;
 
         private Optional<ActionBindingTypeEnum> bindingPolicy = Optional.empty();
 
@@ -237,7 +237,7 @@ public final class ActionTrigger {
 
         @java.lang.Override
         @JsonSetter("id")
-        public _FinalStage id(@NotNull String id) {
+        public _FinalStage id(@NotNull ActionTriggerTypeEnum id) {
             this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }

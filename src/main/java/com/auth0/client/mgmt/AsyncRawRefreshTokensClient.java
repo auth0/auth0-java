@@ -9,18 +9,27 @@ import com.auth0.client.mgmt.core.ManagementApiHttpResponse;
 import com.auth0.client.mgmt.core.ManagementException;
 import com.auth0.client.mgmt.core.MediaTypes;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.QueryStringMapper;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.errors.BadRequestError;
 import com.auth0.client.mgmt.errors.ForbiddenError;
 import com.auth0.client.mgmt.errors.NotFoundError;
 import com.auth0.client.mgmt.errors.TooManyRequestsError;
 import com.auth0.client.mgmt.errors.UnauthorizedError;
 import com.auth0.client.mgmt.types.GetRefreshTokenResponseContent;
+import com.auth0.client.mgmt.types.GetRefreshTokensPaginatedResponseContent;
+import com.auth0.client.mgmt.types.GetRefreshTokensRequestParameters;
+import com.auth0.client.mgmt.types.RefreshTokenResponseContent;
 import com.auth0.client.mgmt.types.UpdateRefreshTokenRequestContent;
 import com.auth0.client.mgmt.types.UpdateRefreshTokenResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -37,6 +46,134 @@ public class AsyncRawRefreshTokensClient {
 
     public AsyncRawRefreshTokensClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+    }
+
+    /**
+     * Retrieve a paginated list of refresh tokens for a specific user, with optional filtering by client ID. Results are sorted by credential_id ascending.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<RefreshTokenResponseContent>>> list(
+            GetRefreshTokensRequestParameters request) {
+        return list(request, null);
+    }
+
+    /**
+     * Retrieve a paginated list of refresh tokens for a specific user, with optional filtering by client ID. Results are sorted by credential_id ascending.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<RefreshTokenResponseContent>>> list(
+            GetRefreshTokensRequestParameters request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("refresh-tokens");
+        QueryStringMapper.addQueryParameter(httpUrl, "user_id", request.getUserId(), false);
+        if (!request.getClientId().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "client_id", request.getClientId().orElse(null), false);
+        }
+        if (!request.getFrom().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "from", request.getFrom().orElse(null), false);
+        }
+        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (!request.getFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "fields", request.getFields().orElse(null), false);
+        }
+        if (!request.getIncludeFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<RefreshTokenResponseContent>>> future =
+                new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        GetRefreshTokensPaginatedResponseContent parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, GetRefreshTokensPaginatedResponseContent.class);
+                        Optional<String> startingAfter = parsedResponse.getNext();
+                        GetRefreshTokensRequestParameters nextRequest = GetRefreshTokensRequestParameters.builder()
+                                .from(request)
+                                .from(startingAfter)
+                                .build();
+                        List<RefreshTokenResponseContent> result =
+                                parsedResponse.getRefreshTokens().orElse(Collections.emptyList());
+                        future.complete(new ManagementApiHttpResponse<>(
+                                new SyncPagingIterable<RefreshTokenResponseContent>(
+                                        startingAfter.isPresent(), result, parsedResponse, () -> {
+                                            try {
+                                                return list(nextRequest, requestOptions)
+                                                        .get()
+                                                        .body();
+                                            } catch (InterruptedException | ExecutionException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                        }),
+                                response));
+                        return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 404:
+                                future.completeExceptionally(new NotFoundError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
     }
 
     /**

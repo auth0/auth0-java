@@ -18,15 +18,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CreateConnectionCommon.Builder.class)
-public final class CreateConnectionCommon implements ICreateConnectionCommon, IConnectionCommon {
-    private final Optional<String> name;
-
-    private final Optional<String> displayName;
+public final class CreateConnectionCommon implements ICreateConnectionCommon {
+    private final String name;
 
     private final Optional<List<String>> enabledClients;
+
+    private final Optional<String> displayName;
 
     private final Optional<Boolean> isDomainConnection;
 
@@ -35,15 +36,15 @@ public final class CreateConnectionCommon implements ICreateConnectionCommon, IC
     private final Map<String, Object> additionalProperties;
 
     private CreateConnectionCommon(
-            Optional<String> name,
-            Optional<String> displayName,
+            String name,
             Optional<List<String>> enabledClients,
+            Optional<String> displayName,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             Map<String, Object> additionalProperties) {
         this.name = name;
-        this.displayName = displayName;
         this.enabledClients = enabledClients;
+        this.displayName = displayName;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
         this.additionalProperties = additionalProperties;
@@ -51,20 +52,23 @@ public final class CreateConnectionCommon implements ICreateConnectionCommon, IC
 
     @JsonProperty("name")
     @java.lang.Override
-    public Optional<String> getName() {
+    public String getName() {
         return name;
+    }
+
+    /**
+     * @return Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
+     */
+    @JsonProperty("enabled_clients")
+    @java.lang.Override
+    public Optional<List<String>> getEnabledClients() {
+        return enabledClients;
     }
 
     @JsonProperty("display_name")
     @java.lang.Override
     public Optional<String> getDisplayName() {
         return displayName;
-    }
-
-    @JsonProperty("enabled_clients")
-    @java.lang.Override
-    public Optional<List<String>> getEnabledClients() {
-        return enabledClients;
     }
 
     @JsonProperty("is_domain_connection")
@@ -92,15 +96,15 @@ public final class CreateConnectionCommon implements ICreateConnectionCommon, IC
 
     private boolean equalTo(CreateConnectionCommon other) {
         return name.equals(other.name)
-                && displayName.equals(other.displayName)
                 && enabledClients.equals(other.enabledClients)
+                && displayName.equals(other.displayName)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.name, this.displayName, this.enabledClients, this.isDomainConnection, this.metadata);
+        return Objects.hash(this.name, this.enabledClients, this.displayName, this.isDomainConnection, this.metadata);
     }
 
     @java.lang.Override
@@ -108,101 +112,149 @@ public final class CreateConnectionCommon implements ICreateConnectionCommon, IC
         return ObjectMappers.stringify(this);
     }
 
-    public static Builder builder() {
+    public static NameStage builder() {
         return new Builder();
     }
 
+    public interface NameStage {
+        _FinalStage name(@NotNull String name);
+
+        Builder from(CreateConnectionCommon other);
+    }
+
+    public interface _FinalStage {
+        CreateConnectionCommon build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
+         */
+        _FinalStage enabledClients(Optional<List<String>> enabledClients);
+
+        _FinalStage enabledClients(List<String> enabledClients);
+
+        _FinalStage displayName(Optional<String> displayName);
+
+        _FinalStage displayName(String displayName);
+
+        _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection);
+
+        _FinalStage isDomainConnection(Boolean isDomainConnection);
+
+        _FinalStage metadata(Optional<Map<String, OptionalNullable<String>>> metadata);
+
+        _FinalStage metadata(Map<String, OptionalNullable<String>> metadata);
+    }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder {
-        private Optional<String> name = Optional.empty();
+    public static final class Builder implements NameStage, _FinalStage {
+        private String name;
+
+        private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
+
+        private Optional<Boolean> isDomainConnection = Optional.empty();
 
         private Optional<String> displayName = Optional.empty();
 
         private Optional<List<String>> enabledClients = Optional.empty();
-
-        private Optional<Boolean> isDomainConnection = Optional.empty();
-
-        private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
+        @java.lang.Override
         public Builder from(CreateConnectionCommon other) {
             name(other.getName());
-            displayName(other.getDisplayName());
             enabledClients(other.getEnabledClients());
+            displayName(other.getDisplayName());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
             return this;
         }
 
-        @JsonSetter(value = "name", nulls = Nulls.SKIP)
-        public Builder name(Optional<String> name) {
-            this.name = name;
+        @java.lang.Override
+        @JsonSetter("name")
+        public _FinalStage name(@NotNull String name) {
+            this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
-        public Builder name(String name) {
-            this.name = Optional.ofNullable(name);
-            return this;
-        }
-
-        @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
-        public Builder displayName(Optional<String> displayName) {
-            this.displayName = displayName;
-            return this;
-        }
-
-        public Builder displayName(String displayName) {
-            this.displayName = Optional.ofNullable(displayName);
-            return this;
-        }
-
-        @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
-        public Builder enabledClients(Optional<List<String>> enabledClients) {
-            this.enabledClients = enabledClients;
-            return this;
-        }
-
-        public Builder enabledClients(List<String> enabledClients) {
-            this.enabledClients = Optional.ofNullable(enabledClients);
-            return this;
-        }
-
-        @JsonSetter(value = "is_domain_connection", nulls = Nulls.SKIP)
-        public Builder isDomainConnection(Optional<Boolean> isDomainConnection) {
-            this.isDomainConnection = isDomainConnection;
-            return this;
-        }
-
-        public Builder isDomainConnection(Boolean isDomainConnection) {
-            this.isDomainConnection = Optional.ofNullable(isDomainConnection);
-            return this;
-        }
-
-        @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
-        public Builder metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
-            this.metadata = metadata;
-            return this;
-        }
-
-        public Builder metadata(Map<String, OptionalNullable<String>> metadata) {
+        @java.lang.Override
+        public _FinalStage metadata(Map<String, OptionalNullable<String>> metadata) {
             this.metadata = Optional.ofNullable(metadata);
             return this;
         }
 
-        public CreateConnectionCommon build() {
-            return new CreateConnectionCommon(
-                    name, displayName, enabledClients, isDomainConnection, metadata, additionalProperties);
+        @java.lang.Override
+        @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
+        public _FinalStage metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
+            this.metadata = metadata;
+            return this;
         }
 
+        @java.lang.Override
+        public _FinalStage isDomainConnection(Boolean isDomainConnection) {
+            this.isDomainConnection = Optional.ofNullable(isDomainConnection);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "is_domain_connection", nulls = Nulls.SKIP)
+        public _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection) {
+            this.isDomainConnection = isDomainConnection;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage displayName(String displayName) {
+            this.displayName = Optional.ofNullable(displayName);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
+        public _FinalStage displayName(Optional<String> displayName) {
+            this.displayName = displayName;
+            return this;
+        }
+
+        /**
+         * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage enabledClients(List<String> enabledClients) {
+            this.enabledClients = Optional.ofNullable(enabledClients);
+            return this;
+        }
+
+        /**
+         * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
+        public _FinalStage enabledClients(Optional<List<String>> enabledClients) {
+            this.enabledClients = enabledClients;
+            return this;
+        }
+
+        @java.lang.Override
+        public CreateConnectionCommon build() {
+            return new CreateConnectionCommon(
+                    name, enabledClients, displayName, isDomainConnection, metadata, additionalProperties);
+        }
+
+        @java.lang.Override
         public Builder additionalProperty(String key, Object value) {
             this.additionalProperties.put(key, value);
             return this;
         }
 
+        @java.lang.Override
         public Builder additionalProperties(Map<String, Object> additionalProperties) {
             this.additionalProperties.putAll(additionalProperties);
             return this;

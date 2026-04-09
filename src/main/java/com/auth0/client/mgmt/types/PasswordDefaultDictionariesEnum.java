@@ -6,15 +6,18 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class CreateConnectionRequestContentAolStrategy {
-    public static final CreateConnectionRequestContentAolStrategy AOL =
-            new CreateConnectionRequestContentAolStrategy(Value.AOL, "aol");
+public final class PasswordDefaultDictionariesEnum {
+    public static final PasswordDefaultDictionariesEnum EN10K =
+            new PasswordDefaultDictionariesEnum(Value.EN10K, "en_10k");
+
+    public static final PasswordDefaultDictionariesEnum EN100K =
+            new PasswordDefaultDictionariesEnum(Value.EN100K, "en_100k");
 
     private final Value value;
 
     private final String string;
 
-    CreateConnectionRequestContentAolStrategy(Value value, String string) {
+    PasswordDefaultDictionariesEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -32,8 +35,8 @@ public final class CreateConnectionRequestContentAolStrategy {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof CreateConnectionRequestContentAolStrategy
-                        && this.string.equals(((CreateConnectionRequestContentAolStrategy) other).string));
+                || (other instanceof PasswordDefaultDictionariesEnum
+                        && this.string.equals(((PasswordDefaultDictionariesEnum) other).string));
     }
 
     @java.lang.Override
@@ -43,8 +46,10 @@ public final class CreateConnectionRequestContentAolStrategy {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case AOL:
-                return visitor.visitAol();
+            case EN10K:
+                return visitor.visitEn10K();
+            case EN100K:
+                return visitor.visitEn100K();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -52,23 +57,29 @@ public final class CreateConnectionRequestContentAolStrategy {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static CreateConnectionRequestContentAolStrategy valueOf(String value) {
+    public static PasswordDefaultDictionariesEnum valueOf(String value) {
         switch (value) {
-            case "aol":
-                return AOL;
+            case "en_10k":
+                return EN10K;
+            case "en_100k":
+                return EN100K;
             default:
-                return new CreateConnectionRequestContentAolStrategy(Value.UNKNOWN, value);
+                return new PasswordDefaultDictionariesEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        AOL,
+        EN10K,
+
+        EN100K,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitAol();
+        T visitEn10K();
+
+        T visitEn100K();
 
         T visitUnknown(String unknownType);
     }

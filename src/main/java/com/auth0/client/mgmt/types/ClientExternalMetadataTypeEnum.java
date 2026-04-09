@@ -6,15 +6,14 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class ConnectionResponseContentYammerStrategy {
-    public static final ConnectionResponseContentYammerStrategy YAMMER =
-            new ConnectionResponseContentYammerStrategy(Value.YAMMER, "yammer");
+public final class ClientExternalMetadataTypeEnum {
+    public static final ClientExternalMetadataTypeEnum CIMD = new ClientExternalMetadataTypeEnum(Value.CIMD, "cimd");
 
     private final Value value;
 
     private final String string;
 
-    ConnectionResponseContentYammerStrategy(Value value, String string) {
+    ClientExternalMetadataTypeEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -32,8 +31,8 @@ public final class ConnectionResponseContentYammerStrategy {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof ConnectionResponseContentYammerStrategy
-                        && this.string.equals(((ConnectionResponseContentYammerStrategy) other).string));
+                || (other instanceof ClientExternalMetadataTypeEnum
+                        && this.string.equals(((ClientExternalMetadataTypeEnum) other).string));
     }
 
     @java.lang.Override
@@ -43,8 +42,8 @@ public final class ConnectionResponseContentYammerStrategy {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case YAMMER:
-                return visitor.visitYammer();
+            case CIMD:
+                return visitor.visitCimd();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -52,23 +51,23 @@ public final class ConnectionResponseContentYammerStrategy {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static ConnectionResponseContentYammerStrategy valueOf(String value) {
+    public static ClientExternalMetadataTypeEnum valueOf(String value) {
         switch (value) {
-            case "yammer":
-                return YAMMER;
+            case "cimd":
+                return CIMD;
             default:
-                return new ConnectionResponseContentYammerStrategy(Value.UNKNOWN, value);
+                return new ClientExternalMetadataTypeEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        YAMMER,
+        CIMD,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitYammer();
+        T visitCimd();
 
         T visitUnknown(String unknownType);
     }

@@ -88,7 +88,7 @@ public final class UpdateTenantSettingsRequestContent {
 
     private final OptionalNullable<Boolean> allowOrganizationNameInAuthenticationApi;
 
-    private final Optional<List<String>> acrValuesSupported;
+    private final OptionalNullable<List<String>> acrValuesSupported;
 
     private final OptionalNullable<TenantSettingsMtls> mtls;
 
@@ -133,7 +133,7 @@ public final class UpdateTenantSettingsRequestContent {
             Optional<TenantOidcLogoutSettings> oidcLogout,
             OptionalNullable<Boolean> customizeMfaInPostloginAction,
             OptionalNullable<Boolean> allowOrganizationNameInAuthenticationApi,
-            Optional<List<String>> acrValuesSupported,
+            OptionalNullable<List<String>> acrValuesSupported,
             OptionalNullable<TenantSettingsMtls> mtls,
             OptionalNullable<Boolean> pushedAuthorizationRequestsSupported,
             OptionalNullable<Boolean> authorizationResponseIssParameterSupported,
@@ -402,8 +402,12 @@ public final class UpdateTenantSettingsRequestContent {
     /**
      * @return Supported ACR values
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("acr_values_supported")
-    public Optional<List<String>> getAcrValuesSupported() {
+    public OptionalNullable<List<String>> getAcrValuesSupported() {
+        if (acrValuesSupported == null) {
+            return OptionalNullable.absent();
+        }
         return acrValuesSupported;
     }
 
@@ -527,6 +531,12 @@ public final class UpdateTenantSettingsRequestContent {
     @JsonProperty("allow_organization_name_in_authentication_api")
     private OptionalNullable<Boolean> _getAllowOrganizationNameInAuthenticationApi() {
         return allowOrganizationNameInAuthenticationApi;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("acr_values_supported")
+    private OptionalNullable<List<String>> _getAcrValuesSupported() {
+        return acrValuesSupported;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -705,7 +715,7 @@ public final class UpdateTenantSettingsRequestContent {
 
         private OptionalNullable<Boolean> allowOrganizationNameInAuthenticationApi = OptionalNullable.absent();
 
-        private Optional<List<String>> acrValuesSupported = Optional.empty();
+        private OptionalNullable<List<String>> acrValuesSupported = OptionalNullable.absent();
 
         private OptionalNullable<TenantSettingsMtls> mtls = OptionalNullable.absent();
 
@@ -1297,13 +1307,33 @@ public final class UpdateTenantSettingsRequestContent {
          * <p>Supported ACR values</p>
          */
         @JsonSetter(value = "acr_values_supported", nulls = Nulls.SKIP)
-        public Builder acrValuesSupported(Optional<List<String>> acrValuesSupported) {
+        public Builder acrValuesSupported(@Nullable OptionalNullable<List<String>> acrValuesSupported) {
             this.acrValuesSupported = acrValuesSupported;
             return this;
         }
 
         public Builder acrValuesSupported(List<String> acrValuesSupported) {
-            this.acrValuesSupported = Optional.ofNullable(acrValuesSupported);
+            this.acrValuesSupported = OptionalNullable.of(acrValuesSupported);
+            return this;
+        }
+
+        public Builder acrValuesSupported(Optional<List<String>> acrValuesSupported) {
+            if (acrValuesSupported.isPresent()) {
+                this.acrValuesSupported = OptionalNullable.of(acrValuesSupported.get());
+            } else {
+                this.acrValuesSupported = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder acrValuesSupported(com.auth0.client.mgmt.core.Nullable<List<String>> acrValuesSupported) {
+            if (acrValuesSupported.isNull()) {
+                this.acrValuesSupported = OptionalNullable.ofNull();
+            } else if (acrValuesSupported.isEmpty()) {
+                this.acrValuesSupported = OptionalNullable.absent();
+            } else {
+                this.acrValuesSupported = OptionalNullable.of(acrValuesSupported.get());
+            }
             return this;
         }
 

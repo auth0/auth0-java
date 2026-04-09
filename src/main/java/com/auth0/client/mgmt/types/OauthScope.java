@@ -190,6 +190,8 @@ public final class OauthScope {
     public static final OauthScope CREATE_SSO_ACCESS_TICKETS =
             new OauthScope(Value.CREATE_SSO_ACCESS_TICKETS, "create:sso_access_tickets");
 
+    public static final OauthScope DELETE_GROUPS = new OauthScope(Value.DELETE_GROUPS, "delete:groups");
+
     public static final OauthScope READ_SELF_SERVICE_PROFILE_CUSTOM_TEXTS =
             new OauthScope(Value.READ_SELF_SERVICE_PROFILE_CUSTOM_TEXTS, "read:self_service_profile_custom_texts");
 
@@ -760,6 +762,8 @@ public final class OauthScope {
                 return visitor.visitUpdateRoles();
             case CREATE_SSO_ACCESS_TICKETS:
                 return visitor.visitCreateSsoAccessTickets();
+            case DELETE_GROUPS:
+                return visitor.visitDeleteGroups();
             case READ_SELF_SERVICE_PROFILE_CUSTOM_TEXTS:
                 return visitor.visitReadSelfServiceProfileCustomTexts();
             case DELETE_SCIM_TOKEN:
@@ -1207,6 +1211,8 @@ public final class OauthScope {
                 return UPDATE_ROLES;
             case "create:sso_access_tickets":
                 return CREATE_SSO_ACCESS_TICKETS;
+            case "delete:groups":
+                return DELETE_GROUPS;
             case "read:self_service_profile_custom_texts":
                 return READ_SELF_SERVICE_PROFILE_CUSTOM_TEXTS;
             case "delete:scim_token":
@@ -1711,6 +1717,8 @@ public final class OauthScope {
 
         READ_GROUPS,
 
+        DELETE_GROUPS,
+
         CREATE_GUARDIAN_ENROLLMENT_TICKETS,
 
         READ_GUARDIAN_ENROLLMENTS,
@@ -2152,6 +2160,8 @@ public final class OauthScope {
         T visitReadGroupMembers();
 
         T visitReadGroups();
+
+        T visitDeleteGroups();
 
         T visitCreateGuardianEnrollmentTickets();
 

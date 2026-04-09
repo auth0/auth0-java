@@ -31,7 +31,7 @@ client.actions().list(
     ListActionsRequestParameters
         .builder()
         .triggerId(
-            OptionalNullable.of("triggerId")
+            OptionalNullable.of(ActionTriggerTypeEnum.POST_LOGIN)
         )
         .actionName(
             OptionalNullable.of("actionName")
@@ -64,7 +64,7 @@ client.actions().list(
 <dl>
 <dd>
 
-**triggerId:** `Optional<String>` — An actions extensibility point.
+**triggerId:** `Optional<ActionTriggerTypeEnum>` — An actions extensibility point.
     
 </dd>
 </dl>
@@ -151,7 +151,7 @@ client.actions().create(
             Arrays.asList(
                 ActionTrigger
                     .builder()
-                    .id("id")
+                    .id(ActionTriggerTypeEnum.POST_LOGIN)
                     .build()
             )
         )
@@ -873,7 +873,6 @@ Create a client grant for a machine-to-machine login flow. To learn more, read <
 client.clientGrants().create(
     CreateClientGrantRequestContent
         .builder()
-        .clientId("client_id")
         .audience("audience")
         .build()
 );
@@ -891,7 +890,7 @@ client.clientGrants().create(
 <dl>
 <dd>
 
-**clientId:** `String` — ID of the client.
+**clientId:** `Optional<String>` — ID of the client.
     
 </dd>
 </dl>
@@ -1254,6 +1253,9 @@ client.clients().list(
         .appType(
             OptionalNullable.of("app_type")
         )
+        .externalClientId(
+            OptionalNullable.of("external_client_id")
+        )
         .q(
             OptionalNullable.of("q")
         )
@@ -1337,7 +1339,15 @@ client.clients().list(
 <dl>
 <dd>
 
-**q:** `Optional<String>` — Advanced Query in <a href="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
+**externalClientId:** `Optional<String>` — Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `Optional<String>` — Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
     
 </dd>
 </dl>
@@ -1806,6 +1816,131 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dd>
 
 **asyncApprovalNotificationChannels:** `Optional<List<AsyncApprovalNotificationsChannelsEnum>>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clients.previewCimdMetadata(request) -> PreviewCimdMetadataResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+
+      Fetches and validates a Client ID Metadata Document without creating a client.
+      Returns the raw metadata and how it would be mapped to Auth0 client fields.
+      This endpoint is useful for testing metadata URIs before creating CIMD clients.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.clients().previewCimdMetadata(
+    PreviewCimdMetadataRequestContent
+        .builder()
+        .externalClientId("external_client_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**externalClientId:** `String` — URL to the Client ID Metadata Document
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clients.registerCimdClient(request) -> RegisterCimdClientResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+
+      Idempotent registration for Client ID Metadata Document (CIMD) clients.
+      Uses external_client_id as the unique identifier for upsert operations.
+      **Create:** Returns 201 when a new client is created (requires \
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.clients().registerCimdClient(
+    RegisterCimdClientRequestContent
+        .builder()
+        .externalClientId("external_client_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**externalClientId:** `String` — URL to the Client ID Metadata Document. Acts as the unique identifier for upsert operations.
     
 </dd>
 </dl>
@@ -3205,7 +3340,7 @@ client.connections().create(
 <dl>
 <dd>
 
-**enabledClients:** `Optional<List<String>>` — DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
+**enabledClients:** `Optional<List<String>>` — Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
     
 </dd>
 </dl>
@@ -3648,7 +3783,7 @@ client.customDomains().list(
 <dl>
 <dd>
 
-**q:** `Optional<String>` — Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.
+**q:** `Optional<String>` — Query in <a href ="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene query string syntax</a>.
     
 </dd>
 </dl>
@@ -3794,6 +3929,104 @@ client.customDomains().create(
 <dd>
 
 **relyingPartyIdentifier:** `Optional<String>` — Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not provided, the full domain will be used.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customDomains.getDefault() -> GetDefaultDomainResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the tenant's default domain.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customDomains().getDefault();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customDomains.setDefault(request) -> UpdateDefaultDomainResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Set the default custom domain for the tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customDomains().setDefault(
+    SetDefaultCustomDomainRequestContent
+        .builder()
+        .domain("domain")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**domain:** `String` — The domain to set as the default custom domain. Must be a verified custom domain or the canonical domain.
     
 </dd>
 </dl>
@@ -6306,6 +6539,60 @@ client.groups().get("id");
 </dl>
 </details>
 
+<details><summary><code>client.groups.delete(id)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a group by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.groups().delete("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — Unique identifier for the group (service-generated).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Hooks
 <details><summary><code>client.hooks.list() -> SyncPagingIterable&amp;lt;Hook&amp;gt;</code></summary>
 <dl>
@@ -7763,7 +8050,6 @@ client.networkAcls().create(
         .builder()
         .description("description")
         .active(true)
-        .priority(1.1)
         .rule(
             NetworkAclRule
                 .builder()
@@ -7807,7 +8093,7 @@ client.networkAcls().create(
 <dl>
 <dd>
 
-**priority:** `Double` — Indicates the order in which the ACL will be evaluated relative to other ACL rules.
+**priority:** `Optional<Double>` — Indicates the order in which the ACL will be evaluated relative to other ACL rules.
     
 </dd>
 </dl>
@@ -7914,7 +8200,6 @@ client.networkAcls().set(
         .builder()
         .description("description")
         .active(true)
-        .priority(1.1)
         .rule(
             NetworkAclRule
                 .builder()
@@ -7966,7 +8251,7 @@ client.networkAcls().set(
 <dl>
 <dd>
 
-**priority:** `Double` — Indicates the order in which the ACL will be evaluated relative to other ACL rules.
+**priority:** `Optional<Double>` — Indicates the order in which the ACL will be evaluated relative to other ACL rules.
     
 </dd>
 </dl>
@@ -8710,6 +8995,120 @@ client.prompts().updateSettings(
 </details>
 
 ## RefreshTokens
+<details><summary><code>client.refreshTokens.list() -> SyncPagingIterable&amp;lt;RefreshTokenResponseContent&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of refresh tokens for a specific user, with optional filtering by client ID. Results are sorted by credential_id ascending.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.refreshTokens().list(
+    GetRefreshTokensRequestParameters
+        .builder()
+        .userId("user_id")
+        .clientId(
+            OptionalNullable.of("client_id")
+        )
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**userId:** `String` — ID of the user whose refresh tokens to retrieve. Required.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**clientId:** `Optional<String>` — Filter results by client ID. Only valid when user_id is provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — An opaque cursor from which to start the selection (exclusive). Expires after 24 hours. Obtained from the next property of a previous response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `Optional<String>` — Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeFields:** `Optional<Boolean>` — Whether specified fields are to be included (true) or excluded (false).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.refreshTokens.get(id) -> GetRefreshTokenResponseContent</code></summary>
 <dl>
 <dd>
@@ -9083,6 +9482,14 @@ client.resourceServers().create(
 <dl>
 <dd>
 
+**allowOnlineAccess:** `Optional<Boolean>` — Whether Online Refresh Tokens can be issued for this API (true) or not (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **tokenLifetime:** `Optional<Integer>` — Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
     
 </dd>
@@ -9379,6 +9786,14 @@ client.resourceServers().update(
 <dd>
 
 **allowOfflineAccess:** `Optional<Boolean>` — Whether refresh tokens can be issued for this API (true) or not (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allowOnlineAccess:** `Optional<Boolean>` — Whether Online Refresh Tokens can be issued for this API (true) or not (false).
     
 </dd>
 </dl>
@@ -12694,7 +13109,7 @@ client.users().list(
 <dl>
 <dd>
 
-**q:** `Optional<String>` — Query in <a target='_new' href ='http://www.lucenetutorial.com/lucene-query-syntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.
+**q:** `Optional<String>` — Query in <a target='_new' href ='https://lucene.apache.org/core/2_9_4/queryparsersyntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.
     
 </dd>
 </dl>
@@ -14585,7 +15000,7 @@ Retrieve the actions that are bound to a trigger. Once an action is created and 
 
 ```java
 client.actions().triggers().bindings().list(
-    "triggerId",
+    ActionTriggerTypeEnum.POST_LOGIN,
     ListActionTriggerBindingsRequestParameters
         .builder()
         .page(
@@ -14610,7 +15025,7 @@ client.actions().triggers().bindings().list(
 <dl>
 <dd>
 
-**triggerId:** `String` — An actions extensibility point.
+**triggerId:** `ActionTriggerTypeEnum` — An actions extensibility point.
     
 </dd>
 </dl>
@@ -14666,7 +15081,7 @@ Update the actions that are bound (i.e. attached) to a trigger. Once an action i
 
 ```java
 client.actions().triggers().bindings().updateMany(
-    "triggerId",
+    ActionTriggerTypeEnum.POST_LOGIN,
     UpdateActionBindingsRequestContent
         .builder()
         .build()
@@ -14685,7 +15100,7 @@ client.actions().triggers().bindings().updateMany(
 <dl>
 <dd>
 
-**triggerId:** `String` — An actions extensibility point.
+**triggerId:** `ActionTriggerTypeEnum` — An actions extensibility point.
     
 </dd>
 </dl>
@@ -17228,6 +17643,14 @@ client.clients().credentials().create(
 <dd>
 
 **expiresAt:** `Optional<OffsetDateTime>` — The ISO 8601 formatted date representing the expiration of the credential. If not specified (not recommended), the credential never expires. Applies to `public_key` credential type.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**kid:** `Optional<String>` — Optional kid (Key ID), used to uniquely identify the credential. If not specified, a kid value will be auto-generated. The kid header parameter in JWTs sent by your client should match this value. Valid format is [0-9a-zA-Z-_]{10,64}
     
 </dd>
 </dl>
@@ -23755,6 +24178,7 @@ client.organizations().clientGrants().delete("id", "grant_id");
 <dd>
 
 Retrieve list of all organization discovery domains associated with the specified organization.
+This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 </dd>
 </dl>
 </dd>
@@ -23920,7 +24344,7 @@ client.organizations().discoveryDomains().create(
 <dd>
 
 Retrieve details about a single organization discovery domain specified by domain name.
-
+This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 </dd>
 </dl>
 </dd>
@@ -23982,7 +24406,8 @@ client.organizations().discoveryDomains().getByName("id", "discovery_domain");
 <dl>
 <dd>
 
-Retrieve details about a single organization discovery domain specified by ID. 
+Retrieve details about a single organization discovery domain specified by ID.
+This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 </dd>
 </dl>
 </dd>

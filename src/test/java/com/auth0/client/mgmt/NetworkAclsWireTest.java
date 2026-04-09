@@ -74,7 +74,6 @@ public class NetworkAclsWireTest {
                 .create(CreateNetworkAclRequestContent.builder()
                         .description("description")
                         .active(true)
-                        .priority(1.1)
                         .rule(NetworkAclRule.builder()
                                 .action(NetworkAclAction.builder().build())
                                 .scope(NetworkAclRuleScopeEnum.MANAGEMENT)
@@ -89,7 +88,6 @@ public class NetworkAclsWireTest {
                 + "{\n"
                 + "  \"description\": \"description\",\n"
                 + "  \"active\": true,\n"
-                + "  \"priority\": 1.1,\n"
                 + "  \"rule\": {\n"
                 + "    \"action\": {},\n"
                 + "    \"scope\": \"management\"\n"
@@ -180,7 +178,6 @@ public class NetworkAclsWireTest {
                         SetNetworkAclRequestContent.builder()
                                 .description("description")
                                 .active(true)
-                                .priority(1.1)
                                 .rule(NetworkAclRule.builder()
                                         .action(NetworkAclAction.builder().build())
                                         .scope(NetworkAclRuleScopeEnum.MANAGEMENT)
@@ -195,7 +192,6 @@ public class NetworkAclsWireTest {
                 + "{\n"
                 + "  \"description\": \"description\",\n"
                 + "  \"active\": true,\n"
-                + "  \"priority\": 1.1,\n"
                 + "  \"rule\": {\n"
                 + "    \"action\": {},\n"
                 + "    \"scope\": \"management\"\n"

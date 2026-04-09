@@ -5,6 +5,7 @@ import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.Action;
 import com.auth0.client.mgmt.types.ActionTrigger;
+import com.auth0.client.mgmt.types.ActionTriggerTypeEnum;
 import com.auth0.client.mgmt.types.CreateActionRequestContent;
 import com.auth0.client.mgmt.types.CreateActionResponseContent;
 import com.auth0.client.mgmt.types.DeleteActionRequestParameters;
@@ -53,10 +54,10 @@ public class ActionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"total\":1.1,\"page\":1.1,\"per_page\":1.1,\"actions\":[{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"id\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"code\":\"code\",\"dependencies\":[{}],\"runtime\":\"runtime\",\"secrets\":[{}],\"installed_integration_id\":\"installed_integration_id\",\"status\":\"pending\",\"built_at\":\"2024-01-15T09:30:00Z\",\"deploy\":true,\"modules\":[{}]}]}"));
+                                "{\"total\":1.1,\"page\":1.1,\"per_page\":1.1,\"actions\":[{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"post-login\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"code\":\"code\",\"dependencies\":[{}],\"runtime\":\"runtime\",\"secrets\":[{}],\"installed_integration_id\":\"installed_integration_id\",\"status\":\"pending\",\"built_at\":\"2024-01-15T09:30:00Z\",\"deploy\":true,\"modules\":[{}]}]}"));
         SyncPagingIterable<Action> response = client.actions()
                 .list(ListActionsRequestParameters.builder()
-                        .triggerId(OptionalNullable.of("triggerId"))
+                        .triggerId(OptionalNullable.of(ActionTriggerTypeEnum.POST_LOGIN))
                         .actionName(OptionalNullable.of("actionName"))
                         .deployed(OptionalNullable.of(true))
                         .page(OptionalNullable.of(1))
@@ -81,8 +82,9 @@ public class ActionsWireTest {
         CreateActionResponseContent response = client.actions()
                 .create(CreateActionRequestContent.builder()
                         .name("name")
-                        .supportedTriggers(
-                                Arrays.asList(ActionTrigger.builder().id("id").build()))
+                        .supportedTriggers(Arrays.asList(ActionTrigger.builder()
+                                .id(ActionTriggerTypeEnum.POST_LOGIN)
+                                .build()))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -94,7 +96,7 @@ public class ActionsWireTest {
                 + "  \"name\": \"name\",\n"
                 + "  \"supported_triggers\": [\n"
                 + "    {\n"
-                + "      \"id\": \"id\"\n"
+                + "      \"id\": \"post-login\"\n"
                 + "    }\n"
                 + "  ]\n"
                 + "}";

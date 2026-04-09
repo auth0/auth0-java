@@ -6,15 +6,16 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class CreateConnectionRequestContentYammerStrategy {
-    public static final CreateConnectionRequestContentYammerStrategy YAMMER =
-            new CreateConnectionRequestContentYammerStrategy(Value.YAMMER, "yammer");
+public final class SynchronizeGroupsEaEnum {
+    public static final SynchronizeGroupsEaEnum ALL = new SynchronizeGroupsEaEnum(Value.ALL, "all");
+
+    public static final SynchronizeGroupsEaEnum OFF = new SynchronizeGroupsEaEnum(Value.OFF, "off");
 
     private final Value value;
 
     private final String string;
 
-    CreateConnectionRequestContentYammerStrategy(Value value, String string) {
+    SynchronizeGroupsEaEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -32,8 +33,8 @@ public final class CreateConnectionRequestContentYammerStrategy {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof CreateConnectionRequestContentYammerStrategy
-                        && this.string.equals(((CreateConnectionRequestContentYammerStrategy) other).string));
+                || (other instanceof SynchronizeGroupsEaEnum
+                        && this.string.equals(((SynchronizeGroupsEaEnum) other).string));
     }
 
     @java.lang.Override
@@ -43,8 +44,10 @@ public final class CreateConnectionRequestContentYammerStrategy {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case YAMMER:
-                return visitor.visitYammer();
+            case ALL:
+                return visitor.visitAll();
+            case OFF:
+                return visitor.visitOff();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -52,23 +55,29 @@ public final class CreateConnectionRequestContentYammerStrategy {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static CreateConnectionRequestContentYammerStrategy valueOf(String value) {
+    public static SynchronizeGroupsEaEnum valueOf(String value) {
         switch (value) {
-            case "yammer":
-                return YAMMER;
+            case "all":
+                return ALL;
+            case "off":
+                return OFF;
             default:
-                return new CreateConnectionRequestContentYammerStrategy(Value.UNKNOWN, value);
+                return new SynchronizeGroupsEaEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        YAMMER,
+        ALL,
+
+        OFF,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitYammer();
+        T visitAll();
+
+        T visitOff();
 
         T visitUnknown(String unknownType);
     }
