@@ -1,5 +1,15 @@
 # Change Log
 
+## [3.4.0](https://github.com/auth0/auth0-java/tree/3.4.0) (2026-04-09)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/3.3.0...3.4.0)
+
+**Added**
+- Add Default Domain Management and CIMD Support - April 8, 2026 [\#851](https://github.com/auth0/auth0-java/pull/851) ([fern-api[bot]](https://github.com/apps/fern-api))
+- Feat: MCD Support [\#849](https://github.com/auth0/auth0-java/pull/849) ([tanya732](https://github.com/tanya732))
+
+**Fixed**
+- fix: migration doc user creation code compilation error [\#820](https://github.com/auth0/auth0-java/pull/820) ([krrrr38](https://github.com/krrrr38))
+
 ## [3.3.0](https://github.com/auth0/auth0-java/tree/3.3.0) (2026-03-11)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/3.2.0...3.3.0)
 
