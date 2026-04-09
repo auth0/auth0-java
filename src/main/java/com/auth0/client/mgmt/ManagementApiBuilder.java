@@ -4,6 +4,7 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ClientOptions;
+import com.auth0.client.mgmt.core.CustomDomainInterceptor;
 import com.auth0.client.mgmt.core.Environment;
 import com.auth0.client.mgmt.core.OAuthTokenSupplier;
 import java.util.HashMap;
@@ -24,6 +25,8 @@ public class ManagementApiBuilder {
     private Environment environment = Environment.DEFAULT;
 
     private OkHttpClient httpClient;
+
+    private String customDomain = null;
 
     // Domain-based initialization fields
     private String domain = null;
@@ -108,6 +111,40 @@ public class ManagementApiBuilder {
     }
 
     /**
+     * Sets the custom domain for the Auth0-Custom-Domain header.
+     * When configured, the header is automatically sent on whitelisted API endpoints
+     * that generate user-facing links (email verification, password change, invitations, etc.).
+     *
+     * <p>The header is only sent to whitelisted endpoints:
+     * <ul>
+     *   <li>{@code /jobs/verification-email}</li>
+     *   <li>{@code /tickets/email-verification}</li>
+     *   <li>{@code /tickets/password-change}</li>
+     *   <li>{@code /organizations/{id}/invitations}</li>
+     *   <li>{@code /users} and {@code /users/{id}}</li>
+     *   <li>{@code /guardian/enrollments/ticket}</li>
+     *   <li>{@code /self-service-profiles/{id}/sso-ticket}</li>
+     * </ul>
+     *
+     * <p>Example:
+     * <pre>{@code
+     * ManagementApi client = ManagementApi.builder()
+     *     .domain("your-tenant.auth0.com")
+     *     .token("YOUR_TOKEN")
+     *     .customDomain("login.mycompany.com")
+     *     .build();
+     * }</pre>
+     *
+     * @param customDomain The custom domain (e.g., "login.mycompany.com")
+     * @return This builder for method chaining
+     * @see CustomDomainHeader#of(String) for per-request custom domain overrides
+     */
+    public ManagementApiBuilder customDomain(String customDomain) {
+        this.customDomain = customDomain;
+        return this;
+    }
+
+    /**
      * Sets the timeout (in seconds) for the client. Defaults to 60 seconds.
      */
     public ManagementApiBuilder timeout(int timeout) {
@@ -153,6 +190,10 @@ public class ManagementApiBuilder {
         setRetries(builder);
         for (Map.Entry<String, String> header : this.customHeaders.entrySet()) {
             builder.addHeader(header.getKey(), header.getValue());
+        }
+        if (this.customDomain != null) {
+            builder.addHeader(CustomDomainInterceptor.HEADER_NAME, this.customDomain);
+            builder.addInterceptor(new CustomDomainInterceptor());
         }
         setAdditional(builder);
         return builder.build();

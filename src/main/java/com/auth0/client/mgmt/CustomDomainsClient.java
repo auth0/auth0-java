@@ -9,10 +9,13 @@ import com.auth0.client.mgmt.types.CreateCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.CreateCustomDomainResponseContent;
 import com.auth0.client.mgmt.types.CustomDomain;
 import com.auth0.client.mgmt.types.GetCustomDomainResponseContent;
+import com.auth0.client.mgmt.types.GetDefaultDomainResponseContent;
 import com.auth0.client.mgmt.types.ListCustomDomainsRequestParameters;
+import com.auth0.client.mgmt.types.SetDefaultCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.TestCustomDomainResponseContent;
 import com.auth0.client.mgmt.types.UpdateCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.UpdateCustomDomainResponseContent;
+import com.auth0.client.mgmt.types.UpdateDefaultDomainResponseContent;
 import com.auth0.client.mgmt.types.VerifyCustomDomainResponseContent;
 import java.util.List;
 
@@ -96,6 +99,35 @@ public class CustomDomainsClient {
     public CreateCustomDomainResponseContent create(
             CreateCustomDomainRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).body();
+    }
+
+    /**
+     * Retrieve the tenant's default domain.
+     */
+    public GetDefaultDomainResponseContent getDefault() {
+        return this.rawClient.getDefault().body();
+    }
+
+    /**
+     * Retrieve the tenant's default domain.
+     */
+    public GetDefaultDomainResponseContent getDefault(RequestOptions requestOptions) {
+        return this.rawClient.getDefault(requestOptions).body();
+    }
+
+    /**
+     * Set the default custom domain for the tenant.
+     */
+    public UpdateDefaultDomainResponseContent setDefault(SetDefaultCustomDomainRequestContent request) {
+        return this.rawClient.setDefault(request).body();
+    }
+
+    /**
+     * Set the default custom domain for the tenant.
+     */
+    public UpdateDefaultDomainResponseContent setDefault(
+            SetDefaultCustomDomainRequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.setDefault(request, requestOptions).body();
     }
 
     /**

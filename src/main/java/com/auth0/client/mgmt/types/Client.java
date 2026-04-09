@@ -64,7 +64,7 @@ public final class Client {
 
     private final Optional<ClientJwtConfiguration> jwtConfiguration;
 
-    private final Optional<List<ClientSigningKey>> signingKeys;
+    private final OptionalNullable<List<ClientSigningKey>> signingKeys;
 
     private final OptionalNullable<ClientEncryptionKey> encryptionKey;
 
@@ -130,6 +130,14 @@ public final class Client {
 
     private final Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
 
+    private final Optional<ClientExternalMetadataTypeEnum> externalMetadataType;
+
+    private final Optional<ClientExternalMetadataCreatedByEnum> externalMetadataCreatedBy;
+
+    private final Optional<String> externalClientId;
+
+    private final Optional<String> jwksUri;
+
     private final Map<String, Object> additionalProperties;
 
     private Client(
@@ -153,7 +161,7 @@ public final class Client {
             Optional<ClientOidcBackchannelLogoutSettings> oidcLogout,
             Optional<List<String>> grantTypes,
             Optional<ClientJwtConfiguration> jwtConfiguration,
-            Optional<List<ClientSigningKey>> signingKeys,
+            OptionalNullable<List<ClientSigningKey>> signingKeys,
             OptionalNullable<ClientEncryptionKey> encryptionKey,
             Optional<Boolean> sso,
             Optional<Boolean> ssoDisabled,
@@ -186,6 +194,10 @@ public final class Client {
             Optional<ExpressConfiguration> expressConfiguration,
             Optional<String> resourceServerIdentifier,
             Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
+            Optional<ClientExternalMetadataTypeEnum> externalMetadataType,
+            Optional<ClientExternalMetadataCreatedByEnum> externalMetadataCreatedBy,
+            Optional<String> externalClientId,
+            Optional<String> jwksUri,
             Map<String, Object> additionalProperties) {
         this.clientId = clientId;
         this.tenant = tenant;
@@ -240,6 +252,10 @@ public final class Client {
         this.expressConfiguration = expressConfiguration;
         this.resourceServerIdentifier = resourceServerIdentifier;
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
+        this.externalMetadataType = externalMetadataType;
+        this.externalMetadataCreatedBy = externalMetadataCreatedBy;
+        this.externalClientId = externalClientId;
+        this.jwksUri = jwksUri;
         this.additionalProperties = additionalProperties;
     }
 
@@ -395,8 +411,12 @@ public final class Client {
         return jwtConfiguration;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("signing_keys")
-    public Optional<List<ClientSigningKey>> getSigningKeys() {
+    public OptionalNullable<List<ClientSigningKey>> getSigningKeys() {
+        if (signingKeys == null) {
+            return OptionalNullable.absent();
+        }
         return signingKeys;
     }
 
@@ -634,10 +654,42 @@ public final class Client {
         return asyncApprovalNotificationChannels;
     }
 
+    @JsonProperty("external_metadata_type")
+    public Optional<ClientExternalMetadataTypeEnum> getExternalMetadataType() {
+        return externalMetadataType;
+    }
+
+    @JsonProperty("external_metadata_created_by")
+    public Optional<ClientExternalMetadataCreatedByEnum> getExternalMetadataCreatedBy() {
+        return externalMetadataCreatedBy;
+    }
+
+    /**
+     * @return An alternate client identifier to be used during authorization flows. Only supports CIMD-based client identifiers.
+     */
+    @JsonProperty("external_client_id")
+    public Optional<String> getExternalClientId() {
+        return externalClientId;
+    }
+
+    /**
+     * @return URL for the JSON Web Key Set (JWKS) containing the public keys used for private_key_jwt authentication. Only present for CIMD clients using private_key_jwt authentication.
+     */
+    @JsonProperty("jwks_uri")
+    public Optional<String> getJwksUri() {
+        return jwksUri;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("session_transfer")
     private OptionalNullable<ClientSessionTransferConfiguration> _getSessionTransfer() {
         return sessionTransfer;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("signing_keys")
+    private OptionalNullable<List<ClientSigningKey>> _getSigningKeys() {
+        return signingKeys;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -741,7 +793,11 @@ public final class Client {
                 && tokenQuota.equals(other.tokenQuota)
                 && expressConfiguration.equals(other.expressConfiguration)
                 && resourceServerIdentifier.equals(other.resourceServerIdentifier)
-                && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels);
+                && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels)
+                && externalMetadataType.equals(other.externalMetadataType)
+                && externalMetadataCreatedBy.equals(other.externalMetadataCreatedBy)
+                && externalClientId.equals(other.externalClientId)
+                && jwksUri.equals(other.jwksUri);
     }
 
     @java.lang.Override
@@ -799,7 +855,11 @@ public final class Client {
                 this.tokenQuota,
                 this.expressConfiguration,
                 this.resourceServerIdentifier,
-                this.asyncApprovalNotificationChannels);
+                this.asyncApprovalNotificationChannels,
+                this.externalMetadataType,
+                this.externalMetadataCreatedBy,
+                this.externalClientId,
+                this.jwksUri);
     }
 
     @java.lang.Override
@@ -853,7 +913,7 @@ public final class Client {
 
         private Optional<ClientJwtConfiguration> jwtConfiguration = Optional.empty();
 
-        private Optional<List<ClientSigningKey>> signingKeys = Optional.empty();
+        private OptionalNullable<List<ClientSigningKey>> signingKeys = OptionalNullable.absent();
 
         private OptionalNullable<ClientEncryptionKey> encryptionKey = OptionalNullable.absent();
 
@@ -920,6 +980,14 @@ public final class Client {
         private Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
                 Optional.empty();
 
+        private Optional<ClientExternalMetadataTypeEnum> externalMetadataType = Optional.empty();
+
+        private Optional<ClientExternalMetadataCreatedByEnum> externalMetadataCreatedBy = Optional.empty();
+
+        private Optional<String> externalClientId = Optional.empty();
+
+        private Optional<String> jwksUri = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -979,6 +1047,10 @@ public final class Client {
             expressConfiguration(other.getExpressConfiguration());
             resourceServerIdentifier(other.getResourceServerIdentifier());
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
+            externalMetadataType(other.getExternalMetadataType());
+            externalMetadataCreatedBy(other.getExternalMetadataCreatedBy());
+            externalClientId(other.getExternalClientId());
+            jwksUri(other.getJwksUri());
             return this;
         }
 
@@ -1272,13 +1344,33 @@ public final class Client {
         }
 
         @JsonSetter(value = "signing_keys", nulls = Nulls.SKIP)
-        public Builder signingKeys(Optional<List<ClientSigningKey>> signingKeys) {
+        public Builder signingKeys(@Nullable OptionalNullable<List<ClientSigningKey>> signingKeys) {
             this.signingKeys = signingKeys;
             return this;
         }
 
         public Builder signingKeys(List<ClientSigningKey> signingKeys) {
-            this.signingKeys = Optional.ofNullable(signingKeys);
+            this.signingKeys = OptionalNullable.of(signingKeys);
+            return this;
+        }
+
+        public Builder signingKeys(Optional<List<ClientSigningKey>> signingKeys) {
+            if (signingKeys.isPresent()) {
+                this.signingKeys = OptionalNullable.of(signingKeys.get());
+            } else {
+                this.signingKeys = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder signingKeys(com.auth0.client.mgmt.core.Nullable<List<ClientSigningKey>> signingKeys) {
+            if (signingKeys.isNull()) {
+                this.signingKeys = OptionalNullable.ofNull();
+            } else if (signingKeys.isEmpty()) {
+                this.signingKeys = OptionalNullable.absent();
+            } else {
+                this.signingKeys = OptionalNullable.of(signingKeys.get());
+            }
             return this;
         }
 
@@ -1815,6 +1907,57 @@ public final class Client {
             return this;
         }
 
+        @JsonSetter(value = "external_metadata_type", nulls = Nulls.SKIP)
+        public Builder externalMetadataType(Optional<ClientExternalMetadataTypeEnum> externalMetadataType) {
+            this.externalMetadataType = externalMetadataType;
+            return this;
+        }
+
+        public Builder externalMetadataType(ClientExternalMetadataTypeEnum externalMetadataType) {
+            this.externalMetadataType = Optional.ofNullable(externalMetadataType);
+            return this;
+        }
+
+        @JsonSetter(value = "external_metadata_created_by", nulls = Nulls.SKIP)
+        public Builder externalMetadataCreatedBy(
+                Optional<ClientExternalMetadataCreatedByEnum> externalMetadataCreatedBy) {
+            this.externalMetadataCreatedBy = externalMetadataCreatedBy;
+            return this;
+        }
+
+        public Builder externalMetadataCreatedBy(ClientExternalMetadataCreatedByEnum externalMetadataCreatedBy) {
+            this.externalMetadataCreatedBy = Optional.ofNullable(externalMetadataCreatedBy);
+            return this;
+        }
+
+        /**
+         * <p>An alternate client identifier to be used during authorization flows. Only supports CIMD-based client identifiers.</p>
+         */
+        @JsonSetter(value = "external_client_id", nulls = Nulls.SKIP)
+        public Builder externalClientId(Optional<String> externalClientId) {
+            this.externalClientId = externalClientId;
+            return this;
+        }
+
+        public Builder externalClientId(String externalClientId) {
+            this.externalClientId = Optional.ofNullable(externalClientId);
+            return this;
+        }
+
+        /**
+         * <p>URL for the JSON Web Key Set (JWKS) containing the public keys used for private_key_jwt authentication. Only present for CIMD clients using private_key_jwt authentication.</p>
+         */
+        @JsonSetter(value = "jwks_uri", nulls = Nulls.SKIP)
+        public Builder jwksUri(Optional<String> jwksUri) {
+            this.jwksUri = jwksUri;
+            return this;
+        }
+
+        public Builder jwksUri(String jwksUri) {
+            this.jwksUri = Optional.ofNullable(jwksUri);
+            return this;
+        }
+
         public Client build() {
             return new Client(
                     clientId,
@@ -1870,6 +2013,10 @@ public final class Client {
                     expressConfiguration,
                     resourceServerIdentifier,
                     asyncApprovalNotificationChannels,
+                    externalMetadataType,
+                    externalMetadataCreatedBy,
+                    externalClientId,
+                    jwksUri,
                     additionalProperties);
         }
 

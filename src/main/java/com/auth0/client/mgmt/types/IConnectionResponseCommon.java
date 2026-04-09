@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IConnectionResponseCommon extends ICreateConnectionCommon {
-    Optional<String> getId();
+    String getId();
 
     Optional<List<String>> getRealms();
 }

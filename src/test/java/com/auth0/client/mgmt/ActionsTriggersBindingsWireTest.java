@@ -6,6 +6,7 @@ import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.ActionBinding;
+import com.auth0.client.mgmt.types.ActionTriggerTypeEnum;
 import com.auth0.client.mgmt.types.UpdateActionBindingsResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,12 +44,12 @@ public class ActionsTriggersBindingsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"total\":1.1,\"page\":1.1,\"per_page\":1.1,\"bindings\":[{\"id\":\"id\",\"trigger_id\":\"trigger_id\",\"display_name\":\"display_name\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}]}"));
+                                "{\"total\":1.1,\"page\":1.1,\"per_page\":1.1,\"bindings\":[{\"id\":\"id\",\"trigger_id\":\"post-login\",\"display_name\":\"display_name\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}]}"));
         SyncPagingIterable<ActionBinding> response = client.actions()
                 .triggers()
                 .bindings()
                 .list(
-                        "triggerId",
+                        ActionTriggerTypeEnum.POST_LOGIN,
                         ListActionTriggerBindingsRequestParameters.builder()
                                 .page(OptionalNullable.of(1))
                                 .perPage(OptionalNullable.of(1))
@@ -69,12 +70,12 @@ public class ActionsTriggersBindingsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"bindings\":[{\"id\":\"id\",\"trigger_id\":\"trigger_id\",\"display_name\":\"display_name\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}]}"));
+                                "{\"bindings\":[{\"id\":\"id\",\"trigger_id\":\"post-login\",\"display_name\":\"display_name\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}]}"));
         UpdateActionBindingsResponseContent response = client.actions()
                 .triggers()
                 .bindings()
                 .updateMany(
-                        "triggerId",
+                        ActionTriggerTypeEnum.POST_LOGIN,
                         UpdateActionBindingsRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -117,7 +118,7 @@ public class ActionsTriggersBindingsWireTest {
                 + "  \"bindings\": [\n"
                 + "    {\n"
                 + "      \"id\": \"id\",\n"
-                + "      \"trigger_id\": \"trigger_id\",\n"
+                + "      \"trigger_id\": \"post-login\",\n"
                 + "      \"display_name\": \"display_name\",\n"
                 + "      \"created_at\": \"2024-01-15T09:30:00Z\",\n"
                 + "      \"updated_at\": \"2024-01-15T09:30:00Z\"\n"

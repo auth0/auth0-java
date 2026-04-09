@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdateClientGrantRequestContent.Builder.class)
 public final class UpdateClientGrantRequestContent {
-    private final Optional<List<String>> scope;
+    private final OptionalNullable<List<String>> scope;
 
     private final OptionalNullable<ClientGrantOrganizationNullableUsageEnum> organizationUsage;
 
@@ -37,7 +37,7 @@ public final class UpdateClientGrantRequestContent {
     private final Map<String, Object> additionalProperties;
 
     private UpdateClientGrantRequestContent(
-            Optional<List<String>> scope,
+            OptionalNullable<List<String>> scope,
             OptionalNullable<ClientGrantOrganizationNullableUsageEnum> organizationUsage,
             OptionalNullable<Boolean> allowAnyOrganization,
             Optional<List<String>> authorizationDetailsTypes,
@@ -54,8 +54,12 @@ public final class UpdateClientGrantRequestContent {
     /**
      * @return Scopes allowed for this client grant.
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("scope")
-    public Optional<List<String>> getScope() {
+    public OptionalNullable<List<String>> getScope() {
+        if (scope == null) {
+            return OptionalNullable.absent();
+        }
         return scope;
     }
 
@@ -98,6 +102,12 @@ public final class UpdateClientGrantRequestContent {
             return OptionalNullable.absent();
         }
         return allowAllScopes;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("scope")
+    private OptionalNullable<List<String>> _getScope() {
+        return scope;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -158,7 +168,7 @@ public final class UpdateClientGrantRequestContent {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<List<String>> scope = Optional.empty();
+        private OptionalNullable<List<String>> scope = OptionalNullable.absent();
 
         private OptionalNullable<ClientGrantOrganizationNullableUsageEnum> organizationUsage =
                 OptionalNullable.absent();
@@ -187,13 +197,33 @@ public final class UpdateClientGrantRequestContent {
          * <p>Scopes allowed for this client grant.</p>
          */
         @JsonSetter(value = "scope", nulls = Nulls.SKIP)
-        public Builder scope(Optional<List<String>> scope) {
+        public Builder scope(@Nullable OptionalNullable<List<String>> scope) {
             this.scope = scope;
             return this;
         }
 
         public Builder scope(List<String> scope) {
-            this.scope = Optional.ofNullable(scope);
+            this.scope = OptionalNullable.of(scope);
+            return this;
+        }
+
+        public Builder scope(Optional<List<String>> scope) {
+            if (scope.isPresent()) {
+                this.scope = OptionalNullable.of(scope.get());
+            } else {
+                this.scope = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder scope(com.auth0.client.mgmt.core.Nullable<List<String>> scope) {
+            if (scope.isNull()) {
+                this.scope = OptionalNullable.ofNull();
+            } else if (scope.isEmpty()) {
+                this.scope = OptionalNullable.absent();
+            } else {
+                this.scope = OptionalNullable.of(scope.get());
+            }
             return this;
         }
 

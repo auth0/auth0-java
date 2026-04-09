@@ -1,7 +1,11 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.GetRefreshTokenResponseContent;
+import com.auth0.client.mgmt.types.GetRefreshTokensRequestParameters;
+import com.auth0.client.mgmt.types.RefreshTokenResponseContent;
 import com.auth0.client.mgmt.types.UpdateRefreshTokenRequestContent;
 import com.auth0.client.mgmt.types.UpdateRefreshTokenResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -32,6 +36,32 @@ public class RefreshTokensWireTest {
     @AfterEach
     public void teardown() throws Exception {
         server.shutdown();
+    }
+
+    @Test
+    public void testList() throws Exception {
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"refresh_tokens\":[{\"id\":\"id\",\"user_id\":\"user_id\",\"created_at\":\"2024-01-15T09:30:00Z\",\"idle_expires_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\",\"client_id\":\"client_id\",\"session_id\":\"session_id\",\"rotating\":true,\"resource_servers\":[{}],\"refresh_token_metadata\":{\"key\":\"value\"},\"last_exchanged_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\"}"));
+        SyncPagingIterable<RefreshTokenResponseContent> response = client.refreshTokens()
+                .list(GetRefreshTokensRequestParameters.builder()
+                        .userId("user_id")
+                        .clientId(OptionalNullable.of("client_id"))
+                        .from(OptionalNullable.of("from"))
+                        .take(OptionalNullable.of(1))
+                        .fields(OptionalNullable.of("fields"))
+                        .includeFields(OptionalNullable.of(true))
+                        .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("GET", request.getMethod());
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        // Pagination response validated via MockWebServer
+        // The SDK correctly parses the response into a SyncPagingIterable
     }
 
     @Test

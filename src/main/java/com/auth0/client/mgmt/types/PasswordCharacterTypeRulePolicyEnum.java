@@ -6,15 +6,18 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class ConnectionResponseContentMiicardStrategy {
-    public static final ConnectionResponseContentMiicardStrategy MIICARD =
-            new ConnectionResponseContentMiicardStrategy(Value.MIICARD, "miicard");
+public final class PasswordCharacterTypeRulePolicyEnum {
+    public static final PasswordCharacterTypeRulePolicyEnum ALL =
+            new PasswordCharacterTypeRulePolicyEnum(Value.ALL, "all");
+
+    public static final PasswordCharacterTypeRulePolicyEnum THREE_OF_FOUR =
+            new PasswordCharacterTypeRulePolicyEnum(Value.THREE_OF_FOUR, "three_of_four");
 
     private final Value value;
 
     private final String string;
 
-    ConnectionResponseContentMiicardStrategy(Value value, String string) {
+    PasswordCharacterTypeRulePolicyEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -32,8 +35,8 @@ public final class ConnectionResponseContentMiicardStrategy {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof ConnectionResponseContentMiicardStrategy
-                        && this.string.equals(((ConnectionResponseContentMiicardStrategy) other).string));
+                || (other instanceof PasswordCharacterTypeRulePolicyEnum
+                        && this.string.equals(((PasswordCharacterTypeRulePolicyEnum) other).string));
     }
 
     @java.lang.Override
@@ -43,8 +46,10 @@ public final class ConnectionResponseContentMiicardStrategy {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case MIICARD:
-                return visitor.visitMiicard();
+            case ALL:
+                return visitor.visitAll();
+            case THREE_OF_FOUR:
+                return visitor.visitThreeOfFour();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -52,23 +57,29 @@ public final class ConnectionResponseContentMiicardStrategy {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static ConnectionResponseContentMiicardStrategy valueOf(String value) {
+    public static PasswordCharacterTypeRulePolicyEnum valueOf(String value) {
         switch (value) {
-            case "miicard":
-                return MIICARD;
+            case "all":
+                return ALL;
+            case "three_of_four":
+                return THREE_OF_FOUR;
             default:
-                return new ConnectionResponseContentMiicardStrategy(Value.UNKNOWN, value);
+                return new PasswordCharacterTypeRulePolicyEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        MIICARD,
+        ALL,
+
+        THREE_OF_FOUR,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitMiicard();
+        T visitAll();
+
+        T visitThreeOfFour();
 
         T visitUnknown(String unknownType);
     }

@@ -42,8 +42,6 @@ public final class UserIdentityProviderEnum {
     public static final UserIdentityProviderEnum SALESFORCE_SANDBOX =
             new UserIdentityProviderEnum(Value.SALESFORCE_SANDBOX, "salesforce-sandbox");
 
-    public static final UserIdentityProviderEnum MIICARD = new UserIdentityProviderEnum(Value.MIICARD, "miicard");
-
     public static final UserIdentityProviderEnum FACEBOOK = new UserIdentityProviderEnum(Value.FACEBOOK, "facebook");
 
     public static final UserIdentityProviderEnum OAUTH1 = new UserIdentityProviderEnum(Value.OAUTH1, "oauth1");
@@ -67,8 +65,6 @@ public final class UserIdentityProviderEnum {
 
     public static final UserIdentityProviderEnum SMS = new UserIdentityProviderEnum(Value.SMS, "sms");
 
-    public static final UserIdentityProviderEnum AOL = new UserIdentityProviderEnum(Value.AOL, "aol");
-
     public static final UserIdentityProviderEnum TWITTER = new UserIdentityProviderEnum(Value.TWITTER, "twitter");
 
     public static final UserIdentityProviderEnum WINDOWSLIVE =
@@ -84,8 +80,6 @@ public final class UserIdentityProviderEnum {
 
     public static final UserIdentityProviderEnum PAYPAL_SANDBOX =
             new UserIdentityProviderEnum(Value.PAYPAL_SANDBOX, "paypal-sandbox");
-
-    public static final UserIdentityProviderEnum RENREN = new UserIdentityProviderEnum(Value.RENREN, "renren");
 
     public static final UserIdentityProviderEnum SAMLP = new UserIdentityProviderEnum(Value.SAMLP, "samlp");
 
@@ -103,12 +97,7 @@ public final class UserIdentityProviderEnum {
 
     public static final UserIdentityProviderEnum WAAD = new UserIdentityProviderEnum(Value.WAAD, "waad");
 
-    public static final UserIdentityProviderEnum THECITY_SANDBOX =
-            new UserIdentityProviderEnum(Value.THECITY_SANDBOX, "thecity-sandbox");
-
     public static final UserIdentityProviderEnum OIDC = new UserIdentityProviderEnum(Value.OIDC, "oidc");
-
-    public static final UserIdentityProviderEnum YAMMER = new UserIdentityProviderEnum(Value.YAMMER, "yammer");
 
     public static final UserIdentityProviderEnum EVERNOTE_SANDBOX =
             new UserIdentityProviderEnum(Value.EVERNOTE_SANDBOX, "evernote-sandbox");
@@ -143,8 +132,6 @@ public final class UserIdentityProviderEnum {
     public static final UserIdentityProviderEnum PAYPAL = new UserIdentityProviderEnum(Value.PAYPAL, "paypal");
 
     public static final UserIdentityProviderEnum LINKEDIN = new UserIdentityProviderEnum(Value.LINKEDIN, "linkedin");
-
-    public static final UserIdentityProviderEnum THECITY = new UserIdentityProviderEnum(Value.THECITY, "thecity");
 
     private final Value value;
 
@@ -209,8 +196,6 @@ public final class UserIdentityProviderEnum {
                 return visitor.visitShopify();
             case SALESFORCE_SANDBOX:
                 return visitor.visitSalesforceSandbox();
-            case MIICARD:
-                return visitor.visitMiicard();
             case FACEBOOK:
                 return visitor.visitFacebook();
             case OAUTH1:
@@ -233,8 +218,6 @@ public final class UserIdentityProviderEnum {
                 return visitor.visitOffice365();
             case SMS:
                 return visitor.visitSms();
-            case AOL:
-                return visitor.visitAol();
             case TWITTER:
                 return visitor.visitTwitter();
             case WINDOWSLIVE:
@@ -249,8 +232,6 @@ public final class UserIdentityProviderEnum {
                 return visitor.visitBitly();
             case PAYPAL_SANDBOX:
                 return visitor.visitPaypalSandbox();
-            case RENREN:
-                return visitor.visitRenren();
             case SAMLP:
                 return visitor.visitSamlp();
             case DROPBOX:
@@ -265,12 +246,8 @@ public final class UserIdentityProviderEnum {
                 return visitor.visitThirtysevensignals();
             case WAAD:
                 return visitor.visitWaad();
-            case THECITY_SANDBOX:
-                return visitor.visitThecitySandbox();
             case OIDC:
                 return visitor.visitOidc();
-            case YAMMER:
-                return visitor.visitYammer();
             case EVERNOTE_SANDBOX:
                 return visitor.visitEvernoteSandbox();
             case SALESFORCE_COMMUNITY:
@@ -301,8 +278,6 @@ public final class UserIdentityProviderEnum {
                 return visitor.visitPaypal();
             case LINKEDIN:
                 return visitor.visitLinkedin();
-            case THECITY:
-                return visitor.visitThecity();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -342,8 +317,6 @@ public final class UserIdentityProviderEnum {
                 return SHOPIFY;
             case "salesforce-sandbox":
                 return SALESFORCE_SANDBOX;
-            case "miicard":
-                return MIICARD;
             case "facebook":
                 return FACEBOOK;
             case "oauth1":
@@ -366,8 +339,6 @@ public final class UserIdentityProviderEnum {
                 return OFFICE365;
             case "sms":
                 return SMS;
-            case "aol":
-                return AOL;
             case "twitter":
                 return TWITTER;
             case "windowslive":
@@ -382,8 +353,6 @@ public final class UserIdentityProviderEnum {
                 return BITLY;
             case "paypal-sandbox":
                 return PAYPAL_SANDBOX;
-            case "renren":
-                return RENREN;
             case "samlp":
                 return SAMLP;
             case "dropbox":
@@ -398,12 +367,8 @@ public final class UserIdentityProviderEnum {
                 return THIRTYSEVENSIGNALS;
             case "waad":
                 return WAAD;
-            case "thecity-sandbox":
-                return THECITY_SANDBOX;
             case "oidc":
                 return OIDC;
-            case "yammer":
-                return YAMMER;
             case "evernote-sandbox":
                 return EVERNOTE_SANDBOX;
             case "salesforce-community":
@@ -434,8 +399,6 @@ public final class UserIdentityProviderEnum {
                 return PAYPAL;
             case "linkedin":
                 return LINKEDIN;
-            case "thecity":
-                return THECITY;
             default:
                 return new UserIdentityProviderEnum(Value.UNKNOWN, value);
         }
@@ -453,8 +416,6 @@ public final class UserIdentityProviderEnum {
         DROPBOX,
 
         BITBUCKET,
-
-        AOL,
 
         AUTH0OIDC,
 
@@ -500,8 +461,6 @@ public final class UserIdentityProviderEnum {
 
         LINKEDIN,
 
-        MIICARD,
-
         OAUTH1,
 
         OAUTH2,
@@ -519,8 +478,6 @@ public final class UserIdentityProviderEnum {
         PINGFEDERATE,
 
         PLANNINGCENTER,
-
-        RENREN,
 
         SALESFORCE_COMMUNITY,
 
@@ -540,10 +497,6 @@ public final class UserIdentityProviderEnum {
 
         SOUNDCLOUD,
 
-        THECITY_SANDBOX,
-
-        THECITY,
-
         THIRTYSEVENSIGNALS,
 
         TWITTER,
@@ -562,8 +515,6 @@ public final class UserIdentityProviderEnum {
 
         YAHOO,
 
-        YAMMER,
-
         YANDEX,
 
         UNKNOWN
@@ -581,8 +532,6 @@ public final class UserIdentityProviderEnum {
         T visitDropbox();
 
         T visitBitbucket();
-
-        T visitAol();
 
         T visitAuth0Oidc();
 
@@ -628,8 +577,6 @@ public final class UserIdentityProviderEnum {
 
         T visitLinkedin();
 
-        T visitMiicard();
-
         T visitOauth1();
 
         T visitOauth2();
@@ -647,8 +594,6 @@ public final class UserIdentityProviderEnum {
         T visitPingfederate();
 
         T visitPlanningcenter();
-
-        T visitRenren();
 
         T visitSalesforceCommunity();
 
@@ -668,10 +613,6 @@ public final class UserIdentityProviderEnum {
 
         T visitSoundcloud();
 
-        T visitThecitySandbox();
-
-        T visitThecity();
-
         T visitThirtysevensignals();
 
         T visitTwitter();
@@ -689,8 +630,6 @@ public final class UserIdentityProviderEnum {
         T visitWordpress();
 
         T visitYahoo();
-
-        T visitYammer();
 
         T visitYandex();
 

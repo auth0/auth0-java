@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.OptionalNullable;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 
@@ -16,11 +15,7 @@ public interface IGroup {
 
     Optional<String> getConnectionId();
 
-    OptionalNullable<String> getOrganizationId();
-
     Optional<String> getTenantName();
-
-    OptionalNullable<String> getDescription();
 
     Optional<OffsetDateTime> getCreatedAt();
 

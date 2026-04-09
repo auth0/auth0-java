@@ -31,13 +31,13 @@ public final class AculConfigsItem {
 
     private final Optional<AculRenderingModeEnum> renderingMode;
 
-    private final Optional<List<AculContextConfigurationItem>> contextConfiguration;
+    private final OptionalNullable<List<AculContextConfigurationItem>> contextConfiguration;
 
     private final OptionalNullable<Boolean> defaultHeadTagsDisabled;
 
     private final OptionalNullable<Boolean> usePageTemplate;
 
-    private final Optional<List<AculHeadTag>> headTags;
+    private final OptionalNullable<List<AculHeadTag>> headTags;
 
     private final OptionalNullable<AculFilters> filters;
 
@@ -47,10 +47,10 @@ public final class AculConfigsItem {
             PromptGroupNameEnum prompt,
             ScreenGroupNameEnum screen,
             Optional<AculRenderingModeEnum> renderingMode,
-            Optional<List<AculContextConfigurationItem>> contextConfiguration,
+            OptionalNullable<List<AculContextConfigurationItem>> contextConfiguration,
             OptionalNullable<Boolean> defaultHeadTagsDisabled,
             OptionalNullable<Boolean> usePageTemplate,
-            Optional<List<AculHeadTag>> headTags,
+            OptionalNullable<List<AculHeadTag>> headTags,
             OptionalNullable<AculFilters> filters,
             Map<String, Object> additionalProperties) {
         this.prompt = prompt;
@@ -82,8 +82,12 @@ public final class AculConfigsItem {
         return renderingMode;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("context_configuration")
-    public Optional<List<AculContextConfigurationItem>> getContextConfiguration() {
+    public OptionalNullable<List<AculContextConfigurationItem>> getContextConfiguration() {
+        if (contextConfiguration == null) {
+            return OptionalNullable.absent();
+        }
         return contextConfiguration;
     }
 
@@ -114,8 +118,12 @@ public final class AculConfigsItem {
     /**
      * @return An array of head tags
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("head_tags")
-    public Optional<List<AculHeadTag>> getHeadTags() {
+    public OptionalNullable<List<AculHeadTag>> getHeadTags() {
+        if (headTags == null) {
+            return OptionalNullable.absent();
+        }
         return headTags;
     }
 
@@ -129,6 +137,12 @@ public final class AculConfigsItem {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("context_configuration")
+    private OptionalNullable<List<AculContextConfigurationItem>> _getContextConfiguration() {
+        return contextConfiguration;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("default_head_tags_disabled")
     private OptionalNullable<Boolean> _getDefaultHeadTagsDisabled() {
         return defaultHeadTagsDisabled;
@@ -138,6 +152,12 @@ public final class AculConfigsItem {
     @JsonProperty("use_page_template")
     private OptionalNullable<Boolean> _getUsePageTemplate() {
         return usePageTemplate;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("head_tags")
+    private OptionalNullable<List<AculHeadTag>> _getHeadTags() {
+        return headTags;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -214,9 +234,15 @@ public final class AculConfigsItem {
 
         _FinalStage renderingMode(AculRenderingModeEnum renderingMode);
 
-        _FinalStage contextConfiguration(Optional<List<AculContextConfigurationItem>> contextConfiguration);
+        _FinalStage contextConfiguration(
+                @Nullable OptionalNullable<List<AculContextConfigurationItem>> contextConfiguration);
 
         _FinalStage contextConfiguration(List<AculContextConfigurationItem> contextConfiguration);
+
+        _FinalStage contextConfiguration(Optional<List<AculContextConfigurationItem>> contextConfiguration);
+
+        _FinalStage contextConfiguration(
+                com.auth0.client.mgmt.core.Nullable<List<AculContextConfigurationItem>> contextConfiguration);
 
         /**
          * <p>Override Universal Login default head tags</p>
@@ -243,9 +269,13 @@ public final class AculConfigsItem {
         /**
          * <p>An array of head tags</p>
          */
-        _FinalStage headTags(Optional<List<AculHeadTag>> headTags);
+        _FinalStage headTags(@Nullable OptionalNullable<List<AculHeadTag>> headTags);
 
         _FinalStage headTags(List<AculHeadTag> headTags);
+
+        _FinalStage headTags(Optional<List<AculHeadTag>> headTags);
+
+        _FinalStage headTags(com.auth0.client.mgmt.core.Nullable<List<AculHeadTag>> headTags);
 
         _FinalStage filters(@Nullable OptionalNullable<AculFilters> filters);
 
@@ -264,13 +294,13 @@ public final class AculConfigsItem {
 
         private OptionalNullable<AculFilters> filters = OptionalNullable.absent();
 
-        private Optional<List<AculHeadTag>> headTags = Optional.empty();
+        private OptionalNullable<List<AculHeadTag>> headTags = OptionalNullable.absent();
 
         private OptionalNullable<Boolean> usePageTemplate = OptionalNullable.absent();
 
         private OptionalNullable<Boolean> defaultHeadTagsDisabled = OptionalNullable.absent();
 
-        private Optional<List<AculContextConfigurationItem>> contextConfiguration = Optional.empty();
+        private OptionalNullable<List<AculContextConfigurationItem>> contextConfiguration = OptionalNullable.absent();
 
         private Optional<AculRenderingModeEnum> renderingMode = Optional.empty();
 
@@ -346,8 +376,38 @@ public final class AculConfigsItem {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
+        public _FinalStage headTags(com.auth0.client.mgmt.core.Nullable<List<AculHeadTag>> headTags) {
+            if (headTags.isNull()) {
+                this.headTags = OptionalNullable.ofNull();
+            } else if (headTags.isEmpty()) {
+                this.headTags = OptionalNullable.absent();
+            } else {
+                this.headTags = OptionalNullable.of(headTags.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>An array of head tags</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage headTags(Optional<List<AculHeadTag>> headTags) {
+            if (headTags.isPresent()) {
+                this.headTags = OptionalNullable.of(headTags.get());
+            } else {
+                this.headTags = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        /**
+         * <p>An array of head tags</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
         public _FinalStage headTags(List<AculHeadTag> headTags) {
-            this.headTags = Optional.ofNullable(headTags);
+            this.headTags = OptionalNullable.of(headTags);
             return this;
         }
 
@@ -356,7 +416,7 @@ public final class AculConfigsItem {
          */
         @java.lang.Override
         @JsonSetter(value = "head_tags", nulls = Nulls.SKIP)
-        public _FinalStage headTags(Optional<List<AculHeadTag>> headTags) {
+        public _FinalStage headTags(@Nullable OptionalNullable<List<AculHeadTag>> headTags) {
             this.headTags = headTags;
             return this;
         }
@@ -463,14 +523,38 @@ public final class AculConfigsItem {
         }
 
         @java.lang.Override
+        public _FinalStage contextConfiguration(
+                com.auth0.client.mgmt.core.Nullable<List<AculContextConfigurationItem>> contextConfiguration) {
+            if (contextConfiguration.isNull()) {
+                this.contextConfiguration = OptionalNullable.ofNull();
+            } else if (contextConfiguration.isEmpty()) {
+                this.contextConfiguration = OptionalNullable.absent();
+            } else {
+                this.contextConfiguration = OptionalNullable.of(contextConfiguration.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage contextConfiguration(Optional<List<AculContextConfigurationItem>> contextConfiguration) {
+            if (contextConfiguration.isPresent()) {
+                this.contextConfiguration = OptionalNullable.of(contextConfiguration.get());
+            } else {
+                this.contextConfiguration = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage contextConfiguration(List<AculContextConfigurationItem> contextConfiguration) {
-            this.contextConfiguration = Optional.ofNullable(contextConfiguration);
+            this.contextConfiguration = OptionalNullable.of(contextConfiguration);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "context_configuration", nulls = Nulls.SKIP)
-        public _FinalStage contextConfiguration(Optional<List<AculContextConfigurationItem>> contextConfiguration) {
+        public _FinalStage contextConfiguration(
+                @Nullable OptionalNullable<List<AculContextConfigurationItem>> contextConfiguration) {
             this.contextConfiguration = contextConfiguration;
             return this;
         }

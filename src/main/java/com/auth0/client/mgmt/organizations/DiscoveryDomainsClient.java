@@ -34,6 +34,7 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public SyncPagingIterable<OrganizationDiscoveryDomain> list(String id) {
         return this.rawClient.list(id).body();
@@ -41,6 +42,7 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public SyncPagingIterable<OrganizationDiscoveryDomain> list(String id, RequestOptions requestOptions) {
         return this.rawClient.list(id, requestOptions).body();
@@ -48,6 +50,7 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public SyncPagingIterable<OrganizationDiscoveryDomain> list(
             String id, ListOrganizationDiscoveryDomainsRequestParameters request) {
@@ -56,6 +59,7 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve list of all organization discovery domains associated with the specified organization.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public SyncPagingIterable<OrganizationDiscoveryDomain> list(
             String id, ListOrganizationDiscoveryDomainsRequestParameters request, RequestOptions requestOptions) {
@@ -80,6 +84,7 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by domain name.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public GetOrganizationDiscoveryDomainByNameResponseContent getByName(String id, String discoveryDomain) {
         return this.rawClient.getByName(id, discoveryDomain).body();
@@ -87,6 +92,7 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by domain name.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public GetOrganizationDiscoveryDomainByNameResponseContent getByName(
             String id, String discoveryDomain, RequestOptions requestOptions) {
@@ -95,6 +101,7 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by ID.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public GetOrganizationDiscoveryDomainResponseContent get(String id, String discoveryDomainId) {
         return this.rawClient.get(id, discoveryDomainId).body();
@@ -102,6 +109,7 @@ public class DiscoveryDomainsClient {
 
     /**
      * Retrieve details about a single organization discovery domain specified by ID.
+     * This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
      */
     public GetOrganizationDiscoveryDomainResponseContent get(
             String id, String discoveryDomainId, RequestOptions requestOptions) {

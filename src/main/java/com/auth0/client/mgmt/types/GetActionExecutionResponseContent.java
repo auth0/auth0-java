@@ -24,7 +24,7 @@ import java.util.Optional;
 public final class GetActionExecutionResponseContent {
     private final Optional<String> id;
 
-    private final Optional<String> triggerId;
+    private final Optional<ActionTriggerTypeEnum> triggerId;
 
     private final Optional<ActionExecutionStatusEnum> status;
 
@@ -38,7 +38,7 @@ public final class GetActionExecutionResponseContent {
 
     private GetActionExecutionResponseContent(
             Optional<String> id,
-            Optional<String> triggerId,
+            Optional<ActionTriggerTypeEnum> triggerId,
             Optional<ActionExecutionStatusEnum> status,
             Optional<List<ActionExecutionResult>> results,
             Optional<OffsetDateTime> createdAt,
@@ -62,7 +62,7 @@ public final class GetActionExecutionResponseContent {
     }
 
     @JsonProperty("trigger_id")
-    public Optional<String> getTriggerId() {
+    public Optional<ActionTriggerTypeEnum> getTriggerId() {
         return triggerId;
     }
 
@@ -130,7 +130,7 @@ public final class GetActionExecutionResponseContent {
     public static final class Builder {
         private Optional<String> id = Optional.empty();
 
-        private Optional<String> triggerId = Optional.empty();
+        private Optional<ActionTriggerTypeEnum> triggerId = Optional.empty();
 
         private Optional<ActionExecutionStatusEnum> status = Optional.empty();
 
@@ -170,12 +170,12 @@ public final class GetActionExecutionResponseContent {
         }
 
         @JsonSetter(value = "trigger_id", nulls = Nulls.SKIP)
-        public Builder triggerId(Optional<String> triggerId) {
+        public Builder triggerId(Optional<ActionTriggerTypeEnum> triggerId) {
             this.triggerId = triggerId;
             return this;
         }
 
-        public Builder triggerId(String triggerId) {
+        public Builder triggerId(ActionTriggerTypeEnum triggerId) {
             this.triggerId = Optional.ofNullable(triggerId);
             return this;
         }

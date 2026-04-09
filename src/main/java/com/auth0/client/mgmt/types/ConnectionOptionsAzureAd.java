@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -34,7 +35,7 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
 
     private final Optional<Boolean> basicProfile;
 
-    private final Optional<String> clientId;
+    private final String clientId;
 
     private final Optional<String> clientSecret;
 
@@ -169,7 +170,7 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
             Optional<String> appDomain,
             Optional<String> appId,
             Optional<Boolean> basicProfile,
-            Optional<String> clientId,
+            String clientId,
             Optional<String> clientSecret,
             Optional<List<String>> domainAliases,
             Optional<Boolean> extAccessToken,
@@ -340,7 +341,7 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
     }
 
     @JsonProperty("client_id")
-    public Optional<String> getClientId() {
+    public String getClientId() {
         return clientId;
     }
 
@@ -955,156 +956,592 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
         return ObjectMappers.stringify(this);
     }
 
-    public static Builder builder() {
+    public static ClientIdStage builder() {
         return new Builder();
     }
 
+    public interface ClientIdStage {
+        _FinalStage clientId(@NotNull String clientId);
+
+        Builder from(ConnectionOptionsAzureAd other);
+    }
+
+    public interface _FinalStage {
+        ConnectionOptionsAzureAd build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        _FinalStage nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs);
+
+        _FinalStage nonPersistentAttrs(List<String> nonPersistentAttrs);
+
+        /**
+         * <p>Enable users API</p>
+         */
+        _FinalStage apiEnableUsers(Optional<Boolean> apiEnableUsers);
+
+        _FinalStage apiEnableUsers(Boolean apiEnableUsers);
+
+        _FinalStage appDomain(Optional<String> appDomain);
+
+        _FinalStage appDomain(String appDomain);
+
+        /**
+         * <p>The Application ID URI (App ID URI) for the Azure AD application. Required when using Azure AD v1 with the Resource Owner Password flow. Used to identify the resource being requested in OAuth token requests.</p>
+         */
+        _FinalStage appId(Optional<String> appId);
+
+        _FinalStage appId(String appId);
+
+        /**
+         * <p>Includes basic user profile information from Azure AD (name, email, given_name, family_name). Always enabled and required - represents the minimum profile data retrieved during authentication.</p>
+         */
+        _FinalStage basicProfile(Optional<Boolean> basicProfile);
+
+        _FinalStage basicProfile(Boolean basicProfile);
+
+        _FinalStage clientSecret(Optional<String> clientSecret);
+
+        _FinalStage clientSecret(String clientSecret);
+
+        _FinalStage domainAliases(Optional<List<String>> domainAliases);
+
+        _FinalStage domainAliases(List<String> domainAliases);
+
+        /**
+         * <p>When false, prevents storing the user's Azure AD access token in the Auth0 user profile. When true (default), the access token is persisted for API access.</p>
+         */
+        _FinalStage extAccessToken(Optional<Boolean> extAccessToken);
+
+        _FinalStage extAccessToken(Boolean extAccessToken);
+
+        /**
+         * <p>When false, prevents storing whether the user's Azure AD account is enabled. When true (default), the account enabled status is persisted in the user profile.</p>
+         */
+        _FinalStage extAccountEnabled(Optional<Boolean> extAccountEnabled);
+
+        _FinalStage extAccountEnabled(Boolean extAccountEnabled);
+
+        _FinalStage extAdmin(Optional<Boolean> extAdmin);
+
+        _FinalStage extAdmin(Boolean extAdmin);
+
+        _FinalStage extAgreedTerms(Optional<Boolean> extAgreedTerms);
+
+        _FinalStage extAgreedTerms(Boolean extAgreedTerms);
+
+        /**
+         * <p>When false, prevents storing the list of Microsoft 365/Office 365 licenses assigned to the user. When true (default), license information is persisted in the user profile.</p>
+         */
+        _FinalStage extAssignedLicenses(Optional<Boolean> extAssignedLicenses);
+
+        _FinalStage extAssignedLicenses(Boolean extAssignedLicenses);
+
+        _FinalStage extAssignedPlans(Optional<Boolean> extAssignedPlans);
+
+        _FinalStage extAssignedPlans(Boolean extAssignedPlans);
+
+        /**
+         * <p>When false, prevents storing the user's Azure ID identifier. When true (default), the Azure ID is persisted. Note: 'oid' (Object ID) is the recommended unique identifier for single-tenant connections.</p>
+         */
+        _FinalStage extAzureId(Optional<Boolean> extAzureId);
+
+        _FinalStage extAzureId(Boolean extAzureId);
+
+        /**
+         * <p>When false, prevents storing the user's city from Azure AD. When true (default), city information is persisted in the user profile.</p>
+         */
+        _FinalStage extCity(Optional<Boolean> extCity);
+
+        _FinalStage extCity(Boolean extCity);
+
+        /**
+         * <p>When false, prevents storing the user's country from Azure AD. When true (default), country information is persisted in the user profile.</p>
+         */
+        _FinalStage extCountry(Optional<Boolean> extCountry);
+
+        _FinalStage extCountry(Boolean extCountry);
+
+        /**
+         * <p>When false, prevents storing the user's department from Azure AD. When true (default), department information is persisted in the user profile.</p>
+         */
+        _FinalStage extDepartment(Optional<Boolean> extDepartment);
+
+        _FinalStage extDepartment(Boolean extDepartment);
+
+        /**
+         * <p>When false, prevents storing whether directory synchronization is enabled for the user. When true (default), directory sync status is persisted in the user profile.</p>
+         */
+        _FinalStage extDirSyncEnabled(Optional<Boolean> extDirSyncEnabled);
+
+        _FinalStage extDirSyncEnabled(Boolean extDirSyncEnabled);
+
+        /**
+         * <p>When false, prevents storing the user's email address from Azure AD. When true (default), email is persisted in the user profile.</p>
+         */
+        _FinalStage extEmail(Optional<Boolean> extEmail);
+
+        _FinalStage extEmail(Boolean extEmail);
+
+        /**
+         * <p>When false, prevents storing the token expiration time (in seconds). When true (default), expiration information is persisted in the user profile.</p>
+         */
+        _FinalStage extExpiresIn(Optional<Boolean> extExpiresIn);
+
+        _FinalStage extExpiresIn(Boolean extExpiresIn);
+
+        /**
+         * <p>When false, prevents storing the user's family name (last name) from Azure AD. When true (default), family name is persisted in the user profile.</p>
+         */
+        _FinalStage extFamilyName(Optional<Boolean> extFamilyName);
+
+        _FinalStage extFamilyName(Boolean extFamilyName);
+
+        /**
+         * <p>When false, prevents storing the user's fax number from Azure AD. When true (default), fax information is persisted in the user profile.</p>
+         */
+        _FinalStage extFax(Optional<Boolean> extFax);
+
+        _FinalStage extFax(Boolean extFax);
+
+        /**
+         * <p>When false, prevents storing the user's given name (first name) from Azure AD. When true (default), given name is persisted in the user profile.</p>
+         */
+        _FinalStage extGivenName(Optional<Boolean> extGivenName);
+
+        _FinalStage extGivenName(Boolean extGivenName);
+
+        /**
+         * <p>When false, prevents storing the list of Azure AD group IDs the user is a member of. When true (default), group membership IDs are persisted. See ext_groups for retrieving group details.</p>
+         */
+        _FinalStage extGroupIds(Optional<Boolean> extGroupIds);
+
+        _FinalStage extGroupIds(Boolean extGroupIds);
+
+        _FinalStage extGroups(Optional<Boolean> extGroups);
+
+        _FinalStage extGroups(Boolean extGroups);
+
+        _FinalStage extIsSuspended(Optional<Boolean> extIsSuspended);
+
+        _FinalStage extIsSuspended(Boolean extIsSuspended);
+
+        /**
+         * <p>When false, prevents storing the user's job title from Azure AD. When true (default), job title information is persisted in the user profile.</p>
+         */
+        _FinalStage extJobTitle(Optional<Boolean> extJobTitle);
+
+        _FinalStage extJobTitle(Boolean extJobTitle);
+
+        /**
+         * <p>When false, prevents storing the timestamp of the last directory synchronization. When true (default), the last sync date is persisted in the user profile.</p>
+         */
+        _FinalStage extLastSync(Optional<Boolean> extLastSync);
+
+        _FinalStage extLastSync(Boolean extLastSync);
+
+        /**
+         * <p>When false, prevents storing the user's mobile phone number from Azure AD. When true (default), mobile number is persisted in the user profile.</p>
+         */
+        _FinalStage extMobile(Optional<Boolean> extMobile);
+
+        _FinalStage extMobile(Boolean extMobile);
+
+        /**
+         * <p>When false, prevents storing the user's full name from Azure AD. When true (default), full name is persisted in the user profile.</p>
+         */
+        _FinalStage extName(Optional<Boolean> extName);
+
+        _FinalStage extName(Boolean extName);
+
+        /**
+         * <p>When true, stores all groups the user is member of, including transitive group memberships (groups within groups). When false (default), only direct group memberships are included.</p>
+         */
+        _FinalStage extNestedGroups(Optional<Boolean> extNestedGroups);
+
+        _FinalStage extNestedGroups(Boolean extNestedGroups);
+
+        /**
+         * <p>When false, prevents storing the user's nickname or display name from Azure AD. When true (default), nickname is persisted in the user profile.</p>
+         */
+        _FinalStage extNickname(Optional<Boolean> extNickname);
+
+        _FinalStage extNickname(Boolean extNickname);
+
+        /**
+         * <p>When false, prevents storing the user's Object ID (oid) from Azure AD. When true (default), the oid is persisted. Note: 'oid' is the recommended unique identifier for single-tenant connections and required for SCIM.</p>
+         */
+        _FinalStage extOid(Optional<Boolean> extOid);
+
+        _FinalStage extOid(Boolean extOid);
+
+        /**
+         * <p>When false, prevents storing the user's phone number from Azure AD. When true (default), phone number is persisted in the user profile.</p>
+         */
+        _FinalStage extPhone(Optional<Boolean> extPhone);
+
+        _FinalStage extPhone(Boolean extPhone);
+
+        /**
+         * <p>When false, prevents storing the user's office location from Azure AD. When true (default), office location is persisted in the user profile.</p>
+         */
+        _FinalStage extPhysicalDeliveryOfficeName(Optional<Boolean> extPhysicalDeliveryOfficeName);
+
+        _FinalStage extPhysicalDeliveryOfficeName(Boolean extPhysicalDeliveryOfficeName);
+
+        /**
+         * <p>When false, prevents storing the user's postal code from Azure AD. When true (default), postal code is persisted in the user profile.</p>
+         */
+        _FinalStage extPostalCode(Optional<Boolean> extPostalCode);
+
+        _FinalStage extPostalCode(Boolean extPostalCode);
+
+        /**
+         * <p>When false, prevents storing the user's preferred language from Azure AD. When true (default), language preference is persisted in the user profile.</p>
+         */
+        _FinalStage extPreferredLanguage(Optional<Boolean> extPreferredLanguage);
+
+        _FinalStage extPreferredLanguage(Boolean extPreferredLanguage);
+
+        _FinalStage extProfile(Optional<Boolean> extProfile);
+
+        _FinalStage extProfile(Boolean extProfile);
+
+        /**
+         * <p>When false, prevents storing the list of service plans provisioned to the user. When true (default), provisioned plans are persisted in the user profile.</p>
+         */
+        _FinalStage extProvisionedPlans(Optional<Boolean> extProvisionedPlans);
+
+        _FinalStage extProvisionedPlans(Boolean extProvisionedPlans);
+
+        /**
+         * <p>When false, prevents storing provisioning errors that occurred during synchronization. When true (default), error information is persisted. Useful for troubleshooting sync issues.</p>
+         */
+        _FinalStage extProvisioningErrors(Optional<Boolean> extProvisioningErrors);
+
+        _FinalStage extProvisioningErrors(Boolean extProvisioningErrors);
+
+        /**
+         * <p>When false, prevents storing all proxy email addresses (email aliases) for the user. When true (default), proxy addresses are persisted in the user profile.</p>
+         */
+        _FinalStage extProxyAddresses(Optional<Boolean> extProxyAddresses);
+
+        _FinalStage extProxyAddresses(Boolean extProxyAddresses);
+
+        /**
+         * <p>When false, prevents storing the user's Passport User ID (puid). When true (default), puid is persisted in the user profile. Legacy attribute.</p>
+         */
+        _FinalStage extPuid(Optional<Boolean> extPuid);
+
+        _FinalStage extPuid(Boolean extPuid);
+
+        /**
+         * <p>When false, prevents storing the Azure AD refresh token. When true (default), the refresh token is persisted for offline access. Required for token refresh in long-lived applications.</p>
+         */
+        _FinalStage extRefreshToken(Optional<Boolean> extRefreshToken);
+
+        _FinalStage extRefreshToken(Boolean extRefreshToken);
+
+        /**
+         * <p>When false, prevents storing Azure AD application roles assigned to the user. When true (default), role information is persisted. Useful for RBAC in applications.</p>
+         */
+        _FinalStage extRoles(Optional<Boolean> extRoles);
+
+        _FinalStage extRoles(Boolean extRoles);
+
+        /**
+         * <p>When false, prevents storing the user's state (province/region) from Azure AD. When true (default), state information is persisted in the user profile.</p>
+         */
+        _FinalStage extState(Optional<Boolean> extState);
+
+        _FinalStage extState(Boolean extState);
+
+        /**
+         * <p>When false, prevents storing the user's street address from Azure AD. When true (default), street address is persisted in the user profile.</p>
+         */
+        _FinalStage extStreet(Optional<Boolean> extStreet);
+
+        _FinalStage extStreet(Boolean extStreet);
+
+        /**
+         * <p>When false, prevents storing the user's telephone number from Azure AD. When true (default), telephone number is persisted in the user profile.</p>
+         */
+        _FinalStage extTelephoneNumber(Optional<Boolean> extTelephoneNumber);
+
+        _FinalStage extTelephoneNumber(Boolean extTelephoneNumber);
+
+        /**
+         * <p>When false, prevents storing the user's Azure AD tenant ID. When true (default), tenant ID is persisted. Useful for identifying which Azure AD organization the user belongs to.</p>
+         */
+        _FinalStage extTenantid(Optional<Boolean> extTenantid);
+
+        _FinalStage extTenantid(Boolean extTenantid);
+
+        /**
+         * <p>When false, prevents storing the user's User Principal Name (UPN) from Azure AD. When true (default), UPN is persisted. UPN is the user's logon name (e.g., user@contoso.com).</p>
+         */
+        _FinalStage extUpn(Optional<Boolean> extUpn);
+
+        _FinalStage extUpn(Boolean extUpn);
+
+        /**
+         * <p>When false, prevents storing the user's usage location for license assignment. When true (default), usage location is persisted in the user profile.</p>
+         */
+        _FinalStage extUsageLocation(Optional<Boolean> extUsageLocation);
+
+        _FinalStage extUsageLocation(Boolean extUsageLocation);
+
+        /**
+         * <p>When false, prevents storing an alternative user ID. When true (default), this user ID is persisted in the user profile.</p>
+         */
+        _FinalStage extUserId(Optional<Boolean> extUserId);
+
+        _FinalStage extUserId(Boolean extUserId);
+
+        _FinalStage federatedConnectionsAccessTokens(
+                @Nullable
+                        OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens);
+
+        _FinalStage federatedConnectionsAccessTokens(
+                ConnectionFederatedConnectionsAccessTokens federatedConnectionsAccessTokens);
+
+        _FinalStage federatedConnectionsAccessTokens(
+                Optional<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens);
+
+        _FinalStage federatedConnectionsAccessTokens(
+                com.auth0.client.mgmt.core.Nullable<ConnectionFederatedConnectionsAccessTokens>
+                        federatedConnectionsAccessTokens);
+
+        /**
+         * <p>Indicates whether admin consent has been granted for the required Azure AD permissions. Read-only status field managed by Auth0 during the OAuth authorization flow.</p>
+         */
+        _FinalStage granted(Optional<Boolean> granted);
+
+        _FinalStage granted(Boolean granted);
+
+        _FinalStage iconUrl(Optional<String> iconUrl);
+
+        _FinalStage iconUrl(String iconUrl);
+
+        _FinalStage identityApi(Optional<ConnectionIdentityApiEnumAzureAd> identityApi);
+
+        _FinalStage identityApi(ConnectionIdentityApiEnumAzureAd identityApi);
+
+        _FinalStage maxGroupsToRetrieve(Optional<String> maxGroupsToRetrieve);
+
+        _FinalStage maxGroupsToRetrieve(String maxGroupsToRetrieve);
+
+        _FinalStage scope(Optional<List<String>> scope);
+
+        _FinalStage scope(List<String> scope);
+
+        _FinalStage setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes);
+
+        _FinalStage setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes);
+
+        _FinalStage shouldTrustEmailVerifiedConnection(
+                Optional<ConnectionShouldTrustEmailVerifiedConnectionEnum> shouldTrustEmailVerifiedConnection);
+
+        _FinalStage shouldTrustEmailVerifiedConnection(
+                ConnectionShouldTrustEmailVerifiedConnectionEnum shouldTrustEmailVerifiedConnection);
+
+        _FinalStage tenantDomain(Optional<String> tenantDomain);
+
+        _FinalStage tenantDomain(String tenantDomain);
+
+        _FinalStage tenantId(Optional<String> tenantId);
+
+        _FinalStage tenantId(String tenantId);
+
+        _FinalStage thumbprints(Optional<List<String>> thumbprints);
+
+        _FinalStage thumbprints(List<String> thumbprints);
+
+        _FinalStage upstreamParams(
+                @Nullable
+                        OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+                                upstreamParams);
+
+        _FinalStage upstreamParams(
+                Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>> upstreamParams);
+
+        _FinalStage upstreamParams(
+                Optional<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams);
+
+        _FinalStage upstreamParams(
+                com.auth0.client.mgmt.core.Nullable<
+                                Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+                        upstreamParams);
+
+        /**
+         * <p>Indicates WS-Federation protocol usage. When true, uses WS-Federation; when false, uses OpenID Connect.</p>
+         */
+        _FinalStage useWsfed(Optional<Boolean> useWsfed);
+
+        _FinalStage useWsfed(Boolean useWsfed);
+
+        _FinalStage useCommonEndpoint(Optional<Boolean> useCommonEndpoint);
+
+        _FinalStage useCommonEndpoint(Boolean useCommonEndpoint);
+
+        _FinalStage useridAttribute(Optional<ConnectionUseridAttributeEnumAzureAd> useridAttribute);
+
+        _FinalStage useridAttribute(ConnectionUseridAttributeEnumAzureAd useridAttribute);
+
+        _FinalStage waadProtocol(Optional<ConnectionWaadProtocolEnumAzureAd> waadProtocol);
+
+        _FinalStage waadProtocol(ConnectionWaadProtocolEnumAzureAd waadProtocol);
+    }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder {
-        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+    public static final class Builder implements ClientIdStage, _FinalStage {
+        private String clientId;
 
-        private Optional<Boolean> apiEnableUsers = Optional.empty();
+        private Optional<ConnectionWaadProtocolEnumAzureAd> waadProtocol = Optional.empty();
 
-        private Optional<String> appDomain = Optional.empty();
+        private Optional<ConnectionUseridAttributeEnumAzureAd> useridAttribute = Optional.empty();
 
-        private Optional<String> appId = Optional.empty();
+        private Optional<Boolean> useCommonEndpoint = Optional.empty();
 
-        private Optional<Boolean> basicProfile = Optional.empty();
-
-        private Optional<String> clientId = Optional.empty();
-
-        private Optional<String> clientSecret = Optional.empty();
-
-        private Optional<List<String>> domainAliases = Optional.empty();
-
-        private Optional<Boolean> extAccessToken = Optional.empty();
-
-        private Optional<Boolean> extAccountEnabled = Optional.empty();
-
-        private Optional<Boolean> extAdmin = Optional.empty();
-
-        private Optional<Boolean> extAgreedTerms = Optional.empty();
-
-        private Optional<Boolean> extAssignedLicenses = Optional.empty();
-
-        private Optional<Boolean> extAssignedPlans = Optional.empty();
-
-        private Optional<Boolean> extAzureId = Optional.empty();
-
-        private Optional<Boolean> extCity = Optional.empty();
-
-        private Optional<Boolean> extCountry = Optional.empty();
-
-        private Optional<Boolean> extDepartment = Optional.empty();
-
-        private Optional<Boolean> extDirSyncEnabled = Optional.empty();
-
-        private Optional<Boolean> extEmail = Optional.empty();
-
-        private Optional<Boolean> extExpiresIn = Optional.empty();
-
-        private Optional<Boolean> extFamilyName = Optional.empty();
-
-        private Optional<Boolean> extFax = Optional.empty();
-
-        private Optional<Boolean> extGivenName = Optional.empty();
-
-        private Optional<Boolean> extGroupIds = Optional.empty();
-
-        private Optional<Boolean> extGroups = Optional.empty();
-
-        private Optional<Boolean> extIsSuspended = Optional.empty();
-
-        private Optional<Boolean> extJobTitle = Optional.empty();
-
-        private Optional<Boolean> extLastSync = Optional.empty();
-
-        private Optional<Boolean> extMobile = Optional.empty();
-
-        private Optional<Boolean> extName = Optional.empty();
-
-        private Optional<Boolean> extNestedGroups = Optional.empty();
-
-        private Optional<Boolean> extNickname = Optional.empty();
-
-        private Optional<Boolean> extOid = Optional.empty();
-
-        private Optional<Boolean> extPhone = Optional.empty();
-
-        private Optional<Boolean> extPhysicalDeliveryOfficeName = Optional.empty();
-
-        private Optional<Boolean> extPostalCode = Optional.empty();
-
-        private Optional<Boolean> extPreferredLanguage = Optional.empty();
-
-        private Optional<Boolean> extProfile = Optional.empty();
-
-        private Optional<Boolean> extProvisionedPlans = Optional.empty();
-
-        private Optional<Boolean> extProvisioningErrors = Optional.empty();
-
-        private Optional<Boolean> extProxyAddresses = Optional.empty();
-
-        private Optional<Boolean> extPuid = Optional.empty();
-
-        private Optional<Boolean> extRefreshToken = Optional.empty();
-
-        private Optional<Boolean> extRoles = Optional.empty();
-
-        private Optional<Boolean> extState = Optional.empty();
-
-        private Optional<Boolean> extStreet = Optional.empty();
-
-        private Optional<Boolean> extTelephoneNumber = Optional.empty();
-
-        private Optional<Boolean> extTenantid = Optional.empty();
-
-        private Optional<Boolean> extUpn = Optional.empty();
-
-        private Optional<Boolean> extUsageLocation = Optional.empty();
-
-        private Optional<Boolean> extUserId = Optional.empty();
-
-        private OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens =
-                OptionalNullable.absent();
-
-        private Optional<Boolean> granted = Optional.empty();
-
-        private Optional<String> iconUrl = Optional.empty();
-
-        private Optional<ConnectionIdentityApiEnumAzureAd> identityApi = Optional.empty();
-
-        private Optional<String> maxGroupsToRetrieve = Optional.empty();
-
-        private Optional<List<String>> scope = Optional.empty();
-
-        private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
-
-        private Optional<ConnectionShouldTrustEmailVerifiedConnectionEnum> shouldTrustEmailVerifiedConnection =
-                Optional.empty();
-
-        private Optional<String> tenantDomain = Optional.empty();
-
-        private Optional<String> tenantId = Optional.empty();
-
-        private Optional<List<String>> thumbprints = Optional.empty();
+        private Optional<Boolean> useWsfed = Optional.empty();
 
         private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
                 OptionalNullable.absent();
 
-        private Optional<Boolean> useWsfed = Optional.empty();
+        private Optional<List<String>> thumbprints = Optional.empty();
 
-        private Optional<Boolean> useCommonEndpoint = Optional.empty();
+        private Optional<String> tenantId = Optional.empty();
 
-        private Optional<ConnectionUseridAttributeEnumAzureAd> useridAttribute = Optional.empty();
+        private Optional<String> tenantDomain = Optional.empty();
 
-        private Optional<ConnectionWaadProtocolEnumAzureAd> waadProtocol = Optional.empty();
+        private Optional<ConnectionShouldTrustEmailVerifiedConnectionEnum> shouldTrustEmailVerifiedConnection =
+                Optional.empty();
+
+        private Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes = Optional.empty();
+
+        private Optional<List<String>> scope = Optional.empty();
+
+        private Optional<String> maxGroupsToRetrieve = Optional.empty();
+
+        private Optional<ConnectionIdentityApiEnumAzureAd> identityApi = Optional.empty();
+
+        private Optional<String> iconUrl = Optional.empty();
+
+        private Optional<Boolean> granted = Optional.empty();
+
+        private OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens =
+                OptionalNullable.absent();
+
+        private Optional<Boolean> extUserId = Optional.empty();
+
+        private Optional<Boolean> extUsageLocation = Optional.empty();
+
+        private Optional<Boolean> extUpn = Optional.empty();
+
+        private Optional<Boolean> extTenantid = Optional.empty();
+
+        private Optional<Boolean> extTelephoneNumber = Optional.empty();
+
+        private Optional<Boolean> extStreet = Optional.empty();
+
+        private Optional<Boolean> extState = Optional.empty();
+
+        private Optional<Boolean> extRoles = Optional.empty();
+
+        private Optional<Boolean> extRefreshToken = Optional.empty();
+
+        private Optional<Boolean> extPuid = Optional.empty();
+
+        private Optional<Boolean> extProxyAddresses = Optional.empty();
+
+        private Optional<Boolean> extProvisioningErrors = Optional.empty();
+
+        private Optional<Boolean> extProvisionedPlans = Optional.empty();
+
+        private Optional<Boolean> extProfile = Optional.empty();
+
+        private Optional<Boolean> extPreferredLanguage = Optional.empty();
+
+        private Optional<Boolean> extPostalCode = Optional.empty();
+
+        private Optional<Boolean> extPhysicalDeliveryOfficeName = Optional.empty();
+
+        private Optional<Boolean> extPhone = Optional.empty();
+
+        private Optional<Boolean> extOid = Optional.empty();
+
+        private Optional<Boolean> extNickname = Optional.empty();
+
+        private Optional<Boolean> extNestedGroups = Optional.empty();
+
+        private Optional<Boolean> extName = Optional.empty();
+
+        private Optional<Boolean> extMobile = Optional.empty();
+
+        private Optional<Boolean> extLastSync = Optional.empty();
+
+        private Optional<Boolean> extJobTitle = Optional.empty();
+
+        private Optional<Boolean> extIsSuspended = Optional.empty();
+
+        private Optional<Boolean> extGroups = Optional.empty();
+
+        private Optional<Boolean> extGroupIds = Optional.empty();
+
+        private Optional<Boolean> extGivenName = Optional.empty();
+
+        private Optional<Boolean> extFax = Optional.empty();
+
+        private Optional<Boolean> extFamilyName = Optional.empty();
+
+        private Optional<Boolean> extExpiresIn = Optional.empty();
+
+        private Optional<Boolean> extEmail = Optional.empty();
+
+        private Optional<Boolean> extDirSyncEnabled = Optional.empty();
+
+        private Optional<Boolean> extDepartment = Optional.empty();
+
+        private Optional<Boolean> extCountry = Optional.empty();
+
+        private Optional<Boolean> extCity = Optional.empty();
+
+        private Optional<Boolean> extAzureId = Optional.empty();
+
+        private Optional<Boolean> extAssignedPlans = Optional.empty();
+
+        private Optional<Boolean> extAssignedLicenses = Optional.empty();
+
+        private Optional<Boolean> extAgreedTerms = Optional.empty();
+
+        private Optional<Boolean> extAdmin = Optional.empty();
+
+        private Optional<Boolean> extAccountEnabled = Optional.empty();
+
+        private Optional<Boolean> extAccessToken = Optional.empty();
+
+        private Optional<List<String>> domainAliases = Optional.empty();
+
+        private Optional<String> clientSecret = Optional.empty();
+
+        private Optional<Boolean> basicProfile = Optional.empty();
+
+        private Optional<String> appId = Optional.empty();
+
+        private Optional<String> appDomain = Optional.empty();
+
+        private Optional<Boolean> apiEnableUsers = Optional.empty();
+
+        private Optional<List<String>> nonPersistentAttrs = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
+        @java.lang.Override
         public Builder from(ConnectionOptionsAzureAd other) {
             nonPersistentAttrs(other.getNonPersistentAttrs());
             apiEnableUsers(other.getApiEnableUsers());
@@ -1177,879 +1614,74 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
             return this;
         }
 
-        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
-        public Builder nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
-            this.nonPersistentAttrs = nonPersistentAttrs;
+        @java.lang.Override
+        @JsonSetter("client_id")
+        public _FinalStage clientId(@NotNull String clientId) {
+            this.clientId = Objects.requireNonNull(clientId, "clientId must not be null");
             return this;
         }
 
-        public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
-            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+        @java.lang.Override
+        public _FinalStage waadProtocol(ConnectionWaadProtocolEnumAzureAd waadProtocol) {
+            this.waadProtocol = Optional.ofNullable(waadProtocol);
             return this;
         }
 
-        /**
-         * <p>Enable users API</p>
-         */
-        @JsonSetter(value = "api_enable_users", nulls = Nulls.SKIP)
-        public Builder apiEnableUsers(Optional<Boolean> apiEnableUsers) {
-            this.apiEnableUsers = apiEnableUsers;
+        @java.lang.Override
+        @JsonSetter(value = "waad_protocol", nulls = Nulls.SKIP)
+        public _FinalStage waadProtocol(Optional<ConnectionWaadProtocolEnumAzureAd> waadProtocol) {
+            this.waadProtocol = waadProtocol;
             return this;
         }
 
-        public Builder apiEnableUsers(Boolean apiEnableUsers) {
-            this.apiEnableUsers = Optional.ofNullable(apiEnableUsers);
+        @java.lang.Override
+        public _FinalStage useridAttribute(ConnectionUseridAttributeEnumAzureAd useridAttribute) {
+            this.useridAttribute = Optional.ofNullable(useridAttribute);
             return this;
         }
 
-        @JsonSetter(value = "app_domain", nulls = Nulls.SKIP)
-        public Builder appDomain(Optional<String> appDomain) {
-            this.appDomain = appDomain;
+        @java.lang.Override
+        @JsonSetter(value = "userid_attribute", nulls = Nulls.SKIP)
+        public _FinalStage useridAttribute(Optional<ConnectionUseridAttributeEnumAzureAd> useridAttribute) {
+            this.useridAttribute = useridAttribute;
             return this;
         }
 
-        public Builder appDomain(String appDomain) {
-            this.appDomain = Optional.ofNullable(appDomain);
+        @java.lang.Override
+        public _FinalStage useCommonEndpoint(Boolean useCommonEndpoint) {
+            this.useCommonEndpoint = Optional.ofNullable(useCommonEndpoint);
             return this;
         }
 
-        /**
-         * <p>The Application ID URI (App ID URI) for the Azure AD application. Required when using Azure AD v1 with the Resource Owner Password flow. Used to identify the resource being requested in OAuth token requests.</p>
-         */
-        @JsonSetter(value = "app_id", nulls = Nulls.SKIP)
-        public Builder appId(Optional<String> appId) {
-            this.appId = appId;
-            return this;
-        }
-
-        public Builder appId(String appId) {
-            this.appId = Optional.ofNullable(appId);
+        @java.lang.Override
+        @JsonSetter(value = "useCommonEndpoint", nulls = Nulls.SKIP)
+        public _FinalStage useCommonEndpoint(Optional<Boolean> useCommonEndpoint) {
+            this.useCommonEndpoint = useCommonEndpoint;
             return this;
         }
 
         /**
-         * <p>Includes basic user profile information from Azure AD (name, email, given_name, family_name). Always enabled and required - represents the minimum profile data retrieved during authentication.</p>
+         * <p>Indicates WS-Federation protocol usage. When true, uses WS-Federation; when false, uses OpenID Connect.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @JsonSetter(value = "basic_profile", nulls = Nulls.SKIP)
-        public Builder basicProfile(Optional<Boolean> basicProfile) {
-            this.basicProfile = basicProfile;
-            return this;
-        }
-
-        public Builder basicProfile(Boolean basicProfile) {
-            this.basicProfile = Optional.ofNullable(basicProfile);
-            return this;
-        }
-
-        @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
-        public Builder clientId(Optional<String> clientId) {
-            this.clientId = clientId;
-            return this;
-        }
-
-        public Builder clientId(String clientId) {
-            this.clientId = Optional.ofNullable(clientId);
-            return this;
-        }
-
-        @JsonSetter(value = "client_secret", nulls = Nulls.SKIP)
-        public Builder clientSecret(Optional<String> clientSecret) {
-            this.clientSecret = clientSecret;
-            return this;
-        }
-
-        public Builder clientSecret(String clientSecret) {
-            this.clientSecret = Optional.ofNullable(clientSecret);
-            return this;
-        }
-
-        @JsonSetter(value = "domain_aliases", nulls = Nulls.SKIP)
-        public Builder domainAliases(Optional<List<String>> domainAliases) {
-            this.domainAliases = domainAliases;
-            return this;
-        }
-
-        public Builder domainAliases(List<String> domainAliases) {
-            this.domainAliases = Optional.ofNullable(domainAliases);
+        @java.lang.Override
+        public _FinalStage useWsfed(Boolean useWsfed) {
+            this.useWsfed = Optional.ofNullable(useWsfed);
             return this;
         }
 
         /**
-         * <p>When false, prevents storing the user's Azure AD access token in the Auth0 user profile. When true (default), the access token is persisted for API access.</p>
+         * <p>Indicates WS-Federation protocol usage. When true, uses WS-Federation; when false, uses OpenID Connect.</p>
          */
-        @JsonSetter(value = "ext_access_token", nulls = Nulls.SKIP)
-        public Builder extAccessToken(Optional<Boolean> extAccessToken) {
-            this.extAccessToken = extAccessToken;
+        @java.lang.Override
+        @JsonSetter(value = "use_wsfed", nulls = Nulls.SKIP)
+        public _FinalStage useWsfed(Optional<Boolean> useWsfed) {
+            this.useWsfed = useWsfed;
             return this;
         }
 
-        public Builder extAccessToken(Boolean extAccessToken) {
-            this.extAccessToken = Optional.ofNullable(extAccessToken);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing whether the user's Azure AD account is enabled. When true (default), the account enabled status is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_account_enabled", nulls = Nulls.SKIP)
-        public Builder extAccountEnabled(Optional<Boolean> extAccountEnabled) {
-            this.extAccountEnabled = extAccountEnabled;
-            return this;
-        }
-
-        public Builder extAccountEnabled(Boolean extAccountEnabled) {
-            this.extAccountEnabled = Optional.ofNullable(extAccountEnabled);
-            return this;
-        }
-
-        @JsonSetter(value = "ext_admin", nulls = Nulls.SKIP)
-        public Builder extAdmin(Optional<Boolean> extAdmin) {
-            this.extAdmin = extAdmin;
-            return this;
-        }
-
-        public Builder extAdmin(Boolean extAdmin) {
-            this.extAdmin = Optional.ofNullable(extAdmin);
-            return this;
-        }
-
-        @JsonSetter(value = "ext_agreed_terms", nulls = Nulls.SKIP)
-        public Builder extAgreedTerms(Optional<Boolean> extAgreedTerms) {
-            this.extAgreedTerms = extAgreedTerms;
-            return this;
-        }
-
-        public Builder extAgreedTerms(Boolean extAgreedTerms) {
-            this.extAgreedTerms = Optional.ofNullable(extAgreedTerms);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the list of Microsoft 365/Office 365 licenses assigned to the user. When true (default), license information is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_assigned_licenses", nulls = Nulls.SKIP)
-        public Builder extAssignedLicenses(Optional<Boolean> extAssignedLicenses) {
-            this.extAssignedLicenses = extAssignedLicenses;
-            return this;
-        }
-
-        public Builder extAssignedLicenses(Boolean extAssignedLicenses) {
-            this.extAssignedLicenses = Optional.ofNullable(extAssignedLicenses);
-            return this;
-        }
-
-        @JsonSetter(value = "ext_assigned_plans", nulls = Nulls.SKIP)
-        public Builder extAssignedPlans(Optional<Boolean> extAssignedPlans) {
-            this.extAssignedPlans = extAssignedPlans;
-            return this;
-        }
-
-        public Builder extAssignedPlans(Boolean extAssignedPlans) {
-            this.extAssignedPlans = Optional.ofNullable(extAssignedPlans);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's Azure ID identifier. When true (default), the Azure ID is persisted. Note: 'oid' (Object ID) is the recommended unique identifier for single-tenant connections.</p>
-         */
-        @JsonSetter(value = "ext_azure_id", nulls = Nulls.SKIP)
-        public Builder extAzureId(Optional<Boolean> extAzureId) {
-            this.extAzureId = extAzureId;
-            return this;
-        }
-
-        public Builder extAzureId(Boolean extAzureId) {
-            this.extAzureId = Optional.ofNullable(extAzureId);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's city from Azure AD. When true (default), city information is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_city", nulls = Nulls.SKIP)
-        public Builder extCity(Optional<Boolean> extCity) {
-            this.extCity = extCity;
-            return this;
-        }
-
-        public Builder extCity(Boolean extCity) {
-            this.extCity = Optional.ofNullable(extCity);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's country from Azure AD. When true (default), country information is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_country", nulls = Nulls.SKIP)
-        public Builder extCountry(Optional<Boolean> extCountry) {
-            this.extCountry = extCountry;
-            return this;
-        }
-
-        public Builder extCountry(Boolean extCountry) {
-            this.extCountry = Optional.ofNullable(extCountry);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's department from Azure AD. When true (default), department information is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_department", nulls = Nulls.SKIP)
-        public Builder extDepartment(Optional<Boolean> extDepartment) {
-            this.extDepartment = extDepartment;
-            return this;
-        }
-
-        public Builder extDepartment(Boolean extDepartment) {
-            this.extDepartment = Optional.ofNullable(extDepartment);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing whether directory synchronization is enabled for the user. When true (default), directory sync status is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_dir_sync_enabled", nulls = Nulls.SKIP)
-        public Builder extDirSyncEnabled(Optional<Boolean> extDirSyncEnabled) {
-            this.extDirSyncEnabled = extDirSyncEnabled;
-            return this;
-        }
-
-        public Builder extDirSyncEnabled(Boolean extDirSyncEnabled) {
-            this.extDirSyncEnabled = Optional.ofNullable(extDirSyncEnabled);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's email address from Azure AD. When true (default), email is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_email", nulls = Nulls.SKIP)
-        public Builder extEmail(Optional<Boolean> extEmail) {
-            this.extEmail = extEmail;
-            return this;
-        }
-
-        public Builder extEmail(Boolean extEmail) {
-            this.extEmail = Optional.ofNullable(extEmail);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the token expiration time (in seconds). When true (default), expiration information is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_expires_in", nulls = Nulls.SKIP)
-        public Builder extExpiresIn(Optional<Boolean> extExpiresIn) {
-            this.extExpiresIn = extExpiresIn;
-            return this;
-        }
-
-        public Builder extExpiresIn(Boolean extExpiresIn) {
-            this.extExpiresIn = Optional.ofNullable(extExpiresIn);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's family name (last name) from Azure AD. When true (default), family name is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_family_name", nulls = Nulls.SKIP)
-        public Builder extFamilyName(Optional<Boolean> extFamilyName) {
-            this.extFamilyName = extFamilyName;
-            return this;
-        }
-
-        public Builder extFamilyName(Boolean extFamilyName) {
-            this.extFamilyName = Optional.ofNullable(extFamilyName);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's fax number from Azure AD. When true (default), fax information is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_fax", nulls = Nulls.SKIP)
-        public Builder extFax(Optional<Boolean> extFax) {
-            this.extFax = extFax;
-            return this;
-        }
-
-        public Builder extFax(Boolean extFax) {
-            this.extFax = Optional.ofNullable(extFax);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's given name (first name) from Azure AD. When true (default), given name is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_given_name", nulls = Nulls.SKIP)
-        public Builder extGivenName(Optional<Boolean> extGivenName) {
-            this.extGivenName = extGivenName;
-            return this;
-        }
-
-        public Builder extGivenName(Boolean extGivenName) {
-            this.extGivenName = Optional.ofNullable(extGivenName);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the list of Azure AD group IDs the user is a member of. When true (default), group membership IDs are persisted. See ext_groups for retrieving group details.</p>
-         */
-        @JsonSetter(value = "ext_group_ids", nulls = Nulls.SKIP)
-        public Builder extGroupIds(Optional<Boolean> extGroupIds) {
-            this.extGroupIds = extGroupIds;
-            return this;
-        }
-
-        public Builder extGroupIds(Boolean extGroupIds) {
-            this.extGroupIds = Optional.ofNullable(extGroupIds);
-            return this;
-        }
-
-        @JsonSetter(value = "ext_groups", nulls = Nulls.SKIP)
-        public Builder extGroups(Optional<Boolean> extGroups) {
-            this.extGroups = extGroups;
-            return this;
-        }
-
-        public Builder extGroups(Boolean extGroups) {
-            this.extGroups = Optional.ofNullable(extGroups);
-            return this;
-        }
-
-        @JsonSetter(value = "ext_is_suspended", nulls = Nulls.SKIP)
-        public Builder extIsSuspended(Optional<Boolean> extIsSuspended) {
-            this.extIsSuspended = extIsSuspended;
-            return this;
-        }
-
-        public Builder extIsSuspended(Boolean extIsSuspended) {
-            this.extIsSuspended = Optional.ofNullable(extIsSuspended);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's job title from Azure AD. When true (default), job title information is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_job_title", nulls = Nulls.SKIP)
-        public Builder extJobTitle(Optional<Boolean> extJobTitle) {
-            this.extJobTitle = extJobTitle;
-            return this;
-        }
-
-        public Builder extJobTitle(Boolean extJobTitle) {
-            this.extJobTitle = Optional.ofNullable(extJobTitle);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the timestamp of the last directory synchronization. When true (default), the last sync date is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_last_sync", nulls = Nulls.SKIP)
-        public Builder extLastSync(Optional<Boolean> extLastSync) {
-            this.extLastSync = extLastSync;
-            return this;
-        }
-
-        public Builder extLastSync(Boolean extLastSync) {
-            this.extLastSync = Optional.ofNullable(extLastSync);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's mobile phone number from Azure AD. When true (default), mobile number is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_mobile", nulls = Nulls.SKIP)
-        public Builder extMobile(Optional<Boolean> extMobile) {
-            this.extMobile = extMobile;
-            return this;
-        }
-
-        public Builder extMobile(Boolean extMobile) {
-            this.extMobile = Optional.ofNullable(extMobile);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's full name from Azure AD. When true (default), full name is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_name", nulls = Nulls.SKIP)
-        public Builder extName(Optional<Boolean> extName) {
-            this.extName = extName;
-            return this;
-        }
-
-        public Builder extName(Boolean extName) {
-            this.extName = Optional.ofNullable(extName);
-            return this;
-        }
-
-        /**
-         * <p>When true, stores all groups the user is member of, including transitive group memberships (groups within groups). When false (default), only direct group memberships are included.</p>
-         */
-        @JsonSetter(value = "ext_nested_groups", nulls = Nulls.SKIP)
-        public Builder extNestedGroups(Optional<Boolean> extNestedGroups) {
-            this.extNestedGroups = extNestedGroups;
-            return this;
-        }
-
-        public Builder extNestedGroups(Boolean extNestedGroups) {
-            this.extNestedGroups = Optional.ofNullable(extNestedGroups);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's nickname or display name from Azure AD. When true (default), nickname is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_nickname", nulls = Nulls.SKIP)
-        public Builder extNickname(Optional<Boolean> extNickname) {
-            this.extNickname = extNickname;
-            return this;
-        }
-
-        public Builder extNickname(Boolean extNickname) {
-            this.extNickname = Optional.ofNullable(extNickname);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's Object ID (oid) from Azure AD. When true (default), the oid is persisted. Note: 'oid' is the recommended unique identifier for single-tenant connections and required for SCIM.</p>
-         */
-        @JsonSetter(value = "ext_oid", nulls = Nulls.SKIP)
-        public Builder extOid(Optional<Boolean> extOid) {
-            this.extOid = extOid;
-            return this;
-        }
-
-        public Builder extOid(Boolean extOid) {
-            this.extOid = Optional.ofNullable(extOid);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's phone number from Azure AD. When true (default), phone number is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_phone", nulls = Nulls.SKIP)
-        public Builder extPhone(Optional<Boolean> extPhone) {
-            this.extPhone = extPhone;
-            return this;
-        }
-
-        public Builder extPhone(Boolean extPhone) {
-            this.extPhone = Optional.ofNullable(extPhone);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's office location from Azure AD. When true (default), office location is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_physical_delivery_office_name", nulls = Nulls.SKIP)
-        public Builder extPhysicalDeliveryOfficeName(Optional<Boolean> extPhysicalDeliveryOfficeName) {
-            this.extPhysicalDeliveryOfficeName = extPhysicalDeliveryOfficeName;
-            return this;
-        }
-
-        public Builder extPhysicalDeliveryOfficeName(Boolean extPhysicalDeliveryOfficeName) {
-            this.extPhysicalDeliveryOfficeName = Optional.ofNullable(extPhysicalDeliveryOfficeName);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's postal code from Azure AD. When true (default), postal code is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_postal_code", nulls = Nulls.SKIP)
-        public Builder extPostalCode(Optional<Boolean> extPostalCode) {
-            this.extPostalCode = extPostalCode;
-            return this;
-        }
-
-        public Builder extPostalCode(Boolean extPostalCode) {
-            this.extPostalCode = Optional.ofNullable(extPostalCode);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's preferred language from Azure AD. When true (default), language preference is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_preferred_language", nulls = Nulls.SKIP)
-        public Builder extPreferredLanguage(Optional<Boolean> extPreferredLanguage) {
-            this.extPreferredLanguage = extPreferredLanguage;
-            return this;
-        }
-
-        public Builder extPreferredLanguage(Boolean extPreferredLanguage) {
-            this.extPreferredLanguage = Optional.ofNullable(extPreferredLanguage);
-            return this;
-        }
-
-        @JsonSetter(value = "ext_profile", nulls = Nulls.SKIP)
-        public Builder extProfile(Optional<Boolean> extProfile) {
-            this.extProfile = extProfile;
-            return this;
-        }
-
-        public Builder extProfile(Boolean extProfile) {
-            this.extProfile = Optional.ofNullable(extProfile);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the list of service plans provisioned to the user. When true (default), provisioned plans are persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_provisioned_plans", nulls = Nulls.SKIP)
-        public Builder extProvisionedPlans(Optional<Boolean> extProvisionedPlans) {
-            this.extProvisionedPlans = extProvisionedPlans;
-            return this;
-        }
-
-        public Builder extProvisionedPlans(Boolean extProvisionedPlans) {
-            this.extProvisionedPlans = Optional.ofNullable(extProvisionedPlans);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing provisioning errors that occurred during synchronization. When true (default), error information is persisted. Useful for troubleshooting sync issues.</p>
-         */
-        @JsonSetter(value = "ext_provisioning_errors", nulls = Nulls.SKIP)
-        public Builder extProvisioningErrors(Optional<Boolean> extProvisioningErrors) {
-            this.extProvisioningErrors = extProvisioningErrors;
-            return this;
-        }
-
-        public Builder extProvisioningErrors(Boolean extProvisioningErrors) {
-            this.extProvisioningErrors = Optional.ofNullable(extProvisioningErrors);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing all proxy email addresses (email aliases) for the user. When true (default), proxy addresses are persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_proxy_addresses", nulls = Nulls.SKIP)
-        public Builder extProxyAddresses(Optional<Boolean> extProxyAddresses) {
-            this.extProxyAddresses = extProxyAddresses;
-            return this;
-        }
-
-        public Builder extProxyAddresses(Boolean extProxyAddresses) {
-            this.extProxyAddresses = Optional.ofNullable(extProxyAddresses);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's Passport User ID (puid). When true (default), puid is persisted in the user profile. Legacy attribute.</p>
-         */
-        @JsonSetter(value = "ext_puid", nulls = Nulls.SKIP)
-        public Builder extPuid(Optional<Boolean> extPuid) {
-            this.extPuid = extPuid;
-            return this;
-        }
-
-        public Builder extPuid(Boolean extPuid) {
-            this.extPuid = Optional.ofNullable(extPuid);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the Azure AD refresh token. When true (default), the refresh token is persisted for offline access. Required for token refresh in long-lived applications.</p>
-         */
-        @JsonSetter(value = "ext_refresh_token", nulls = Nulls.SKIP)
-        public Builder extRefreshToken(Optional<Boolean> extRefreshToken) {
-            this.extRefreshToken = extRefreshToken;
-            return this;
-        }
-
-        public Builder extRefreshToken(Boolean extRefreshToken) {
-            this.extRefreshToken = Optional.ofNullable(extRefreshToken);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing Azure AD application roles assigned to the user. When true (default), role information is persisted. Useful for RBAC in applications.</p>
-         */
-        @JsonSetter(value = "ext_roles", nulls = Nulls.SKIP)
-        public Builder extRoles(Optional<Boolean> extRoles) {
-            this.extRoles = extRoles;
-            return this;
-        }
-
-        public Builder extRoles(Boolean extRoles) {
-            this.extRoles = Optional.ofNullable(extRoles);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's state (province/region) from Azure AD. When true (default), state information is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_state", nulls = Nulls.SKIP)
-        public Builder extState(Optional<Boolean> extState) {
-            this.extState = extState;
-            return this;
-        }
-
-        public Builder extState(Boolean extState) {
-            this.extState = Optional.ofNullable(extState);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's street address from Azure AD. When true (default), street address is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_street", nulls = Nulls.SKIP)
-        public Builder extStreet(Optional<Boolean> extStreet) {
-            this.extStreet = extStreet;
-            return this;
-        }
-
-        public Builder extStreet(Boolean extStreet) {
-            this.extStreet = Optional.ofNullable(extStreet);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's telephone number from Azure AD. When true (default), telephone number is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_telephoneNumber", nulls = Nulls.SKIP)
-        public Builder extTelephoneNumber(Optional<Boolean> extTelephoneNumber) {
-            this.extTelephoneNumber = extTelephoneNumber;
-            return this;
-        }
-
-        public Builder extTelephoneNumber(Boolean extTelephoneNumber) {
-            this.extTelephoneNumber = Optional.ofNullable(extTelephoneNumber);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's Azure AD tenant ID. When true (default), tenant ID is persisted. Useful for identifying which Azure AD organization the user belongs to.</p>
-         */
-        @JsonSetter(value = "ext_tenantid", nulls = Nulls.SKIP)
-        public Builder extTenantid(Optional<Boolean> extTenantid) {
-            this.extTenantid = extTenantid;
-            return this;
-        }
-
-        public Builder extTenantid(Boolean extTenantid) {
-            this.extTenantid = Optional.ofNullable(extTenantid);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's User Principal Name (UPN) from Azure AD. When true (default), UPN is persisted. UPN is the user's logon name (e.g., user@contoso.com).</p>
-         */
-        @JsonSetter(value = "ext_upn", nulls = Nulls.SKIP)
-        public Builder extUpn(Optional<Boolean> extUpn) {
-            this.extUpn = extUpn;
-            return this;
-        }
-
-        public Builder extUpn(Boolean extUpn) {
-            this.extUpn = Optional.ofNullable(extUpn);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing the user's usage location for license assignment. When true (default), usage location is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_usage_location", nulls = Nulls.SKIP)
-        public Builder extUsageLocation(Optional<Boolean> extUsageLocation) {
-            this.extUsageLocation = extUsageLocation;
-            return this;
-        }
-
-        public Builder extUsageLocation(Boolean extUsageLocation) {
-            this.extUsageLocation = Optional.ofNullable(extUsageLocation);
-            return this;
-        }
-
-        /**
-         * <p>When false, prevents storing an alternative user ID. When true (default), this user ID is persisted in the user profile.</p>
-         */
-        @JsonSetter(value = "ext_user_id", nulls = Nulls.SKIP)
-        public Builder extUserId(Optional<Boolean> extUserId) {
-            this.extUserId = extUserId;
-            return this;
-        }
-
-        public Builder extUserId(Boolean extUserId) {
-            this.extUserId = Optional.ofNullable(extUserId);
-            return this;
-        }
-
-        @JsonSetter(value = "federated_connections_access_tokens", nulls = Nulls.SKIP)
-        public Builder federatedConnectionsAccessTokens(
-                @Nullable
-                        OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
-            this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
-            return this;
-        }
-
-        public Builder federatedConnectionsAccessTokens(
-                ConnectionFederatedConnectionsAccessTokens federatedConnectionsAccessTokens) {
-            this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens);
-            return this;
-        }
-
-        public Builder federatedConnectionsAccessTokens(
-                Optional<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
-            if (federatedConnectionsAccessTokens.isPresent()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens.get());
-            } else {
-                this.federatedConnectionsAccessTokens = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        public Builder federatedConnectionsAccessTokens(
-                com.auth0.client.mgmt.core.Nullable<ConnectionFederatedConnectionsAccessTokens>
-                        federatedConnectionsAccessTokens) {
-            if (federatedConnectionsAccessTokens.isNull()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.ofNull();
-            } else if (federatedConnectionsAccessTokens.isEmpty()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.absent();
-            } else {
-                this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens.get());
-            }
-            return this;
-        }
-
-        /**
-         * <p>Indicates whether admin consent has been granted for the required Azure AD permissions. Read-only status field managed by Auth0 during the OAuth authorization flow.</p>
-         */
-        @JsonSetter(value = "granted", nulls = Nulls.SKIP)
-        public Builder granted(Optional<Boolean> granted) {
-            this.granted = granted;
-            return this;
-        }
-
-        public Builder granted(Boolean granted) {
-            this.granted = Optional.ofNullable(granted);
-            return this;
-        }
-
-        @JsonSetter(value = "icon_url", nulls = Nulls.SKIP)
-        public Builder iconUrl(Optional<String> iconUrl) {
-            this.iconUrl = iconUrl;
-            return this;
-        }
-
-        public Builder iconUrl(String iconUrl) {
-            this.iconUrl = Optional.ofNullable(iconUrl);
-            return this;
-        }
-
-        @JsonSetter(value = "identity_api", nulls = Nulls.SKIP)
-        public Builder identityApi(Optional<ConnectionIdentityApiEnumAzureAd> identityApi) {
-            this.identityApi = identityApi;
-            return this;
-        }
-
-        public Builder identityApi(ConnectionIdentityApiEnumAzureAd identityApi) {
-            this.identityApi = Optional.ofNullable(identityApi);
-            return this;
-        }
-
-        @JsonSetter(value = "max_groups_to_retrieve", nulls = Nulls.SKIP)
-        public Builder maxGroupsToRetrieve(Optional<String> maxGroupsToRetrieve) {
-            this.maxGroupsToRetrieve = maxGroupsToRetrieve;
-            return this;
-        }
-
-        public Builder maxGroupsToRetrieve(String maxGroupsToRetrieve) {
-            this.maxGroupsToRetrieve = Optional.ofNullable(maxGroupsToRetrieve);
-            return this;
-        }
-
-        @JsonSetter(value = "scope", nulls = Nulls.SKIP)
-        public Builder scope(Optional<List<String>> scope) {
-            this.scope = scope;
-            return this;
-        }
-
-        public Builder scope(List<String> scope) {
-            this.scope = Optional.ofNullable(scope);
-            return this;
-        }
-
-        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
-        public Builder setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
-            this.setUserRootAttributes = setUserRootAttributes;
-            return this;
-        }
-
-        public Builder setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
-            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
-            return this;
-        }
-
-        @JsonSetter(value = "should_trust_email_verified_connection", nulls = Nulls.SKIP)
-        public Builder shouldTrustEmailVerifiedConnection(
-                Optional<ConnectionShouldTrustEmailVerifiedConnectionEnum> shouldTrustEmailVerifiedConnection) {
-            this.shouldTrustEmailVerifiedConnection = shouldTrustEmailVerifiedConnection;
-            return this;
-        }
-
-        public Builder shouldTrustEmailVerifiedConnection(
-                ConnectionShouldTrustEmailVerifiedConnectionEnum shouldTrustEmailVerifiedConnection) {
-            this.shouldTrustEmailVerifiedConnection = Optional.ofNullable(shouldTrustEmailVerifiedConnection);
-            return this;
-        }
-
-        @JsonSetter(value = "tenant_domain", nulls = Nulls.SKIP)
-        public Builder tenantDomain(Optional<String> tenantDomain) {
-            this.tenantDomain = tenantDomain;
-            return this;
-        }
-
-        public Builder tenantDomain(String tenantDomain) {
-            this.tenantDomain = Optional.ofNullable(tenantDomain);
-            return this;
-        }
-
-        @JsonSetter(value = "tenantId", nulls = Nulls.SKIP)
-        public Builder tenantId(Optional<String> tenantId) {
-            this.tenantId = tenantId;
-            return this;
-        }
-
-        public Builder tenantId(String tenantId) {
-            this.tenantId = Optional.ofNullable(tenantId);
-            return this;
-        }
-
-        @JsonSetter(value = "thumbprints", nulls = Nulls.SKIP)
-        public Builder thumbprints(Optional<List<String>> thumbprints) {
-            this.thumbprints = thumbprints;
-            return this;
-        }
-
-        public Builder thumbprints(List<String> thumbprints) {
-            this.thumbprints = Optional.ofNullable(thumbprints);
-            return this;
-        }
-
-        @JsonSetter(value = "upstream_params", nulls = Nulls.SKIP)
-        public Builder upstreamParams(
-                @Nullable
-                        OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
-                                upstreamParams) {
-            this.upstreamParams = upstreamParams;
-            return this;
-        }
-
-        public Builder upstreamParams(
-                Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>> upstreamParams) {
-            this.upstreamParams = OptionalNullable.of(upstreamParams);
-            return this;
-        }
-
-        public Builder upstreamParams(
-                Optional<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams) {
-            if (upstreamParams.isPresent()) {
-                this.upstreamParams = OptionalNullable.of(upstreamParams.get());
-            } else {
-                this.upstreamParams = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        public Builder upstreamParams(
+        @java.lang.Override
+        public _FinalStage upstreamParams(
                 com.auth0.client.mgmt.core.Nullable<
                                 Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
                         upstreamParams) {
@@ -2063,53 +1695,1165 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
             return this;
         }
 
+        @java.lang.Override
+        public _FinalStage upstreamParams(
+                Optional<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams) {
+            if (upstreamParams.isPresent()) {
+                this.upstreamParams = OptionalNullable.of(upstreamParams.get());
+            } else {
+                this.upstreamParams = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage upstreamParams(
+                Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>> upstreamParams) {
+            this.upstreamParams = OptionalNullable.of(upstreamParams);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "upstream_params", nulls = Nulls.SKIP)
+        public _FinalStage upstreamParams(
+                @Nullable
+                        OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
+                                upstreamParams) {
+            this.upstreamParams = upstreamParams;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage thumbprints(List<String> thumbprints) {
+            this.thumbprints = Optional.ofNullable(thumbprints);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "thumbprints", nulls = Nulls.SKIP)
+        public _FinalStage thumbprints(Optional<List<String>> thumbprints) {
+            this.thumbprints = thumbprints;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage tenantId(String tenantId) {
+            this.tenantId = Optional.ofNullable(tenantId);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "tenantId", nulls = Nulls.SKIP)
+        public _FinalStage tenantId(Optional<String> tenantId) {
+            this.tenantId = tenantId;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage tenantDomain(String tenantDomain) {
+            this.tenantDomain = Optional.ofNullable(tenantDomain);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "tenant_domain", nulls = Nulls.SKIP)
+        public _FinalStage tenantDomain(Optional<String> tenantDomain) {
+            this.tenantDomain = tenantDomain;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage shouldTrustEmailVerifiedConnection(
+                ConnectionShouldTrustEmailVerifiedConnectionEnum shouldTrustEmailVerifiedConnection) {
+            this.shouldTrustEmailVerifiedConnection = Optional.ofNullable(shouldTrustEmailVerifiedConnection);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "should_trust_email_verified_connection", nulls = Nulls.SKIP)
+        public _FinalStage shouldTrustEmailVerifiedConnection(
+                Optional<ConnectionShouldTrustEmailVerifiedConnectionEnum> shouldTrustEmailVerifiedConnection) {
+            this.shouldTrustEmailVerifiedConnection = shouldTrustEmailVerifiedConnection;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage setUserRootAttributes(ConnectionSetUserRootAttributesEnum setUserRootAttributes) {
+            this.setUserRootAttributes = Optional.ofNullable(setUserRootAttributes);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "set_user_root_attributes", nulls = Nulls.SKIP)
+        public _FinalStage setUserRootAttributes(Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes) {
+            this.setUserRootAttributes = setUserRootAttributes;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage scope(List<String> scope) {
+            this.scope = Optional.ofNullable(scope);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "scope", nulls = Nulls.SKIP)
+        public _FinalStage scope(Optional<List<String>> scope) {
+            this.scope = scope;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage maxGroupsToRetrieve(String maxGroupsToRetrieve) {
+            this.maxGroupsToRetrieve = Optional.ofNullable(maxGroupsToRetrieve);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "max_groups_to_retrieve", nulls = Nulls.SKIP)
+        public _FinalStage maxGroupsToRetrieve(Optional<String> maxGroupsToRetrieve) {
+            this.maxGroupsToRetrieve = maxGroupsToRetrieve;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage identityApi(ConnectionIdentityApiEnumAzureAd identityApi) {
+            this.identityApi = Optional.ofNullable(identityApi);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "identity_api", nulls = Nulls.SKIP)
+        public _FinalStage identityApi(Optional<ConnectionIdentityApiEnumAzureAd> identityApi) {
+            this.identityApi = identityApi;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage iconUrl(String iconUrl) {
+            this.iconUrl = Optional.ofNullable(iconUrl);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "icon_url", nulls = Nulls.SKIP)
+        public _FinalStage iconUrl(Optional<String> iconUrl) {
+            this.iconUrl = iconUrl;
+            return this;
+        }
+
         /**
-         * <p>Indicates WS-Federation protocol usage. When true, uses WS-Federation; when false, uses OpenID Connect.</p>
+         * <p>Indicates whether admin consent has been granted for the required Azure AD permissions. Read-only status field managed by Auth0 during the OAuth authorization flow.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @JsonSetter(value = "use_wsfed", nulls = Nulls.SKIP)
-        public Builder useWsfed(Optional<Boolean> useWsfed) {
-            this.useWsfed = useWsfed;
+        @java.lang.Override
+        public _FinalStage granted(Boolean granted) {
+            this.granted = Optional.ofNullable(granted);
             return this;
         }
 
-        public Builder useWsfed(Boolean useWsfed) {
-            this.useWsfed = Optional.ofNullable(useWsfed);
+        /**
+         * <p>Indicates whether admin consent has been granted for the required Azure AD permissions. Read-only status field managed by Auth0 during the OAuth authorization flow.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "granted", nulls = Nulls.SKIP)
+        public _FinalStage granted(Optional<Boolean> granted) {
+            this.granted = granted;
             return this;
         }
 
-        @JsonSetter(value = "useCommonEndpoint", nulls = Nulls.SKIP)
-        public Builder useCommonEndpoint(Optional<Boolean> useCommonEndpoint) {
-            this.useCommonEndpoint = useCommonEndpoint;
+        @java.lang.Override
+        public _FinalStage federatedConnectionsAccessTokens(
+                com.auth0.client.mgmt.core.Nullable<ConnectionFederatedConnectionsAccessTokens>
+                        federatedConnectionsAccessTokens) {
+            if (federatedConnectionsAccessTokens.isNull()) {
+                this.federatedConnectionsAccessTokens = OptionalNullable.ofNull();
+            } else if (federatedConnectionsAccessTokens.isEmpty()) {
+                this.federatedConnectionsAccessTokens = OptionalNullable.absent();
+            } else {
+                this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens.get());
+            }
             return this;
         }
 
-        public Builder useCommonEndpoint(Boolean useCommonEndpoint) {
-            this.useCommonEndpoint = Optional.ofNullable(useCommonEndpoint);
+        @java.lang.Override
+        public _FinalStage federatedConnectionsAccessTokens(
+                Optional<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
+            if (federatedConnectionsAccessTokens.isPresent()) {
+                this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens.get());
+            } else {
+                this.federatedConnectionsAccessTokens = OptionalNullable.absent();
+            }
             return this;
         }
 
-        @JsonSetter(value = "userid_attribute", nulls = Nulls.SKIP)
-        public Builder useridAttribute(Optional<ConnectionUseridAttributeEnumAzureAd> useridAttribute) {
-            this.useridAttribute = useridAttribute;
+        @java.lang.Override
+        public _FinalStage federatedConnectionsAccessTokens(
+                ConnectionFederatedConnectionsAccessTokens federatedConnectionsAccessTokens) {
+            this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens);
             return this;
         }
 
-        public Builder useridAttribute(ConnectionUseridAttributeEnumAzureAd useridAttribute) {
-            this.useridAttribute = Optional.ofNullable(useridAttribute);
+        @java.lang.Override
+        @JsonSetter(value = "federated_connections_access_tokens", nulls = Nulls.SKIP)
+        public _FinalStage federatedConnectionsAccessTokens(
+                @Nullable
+                        OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
+            this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
             return this;
         }
 
-        @JsonSetter(value = "waad_protocol", nulls = Nulls.SKIP)
-        public Builder waadProtocol(Optional<ConnectionWaadProtocolEnumAzureAd> waadProtocol) {
-            this.waadProtocol = waadProtocol;
+        /**
+         * <p>When false, prevents storing an alternative user ID. When true (default), this user ID is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extUserId(Boolean extUserId) {
+            this.extUserId = Optional.ofNullable(extUserId);
             return this;
         }
 
-        public Builder waadProtocol(ConnectionWaadProtocolEnumAzureAd waadProtocol) {
-            this.waadProtocol = Optional.ofNullable(waadProtocol);
+        /**
+         * <p>When false, prevents storing an alternative user ID. When true (default), this user ID is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_user_id", nulls = Nulls.SKIP)
+        public _FinalStage extUserId(Optional<Boolean> extUserId) {
+            this.extUserId = extUserId;
             return this;
         }
 
+        /**
+         * <p>When false, prevents storing the user's usage location for license assignment. When true (default), usage location is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extUsageLocation(Boolean extUsageLocation) {
+            this.extUsageLocation = Optional.ofNullable(extUsageLocation);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's usage location for license assignment. When true (default), usage location is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_usage_location", nulls = Nulls.SKIP)
+        public _FinalStage extUsageLocation(Optional<Boolean> extUsageLocation) {
+            this.extUsageLocation = extUsageLocation;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's User Principal Name (UPN) from Azure AD. When true (default), UPN is persisted. UPN is the user's logon name (e.g., user@contoso.com).</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extUpn(Boolean extUpn) {
+            this.extUpn = Optional.ofNullable(extUpn);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's User Principal Name (UPN) from Azure AD. When true (default), UPN is persisted. UPN is the user's logon name (e.g., user@contoso.com).</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_upn", nulls = Nulls.SKIP)
+        public _FinalStage extUpn(Optional<Boolean> extUpn) {
+            this.extUpn = extUpn;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's Azure AD tenant ID. When true (default), tenant ID is persisted. Useful for identifying which Azure AD organization the user belongs to.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extTenantid(Boolean extTenantid) {
+            this.extTenantid = Optional.ofNullable(extTenantid);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's Azure AD tenant ID. When true (default), tenant ID is persisted. Useful for identifying which Azure AD organization the user belongs to.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_tenantid", nulls = Nulls.SKIP)
+        public _FinalStage extTenantid(Optional<Boolean> extTenantid) {
+            this.extTenantid = extTenantid;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's telephone number from Azure AD. When true (default), telephone number is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extTelephoneNumber(Boolean extTelephoneNumber) {
+            this.extTelephoneNumber = Optional.ofNullable(extTelephoneNumber);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's telephone number from Azure AD. When true (default), telephone number is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_telephoneNumber", nulls = Nulls.SKIP)
+        public _FinalStage extTelephoneNumber(Optional<Boolean> extTelephoneNumber) {
+            this.extTelephoneNumber = extTelephoneNumber;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's street address from Azure AD. When true (default), street address is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extStreet(Boolean extStreet) {
+            this.extStreet = Optional.ofNullable(extStreet);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's street address from Azure AD. When true (default), street address is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_street", nulls = Nulls.SKIP)
+        public _FinalStage extStreet(Optional<Boolean> extStreet) {
+            this.extStreet = extStreet;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's state (province/region) from Azure AD. When true (default), state information is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extState(Boolean extState) {
+            this.extState = Optional.ofNullable(extState);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's state (province/region) from Azure AD. When true (default), state information is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_state", nulls = Nulls.SKIP)
+        public _FinalStage extState(Optional<Boolean> extState) {
+            this.extState = extState;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing Azure AD application roles assigned to the user. When true (default), role information is persisted. Useful for RBAC in applications.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extRoles(Boolean extRoles) {
+            this.extRoles = Optional.ofNullable(extRoles);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing Azure AD application roles assigned to the user. When true (default), role information is persisted. Useful for RBAC in applications.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_roles", nulls = Nulls.SKIP)
+        public _FinalStage extRoles(Optional<Boolean> extRoles) {
+            this.extRoles = extRoles;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the Azure AD refresh token. When true (default), the refresh token is persisted for offline access. Required for token refresh in long-lived applications.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extRefreshToken(Boolean extRefreshToken) {
+            this.extRefreshToken = Optional.ofNullable(extRefreshToken);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the Azure AD refresh token. When true (default), the refresh token is persisted for offline access. Required for token refresh in long-lived applications.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_refresh_token", nulls = Nulls.SKIP)
+        public _FinalStage extRefreshToken(Optional<Boolean> extRefreshToken) {
+            this.extRefreshToken = extRefreshToken;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's Passport User ID (puid). When true (default), puid is persisted in the user profile. Legacy attribute.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extPuid(Boolean extPuid) {
+            this.extPuid = Optional.ofNullable(extPuid);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's Passport User ID (puid). When true (default), puid is persisted in the user profile. Legacy attribute.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_puid", nulls = Nulls.SKIP)
+        public _FinalStage extPuid(Optional<Boolean> extPuid) {
+            this.extPuid = extPuid;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing all proxy email addresses (email aliases) for the user. When true (default), proxy addresses are persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extProxyAddresses(Boolean extProxyAddresses) {
+            this.extProxyAddresses = Optional.ofNullable(extProxyAddresses);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing all proxy email addresses (email aliases) for the user. When true (default), proxy addresses are persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_proxy_addresses", nulls = Nulls.SKIP)
+        public _FinalStage extProxyAddresses(Optional<Boolean> extProxyAddresses) {
+            this.extProxyAddresses = extProxyAddresses;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing provisioning errors that occurred during synchronization. When true (default), error information is persisted. Useful for troubleshooting sync issues.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extProvisioningErrors(Boolean extProvisioningErrors) {
+            this.extProvisioningErrors = Optional.ofNullable(extProvisioningErrors);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing provisioning errors that occurred during synchronization. When true (default), error information is persisted. Useful for troubleshooting sync issues.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_provisioning_errors", nulls = Nulls.SKIP)
+        public _FinalStage extProvisioningErrors(Optional<Boolean> extProvisioningErrors) {
+            this.extProvisioningErrors = extProvisioningErrors;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the list of service plans provisioned to the user. When true (default), provisioned plans are persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extProvisionedPlans(Boolean extProvisionedPlans) {
+            this.extProvisionedPlans = Optional.ofNullable(extProvisionedPlans);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the list of service plans provisioned to the user. When true (default), provisioned plans are persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_provisioned_plans", nulls = Nulls.SKIP)
+        public _FinalStage extProvisionedPlans(Optional<Boolean> extProvisionedPlans) {
+            this.extProvisionedPlans = extProvisionedPlans;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage extProfile(Boolean extProfile) {
+            this.extProfile = Optional.ofNullable(extProfile);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "ext_profile", nulls = Nulls.SKIP)
+        public _FinalStage extProfile(Optional<Boolean> extProfile) {
+            this.extProfile = extProfile;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's preferred language from Azure AD. When true (default), language preference is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extPreferredLanguage(Boolean extPreferredLanguage) {
+            this.extPreferredLanguage = Optional.ofNullable(extPreferredLanguage);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's preferred language from Azure AD. When true (default), language preference is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_preferred_language", nulls = Nulls.SKIP)
+        public _FinalStage extPreferredLanguage(Optional<Boolean> extPreferredLanguage) {
+            this.extPreferredLanguage = extPreferredLanguage;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's postal code from Azure AD. When true (default), postal code is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extPostalCode(Boolean extPostalCode) {
+            this.extPostalCode = Optional.ofNullable(extPostalCode);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's postal code from Azure AD. When true (default), postal code is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_postal_code", nulls = Nulls.SKIP)
+        public _FinalStage extPostalCode(Optional<Boolean> extPostalCode) {
+            this.extPostalCode = extPostalCode;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's office location from Azure AD. When true (default), office location is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extPhysicalDeliveryOfficeName(Boolean extPhysicalDeliveryOfficeName) {
+            this.extPhysicalDeliveryOfficeName = Optional.ofNullable(extPhysicalDeliveryOfficeName);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's office location from Azure AD. When true (default), office location is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_physical_delivery_office_name", nulls = Nulls.SKIP)
+        public _FinalStage extPhysicalDeliveryOfficeName(Optional<Boolean> extPhysicalDeliveryOfficeName) {
+            this.extPhysicalDeliveryOfficeName = extPhysicalDeliveryOfficeName;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's phone number from Azure AD. When true (default), phone number is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extPhone(Boolean extPhone) {
+            this.extPhone = Optional.ofNullable(extPhone);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's phone number from Azure AD. When true (default), phone number is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_phone", nulls = Nulls.SKIP)
+        public _FinalStage extPhone(Optional<Boolean> extPhone) {
+            this.extPhone = extPhone;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's Object ID (oid) from Azure AD. When true (default), the oid is persisted. Note: 'oid' is the recommended unique identifier for single-tenant connections and required for SCIM.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extOid(Boolean extOid) {
+            this.extOid = Optional.ofNullable(extOid);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's Object ID (oid) from Azure AD. When true (default), the oid is persisted. Note: 'oid' is the recommended unique identifier for single-tenant connections and required for SCIM.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_oid", nulls = Nulls.SKIP)
+        public _FinalStage extOid(Optional<Boolean> extOid) {
+            this.extOid = extOid;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's nickname or display name from Azure AD. When true (default), nickname is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extNickname(Boolean extNickname) {
+            this.extNickname = Optional.ofNullable(extNickname);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's nickname or display name from Azure AD. When true (default), nickname is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_nickname", nulls = Nulls.SKIP)
+        public _FinalStage extNickname(Optional<Boolean> extNickname) {
+            this.extNickname = extNickname;
+            return this;
+        }
+
+        /**
+         * <p>When true, stores all groups the user is member of, including transitive group memberships (groups within groups). When false (default), only direct group memberships are included.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extNestedGroups(Boolean extNestedGroups) {
+            this.extNestedGroups = Optional.ofNullable(extNestedGroups);
+            return this;
+        }
+
+        /**
+         * <p>When true, stores all groups the user is member of, including transitive group memberships (groups within groups). When false (default), only direct group memberships are included.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_nested_groups", nulls = Nulls.SKIP)
+        public _FinalStage extNestedGroups(Optional<Boolean> extNestedGroups) {
+            this.extNestedGroups = extNestedGroups;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's full name from Azure AD. When true (default), full name is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extName(Boolean extName) {
+            this.extName = Optional.ofNullable(extName);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's full name from Azure AD. When true (default), full name is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_name", nulls = Nulls.SKIP)
+        public _FinalStage extName(Optional<Boolean> extName) {
+            this.extName = extName;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's mobile phone number from Azure AD. When true (default), mobile number is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extMobile(Boolean extMobile) {
+            this.extMobile = Optional.ofNullable(extMobile);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's mobile phone number from Azure AD. When true (default), mobile number is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_mobile", nulls = Nulls.SKIP)
+        public _FinalStage extMobile(Optional<Boolean> extMobile) {
+            this.extMobile = extMobile;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the timestamp of the last directory synchronization. When true (default), the last sync date is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extLastSync(Boolean extLastSync) {
+            this.extLastSync = Optional.ofNullable(extLastSync);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the timestamp of the last directory synchronization. When true (default), the last sync date is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_last_sync", nulls = Nulls.SKIP)
+        public _FinalStage extLastSync(Optional<Boolean> extLastSync) {
+            this.extLastSync = extLastSync;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's job title from Azure AD. When true (default), job title information is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extJobTitle(Boolean extJobTitle) {
+            this.extJobTitle = Optional.ofNullable(extJobTitle);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's job title from Azure AD. When true (default), job title information is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_job_title", nulls = Nulls.SKIP)
+        public _FinalStage extJobTitle(Optional<Boolean> extJobTitle) {
+            this.extJobTitle = extJobTitle;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage extIsSuspended(Boolean extIsSuspended) {
+            this.extIsSuspended = Optional.ofNullable(extIsSuspended);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "ext_is_suspended", nulls = Nulls.SKIP)
+        public _FinalStage extIsSuspended(Optional<Boolean> extIsSuspended) {
+            this.extIsSuspended = extIsSuspended;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage extGroups(Boolean extGroups) {
+            this.extGroups = Optional.ofNullable(extGroups);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "ext_groups", nulls = Nulls.SKIP)
+        public _FinalStage extGroups(Optional<Boolean> extGroups) {
+            this.extGroups = extGroups;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the list of Azure AD group IDs the user is a member of. When true (default), group membership IDs are persisted. See ext_groups for retrieving group details.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extGroupIds(Boolean extGroupIds) {
+            this.extGroupIds = Optional.ofNullable(extGroupIds);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the list of Azure AD group IDs the user is a member of. When true (default), group membership IDs are persisted. See ext_groups for retrieving group details.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_group_ids", nulls = Nulls.SKIP)
+        public _FinalStage extGroupIds(Optional<Boolean> extGroupIds) {
+            this.extGroupIds = extGroupIds;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's given name (first name) from Azure AD. When true (default), given name is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extGivenName(Boolean extGivenName) {
+            this.extGivenName = Optional.ofNullable(extGivenName);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's given name (first name) from Azure AD. When true (default), given name is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_given_name", nulls = Nulls.SKIP)
+        public _FinalStage extGivenName(Optional<Boolean> extGivenName) {
+            this.extGivenName = extGivenName;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's fax number from Azure AD. When true (default), fax information is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extFax(Boolean extFax) {
+            this.extFax = Optional.ofNullable(extFax);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's fax number from Azure AD. When true (default), fax information is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_fax", nulls = Nulls.SKIP)
+        public _FinalStage extFax(Optional<Boolean> extFax) {
+            this.extFax = extFax;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's family name (last name) from Azure AD. When true (default), family name is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extFamilyName(Boolean extFamilyName) {
+            this.extFamilyName = Optional.ofNullable(extFamilyName);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's family name (last name) from Azure AD. When true (default), family name is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_family_name", nulls = Nulls.SKIP)
+        public _FinalStage extFamilyName(Optional<Boolean> extFamilyName) {
+            this.extFamilyName = extFamilyName;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the token expiration time (in seconds). When true (default), expiration information is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extExpiresIn(Boolean extExpiresIn) {
+            this.extExpiresIn = Optional.ofNullable(extExpiresIn);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the token expiration time (in seconds). When true (default), expiration information is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_expires_in", nulls = Nulls.SKIP)
+        public _FinalStage extExpiresIn(Optional<Boolean> extExpiresIn) {
+            this.extExpiresIn = extExpiresIn;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's email address from Azure AD. When true (default), email is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extEmail(Boolean extEmail) {
+            this.extEmail = Optional.ofNullable(extEmail);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's email address from Azure AD. When true (default), email is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_email", nulls = Nulls.SKIP)
+        public _FinalStage extEmail(Optional<Boolean> extEmail) {
+            this.extEmail = extEmail;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing whether directory synchronization is enabled for the user. When true (default), directory sync status is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extDirSyncEnabled(Boolean extDirSyncEnabled) {
+            this.extDirSyncEnabled = Optional.ofNullable(extDirSyncEnabled);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing whether directory synchronization is enabled for the user. When true (default), directory sync status is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_dir_sync_enabled", nulls = Nulls.SKIP)
+        public _FinalStage extDirSyncEnabled(Optional<Boolean> extDirSyncEnabled) {
+            this.extDirSyncEnabled = extDirSyncEnabled;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's department from Azure AD. When true (default), department information is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extDepartment(Boolean extDepartment) {
+            this.extDepartment = Optional.ofNullable(extDepartment);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's department from Azure AD. When true (default), department information is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_department", nulls = Nulls.SKIP)
+        public _FinalStage extDepartment(Optional<Boolean> extDepartment) {
+            this.extDepartment = extDepartment;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's country from Azure AD. When true (default), country information is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extCountry(Boolean extCountry) {
+            this.extCountry = Optional.ofNullable(extCountry);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's country from Azure AD. When true (default), country information is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_country", nulls = Nulls.SKIP)
+        public _FinalStage extCountry(Optional<Boolean> extCountry) {
+            this.extCountry = extCountry;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's city from Azure AD. When true (default), city information is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extCity(Boolean extCity) {
+            this.extCity = Optional.ofNullable(extCity);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's city from Azure AD. When true (default), city information is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_city", nulls = Nulls.SKIP)
+        public _FinalStage extCity(Optional<Boolean> extCity) {
+            this.extCity = extCity;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's Azure ID identifier. When true (default), the Azure ID is persisted. Note: 'oid' (Object ID) is the recommended unique identifier for single-tenant connections.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extAzureId(Boolean extAzureId) {
+            this.extAzureId = Optional.ofNullable(extAzureId);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's Azure ID identifier. When true (default), the Azure ID is persisted. Note: 'oid' (Object ID) is the recommended unique identifier for single-tenant connections.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_azure_id", nulls = Nulls.SKIP)
+        public _FinalStage extAzureId(Optional<Boolean> extAzureId) {
+            this.extAzureId = extAzureId;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage extAssignedPlans(Boolean extAssignedPlans) {
+            this.extAssignedPlans = Optional.ofNullable(extAssignedPlans);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "ext_assigned_plans", nulls = Nulls.SKIP)
+        public _FinalStage extAssignedPlans(Optional<Boolean> extAssignedPlans) {
+            this.extAssignedPlans = extAssignedPlans;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the list of Microsoft 365/Office 365 licenses assigned to the user. When true (default), license information is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extAssignedLicenses(Boolean extAssignedLicenses) {
+            this.extAssignedLicenses = Optional.ofNullable(extAssignedLicenses);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the list of Microsoft 365/Office 365 licenses assigned to the user. When true (default), license information is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_assigned_licenses", nulls = Nulls.SKIP)
+        public _FinalStage extAssignedLicenses(Optional<Boolean> extAssignedLicenses) {
+            this.extAssignedLicenses = extAssignedLicenses;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage extAgreedTerms(Boolean extAgreedTerms) {
+            this.extAgreedTerms = Optional.ofNullable(extAgreedTerms);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "ext_agreed_terms", nulls = Nulls.SKIP)
+        public _FinalStage extAgreedTerms(Optional<Boolean> extAgreedTerms) {
+            this.extAgreedTerms = extAgreedTerms;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage extAdmin(Boolean extAdmin) {
+            this.extAdmin = Optional.ofNullable(extAdmin);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "ext_admin", nulls = Nulls.SKIP)
+        public _FinalStage extAdmin(Optional<Boolean> extAdmin) {
+            this.extAdmin = extAdmin;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing whether the user's Azure AD account is enabled. When true (default), the account enabled status is persisted in the user profile.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extAccountEnabled(Boolean extAccountEnabled) {
+            this.extAccountEnabled = Optional.ofNullable(extAccountEnabled);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing whether the user's Azure AD account is enabled. When true (default), the account enabled status is persisted in the user profile.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_account_enabled", nulls = Nulls.SKIP)
+        public _FinalStage extAccountEnabled(Optional<Boolean> extAccountEnabled) {
+            this.extAccountEnabled = extAccountEnabled;
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's Azure AD access token in the Auth0 user profile. When true (default), the access token is persisted for API access.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage extAccessToken(Boolean extAccessToken) {
+            this.extAccessToken = Optional.ofNullable(extAccessToken);
+            return this;
+        }
+
+        /**
+         * <p>When false, prevents storing the user's Azure AD access token in the Auth0 user profile. When true (default), the access token is persisted for API access.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "ext_access_token", nulls = Nulls.SKIP)
+        public _FinalStage extAccessToken(Optional<Boolean> extAccessToken) {
+            this.extAccessToken = extAccessToken;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage domainAliases(List<String> domainAliases) {
+            this.domainAliases = Optional.ofNullable(domainAliases);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "domain_aliases", nulls = Nulls.SKIP)
+        public _FinalStage domainAliases(Optional<List<String>> domainAliases) {
+            this.domainAliases = domainAliases;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage clientSecret(String clientSecret) {
+            this.clientSecret = Optional.ofNullable(clientSecret);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "client_secret", nulls = Nulls.SKIP)
+        public _FinalStage clientSecret(Optional<String> clientSecret) {
+            this.clientSecret = clientSecret;
+            return this;
+        }
+
+        /**
+         * <p>Includes basic user profile information from Azure AD (name, email, given_name, family_name). Always enabled and required - represents the minimum profile data retrieved during authentication.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage basicProfile(Boolean basicProfile) {
+            this.basicProfile = Optional.ofNullable(basicProfile);
+            return this;
+        }
+
+        /**
+         * <p>Includes basic user profile information from Azure AD (name, email, given_name, family_name). Always enabled and required - represents the minimum profile data retrieved during authentication.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "basic_profile", nulls = Nulls.SKIP)
+        public _FinalStage basicProfile(Optional<Boolean> basicProfile) {
+            this.basicProfile = basicProfile;
+            return this;
+        }
+
+        /**
+         * <p>The Application ID URI (App ID URI) for the Azure AD application. Required when using Azure AD v1 with the Resource Owner Password flow. Used to identify the resource being requested in OAuth token requests.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage appId(String appId) {
+            this.appId = Optional.ofNullable(appId);
+            return this;
+        }
+
+        /**
+         * <p>The Application ID URI (App ID URI) for the Azure AD application. Required when using Azure AD v1 with the Resource Owner Password flow. Used to identify the resource being requested in OAuth token requests.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "app_id", nulls = Nulls.SKIP)
+        public _FinalStage appId(Optional<String> appId) {
+            this.appId = appId;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage appDomain(String appDomain) {
+            this.appDomain = Optional.ofNullable(appDomain);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "app_domain", nulls = Nulls.SKIP)
+        public _FinalStage appDomain(Optional<String> appDomain) {
+            this.appDomain = appDomain;
+            return this;
+        }
+
+        /**
+         * <p>Enable users API</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage apiEnableUsers(Boolean apiEnableUsers) {
+            this.apiEnableUsers = Optional.ofNullable(apiEnableUsers);
+            return this;
+        }
+
+        /**
+         * <p>Enable users API</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "api_enable_users", nulls = Nulls.SKIP)
+        public _FinalStage apiEnableUsers(Optional<Boolean> apiEnableUsers) {
+            this.apiEnableUsers = apiEnableUsers;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage nonPersistentAttrs(List<String> nonPersistentAttrs) {
+            this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
+        public _FinalStage nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
+            this.nonPersistentAttrs = nonPersistentAttrs;
+            return this;
+        }
+
+        @java.lang.Override
         public ConnectionOptionsAzureAd build() {
             return new ConnectionOptionsAzureAd(
                     nonPersistentAttrs,
@@ -2183,11 +2927,13 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
                     additionalProperties);
         }
 
+        @java.lang.Override
         public Builder additionalProperty(String key, Object value) {
             this.additionalProperties.put(key, value);
             return this;
         }
 
+        @java.lang.Override
         public Builder additionalProperties(Map<String, Object> additionalProperties) {
             this.additionalProperties.putAll(additionalProperties);
             return this;

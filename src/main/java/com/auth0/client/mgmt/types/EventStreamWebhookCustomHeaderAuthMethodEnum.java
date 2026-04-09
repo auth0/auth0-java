@@ -6,15 +6,15 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class CreateConnectionRequestContentRenrenStrategy {
-    public static final CreateConnectionRequestContentRenrenStrategy RENREN =
-            new CreateConnectionRequestContentRenrenStrategy(Value.RENREN, "renren");
+public final class EventStreamWebhookCustomHeaderAuthMethodEnum {
+    public static final EventStreamWebhookCustomHeaderAuthMethodEnum CUSTOM_HEADER =
+            new EventStreamWebhookCustomHeaderAuthMethodEnum(Value.CUSTOM_HEADER, "custom_header");
 
     private final Value value;
 
     private final String string;
 
-    CreateConnectionRequestContentRenrenStrategy(Value value, String string) {
+    EventStreamWebhookCustomHeaderAuthMethodEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -32,8 +32,8 @@ public final class CreateConnectionRequestContentRenrenStrategy {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof CreateConnectionRequestContentRenrenStrategy
-                        && this.string.equals(((CreateConnectionRequestContentRenrenStrategy) other).string));
+                || (other instanceof EventStreamWebhookCustomHeaderAuthMethodEnum
+                        && this.string.equals(((EventStreamWebhookCustomHeaderAuthMethodEnum) other).string));
     }
 
     @java.lang.Override
@@ -43,8 +43,8 @@ public final class CreateConnectionRequestContentRenrenStrategy {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case RENREN:
-                return visitor.visitRenren();
+            case CUSTOM_HEADER:
+                return visitor.visitCustomHeader();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -52,23 +52,23 @@ public final class CreateConnectionRequestContentRenrenStrategy {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static CreateConnectionRequestContentRenrenStrategy valueOf(String value) {
+    public static EventStreamWebhookCustomHeaderAuthMethodEnum valueOf(String value) {
         switch (value) {
-            case "renren":
-                return RENREN;
+            case "custom_header":
+                return CUSTOM_HEADER;
             default:
-                return new CreateConnectionRequestContentRenrenStrategy(Value.UNKNOWN, value);
+                return new EventStreamWebhookCustomHeaderAuthMethodEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        RENREN,
+        CUSTOM_HEADER,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitRenren();
+        T visitCustomHeader();
 
         T visitUnknown(String unknownType);
     }

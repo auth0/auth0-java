@@ -19,8 +19,6 @@ public interface IConnectionOptionsCommonOidc {
 
     Optional<List<String>> getDomainAliases();
 
-    Optional<ConnectionDpopSigningAlgEnum> getDpopSigningAlg();
-
     OptionalNullable<ConnectionFederatedConnectionsAccessTokens> getFederatedConnectionsAccessTokens();
 
     Optional<String> getIconUrl();

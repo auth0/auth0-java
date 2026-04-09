@@ -15,6 +15,7 @@ import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.errors.BadRequestError;
 import com.auth0.client.mgmt.errors.ConflictError;
 import com.auth0.client.mgmt.errors.ForbiddenError;
+import com.auth0.client.mgmt.errors.InternalServerError;
 import com.auth0.client.mgmt.errors.NotFoundError;
 import com.auth0.client.mgmt.errors.TooManyRequestsError;
 import com.auth0.client.mgmt.errors.UnauthorizedError;
@@ -25,6 +26,10 @@ import com.auth0.client.mgmt.types.GetClientRequestParameters;
 import com.auth0.client.mgmt.types.GetClientResponseContent;
 import com.auth0.client.mgmt.types.ListClientsOffsetPaginatedResponseContent;
 import com.auth0.client.mgmt.types.ListClientsRequestParameters;
+import com.auth0.client.mgmt.types.PreviewCimdMetadataRequestContent;
+import com.auth0.client.mgmt.types.PreviewCimdMetadataResponseContent;
+import com.auth0.client.mgmt.types.RegisterCimdClientRequestContent;
+import com.auth0.client.mgmt.types.RegisterCimdClientResponseContent;
 import com.auth0.client.mgmt.types.RotateClientSecretResponseContent;
 import com.auth0.client.mgmt.types.UpdateClientRequestContent;
 import com.auth0.client.mgmt.types.UpdateClientResponseContent;
@@ -232,6 +237,10 @@ public class AsyncRawClientsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "app_type", request.getAppType().orElse(null), false);
         }
+        if (!request.getExternalClientId().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "external_client_id", request.getExternalClientId().orElse(null), false);
+        }
         if (!request.getQ().isAbsent()) {
             QueryStringMapper.addQueryParameter(httpUrl, "q", request.getQ().orElse(null), false);
         }
@@ -425,6 +434,216 @@ public class AsyncRawClientsClient {
                                 return;
                             case 429:
                                 future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    /**
+     * Fetches and validates a Client ID Metadata Document without creating a client.
+     * Returns the raw metadata and how it would be mapped to Auth0 client fields.
+     * This endpoint is useful for testing metadata URIs before creating CIMD clients.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<PreviewCimdMetadataResponseContent>> previewCimdMetadata(
+            PreviewCimdMetadataRequestContent request) {
+        return previewCimdMetadata(request, null);
+    }
+
+    /**
+     * Fetches and validates a Client ID Metadata Document without creating a client.
+     * Returns the raw metadata and how it would be mapped to Auth0 client fields.
+     * This endpoint is useful for testing metadata URIs before creating CIMD clients.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<PreviewCimdMetadataResponseContent>> previewCimdMetadata(
+            PreviewCimdMetadataRequestContent request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("clients/cimd/preview");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new ManagementException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("POST", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<ManagementApiHttpResponse<PreviewCimdMetadataResponseContent>> future =
+                new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        future.complete(new ManagementApiHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBodyString, PreviewCimdMetadataResponseContent.class),
+                                response));
+                        return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 500:
+                                future.completeExceptionally(new InternalServerError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    /**
+     * Idempotent registration for Client ID Metadata Document (CIMD) clients.
+     * Uses external_client_id as the unique identifier for upsert operations.
+     * <strong>Create:</strong> Returns 201 when a new client is created (requires \
+     */
+    public CompletableFuture<ManagementApiHttpResponse<RegisterCimdClientResponseContent>> registerCimdClient(
+            RegisterCimdClientRequestContent request) {
+        return registerCimdClient(request, null);
+    }
+
+    /**
+     * Idempotent registration for Client ID Metadata Document (CIMD) clients.
+     * Uses external_client_id as the unique identifier for upsert operations.
+     * <strong>Create:</strong> Returns 201 when a new client is created (requires \
+     */
+    public CompletableFuture<ManagementApiHttpResponse<RegisterCimdClientResponseContent>> registerCimdClient(
+            RegisterCimdClientRequestContent request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("clients/cimd/register");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new ManagementException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("POST", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<ManagementApiHttpResponse<RegisterCimdClientResponseContent>> future =
+                new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        future.complete(new ManagementApiHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBodyString, RegisterCimdClientResponseContent.class),
+                                response));
+                        return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 500:
+                                future.completeExceptionally(new InternalServerError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
                                         response));
                                 return;

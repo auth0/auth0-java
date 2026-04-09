@@ -43,7 +43,7 @@ public class ActionsVersionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"total\":1.1,\"page\":1.1,\"per_page\":1.1,\"versions\":[{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{}],\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"id\"}],\"modules\":[{}]}]}"));
+                                "{\"total\":1.1,\"page\":1.1,\"per_page\":1.1,\"versions\":[{\"id\":\"id\",\"action_id\":\"action_id\",\"code\":\"code\",\"dependencies\":[{}],\"deployed\":true,\"runtime\":\"runtime\",\"secrets\":[{}],\"status\":\"pending\",\"number\":1.1,\"errors\":[{}],\"built_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"supported_triggers\":[{\"id\":\"post-login\"}],\"modules\":[{}]}]}"));
         SyncPagingIterable<ActionVersion> response = client.actions()
                 .versions()
                 .list(

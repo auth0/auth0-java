@@ -6,17 +6,18 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class ConnectionDpopSigningAlgEnum {
-    public static final ConnectionDpopSigningAlgEnum ES256 = new ConnectionDpopSigningAlgEnum(Value.ES256, "ES256");
+public final class PasswordSequentialCharactersPolicyEnum {
+    public static final PasswordSequentialCharactersPolicyEnum ALLOW =
+            new PasswordSequentialCharactersPolicyEnum(Value.ALLOW, "allow");
 
-    public static final ConnectionDpopSigningAlgEnum ED25519 =
-            new ConnectionDpopSigningAlgEnum(Value.ED25519, "Ed25519");
+    public static final PasswordSequentialCharactersPolicyEnum BLOCK =
+            new PasswordSequentialCharactersPolicyEnum(Value.BLOCK, "block");
 
     private final Value value;
 
     private final String string;
 
-    ConnectionDpopSigningAlgEnum(Value value, String string) {
+    PasswordSequentialCharactersPolicyEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -34,8 +35,8 @@ public final class ConnectionDpopSigningAlgEnum {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof ConnectionDpopSigningAlgEnum
-                        && this.string.equals(((ConnectionDpopSigningAlgEnum) other).string));
+                || (other instanceof PasswordSequentialCharactersPolicyEnum
+                        && this.string.equals(((PasswordSequentialCharactersPolicyEnum) other).string));
     }
 
     @java.lang.Override
@@ -45,10 +46,10 @@ public final class ConnectionDpopSigningAlgEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case ES256:
-                return visitor.visitEs256();
-            case ED25519:
-                return visitor.visitEd25519();
+            case ALLOW:
+                return visitor.visitAllow();
+            case BLOCK:
+                return visitor.visitBlock();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -56,29 +57,29 @@ public final class ConnectionDpopSigningAlgEnum {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static ConnectionDpopSigningAlgEnum valueOf(String value) {
+    public static PasswordSequentialCharactersPolicyEnum valueOf(String value) {
         switch (value) {
-            case "ES256":
-                return ES256;
-            case "Ed25519":
-                return ED25519;
+            case "allow":
+                return ALLOW;
+            case "block":
+                return BLOCK;
             default:
-                return new ConnectionDpopSigningAlgEnum(Value.UNKNOWN, value);
+                return new PasswordSequentialCharactersPolicyEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        ES256,
+        ALLOW,
 
-        ED25519,
+        BLOCK,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitEs256();
+        T visitAllow();
 
-        T visitEd25519();
+        T visitBlock();
 
         T visitUnknown(String unknownType);
     }

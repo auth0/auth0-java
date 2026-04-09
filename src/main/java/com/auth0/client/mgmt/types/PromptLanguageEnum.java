@@ -139,6 +139,8 @@ public final class PromptLanguageEnum {
 
     public static final PromptLanguageEnum NL = new PromptLanguageEnum(Value.NL, "nl");
 
+    public static final PromptLanguageEnum ZH_MO = new PromptLanguageEnum(Value.ZH_MO, "zh-MO");
+
     public static final PromptLanguageEnum VI = new PromptLanguageEnum(Value.VI, "vi");
 
     public static final PromptLanguageEnum BG = new PromptLanguageEnum(Value.BG, "bg");
@@ -333,6 +335,8 @@ public final class PromptLanguageEnum {
                 return visitor.visitRu();
             case NL:
                 return visitor.visitNl();
+            case ZH_MO:
+                return visitor.visitZhMo();
             case VI:
                 return visitor.visitVi();
             case BG:
@@ -504,6 +508,8 @@ public final class PromptLanguageEnum {
                 return RU;
             case "nl":
                 return NL;
+            case "zh-MO":
+                return ZH_MO;
             case "vi":
                 return VI;
             case "bg":
@@ -700,6 +706,8 @@ public final class PromptLanguageEnum {
 
         ZH_HK,
 
+        ZH_MO,
+
         ZH_TW,
 
         UNKNOWN
@@ -865,6 +873,8 @@ public final class PromptLanguageEnum {
         T visitZhCn();
 
         T visitZhHk();
+
+        T visitZhMo();
 
         T visitZhTw();
 

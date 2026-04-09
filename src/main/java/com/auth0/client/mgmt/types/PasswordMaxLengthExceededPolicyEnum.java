@@ -6,15 +6,18 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class ConnectionResponseContentAolStrategy {
-    public static final ConnectionResponseContentAolStrategy AOL =
-            new ConnectionResponseContentAolStrategy(Value.AOL, "aol");
+public final class PasswordMaxLengthExceededPolicyEnum {
+    public static final PasswordMaxLengthExceededPolicyEnum TRUNCATE =
+            new PasswordMaxLengthExceededPolicyEnum(Value.TRUNCATE, "truncate");
+
+    public static final PasswordMaxLengthExceededPolicyEnum ERROR =
+            new PasswordMaxLengthExceededPolicyEnum(Value.ERROR, "error");
 
     private final Value value;
 
     private final String string;
 
-    ConnectionResponseContentAolStrategy(Value value, String string) {
+    PasswordMaxLengthExceededPolicyEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -32,8 +35,8 @@ public final class ConnectionResponseContentAolStrategy {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof ConnectionResponseContentAolStrategy
-                        && this.string.equals(((ConnectionResponseContentAolStrategy) other).string));
+                || (other instanceof PasswordMaxLengthExceededPolicyEnum
+                        && this.string.equals(((PasswordMaxLengthExceededPolicyEnum) other).string));
     }
 
     @java.lang.Override
@@ -43,8 +46,10 @@ public final class ConnectionResponseContentAolStrategy {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case AOL:
-                return visitor.visitAol();
+            case TRUNCATE:
+                return visitor.visitTruncate();
+            case ERROR:
+                return visitor.visitError();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -52,23 +57,29 @@ public final class ConnectionResponseContentAolStrategy {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static ConnectionResponseContentAolStrategy valueOf(String value) {
+    public static PasswordMaxLengthExceededPolicyEnum valueOf(String value) {
         switch (value) {
-            case "aol":
-                return AOL;
+            case "truncate":
+                return TRUNCATE;
+            case "error":
+                return ERROR;
             default:
-                return new ConnectionResponseContentAolStrategy(Value.UNKNOWN, value);
+                return new PasswordMaxLengthExceededPolicyEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        AOL,
+        TRUNCATE,
+
+        ERROR,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitAol();
+        T visitTruncate();
+
+        T visitError();
 
         T visitUnknown(String unknownType);
     }

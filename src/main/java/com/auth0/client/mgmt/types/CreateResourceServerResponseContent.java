@@ -40,6 +40,8 @@ public final class CreateResourceServerResponseContent {
 
     private final Optional<Boolean> allowOfflineAccess;
 
+    private final Optional<Boolean> allowOnlineAccess;
+
     private final Optional<Boolean> skipConsentForVerifiableFirstPartyClients;
 
     private final Optional<Integer> tokenLifetime;
@@ -54,7 +56,7 @@ public final class CreateResourceServerResponseContent {
 
     private final OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy;
 
-    private final Optional<List<Object>> authorizationDetails;
+    private final OptionalNullable<List<Object>> authorizationDetails;
 
     private final OptionalNullable<ResourceServerProofOfPossession> proofOfPossession;
 
@@ -73,6 +75,7 @@ public final class CreateResourceServerResponseContent {
             Optional<SigningAlgorithmEnum> signingAlg,
             Optional<String> signingSecret,
             Optional<Boolean> allowOfflineAccess,
+            Optional<Boolean> allowOnlineAccess,
             Optional<Boolean> skipConsentForVerifiableFirstPartyClients,
             Optional<Integer> tokenLifetime,
             Optional<Integer> tokenLifetimeForWeb,
@@ -80,7 +83,7 @@ public final class CreateResourceServerResponseContent {
             Optional<ResourceServerTokenDialectResponseEnum> tokenDialect,
             OptionalNullable<ResourceServerTokenEncryption> tokenEncryption,
             OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy,
-            Optional<List<Object>> authorizationDetails,
+            OptionalNullable<List<Object>> authorizationDetails,
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
             Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
             Optional<String> clientId,
@@ -93,6 +96,7 @@ public final class CreateResourceServerResponseContent {
         this.signingAlg = signingAlg;
         this.signingSecret = signingSecret;
         this.allowOfflineAccess = allowOfflineAccess;
+        this.allowOnlineAccess = allowOnlineAccess;
         this.skipConsentForVerifiableFirstPartyClients = skipConsentForVerifiableFirstPartyClients;
         this.tokenLifetime = tokenLifetime;
         this.tokenLifetimeForWeb = tokenLifetimeForWeb;
@@ -169,6 +173,14 @@ public final class CreateResourceServerResponseContent {
     }
 
     /**
+     * @return Whether Online Refresh Tokens can be issued for this API (true) or not (false).
+     */
+    @JsonProperty("allow_online_access")
+    public Optional<Boolean> getAllowOnlineAccess() {
+        return allowOnlineAccess;
+    }
+
+    /**
      * @return Whether to skip user consent for applications flagged as first party (true) or not (false).
      */
     @JsonProperty("skip_consent_for_verifiable_first_party_clients")
@@ -223,8 +235,12 @@ public final class CreateResourceServerResponseContent {
         return consentPolicy;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("authorization_details")
-    public Optional<List<Object>> getAuthorizationDetails() {
+    public OptionalNullable<List<Object>> getAuthorizationDetails() {
+        if (authorizationDetails == null) {
+            return OptionalNullable.absent();
+        }
         return authorizationDetails;
     }
 
@@ -263,6 +279,12 @@ public final class CreateResourceServerResponseContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("authorization_details")
+    private OptionalNullable<List<Object>> _getAuthorizationDetails() {
+        return authorizationDetails;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("proof_of_possession")
     private OptionalNullable<ResourceServerProofOfPossession> _getProofOfPossession() {
         return proofOfPossession;
@@ -289,6 +311,7 @@ public final class CreateResourceServerResponseContent {
                 && signingAlg.equals(other.signingAlg)
                 && signingSecret.equals(other.signingSecret)
                 && allowOfflineAccess.equals(other.allowOfflineAccess)
+                && allowOnlineAccess.equals(other.allowOnlineAccess)
                 && skipConsentForVerifiableFirstPartyClients.equals(other.skipConsentForVerifiableFirstPartyClients)
                 && tokenLifetime.equals(other.tokenLifetime)
                 && tokenLifetimeForWeb.equals(other.tokenLifetimeForWeb)
@@ -313,6 +336,7 @@ public final class CreateResourceServerResponseContent {
                 this.signingAlg,
                 this.signingSecret,
                 this.allowOfflineAccess,
+                this.allowOnlineAccess,
                 this.skipConsentForVerifiableFirstPartyClients,
                 this.tokenLifetime,
                 this.tokenLifetimeForWeb,
@@ -353,6 +377,8 @@ public final class CreateResourceServerResponseContent {
 
         private Optional<Boolean> allowOfflineAccess = Optional.empty();
 
+        private Optional<Boolean> allowOnlineAccess = Optional.empty();
+
         private Optional<Boolean> skipConsentForVerifiableFirstPartyClients = Optional.empty();
 
         private Optional<Integer> tokenLifetime = Optional.empty();
@@ -367,7 +393,7 @@ public final class CreateResourceServerResponseContent {
 
         private OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy = OptionalNullable.absent();
 
-        private Optional<List<Object>> authorizationDetails = Optional.empty();
+        private OptionalNullable<List<Object>> authorizationDetails = OptionalNullable.absent();
 
         private OptionalNullable<ResourceServerProofOfPossession> proofOfPossession = OptionalNullable.absent();
 
@@ -389,6 +415,7 @@ public final class CreateResourceServerResponseContent {
             signingAlg(other.getSigningAlg());
             signingSecret(other.getSigningSecret());
             allowOfflineAccess(other.getAllowOfflineAccess());
+            allowOnlineAccess(other.getAllowOnlineAccess());
             skipConsentForVerifiableFirstPartyClients(other.getSkipConsentForVerifiableFirstPartyClients());
             tokenLifetime(other.getTokenLifetime());
             tokenLifetimeForWeb(other.getTokenLifetimeForWeb());
@@ -509,6 +536,20 @@ public final class CreateResourceServerResponseContent {
 
         public Builder allowOfflineAccess(Boolean allowOfflineAccess) {
             this.allowOfflineAccess = Optional.ofNullable(allowOfflineAccess);
+            return this;
+        }
+
+        /**
+         * <p>Whether Online Refresh Tokens can be issued for this API (true) or not (false).</p>
+         */
+        @JsonSetter(value = "allow_online_access", nulls = Nulls.SKIP)
+        public Builder allowOnlineAccess(Optional<Boolean> allowOnlineAccess) {
+            this.allowOnlineAccess = allowOnlineAccess;
+            return this;
+        }
+
+        public Builder allowOnlineAccess(Boolean allowOnlineAccess) {
+            this.allowOnlineAccess = Optional.ofNullable(allowOnlineAccess);
             return this;
         }
 
@@ -646,13 +687,33 @@ public final class CreateResourceServerResponseContent {
         }
 
         @JsonSetter(value = "authorization_details", nulls = Nulls.SKIP)
-        public Builder authorizationDetails(Optional<List<Object>> authorizationDetails) {
+        public Builder authorizationDetails(@Nullable OptionalNullable<List<Object>> authorizationDetails) {
             this.authorizationDetails = authorizationDetails;
             return this;
         }
 
         public Builder authorizationDetails(List<Object> authorizationDetails) {
-            this.authorizationDetails = Optional.ofNullable(authorizationDetails);
+            this.authorizationDetails = OptionalNullable.of(authorizationDetails);
+            return this;
+        }
+
+        public Builder authorizationDetails(Optional<List<Object>> authorizationDetails) {
+            if (authorizationDetails.isPresent()) {
+                this.authorizationDetails = OptionalNullable.of(authorizationDetails.get());
+            } else {
+                this.authorizationDetails = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder authorizationDetails(com.auth0.client.mgmt.core.Nullable<List<Object>> authorizationDetails) {
+            if (authorizationDetails.isNull()) {
+                this.authorizationDetails = OptionalNullable.ofNull();
+            } else if (authorizationDetails.isEmpty()) {
+                this.authorizationDetails = OptionalNullable.absent();
+            } else {
+                this.authorizationDetails = OptionalNullable.of(authorizationDetails.get());
+            }
             return this;
         }
 
@@ -725,6 +786,7 @@ public final class CreateResourceServerResponseContent {
                     signingAlg,
                     signingSecret,
                     allowOfflineAccess,
+                    allowOnlineAccess,
                     skipConsentForVerifiableFirstPartyClients,
                     tokenLifetime,
                     tokenLifetimeForWeb,
