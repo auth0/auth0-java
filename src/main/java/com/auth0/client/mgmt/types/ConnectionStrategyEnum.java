@@ -13,8 +13,6 @@ public final class ConnectionStrategyEnum {
 
     public static final ConnectionStrategyEnum DWOLLA = new ConnectionStrategyEnum(Value.DWOLLA, "dwolla");
 
-    public static final ConnectionStrategyEnum FLICKR = new ConnectionStrategyEnum(Value.FLICKR, "flickr");
-
     public static final ConnectionStrategyEnum OKTA = new ConnectionStrategyEnum(Value.OKTA, "okta");
 
     public static final ConnectionStrategyEnum PLANNINGCENTER =
@@ -171,8 +169,6 @@ public final class ConnectionStrategyEnum {
                 return visitor.visitAuth0Oidc();
             case DWOLLA:
                 return visitor.visitDwolla();
-            case FLICKR:
-                return visitor.visitFlickr();
             case OKTA:
                 return visitor.visitOkta();
             case PLANNINGCENTER:
@@ -294,8 +290,6 @@ public final class ConnectionStrategyEnum {
                 return AUTH0OIDC;
             case "dwolla":
                 return DWOLLA;
-            case "flickr":
-                return FLICKR;
             case "okta":
                 return OKTA;
             case "planningcenter":
@@ -448,8 +442,6 @@ public final class ConnectionStrategyEnum {
 
         FITBIT,
 
-        FLICKR,
-
         GITHUB,
 
         GOOGLE_APPS,
@@ -565,8 +557,6 @@ public final class ConnectionStrategyEnum {
         T visitFacebook();
 
         T visitFitbit();
-
-        T visitFlickr();
 
         T visitGithub();
 

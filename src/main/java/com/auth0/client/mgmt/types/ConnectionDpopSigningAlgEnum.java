@@ -6,15 +6,17 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class ConnectionResponseContentFlickrStrategy {
-    public static final ConnectionResponseContentFlickrStrategy FLICKR =
-            new ConnectionResponseContentFlickrStrategy(Value.FLICKR, "flickr");
+public final class ConnectionDpopSigningAlgEnum {
+    public static final ConnectionDpopSigningAlgEnum ES256 = new ConnectionDpopSigningAlgEnum(Value.ES256, "ES256");
+
+    public static final ConnectionDpopSigningAlgEnum ED25519 =
+            new ConnectionDpopSigningAlgEnum(Value.ED25519, "Ed25519");
 
     private final Value value;
 
     private final String string;
 
-    ConnectionResponseContentFlickrStrategy(Value value, String string) {
+    ConnectionDpopSigningAlgEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -32,8 +34,8 @@ public final class ConnectionResponseContentFlickrStrategy {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof ConnectionResponseContentFlickrStrategy
-                        && this.string.equals(((ConnectionResponseContentFlickrStrategy) other).string));
+                || (other instanceof ConnectionDpopSigningAlgEnum
+                        && this.string.equals(((ConnectionDpopSigningAlgEnum) other).string));
     }
 
     @java.lang.Override
@@ -43,8 +45,10 @@ public final class ConnectionResponseContentFlickrStrategy {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case FLICKR:
-                return visitor.visitFlickr();
+            case ES256:
+                return visitor.visitEs256();
+            case ED25519:
+                return visitor.visitEd25519();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -52,23 +56,29 @@ public final class ConnectionResponseContentFlickrStrategy {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static ConnectionResponseContentFlickrStrategy valueOf(String value) {
+    public static ConnectionDpopSigningAlgEnum valueOf(String value) {
         switch (value) {
-            case "flickr":
-                return FLICKR;
+            case "ES256":
+                return ES256;
+            case "Ed25519":
+                return ED25519;
             default:
-                return new ConnectionResponseContentFlickrStrategy(Value.UNKNOWN, value);
+                return new ConnectionDpopSigningAlgEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        FLICKR,
+        ES256,
+
+        ED25519,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitFlickr();
+        T visitEs256();
+
+        T visitEd25519();
 
         T visitUnknown(String unknownType);
     }

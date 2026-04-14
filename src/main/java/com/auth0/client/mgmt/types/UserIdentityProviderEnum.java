@@ -14,8 +14,6 @@ public final class UserIdentityProviderEnum {
 
     public static final UserIdentityProviderEnum DWOLLA = new UserIdentityProviderEnum(Value.DWOLLA, "dwolla");
 
-    public static final UserIdentityProviderEnum FLICKR = new UserIdentityProviderEnum(Value.FLICKR, "flickr");
-
     public static final UserIdentityProviderEnum OKTA = new UserIdentityProviderEnum(Value.OKTA, "okta");
 
     public static final UserIdentityProviderEnum PLANNINGCENTER =
@@ -172,8 +170,6 @@ public final class UserIdentityProviderEnum {
                 return visitor.visitAuth0Oidc();
             case DWOLLA:
                 return visitor.visitDwolla();
-            case FLICKR:
-                return visitor.visitFlickr();
             case OKTA:
                 return visitor.visitOkta();
             case PLANNINGCENTER:
@@ -293,8 +289,6 @@ public final class UserIdentityProviderEnum {
                 return AUTH0OIDC;
             case "dwolla":
                 return DWOLLA;
-            case "flickr":
-                return FLICKR;
             case "okta":
                 return OKTA;
             case "planningcenter":
@@ -445,8 +439,6 @@ public final class UserIdentityProviderEnum {
 
         FITBIT,
 
-        FLICKR,
-
         GITHUB,
 
         GOOGLE_APPS,
@@ -560,8 +552,6 @@ public final class UserIdentityProviderEnum {
         T visitFacebook();
 
         T visitFitbit();
-
-        T visitFlickr();
 
         T visitGithub();
 

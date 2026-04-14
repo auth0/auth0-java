@@ -1,14 +1,15 @@
 package com.auth0.client.mgmt;
 
-import com.auth0.client.mgmt.connections.types.ListDirectoryProvisioningsRequestParameters;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
-import com.auth0.client.mgmt.types.CreateDirectoryProvisioningResponseContent;
-import com.auth0.client.mgmt.types.DirectoryProvisioning;
-import com.auth0.client.mgmt.types.GetDirectoryProvisioningDefaultMappingResponseContent;
-import com.auth0.client.mgmt.types.GetDirectoryProvisioningResponseContent;
-import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningResponseContent;
+import com.auth0.client.mgmt.organizations.types.CreateOrganizationAllConnectionRequestParameters;
+import com.auth0.client.mgmt.organizations.types.ListOrganizationAllConnectionsRequestParameters;
+import com.auth0.client.mgmt.organizations.types.UpdateOrganizationConnectionRequestParameters;
+import com.auth0.client.mgmt.types.CreateOrganizationAllConnectionResponseContent;
+import com.auth0.client.mgmt.types.GetOrganizationAllConnectionResponseContent;
+import com.auth0.client.mgmt.types.OrganizationAllConnectionPost;
+import com.auth0.client.mgmt.types.UpdateOrganizationAllConnectionResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.MockResponse;
@@ -19,7 +20,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ConnectionsDirectoryProvisioningWireTest {
+public class OrganizationsConnectionsWireTest {
     private MockWebServer server;
     private ManagementApi client;
     private ObjectMapper objectMapper = ObjectMappers.JSON_MAPPER;
@@ -45,13 +46,17 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"directory_provisionings\":[{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"all\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}],\"next\":\"next\"}"));
-        SyncPagingIterable<DirectoryProvisioning> response = client.connections()
-                .directoryProvisioning()
-                .list(ListDirectoryProvisioningsRequestParameters.builder()
-                        .from(OptionalNullable.of("from"))
-                        .take(OptionalNullable.of(1))
-                        .build());
+                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"connections\":[{\"organization_connection_name\":\"organization_connection_name\",\"assign_membership_on_login\":true,\"show_as_button\":true,\"is_signup_enabled\":true,\"organization_access_level\":\"none\",\"is_enabled\":true,\"connection_id\":\"connection_id\"}]}"));
+        SyncPagingIterable<OrganizationAllConnectionPost> response = client.organizations()
+                .connections()
+                .list(
+                        "id",
+                        ListOrganizationAllConnectionsRequestParameters.builder()
+                                .page(OptionalNullable.of(1))
+                                .perPage(OptionalNullable.of(1))
+                                .includeTotals(OptionalNullable.of(true))
+                                .isEnabled(OptionalNullable.of(true))
+                                .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("GET", request.getMethod());
@@ -63,39 +68,68 @@ public class ConnectionsDirectoryProvisioningWireTest {
     }
 
     @Test
-    public void testGet() throws Exception {
+    public void testCreate() throws Exception {
         server.enqueue(
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"all\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
-        GetDirectoryProvisioningResponseContent response =
-                client.connections().directoryProvisioning().get("id");
+                                "{\"organization_connection_name\":\"organization_connection_name\",\"assign_membership_on_login\":true,\"show_as_button\":true,\"is_signup_enabled\":true,\"organization_access_level\":\"none\",\"is_enabled\":true,\"connection_id\":\"connection_id\",\"connection\":{\"name\":\"name\",\"strategy\":\"strategy\"}}"));
+        CreateOrganizationAllConnectionResponseContent response = client.organizations()
+                .connections()
+                .create(
+                        "id",
+                        CreateOrganizationAllConnectionRequestParameters.builder()
+                                .connectionId("connection_id")
+                                .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
-        Assertions.assertEquals("GET", request.getMethod());
+        Assertions.assertEquals("POST", request.getMethod());
+        // Validate request body
+        String actualRequestBody = request.getBody().readUtf8();
+        String expectedRequestBody = "" + "{\n" + "  \"connection_id\": \"connection_id\"\n" + "}";
+        JsonNode actualJson = objectMapper.readTree(actualRequestBody);
+        JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
+        Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
+        if (actualJson.has("type") || actualJson.has("_type") || actualJson.has("kind")) {
+            String discriminator = null;
+            if (actualJson.has("type")) discriminator = actualJson.get("type").asText();
+            else if (actualJson.has("_type"))
+                discriminator = actualJson.get("_type").asText();
+            else if (actualJson.has("kind"))
+                discriminator = actualJson.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualJson.isNull()) {
+            Assertions.assertTrue(
+                    actualJson.isObject() || actualJson.isArray() || actualJson.isValueNode(),
+                    "request should be a valid JSON value");
+        }
+
+        if (actualJson.isArray()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Array should have valid size");
+        }
+        if (actualJson.isObject()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Object should have valid field count");
+        }
 
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
         String expectedResponseBody = ""
                 + "{\n"
+                + "  \"organization_connection_name\": \"organization_connection_name\",\n"
+                + "  \"assign_membership_on_login\": true,\n"
+                + "  \"show_as_button\": true,\n"
+                + "  \"is_signup_enabled\": true,\n"
+                + "  \"organization_access_level\": \"none\",\n"
+                + "  \"is_enabled\": true,\n"
                 + "  \"connection_id\": \"connection_id\",\n"
-                + "  \"connection_name\": \"connection_name\",\n"
-                + "  \"strategy\": \"strategy\",\n"
-                + "  \"mapping\": [\n"
-                + "    {\n"
-                + "      \"auth0\": \"auth0\",\n"
-                + "      \"idp\": \"idp\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"synchronize_automatically\": true,\n"
-                + "  \"synchronize_groups\": \"all\",\n"
-                + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"updated_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"last_synchronization_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"last_synchronization_status\": \"last_synchronization_status\",\n"
-                + "  \"last_synchronization_error\": \"last_synchronization_error\"\n"
+                + "  \"connection\": {\n"
+                + "    \"name\": \"name\",\n"
+                + "    \"strategy\": \"strategy\"\n"
+                + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -129,39 +163,34 @@ public class ConnectionsDirectoryProvisioningWireTest {
     }
 
     @Test
-    public void testCreate() throws Exception {
+    public void testGet() throws Exception {
         server.enqueue(
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"all\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
-        CreateDirectoryProvisioningResponseContent response =
-                client.connections().directoryProvisioning().create("id", OptionalNullable.absent());
+                                "{\"organization_connection_name\":\"organization_connection_name\",\"assign_membership_on_login\":true,\"show_as_button\":true,\"is_signup_enabled\":true,\"organization_access_level\":\"none\",\"is_enabled\":true,\"connection_id\":\"connection_id\",\"connection\":{\"name\":\"name\",\"strategy\":\"strategy\"}}"));
+        GetOrganizationAllConnectionResponseContent response =
+                client.organizations().connections().get("id", "connection_id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
-        Assertions.assertEquals("POST", request.getMethod());
+        Assertions.assertEquals("GET", request.getMethod());
 
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
         String expectedResponseBody = ""
                 + "{\n"
+                + "  \"organization_connection_name\": \"organization_connection_name\",\n"
+                + "  \"assign_membership_on_login\": true,\n"
+                + "  \"show_as_button\": true,\n"
+                + "  \"is_signup_enabled\": true,\n"
+                + "  \"organization_access_level\": \"none\",\n"
+                + "  \"is_enabled\": true,\n"
                 + "  \"connection_id\": \"connection_id\",\n"
-                + "  \"connection_name\": \"connection_name\",\n"
-                + "  \"strategy\": \"strategy\",\n"
-                + "  \"mapping\": [\n"
-                + "    {\n"
-                + "      \"auth0\": \"auth0\",\n"
-                + "      \"idp\": \"idp\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"synchronize_automatically\": true,\n"
-                + "  \"synchronize_groups\": \"all\",\n"
-                + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"updated_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"last_synchronization_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"last_synchronization_status\": \"last_synchronization_status\",\n"
-                + "  \"last_synchronization_error\": \"last_synchronization_error\"\n"
+                + "  \"connection\": {\n"
+                + "    \"name\": \"name\",\n"
+                + "    \"strategy\": \"strategy\"\n"
+                + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -197,7 +226,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
     @Test
     public void testDelete() throws Exception {
         server.enqueue(new MockResponse().setResponseCode(200).setBody("{}"));
-        client.connections().directoryProvisioning().delete("id");
+        client.organizations().connections().delete("id", "connection_id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("DELETE", request.getMethod());
@@ -209,88 +238,62 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"all\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
-        UpdateDirectoryProvisioningResponseContent response =
-                client.connections().directoryProvisioning().update("id", OptionalNullable.absent());
+                                "{\"organization_connection_name\":\"organization_connection_name\",\"assign_membership_on_login\":true,\"show_as_button\":true,\"is_signup_enabled\":true,\"organization_access_level\":\"none\",\"is_enabled\":true,\"connection_id\":\"connection_id\",\"connection\":{\"name\":\"name\",\"strategy\":\"strategy\"}}"));
+        UpdateOrganizationAllConnectionResponseContent response = client.organizations()
+                .connections()
+                .update(
+                        "id",
+                        "connection_id",
+                        UpdateOrganizationConnectionRequestParameters.builder().build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("PATCH", request.getMethod());
-
-        // Validate response body
-        Assertions.assertNotNull(response, "Response should not be null");
-        String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"connection_id\": \"connection_id\",\n"
-                + "  \"connection_name\": \"connection_name\",\n"
-                + "  \"strategy\": \"strategy\",\n"
-                + "  \"mapping\": [\n"
-                + "    {\n"
-                + "      \"auth0\": \"auth0\",\n"
-                + "      \"idp\": \"idp\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"synchronize_automatically\": true,\n"
-                + "  \"synchronize_groups\": \"all\",\n"
-                + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"updated_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"last_synchronization_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"last_synchronization_status\": \"last_synchronization_status\",\n"
-                + "  \"last_synchronization_error\": \"last_synchronization_error\"\n"
-                + "}";
-        JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
-        JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
-        Assertions.assertTrue(
-                jsonEquals(expectedResponseNode, actualResponseNode),
-                "Response body structure does not match expected");
-        if (actualResponseNode.has("type") || actualResponseNode.has("_type") || actualResponseNode.has("kind")) {
+        // Validate request body
+        String actualRequestBody = request.getBody().readUtf8();
+        String expectedRequestBody = "" + "{}";
+        JsonNode actualJson = objectMapper.readTree(actualRequestBody);
+        JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
+        Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
+        if (actualJson.has("type") || actualJson.has("_type") || actualJson.has("kind")) {
             String discriminator = null;
-            if (actualResponseNode.has("type"))
-                discriminator = actualResponseNode.get("type").asText();
-            else if (actualResponseNode.has("_type"))
-                discriminator = actualResponseNode.get("_type").asText();
-            else if (actualResponseNode.has("kind"))
-                discriminator = actualResponseNode.get("kind").asText();
+            if (actualJson.has("type")) discriminator = actualJson.get("type").asText();
+            else if (actualJson.has("_type"))
+                discriminator = actualJson.get("_type").asText();
+            else if (actualJson.has("kind"))
+                discriminator = actualJson.get("kind").asText();
             Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
             Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
         }
 
-        if (!actualResponseNode.isNull()) {
+        if (!actualJson.isNull()) {
             Assertions.assertTrue(
-                    actualResponseNode.isObject() || actualResponseNode.isArray() || actualResponseNode.isValueNode(),
-                    "response should be a valid JSON value");
+                    actualJson.isObject() || actualJson.isArray() || actualJson.isValueNode(),
+                    "request should be a valid JSON value");
         }
 
-        if (actualResponseNode.isArray()) {
-            Assertions.assertTrue(actualResponseNode.size() >= 0, "Array should have valid size");
+        if (actualJson.isArray()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Array should have valid size");
         }
-        if (actualResponseNode.isObject()) {
-            Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
+        if (actualJson.isObject()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Object should have valid field count");
         }
-    }
-
-    @Test
-    public void testGetDefaultMapping() throws Exception {
-        server.enqueue(new MockResponse()
-                .setResponseCode(200)
-                .setBody("{\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}]}"));
-        GetDirectoryProvisioningDefaultMappingResponseContent response =
-                client.connections().directoryProvisioning().getDefaultMapping("id");
-        RecordedRequest request = server.takeRequest();
-        Assertions.assertNotNull(request);
-        Assertions.assertEquals("GET", request.getMethod());
 
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
         String expectedResponseBody = ""
                 + "{\n"
-                + "  \"mapping\": [\n"
-                + "    {\n"
-                + "      \"auth0\": \"auth0\",\n"
-                + "      \"idp\": \"idp\"\n"
-                + "    }\n"
-                + "  ]\n"
+                + "  \"organization_connection_name\": \"organization_connection_name\",\n"
+                + "  \"assign_membership_on_login\": true,\n"
+                + "  \"show_as_button\": true,\n"
+                + "  \"is_signup_enabled\": true,\n"
+                + "  \"organization_access_level\": \"none\",\n"
+                + "  \"is_enabled\": true,\n"
+                + "  \"connection_id\": \"connection_id\",\n"
+                + "  \"connection\": {\n"
+                + "    \"name\": \"name\",\n"
+                + "    \"strategy\": \"strategy\"\n"
+                + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);

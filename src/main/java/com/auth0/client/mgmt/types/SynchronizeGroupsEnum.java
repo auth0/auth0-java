@@ -6,15 +6,16 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class CreateConnectionRequestContentFlickrStrategy {
-    public static final CreateConnectionRequestContentFlickrStrategy FLICKR =
-            new CreateConnectionRequestContentFlickrStrategy(Value.FLICKR, "flickr");
+public final class SynchronizeGroupsEnum {
+    public static final SynchronizeGroupsEnum ALL = new SynchronizeGroupsEnum(Value.ALL, "all");
+
+    public static final SynchronizeGroupsEnum OFF = new SynchronizeGroupsEnum(Value.OFF, "off");
 
     private final Value value;
 
     private final String string;
 
-    CreateConnectionRequestContentFlickrStrategy(Value value, String string) {
+    SynchronizeGroupsEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -32,8 +33,8 @@ public final class CreateConnectionRequestContentFlickrStrategy {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof CreateConnectionRequestContentFlickrStrategy
-                        && this.string.equals(((CreateConnectionRequestContentFlickrStrategy) other).string));
+                || (other instanceof SynchronizeGroupsEnum
+                        && this.string.equals(((SynchronizeGroupsEnum) other).string));
     }
 
     @java.lang.Override
@@ -43,8 +44,10 @@ public final class CreateConnectionRequestContentFlickrStrategy {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case FLICKR:
-                return visitor.visitFlickr();
+            case ALL:
+                return visitor.visitAll();
+            case OFF:
+                return visitor.visitOff();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -52,23 +55,29 @@ public final class CreateConnectionRequestContentFlickrStrategy {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static CreateConnectionRequestContentFlickrStrategy valueOf(String value) {
+    public static SynchronizeGroupsEnum valueOf(String value) {
         switch (value) {
-            case "flickr":
-                return FLICKR;
+            case "all":
+                return ALL;
+            case "off":
+                return OFF;
             default:
-                return new CreateConnectionRequestContentFlickrStrategy(Value.UNKNOWN, value);
+                return new SynchronizeGroupsEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        FLICKR,
+        ALL,
+
+        OFF,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitFlickr();
+        T visitAll();
+
+        T visitOff();
 
         T visitUnknown(String unknownType);
     }

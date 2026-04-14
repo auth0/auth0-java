@@ -24164,6 +24164,396 @@ client.organizations().clientGrants().delete("id", "grant_id");
 </dl>
 </details>
 
+## Organizations Connections
+<details><summary><code>client.organizations.connections.list(id) -> SyncPagingIterable&amp;lt;OrganizationAllConnectionPost&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().connections().list(
+    "id",
+    ListOrganizationAllConnectionsRequestParameters
+        .builder()
+        .page(
+            OptionalNullable.of(1)
+        )
+        .perPage(
+            OptionalNullable.of(1)
+        )
+        .includeTotals(
+            OptionalNullable.of(true)
+        )
+        .isEnabled(
+            OptionalNullable.of(true)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — Organization identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `Optional<Integer>` — Page index of the results to return. First page is 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**perPage:** `Optional<Integer>` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeTotals:** `Optional<Boolean>` — Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**isEnabled:** `Optional<Boolean>` — Filter connections by enabled status.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.connections.create(id, request) -> CreateOrganizationAllConnectionResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().connections().create(
+    "id",
+    CreateOrganizationAllConnectionRequestParameters
+        .builder()
+        .connectionId("connection_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — Organization identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organizationConnectionName:** `Optional<String>` — Name of the connection in the scope of this organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assignMembershipOnLogin:** `Optional<Boolean>` — When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**showAsButton:** `Optional<Boolean>` — Determines whether a connection should be displayed on this organization’s login prompt. Only applicable for enterprise connections. Default: true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**isSignupEnabled:** `Optional<Boolean>` — Determines whether organization signup should be enabled for this organization connection. Only applicable for database connections. Default: false.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organizationAccessLevel:** `Optional<OrganizationAccessLevelEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**isEnabled:** `Optional<Boolean>` — Whether the connection is enabled for the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connectionId:** `String` — Connection identifier.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.connections.get(id, connectionId) -> GetOrganizationAllConnectionResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().connections().get("id", "connection_id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — Organization identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connectionId:** `String` — Connection identifier.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.connections.delete(id, connectionId)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().connections().delete("id", "connection_id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — Organization identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connectionId:** `String` — Connection identifier.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.connections.update(id, connectionId, request) -> UpdateOrganizationAllConnectionResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().connections().update(
+    "id",
+    "connection_id",
+    UpdateOrganizationConnectionRequestParameters
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — Organization identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connectionId:** `String` — Connection identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organizationConnectionName:** `Optional<String>` — Name of the connection in the scope of this organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assignMembershipOnLogin:** `Optional<Boolean>` — When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**showAsButton:** `Optional<Boolean>` — Determines whether a connection should be displayed on this organization’s login prompt. Only applicable for enterprise connections. Default: true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**isSignupEnabled:** `Optional<Boolean>` — Determines whether organization signup should be enabled for this organization connection. Only applicable for database connections. Default: false.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organizationAccessLevel:** `Optional<OrganizationAccessLevelEnumWithNull>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**isEnabled:** `Optional<Boolean>` — Whether the connection is enabled for the organization.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Organizations DiscoveryDomains
 <details><summary><code>client.organizations.discoveryDomains.list(id) -> SyncPagingIterable&amp;lt;OrganizationDiscoveryDomain&amp;gt;</code></summary>
 <dl>
