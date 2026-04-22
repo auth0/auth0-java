@@ -378,19 +378,19 @@ public class EventStreamsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"event_stream_id\":\"event_stream_id\",\"status\":\"failed\",\"event_type\":\"user.created\",\"attempts\":[{\"status\":\"failed\",\"timestamp\":\"2024-01-15T09:30:00Z\",\"error_message\":\"error_message\"}],\"event\":{\"id\":\"id\",\"source\":\"source\",\"specversion\":\"specversion\",\"type\":\"type\",\"time\":\"2024-01-15T09:30:00Z\",\"data\":\"data\"}}"));
+                                "{\"id\":\"id\",\"event_stream_id\":\"event_stream_id\",\"status\":\"failed\",\"event_type\":\"group.created\",\"attempts\":[{\"status\":\"failed\",\"timestamp\":\"2024-01-15T09:30:00Z\",\"error_message\":\"error_message\"}],\"event\":{\"id\":\"id\",\"source\":\"source\",\"specversion\":\"specversion\",\"type\":\"type\",\"time\":\"2024-01-15T09:30:00Z\",\"data\":\"data\"}}"));
         CreateEventStreamTestEventResponseContent response = client.eventStreams()
                 .test(
                         "id",
                         CreateEventStreamTestEventRequestContent.builder()
-                                .eventType(EventStreamTestEventTypeEnum.USER_CREATED)
+                                .eventType(EventStreamTestEventTypeEnum.GROUP_CREATED)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("POST", request.getMethod());
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
-        String expectedRequestBody = "" + "{\n" + "  \"event_type\": \"user.created\"\n" + "}";
+        String expectedRequestBody = "" + "{\n" + "  \"event_type\": \"group.created\"\n" + "}";
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
         Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
@@ -426,7 +426,7 @@ public class EventStreamsWireTest {
                 + "  \"id\": \"id\",\n"
                 + "  \"event_stream_id\": \"event_stream_id\",\n"
                 + "  \"status\": \"failed\",\n"
-                + "  \"event_type\": \"user.created\",\n"
+                + "  \"event_type\": \"group.created\",\n"
                 + "  \"attempts\": [\n"
                 + "    {\n"
                 + "      \"status\": \"failed\",\n"

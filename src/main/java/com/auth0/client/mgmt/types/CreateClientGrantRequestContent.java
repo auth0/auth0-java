@@ -26,6 +26,8 @@ public final class CreateClientGrantRequestContent {
 
     private final String audience;
 
+    private final Optional<ClientGrantDefaultForEnum> defaultFor;
+
     private final Optional<ClientGrantOrganizationUsageEnum> organizationUsage;
 
     private final Optional<Boolean> allowAnyOrganization;
@@ -43,6 +45,7 @@ public final class CreateClientGrantRequestContent {
     private CreateClientGrantRequestContent(
             Optional<String> clientId,
             String audience,
+            Optional<ClientGrantDefaultForEnum> defaultFor,
             Optional<ClientGrantOrganizationUsageEnum> organizationUsage,
             Optional<Boolean> allowAnyOrganization,
             Optional<List<String>> scope,
@@ -52,6 +55,7 @@ public final class CreateClientGrantRequestContent {
             Map<String, Object> additionalProperties) {
         this.clientId = clientId;
         this.audience = audience;
+        this.defaultFor = defaultFor;
         this.organizationUsage = organizationUsage;
         this.allowAnyOrganization = allowAnyOrganization;
         this.scope = scope;
@@ -75,6 +79,11 @@ public final class CreateClientGrantRequestContent {
     @JsonProperty("audience")
     public String getAudience() {
         return audience;
+    }
+
+    @JsonProperty("default_for")
+    public Optional<ClientGrantDefaultForEnum> getDefaultFor() {
+        return defaultFor;
     }
 
     @JsonProperty("organization_usage")
@@ -133,6 +142,7 @@ public final class CreateClientGrantRequestContent {
     private boolean equalTo(CreateClientGrantRequestContent other) {
         return clientId.equals(other.clientId)
                 && audience.equals(other.audience)
+                && defaultFor.equals(other.defaultFor)
                 && organizationUsage.equals(other.organizationUsage)
                 && allowAnyOrganization.equals(other.allowAnyOrganization)
                 && scope.equals(other.scope)
@@ -146,6 +156,7 @@ public final class CreateClientGrantRequestContent {
         return Objects.hash(
                 this.clientId,
                 this.audience,
+                this.defaultFor,
                 this.organizationUsage,
                 this.allowAnyOrganization,
                 this.scope,
@@ -185,6 +196,10 @@ public final class CreateClientGrantRequestContent {
         _FinalStage clientId(Optional<String> clientId);
 
         _FinalStage clientId(String clientId);
+
+        _FinalStage defaultFor(Optional<ClientGrantDefaultForEnum> defaultFor);
+
+        _FinalStage defaultFor(ClientGrantDefaultForEnum defaultFor);
 
         _FinalStage organizationUsage(Optional<ClientGrantOrganizationUsageEnum> organizationUsage);
 
@@ -239,6 +254,8 @@ public final class CreateClientGrantRequestContent {
 
         private Optional<ClientGrantOrganizationUsageEnum> organizationUsage = Optional.empty();
 
+        private Optional<ClientGrantDefaultForEnum> defaultFor = Optional.empty();
+
         private Optional<String> clientId = Optional.empty();
 
         @JsonAnySetter
@@ -250,6 +267,7 @@ public final class CreateClientGrantRequestContent {
         public Builder from(CreateClientGrantRequestContent other) {
             clientId(other.getClientId());
             audience(other.getAudience());
+            defaultFor(other.getDefaultFor());
             organizationUsage(other.getOrganizationUsage());
             allowAnyOrganization(other.getAllowAnyOrganization());
             scope(other.getScope());
@@ -377,6 +395,19 @@ public final class CreateClientGrantRequestContent {
             return this;
         }
 
+        @java.lang.Override
+        public _FinalStage defaultFor(ClientGrantDefaultForEnum defaultFor) {
+            this.defaultFor = Optional.ofNullable(defaultFor);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "default_for", nulls = Nulls.SKIP)
+        public _FinalStage defaultFor(Optional<ClientGrantDefaultForEnum> defaultFor) {
+            this.defaultFor = defaultFor;
+            return this;
+        }
+
         /**
          * <p>ID of the client.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -402,6 +433,7 @@ public final class CreateClientGrantRequestContent {
             return new CreateClientGrantRequestContent(
                     clientId,
                     audience,
+                    defaultFor,
                     organizationUsage,
                     allowAnyOrganization,
                     scope,

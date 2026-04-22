@@ -39,6 +39,8 @@ public final class ConnectedAccount {
 
     private final Optional<OffsetDateTime> expiresAt;
 
+    private final Optional<String> organizationId;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectedAccount(
@@ -50,6 +52,7 @@ public final class ConnectedAccount {
             Optional<List<String>> scopes,
             OffsetDateTime createdAt,
             Optional<OffsetDateTime> expiresAt,
+            Optional<String> organizationId,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.connection = connection;
@@ -59,6 +62,7 @@ public final class ConnectedAccount {
         this.scopes = scopes;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
+        this.organizationId = organizationId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -123,6 +127,14 @@ public final class ConnectedAccount {
         return expiresAt;
     }
 
+    /**
+     * @return The identifier of the organization associated with the connected account.
+     */
+    @JsonProperty("organization_id")
+    public Optional<String> getOrganizationId() {
+        return organizationId;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -142,7 +154,8 @@ public final class ConnectedAccount {
                 && accessType.equals(other.accessType)
                 && scopes.equals(other.scopes)
                 && createdAt.equals(other.createdAt)
-                && expiresAt.equals(other.expiresAt);
+                && expiresAt.equals(other.expiresAt)
+                && organizationId.equals(other.organizationId);
     }
 
     @java.lang.Override
@@ -155,7 +168,8 @@ public final class ConnectedAccount {
                 this.accessType,
                 this.scopes,
                 this.createdAt,
-                this.expiresAt);
+                this.expiresAt,
+                this.organizationId);
     }
 
     @java.lang.Override
@@ -228,6 +242,13 @@ public final class ConnectedAccount {
         _FinalStage expiresAt(Optional<OffsetDateTime> expiresAt);
 
         _FinalStage expiresAt(OffsetDateTime expiresAt);
+
+        /**
+         * <p>The identifier of the organization associated with the connected account.</p>
+         */
+        _FinalStage organizationId(Optional<String> organizationId);
+
+        _FinalStage organizationId(String organizationId);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -251,6 +272,8 @@ public final class ConnectedAccount {
 
         private OffsetDateTime createdAt;
 
+        private Optional<String> organizationId = Optional.empty();
+
         private Optional<OffsetDateTime> expiresAt = Optional.empty();
 
         private Optional<List<String>> scopes = Optional.empty();
@@ -270,6 +293,7 @@ public final class ConnectedAccount {
             scopes(other.getScopes());
             createdAt(other.getCreatedAt());
             expiresAt(other.getExpiresAt());
+            organizationId(other.getOrganizationId());
             return this;
         }
 
@@ -341,6 +365,26 @@ public final class ConnectedAccount {
         }
 
         /**
+         * <p>The identifier of the organization associated with the connected account.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage organizationId(String organizationId) {
+            this.organizationId = Optional.ofNullable(organizationId);
+            return this;
+        }
+
+        /**
+         * <p>The identifier of the organization associated with the connected account.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "organization_id", nulls = Nulls.SKIP)
+        public _FinalStage organizationId(Optional<String> organizationId) {
+            this.organizationId = organizationId;
+            return this;
+        }
+
+        /**
          * <p>ISO 8601 timestamp when the connected account expires.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -391,6 +435,7 @@ public final class ConnectedAccount {
                     scopes,
                     createdAt,
                     expiresAt,
+                    organizationId,
                     additionalProperties);
         }
 

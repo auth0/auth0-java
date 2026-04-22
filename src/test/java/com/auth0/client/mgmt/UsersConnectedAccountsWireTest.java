@@ -41,7 +41,7 @@ public class UsersConnectedAccountsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"connected_accounts\":[{\"id\":\"id\",\"connection\":\"connection\",\"connection_id\":\"connection_id\",\"strategy\":\"strategy\",\"access_type\":\"offline\",\"scopes\":[\"scopes\"],\"created_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\"}"));
+                                "{\"connected_accounts\":[{\"id\":\"id\",\"connection\":\"connection\",\"connection_id\":\"connection_id\",\"strategy\":\"strategy\",\"access_type\":\"offline\",\"scopes\":[\"scopes\"],\"created_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\",\"organization_id\":\"organization_id\"}],\"next\":\"next\"}"));
         SyncPagingIterable<ConnectedAccount> response = client.users()
                 .connectedAccounts()
                 .list(

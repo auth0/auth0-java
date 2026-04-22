@@ -126,6 +126,12 @@ public final class GetClientResponseContent {
 
     private final Optional<ExpressConfiguration> expressConfiguration;
 
+    private final Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration;
+
+    private final Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode;
+
+    private final Optional<ClientRedirectionPolicyEnum> redirectionPolicy;
+
     private final Optional<String> resourceServerIdentifier;
 
     private final Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
@@ -192,6 +198,9 @@ public final class GetClientResponseContent {
             OptionalNullable<Integer> parRequestExpiry,
             Optional<TokenQuota> tokenQuota,
             Optional<ExpressConfiguration> expressConfiguration,
+            Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration,
+            Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
+            Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
             Optional<String> resourceServerIdentifier,
             Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             Optional<ClientExternalMetadataTypeEnum> externalMetadataType,
@@ -250,6 +259,9 @@ public final class GetClientResponseContent {
         this.parRequestExpiry = parRequestExpiry;
         this.tokenQuota = tokenQuota;
         this.expressConfiguration = expressConfiguration;
+        this.myOrganizationConfiguration = myOrganizationConfiguration;
+        this.thirdPartySecurityMode = thirdPartySecurityMode;
+        this.redirectionPolicy = redirectionPolicy;
         this.resourceServerIdentifier = resourceServerIdentifier;
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
         this.externalMetadataType = externalMetadataType;
@@ -641,6 +653,21 @@ public final class GetClientResponseContent {
         return expressConfiguration;
     }
 
+    @JsonProperty("my_organization_configuration")
+    public Optional<ClientMyOrganizationResponseConfiguration> getMyOrganizationConfiguration() {
+        return myOrganizationConfiguration;
+    }
+
+    @JsonProperty("third_party_security_mode")
+    public Optional<ClientThirdPartySecurityModeEnum> getThirdPartySecurityMode() {
+        return thirdPartySecurityMode;
+    }
+
+    @JsonProperty("redirection_policy")
+    public Optional<ClientRedirectionPolicyEnum> getRedirectionPolicy() {
+        return redirectionPolicy;
+    }
+
     /**
      * @return The identifier of the resource server that this client is linked to.
      */
@@ -792,6 +819,9 @@ public final class GetClientResponseContent {
                 && parRequestExpiry.equals(other.parRequestExpiry)
                 && tokenQuota.equals(other.tokenQuota)
                 && expressConfiguration.equals(other.expressConfiguration)
+                && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
+                && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
+                && redirectionPolicy.equals(other.redirectionPolicy)
                 && resourceServerIdentifier.equals(other.resourceServerIdentifier)
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels)
                 && externalMetadataType.equals(other.externalMetadataType)
@@ -854,6 +884,9 @@ public final class GetClientResponseContent {
                 this.parRequestExpiry,
                 this.tokenQuota,
                 this.expressConfiguration,
+                this.myOrganizationConfiguration,
+                this.thirdPartySecurityMode,
+                this.redirectionPolicy,
                 this.resourceServerIdentifier,
                 this.asyncApprovalNotificationChannels,
                 this.externalMetadataType,
@@ -975,6 +1008,12 @@ public final class GetClientResponseContent {
 
         private Optional<ExpressConfiguration> expressConfiguration = Optional.empty();
 
+        private Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration = Optional.empty();
+
+        private Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode = Optional.empty();
+
+        private Optional<ClientRedirectionPolicyEnum> redirectionPolicy = Optional.empty();
+
         private Optional<String> resourceServerIdentifier = Optional.empty();
 
         private Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
@@ -1045,6 +1084,9 @@ public final class GetClientResponseContent {
             parRequestExpiry(other.getParRequestExpiry());
             tokenQuota(other.getTokenQuota());
             expressConfiguration(other.getExpressConfiguration());
+            myOrganizationConfiguration(other.getMyOrganizationConfiguration());
+            thirdPartySecurityMode(other.getThirdPartySecurityMode());
+            redirectionPolicy(other.getRedirectionPolicy());
             resourceServerIdentifier(other.getResourceServerIdentifier());
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
             externalMetadataType(other.getExternalMetadataType());
@@ -1880,6 +1922,41 @@ public final class GetClientResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "my_organization_configuration", nulls = Nulls.SKIP)
+        public Builder myOrganizationConfiguration(
+                Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration) {
+            this.myOrganizationConfiguration = myOrganizationConfiguration;
+            return this;
+        }
+
+        public Builder myOrganizationConfiguration(
+                ClientMyOrganizationResponseConfiguration myOrganizationConfiguration) {
+            this.myOrganizationConfiguration = Optional.ofNullable(myOrganizationConfiguration);
+            return this;
+        }
+
+        @JsonSetter(value = "third_party_security_mode", nulls = Nulls.SKIP)
+        public Builder thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode) {
+            this.thirdPartySecurityMode = thirdPartySecurityMode;
+            return this;
+        }
+
+        public Builder thirdPartySecurityMode(ClientThirdPartySecurityModeEnum thirdPartySecurityMode) {
+            this.thirdPartySecurityMode = Optional.ofNullable(thirdPartySecurityMode);
+            return this;
+        }
+
+        @JsonSetter(value = "redirection_policy", nulls = Nulls.SKIP)
+        public Builder redirectionPolicy(Optional<ClientRedirectionPolicyEnum> redirectionPolicy) {
+            this.redirectionPolicy = redirectionPolicy;
+            return this;
+        }
+
+        public Builder redirectionPolicy(ClientRedirectionPolicyEnum redirectionPolicy) {
+            this.redirectionPolicy = Optional.ofNullable(redirectionPolicy);
+            return this;
+        }
+
         /**
          * <p>The identifier of the resource server that this client is linked to.</p>
          */
@@ -2011,6 +2088,9 @@ public final class GetClientResponseContent {
                     parRequestExpiry,
                     tokenQuota,
                     expressConfiguration,
+                    myOrganizationConfiguration,
+                    thirdPartySecurityMode,
+                    redirectionPolicy,
                     resourceServerIdentifier,
                     asyncApprovalNotificationChannels,
                     externalMetadataType,

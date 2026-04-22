@@ -15,9 +15,6 @@
       "asns": [
         1
       ],
-      "auth0_managed": [
-        "auth0_managed"
-      ],
       "geo_country_codes": [
         "geo_country_codes"
       ],
@@ -52,9 +49,6 @@
     "not_match": {
       "asns": [
         1
-      ],
-      "auth0_managed": [
-        "auth0_managed"
       ],
       "geo_country_codes": [
         "geo_country_codes"

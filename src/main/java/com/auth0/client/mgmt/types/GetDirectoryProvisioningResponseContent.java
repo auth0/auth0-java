@@ -34,7 +34,7 @@ public final class GetDirectoryProvisioningResponseContent {
 
     private final boolean synchronizeAutomatically;
 
-    private final Optional<String> synchronizeGroups;
+    private final Optional<SynchronizeGroupsEnum> synchronizeGroups;
 
     private final OffsetDateTime createdAt;
 
@@ -54,7 +54,7 @@ public final class GetDirectoryProvisioningResponseContent {
             String strategy,
             List<DirectoryProvisioningMappingItem> mapping,
             boolean synchronizeAutomatically,
-            Optional<String> synchronizeGroups,
+            Optional<SynchronizeGroupsEnum> synchronizeGroups,
             OffsetDateTime createdAt,
             OffsetDateTime updatedAt,
             Optional<OffsetDateTime> lastSynchronizationAt,
@@ -116,7 +116,7 @@ public final class GetDirectoryProvisioningResponseContent {
     }
 
     @JsonProperty("synchronize_groups")
-    public Optional<String> getSynchronizeGroups() {
+    public Optional<SynchronizeGroupsEnum> getSynchronizeGroups() {
         return synchronizeGroups;
     }
 
@@ -271,9 +271,9 @@ public final class GetDirectoryProvisioningResponseContent {
 
         _FinalStage addAllMapping(List<DirectoryProvisioningMappingItem> mapping);
 
-        _FinalStage synchronizeGroups(Optional<String> synchronizeGroups);
+        _FinalStage synchronizeGroups(Optional<SynchronizeGroupsEnum> synchronizeGroups);
 
-        _FinalStage synchronizeGroups(String synchronizeGroups);
+        _FinalStage synchronizeGroups(SynchronizeGroupsEnum synchronizeGroups);
 
         /**
          * <p>The timestamp at which the connection was last synchronized</p>
@@ -324,7 +324,7 @@ public final class GetDirectoryProvisioningResponseContent {
 
         private Optional<OffsetDateTime> lastSynchronizationAt = Optional.empty();
 
-        private Optional<String> synchronizeGroups = Optional.empty();
+        private Optional<SynchronizeGroupsEnum> synchronizeGroups = Optional.empty();
 
         private List<DirectoryProvisioningMappingItem> mapping = new ArrayList<>();
 
@@ -482,14 +482,14 @@ public final class GetDirectoryProvisioningResponseContent {
         }
 
         @java.lang.Override
-        public _FinalStage synchronizeGroups(String synchronizeGroups) {
+        public _FinalStage synchronizeGroups(SynchronizeGroupsEnum synchronizeGroups) {
             this.synchronizeGroups = Optional.ofNullable(synchronizeGroups);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "synchronize_groups", nulls = Nulls.SKIP)
-        public _FinalStage synchronizeGroups(Optional<String> synchronizeGroups) {
+        public _FinalStage synchronizeGroups(Optional<SynchronizeGroupsEnum> synchronizeGroups) {
             this.synchronizeGroups = synchronizeGroups;
             return this;
         }

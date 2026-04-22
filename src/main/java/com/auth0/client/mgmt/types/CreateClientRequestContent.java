@@ -121,7 +121,13 @@ public final class CreateClientRequestContent {
 
     private final Optional<String> resourceServerIdentifier;
 
+    private final Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode;
+
+    private final Optional<ClientRedirectionPolicyEnum> redirectionPolicy;
+
     private final Optional<ExpressConfiguration> expressConfiguration;
+
+    private final Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration;
 
     private final Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
 
@@ -176,7 +182,10 @@ public final class CreateClientRequestContent {
             OptionalNullable<Integer> parRequestExpiry,
             Optional<CreateTokenQuota> tokenQuota,
             Optional<String> resourceServerIdentifier,
+            Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
+            Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
             Optional<ExpressConfiguration> expressConfiguration,
+            Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration,
             Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -227,7 +236,10 @@ public final class CreateClientRequestContent {
         this.parRequestExpiry = parRequestExpiry;
         this.tokenQuota = tokenQuota;
         this.resourceServerIdentifier = resourceServerIdentifier;
+        this.thirdPartySecurityMode = thirdPartySecurityMode;
+        this.redirectionPolicy = redirectionPolicy;
         this.expressConfiguration = expressConfiguration;
+        this.myOrganizationConfiguration = myOrganizationConfiguration;
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
         this.additionalProperties = additionalProperties;
     }
@@ -585,9 +597,24 @@ public final class CreateClientRequestContent {
         return resourceServerIdentifier;
     }
 
+    @JsonProperty("third_party_security_mode")
+    public Optional<ClientThirdPartySecurityModeEnum> getThirdPartySecurityMode() {
+        return thirdPartySecurityMode;
+    }
+
+    @JsonProperty("redirection_policy")
+    public Optional<ClientRedirectionPolicyEnum> getRedirectionPolicy() {
+        return redirectionPolicy;
+    }
+
     @JsonProperty("express_configuration")
     public Optional<ExpressConfiguration> getExpressConfiguration() {
         return expressConfiguration;
+    }
+
+    @JsonProperty("my_organization_configuration")
+    public Optional<ClientMyOrganizationPostConfiguration> getMyOrganizationConfiguration() {
+        return myOrganizationConfiguration;
     }
 
     @JsonProperty("async_approval_notification_channels")
@@ -692,7 +719,10 @@ public final class CreateClientRequestContent {
                 && parRequestExpiry.equals(other.parRequestExpiry)
                 && tokenQuota.equals(other.tokenQuota)
                 && resourceServerIdentifier.equals(other.resourceServerIdentifier)
+                && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
+                && redirectionPolicy.equals(other.redirectionPolicy)
                 && expressConfiguration.equals(other.expressConfiguration)
+                && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels);
     }
 
@@ -747,7 +777,10 @@ public final class CreateClientRequestContent {
                 this.parRequestExpiry,
                 this.tokenQuota,
                 this.resourceServerIdentifier,
+                this.thirdPartySecurityMode,
+                this.redirectionPolicy,
                 this.expressConfiguration,
+                this.myOrganizationConfiguration,
                 this.asyncApprovalNotificationChannels);
     }
 
@@ -1080,9 +1113,22 @@ public final class CreateClientRequestContent {
 
         _FinalStage resourceServerIdentifier(String resourceServerIdentifier);
 
+        _FinalStage thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode);
+
+        _FinalStage thirdPartySecurityMode(ClientThirdPartySecurityModeEnum thirdPartySecurityMode);
+
+        _FinalStage redirectionPolicy(Optional<ClientRedirectionPolicyEnum> redirectionPolicy);
+
+        _FinalStage redirectionPolicy(ClientRedirectionPolicyEnum redirectionPolicy);
+
         _FinalStage expressConfiguration(Optional<ExpressConfiguration> expressConfiguration);
 
         _FinalStage expressConfiguration(ExpressConfiguration expressConfiguration);
+
+        _FinalStage myOrganizationConfiguration(
+                Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration);
+
+        _FinalStage myOrganizationConfiguration(ClientMyOrganizationPostConfiguration myOrganizationConfiguration);
 
         _FinalStage asyncApprovalNotificationChannels(
                 Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels);
@@ -1098,7 +1144,13 @@ public final class CreateClientRequestContent {
         private Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
                 Optional.empty();
 
+        private Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration = Optional.empty();
+
         private Optional<ExpressConfiguration> expressConfiguration = Optional.empty();
+
+        private Optional<ClientRedirectionPolicyEnum> redirectionPolicy = Optional.empty();
+
+        private Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode = Optional.empty();
 
         private Optional<String> resourceServerIdentifier = Optional.empty();
 
@@ -1249,7 +1301,10 @@ public final class CreateClientRequestContent {
             parRequestExpiry(other.getParRequestExpiry());
             tokenQuota(other.getTokenQuota());
             resourceServerIdentifier(other.getResourceServerIdentifier());
+            thirdPartySecurityMode(other.getThirdPartySecurityMode());
+            redirectionPolicy(other.getRedirectionPolicy());
             expressConfiguration(other.getExpressConfiguration());
+            myOrganizationConfiguration(other.getMyOrganizationConfiguration());
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
             return this;
         }
@@ -1282,6 +1337,21 @@ public final class CreateClientRequestContent {
         }
 
         @java.lang.Override
+        public _FinalStage myOrganizationConfiguration(
+                ClientMyOrganizationPostConfiguration myOrganizationConfiguration) {
+            this.myOrganizationConfiguration = Optional.ofNullable(myOrganizationConfiguration);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "my_organization_configuration", nulls = Nulls.SKIP)
+        public _FinalStage myOrganizationConfiguration(
+                Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration) {
+            this.myOrganizationConfiguration = myOrganizationConfiguration;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage expressConfiguration(ExpressConfiguration expressConfiguration) {
             this.expressConfiguration = Optional.ofNullable(expressConfiguration);
             return this;
@@ -1291,6 +1361,32 @@ public final class CreateClientRequestContent {
         @JsonSetter(value = "express_configuration", nulls = Nulls.SKIP)
         public _FinalStage expressConfiguration(Optional<ExpressConfiguration> expressConfiguration) {
             this.expressConfiguration = expressConfiguration;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage redirectionPolicy(ClientRedirectionPolicyEnum redirectionPolicy) {
+            this.redirectionPolicy = Optional.ofNullable(redirectionPolicy);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "redirection_policy", nulls = Nulls.SKIP)
+        public _FinalStage redirectionPolicy(Optional<ClientRedirectionPolicyEnum> redirectionPolicy) {
+            this.redirectionPolicy = redirectionPolicy;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage thirdPartySecurityMode(ClientThirdPartySecurityModeEnum thirdPartySecurityMode) {
+            this.thirdPartySecurityMode = Optional.ofNullable(thirdPartySecurityMode);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "third_party_security_mode", nulls = Nulls.SKIP)
+        public _FinalStage thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode) {
+            this.thirdPartySecurityMode = thirdPartySecurityMode;
             return this;
         }
 
@@ -2311,7 +2407,10 @@ public final class CreateClientRequestContent {
                     parRequestExpiry,
                     tokenQuota,
                     resourceServerIdentifier,
+                    thirdPartySecurityMode,
+                    redirectionPolicy,
                     expressConfiguration,
+                    myOrganizationConfiguration,
                     asyncApprovalNotificationChannels,
                     additionalProperties);
         }

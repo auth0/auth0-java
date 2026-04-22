@@ -6,6 +6,7 @@ package com.auth0.client.mgmt.selfserviceprofiles.types;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.types.SelfServiceProfileSsoTicketConnectionConfig;
 import com.auth0.client.mgmt.types.SelfServiceProfileSsoTicketDomainAliasesConfig;
+import com.auth0.client.mgmt.types.SelfServiceProfileSsoTicketEnabledFeatures;
 import com.auth0.client.mgmt.types.SelfServiceProfileSsoTicketEnabledOrganization;
 import com.auth0.client.mgmt.types.SelfServiceProfileSsoTicketProvisioningConfig;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -41,6 +42,8 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
 
     private final Optional<Boolean> useForOrganizationDiscovery;
 
+    private final Optional<SelfServiceProfileSsoTicketEnabledFeatures> enabledFeatures;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateSelfServiceProfileSsoTicketRequestContent(
@@ -52,6 +55,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
             Optional<SelfServiceProfileSsoTicketDomainAliasesConfig> domainAliasesConfig,
             Optional<SelfServiceProfileSsoTicketProvisioningConfig> provisioningConfig,
             Optional<Boolean> useForOrganizationDiscovery,
+            Optional<SelfServiceProfileSsoTicketEnabledFeatures> enabledFeatures,
             Map<String, Object> additionalProperties) {
         this.connectionId = connectionId;
         this.connectionConfig = connectionConfig;
@@ -61,6 +65,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
         this.domainAliasesConfig = domainAliasesConfig;
         this.provisioningConfig = provisioningConfig;
         this.useForOrganizationDiscovery = useForOrganizationDiscovery;
+        this.enabledFeatures = enabledFeatures;
         this.additionalProperties = additionalProperties;
     }
 
@@ -119,6 +124,11 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
         return useForOrganizationDiscovery;
     }
 
+    @JsonProperty("enabled_features")
+    public Optional<SelfServiceProfileSsoTicketEnabledFeatures> getEnabledFeatures() {
+        return enabledFeatures;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -139,7 +149,8 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
                 && ttlSec.equals(other.ttlSec)
                 && domainAliasesConfig.equals(other.domainAliasesConfig)
                 && provisioningConfig.equals(other.provisioningConfig)
-                && useForOrganizationDiscovery.equals(other.useForOrganizationDiscovery);
+                && useForOrganizationDiscovery.equals(other.useForOrganizationDiscovery)
+                && enabledFeatures.equals(other.enabledFeatures);
     }
 
     @java.lang.Override
@@ -152,7 +163,8 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
                 this.ttlSec,
                 this.domainAliasesConfig,
                 this.provisioningConfig,
-                this.useForOrganizationDiscovery);
+                this.useForOrganizationDiscovery,
+                this.enabledFeatures);
     }
 
     @java.lang.Override
@@ -182,6 +194,8 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
 
         private Optional<Boolean> useForOrganizationDiscovery = Optional.empty();
 
+        private Optional<SelfServiceProfileSsoTicketEnabledFeatures> enabledFeatures = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -196,6 +210,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
             domainAliasesConfig(other.getDomainAliasesConfig());
             provisioningConfig(other.getProvisioningConfig());
             useForOrganizationDiscovery(other.getUseForOrganizationDiscovery());
+            enabledFeatures(other.getEnabledFeatures());
             return this;
         }
 
@@ -304,6 +319,17 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "enabled_features", nulls = Nulls.SKIP)
+        public Builder enabledFeatures(Optional<SelfServiceProfileSsoTicketEnabledFeatures> enabledFeatures) {
+            this.enabledFeatures = enabledFeatures;
+            return this;
+        }
+
+        public Builder enabledFeatures(SelfServiceProfileSsoTicketEnabledFeatures enabledFeatures) {
+            this.enabledFeatures = Optional.ofNullable(enabledFeatures);
+            return this;
+        }
+
         public CreateSelfServiceProfileSsoTicketRequestContent build() {
             return new CreateSelfServiceProfileSsoTicketRequestContent(
                     connectionId,
@@ -314,6 +340,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
                     domainAliasesConfig,
                     provisioningConfig,
                     useForOrganizationDiscovery,
+                    enabledFeatures,
                     additionalProperties);
         }
 

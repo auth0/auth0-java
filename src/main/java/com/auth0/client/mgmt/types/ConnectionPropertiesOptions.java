@@ -58,6 +58,8 @@ public final class ConnectionPropertiesOptions {
 
     private final Optional<Boolean> apiEnableUsers;
 
+    private final Optional<Boolean> apiEnableGroups;
+
     private final Optional<Boolean> basicProfile;
 
     private final Optional<Boolean> extAdmin;
@@ -105,6 +107,7 @@ public final class ConnectionPropertiesOptions {
             OptionalNullable<ConnectionPasswordNoPersonalInfoOptions> passwordNoPersonalInfo,
             OptionalNullable<ConnectionPasswordDictionaryOptions> passwordDictionary,
             Optional<Boolean> apiEnableUsers,
+            Optional<Boolean> apiEnableGroups,
             Optional<Boolean> basicProfile,
             Optional<Boolean> extAdmin,
             Optional<Boolean> extIsSuspended,
@@ -136,6 +139,7 @@ public final class ConnectionPropertiesOptions {
         this.passwordNoPersonalInfo = passwordNoPersonalInfo;
         this.passwordDictionary = passwordDictionary;
         this.apiEnableUsers = apiEnableUsers;
+        this.apiEnableGroups = apiEnableGroups;
         this.basicProfile = basicProfile;
         this.extAdmin = extAdmin;
         this.extIsSuspended = extIsSuspended;
@@ -293,6 +297,11 @@ public final class ConnectionPropertiesOptions {
     @JsonProperty("api_enable_users")
     public Optional<Boolean> getApiEnableUsers() {
         return apiEnableUsers;
+    }
+
+    @JsonProperty("api_enable_groups")
+    public Optional<Boolean> getApiEnableGroups() {
+        return apiEnableGroups;
     }
 
     @JsonProperty("basic_profile")
@@ -480,6 +489,7 @@ public final class ConnectionPropertiesOptions {
                 && passwordNoPersonalInfo.equals(other.passwordNoPersonalInfo)
                 && passwordDictionary.equals(other.passwordDictionary)
                 && apiEnableUsers.equals(other.apiEnableUsers)
+                && apiEnableGroups.equals(other.apiEnableGroups)
                 && basicProfile.equals(other.basicProfile)
                 && extAdmin.equals(other.extAdmin)
                 && extIsSuspended.equals(other.extIsSuspended)
@@ -515,6 +525,7 @@ public final class ConnectionPropertiesOptions {
                 this.passwordNoPersonalInfo,
                 this.passwordDictionary,
                 this.apiEnableUsers,
+                this.apiEnableGroups,
                 this.basicProfile,
                 this.extAdmin,
                 this.extIsSuspended,
@@ -577,6 +588,8 @@ public final class ConnectionPropertiesOptions {
 
         private Optional<Boolean> apiEnableUsers = Optional.empty();
 
+        private Optional<Boolean> apiEnableGroups = Optional.empty();
+
         private Optional<Boolean> basicProfile = Optional.empty();
 
         private Optional<Boolean> extAdmin = Optional.empty();
@@ -628,6 +641,7 @@ public final class ConnectionPropertiesOptions {
             passwordNoPersonalInfo(other.getPasswordNoPersonalInfo());
             passwordDictionary(other.getPasswordDictionary());
             apiEnableUsers(other.getApiEnableUsers());
+            apiEnableGroups(other.getApiEnableGroups());
             basicProfile(other.getBasicProfile());
             extAdmin(other.getExtAdmin());
             extIsSuspended(other.getExtIsSuspended());
@@ -1062,6 +1076,17 @@ public final class ConnectionPropertiesOptions {
             return this;
         }
 
+        @JsonSetter(value = "api_enable_groups", nulls = Nulls.SKIP)
+        public Builder apiEnableGroups(Optional<Boolean> apiEnableGroups) {
+            this.apiEnableGroups = apiEnableGroups;
+            return this;
+        }
+
+        public Builder apiEnableGroups(Boolean apiEnableGroups) {
+            this.apiEnableGroups = Optional.ofNullable(apiEnableGroups);
+            return this;
+        }
+
         @JsonSetter(value = "basic_profile", nulls = Nulls.SKIP)
         public Builder basicProfile(Optional<Boolean> basicProfile) {
             this.basicProfile = basicProfile;
@@ -1300,6 +1325,7 @@ public final class ConnectionPropertiesOptions {
                     passwordNoPersonalInfo,
                     passwordDictionary,
                     apiEnableUsers,
+                    apiEnableGroups,
                     basicProfile,
                     extAdmin,
                     extIsSuspended,
