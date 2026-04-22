@@ -33,6 +33,8 @@ public final class GetClientGrantResponseContent {
 
     private final Optional<Boolean> allowAnyOrganization;
 
+    private final Optional<ClientGrantDefaultForEnum> defaultFor;
+
     private final Optional<Boolean> isSystem;
 
     private final Optional<ClientGrantSubjectTypeEnum> subjectType;
@@ -50,6 +52,7 @@ public final class GetClientGrantResponseContent {
             Optional<List<String>> scope,
             Optional<ClientGrantOrganizationUsageEnum> organizationUsage,
             Optional<Boolean> allowAnyOrganization,
+            Optional<ClientGrantDefaultForEnum> defaultFor,
             Optional<Boolean> isSystem,
             Optional<ClientGrantSubjectTypeEnum> subjectType,
             Optional<List<String>> authorizationDetailsTypes,
@@ -61,6 +64,7 @@ public final class GetClientGrantResponseContent {
         this.scope = scope;
         this.organizationUsage = organizationUsage;
         this.allowAnyOrganization = allowAnyOrganization;
+        this.defaultFor = defaultFor;
         this.isSystem = isSystem;
         this.subjectType = subjectType;
         this.authorizationDetailsTypes = authorizationDetailsTypes;
@@ -113,6 +117,11 @@ public final class GetClientGrantResponseContent {
         return allowAnyOrganization;
     }
 
+    @JsonProperty("default_for")
+    public Optional<ClientGrantDefaultForEnum> getDefaultFor() {
+        return defaultFor;
+    }
+
     /**
      * @return If enabled, this grant is a special grant created by Auth0. It cannot be modified or deleted directly.
      */
@@ -160,6 +169,7 @@ public final class GetClientGrantResponseContent {
                 && scope.equals(other.scope)
                 && organizationUsage.equals(other.organizationUsage)
                 && allowAnyOrganization.equals(other.allowAnyOrganization)
+                && defaultFor.equals(other.defaultFor)
                 && isSystem.equals(other.isSystem)
                 && subjectType.equals(other.subjectType)
                 && authorizationDetailsTypes.equals(other.authorizationDetailsTypes)
@@ -175,6 +185,7 @@ public final class GetClientGrantResponseContent {
                 this.scope,
                 this.organizationUsage,
                 this.allowAnyOrganization,
+                this.defaultFor,
                 this.isSystem,
                 this.subjectType,
                 this.authorizationDetailsTypes,
@@ -204,6 +215,8 @@ public final class GetClientGrantResponseContent {
 
         private Optional<Boolean> allowAnyOrganization = Optional.empty();
 
+        private Optional<ClientGrantDefaultForEnum> defaultFor = Optional.empty();
+
         private Optional<Boolean> isSystem = Optional.empty();
 
         private Optional<ClientGrantSubjectTypeEnum> subjectType = Optional.empty();
@@ -224,6 +237,7 @@ public final class GetClientGrantResponseContent {
             scope(other.getScope());
             organizationUsage(other.getOrganizationUsage());
             allowAnyOrganization(other.getAllowAnyOrganization());
+            defaultFor(other.getDefaultFor());
             isSystem(other.getIsSystem());
             subjectType(other.getSubjectType());
             authorizationDetailsTypes(other.getAuthorizationDetailsTypes());
@@ -312,6 +326,17 @@ public final class GetClientGrantResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "default_for", nulls = Nulls.SKIP)
+        public Builder defaultFor(Optional<ClientGrantDefaultForEnum> defaultFor) {
+            this.defaultFor = defaultFor;
+            return this;
+        }
+
+        public Builder defaultFor(ClientGrantDefaultForEnum defaultFor) {
+            this.defaultFor = Optional.ofNullable(defaultFor);
+            return this;
+        }
+
         /**
          * <p>If enabled, this grant is a special grant created by Auth0. It cannot be modified or deleted directly.</p>
          */
@@ -373,6 +398,7 @@ public final class GetClientGrantResponseContent {
                     scope,
                     organizationUsage,
                     allowAnyOrganization,
+                    defaultFor,
                     isSystem,
                     subjectType,
                     authorizationDetailsTypes,

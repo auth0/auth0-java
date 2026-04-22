@@ -22,6 +22,9 @@ public final class EventStreamTestEventTypeEnum {
     public static final EventStreamTestEventTypeEnum USER_UPDATED =
             new EventStreamTestEventTypeEnum(Value.USER_UPDATED, "user.updated");
 
+    public static final EventStreamTestEventTypeEnum GROUP_ROLE_DELETED =
+            new EventStreamTestEventTypeEnum(Value.GROUP_ROLE_DELETED, "group.role.deleted");
+
     public static final EventStreamTestEventTypeEnum ORGANIZATION_CREATED =
             new EventStreamTestEventTypeEnum(Value.ORGANIZATION_CREATED, "organization.created");
 
@@ -34,20 +37,30 @@ public final class EventStreamTestEventTypeEnum {
     public static final EventStreamTestEventTypeEnum GROUP_MEMBER_ADDED =
             new EventStreamTestEventTypeEnum(Value.GROUP_MEMBER_ADDED, "group.member.added");
 
+    public static final EventStreamTestEventTypeEnum ORGANIZATION_GROUP_ROLE_ASSIGNED =
+            new EventStreamTestEventTypeEnum(
+                    Value.ORGANIZATION_GROUP_ROLE_ASSIGNED, "organization.group.role.assigned");
+
     public static final EventStreamTestEventTypeEnum GROUP_CREATED =
             new EventStreamTestEventTypeEnum(Value.GROUP_CREATED, "group.created");
 
     public static final EventStreamTestEventTypeEnum GROUP_UPDATED =
             new EventStreamTestEventTypeEnum(Value.GROUP_UPDATED, "group.updated");
 
-    public static final EventStreamTestEventTypeEnum USER_CREATED =
-            new EventStreamTestEventTypeEnum(Value.USER_CREATED, "user.created");
+    public static final EventStreamTestEventTypeEnum GROUP_ROLE_ASSIGNED =
+            new EventStreamTestEventTypeEnum(Value.GROUP_ROLE_ASSIGNED, "group.role.assigned");
 
     public static final EventStreamTestEventTypeEnum ORGANIZATION_CONNECTION_REMOVED =
             new EventStreamTestEventTypeEnum(Value.ORGANIZATION_CONNECTION_REMOVED, "organization.connection.removed");
 
+    public static final EventStreamTestEventTypeEnum USER_CREATED =
+            new EventStreamTestEventTypeEnum(Value.USER_CREATED, "user.created");
+
     public static final EventStreamTestEventTypeEnum GROUP_MEMBER_DELETED =
             new EventStreamTestEventTypeEnum(Value.GROUP_MEMBER_DELETED, "group.member.deleted");
+
+    public static final EventStreamTestEventTypeEnum ORGANIZATION_GROUP_ROLE_DELETED =
+            new EventStreamTestEventTypeEnum(Value.ORGANIZATION_GROUP_ROLE_DELETED, "organization.group.role.deleted");
 
     public static final EventStreamTestEventTypeEnum ORGANIZATION_MEMBER_ROLE_ASSIGNED =
             new EventStreamTestEventTypeEnum(
@@ -106,6 +119,8 @@ public final class EventStreamTestEventTypeEnum {
                 return visitor.visitOrganizationConnectionUpdated();
             case USER_UPDATED:
                 return visitor.visitUserUpdated();
+            case GROUP_ROLE_DELETED:
+                return visitor.visitGroupRoleDeleted();
             case ORGANIZATION_CREATED:
                 return visitor.visitOrganizationCreated();
             case ORGANIZATION_MEMBER_DELETED:
@@ -114,16 +129,22 @@ public final class EventStreamTestEventTypeEnum {
                 return visitor.visitOrganizationUpdated();
             case GROUP_MEMBER_ADDED:
                 return visitor.visitGroupMemberAdded();
+            case ORGANIZATION_GROUP_ROLE_ASSIGNED:
+                return visitor.visitOrganizationGroupRoleAssigned();
             case GROUP_CREATED:
                 return visitor.visitGroupCreated();
             case GROUP_UPDATED:
                 return visitor.visitGroupUpdated();
-            case USER_CREATED:
-                return visitor.visitUserCreated();
+            case GROUP_ROLE_ASSIGNED:
+                return visitor.visitGroupRoleAssigned();
             case ORGANIZATION_CONNECTION_REMOVED:
                 return visitor.visitOrganizationConnectionRemoved();
+            case USER_CREATED:
+                return visitor.visitUserCreated();
             case GROUP_MEMBER_DELETED:
                 return visitor.visitGroupMemberDeleted();
+            case ORGANIZATION_GROUP_ROLE_DELETED:
+                return visitor.visitOrganizationGroupRoleDeleted();
             case ORGANIZATION_MEMBER_ROLE_ASSIGNED:
                 return visitor.visitOrganizationMemberRoleAssigned();
             case ORGANIZATION_DELETED:
@@ -151,6 +172,8 @@ public final class EventStreamTestEventTypeEnum {
                 return ORGANIZATION_CONNECTION_UPDATED;
             case "user.updated":
                 return USER_UPDATED;
+            case "group.role.deleted":
+                return GROUP_ROLE_DELETED;
             case "organization.created":
                 return ORGANIZATION_CREATED;
             case "organization.member.deleted":
@@ -159,16 +182,22 @@ public final class EventStreamTestEventTypeEnum {
                 return ORGANIZATION_UPDATED;
             case "group.member.added":
                 return GROUP_MEMBER_ADDED;
+            case "organization.group.role.assigned":
+                return ORGANIZATION_GROUP_ROLE_ASSIGNED;
             case "group.created":
                 return GROUP_CREATED;
             case "group.updated":
                 return GROUP_UPDATED;
-            case "user.created":
-                return USER_CREATED;
+            case "group.role.assigned":
+                return GROUP_ROLE_ASSIGNED;
             case "organization.connection.removed":
                 return ORGANIZATION_CONNECTION_REMOVED;
+            case "user.created":
+                return USER_CREATED;
             case "group.member.deleted":
                 return GROUP_MEMBER_DELETED;
+            case "organization.group.role.deleted":
+                return ORGANIZATION_GROUP_ROLE_DELETED;
             case "organization.member.role.assigned":
                 return ORGANIZATION_MEMBER_ROLE_ASSIGNED;
             case "organization.deleted":
@@ -183,17 +212,33 @@ public final class EventStreamTestEventTypeEnum {
     }
 
     public enum Value {
-        USER_CREATED,
+        GROUP_CREATED,
 
-        USER_DELETED,
+        GROUP_DELETED,
 
-        USER_UPDATED,
+        GROUP_MEMBER_ADDED,
+
+        GROUP_MEMBER_DELETED,
+
+        GROUP_ROLE_ASSIGNED,
+
+        GROUP_ROLE_DELETED,
+
+        GROUP_UPDATED,
+
+        ORGANIZATION_CONNECTION_ADDED,
+
+        ORGANIZATION_CONNECTION_REMOVED,
+
+        ORGANIZATION_CONNECTION_UPDATED,
 
         ORGANIZATION_CREATED,
 
-        ORGANIZATION_UPDATED,
-
         ORGANIZATION_DELETED,
+
+        ORGANIZATION_GROUP_ROLE_ASSIGNED,
+
+        ORGANIZATION_GROUP_ROLE_DELETED,
 
         ORGANIZATION_MEMBER_ADDED,
 
@@ -203,37 +248,45 @@ public final class EventStreamTestEventTypeEnum {
 
         ORGANIZATION_MEMBER_ROLE_DELETED,
 
-        ORGANIZATION_CONNECTION_ADDED,
+        ORGANIZATION_UPDATED,
 
-        ORGANIZATION_CONNECTION_UPDATED,
+        USER_CREATED,
 
-        ORGANIZATION_CONNECTION_REMOVED,
+        USER_DELETED,
 
-        GROUP_CREATED,
-
-        GROUP_UPDATED,
-
-        GROUP_DELETED,
-
-        GROUP_MEMBER_ADDED,
-
-        GROUP_MEMBER_DELETED,
+        USER_UPDATED,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitUserCreated();
+        T visitGroupCreated();
 
-        T visitUserDeleted();
+        T visitGroupDeleted();
 
-        T visitUserUpdated();
+        T visitGroupMemberAdded();
+
+        T visitGroupMemberDeleted();
+
+        T visitGroupRoleAssigned();
+
+        T visitGroupRoleDeleted();
+
+        T visitGroupUpdated();
+
+        T visitOrganizationConnectionAdded();
+
+        T visitOrganizationConnectionRemoved();
+
+        T visitOrganizationConnectionUpdated();
 
         T visitOrganizationCreated();
 
-        T visitOrganizationUpdated();
-
         T visitOrganizationDeleted();
+
+        T visitOrganizationGroupRoleAssigned();
+
+        T visitOrganizationGroupRoleDeleted();
 
         T visitOrganizationMemberAdded();
 
@@ -243,21 +296,13 @@ public final class EventStreamTestEventTypeEnum {
 
         T visitOrganizationMemberRoleDeleted();
 
-        T visitOrganizationConnectionAdded();
+        T visitOrganizationUpdated();
 
-        T visitOrganizationConnectionUpdated();
+        T visitUserCreated();
 
-        T visitOrganizationConnectionRemoved();
+        T visitUserDeleted();
 
-        T visitGroupCreated();
-
-        T visitGroupUpdated();
-
-        T visitGroupDeleted();
-
-        T visitGroupMemberAdded();
-
-        T visitGroupMemberDeleted();
+        T visitUserUpdated();
 
         T visitUnknown(String unknownType);
     }

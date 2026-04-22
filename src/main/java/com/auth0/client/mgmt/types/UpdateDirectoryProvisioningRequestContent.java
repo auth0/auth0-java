@@ -25,14 +25,14 @@ public final class UpdateDirectoryProvisioningRequestContent {
 
     private final Optional<Boolean> synchronizeAutomatically;
 
-    private final Optional<String> synchronizeGroups;
+    private final Optional<SynchronizeGroupsEnum> synchronizeGroups;
 
     private final Map<String, Object> additionalProperties;
 
     private UpdateDirectoryProvisioningRequestContent(
             Optional<List<DirectoryProvisioningMappingItem>> mapping,
             Optional<Boolean> synchronizeAutomatically,
-            Optional<String> synchronizeGroups,
+            Optional<SynchronizeGroupsEnum> synchronizeGroups,
             Map<String, Object> additionalProperties) {
         this.mapping = mapping;
         this.synchronizeAutomatically = synchronizeAutomatically;
@@ -57,7 +57,7 @@ public final class UpdateDirectoryProvisioningRequestContent {
     }
 
     @JsonProperty("synchronize_groups")
-    public Optional<String> getSynchronizeGroups() {
+    public Optional<SynchronizeGroupsEnum> getSynchronizeGroups() {
         return synchronizeGroups;
     }
 
@@ -99,7 +99,7 @@ public final class UpdateDirectoryProvisioningRequestContent {
 
         private Optional<Boolean> synchronizeAutomatically = Optional.empty();
 
-        private Optional<String> synchronizeGroups = Optional.empty();
+        private Optional<SynchronizeGroupsEnum> synchronizeGroups = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -142,12 +142,12 @@ public final class UpdateDirectoryProvisioningRequestContent {
         }
 
         @JsonSetter(value = "synchronize_groups", nulls = Nulls.SKIP)
-        public Builder synchronizeGroups(Optional<String> synchronizeGroups) {
+        public Builder synchronizeGroups(Optional<SynchronizeGroupsEnum> synchronizeGroups) {
             this.synchronizeGroups = synchronizeGroups;
             return this;
         }
 
-        public Builder synchronizeGroups(String synchronizeGroups) {
+        public Builder synchronizeGroups(SynchronizeGroupsEnum synchronizeGroups) {
             this.synchronizeGroups = Optional.ofNullable(synchronizeGroups);
             return this;
         }

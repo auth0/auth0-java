@@ -15,9 +15,6 @@ public final class ConnectionIdentityProviderEnum {
     public static final ConnectionIdentityProviderEnum DWOLLA =
             new ConnectionIdentityProviderEnum(Value.DWOLLA, "dwolla");
 
-    public static final ConnectionIdentityProviderEnum FLICKR =
-            new ConnectionIdentityProviderEnum(Value.FLICKR, "flickr");
-
     public static final ConnectionIdentityProviderEnum OKTA = new ConnectionIdentityProviderEnum(Value.OKTA, "okta");
 
     public static final ConnectionIdentityProviderEnum PLANNINGCENTER =
@@ -195,8 +192,6 @@ public final class ConnectionIdentityProviderEnum {
                 return visitor.visitAuth0Oidc();
             case DWOLLA:
                 return visitor.visitDwolla();
-            case FLICKR:
-                return visitor.visitFlickr();
             case OKTA:
                 return visitor.visitOkta();
             case PLANNINGCENTER:
@@ -316,8 +311,6 @@ public final class ConnectionIdentityProviderEnum {
                 return AUTH0OIDC;
             case "dwolla":
                 return DWOLLA;
-            case "flickr":
-                return FLICKR;
             case "okta":
                 return OKTA;
             case "planningcenter":
@@ -468,8 +461,6 @@ public final class ConnectionIdentityProviderEnum {
 
         FITBIT,
 
-        FLICKR,
-
         GITHUB,
 
         GOOGLE_APPS,
@@ -583,8 +574,6 @@ public final class ConnectionIdentityProviderEnum {
         T visitFacebook();
 
         T visitFitbit();
-
-        T visitFlickr();
 
         T visitGithub();
 

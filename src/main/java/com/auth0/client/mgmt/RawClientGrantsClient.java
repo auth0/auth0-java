@@ -101,6 +101,10 @@ public class RawClientGrantsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "subject_type", request.getSubjectType().orElse(null), false);
         }
+        if (!request.getDefaultFor().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "default_for", request.getDefaultFor().orElse(null), false);
+        }
         if (requestOptions != null) {
             requestOptions.getQueryParameters().forEach((_key, _value) -> {
                 httpUrl.addQueryParameter(_key, _value);

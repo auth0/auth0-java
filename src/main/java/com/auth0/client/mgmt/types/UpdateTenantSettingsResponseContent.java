@@ -90,9 +90,13 @@ public final class UpdateTenantSettingsResponseContent {
 
     private final Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile;
 
+    private final Optional<Boolean> clientIdMetadataDocumentSupported;
+
     private final Optional<Boolean> phoneConsolidatedExperience;
 
     private final Optional<Boolean> enableAiGuide;
+
+    private final Optional<TenantSettingsDynamicClientRegistrationSecurityMode> dynamicClientRegistrationSecurityMode;
 
     private final Map<String, Object> additionalProperties;
 
@@ -130,8 +134,10 @@ public final class UpdateTenantSettingsResponseContent {
             OptionalNullable<Boolean> authorizationResponseIssParameterSupported,
             OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt,
             Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile,
+            Optional<Boolean> clientIdMetadataDocumentSupported,
             Optional<Boolean> phoneConsolidatedExperience,
             Optional<Boolean> enableAiGuide,
+            Optional<TenantSettingsDynamicClientRegistrationSecurityMode> dynamicClientRegistrationSecurityMode,
             Map<String, Object> additionalProperties) {
         this.changePassword = changePassword;
         this.guardianMfaPage = guardianMfaPage;
@@ -166,8 +172,10 @@ public final class UpdateTenantSettingsResponseContent {
         this.authorizationResponseIssParameterSupported = authorizationResponseIssParameterSupported;
         this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
         this.resourceParameterProfile = resourceParameterProfile;
+        this.clientIdMetadataDocumentSupported = clientIdMetadataDocumentSupported;
         this.phoneConsolidatedExperience = phoneConsolidatedExperience;
         this.enableAiGuide = enableAiGuide;
+        this.dynamicClientRegistrationSecurityMode = dynamicClientRegistrationSecurityMode;
         this.additionalProperties = additionalProperties;
     }
 
@@ -449,6 +457,14 @@ public final class UpdateTenantSettingsResponseContent {
     }
 
     /**
+     * @return Whether the authorization server supports retrieving client metadata from a client_id URL.
+     */
+    @JsonProperty("client_id_metadata_document_supported")
+    public Optional<Boolean> getClientIdMetadataDocumentSupported() {
+        return clientIdMetadataDocumentSupported;
+    }
+
+    /**
      * @return Whether Phone Consolidated Experience is enabled for this tenant.
      */
     @JsonProperty("phone_consolidated_experience")
@@ -462,6 +478,11 @@ public final class UpdateTenantSettingsResponseContent {
     @JsonProperty("enable_ai_guide")
     public Optional<Boolean> getEnableAiGuide() {
         return enableAiGuide;
+    }
+
+    @JsonProperty("dynamic_client_registration_security_mode")
+    public Optional<TenantSettingsDynamicClientRegistrationSecurityMode> getDynamicClientRegistrationSecurityMode() {
+        return dynamicClientRegistrationSecurityMode;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -577,8 +598,10 @@ public final class UpdateTenantSettingsResponseContent {
                 && skipNonVerifiableCallbackUriConfirmationPrompt.equals(
                         other.skipNonVerifiableCallbackUriConfirmationPrompt)
                 && resourceParameterProfile.equals(other.resourceParameterProfile)
+                && clientIdMetadataDocumentSupported.equals(other.clientIdMetadataDocumentSupported)
                 && phoneConsolidatedExperience.equals(other.phoneConsolidatedExperience)
-                && enableAiGuide.equals(other.enableAiGuide);
+                && enableAiGuide.equals(other.enableAiGuide)
+                && dynamicClientRegistrationSecurityMode.equals(other.dynamicClientRegistrationSecurityMode);
     }
 
     @java.lang.Override
@@ -617,8 +640,10 @@ public final class UpdateTenantSettingsResponseContent {
                 this.authorizationResponseIssParameterSupported,
                 this.skipNonVerifiableCallbackUriConfirmationPrompt,
                 this.resourceParameterProfile,
+                this.clientIdMetadataDocumentSupported,
                 this.phoneConsolidatedExperience,
-                this.enableAiGuide);
+                this.enableAiGuide,
+                this.dynamicClientRegistrationSecurityMode);
     }
 
     @java.lang.Override
@@ -698,9 +723,14 @@ public final class UpdateTenantSettingsResponseContent {
 
         private Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile = Optional.empty();
 
+        private Optional<Boolean> clientIdMetadataDocumentSupported = Optional.empty();
+
         private Optional<Boolean> phoneConsolidatedExperience = Optional.empty();
 
         private Optional<Boolean> enableAiGuide = Optional.empty();
+
+        private Optional<TenantSettingsDynamicClientRegistrationSecurityMode> dynamicClientRegistrationSecurityMode =
+                Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -741,8 +771,10 @@ public final class UpdateTenantSettingsResponseContent {
             authorizationResponseIssParameterSupported(other.getAuthorizationResponseIssParameterSupported());
             skipNonVerifiableCallbackUriConfirmationPrompt(other.getSkipNonVerifiableCallbackUriConfirmationPrompt());
             resourceParameterProfile(other.getResourceParameterProfile());
+            clientIdMetadataDocumentSupported(other.getClientIdMetadataDocumentSupported());
             phoneConsolidatedExperience(other.getPhoneConsolidatedExperience());
             enableAiGuide(other.getEnableAiGuide());
+            dynamicClientRegistrationSecurityMode(other.getDynamicClientRegistrationSecurityMode());
             return this;
         }
 
@@ -1415,6 +1447,20 @@ public final class UpdateTenantSettingsResponseContent {
         }
 
         /**
+         * <p>Whether the authorization server supports retrieving client metadata from a client_id URL.</p>
+         */
+        @JsonSetter(value = "client_id_metadata_document_supported", nulls = Nulls.SKIP)
+        public Builder clientIdMetadataDocumentSupported(Optional<Boolean> clientIdMetadataDocumentSupported) {
+            this.clientIdMetadataDocumentSupported = clientIdMetadataDocumentSupported;
+            return this;
+        }
+
+        public Builder clientIdMetadataDocumentSupported(Boolean clientIdMetadataDocumentSupported) {
+            this.clientIdMetadataDocumentSupported = Optional.ofNullable(clientIdMetadataDocumentSupported);
+            return this;
+        }
+
+        /**
          * <p>Whether Phone Consolidated Experience is enabled for this tenant.</p>
          */
         @JsonSetter(value = "phone_consolidated_experience", nulls = Nulls.SKIP)
@@ -1439,6 +1485,19 @@ public final class UpdateTenantSettingsResponseContent {
 
         public Builder enableAiGuide(Boolean enableAiGuide) {
             this.enableAiGuide = Optional.ofNullable(enableAiGuide);
+            return this;
+        }
+
+        @JsonSetter(value = "dynamic_client_registration_security_mode", nulls = Nulls.SKIP)
+        public Builder dynamicClientRegistrationSecurityMode(
+                Optional<TenantSettingsDynamicClientRegistrationSecurityMode> dynamicClientRegistrationSecurityMode) {
+            this.dynamicClientRegistrationSecurityMode = dynamicClientRegistrationSecurityMode;
+            return this;
+        }
+
+        public Builder dynamicClientRegistrationSecurityMode(
+                TenantSettingsDynamicClientRegistrationSecurityMode dynamicClientRegistrationSecurityMode) {
+            this.dynamicClientRegistrationSecurityMode = Optional.ofNullable(dynamicClientRegistrationSecurityMode);
             return this;
         }
 
@@ -1477,8 +1536,10 @@ public final class UpdateTenantSettingsResponseContent {
                     authorizationResponseIssParameterSupported,
                     skipNonVerifiableCallbackUriConfirmationPrompt,
                     resourceParameterProfile,
+                    clientIdMetadataDocumentSupported,
                     phoneConsolidatedExperience,
                     enableAiGuide,
+                    dynamicClientRegistrationSecurityMode,
                     additionalProperties);
         }
 
