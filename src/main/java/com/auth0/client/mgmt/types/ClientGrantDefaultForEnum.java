@@ -6,15 +6,15 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class ConnectionResponseContentFlickrStrategy {
-    public static final ConnectionResponseContentFlickrStrategy FLICKR =
-            new ConnectionResponseContentFlickrStrategy(Value.FLICKR, "flickr");
+public final class ClientGrantDefaultForEnum {
+    public static final ClientGrantDefaultForEnum THIRD_PARTY_CLIENTS =
+            new ClientGrantDefaultForEnum(Value.THIRD_PARTY_CLIENTS, "third_party_clients");
 
     private final Value value;
 
     private final String string;
 
-    ConnectionResponseContentFlickrStrategy(Value value, String string) {
+    ClientGrantDefaultForEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -32,8 +32,8 @@ public final class ConnectionResponseContentFlickrStrategy {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof ConnectionResponseContentFlickrStrategy
-                        && this.string.equals(((ConnectionResponseContentFlickrStrategy) other).string));
+                || (other instanceof ClientGrantDefaultForEnum
+                        && this.string.equals(((ClientGrantDefaultForEnum) other).string));
     }
 
     @java.lang.Override
@@ -43,8 +43,8 @@ public final class ConnectionResponseContentFlickrStrategy {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case FLICKR:
-                return visitor.visitFlickr();
+            case THIRD_PARTY_CLIENTS:
+                return visitor.visitThirdPartyClients();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -52,23 +52,23 @@ public final class ConnectionResponseContentFlickrStrategy {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static ConnectionResponseContentFlickrStrategy valueOf(String value) {
+    public static ClientGrantDefaultForEnum valueOf(String value) {
         switch (value) {
-            case "flickr":
-                return FLICKR;
+            case "third_party_clients":
+                return THIRD_PARTY_CLIENTS;
             default:
-                return new ConnectionResponseContentFlickrStrategy(Value.UNKNOWN, value);
+                return new ClientGrantDefaultForEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        FLICKR,
+        THIRD_PARTY_CLIENTS,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitFlickr();
+        T visitThirdPartyClients();
 
         T visitUnknown(String unknownType);
     }

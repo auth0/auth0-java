@@ -10,10 +10,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -21,18 +24,30 @@ import org.jetbrains.annotations.NotNull;
 public final class SelfServiceProfileSsoTicketDomainAliasesConfig {
     private final SelfServiceProfileSsoTicketDomainVerificationEnum domainVerification;
 
+    private final Optional<List<String>> pendingDomains;
+
     private final Map<String, Object> additionalProperties;
 
     private SelfServiceProfileSsoTicketDomainAliasesConfig(
             SelfServiceProfileSsoTicketDomainVerificationEnum domainVerification,
+            Optional<List<String>> pendingDomains,
             Map<String, Object> additionalProperties) {
         this.domainVerification = domainVerification;
+        this.pendingDomains = pendingDomains;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("domain_verification")
     public SelfServiceProfileSsoTicketDomainVerificationEnum getDomainVerification() {
         return domainVerification;
+    }
+
+    /**
+     * @return List of domains that will be submitted for verification during the self-service SSO flow.
+     */
+    @JsonProperty("pending_domains")
+    public Optional<List<String>> getPendingDomains() {
+        return pendingDomains;
     }
 
     @java.lang.Override
@@ -48,12 +63,12 @@ public final class SelfServiceProfileSsoTicketDomainAliasesConfig {
     }
 
     private boolean equalTo(SelfServiceProfileSsoTicketDomainAliasesConfig other) {
-        return domainVerification.equals(other.domainVerification);
+        return domainVerification.equals(other.domainVerification) && pendingDomains.equals(other.pendingDomains);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.domainVerification);
+        return Objects.hash(this.domainVerification, this.pendingDomains);
     }
 
     @java.lang.Override
@@ -77,11 +92,20 @@ public final class SelfServiceProfileSsoTicketDomainAliasesConfig {
         _FinalStage additionalProperty(String key, Object value);
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>List of domains that will be submitted for verification during the self-service SSO flow.</p>
+         */
+        _FinalStage pendingDomains(Optional<List<String>> pendingDomains);
+
+        _FinalStage pendingDomains(List<String> pendingDomains);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements DomainVerificationStage, _FinalStage {
         private SelfServiceProfileSsoTicketDomainVerificationEnum domainVerification;
+
+        private Optional<List<String>> pendingDomains = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -91,6 +115,7 @@ public final class SelfServiceProfileSsoTicketDomainAliasesConfig {
         @java.lang.Override
         public Builder from(SelfServiceProfileSsoTicketDomainAliasesConfig other) {
             domainVerification(other.getDomainVerification());
+            pendingDomains(other.getPendingDomains());
             return this;
         }
 
@@ -102,9 +127,30 @@ public final class SelfServiceProfileSsoTicketDomainAliasesConfig {
             return this;
         }
 
+        /**
+         * <p>List of domains that will be submitted for verification during the self-service SSO flow.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage pendingDomains(List<String> pendingDomains) {
+            this.pendingDomains = Optional.ofNullable(pendingDomains);
+            return this;
+        }
+
+        /**
+         * <p>List of domains that will be submitted for verification during the self-service SSO flow.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "pending_domains", nulls = Nulls.SKIP)
+        public _FinalStage pendingDomains(Optional<List<String>> pendingDomains) {
+            this.pendingDomains = pendingDomains;
+            return this;
+        }
+
         @java.lang.Override
         public SelfServiceProfileSsoTicketDomainAliasesConfig build() {
-            return new SelfServiceProfileSsoTicketDomainAliasesConfig(domainVerification, additionalProperties);
+            return new SelfServiceProfileSsoTicketDomainAliasesConfig(
+                    domainVerification, pendingDomains, additionalProperties);
         }
 
         @java.lang.Override

@@ -122,7 +122,13 @@ public final class UpdateClientRequestContent {
 
     private final OptionalNullable<ExpressConfigurationOrNull> expressConfiguration;
 
+    private final OptionalNullable<ClientMyOrganizationPatchConfiguration> myOrganizationConfiguration;
+
     private final OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
+
+    private final Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode;
+
+    private final Optional<ClientRedirectionPolicyEnum> redirectionPolicy;
 
     private final Map<String, Object> additionalProperties;
 
@@ -176,7 +182,10 @@ public final class UpdateClientRequestContent {
             OptionalNullable<ClientTokenExchangeConfigurationOrNull> tokenExchange,
             OptionalNullable<Integer> parRequestExpiry,
             OptionalNullable<ExpressConfigurationOrNull> expressConfiguration,
+            OptionalNullable<ClientMyOrganizationPatchConfiguration> myOrganizationConfiguration,
             OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
+            Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
+            Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
@@ -227,7 +236,10 @@ public final class UpdateClientRequestContent {
         this.tokenExchange = tokenExchange;
         this.parRequestExpiry = parRequestExpiry;
         this.expressConfiguration = expressConfiguration;
+        this.myOrganizationConfiguration = myOrganizationConfiguration;
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
+        this.thirdPartySecurityMode = thirdPartySecurityMode;
+        this.redirectionPolicy = redirectionPolicy;
         this.additionalProperties = additionalProperties;
     }
 
@@ -636,12 +648,31 @@ public final class UpdateClientRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("my_organization_configuration")
+    public OptionalNullable<ClientMyOrganizationPatchConfiguration> getMyOrganizationConfiguration() {
+        if (myOrganizationConfiguration == null) {
+            return OptionalNullable.absent();
+        }
+        return myOrganizationConfiguration;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("async_approval_notification_channels")
     public OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> getAsyncApprovalNotificationChannels() {
         if (asyncApprovalNotificationChannels == null) {
             return OptionalNullable.absent();
         }
         return asyncApprovalNotificationChannels;
+    }
+
+    @JsonProperty("third_party_security_mode")
+    public Optional<ClientThirdPartySecurityModeEnum> getThirdPartySecurityMode() {
+        return thirdPartySecurityMode;
+    }
+
+    @JsonProperty("redirection_policy")
+    public Optional<ClientRedirectionPolicyEnum> getRedirectionPolicy() {
+        return redirectionPolicy;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -741,6 +772,12 @@ public final class UpdateClientRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("my_organization_configuration")
+    private OptionalNullable<ClientMyOrganizationPatchConfiguration> _getMyOrganizationConfiguration() {
+        return myOrganizationConfiguration;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("async_approval_notification_channels")
     private OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> _getAsyncApprovalNotificationChannels() {
         return asyncApprovalNotificationChannels;
@@ -808,7 +845,10 @@ public final class UpdateClientRequestContent {
                 && tokenExchange.equals(other.tokenExchange)
                 && parRequestExpiry.equals(other.parRequestExpiry)
                 && expressConfiguration.equals(other.expressConfiguration)
-                && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels);
+                && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
+                && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels)
+                && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
+                && redirectionPolicy.equals(other.redirectionPolicy);
     }
 
     @java.lang.Override
@@ -863,7 +903,10 @@ public final class UpdateClientRequestContent {
                 this.tokenExchange,
                 this.parRequestExpiry,
                 this.expressConfiguration,
-                this.asyncApprovalNotificationChannels);
+                this.myOrganizationConfiguration,
+                this.asyncApprovalNotificationChannels,
+                this.thirdPartySecurityMode,
+                this.redirectionPolicy);
     }
 
     @java.lang.Override
@@ -978,8 +1021,15 @@ public final class UpdateClientRequestContent {
 
         private OptionalNullable<ExpressConfigurationOrNull> expressConfiguration = OptionalNullable.absent();
 
+        private OptionalNullable<ClientMyOrganizationPatchConfiguration> myOrganizationConfiguration =
+                OptionalNullable.absent();
+
         private OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
                 OptionalNullable.absent();
+
+        private Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode = Optional.empty();
+
+        private Optional<ClientRedirectionPolicyEnum> redirectionPolicy = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -1036,7 +1086,10 @@ public final class UpdateClientRequestContent {
             tokenExchange(other.getTokenExchange());
             parRequestExpiry(other.getParRequestExpiry());
             expressConfiguration(other.getExpressConfiguration());
+            myOrganizationConfiguration(other.getMyOrganizationConfiguration());
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
+            thirdPartySecurityMode(other.getThirdPartySecurityMode());
+            redirectionPolicy(other.getRedirectionPolicy());
             return this;
         }
 
@@ -2023,6 +2076,41 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "my_organization_configuration", nulls = Nulls.SKIP)
+        public Builder myOrganizationConfiguration(
+                @Nullable OptionalNullable<ClientMyOrganizationPatchConfiguration> myOrganizationConfiguration) {
+            this.myOrganizationConfiguration = myOrganizationConfiguration;
+            return this;
+        }
+
+        public Builder myOrganizationConfiguration(ClientMyOrganizationPatchConfiguration myOrganizationConfiguration) {
+            this.myOrganizationConfiguration = OptionalNullable.of(myOrganizationConfiguration);
+            return this;
+        }
+
+        public Builder myOrganizationConfiguration(
+                Optional<ClientMyOrganizationPatchConfiguration> myOrganizationConfiguration) {
+            if (myOrganizationConfiguration.isPresent()) {
+                this.myOrganizationConfiguration = OptionalNullable.of(myOrganizationConfiguration.get());
+            } else {
+                this.myOrganizationConfiguration = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder myOrganizationConfiguration(
+                com.auth0.client.mgmt.core.Nullable<ClientMyOrganizationPatchConfiguration>
+                        myOrganizationConfiguration) {
+            if (myOrganizationConfiguration.isNull()) {
+                this.myOrganizationConfiguration = OptionalNullable.ofNull();
+            } else if (myOrganizationConfiguration.isEmpty()) {
+                this.myOrganizationConfiguration = OptionalNullable.absent();
+            } else {
+                this.myOrganizationConfiguration = OptionalNullable.of(myOrganizationConfiguration.get());
+            }
+            return this;
+        }
+
         @JsonSetter(value = "async_approval_notification_channels", nulls = Nulls.SKIP)
         public Builder asyncApprovalNotificationChannels(
                 @Nullable
@@ -2058,6 +2146,28 @@ public final class UpdateClientRequestContent {
             } else {
                 this.asyncApprovalNotificationChannels = OptionalNullable.of(asyncApprovalNotificationChannels.get());
             }
+            return this;
+        }
+
+        @JsonSetter(value = "third_party_security_mode", nulls = Nulls.SKIP)
+        public Builder thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode) {
+            this.thirdPartySecurityMode = thirdPartySecurityMode;
+            return this;
+        }
+
+        public Builder thirdPartySecurityMode(ClientThirdPartySecurityModeEnum thirdPartySecurityMode) {
+            this.thirdPartySecurityMode = Optional.ofNullable(thirdPartySecurityMode);
+            return this;
+        }
+
+        @JsonSetter(value = "redirection_policy", nulls = Nulls.SKIP)
+        public Builder redirectionPolicy(Optional<ClientRedirectionPolicyEnum> redirectionPolicy) {
+            this.redirectionPolicy = redirectionPolicy;
+            return this;
+        }
+
+        public Builder redirectionPolicy(ClientRedirectionPolicyEnum redirectionPolicy) {
+            this.redirectionPolicy = Optional.ofNullable(redirectionPolicy);
             return this;
         }
 
@@ -2112,7 +2222,10 @@ public final class UpdateClientRequestContent {
                     tokenExchange,
                     parRequestExpiry,
                     expressConfiguration,
+                    myOrganizationConfiguration,
                     asyncApprovalNotificationChannels,
+                    thirdPartySecurityMode,
+                    redirectionPolicy,
                     additionalProperties);
         }
 

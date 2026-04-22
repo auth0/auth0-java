@@ -5,6 +5,8 @@ package com.auth0.client.mgmt.connections;
 
 import com.auth0.client.mgmt.connections.directoryprovisioning.AsyncSynchronizationsClient;
 import com.auth0.client.mgmt.connections.types.ListDirectoryProvisioningsRequestParameters;
+import com.auth0.client.mgmt.connections.types.ListSynchronizedGroupsRequestParameters;
+import com.auth0.client.mgmt.connections.types.ReplaceSynchronizedGroupsRequestContent;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.RequestOptions;
@@ -15,6 +17,7 @@ import com.auth0.client.mgmt.types.CreateDirectoryProvisioningResponseContent;
 import com.auth0.client.mgmt.types.DirectoryProvisioning;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningDefaultMappingResponseContent;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningResponseContent;
+import com.auth0.client.mgmt.types.SynchronizedGroupPayload;
 import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningRequestContent;
 import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningResponseContent;
 import java.util.concurrent.CompletableFuture;
@@ -177,6 +180,54 @@ public class AsyncDirectoryProvisioningClient {
     public CompletableFuture<GetDirectoryProvisioningDefaultMappingResponseContent> getDefaultMapping(
             String id, RequestOptions requestOptions) {
         return this.rawClient.getDefaultMapping(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+     */
+    public CompletableFuture<SyncPagingIterable<SynchronizedGroupPayload>> listSynchronizedGroups(String id) {
+        return this.rawClient.listSynchronizedGroups(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+     */
+    public CompletableFuture<SyncPagingIterable<SynchronizedGroupPayload>> listSynchronizedGroups(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.listSynchronizedGroups(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+     */
+    public CompletableFuture<SyncPagingIterable<SynchronizedGroupPayload>> listSynchronizedGroups(
+            String id, ListSynchronizedGroupsRequestParameters request) {
+        return this.rawClient.listSynchronizedGroups(id, request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+     */
+    public CompletableFuture<SyncPagingIterable<SynchronizedGroupPayload>> listSynchronizedGroups(
+            String id, ListSynchronizedGroupsRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient
+                .listSynchronizedGroups(id, request, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
+    /**
+     * Create or replace the selected groups for a connection directory provisioning configuration.
+     */
+    public CompletableFuture<Void> set(String id, ReplaceSynchronizedGroupsRequestContent request) {
+        return this.rawClient.set(id, request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Create or replace the selected groups for a connection directory provisioning configuration.
+     */
+    public CompletableFuture<Void> set(
+            String id, ReplaceSynchronizedGroupsRequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.set(id, request, requestOptions).thenApply(response -> response.body());
     }
 
     public AsyncSynchronizationsClient synchronizations() {

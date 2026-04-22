@@ -37,6 +37,8 @@ public final class ClientSessionTransferConfiguration {
 
     private final Optional<Boolean> enforceOnlineRefreshTokens;
 
+    private final OptionalNullable<ClientSessionTransferDelegationConfiguration> delegation;
+
     private final Map<String, Object> additionalProperties;
 
     private ClientSessionTransferConfiguration(
@@ -46,6 +48,7 @@ public final class ClientSessionTransferConfiguration {
             Optional<ClientSessionTransferDeviceBindingEnum> enforceDeviceBinding,
             Optional<Boolean> allowRefreshToken,
             Optional<Boolean> enforceOnlineRefreshTokens,
+            OptionalNullable<ClientSessionTransferDelegationConfiguration> delegation,
             Map<String, Object> additionalProperties) {
         this.canCreateSessionTransferToken = canCreateSessionTransferToken;
         this.enforceCascadeRevocation = enforceCascadeRevocation;
@@ -53,6 +56,7 @@ public final class ClientSessionTransferConfiguration {
         this.enforceDeviceBinding = enforceDeviceBinding;
         this.allowRefreshToken = allowRefreshToken;
         this.enforceOnlineRefreshTokens = enforceOnlineRefreshTokens;
+        this.delegation = delegation;
         this.additionalProperties = additionalProperties;
     }
 
@@ -107,10 +111,25 @@ public final class ClientSessionTransferConfiguration {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("delegation")
+    public OptionalNullable<ClientSessionTransferDelegationConfiguration> getDelegation() {
+        if (delegation == null) {
+            return OptionalNullable.absent();
+        }
+        return delegation;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("allowed_authentication_methods")
     private OptionalNullable<List<ClientSessionTransferAllowedAuthenticationMethodsEnum>>
             _getAllowedAuthenticationMethods() {
         return allowedAuthenticationMethods;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("delegation")
+    private OptionalNullable<ClientSessionTransferDelegationConfiguration> _getDelegation() {
+        return delegation;
     }
 
     @java.lang.Override
@@ -131,7 +150,8 @@ public final class ClientSessionTransferConfiguration {
                 && allowedAuthenticationMethods.equals(other.allowedAuthenticationMethods)
                 && enforceDeviceBinding.equals(other.enforceDeviceBinding)
                 && allowRefreshToken.equals(other.allowRefreshToken)
-                && enforceOnlineRefreshTokens.equals(other.enforceOnlineRefreshTokens);
+                && enforceOnlineRefreshTokens.equals(other.enforceOnlineRefreshTokens)
+                && delegation.equals(other.delegation);
     }
 
     @java.lang.Override
@@ -142,7 +162,8 @@ public final class ClientSessionTransferConfiguration {
                 this.allowedAuthenticationMethods,
                 this.enforceDeviceBinding,
                 this.allowRefreshToken,
-                this.enforceOnlineRefreshTokens);
+                this.enforceOnlineRefreshTokens,
+                this.delegation);
     }
 
     @java.lang.Override
@@ -169,6 +190,8 @@ public final class ClientSessionTransferConfiguration {
 
         private Optional<Boolean> enforceOnlineRefreshTokens = Optional.empty();
 
+        private OptionalNullable<ClientSessionTransferDelegationConfiguration> delegation = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -181,6 +204,7 @@ public final class ClientSessionTransferConfiguration {
             enforceDeviceBinding(other.getEnforceDeviceBinding());
             allowRefreshToken(other.getAllowRefreshToken());
             enforceOnlineRefreshTokens(other.getEnforceOnlineRefreshTokens());
+            delegation(other.getDelegation());
             return this;
         }
 
@@ -292,6 +316,38 @@ public final class ClientSessionTransferConfiguration {
             return this;
         }
 
+        @JsonSetter(value = "delegation", nulls = Nulls.SKIP)
+        public Builder delegation(@Nullable OptionalNullable<ClientSessionTransferDelegationConfiguration> delegation) {
+            this.delegation = delegation;
+            return this;
+        }
+
+        public Builder delegation(ClientSessionTransferDelegationConfiguration delegation) {
+            this.delegation = OptionalNullable.of(delegation);
+            return this;
+        }
+
+        public Builder delegation(Optional<ClientSessionTransferDelegationConfiguration> delegation) {
+            if (delegation.isPresent()) {
+                this.delegation = OptionalNullable.of(delegation.get());
+            } else {
+                this.delegation = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder delegation(
+                com.auth0.client.mgmt.core.Nullable<ClientSessionTransferDelegationConfiguration> delegation) {
+            if (delegation.isNull()) {
+                this.delegation = OptionalNullable.ofNull();
+            } else if (delegation.isEmpty()) {
+                this.delegation = OptionalNullable.absent();
+            } else {
+                this.delegation = OptionalNullable.of(delegation.get());
+            }
+            return this;
+        }
+
         public ClientSessionTransferConfiguration build() {
             return new ClientSessionTransferConfiguration(
                     canCreateSessionTransferToken,
@@ -300,6 +356,7 @@ public final class ClientSessionTransferConfiguration {
                     enforceDeviceBinding,
                     allowRefreshToken,
                     enforceOnlineRefreshTokens,
+                    delegation,
                     additionalProperties);
         }
 

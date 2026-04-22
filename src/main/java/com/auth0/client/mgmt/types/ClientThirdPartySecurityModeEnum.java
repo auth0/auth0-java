@@ -6,15 +6,18 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class CreateConnectionRequestContentFlickrStrategy {
-    public static final CreateConnectionRequestContentFlickrStrategy FLICKR =
-            new CreateConnectionRequestContentFlickrStrategy(Value.FLICKR, "flickr");
+public final class ClientThirdPartySecurityModeEnum {
+    public static final ClientThirdPartySecurityModeEnum STRICT =
+            new ClientThirdPartySecurityModeEnum(Value.STRICT, "strict");
+
+    public static final ClientThirdPartySecurityModeEnum PERMISSIVE =
+            new ClientThirdPartySecurityModeEnum(Value.PERMISSIVE, "permissive");
 
     private final Value value;
 
     private final String string;
 
-    CreateConnectionRequestContentFlickrStrategy(Value value, String string) {
+    ClientThirdPartySecurityModeEnum(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -32,8 +35,8 @@ public final class CreateConnectionRequestContentFlickrStrategy {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof CreateConnectionRequestContentFlickrStrategy
-                        && this.string.equals(((CreateConnectionRequestContentFlickrStrategy) other).string));
+                || (other instanceof ClientThirdPartySecurityModeEnum
+                        && this.string.equals(((ClientThirdPartySecurityModeEnum) other).string));
     }
 
     @java.lang.Override
@@ -43,8 +46,10 @@ public final class CreateConnectionRequestContentFlickrStrategy {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case FLICKR:
-                return visitor.visitFlickr();
+            case STRICT:
+                return visitor.visitStrict();
+            case PERMISSIVE:
+                return visitor.visitPermissive();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -52,23 +57,29 @@ public final class CreateConnectionRequestContentFlickrStrategy {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static CreateConnectionRequestContentFlickrStrategy valueOf(String value) {
+    public static ClientThirdPartySecurityModeEnum valueOf(String value) {
         switch (value) {
-            case "flickr":
-                return FLICKR;
+            case "strict":
+                return STRICT;
+            case "permissive":
+                return PERMISSIVE;
             default:
-                return new CreateConnectionRequestContentFlickrStrategy(Value.UNKNOWN, value);
+                return new ClientThirdPartySecurityModeEnum(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        FLICKR,
+        STRICT,
+
+        PERMISSIVE,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitFlickr();
+        T visitStrict();
+
+        T visitPermissive();
 
         T visitUnknown(String unknownType);
     }

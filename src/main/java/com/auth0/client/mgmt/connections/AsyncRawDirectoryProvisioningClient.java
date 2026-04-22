@@ -4,6 +4,8 @@
 package com.auth0.client.mgmt.connections;
 
 import com.auth0.client.mgmt.connections.types.ListDirectoryProvisioningsRequestParameters;
+import com.auth0.client.mgmt.connections.types.ListSynchronizedGroupsRequestParameters;
+import com.auth0.client.mgmt.connections.types.ReplaceSynchronizedGroupsRequestContent;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.ManagementApiException;
 import com.auth0.client.mgmt.core.ManagementApiHttpResponse;
@@ -26,6 +28,8 @@ import com.auth0.client.mgmt.types.DirectoryProvisioning;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningDefaultMappingResponseContent;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningResponseContent;
 import com.auth0.client.mgmt.types.ListDirectoryProvisioningsResponseContent;
+import com.auth0.client.mgmt.types.ListSynchronizedGroupsResponseContent;
+import com.auth0.client.mgmt.types.SynchronizedGroupPayload;
 import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningRequestContent;
 import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -679,6 +683,248 @@ public class AsyncRawDirectoryProvisioningClient {
                                 return;
                             case 404:
                                 future.completeExceptionally(new NotFoundError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    /**
+     * Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<SynchronizedGroupPayload>>>
+            listSynchronizedGroups(String id) {
+        return listSynchronizedGroups(
+                id, ListSynchronizedGroupsRequestParameters.builder().build());
+    }
+
+    /**
+     * Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<SynchronizedGroupPayload>>>
+            listSynchronizedGroups(String id, RequestOptions requestOptions) {
+        return listSynchronizedGroups(
+                id, ListSynchronizedGroupsRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<SynchronizedGroupPayload>>>
+            listSynchronizedGroups(String id, ListSynchronizedGroupsRequestParameters request) {
+        return listSynchronizedGroups(id, request, null);
+    }
+
+    /**
+     * Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<SynchronizedGroupPayload>>>
+            listSynchronizedGroups(
+                    String id, ListSynchronizedGroupsRequestParameters request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("connections")
+                .addPathSegment(id)
+                .addPathSegments("directory-provisioning")
+                .addPathSegments("synchronized-groups");
+        if (!request.getFrom().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "from", request.getFrom().orElse(null), false);
+        }
+        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<SynchronizedGroupPayload>>> future =
+                new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        ListSynchronizedGroupsResponseContent parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, ListSynchronizedGroupsResponseContent.class);
+                        Optional<String> startingAfter = parsedResponse.getNext();
+                        ListSynchronizedGroupsRequestParameters nextRequest =
+                                ListSynchronizedGroupsRequestParameters.builder()
+                                        .from(request)
+                                        .from(startingAfter)
+                                        .build();
+                        List<SynchronizedGroupPayload> result = parsedResponse.getGroups();
+                        future.complete(new ManagementApiHttpResponse<>(
+                                new SyncPagingIterable<SynchronizedGroupPayload>(
+                                        startingAfter.isPresent(), result, parsedResponse, () -> {
+                                            try {
+                                                return listSynchronizedGroups(id, nextRequest, requestOptions)
+                                                        .get()
+                                                        .body();
+                                            } catch (InterruptedException | ExecutionException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                        }),
+                                response));
+                        return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 404:
+                                future.completeExceptionally(new NotFoundError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    /**
+     * Create or replace the selected groups for a connection directory provisioning configuration.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Void>> set(
+            String id, ReplaceSynchronizedGroupsRequestContent request) {
+        return set(id, request, null);
+    }
+
+    /**
+     * Create or replace the selected groups for a connection directory provisioning configuration.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Void>> set(
+            String id, ReplaceSynchronizedGroupsRequestContent request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("connections")
+                .addPathSegment(id)
+                .addPathSegments("directory-provisioning")
+                .addPathSegments("synchronized-groups");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new ManagementException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("PUT", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<ManagementApiHttpResponse<Void>> future = new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (response.isSuccessful()) {
+                        future.complete(new ManagementApiHttpResponse<>(null, response));
+                        return;
+                    }
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 404:
+                                future.completeExceptionally(new NotFoundError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 409:
+                                future.completeExceptionally(new ConflictError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
                                         response));
                                 return;

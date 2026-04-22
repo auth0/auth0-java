@@ -32,71 +32,73 @@ public class LogStreamsClient {
 
     /**
      * Retrieve details on <a href="https://auth0.com/docs/logs/streams">log streams</a>.
-     * <p><h5>Sample Response</h5><pre><code>[{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;eventbridge&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;awsAccountId&quot;: &quot;string&quot;,
-     * 		&quot;awsRegion&quot;: &quot;string&quot;,
-     * 		&quot;awsPartnerEventSource&quot;: &quot;string&quot;
-     * 	}
+     * <p><strong>Sample Response</strong></p>
+     * <pre><code class="language-json">[{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;eventbridge&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;awsAccountId&quot;: &quot;string&quot;,
+     *     &quot;awsRegion&quot;: &quot;string&quot;,
+     *     &quot;awsPartnerEventSource&quot;: &quot;string&quot;
+     *   }
      * }, {
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;http&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
-     * 		&quot;httpContentType&quot;: &quot;string&quot;,
-     * 		&quot;httpEndpoint&quot;: &quot;string&quot;,
-     * 		&quot;httpAuthorization&quot;: &quot;string&quot;
-     * 	}
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;http&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
+     *     &quot;httpContentType&quot;: &quot;string&quot;,
+     *     &quot;httpEndpoint&quot;: &quot;string&quot;,
+     *     &quot;httpAuthorization&quot;: &quot;string&quot;
+     *   }
      * },
      * {
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;eventgrid&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;azureSubscriptionId&quot;: &quot;string&quot;,
-     * 		&quot;azureResourceGroup&quot;: &quot;string&quot;,
-     * 		&quot;azureRegion&quot;: &quot;string&quot;,
-     * 		&quot;azurePartnerTopic&quot;: &quot;string&quot;
-     * 	}
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;eventgrid&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;azureSubscriptionId&quot;: &quot;string&quot;,
+     *     &quot;azureResourceGroup&quot;: &quot;string&quot;,
+     *     &quot;azureRegion&quot;: &quot;string&quot;,
+     *     &quot;azurePartnerTopic&quot;: &quot;string&quot;
+     *   }
      * },
      * {
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;splunk&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;splunkDomain&quot;: &quot;string&quot;,
-     * 		&quot;splunkToken&quot;: &quot;string&quot;,
-     * 		&quot;splunkPort&quot;: &quot;string&quot;,
-     * 		&quot;splunkSecure&quot;: &quot;boolean&quot;
-     * 	}
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;splunk&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;splunkDomain&quot;: &quot;string&quot;,
+     *     &quot;splunkToken&quot;: &quot;string&quot;,
+     *     &quot;splunkPort&quot;: &quot;string&quot;,
+     *     &quot;splunkSecure&quot;: &quot;boolean&quot;
+     *   }
      * },
      * {
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;sumo&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;sumoSourceAddress&quot;: &quot;string&quot;,
-     * 	}
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;sumo&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
+     *   }
      * },
      * {
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;datadog&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;datadogRegion&quot;: &quot;string&quot;,
-     * 		&quot;datadogApiKey&quot;: &quot;string&quot;
-     * 	}
-     * }]</code></pre></p>
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;datadog&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;datadogRegion&quot;: &quot;string&quot;,
+     *     &quot;datadogApiKey&quot;: &quot;string&quot;
+     *   }
+     * }]
+     * </code></pre>
      */
     public List<LogStreamResponseSchema> list() {
         return this.rawClient.list().body();
@@ -104,71 +106,73 @@ public class LogStreamsClient {
 
     /**
      * Retrieve details on <a href="https://auth0.com/docs/logs/streams">log streams</a>.
-     * <p><h5>Sample Response</h5><pre><code>[{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;eventbridge&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;awsAccountId&quot;: &quot;string&quot;,
-     * 		&quot;awsRegion&quot;: &quot;string&quot;,
-     * 		&quot;awsPartnerEventSource&quot;: &quot;string&quot;
-     * 	}
+     * <p><strong>Sample Response</strong></p>
+     * <pre><code class="language-json">[{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;eventbridge&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;awsAccountId&quot;: &quot;string&quot;,
+     *     &quot;awsRegion&quot;: &quot;string&quot;,
+     *     &quot;awsPartnerEventSource&quot;: &quot;string&quot;
+     *   }
      * }, {
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;http&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
-     * 		&quot;httpContentType&quot;: &quot;string&quot;,
-     * 		&quot;httpEndpoint&quot;: &quot;string&quot;,
-     * 		&quot;httpAuthorization&quot;: &quot;string&quot;
-     * 	}
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;http&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
+     *     &quot;httpContentType&quot;: &quot;string&quot;,
+     *     &quot;httpEndpoint&quot;: &quot;string&quot;,
+     *     &quot;httpAuthorization&quot;: &quot;string&quot;
+     *   }
      * },
      * {
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;eventgrid&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;azureSubscriptionId&quot;: &quot;string&quot;,
-     * 		&quot;azureResourceGroup&quot;: &quot;string&quot;,
-     * 		&quot;azureRegion&quot;: &quot;string&quot;,
-     * 		&quot;azurePartnerTopic&quot;: &quot;string&quot;
-     * 	}
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;eventgrid&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;azureSubscriptionId&quot;: &quot;string&quot;,
+     *     &quot;azureResourceGroup&quot;: &quot;string&quot;,
+     *     &quot;azureRegion&quot;: &quot;string&quot;,
+     *     &quot;azurePartnerTopic&quot;: &quot;string&quot;
+     *   }
      * },
      * {
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;splunk&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;splunkDomain&quot;: &quot;string&quot;,
-     * 		&quot;splunkToken&quot;: &quot;string&quot;,
-     * 		&quot;splunkPort&quot;: &quot;string&quot;,
-     * 		&quot;splunkSecure&quot;: &quot;boolean&quot;
-     * 	}
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;splunk&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;splunkDomain&quot;: &quot;string&quot;,
+     *     &quot;splunkToken&quot;: &quot;string&quot;,
+     *     &quot;splunkPort&quot;: &quot;string&quot;,
+     *     &quot;splunkSecure&quot;: &quot;boolean&quot;
+     *   }
      * },
      * {
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;sumo&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;sumoSourceAddress&quot;: &quot;string&quot;,
-     * 	}
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;sumo&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
+     *   }
      * },
      * {
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;datadog&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;datadogRegion&quot;: &quot;string&quot;,
-     * 		&quot;datadogApiKey&quot;: &quot;string&quot;
-     * 	}
-     * }]</code></pre></p>
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;datadog&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;datadogRegion&quot;: &quot;string&quot;,
+     *     &quot;datadogApiKey&quot;: &quot;string&quot;
+     *   }
+     * }]
+     * </code></pre>
      */
     public List<LogStreamResponseSchema> list(RequestOptions requestOptions) {
         return this.rawClient.list(requestOptions).body();
@@ -176,131 +180,163 @@ public class LogStreamsClient {
 
     /**
      * Create a log stream.
-     * <p><h5>Log Stream Types</h5> The <code>type</code> of log stream being created determines the properties required in the <code>sink</code> payload.
-     * <h5>HTTP Stream</h5> For an <code>http</code> Stream, the <code>sink</code> properties are listed in the payload below
-     * Request: <pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;http&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;httpEndpoint&quot;: &quot;string&quot;,
-     * 		&quot;httpContentType&quot;: &quot;string&quot;,
-     * 		&quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
-     * 		&quot;httpAuthorization&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * Response: <pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;http&quot;,
-     * 	&quot;status&quot;: &quot;active&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;httpEndpoint&quot;: &quot;string&quot;,
-     * 		&quot;httpContentType&quot;: &quot;string&quot;,
-     * 		&quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
-     * 		&quot;httpAuthorization&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * <h5>Amazon EventBridge Stream</h5> For an <code>eventbridge</code> Stream, the <code>sink</code> properties are listed in the payload below
-     * Request: <pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;eventbridge&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;awsRegion&quot;: &quot;string&quot;,
-     * 		&quot;awsAccountId&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * The response will include an additional field <code>awsPartnerEventSource</code> in the <code>sink</code>: <pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;eventbridge&quot;,
-     * 	&quot;status&quot;: &quot;active&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;awsAccountId&quot;: &quot;string&quot;,
-     * 		&quot;awsRegion&quot;: &quot;string&quot;,
-     * 		&quot;awsPartnerEventSource&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * <h5>Azure Event Grid Stream</h5> For an <code>Azure Event Grid</code> Stream, the <code>sink</code> properties are listed in the payload below
-     * Request: <pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;eventgrid&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;azureSubscriptionId&quot;: &quot;string&quot;,
-     * 		&quot;azureResourceGroup&quot;: &quot;string&quot;,
-     * 		&quot;azureRegion&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * Response: <pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;http&quot;,
-     * 	&quot;status&quot;: &quot;active&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;azureSubscriptionId&quot;: &quot;string&quot;,
-     * 		&quot;azureResourceGroup&quot;: &quot;string&quot;,
-     * 		&quot;azureRegion&quot;: &quot;string&quot;,
-     * 		&quot;azurePartnerTopic&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * <h5>Datadog Stream</h5> For a <code>Datadog</code> Stream, the <code>sink</code> properties are listed in the payload below
-     * Request: <pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;datadog&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;datadogRegion&quot;: &quot;string&quot;,
-     * 		&quot;datadogApiKey&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * Response: <pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;datadog&quot;,
-     * 	&quot;status&quot;: &quot;active&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;datadogRegion&quot;: &quot;string&quot;,
-     * 		&quot;datadogApiKey&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * <h5>Splunk Stream</h5> For a <code>Splunk</code> Stream, the <code>sink</code> properties are listed in the payload below
-     * Request: <pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;splunk&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;splunkDomain&quot;: &quot;string&quot;,
-     * 		&quot;splunkToken&quot;: &quot;string&quot;,
-     * 		&quot;splunkPort&quot;: &quot;string&quot;,
-     * 		&quot;splunkSecure&quot;: &quot;boolean&quot;
-     * 	}
-     * }</code></pre>
-     * Response: <pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;splunk&quot;,
-     * 	&quot;status&quot;: &quot;active&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;splunkDomain&quot;: &quot;string&quot;,
-     * 		&quot;splunkToken&quot;: &quot;string&quot;,
-     * 		&quot;splunkPort&quot;: &quot;string&quot;,
-     * 		&quot;splunkSecure&quot;: &quot;boolean&quot;
-     * 	}
-     * }</code></pre>
-     * <h5>Sumo Logic Stream</h5> For a <code>Sumo Logic</code> Stream, the <code>sink</code> properties are listed in the payload below
-     * Request: <pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;sumo&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;sumoSourceAddress&quot;: &quot;string&quot;,
-     * 	}
-     * }</code></pre>
-     * Response: <pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;sumo&quot;,
-     * 	&quot;status&quot;: &quot;active&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;sumoSourceAddress&quot;: &quot;string&quot;,
-     * 	}
-     * }</code></pre></p>
+     * <p><strong>Log Stream Types</strong></p>
+     * <p>The <code>type</code> of log stream being created determines the properties required in the <code>sink</code> payload.</p>
+     * <p><strong>HTTP Stream</strong></p>
+     * <p>For an <code>http</code> Stream, the <code>sink</code> properties are listed in the payload below.</p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;http&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;httpEndpoint&quot;: &quot;string&quot;,
+     *     &quot;httpContentType&quot;: &quot;string&quot;,
+     *     &quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
+     *     &quot;httpAuthorization&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;http&quot;,
+     *   &quot;status&quot;: &quot;active&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;httpEndpoint&quot;: &quot;string&quot;,
+     *     &quot;httpContentType&quot;: &quot;string&quot;,
+     *     &quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
+     *     &quot;httpAuthorization&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Amazon EventBridge Stream</strong></p>
+     * <p>For an <code>eventbridge</code> Stream, the <code>sink</code> properties are listed in the payload below.</p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;eventbridge&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;awsRegion&quot;: &quot;string&quot;,
+     *     &quot;awsAccountId&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p>The response will include an additional field <code>awsPartnerEventSource</code> in the <code>sink</code>:</p>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;eventbridge&quot;,
+     *   &quot;status&quot;: &quot;active&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;awsAccountId&quot;: &quot;string&quot;,
+     *     &quot;awsRegion&quot;: &quot;string&quot;,
+     *     &quot;awsPartnerEventSource&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Azure Event Grid Stream</strong></p>
+     * <p>For an <code>Azure Event Grid</code> Stream, the <code>sink</code> properties are listed in the payload below.</p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;eventgrid&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;azureSubscriptionId&quot;: &quot;string&quot;,
+     *     &quot;azureResourceGroup&quot;: &quot;string&quot;,
+     *     &quot;azureRegion&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;http&quot;,
+     *   &quot;status&quot;: &quot;active&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;azureSubscriptionId&quot;: &quot;string&quot;,
+     *     &quot;azureResourceGroup&quot;: &quot;string&quot;,
+     *     &quot;azureRegion&quot;: &quot;string&quot;,
+     *     &quot;azurePartnerTopic&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Datadog Stream</strong></p>
+     * <p>For a <code>Datadog</code> Stream, the <code>sink</code> properties are listed in the payload below.</p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;datadog&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;datadogRegion&quot;: &quot;string&quot;,
+     *     &quot;datadogApiKey&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;datadog&quot;,
+     *   &quot;status&quot;: &quot;active&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;datadogRegion&quot;: &quot;string&quot;,
+     *     &quot;datadogApiKey&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Splunk Stream</strong></p>
+     * <p>For a <code>Splunk</code> Stream, the <code>sink</code> properties are listed in the payload below.</p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;splunk&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;splunkDomain&quot;: &quot;string&quot;,
+     *     &quot;splunkToken&quot;: &quot;string&quot;,
+     *     &quot;splunkPort&quot;: &quot;string&quot;,
+     *     &quot;splunkSecure&quot;: &quot;boolean&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;splunk&quot;,
+     *   &quot;status&quot;: &quot;active&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;splunkDomain&quot;: &quot;string&quot;,
+     *     &quot;splunkToken&quot;: &quot;string&quot;,
+     *     &quot;splunkPort&quot;: &quot;string&quot;,
+     *     &quot;splunkSecure&quot;: &quot;boolean&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Sumo Logic Stream</strong></p>
+     * <p>For a <code>Sumo Logic</code> Stream, the <code>sink</code> properties are listed in the payload below.</p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;sumo&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;sumo&quot;,
+     *   &quot;status&quot;: &quot;active&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
      */
     public CreateLogStreamResponseContent create(CreateLogStreamRequestContent request) {
         return this.rawClient.create(request).body();
@@ -308,131 +344,163 @@ public class LogStreamsClient {
 
     /**
      * Create a log stream.
-     * <p><h5>Log Stream Types</h5> The <code>type</code> of log stream being created determines the properties required in the <code>sink</code> payload.
-     * <h5>HTTP Stream</h5> For an <code>http</code> Stream, the <code>sink</code> properties are listed in the payload below
-     * Request: <pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;http&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;httpEndpoint&quot;: &quot;string&quot;,
-     * 		&quot;httpContentType&quot;: &quot;string&quot;,
-     * 		&quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
-     * 		&quot;httpAuthorization&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * Response: <pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;http&quot;,
-     * 	&quot;status&quot;: &quot;active&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;httpEndpoint&quot;: &quot;string&quot;,
-     * 		&quot;httpContentType&quot;: &quot;string&quot;,
-     * 		&quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
-     * 		&quot;httpAuthorization&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * <h5>Amazon EventBridge Stream</h5> For an <code>eventbridge</code> Stream, the <code>sink</code> properties are listed in the payload below
-     * Request: <pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;eventbridge&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;awsRegion&quot;: &quot;string&quot;,
-     * 		&quot;awsAccountId&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * The response will include an additional field <code>awsPartnerEventSource</code> in the <code>sink</code>: <pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;eventbridge&quot;,
-     * 	&quot;status&quot;: &quot;active&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;awsAccountId&quot;: &quot;string&quot;,
-     * 		&quot;awsRegion&quot;: &quot;string&quot;,
-     * 		&quot;awsPartnerEventSource&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * <h5>Azure Event Grid Stream</h5> For an <code>Azure Event Grid</code> Stream, the <code>sink</code> properties are listed in the payload below
-     * Request: <pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;eventgrid&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;azureSubscriptionId&quot;: &quot;string&quot;,
-     * 		&quot;azureResourceGroup&quot;: &quot;string&quot;,
-     * 		&quot;azureRegion&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * Response: <pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;http&quot;,
-     * 	&quot;status&quot;: &quot;active&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;azureSubscriptionId&quot;: &quot;string&quot;,
-     * 		&quot;azureResourceGroup&quot;: &quot;string&quot;,
-     * 		&quot;azureRegion&quot;: &quot;string&quot;,
-     * 		&quot;azurePartnerTopic&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * <h5>Datadog Stream</h5> For a <code>Datadog</code> Stream, the <code>sink</code> properties are listed in the payload below
-     * Request: <pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;datadog&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;datadogRegion&quot;: &quot;string&quot;,
-     * 		&quot;datadogApiKey&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * Response: <pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;datadog&quot;,
-     * 	&quot;status&quot;: &quot;active&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;datadogRegion&quot;: &quot;string&quot;,
-     * 		&quot;datadogApiKey&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre>
-     * <h5>Splunk Stream</h5> For a <code>Splunk</code> Stream, the <code>sink</code> properties are listed in the payload below
-     * Request: <pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;splunk&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;splunkDomain&quot;: &quot;string&quot;,
-     * 		&quot;splunkToken&quot;: &quot;string&quot;,
-     * 		&quot;splunkPort&quot;: &quot;string&quot;,
-     * 		&quot;splunkSecure&quot;: &quot;boolean&quot;
-     * 	}
-     * }</code></pre>
-     * Response: <pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;splunk&quot;,
-     * 	&quot;status&quot;: &quot;active&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;splunkDomain&quot;: &quot;string&quot;,
-     * 		&quot;splunkToken&quot;: &quot;string&quot;,
-     * 		&quot;splunkPort&quot;: &quot;string&quot;,
-     * 		&quot;splunkSecure&quot;: &quot;boolean&quot;
-     * 	}
-     * }</code></pre>
-     * <h5>Sumo Logic Stream</h5> For a <code>Sumo Logic</code> Stream, the <code>sink</code> properties are listed in the payload below
-     * Request: <pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;sumo&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;sumoSourceAddress&quot;: &quot;string&quot;,
-     * 	}
-     * }</code></pre>
-     * Response: <pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;sumo&quot;,
-     * 	&quot;status&quot;: &quot;active&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;sumoSourceAddress&quot;: &quot;string&quot;,
-     * 	}
-     * }</code></pre></p>
+     * <p><strong>Log Stream Types</strong></p>
+     * <p>The <code>type</code> of log stream being created determines the properties required in the <code>sink</code> payload.</p>
+     * <p><strong>HTTP Stream</strong></p>
+     * <p>For an <code>http</code> Stream, the <code>sink</code> properties are listed in the payload below.</p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;http&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;httpEndpoint&quot;: &quot;string&quot;,
+     *     &quot;httpContentType&quot;: &quot;string&quot;,
+     *     &quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
+     *     &quot;httpAuthorization&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;http&quot;,
+     *   &quot;status&quot;: &quot;active&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;httpEndpoint&quot;: &quot;string&quot;,
+     *     &quot;httpContentType&quot;: &quot;string&quot;,
+     *     &quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
+     *     &quot;httpAuthorization&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Amazon EventBridge Stream</strong></p>
+     * <p>For an <code>eventbridge</code> Stream, the <code>sink</code> properties are listed in the payload below.</p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;eventbridge&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;awsRegion&quot;: &quot;string&quot;,
+     *     &quot;awsAccountId&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p>The response will include an additional field <code>awsPartnerEventSource</code> in the <code>sink</code>:</p>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;eventbridge&quot;,
+     *   &quot;status&quot;: &quot;active&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;awsAccountId&quot;: &quot;string&quot;,
+     *     &quot;awsRegion&quot;: &quot;string&quot;,
+     *     &quot;awsPartnerEventSource&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Azure Event Grid Stream</strong></p>
+     * <p>For an <code>Azure Event Grid</code> Stream, the <code>sink</code> properties are listed in the payload below.</p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;eventgrid&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;azureSubscriptionId&quot;: &quot;string&quot;,
+     *     &quot;azureResourceGroup&quot;: &quot;string&quot;,
+     *     &quot;azureRegion&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;http&quot;,
+     *   &quot;status&quot;: &quot;active&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;azureSubscriptionId&quot;: &quot;string&quot;,
+     *     &quot;azureResourceGroup&quot;: &quot;string&quot;,
+     *     &quot;azureRegion&quot;: &quot;string&quot;,
+     *     &quot;azurePartnerTopic&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Datadog Stream</strong></p>
+     * <p>For a <code>Datadog</code> Stream, the <code>sink</code> properties are listed in the payload below.</p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;datadog&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;datadogRegion&quot;: &quot;string&quot;,
+     *     &quot;datadogApiKey&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;datadog&quot;,
+     *   &quot;status&quot;: &quot;active&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;datadogRegion&quot;: &quot;string&quot;,
+     *     &quot;datadogApiKey&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Splunk Stream</strong></p>
+     * <p>For a <code>Splunk</code> Stream, the <code>sink</code> properties are listed in the payload below.</p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;splunk&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;splunkDomain&quot;: &quot;string&quot;,
+     *     &quot;splunkToken&quot;: &quot;string&quot;,
+     *     &quot;splunkPort&quot;: &quot;string&quot;,
+     *     &quot;splunkSecure&quot;: &quot;boolean&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;splunk&quot;,
+     *   &quot;status&quot;: &quot;active&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;splunkDomain&quot;: &quot;string&quot;,
+     *     &quot;splunkToken&quot;: &quot;string&quot;,
+     *     &quot;splunkPort&quot;: &quot;string&quot;,
+     *     &quot;splunkSecure&quot;: &quot;boolean&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Sumo Logic Stream</strong></p>
+     * <p>For a <code>Sumo Logic</code> Stream, the <code>sink</code> properties are listed in the payload below.</p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;sumo&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;sumo&quot;,
+     *   &quot;status&quot;: &quot;active&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
      */
     public CreateLogStreamResponseContent create(CreateLogStreamRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).body();
@@ -440,105 +508,126 @@ public class LogStreamsClient {
 
     /**
      * Retrieve a log stream configuration and status.
-     * <p><h5>Sample responses</h5><h5>Amazon EventBridge Log Stream</h5><pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;eventbridge&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;awsAccountId&quot;: &quot;string&quot;,
-     * 		&quot;awsRegion&quot;: &quot;string&quot;,
-     * 		&quot;awsPartnerEventSource&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre> <h5>HTTP Log Stream</h5><pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;http&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
-     * 		&quot;httpContentType&quot;: &quot;string&quot;,
-     * 		&quot;httpEndpoint&quot;: &quot;string&quot;,
-     * 		&quot;httpAuthorization&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre> <h5>Datadog Log Stream</h5><pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;datadog&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;datadogRegion&quot;: &quot;string&quot;,
-     * 		&quot;datadogApiKey&quot;: &quot;string&quot;
-     * 	}</p>
-     * <p>}</code></pre><h5>Mixpanel</h5></p>
-     * <pre><code>Request: <pre><code>{
+     * <p><strong>Sample responses</strong></p>
+     * <p><strong>Amazon EventBridge Log Stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;eventbridge&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;awsAccountId&quot;: &quot;string&quot;,
+     *     &quot;awsRegion&quot;: &quot;string&quot;,
+     *     &quot;awsPartnerEventSource&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>HTTP Log Stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;http&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
+     *     &quot;httpContentType&quot;: &quot;string&quot;,
+     *     &quot;httpEndpoint&quot;: &quot;string&quot;,
+     *     &quot;httpAuthorization&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Datadog Log Stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;datadog&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;datadogRegion&quot;: &quot;string&quot;,
+     *     &quot;datadogApiKey&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Mixpanel</strong></p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
      *   &quot;name&quot;: &quot;string&quot;,
      *   &quot;type&quot;: &quot;mixpanel&quot;,
      *   &quot;sink&quot;: {
-     * 	&quot;mixpanelRegion&quot;: &quot;string&quot;, // &quot;us&quot; | &quot;eu&quot;,
-     * 	&quot;mixpanelProjectId&quot;: &quot;string&quot;,
-     * 	&quot;mixpanelServiceAccountUsername&quot;: &quot;string&quot;,
-     * 	&quot;mixpanelServiceAccountPassword&quot;: &quot;string&quot;
+     *     &quot;mixpanelRegion&quot;: &quot;string&quot;,
+     *     &quot;mixpanelProjectId&quot;: &quot;string&quot;,
+     *     &quot;mixpanelServiceAccountUsername&quot;: &quot;string&quot;,
+     *     &quot;mixpanelServiceAccountPassword&quot;: &quot;string&quot;
      *   }
-     * } </code></pre>
-     *
-     *
-     * Response: <pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;mixpanel&quot;,
-     * 	&quot;status&quot;: &quot;active&quot;,
-     * 	&quot;sink&quot;: {
-     * 	  &quot;mixpanelRegion&quot;: &quot;string&quot;, // &quot;us&quot; | &quot;eu&quot;,
-     * 	  &quot;mixpanelProjectId&quot;: &quot;string&quot;,
-     * 	  &quot;mixpanelServiceAccountUsername&quot;: &quot;string&quot;,
-     * 	  &quot;mixpanelServiceAccountPassword&quot;: &quot;string&quot; // the following is redacted on return
-     * 	}
-     *   } </code></pre>
-     *
-     * <h5>Segment</h5>
-     *
-     * Request: <pre><code> {
+     * }
+     * </code></pre>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;mixpanel&quot;,
+     *   &quot;status&quot;: &quot;active&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;mixpanelRegion&quot;: &quot;string&quot;,
+     *     &quot;mixpanelProjectId&quot;: &quot;string&quot;,
+     *     &quot;mixpanelServiceAccountUsername&quot;: &quot;string&quot;,
+     *     &quot;mixpanelServiceAccountPassword&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Segment</strong></p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
      *   &quot;name&quot;: &quot;string&quot;,
      *   &quot;type&quot;: &quot;segment&quot;,
      *   &quot;sink&quot;: {
-     * 	&quot;segmentWriteKey&quot;: &quot;string&quot;
+     *     &quot;segmentWriteKey&quot;: &quot;string&quot;
      *   }
-     * }</code></pre>
-     *
-     * Response: <pre><code>{
+     * }
+     * </code></pre>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
      *   &quot;id&quot;: &quot;string&quot;,
      *   &quot;name&quot;: &quot;string&quot;,
      *   &quot;type&quot;: &quot;segment&quot;,
      *   &quot;status&quot;: &quot;active&quot;,
      *   &quot;sink&quot;: {
-     * 	&quot;segmentWriteKey&quot;: &quot;string&quot;
+     *     &quot;segmentWriteKey&quot;: &quot;string&quot;
      *   }
-     * } </code></pre>
+     * }
      * </code></pre>
-     * <p><h5>Splunk Log Stream</h5><pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;splunk&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;splunkDomain&quot;: &quot;string&quot;,
-     * 		&quot;splunkToken&quot;: &quot;string&quot;,
-     * 		&quot;splunkPort&quot;: &quot;string&quot;,
-     * 		&quot;splunkSecure&quot;: &quot;boolean&quot;
-     * 	}
-     * }</code></pre> <h5>Sumo Logic Log Stream</h5><pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;sumo&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;sumoSourceAddress&quot;: &quot;string&quot;,
-     * 	}
-     * }</code></pre> <h5>Status</h5> The <code>status</code> of a log stream maybe any of the following:
-     * 1. <code>active</code> - Stream is currently enabled.
-     * 2. <code>paused</code> - Stream is currently user disabled and will not attempt log delivery.
-     * 3. <code>suspended</code> - Stream is currently disabled because of errors and will not attempt log delivery.</p>
+     * <p><strong>Splunk Log Stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;splunk&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;splunkDomain&quot;: &quot;string&quot;,
+     *     &quot;splunkToken&quot;: &quot;string&quot;,
+     *     &quot;splunkPort&quot;: &quot;string&quot;,
+     *     &quot;splunkSecure&quot;: &quot;boolean&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Sumo Logic Log Stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;sumo&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Status</strong></p>
+     * <p>The <code>status</code> of a log stream maybe any of the following:</p>
+     * <ol>
+     * <li><code>active</code> - Stream is currently enabled.</li>
+     * <li><code>paused</code> - Stream is currently user disabled and will not attempt log delivery.</li>
+     * <li><code>suspended</code> - Stream is currently disabled because of errors and will not attempt log delivery.</li>
+     * </ol>
      */
     public GetLogStreamResponseContent get(String id) {
         return this.rawClient.get(id).body();
@@ -546,105 +635,126 @@ public class LogStreamsClient {
 
     /**
      * Retrieve a log stream configuration and status.
-     * <p><h5>Sample responses</h5><h5>Amazon EventBridge Log Stream</h5><pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;eventbridge&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;awsAccountId&quot;: &quot;string&quot;,
-     * 		&quot;awsRegion&quot;: &quot;string&quot;,
-     * 		&quot;awsPartnerEventSource&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre> <h5>HTTP Log Stream</h5><pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;http&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
-     * 		&quot;httpContentType&quot;: &quot;string&quot;,
-     * 		&quot;httpEndpoint&quot;: &quot;string&quot;,
-     * 		&quot;httpAuthorization&quot;: &quot;string&quot;
-     * 	}
-     * }</code></pre> <h5>Datadog Log Stream</h5><pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;datadog&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;datadogRegion&quot;: &quot;string&quot;,
-     * 		&quot;datadogApiKey&quot;: &quot;string&quot;
-     * 	}</p>
-     * <p>}</code></pre><h5>Mixpanel</h5></p>
-     * <pre><code>Request: <pre><code>{
+     * <p><strong>Sample responses</strong></p>
+     * <p><strong>Amazon EventBridge Log Stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;eventbridge&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;awsAccountId&quot;: &quot;string&quot;,
+     *     &quot;awsRegion&quot;: &quot;string&quot;,
+     *     &quot;awsPartnerEventSource&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>HTTP Log Stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;http&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;httpContentFormat&quot;: &quot;JSONLINES|JSONARRAY&quot;,
+     *     &quot;httpContentType&quot;: &quot;string&quot;,
+     *     &quot;httpEndpoint&quot;: &quot;string&quot;,
+     *     &quot;httpAuthorization&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Datadog Log Stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;datadog&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;datadogRegion&quot;: &quot;string&quot;,
+     *     &quot;datadogApiKey&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Mixpanel</strong></p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
      *   &quot;name&quot;: &quot;string&quot;,
      *   &quot;type&quot;: &quot;mixpanel&quot;,
      *   &quot;sink&quot;: {
-     * 	&quot;mixpanelRegion&quot;: &quot;string&quot;, // &quot;us&quot; | &quot;eu&quot;,
-     * 	&quot;mixpanelProjectId&quot;: &quot;string&quot;,
-     * 	&quot;mixpanelServiceAccountUsername&quot;: &quot;string&quot;,
-     * 	&quot;mixpanelServiceAccountPassword&quot;: &quot;string&quot;
+     *     &quot;mixpanelRegion&quot;: &quot;string&quot;,
+     *     &quot;mixpanelProjectId&quot;: &quot;string&quot;,
+     *     &quot;mixpanelServiceAccountUsername&quot;: &quot;string&quot;,
+     *     &quot;mixpanelServiceAccountPassword&quot;: &quot;string&quot;
      *   }
-     * } </code></pre>
-     *
-     *
-     * Response: <pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;mixpanel&quot;,
-     * 	&quot;status&quot;: &quot;active&quot;,
-     * 	&quot;sink&quot;: {
-     * 	  &quot;mixpanelRegion&quot;: &quot;string&quot;, // &quot;us&quot; | &quot;eu&quot;,
-     * 	  &quot;mixpanelProjectId&quot;: &quot;string&quot;,
-     * 	  &quot;mixpanelServiceAccountUsername&quot;: &quot;string&quot;,
-     * 	  &quot;mixpanelServiceAccountPassword&quot;: &quot;string&quot; // the following is redacted on return
-     * 	}
-     *   } </code></pre>
-     *
-     * <h5>Segment</h5>
-     *
-     * Request: <pre><code> {
+     * }
+     * </code></pre>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;mixpanel&quot;,
+     *   &quot;status&quot;: &quot;active&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;mixpanelRegion&quot;: &quot;string&quot;,
+     *     &quot;mixpanelProjectId&quot;: &quot;string&quot;,
+     *     &quot;mixpanelServiceAccountUsername&quot;: &quot;string&quot;,
+     *     &quot;mixpanelServiceAccountPassword&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Segment</strong></p>
+     * <p><strong>Request:</strong></p>
+     * <pre><code class="language-json">{
      *   &quot;name&quot;: &quot;string&quot;,
      *   &quot;type&quot;: &quot;segment&quot;,
      *   &quot;sink&quot;: {
-     * 	&quot;segmentWriteKey&quot;: &quot;string&quot;
+     *     &quot;segmentWriteKey&quot;: &quot;string&quot;
      *   }
-     * }</code></pre>
-     *
-     * Response: <pre><code>{
+     * }
+     * </code></pre>
+     * <p><strong>Response:</strong></p>
+     * <pre><code class="language-json">{
      *   &quot;id&quot;: &quot;string&quot;,
      *   &quot;name&quot;: &quot;string&quot;,
      *   &quot;type&quot;: &quot;segment&quot;,
      *   &quot;status&quot;: &quot;active&quot;,
      *   &quot;sink&quot;: {
-     * 	&quot;segmentWriteKey&quot;: &quot;string&quot;
+     *     &quot;segmentWriteKey&quot;: &quot;string&quot;
      *   }
-     * } </code></pre>
+     * }
      * </code></pre>
-     * <p><h5>Splunk Log Stream</h5><pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;splunk&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;splunkDomain&quot;: &quot;string&quot;,
-     * 		&quot;splunkToken&quot;: &quot;string&quot;,
-     * 		&quot;splunkPort&quot;: &quot;string&quot;,
-     * 		&quot;splunkSecure&quot;: &quot;boolean&quot;
-     * 	}
-     * }</code></pre> <h5>Sumo Logic Log Stream</h5><pre><code>{
-     * 	&quot;id&quot;: &quot;string&quot;,
-     * 	&quot;name&quot;: &quot;string&quot;,
-     * 	&quot;type&quot;: &quot;sumo&quot;,
-     * 	&quot;status&quot;: &quot;active|paused|suspended&quot;,
-     * 	&quot;sink&quot;: {
-     * 		&quot;sumoSourceAddress&quot;: &quot;string&quot;,
-     * 	}
-     * }</code></pre> <h5>Status</h5> The <code>status</code> of a log stream maybe any of the following:
-     * 1. <code>active</code> - Stream is currently enabled.
-     * 2. <code>paused</code> - Stream is currently user disabled and will not attempt log delivery.
-     * 3. <code>suspended</code> - Stream is currently disabled because of errors and will not attempt log delivery.</p>
+     * <p><strong>Splunk Log Stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;splunk&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;splunkDomain&quot;: &quot;string&quot;,
+     *     &quot;splunkToken&quot;: &quot;string&quot;,
+     *     &quot;splunkPort&quot;: &quot;string&quot;,
+     *     &quot;splunkSecure&quot;: &quot;boolean&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Sumo Logic Log Stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;id&quot;: &quot;string&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;type&quot;: &quot;sumo&quot;,
+     *   &quot;status&quot;: &quot;active|paused|suspended&quot;,
+     *   &quot;sink&quot;: {
+     *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
+     *   }
+     * }
+     * </code></pre>
+     * <p><strong>Status</strong></p>
+     * <p>The <code>status</code> of a log stream maybe any of the following:</p>
+     * <ol>
+     * <li><code>active</code> - Stream is currently enabled.</li>
+     * <li><code>paused</code> - Stream is currently user disabled and will not attempt log delivery.</li>
+     * <li><code>suspended</code> - Stream is currently disabled because of errors and will not attempt log delivery.</li>
+     * </ol>
      */
     public GetLogStreamResponseContent get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).body();
@@ -666,40 +776,59 @@ public class LogStreamsClient {
 
     /**
      * Update a log stream.
-     * <p><h4>Examples of how to use the PATCH endpoint.</h4> The following fields may be updated in a PATCH operation: <ul><li>name</li><li>status</li><li>sink</li></ul> Note: For log streams of type <code>eventbridge</code> and <code>eventgrid</code>, updating the <code>sink</code> is not permitted.
-     * <h5>Update the status of a log stream</h5><pre><code>{
-     * 	&quot;status&quot;: &quot;active|paused&quot;
-     * }</code></pre>
-     * <h5>Update the name of a log stream</h5><pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>http</code></h5><pre><code>{
+     * <p><strong>Examples of how to use the PATCH endpoint.</strong></p>
+     * <p>The following fields may be updated in a PATCH operation:</p>
+     * <ul>
+     * <li>name</li>
+     * <li>status</li>
+     * <li>sink</li>
+     * </ul>
+     * <p>Note: For log streams of type <code>eventbridge</code> and <code>eventgrid</code>, updating the <code>sink</code> is not permitted.</p>
+     * <p><strong>Update the status of a log stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;status&quot;: &quot;active|paused&quot;
+     * }
+     * </code></pre>
+     * <p><strong>Update the name of a log stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>http</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
      *     &quot;httpEndpoint&quot;: &quot;string&quot;,
      *     &quot;httpContentType&quot;: &quot;string&quot;,
      *     &quot;httpContentFormat&quot;: &quot;JSONARRAY|JSONLINES&quot;,
      *     &quot;httpAuthorization&quot;: &quot;string&quot;
      *   }
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>datadog</code></h5><pre><code>{
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>datadog</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
-     * 		&quot;datadogRegion&quot;: &quot;string&quot;,
-     * 		&quot;datadogApiKey&quot;: &quot;string&quot;
+     *     &quot;datadogRegion&quot;: &quot;string&quot;,
+     *     &quot;datadogApiKey&quot;: &quot;string&quot;
      *   }
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>splunk</code></h5><pre><code>{
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>splunk</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
      *     &quot;splunkDomain&quot;: &quot;string&quot;,
      *     &quot;splunkToken&quot;: &quot;string&quot;,
      *     &quot;splunkPort&quot;: &quot;string&quot;,
      *     &quot;splunkSecure&quot;: &quot;boolean&quot;
      *   }
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>sumo</code></h5><pre><code>{
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>sumo</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
      *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
      *   }
-     * }</code></pre></p>
+     * }
+     * </code></pre>
      */
     public UpdateLogStreamResponseContent update(String id) {
         return this.rawClient.update(id).body();
@@ -707,40 +836,59 @@ public class LogStreamsClient {
 
     /**
      * Update a log stream.
-     * <p><h4>Examples of how to use the PATCH endpoint.</h4> The following fields may be updated in a PATCH operation: <ul><li>name</li><li>status</li><li>sink</li></ul> Note: For log streams of type <code>eventbridge</code> and <code>eventgrid</code>, updating the <code>sink</code> is not permitted.
-     * <h5>Update the status of a log stream</h5><pre><code>{
-     * 	&quot;status&quot;: &quot;active|paused&quot;
-     * }</code></pre>
-     * <h5>Update the name of a log stream</h5><pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>http</code></h5><pre><code>{
+     * <p><strong>Examples of how to use the PATCH endpoint.</strong></p>
+     * <p>The following fields may be updated in a PATCH operation:</p>
+     * <ul>
+     * <li>name</li>
+     * <li>status</li>
+     * <li>sink</li>
+     * </ul>
+     * <p>Note: For log streams of type <code>eventbridge</code> and <code>eventgrid</code>, updating the <code>sink</code> is not permitted.</p>
+     * <p><strong>Update the status of a log stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;status&quot;: &quot;active|paused&quot;
+     * }
+     * </code></pre>
+     * <p><strong>Update the name of a log stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>http</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
      *     &quot;httpEndpoint&quot;: &quot;string&quot;,
      *     &quot;httpContentType&quot;: &quot;string&quot;,
      *     &quot;httpContentFormat&quot;: &quot;JSONARRAY|JSONLINES&quot;,
      *     &quot;httpAuthorization&quot;: &quot;string&quot;
      *   }
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>datadog</code></h5><pre><code>{
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>datadog</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
-     * 		&quot;datadogRegion&quot;: &quot;string&quot;,
-     * 		&quot;datadogApiKey&quot;: &quot;string&quot;
+     *     &quot;datadogRegion&quot;: &quot;string&quot;,
+     *     &quot;datadogApiKey&quot;: &quot;string&quot;
      *   }
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>splunk</code></h5><pre><code>{
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>splunk</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
      *     &quot;splunkDomain&quot;: &quot;string&quot;,
      *     &quot;splunkToken&quot;: &quot;string&quot;,
      *     &quot;splunkPort&quot;: &quot;string&quot;,
      *     &quot;splunkSecure&quot;: &quot;boolean&quot;
      *   }
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>sumo</code></h5><pre><code>{
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>sumo</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
      *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
      *   }
-     * }</code></pre></p>
+     * }
+     * </code></pre>
      */
     public UpdateLogStreamResponseContent update(String id, RequestOptions requestOptions) {
         return this.rawClient.update(id, requestOptions).body();
@@ -748,40 +896,59 @@ public class LogStreamsClient {
 
     /**
      * Update a log stream.
-     * <p><h4>Examples of how to use the PATCH endpoint.</h4> The following fields may be updated in a PATCH operation: <ul><li>name</li><li>status</li><li>sink</li></ul> Note: For log streams of type <code>eventbridge</code> and <code>eventgrid</code>, updating the <code>sink</code> is not permitted.
-     * <h5>Update the status of a log stream</h5><pre><code>{
-     * 	&quot;status&quot;: &quot;active|paused&quot;
-     * }</code></pre>
-     * <h5>Update the name of a log stream</h5><pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>http</code></h5><pre><code>{
+     * <p><strong>Examples of how to use the PATCH endpoint.</strong></p>
+     * <p>The following fields may be updated in a PATCH operation:</p>
+     * <ul>
+     * <li>name</li>
+     * <li>status</li>
+     * <li>sink</li>
+     * </ul>
+     * <p>Note: For log streams of type <code>eventbridge</code> and <code>eventgrid</code>, updating the <code>sink</code> is not permitted.</p>
+     * <p><strong>Update the status of a log stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;status&quot;: &quot;active|paused&quot;
+     * }
+     * </code></pre>
+     * <p><strong>Update the name of a log stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>http</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
      *     &quot;httpEndpoint&quot;: &quot;string&quot;,
      *     &quot;httpContentType&quot;: &quot;string&quot;,
      *     &quot;httpContentFormat&quot;: &quot;JSONARRAY|JSONLINES&quot;,
      *     &quot;httpAuthorization&quot;: &quot;string&quot;
      *   }
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>datadog</code></h5><pre><code>{
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>datadog</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
-     * 		&quot;datadogRegion&quot;: &quot;string&quot;,
-     * 		&quot;datadogApiKey&quot;: &quot;string&quot;
+     *     &quot;datadogRegion&quot;: &quot;string&quot;,
+     *     &quot;datadogApiKey&quot;: &quot;string&quot;
      *   }
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>splunk</code></h5><pre><code>{
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>splunk</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
      *     &quot;splunkDomain&quot;: &quot;string&quot;,
      *     &quot;splunkToken&quot;: &quot;string&quot;,
      *     &quot;splunkPort&quot;: &quot;string&quot;,
      *     &quot;splunkSecure&quot;: &quot;boolean&quot;
      *   }
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>sumo</code></h5><pre><code>{
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>sumo</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
      *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
      *   }
-     * }</code></pre></p>
+     * }
+     * </code></pre>
      */
     public UpdateLogStreamResponseContent update(String id, UpdateLogStreamRequestContent request) {
         return this.rawClient.update(id, request).body();
@@ -789,40 +956,59 @@ public class LogStreamsClient {
 
     /**
      * Update a log stream.
-     * <p><h4>Examples of how to use the PATCH endpoint.</h4> The following fields may be updated in a PATCH operation: <ul><li>name</li><li>status</li><li>sink</li></ul> Note: For log streams of type <code>eventbridge</code> and <code>eventgrid</code>, updating the <code>sink</code> is not permitted.
-     * <h5>Update the status of a log stream</h5><pre><code>{
-     * 	&quot;status&quot;: &quot;active|paused&quot;
-     * }</code></pre>
-     * <h5>Update the name of a log stream</h5><pre><code>{
-     * 	&quot;name&quot;: &quot;string&quot;
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>http</code></h5><pre><code>{
+     * <p><strong>Examples of how to use the PATCH endpoint.</strong></p>
+     * <p>The following fields may be updated in a PATCH operation:</p>
+     * <ul>
+     * <li>name</li>
+     * <li>status</li>
+     * <li>sink</li>
+     * </ul>
+     * <p>Note: For log streams of type <code>eventbridge</code> and <code>eventgrid</code>, updating the <code>sink</code> is not permitted.</p>
+     * <p><strong>Update the status of a log stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;status&quot;: &quot;active|paused&quot;
+     * }
+     * </code></pre>
+     * <p><strong>Update the name of a log stream</strong></p>
+     * <pre><code class="language-json">{
+     *   &quot;name&quot;: &quot;string&quot;
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>http</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
      *     &quot;httpEndpoint&quot;: &quot;string&quot;,
      *     &quot;httpContentType&quot;: &quot;string&quot;,
      *     &quot;httpContentFormat&quot;: &quot;JSONARRAY|JSONLINES&quot;,
      *     &quot;httpAuthorization&quot;: &quot;string&quot;
      *   }
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>datadog</code></h5><pre><code>{
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>datadog</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
-     * 		&quot;datadogRegion&quot;: &quot;string&quot;,
-     * 		&quot;datadogApiKey&quot;: &quot;string&quot;
+     *     &quot;datadogRegion&quot;: &quot;string&quot;,
+     *     &quot;datadogApiKey&quot;: &quot;string&quot;
      *   }
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>splunk</code></h5><pre><code>{
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>splunk</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
      *     &quot;splunkDomain&quot;: &quot;string&quot;,
      *     &quot;splunkToken&quot;: &quot;string&quot;,
      *     &quot;splunkPort&quot;: &quot;string&quot;,
      *     &quot;splunkSecure&quot;: &quot;boolean&quot;
      *   }
-     * }</code></pre>
-     * <h5>Update the sink properties of a stream of type <code>sumo</code></h5><pre><code>{
+     * }
+     * </code></pre>
+     * <p><strong>Update the sink properties of a stream of type <code>sumo</code></strong></p>
+     * <pre><code class="language-json">{
      *   &quot;sink&quot;: {
      *     &quot;sumoSourceAddress&quot;: &quot;string&quot;
      *   }
-     * }</code></pre></p>
+     * }
+     * </code></pre>
      */
     public UpdateLogStreamResponseContent update(
             String id, UpdateLogStreamRequestContent request, RequestOptions requestOptions) {

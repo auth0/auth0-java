@@ -39,7 +39,7 @@ public class EventStreamsRedeliveriesWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"date_from\":\"2024-01-15T09:30:00Z\",\"date_to\":\"2024-01-15T09:30:00Z\",\"statuses\":[\"failed\"],\"event_types\":[\"user.created\"]}"));
+                                "{\"date_from\":\"2024-01-15T09:30:00Z\",\"date_to\":\"2024-01-15T09:30:00Z\",\"statuses\":[\"failed\"],\"event_types\":[\"group.created\"]}"));
         CreateEventStreamRedeliveryResponseContent response = client.eventStreams()
                 .redeliveries()
                 .create(
@@ -89,7 +89,7 @@ public class EventStreamsRedeliveriesWireTest {
                 + "    \"failed\"\n"
                 + "  ],\n"
                 + "  \"event_types\": [\n"
-                + "    \"user.created\"\n"
+                + "    \"group.created\"\n"
                 + "  ]\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
