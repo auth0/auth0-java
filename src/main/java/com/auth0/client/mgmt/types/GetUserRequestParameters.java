@@ -3,14 +3,13 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -41,8 +40,7 @@ public final class GetUserRequestParameters {
     /**
      * @return Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("fields")
+    @JsonIgnore
     public OptionalNullable<String> getFields() {
         if (fields == null) {
             return OptionalNullable.absent();
@@ -53,24 +51,11 @@ public final class GetUserRequestParameters {
     /**
      * @return Whether specified fields are to be included (true) or excluded (false).
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("include_fields")
+    @JsonIgnore
     public OptionalNullable<Boolean> getIncludeFields() {
         if (includeFields == null) {
             return OptionalNullable.absent();
         }
-        return includeFields;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("fields")
-    private OptionalNullable<String> _getFields() {
-        return fields;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("include_fields")
-    private OptionalNullable<Boolean> _getIncludeFields() {
         return includeFields;
     }
 

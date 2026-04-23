@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -11,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -67,8 +65,7 @@ public final class ListFlowsRequestParameters {
     /**
      * @return Page index of the results to return. First page is 0.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("page")
+    @JsonIgnore
     public OptionalNullable<Integer> getPage() {
         return page;
     }
@@ -76,8 +73,7 @@ public final class ListFlowsRequestParameters {
     /**
      * @return Number of results per page. Defaults to 50.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("per_page")
+    @JsonIgnore
     public OptionalNullable<Integer> getPerPage() {
         return perPage;
     }
@@ -85,8 +81,7 @@ public final class ListFlowsRequestParameters {
     /**
      * @return Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("include_totals")
+    @JsonIgnore
     public OptionalNullable<Boolean> getIncludeTotals() {
         return includeTotals;
     }
@@ -94,24 +89,11 @@ public final class ListFlowsRequestParameters {
     /**
      * @return flag to filter by sync/async flows
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("synchronous")
+    @JsonIgnore
     public OptionalNullable<Boolean> getSynchronous() {
         if (synchronous == null) {
             return OptionalNullable.absent();
         }
-        return synchronous;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("hydrate")
-    private Optional<List<ListFlowsRequestParametersHydrateEnum>> _getHydrate() {
-        return hydrate;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("synchronous")
-    private OptionalNullable<Boolean> _getSynchronous() {
         return synchronous;
     }
 

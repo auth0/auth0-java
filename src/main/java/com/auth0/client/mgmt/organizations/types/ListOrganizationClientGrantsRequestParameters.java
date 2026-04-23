@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.organizations.types;
 
-import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -11,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -71,8 +69,7 @@ public final class ListOrganizationClientGrantsRequestParameters {
     /**
      * @return Optional filter on audience of the client grant.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("audience")
+    @JsonIgnore
     public OptionalNullable<String> getAudience() {
         if (audience == null) {
             return OptionalNullable.absent();
@@ -83,8 +80,7 @@ public final class ListOrganizationClientGrantsRequestParameters {
     /**
      * @return Optional filter on client_id of the client grant.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("client_id")
+    @JsonIgnore
     public OptionalNullable<String> getClientId() {
         if (clientId == null) {
             return OptionalNullable.absent();
@@ -95,8 +91,7 @@ public final class ListOrganizationClientGrantsRequestParameters {
     /**
      * @return Page index of the results to return. First page is 0.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("page")
+    @JsonIgnore
     public OptionalNullable<Integer> getPage() {
         return page;
     }
@@ -104,8 +99,7 @@ public final class ListOrganizationClientGrantsRequestParameters {
     /**
      * @return Number of results per page. Defaults to 50.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("per_page")
+    @JsonIgnore
     public OptionalNullable<Integer> getPerPage() {
         return perPage;
     }
@@ -113,28 +107,9 @@ public final class ListOrganizationClientGrantsRequestParameters {
     /**
      * @return Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("include_totals")
+    @JsonIgnore
     public OptionalNullable<Boolean> getIncludeTotals() {
         return includeTotals;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("grant_ids")
-    private Optional<List<String>> _getGrantIds() {
-        return grantIds;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("audience")
-    private OptionalNullable<String> _getAudience() {
-        return audience;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("client_id")
-    private OptionalNullable<String> _getClientId() {
-        return clientId;
     }
 
     @java.lang.Override

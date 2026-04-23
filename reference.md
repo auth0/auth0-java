@@ -12569,7 +12569,7 @@ client.userAttributeProfiles().list(
 <dl>
 <dd>
 
-Retrieve details about a single User Attribute Profile specified by ID. 
+Create a User Attribute Profile
 </dd>
 </dl>
 </dd>
@@ -17514,9 +17514,12 @@ client.branding().phone().templates().update(
 <dd>
 
 ```java
-client.branding().phone().templates().reset("id", new 
-HashMap<String, Object>() {{put("key", "value");
-}});
+client.branding().phone().templates().reset(
+    "id",
+    ResetPhoneTemplateRequestContent.of(new 
+    HashMap<String, Object>() {{put("key", "value");
+    }})
+);
 ```
 </dd>
 </dl>
@@ -31029,7 +31032,7 @@ client.users().sessions().delete("user_id");
 <dl>
 <dd>
 
-List a verifiable credential templates.
+List verifiable credential templates.
 </dd>
 </dl>
 </dd>
@@ -31420,3 +31423,4 @@ client.verifiableCredentials().verification().templates().update(
 </dd>
 </dl>
 </details>
+

@@ -46,14 +46,14 @@ public class RawTemplatesClient {
     }
 
     /**
-     * List a verifiable credential templates.
+     * List verifiable credential templates.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<VerifiableCredentialTemplateResponse>> list() {
         return list(ListVerifiableCredentialTemplatesRequestParameters.builder().build());
     }
 
     /**
-     * List a verifiable credential templates.
+     * List verifiable credential templates.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<VerifiableCredentialTemplateResponse>> list(
             RequestOptions requestOptions) {
@@ -61,7 +61,7 @@ public class RawTemplatesClient {
     }
 
     /**
-     * List a verifiable credential templates.
+     * List verifiable credential templates.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<VerifiableCredentialTemplateResponse>> list(
             ListVerifiableCredentialTemplatesRequestParameters request) {
@@ -69,7 +69,7 @@ public class RawTemplatesClient {
     }
 
     /**
-     * List a verifiable credential templates.
+     * List verifiable credential templates.
      */
     public ManagementApiHttpResponse<SyncPagingIterable<VerifiableCredentialTemplateResponse>> list(
             ListVerifiableCredentialTemplatesRequestParameters request, RequestOptions requestOptions) {

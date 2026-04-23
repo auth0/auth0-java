@@ -51,7 +51,7 @@ public class AsyncRawTemplatesClient {
     }
 
     /**
-     * List a verifiable credential templates.
+     * List verifiable credential templates.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<VerifiableCredentialTemplateResponse>>>
             list() {
@@ -59,7 +59,7 @@ public class AsyncRawTemplatesClient {
     }
 
     /**
-     * List a verifiable credential templates.
+     * List verifiable credential templates.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<VerifiableCredentialTemplateResponse>>> list(
             RequestOptions requestOptions) {
@@ -67,7 +67,7 @@ public class AsyncRawTemplatesClient {
     }
 
     /**
-     * List a verifiable credential templates.
+     * List verifiable credential templates.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<VerifiableCredentialTemplateResponse>>> list(
             ListVerifiableCredentialTemplatesRequestParameters request) {
@@ -75,7 +75,7 @@ public class AsyncRawTemplatesClient {
     }
 
     /**
-     * List a verifiable credential templates.
+     * List verifiable credential templates.
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<VerifiableCredentialTemplateResponse>>> list(
             ListVerifiableCredentialTemplatesRequestParameters request, RequestOptions requestOptions) {

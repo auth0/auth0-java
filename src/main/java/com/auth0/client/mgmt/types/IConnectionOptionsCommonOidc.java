@@ -47,6 +47,8 @@ public interface IConnectionOptionsCommonOidc {
 
     OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> getTokenEndpointAuthSigningAlg();
 
+    Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> getTokenEndpointJwtcaAudFormat();
+
     OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams();
 
     Optional<String> getUserinfoEndpoint();

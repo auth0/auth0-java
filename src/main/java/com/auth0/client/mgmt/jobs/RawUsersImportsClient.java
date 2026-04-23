@@ -67,25 +67,19 @@ public class RawUsersImportsClient {
             MediaType usersMimeTypeMediaType = usersMimeType != null ? MediaType.parse(usersMimeType) : null;
             multipartBodyBuilder.addFormDataPart(
                     "users", users.getName(), RequestBody.create(users, usersMimeTypeMediaType));
-            multipartBodyBuilder.addFormDataPart(
-                    "connection_id", ObjectMappers.JSON_MAPPER.writeValueAsString(request.getConnectionId()));
+            multipartBodyBuilder.addFormDataPart("connection_id", request.getConnectionId());
             if (request.getUpsert().isPresent()) {
                 multipartBodyBuilder.addFormDataPart(
-                        "upsert",
-                        ObjectMappers.JSON_MAPPER.writeValueAsString(
-                                request.getUpsert().get()));
+                        "upsert", request.getUpsert().get().toString());
             }
             if (request.getExternalId().isPresent()) {
                 multipartBodyBuilder.addFormDataPart(
-                        "external_id",
-                        ObjectMappers.JSON_MAPPER.writeValueAsString(
-                                request.getExternalId().get()));
+                        "external_id", request.getExternalId().get());
             }
             if (request.getSendCompletionEmail().isPresent()) {
                 multipartBodyBuilder.addFormDataPart(
                         "send_completion_email",
-                        ObjectMappers.JSON_MAPPER.writeValueAsString(
-                                request.getSendCompletionEmail().get()));
+                        request.getSendCompletionEmail().get().toString());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.clients.types;
 
-import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.ConnectionStrategyEnum;
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -68,8 +66,7 @@ public final class ConnectionsGetRequest {
     /**
      * @return Optional Id from which to start selection.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("from")
+    @JsonIgnore
     public OptionalNullable<String> getFrom() {
         if (from == null) {
             return OptionalNullable.absent();
@@ -80,8 +77,7 @@ public final class ConnectionsGetRequest {
     /**
      * @return Number of results per page. Defaults to 50.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("take")
+    @JsonIgnore
     public OptionalNullable<Integer> getTake() {
         return take;
     }
@@ -89,8 +85,7 @@ public final class ConnectionsGetRequest {
     /**
      * @return A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("fields")
+    @JsonIgnore
     public OptionalNullable<String> getFields() {
         if (fields == null) {
             return OptionalNullable.absent();
@@ -101,36 +96,11 @@ public final class ConnectionsGetRequest {
     /**
      * @return <code>true</code> if the fields specified are to be included in the result, <code>false</code> otherwise (defaults to <code>true</code>)
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("include_fields")
+    @JsonIgnore
     public OptionalNullable<Boolean> getIncludeFields() {
         if (includeFields == null) {
             return OptionalNullable.absent();
         }
-        return includeFields;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("strategy")
-    private Optional<List<ConnectionStrategyEnum>> _getStrategy() {
-        return strategy;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("from")
-    private OptionalNullable<String> _getFrom() {
-        return from;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("fields")
-    private OptionalNullable<String> _getFields() {
-        return fields;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("include_fields")
-    private OptionalNullable<Boolean> _getIncludeFields() {
         return includeFields;
     }
 

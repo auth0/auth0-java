@@ -13,6 +13,7 @@ import com.auth0.client.mgmt.types.CreatePhoneTemplateResponseContent;
 import com.auth0.client.mgmt.types.CreatePhoneTemplateTestNotificationResponseContent;
 import com.auth0.client.mgmt.types.GetPhoneTemplateResponseContent;
 import com.auth0.client.mgmt.types.ListPhoneTemplatesResponseContent;
+import com.auth0.client.mgmt.types.ResetPhoneTemplateRequestContent;
 import com.auth0.client.mgmt.types.ResetPhoneTemplateResponseContent;
 import com.auth0.client.mgmt.types.UpdatePhoneTemplateResponseContent;
 import java.util.concurrent.CompletableFuture;
@@ -102,12 +103,13 @@ public class AsyncTemplatesClient {
         return this.rawClient.update(id, request, requestOptions).thenApply(response -> response.body());
     }
 
-    public CompletableFuture<ResetPhoneTemplateResponseContent> reset(String id, Object request) {
+    public CompletableFuture<ResetPhoneTemplateResponseContent> reset(
+            String id, ResetPhoneTemplateRequestContent request) {
         return this.rawClient.reset(id, request).thenApply(response -> response.body());
     }
 
     public CompletableFuture<ResetPhoneTemplateResponseContent> reset(
-            String id, Object request, RequestOptions requestOptions) {
+            String id, ResetPhoneTemplateRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.reset(id, request, requestOptions).thenApply(response -> response.body());
     }
 

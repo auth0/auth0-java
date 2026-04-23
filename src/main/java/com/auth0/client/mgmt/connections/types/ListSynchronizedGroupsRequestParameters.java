@@ -3,14 +3,13 @@
  */
 package com.auth0.client.mgmt.connections.types;
 
-import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -39,8 +38,7 @@ public final class ListSynchronizedGroupsRequestParameters {
     /**
      * @return Optional Id from which to start selection.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("from")
+    @JsonIgnore
     public OptionalNullable<String> getFrom() {
         if (from == null) {
             return OptionalNullable.absent();
@@ -51,16 +49,9 @@ public final class ListSynchronizedGroupsRequestParameters {
     /**
      * @return Number of results per page. Defaults to 50.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("take")
+    @JsonIgnore
     public OptionalNullable<Integer> getTake() {
         return take;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("from")
-    private OptionalNullable<String> _getFrom() {
-        return from;
     }
 
     @java.lang.Override

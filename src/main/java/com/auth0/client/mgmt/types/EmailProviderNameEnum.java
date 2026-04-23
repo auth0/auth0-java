@@ -17,6 +17,8 @@ public final class EmailProviderNameEnum {
 
     public static final EmailProviderNameEnum SPARKPOST = new EmailProviderNameEnum(Value.SPARKPOST, "sparkpost");
 
+    public static final EmailProviderNameEnum RESEND = new EmailProviderNameEnum(Value.RESEND, "resend");
+
     public static final EmailProviderNameEnum AZURE_CS = new EmailProviderNameEnum(Value.AZURE_CS, "azure_cs");
 
     public static final EmailProviderNameEnum SMTP = new EmailProviderNameEnum(Value.SMTP, "smtp");
@@ -68,6 +70,8 @@ public final class EmailProviderNameEnum {
                 return visitor.visitCustom();
             case SPARKPOST:
                 return visitor.visitSparkpost();
+            case RESEND:
+                return visitor.visitResend();
             case AZURE_CS:
                 return visitor.visitAzureCs();
             case SMTP:
@@ -95,6 +99,8 @@ public final class EmailProviderNameEnum {
                 return CUSTOM;
             case "sparkpost":
                 return SPARKPOST;
+            case "resend":
+                return RESEND;
             case "azure_cs":
                 return AZURE_CS;
             case "smtp":
@@ -114,6 +120,8 @@ public final class EmailProviderNameEnum {
         MANDRILL,
 
         SENDGRID,
+
+        RESEND,
 
         SES,
 
@@ -136,6 +144,8 @@ public final class EmailProviderNameEnum {
         T visitMandrill();
 
         T visitSendgrid();
+
+        T visitResend();
 
         T visitSes();
 

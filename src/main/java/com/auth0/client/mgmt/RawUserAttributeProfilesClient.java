@@ -146,7 +146,7 @@ public class RawUserAttributeProfilesClient {
     }
 
     /**
-     * Retrieve details about a single User Attribute Profile specified by ID.
+     * Create a User Attribute Profile
      */
     public ManagementApiHttpResponse<CreateUserAttributeProfileResponseContent> create(
             CreateUserAttributeProfileRequestContent request) {
@@ -154,7 +154,7 @@ public class RawUserAttributeProfilesClient {
     }
 
     /**
-     * Retrieve details about a single User Attribute Profile specified by ID.
+     * Create a User Attribute Profile
      */
     public ManagementApiHttpResponse<CreateUserAttributeProfileResponseContent> create(
             CreateUserAttributeProfileRequestContent request, RequestOptions requestOptions) {

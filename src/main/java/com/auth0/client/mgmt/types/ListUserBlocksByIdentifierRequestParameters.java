@@ -3,14 +3,13 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -42,7 +41,7 @@ public final class ListUserBlocksByIdentifierRequestParameters {
     /**
      * @return Should be any of a username, phone number, or email.
      */
-    @JsonProperty("identifier")
+    @JsonIgnore
     public String getIdentifier() {
         return identifier;
     }
@@ -51,18 +50,11 @@ public final class ListUserBlocksByIdentifierRequestParameters {
      * @return If true and Brute Force Protection is enabled and configured to block logins, will return a list of blocked IP addresses.
      * If true and Brute Force Protection is disabled, will return an empty list.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("consider_brute_force_enablement")
+    @JsonIgnore
     public OptionalNullable<Boolean> getConsiderBruteForceEnablement() {
         if (considerBruteForceEnablement == null) {
             return OptionalNullable.absent();
         }
-        return considerBruteForceEnablement;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("consider_brute_force_enablement")
-    private OptionalNullable<Boolean> _getConsiderBruteForceEnablement() {
         return considerBruteForceEnablement;
     }
 

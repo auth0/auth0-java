@@ -63,6 +63,8 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
 
     private final OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg;
 
+    private final Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat;
+
     private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             upstreamParams;
 
@@ -98,6 +100,7 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
             Optional<String> tokenEndpoint,
             OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod,
             OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg,
+            Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<String> userinfoEndpoint,
             Optional<List<String>> nonPersistentAttrs,
@@ -124,6 +127,7 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         this.tokenEndpoint = tokenEndpoint;
         this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
         this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
+        this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
         this.upstreamParams = upstreamParams;
         this.userinfoEndpoint = userinfoEndpoint;
         this.nonPersistentAttrs = nonPersistentAttrs;
@@ -263,6 +267,12 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         return tokenEndpointAuthSigningAlg;
     }
 
+    @JsonProperty("token_endpoint_jwtca_aud_format")
+    @java.lang.Override
+    public Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> getTokenEndpointJwtcaAudFormat() {
+        return tokenEndpointJwtcaAudFormat;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
     @java.lang.Override
@@ -362,6 +372,7 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                 && tokenEndpoint.equals(other.tokenEndpoint)
                 && tokenEndpointAuthMethod.equals(other.tokenEndpointAuthMethod)
                 && tokenEndpointAuthSigningAlg.equals(other.tokenEndpointAuthSigningAlg)
+                && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat)
                 && upstreamParams.equals(other.upstreamParams)
                 && userinfoEndpoint.equals(other.userinfoEndpoint)
                 && nonPersistentAttrs.equals(other.nonPersistentAttrs)
@@ -392,6 +403,7 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                 this.tokenEndpoint,
                 this.tokenEndpointAuthMethod,
                 this.tokenEndpointAuthSigningAlg,
+                this.tokenEndpointJwtcaAudFormat,
                 this.upstreamParams,
                 this.userinfoEndpoint,
                 this.nonPersistentAttrs,
@@ -526,6 +538,12 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                 com.auth0.client.mgmt.core.Nullable<ConnectionTokenEndpointAuthSigningAlgEnum>
                         tokenEndpointAuthSigningAlg);
 
+        _FinalStage tokenEndpointJwtcaAudFormat(
+                Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat);
+
+        _FinalStage tokenEndpointJwtcaAudFormat(
+                ConnectionTokenEndpointJwtcaAudFormatEnumOidc tokenEndpointJwtcaAudFormat);
+
         _FinalStage upstreamParams(
                 @Nullable
                         OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
@@ -579,6 +597,8 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
 
         private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
                 OptionalNullable.absent();
+
+        private Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat = Optional.empty();
 
         private OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg =
                 OptionalNullable.absent();
@@ -646,6 +666,7 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
             tokenEndpoint(other.getTokenEndpoint());
             tokenEndpointAuthMethod(other.getTokenEndpointAuthMethod());
             tokenEndpointAuthSigningAlg(other.getTokenEndpointAuthSigningAlg());
+            tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
             upstreamParams(other.getUpstreamParams());
             userinfoEndpoint(other.getUserinfoEndpoint());
             nonPersistentAttrs(other.getNonPersistentAttrs());
@@ -767,6 +788,21 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                         OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
                                 upstreamParams) {
             this.upstreamParams = upstreamParams;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage tokenEndpointJwtcaAudFormat(
+                ConnectionTokenEndpointJwtcaAudFormatEnumOidc tokenEndpointJwtcaAudFormat) {
+            this.tokenEndpointJwtcaAudFormat = Optional.ofNullable(tokenEndpointJwtcaAudFormat);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "token_endpoint_jwtca_aud_format", nulls = Nulls.SKIP)
+        public _FinalStage tokenEndpointJwtcaAudFormat(
+                Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat) {
+            this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
             return this;
         }
 
@@ -1133,6 +1169,7 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                     tokenEndpoint,
                     tokenEndpointAuthMethod,
                     tokenEndpointAuthSigningAlg,
+                    tokenEndpointJwtcaAudFormat,
                     upstreamParams,
                     userinfoEndpoint,
                     nonPersistentAttrs,

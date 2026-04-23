@@ -65,6 +65,8 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
 
     private final OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg;
 
+    private final Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat;
+
     private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             upstreamParams;
 
@@ -99,6 +101,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
             Optional<String> tokenEndpoint,
             OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod,
             OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg,
+            Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<String> userinfoEndpoint,
             Optional<ConnectionAttributeMapOkta> attributeMap,
@@ -125,6 +128,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
         this.tokenEndpoint = tokenEndpoint;
         this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
         this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
+        this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
         this.upstreamParams = upstreamParams;
         this.userinfoEndpoint = userinfoEndpoint;
         this.attributeMap = attributeMap;
@@ -269,6 +273,12 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
         return tokenEndpointAuthSigningAlg;
     }
 
+    @JsonProperty("token_endpoint_jwtca_aud_format")
+    @java.lang.Override
+    public Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> getTokenEndpointJwtcaAudFormat() {
+        return tokenEndpointJwtcaAudFormat;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
     @java.lang.Override
@@ -363,6 +373,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
                 && tokenEndpoint.equals(other.tokenEndpoint)
                 && tokenEndpointAuthMethod.equals(other.tokenEndpointAuthMethod)
                 && tokenEndpointAuthSigningAlg.equals(other.tokenEndpointAuthSigningAlg)
+                && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat)
                 && upstreamParams.equals(other.upstreamParams)
                 && userinfoEndpoint.equals(other.userinfoEndpoint)
                 && attributeMap.equals(other.attributeMap)
@@ -393,6 +404,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
                 this.tokenEndpoint,
                 this.tokenEndpointAuthMethod,
                 this.tokenEndpointAuthSigningAlg,
+                this.tokenEndpointJwtcaAudFormat,
                 this.upstreamParams,
                 this.userinfoEndpoint,
                 this.attributeMap,
@@ -530,6 +542,12 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
                 com.auth0.client.mgmt.core.Nullable<ConnectionTokenEndpointAuthSigningAlgEnum>
                         tokenEndpointAuthSigningAlg);
 
+        _FinalStage tokenEndpointJwtcaAudFormat(
+                Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat);
+
+        _FinalStage tokenEndpointJwtcaAudFormat(
+                ConnectionTokenEndpointJwtcaAudFormatEnumOidc tokenEndpointJwtcaAudFormat);
+
         _FinalStage upstreamParams(
                 @Nullable
                         OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
@@ -577,6 +595,8 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
 
         private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
                 OptionalNullable.absent();
+
+        private Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat = Optional.empty();
 
         private OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg =
                 OptionalNullable.absent();
@@ -647,6 +667,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
             tokenEndpoint(other.getTokenEndpoint());
             tokenEndpointAuthMethod(other.getTokenEndpointAuthMethod());
             tokenEndpointAuthSigningAlg(other.getTokenEndpointAuthSigningAlg());
+            tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
             upstreamParams(other.getUpstreamParams());
             userinfoEndpoint(other.getUserinfoEndpoint());
             attributeMap(other.getAttributeMap());
@@ -754,6 +775,21 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
                         OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
                                 upstreamParams) {
             this.upstreamParams = upstreamParams;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage tokenEndpointJwtcaAudFormat(
+                ConnectionTokenEndpointJwtcaAudFormatEnumOidc tokenEndpointJwtcaAudFormat) {
+            this.tokenEndpointJwtcaAudFormat = Optional.ofNullable(tokenEndpointJwtcaAudFormat);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "token_endpoint_jwtca_aud_format", nulls = Nulls.SKIP)
+        public _FinalStage tokenEndpointJwtcaAudFormat(
+                Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat) {
+            this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
             return this;
         }
 
@@ -1134,6 +1170,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
                     tokenEndpoint,
                     tokenEndpointAuthMethod,
                     tokenEndpointAuthSigningAlg,
+                    tokenEndpointJwtcaAudFormat,
                     upstreamParams,
                     userinfoEndpoint,
                     attributeMap,

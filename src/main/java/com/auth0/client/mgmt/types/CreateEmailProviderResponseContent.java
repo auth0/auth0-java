@@ -48,7 +48,7 @@ public final class CreateEmailProviderResponseContent {
     }
 
     /**
-     * @return Name of the email provider. Can be <code>mailgun</code>, <code>mandrill</code>, <code>sendgrid</code>, <code>ses</code>, <code>sparkpost</code>, <code>smtp</code>, <code>azure_cs</code>, <code>ms365</code>, or <code>custom</code>.
+     * @return Name of the email provider. Can be <code>mailgun</code>, <code>mandrill</code>, <code>sendgrid</code>, <code>resend</code>, <code>ses</code>, <code>sparkpost</code>, <code>smtp</code>, <code>azure_cs</code>, <code>ms365</code>, or <code>custom</code>.
      */
     @JsonProperty("name")
     public Optional<String> getName() {
@@ -142,7 +142,7 @@ public final class CreateEmailProviderResponseContent {
         }
 
         /**
-         * <p>Name of the email provider. Can be <code>mailgun</code>, <code>mandrill</code>, <code>sendgrid</code>, <code>ses</code>, <code>sparkpost</code>, <code>smtp</code>, <code>azure_cs</code>, <code>ms365</code>, or <code>custom</code>.</p>
+         * <p>Name of the email provider. Can be <code>mailgun</code>, <code>mandrill</code>, <code>sendgrid</code>, <code>resend</code>, <code>ses</code>, <code>sparkpost</code>, <code>smtp</code>, <code>azure_cs</code>, <code>ms365</code>, or <code>custom</code>.</p>
          */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
