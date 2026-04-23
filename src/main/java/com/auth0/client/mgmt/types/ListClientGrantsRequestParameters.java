@@ -35,6 +35,8 @@ public final class ListClientGrantsRequestParameters {
 
     private final OptionalNullable<ClientGrantSubjectTypeEnum> subjectType;
 
+    private final OptionalNullable<ClientGrantDefaultForEnum> defaultFor;
+
     private final Map<String, Object> additionalProperties;
 
     private ListClientGrantsRequestParameters(
@@ -44,6 +46,7 @@ public final class ListClientGrantsRequestParameters {
             OptionalNullable<String> clientId,
             OptionalNullable<Boolean> allowAnyOrganization,
             OptionalNullable<ClientGrantSubjectTypeEnum> subjectType,
+            OptionalNullable<ClientGrantDefaultForEnum> defaultFor,
             Map<String, Object> additionalProperties) {
         this.from = from;
         this.take = take;
@@ -51,6 +54,7 @@ public final class ListClientGrantsRequestParameters {
         this.clientId = clientId;
         this.allowAnyOrganization = allowAnyOrganization;
         this.subjectType = subjectType;
+        this.defaultFor = defaultFor;
         this.additionalProperties = additionalProperties;
     }
 
@@ -123,6 +127,18 @@ public final class ListClientGrantsRequestParameters {
         return subjectType;
     }
 
+    /**
+     * @return Applies this client grant as the default for all clients in the specified group. The only accepted value is <code>third_party_clients</code>, which applies the grant to all third-party clients. Per-client grants for the same audience take precedence. Mutually exclusive with <code>client_id</code>.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("default_for")
+    public OptionalNullable<ClientGrantDefaultForEnum> getDefaultFor() {
+        if (defaultFor == null) {
+            return OptionalNullable.absent();
+        }
+        return defaultFor;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("from")
     private OptionalNullable<String> _getFrom() {
@@ -153,6 +169,12 @@ public final class ListClientGrantsRequestParameters {
         return subjectType;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("default_for")
+    private OptionalNullable<ClientGrantDefaultForEnum> _getDefaultFor() {
+        return defaultFor;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -170,13 +192,20 @@ public final class ListClientGrantsRequestParameters {
                 && audience.equals(other.audience)
                 && clientId.equals(other.clientId)
                 && allowAnyOrganization.equals(other.allowAnyOrganization)
-                && subjectType.equals(other.subjectType);
+                && subjectType.equals(other.subjectType)
+                && defaultFor.equals(other.defaultFor);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.from, this.take, this.audience, this.clientId, this.allowAnyOrganization, this.subjectType);
+                this.from,
+                this.take,
+                this.audience,
+                this.clientId,
+                this.allowAnyOrganization,
+                this.subjectType,
+                this.defaultFor);
     }
 
     @java.lang.Override
@@ -202,6 +231,8 @@ public final class ListClientGrantsRequestParameters {
 
         private OptionalNullable<ClientGrantSubjectTypeEnum> subjectType = OptionalNullable.absent();
 
+        private OptionalNullable<ClientGrantDefaultForEnum> defaultFor = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -214,6 +245,7 @@ public final class ListClientGrantsRequestParameters {
             clientId(other.getClientId());
             allowAnyOrganization(other.getAllowAnyOrganization());
             subjectType(other.getSubjectType());
+            defaultFor(other.getDefaultFor());
             return this;
         }
 
@@ -421,9 +453,50 @@ public final class ListClientGrantsRequestParameters {
             return this;
         }
 
+        /**
+         * <p>Applies this client grant as the default for all clients in the specified group. The only accepted value is <code>third_party_clients</code>, which applies the grant to all third-party clients. Per-client grants for the same audience take precedence. Mutually exclusive with <code>client_id</code>.</p>
+         */
+        @JsonSetter(value = "default_for", nulls = Nulls.SKIP)
+        public Builder defaultFor(@Nullable OptionalNullable<ClientGrantDefaultForEnum> defaultFor) {
+            this.defaultFor = defaultFor;
+            return this;
+        }
+
+        public Builder defaultFor(ClientGrantDefaultForEnum defaultFor) {
+            this.defaultFor = OptionalNullable.of(defaultFor);
+            return this;
+        }
+
+        public Builder defaultFor(Optional<ClientGrantDefaultForEnum> defaultFor) {
+            if (defaultFor.isPresent()) {
+                this.defaultFor = OptionalNullable.of(defaultFor.get());
+            } else {
+                this.defaultFor = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder defaultFor(com.auth0.client.mgmt.core.Nullable<ClientGrantDefaultForEnum> defaultFor) {
+            if (defaultFor.isNull()) {
+                this.defaultFor = OptionalNullable.ofNull();
+            } else if (defaultFor.isEmpty()) {
+                this.defaultFor = OptionalNullable.absent();
+            } else {
+                this.defaultFor = OptionalNullable.of(defaultFor.get());
+            }
+            return this;
+        }
+
         public ListClientGrantsRequestParameters build() {
             return new ListClientGrantsRequestParameters(
-                    from, take, audience, clientId, allowAnyOrganization, subjectType, additionalProperties);
+                    from,
+                    take,
+                    audience,
+                    clientId,
+                    allowAnyOrganization,
+                    subjectType,
+                    defaultFor,
+                    additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

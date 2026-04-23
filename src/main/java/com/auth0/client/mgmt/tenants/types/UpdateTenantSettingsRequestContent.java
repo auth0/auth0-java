@@ -10,6 +10,7 @@ import com.auth0.client.mgmt.types.DefaultTokenQuota;
 import com.auth0.client.mgmt.types.SessionCookieSchema;
 import com.auth0.client.mgmt.types.TenantOidcLogoutSettings;
 import com.auth0.client.mgmt.types.TenantSettingsDeviceFlow;
+import com.auth0.client.mgmt.types.TenantSettingsDynamicClientRegistrationSecurityMode;
 import com.auth0.client.mgmt.types.TenantSettingsErrorPage;
 import com.auth0.client.mgmt.types.TenantSettingsFlags;
 import com.auth0.client.mgmt.types.TenantSettingsGuardianPage;
@@ -100,9 +101,13 @@ public final class UpdateTenantSettingsRequestContent {
 
     private final Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile;
 
+    private final Optional<Boolean> clientIdMetadataDocumentSupported;
+
     private final Optional<Boolean> enableAiGuide;
 
     private final Optional<Boolean> phoneConsolidatedExperience;
+
+    private final Optional<TenantSettingsDynamicClientRegistrationSecurityMode> dynamicClientRegistrationSecurityMode;
 
     private final Map<String, Object> additionalProperties;
 
@@ -139,8 +144,10 @@ public final class UpdateTenantSettingsRequestContent {
             OptionalNullable<Boolean> authorizationResponseIssParameterSupported,
             OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt,
             Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile,
+            Optional<Boolean> clientIdMetadataDocumentSupported,
             Optional<Boolean> enableAiGuide,
             Optional<Boolean> phoneConsolidatedExperience,
+            Optional<TenantSettingsDynamicClientRegistrationSecurityMode> dynamicClientRegistrationSecurityMode,
             Map<String, Object> additionalProperties) {
         this.changePassword = changePassword;
         this.deviceFlow = deviceFlow;
@@ -174,8 +181,10 @@ public final class UpdateTenantSettingsRequestContent {
         this.authorizationResponseIssParameterSupported = authorizationResponseIssParameterSupported;
         this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
         this.resourceParameterProfile = resourceParameterProfile;
+        this.clientIdMetadataDocumentSupported = clientIdMetadataDocumentSupported;
         this.enableAiGuide = enableAiGuide;
         this.phoneConsolidatedExperience = phoneConsolidatedExperience;
+        this.dynamicClientRegistrationSecurityMode = dynamicClientRegistrationSecurityMode;
         this.additionalProperties = additionalProperties;
     }
 
@@ -464,6 +473,14 @@ public final class UpdateTenantSettingsRequestContent {
     }
 
     /**
+     * @return Whether the authorization server supports retrieving client metadata from a client_id URL.
+     */
+    @JsonProperty("client_id_metadata_document_supported")
+    public Optional<Boolean> getClientIdMetadataDocumentSupported() {
+        return clientIdMetadataDocumentSupported;
+    }
+
+    /**
      * @return Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
      */
     @JsonProperty("enable_ai_guide")
@@ -477,6 +494,11 @@ public final class UpdateTenantSettingsRequestContent {
     @JsonProperty("phone_consolidated_experience")
     public Optional<Boolean> getPhoneConsolidatedExperience() {
         return phoneConsolidatedExperience;
+    }
+
+    @JsonProperty("dynamic_client_registration_security_mode")
+    public Optional<TenantSettingsDynamicClientRegistrationSecurityMode> getDynamicClientRegistrationSecurityMode() {
+        return dynamicClientRegistrationSecurityMode;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -609,8 +631,10 @@ public final class UpdateTenantSettingsRequestContent {
                 && skipNonVerifiableCallbackUriConfirmationPrompt.equals(
                         other.skipNonVerifiableCallbackUriConfirmationPrompt)
                 && resourceParameterProfile.equals(other.resourceParameterProfile)
+                && clientIdMetadataDocumentSupported.equals(other.clientIdMetadataDocumentSupported)
                 && enableAiGuide.equals(other.enableAiGuide)
-                && phoneConsolidatedExperience.equals(other.phoneConsolidatedExperience);
+                && phoneConsolidatedExperience.equals(other.phoneConsolidatedExperience)
+                && dynamicClientRegistrationSecurityMode.equals(other.dynamicClientRegistrationSecurityMode);
     }
 
     @java.lang.Override
@@ -648,8 +672,10 @@ public final class UpdateTenantSettingsRequestContent {
                 this.authorizationResponseIssParameterSupported,
                 this.skipNonVerifiableCallbackUriConfirmationPrompt,
                 this.resourceParameterProfile,
+                this.clientIdMetadataDocumentSupported,
                 this.enableAiGuide,
-                this.phoneConsolidatedExperience);
+                this.phoneConsolidatedExperience,
+                this.dynamicClientRegistrationSecurityMode);
     }
 
     @java.lang.Override
@@ -727,9 +753,14 @@ public final class UpdateTenantSettingsRequestContent {
 
         private Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile = Optional.empty();
 
+        private Optional<Boolean> clientIdMetadataDocumentSupported = Optional.empty();
+
         private Optional<Boolean> enableAiGuide = Optional.empty();
 
         private Optional<Boolean> phoneConsolidatedExperience = Optional.empty();
+
+        private Optional<TenantSettingsDynamicClientRegistrationSecurityMode> dynamicClientRegistrationSecurityMode =
+                Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -769,8 +800,10 @@ public final class UpdateTenantSettingsRequestContent {
             authorizationResponseIssParameterSupported(other.getAuthorizationResponseIssParameterSupported());
             skipNonVerifiableCallbackUriConfirmationPrompt(other.getSkipNonVerifiableCallbackUriConfirmationPrompt());
             resourceParameterProfile(other.getResourceParameterProfile());
+            clientIdMetadataDocumentSupported(other.getClientIdMetadataDocumentSupported());
             enableAiGuide(other.getEnableAiGuide());
             phoneConsolidatedExperience(other.getPhoneConsolidatedExperience());
+            dynamicClientRegistrationSecurityMode(other.getDynamicClientRegistrationSecurityMode());
             return this;
         }
 
@@ -1502,6 +1535,20 @@ public final class UpdateTenantSettingsRequestContent {
         }
 
         /**
+         * <p>Whether the authorization server supports retrieving client metadata from a client_id URL.</p>
+         */
+        @JsonSetter(value = "client_id_metadata_document_supported", nulls = Nulls.SKIP)
+        public Builder clientIdMetadataDocumentSupported(Optional<Boolean> clientIdMetadataDocumentSupported) {
+            this.clientIdMetadataDocumentSupported = clientIdMetadataDocumentSupported;
+            return this;
+        }
+
+        public Builder clientIdMetadataDocumentSupported(Boolean clientIdMetadataDocumentSupported) {
+            this.clientIdMetadataDocumentSupported = Optional.ofNullable(clientIdMetadataDocumentSupported);
+            return this;
+        }
+
+        /**
          * <p>Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.</p>
          */
         @JsonSetter(value = "enable_ai_guide", nulls = Nulls.SKIP)
@@ -1526,6 +1573,19 @@ public final class UpdateTenantSettingsRequestContent {
 
         public Builder phoneConsolidatedExperience(Boolean phoneConsolidatedExperience) {
             this.phoneConsolidatedExperience = Optional.ofNullable(phoneConsolidatedExperience);
+            return this;
+        }
+
+        @JsonSetter(value = "dynamic_client_registration_security_mode", nulls = Nulls.SKIP)
+        public Builder dynamicClientRegistrationSecurityMode(
+                Optional<TenantSettingsDynamicClientRegistrationSecurityMode> dynamicClientRegistrationSecurityMode) {
+            this.dynamicClientRegistrationSecurityMode = dynamicClientRegistrationSecurityMode;
+            return this;
+        }
+
+        public Builder dynamicClientRegistrationSecurityMode(
+                TenantSettingsDynamicClientRegistrationSecurityMode dynamicClientRegistrationSecurityMode) {
+            this.dynamicClientRegistrationSecurityMode = Optional.ofNullable(dynamicClientRegistrationSecurityMode);
             return this;
         }
 
@@ -1563,8 +1623,10 @@ public final class UpdateTenantSettingsRequestContent {
                     authorizationResponseIssParameterSupported,
                     skipNonVerifiableCallbackUriConfirmationPrompt,
                     resourceParameterProfile,
+                    clientIdMetadataDocumentSupported,
                     enableAiGuide,
                     phoneConsolidatedExperience,
+                    dynamicClientRegistrationSecurityMode,
                     additionalProperties);
         }
 

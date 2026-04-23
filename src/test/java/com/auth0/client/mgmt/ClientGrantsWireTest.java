@@ -3,6 +3,7 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
+import com.auth0.client.mgmt.types.ClientGrantDefaultForEnum;
 import com.auth0.client.mgmt.types.ClientGrantResponseContent;
 import com.auth0.client.mgmt.types.ClientGrantSubjectTypeEnum;
 import com.auth0.client.mgmt.types.CreateClientGrantRequestContent;
@@ -47,7 +48,7 @@ public class ClientGrantsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"next\":\"next\",\"client_grants\":[{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}]}"));
+                                "{\"next\":\"next\",\"client_grants\":[{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"default_for\":\"third_party_clients\",\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}]}"));
         SyncPagingIterable<ClientGrantResponseContent> response = client.clientGrants()
                 .list(ListClientGrantsRequestParameters.builder()
                         .from(OptionalNullable.of("from"))
@@ -56,6 +57,7 @@ public class ClientGrantsWireTest {
                         .clientId(OptionalNullable.of("client_id"))
                         .allowAnyOrganization(OptionalNullable.of(true))
                         .subjectType(OptionalNullable.of(ClientGrantSubjectTypeEnum.CLIENT))
+                        .defaultFor(OptionalNullable.of(ClientGrantDefaultForEnum.THIRD_PARTY_CLIENTS))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -73,7 +75,7 @@ public class ClientGrantsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}"));
+                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"default_for\":\"third_party_clients\",\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}"));
         CreateClientGrantResponseContent response = client.clientGrants()
                 .create(CreateClientGrantRequestContent.builder()
                         .audience("audience")
@@ -124,6 +126,7 @@ public class ClientGrantsWireTest {
                 + "  ],\n"
                 + "  \"organization_usage\": \"deny\",\n"
                 + "  \"allow_any_organization\": true,\n"
+                + "  \"default_for\": \"third_party_clients\",\n"
                 + "  \"is_system\": true,\n"
                 + "  \"subject_type\": \"client\",\n"
                 + "  \"authorization_details_types\": [\n"
@@ -168,7 +171,7 @@ public class ClientGrantsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}"));
+                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"default_for\":\"third_party_clients\",\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}"));
         GetClientGrantResponseContent response = client.clientGrants().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -187,6 +190,7 @@ public class ClientGrantsWireTest {
                 + "  ],\n"
                 + "  \"organization_usage\": \"deny\",\n"
                 + "  \"allow_any_organization\": true,\n"
+                + "  \"default_for\": \"third_party_clients\",\n"
                 + "  \"is_system\": true,\n"
                 + "  \"subject_type\": \"client\",\n"
                 + "  \"authorization_details_types\": [\n"
@@ -240,7 +244,7 @@ public class ClientGrantsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}"));
+                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"default_for\":\"third_party_clients\",\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}"));
         UpdateClientGrantResponseContent response = client.clientGrants()
                 .update("id", UpdateClientGrantRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -289,6 +293,7 @@ public class ClientGrantsWireTest {
                 + "  ],\n"
                 + "  \"organization_usage\": \"deny\",\n"
                 + "  \"allow_any_organization\": true,\n"
+                + "  \"default_for\": \"third_party_clients\",\n"
                 + "  \"is_system\": true,\n"
                 + "  \"subject_type\": \"client\",\n"
                 + "  \"authorization_details_types\": [\n"

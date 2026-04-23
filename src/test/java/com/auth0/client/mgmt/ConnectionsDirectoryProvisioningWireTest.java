@@ -1,6 +1,8 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.connections.types.ListDirectoryProvisioningsRequestParameters;
+import com.auth0.client.mgmt.connections.types.ListSynchronizedGroupsRequestParameters;
+import com.auth0.client.mgmt.connections.types.ReplaceSynchronizedGroupsRequestContent;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
@@ -8,9 +10,11 @@ import com.auth0.client.mgmt.types.CreateDirectoryProvisioningResponseContent;
 import com.auth0.client.mgmt.types.DirectoryProvisioning;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningDefaultMappingResponseContent;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningResponseContent;
+import com.auth0.client.mgmt.types.SynchronizedGroupPayload;
 import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -45,7 +49,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"directory_provisionings\":[{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"synchronize_groups\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}],\"next\":\"next\"}"));
+                                "{\"directory_provisionings\":[{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"all\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}],\"next\":\"next\"}"));
         SyncPagingIterable<DirectoryProvisioning> response = client.connections()
                 .directoryProvisioning()
                 .list(ListDirectoryProvisioningsRequestParameters.builder()
@@ -68,7 +72,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"synchronize_groups\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
+                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"all\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
         GetDirectoryProvisioningResponseContent response =
                 client.connections().directoryProvisioning().get("id");
         RecordedRequest request = server.takeRequest();
@@ -90,7 +94,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 + "    }\n"
                 + "  ],\n"
                 + "  \"synchronize_automatically\": true,\n"
-                + "  \"synchronize_groups\": \"synchronize_groups\",\n"
+                + "  \"synchronize_groups\": \"all\",\n"
                 + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
                 + "  \"updated_at\": \"2024-01-15T09:30:00Z\",\n"
                 + "  \"last_synchronization_at\": \"2024-01-15T09:30:00Z\",\n"
@@ -134,7 +138,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"synchronize_groups\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
+                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"all\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
         CreateDirectoryProvisioningResponseContent response =
                 client.connections().directoryProvisioning().create("id", OptionalNullable.absent());
         RecordedRequest request = server.takeRequest();
@@ -156,7 +160,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 + "    }\n"
                 + "  ],\n"
                 + "  \"synchronize_automatically\": true,\n"
-                + "  \"synchronize_groups\": \"synchronize_groups\",\n"
+                + "  \"synchronize_groups\": \"all\",\n"
                 + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
                 + "  \"updated_at\": \"2024-01-15T09:30:00Z\",\n"
                 + "  \"last_synchronization_at\": \"2024-01-15T09:30:00Z\",\n"
@@ -209,7 +213,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"synchronize_groups\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
+                                "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"all\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
         UpdateDirectoryProvisioningResponseContent response =
                 client.connections().directoryProvisioning().update("id", OptionalNullable.absent());
         RecordedRequest request = server.takeRequest();
@@ -231,7 +235,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 + "    }\n"
                 + "  ],\n"
                 + "  \"synchronize_automatically\": true,\n"
-                + "  \"synchronize_groups\": \"synchronize_groups\",\n"
+                + "  \"synchronize_groups\": \"all\",\n"
                 + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
                 + "  \"updated_at\": \"2024-01-15T09:30:00Z\",\n"
                 + "  \"last_synchronization_at\": \"2024-01-15T09:30:00Z\",\n"
@@ -320,6 +324,75 @@ public class ConnectionsDirectoryProvisioningWireTest {
         }
         if (actualResponseNode.isObject()) {
             Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
+        }
+    }
+
+    @Test
+    public void testListSynchronizedGroups() throws Exception {
+        server.enqueue(
+                new MockResponse().setResponseCode(200).setBody("{\"groups\":[{\"id\":\"id\"}],\"next\":\"next\"}"));
+        SyncPagingIterable<SynchronizedGroupPayload> response = client.connections()
+                .directoryProvisioning()
+                .listSynchronizedGroups(
+                        "id",
+                        ListSynchronizedGroupsRequestParameters.builder()
+                                .from(OptionalNullable.of("from"))
+                                .take(OptionalNullable.of(1))
+                                .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("GET", request.getMethod());
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        // Pagination response validated via MockWebServer
+        // The SDK correctly parses the response into a SyncPagingIterable
+    }
+
+    @Test
+    public void testSet() throws Exception {
+        server.enqueue(new MockResponse().setResponseCode(200).setBody("{}"));
+        client.connections()
+                .directoryProvisioning()
+                .set(
+                        "id",
+                        ReplaceSynchronizedGroupsRequestContent.builder()
+                                .groups(Arrays.asList(SynchronizedGroupPayload.builder()
+                                        .id("id")
+                                        .build()))
+                                .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("PUT", request.getMethod());
+        // Validate request body
+        String actualRequestBody = request.getBody().readUtf8();
+        String expectedRequestBody =
+                "" + "{\n" + "  \"groups\": [\n" + "    {\n" + "      \"id\": \"id\"\n" + "    }\n" + "  ]\n" + "}";
+        JsonNode actualJson = objectMapper.readTree(actualRequestBody);
+        JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
+        Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
+        if (actualJson.has("type") || actualJson.has("_type") || actualJson.has("kind")) {
+            String discriminator = null;
+            if (actualJson.has("type")) discriminator = actualJson.get("type").asText();
+            else if (actualJson.has("_type"))
+                discriminator = actualJson.get("_type").asText();
+            else if (actualJson.has("kind"))
+                discriminator = actualJson.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualJson.isNull()) {
+            Assertions.assertTrue(
+                    actualJson.isObject() || actualJson.isArray() || actualJson.isValueNode(),
+                    "request should be a valid JSON value");
+        }
+
+        if (actualJson.isArray()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Array should have valid size");
+        }
+        if (actualJson.isObject()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Object should have valid field count");
         }
     }
 

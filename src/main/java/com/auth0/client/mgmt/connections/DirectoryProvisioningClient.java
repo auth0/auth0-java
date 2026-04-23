@@ -5,6 +5,8 @@ package com.auth0.client.mgmt.connections;
 
 import com.auth0.client.mgmt.connections.directoryprovisioning.SynchronizationsClient;
 import com.auth0.client.mgmt.connections.types.ListDirectoryProvisioningsRequestParameters;
+import com.auth0.client.mgmt.connections.types.ListSynchronizedGroupsRequestParameters;
+import com.auth0.client.mgmt.connections.types.ReplaceSynchronizedGroupsRequestContent;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.RequestOptions;
@@ -15,6 +17,7 @@ import com.auth0.client.mgmt.types.CreateDirectoryProvisioningResponseContent;
 import com.auth0.client.mgmt.types.DirectoryProvisioning;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningDefaultMappingResponseContent;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningResponseContent;
+import com.auth0.client.mgmt.types.SynchronizedGroupPayload;
 import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningRequestContent;
 import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningResponseContent;
 import java.util.function.Supplier;
@@ -173,6 +176,53 @@ public class DirectoryProvisioningClient {
     public GetDirectoryProvisioningDefaultMappingResponseContent getDefaultMapping(
             String id, RequestOptions requestOptions) {
         return this.rawClient.getDefaultMapping(id, requestOptions).body();
+    }
+
+    /**
+     * Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+     */
+    public SyncPagingIterable<SynchronizedGroupPayload> listSynchronizedGroups(String id) {
+        return this.rawClient.listSynchronizedGroups(id).body();
+    }
+
+    /**
+     * Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+     */
+    public SyncPagingIterable<SynchronizedGroupPayload> listSynchronizedGroups(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.listSynchronizedGroups(id, requestOptions).body();
+    }
+
+    /**
+     * Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+     */
+    public SyncPagingIterable<SynchronizedGroupPayload> listSynchronizedGroups(
+            String id, ListSynchronizedGroupsRequestParameters request) {
+        return this.rawClient.listSynchronizedGroups(id, request).body();
+    }
+
+    /**
+     * Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+     */
+    public SyncPagingIterable<SynchronizedGroupPayload> listSynchronizedGroups(
+            String id, ListSynchronizedGroupsRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient
+                .listSynchronizedGroups(id, request, requestOptions)
+                .body();
+    }
+
+    /**
+     * Create or replace the selected groups for a connection directory provisioning configuration.
+     */
+    public void set(String id, ReplaceSynchronizedGroupsRequestContent request) {
+        this.rawClient.set(id, request).body();
+    }
+
+    /**
+     * Create or replace the selected groups for a connection directory provisioning configuration.
+     */
+    public void set(String id, ReplaceSynchronizedGroupsRequestContent request, RequestOptions requestOptions) {
+        this.rawClient.set(id, request, requestOptions).body();
     }
 
     public SynchronizationsClient synchronizations() {

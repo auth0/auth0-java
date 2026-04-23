@@ -42,7 +42,7 @@ public class EventStreamsDeliveriesWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "[{\"id\":\"id\",\"event_stream_id\":\"event_stream_id\",\"status\":\"failed\",\"event_type\":\"user.created\",\"attempts\":[{\"status\":\"failed\",\"timestamp\":\"2024-01-15T09:30:00Z\"}],\"event\":{\"id\":\"id\",\"source\":\"source\",\"specversion\":\"specversion\",\"type\":\"type\",\"time\":\"2024-01-15T09:30:00Z\",\"data\":\"data\"}}]"));
+                                "[{\"id\":\"id\",\"event_stream_id\":\"event_stream_id\",\"status\":\"failed\",\"event_type\":\"group.created\",\"attempts\":[{\"status\":\"failed\",\"timestamp\":\"2024-01-15T09:30:00Z\"}],\"event\":{\"id\":\"id\",\"source\":\"source\",\"specversion\":\"specversion\",\"type\":\"type\",\"time\":\"2024-01-15T09:30:00Z\",\"data\":\"data\"}}]"));
         List<EventStreamDelivery> response = client.eventStreams()
                 .deliveries()
                 .list(
@@ -68,7 +68,7 @@ public class EventStreamsDeliveriesWireTest {
                 + "    \"id\": \"id\",\n"
                 + "    \"event_stream_id\": \"event_stream_id\",\n"
                 + "    \"status\": \"failed\",\n"
-                + "    \"event_type\": \"user.created\",\n"
+                + "    \"event_type\": \"group.created\",\n"
                 + "    \"attempts\": [\n"
                 + "      {\n"
                 + "        \"status\": \"failed\",\n"
@@ -122,7 +122,7 @@ public class EventStreamsDeliveriesWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"event_stream_id\":\"event_stream_id\",\"status\":\"failed\",\"event_type\":\"user.created\",\"attempts\":[{\"status\":\"failed\",\"timestamp\":\"2024-01-15T09:30:00Z\",\"error_message\":\"error_message\"}],\"event\":{\"id\":\"id\",\"source\":\"source\",\"specversion\":\"specversion\",\"type\":\"type\",\"time\":\"2024-01-15T09:30:00Z\",\"data\":\"data\"}}"));
+                                "{\"id\":\"id\",\"event_stream_id\":\"event_stream_id\",\"status\":\"failed\",\"event_type\":\"group.created\",\"attempts\":[{\"status\":\"failed\",\"timestamp\":\"2024-01-15T09:30:00Z\",\"error_message\":\"error_message\"}],\"event\":{\"id\":\"id\",\"source\":\"source\",\"specversion\":\"specversion\",\"type\":\"type\",\"time\":\"2024-01-15T09:30:00Z\",\"data\":\"data\"}}"));
         GetEventStreamDeliveryHistoryResponseContent response =
                 client.eventStreams().deliveries().getHistory("id", "event_id");
         RecordedRequest request = server.takeRequest();
@@ -137,7 +137,7 @@ public class EventStreamsDeliveriesWireTest {
                 + "  \"id\": \"id\",\n"
                 + "  \"event_stream_id\": \"event_stream_id\",\n"
                 + "  \"status\": \"failed\",\n"
-                + "  \"event_type\": \"user.created\",\n"
+                + "  \"event_type\": \"group.created\",\n"
                 + "  \"attempts\": [\n"
                 + "    {\n"
                 + "      \"status\": \"failed\",\n"
