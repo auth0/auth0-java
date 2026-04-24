@@ -5,6 +5,7 @@
 - [Management API usage](#management-api-usage)
 - [Verifying an ID token](#verifying-an-id-token)
 - [Organizations](#organizations)
+- [Logging](#logging)
 - [Asynchronous operations](#asynchronous-operations)
 
 ## Error handling
@@ -301,6 +302,71 @@ String url = auth.authorizeUrl("https://me.auth0.com/callback")
     .withOrganization("{YOUR_ORGANIZATION_ID}")
     .withInvitation("{YOUR_INVITATION_ID}")
     .build();
+```
+
+## Logging
+
+The SDK is silent by default. You can enable logging to see HTTP requests and responses, which is useful for debugging.
+
+### Enable logging with default settings
+
+```java
+import com.auth0.client.mgmt.ManagementApi;
+import com.auth0.client.mgmt.core.LogConfig;
+
+ManagementApi client = ManagementApi.builder()
+        .domain("{YOUR_DOMAIN}")
+        .token("{YOUR_API_TOKEN}")
+        .logging(LogConfig.builder()
+                .silent(false)
+                .build())
+        .build();
+```
+
+### Enable debug-level logging
+
+```java
+import com.auth0.client.mgmt.core.LogConfig;
+import com.auth0.client.mgmt.core.LogLevel;
+
+ManagementApi client = ManagementApi.builder()
+        .domain("{YOUR_DOMAIN}")
+        .token("{YOUR_API_TOKEN}")
+        .logging(LogConfig.builder()
+                .level(LogLevel.DEBUG)
+                .silent(false)
+                .build())
+        .build();
+```
+
+### Using a custom logger
+
+```java
+import com.auth0.client.mgmt.core.ILogger;
+import com.auth0.client.mgmt.core.LogConfig;
+import com.auth0.client.mgmt.core.LogLevel;
+
+ManagementApi client = ManagementApi.builder()
+        .domain("{YOUR_DOMAIN}")
+        .token("{YOUR_API_TOKEN}")
+        .logging(LogConfig.builder()
+                .level(LogLevel.DEBUG)
+                .logger(new MyCustomLogger()) // implements ILogger
+                .silent(false)
+                .build())
+        .build();
+```
+
+Logging is also available on the async client:
+
+```java
+AsyncManagementApi asyncClient = AsyncManagementApi.builder()
+        .token("{YOUR_API_TOKEN}")
+        .tenantDomain("{YOUR_DOMAIN}")
+        .logging(LogConfig.builder()
+                .silent(false)
+                .build())
+        .build();
 ```
 
 ## Asynchronous operations

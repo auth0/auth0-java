@@ -111,6 +111,8 @@ public final class ClientOptions {
 
         private OkHttpClient httpClient = null;
 
+        private LogConfig logging = null;
+
         public Builder environment(Environment environment) {
             this.environment = environment;
             return this;
@@ -156,6 +158,14 @@ public final class ClientOptions {
         }
 
         /**
+         * Configure logging for the SDK. Silent by default.
+         */
+        public Builder logging(LogConfig logging) {
+            this.logging = logging;
+            return this;
+        }
+
+        /**
          * Add an OkHttp interceptor to the client.
          */
         public Builder addInterceptor(Interceptor interceptor) {
@@ -184,6 +194,11 @@ public final class ClientOptions {
 
             for (Interceptor interceptor : this.interceptors) {
                 httpClientBuilder.addInterceptor(interceptor);
+            }
+
+            if (this.logging != null && !this.logging.silent()) {
+                httpClientBuilder.addInterceptor(new LoggingInterceptor(
+                        new Logger(this.logging.level(), this.logging.logger(), this.logging.silent())));
             }
 
             this.httpClient = httpClientBuilder.build();
