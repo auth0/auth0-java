@@ -25,6 +25,7 @@ import com.auth0.client.mgmt.types.CreatePhoneTemplateResponseContent;
 import com.auth0.client.mgmt.types.CreatePhoneTemplateTestNotificationResponseContent;
 import com.auth0.client.mgmt.types.GetPhoneTemplateResponseContent;
 import com.auth0.client.mgmt.types.ListPhoneTemplatesResponseContent;
+import com.auth0.client.mgmt.types.ResetPhoneTemplateRequestContent;
 import com.auth0.client.mgmt.types.ResetPhoneTemplateResponseContent;
 import com.auth0.client.mgmt.types.UpdatePhoneTemplateResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -396,12 +397,13 @@ public class RawTemplatesClient {
         }
     }
 
-    public ManagementApiHttpResponse<ResetPhoneTemplateResponseContent> reset(String id, Object request) {
+    public ManagementApiHttpResponse<ResetPhoneTemplateResponseContent> reset(
+            String id, ResetPhoneTemplateRequestContent request) {
         return reset(id, request, null);
     }
 
     public ManagementApiHttpResponse<ResetPhoneTemplateResponseContent> reset(
-            String id, Object request, RequestOptions requestOptions) {
+            String id, ResetPhoneTemplateRequestContent request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("branding/phone/templates")

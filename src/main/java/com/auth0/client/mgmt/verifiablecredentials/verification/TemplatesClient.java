@@ -32,21 +32,21 @@ public class TemplatesClient {
     }
 
     /**
-     * List a verifiable credential templates.
+     * List verifiable credential templates.
      */
     public SyncPagingIterable<VerifiableCredentialTemplateResponse> list() {
         return this.rawClient.list().body();
     }
 
     /**
-     * List a verifiable credential templates.
+     * List verifiable credential templates.
      */
     public SyncPagingIterable<VerifiableCredentialTemplateResponse> list(RequestOptions requestOptions) {
         return this.rawClient.list(requestOptions).body();
     }
 
     /**
-     * List a verifiable credential templates.
+     * List verifiable credential templates.
      */
     public SyncPagingIterable<VerifiableCredentialTemplateResponse> list(
             ListVerifiableCredentialTemplatesRequestParameters request) {
@@ -54,7 +54,7 @@ public class TemplatesClient {
     }
 
     /**
-     * List a verifiable credential templates.
+     * List verifiable credential templates.
      */
     public SyncPagingIterable<VerifiableCredentialTemplateResponse> list(
             ListVerifiableCredentialTemplatesRequestParameters request, RequestOptions requestOptions) {

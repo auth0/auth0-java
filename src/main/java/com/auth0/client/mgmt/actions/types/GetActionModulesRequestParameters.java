@@ -4,14 +4,13 @@
 package com.auth0.client.mgmt.actions.types;
 
 import com.auth0.client.mgmt.core.Nullable;
-import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -41,8 +40,7 @@ public final class GetActionModulesRequestParameters {
     /**
      * @return Page index of the results to return. First page is 0.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("page")
+    @JsonIgnore
     public OptionalNullable<Integer> getPage() {
         return page;
     }
@@ -50,8 +48,7 @@ public final class GetActionModulesRequestParameters {
     /**
      * @return Number of results per page. Paging is disabled if parameter not sent.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("per_page")
+    @JsonIgnore
     public OptionalNullable<Integer> getPerPage() {
         return perPage;
     }

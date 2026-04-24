@@ -10,6 +10,7 @@ import com.auth0.client.mgmt.types.CreatePhoneTemplateResponseContent;
 import com.auth0.client.mgmt.types.CreatePhoneTemplateTestNotificationResponseContent;
 import com.auth0.client.mgmt.types.GetPhoneTemplateResponseContent;
 import com.auth0.client.mgmt.types.ListPhoneTemplatesResponseContent;
+import com.auth0.client.mgmt.types.ResetPhoneTemplateRequestContent;
 import com.auth0.client.mgmt.types.ResetPhoneTemplateResponseContent;
 import com.auth0.client.mgmt.types.UpdatePhoneTemplateResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -381,11 +382,11 @@ public class BrandingPhoneTemplatesWireTest {
         ResetPhoneTemplateResponseContent response = client.branding()
                 .phone()
                 .templates()
-                .reset("id", new HashMap<String, Object>() {
+                .reset("id", ResetPhoneTemplateRequestContent.of(new HashMap<String, Object>() {
                     {
                         put("key", "value");
                     }
-                });
+                }));
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("PATCH", request.getMethod());

@@ -3,14 +3,13 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -73,8 +72,7 @@ public final class ListClientsRequestParameters {
     /**
      * @return Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("fields")
+    @JsonIgnore
     public OptionalNullable<String> getFields() {
         if (fields == null) {
             return OptionalNullable.absent();
@@ -85,8 +83,7 @@ public final class ListClientsRequestParameters {
     /**
      * @return Whether specified fields are to be included (true) or excluded (false).
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("include_fields")
+    @JsonIgnore
     public OptionalNullable<Boolean> getIncludeFields() {
         if (includeFields == null) {
             return OptionalNullable.absent();
@@ -97,8 +94,7 @@ public final class ListClientsRequestParameters {
     /**
      * @return Page index of the results to return. First page is 0.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("page")
+    @JsonIgnore
     public OptionalNullable<Integer> getPage() {
         return page;
     }
@@ -106,8 +102,7 @@ public final class ListClientsRequestParameters {
     /**
      * @return Number of results per page. Default value is 50, maximum value is 100
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("per_page")
+    @JsonIgnore
     public OptionalNullable<Integer> getPerPage() {
         return perPage;
     }
@@ -115,8 +110,7 @@ public final class ListClientsRequestParameters {
     /**
      * @return Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("include_totals")
+    @JsonIgnore
     public OptionalNullable<Boolean> getIncludeTotals() {
         return includeTotals;
     }
@@ -124,8 +118,7 @@ public final class ListClientsRequestParameters {
     /**
      * @return Optional filter on the global client parameter.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("is_global")
+    @JsonIgnore
     public OptionalNullable<Boolean> getIsGlobal() {
         if (isGlobal == null) {
             return OptionalNullable.absent();
@@ -136,8 +129,7 @@ public final class ListClientsRequestParameters {
     /**
      * @return Optional filter on whether or not a client is a first-party client.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("is_first_party")
+    @JsonIgnore
     public OptionalNullable<Boolean> getIsFirstParty() {
         if (isFirstParty == null) {
             return OptionalNullable.absent();
@@ -148,8 +140,7 @@ public final class ListClientsRequestParameters {
     /**
      * @return Optional filter by a comma-separated list of application types.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("app_type")
+    @JsonIgnore
     public OptionalNullable<String> getAppType() {
         if (appType == null) {
             return OptionalNullable.absent();
@@ -160,8 +151,7 @@ public final class ListClientsRequestParameters {
     /**
      * @return Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("external_client_id")
+    @JsonIgnore
     public OptionalNullable<String> getExternalClientId() {
         if (externalClientId == null) {
             return OptionalNullable.absent();
@@ -172,54 +162,11 @@ public final class ListClientsRequestParameters {
     /**
      * @return Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<b>Permitted Queries</b>:<ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("q")
+    @JsonIgnore
     public OptionalNullable<String> getQ() {
         if (q == null) {
             return OptionalNullable.absent();
         }
-        return q;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("fields")
-    private OptionalNullable<String> _getFields() {
-        return fields;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("include_fields")
-    private OptionalNullable<Boolean> _getIncludeFields() {
-        return includeFields;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("is_global")
-    private OptionalNullable<Boolean> _getIsGlobal() {
-        return isGlobal;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("is_first_party")
-    private OptionalNullable<Boolean> _getIsFirstParty() {
-        return isFirstParty;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("app_type")
-    private OptionalNullable<String> _getAppType() {
-        return appType;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("external_client_id")
-    private OptionalNullable<String> _getExternalClientId() {
-        return externalClientId;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("q")
-    private OptionalNullable<String> _getQ() {
         return q;
     }
 

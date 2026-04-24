@@ -3,14 +3,13 @@
  */
 package com.auth0.client.mgmt.eventstreams.types;
 
-import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -57,8 +56,7 @@ public final class ListEventStreamDeliveriesRequestParameters {
     /**
      * @return Comma-separated list of statuses by which to filter
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("statuses")
+    @JsonIgnore
     public OptionalNullable<String> getStatuses() {
         if (statuses == null) {
             return OptionalNullable.absent();
@@ -69,8 +67,7 @@ public final class ListEventStreamDeliveriesRequestParameters {
     /**
      * @return Comma-separated list of event types by which to filter
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("event_types")
+    @JsonIgnore
     public OptionalNullable<String> getEventTypes() {
         if (eventTypes == null) {
             return OptionalNullable.absent();
@@ -81,8 +78,7 @@ public final class ListEventStreamDeliveriesRequestParameters {
     /**
      * @return An RFC-3339 date-time for redelivery start, inclusive. Does not allow sub-second precision.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("date_from")
+    @JsonIgnore
     public OptionalNullable<String> getDateFrom() {
         if (dateFrom == null) {
             return OptionalNullable.absent();
@@ -93,8 +89,7 @@ public final class ListEventStreamDeliveriesRequestParameters {
     /**
      * @return An RFC-3339 date-time for redelivery end, exclusive. Does not allow sub-second precision.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("date_to")
+    @JsonIgnore
     public OptionalNullable<String> getDateTo() {
         if (dateTo == null) {
             return OptionalNullable.absent();
@@ -105,8 +100,7 @@ public final class ListEventStreamDeliveriesRequestParameters {
     /**
      * @return Optional Id from which to start selection.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("from")
+    @JsonIgnore
     public OptionalNullable<String> getFrom() {
         if (from == null) {
             return OptionalNullable.absent();
@@ -117,40 +111,9 @@ public final class ListEventStreamDeliveriesRequestParameters {
     /**
      * @return Number of results per page. Defaults to 50.
      */
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("take")
+    @JsonIgnore
     public OptionalNullable<Integer> getTake() {
         return take;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("statuses")
-    private OptionalNullable<String> _getStatuses() {
-        return statuses;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("event_types")
-    private OptionalNullable<String> _getEventTypes() {
-        return eventTypes;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("date_from")
-    private OptionalNullable<String> _getDateFrom() {
-        return dateFrom;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("date_to")
-    private OptionalNullable<String> _getDateTo() {
-        return dateTo;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("from")
-    private OptionalNullable<String> _getFrom() {
-        return from;
     }
 
     @java.lang.Override
