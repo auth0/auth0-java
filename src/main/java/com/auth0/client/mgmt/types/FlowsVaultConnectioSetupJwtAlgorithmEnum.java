@@ -10,23 +10,17 @@ public final class FlowsVaultConnectioSetupJwtAlgorithmEnum {
     public static final FlowsVaultConnectioSetupJwtAlgorithmEnum RS512 =
             new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.RS512, "RS512");
 
-    public static final FlowsVaultConnectioSetupJwtAlgorithmEnum ES256 =
-            new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.ES256, "ES256");
-
-    public static final FlowsVaultConnectioSetupJwtAlgorithmEnum PS256 =
-            new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.PS256, "PS256");
-
     public static final FlowsVaultConnectioSetupJwtAlgorithmEnum ES384 =
             new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.ES384, "ES384");
 
     public static final FlowsVaultConnectioSetupJwtAlgorithmEnum PS384 =
             new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.PS384, "PS384");
 
-    public static final FlowsVaultConnectioSetupJwtAlgorithmEnum HS256 =
-            new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.HS256, "HS256");
+    public static final FlowsVaultConnectioSetupJwtAlgorithmEnum ES256 =
+            new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.ES256, "ES256");
 
-    public static final FlowsVaultConnectioSetupJwtAlgorithmEnum ES512 =
-            new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.ES512, "ES512");
+    public static final FlowsVaultConnectioSetupJwtAlgorithmEnum PS256 =
+            new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.PS256, "PS256");
 
     public static final FlowsVaultConnectioSetupJwtAlgorithmEnum HS384 =
             new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.HS384, "HS384");
@@ -34,14 +28,20 @@ public final class FlowsVaultConnectioSetupJwtAlgorithmEnum {
     public static final FlowsVaultConnectioSetupJwtAlgorithmEnum PS512 =
             new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.PS512, "PS512");
 
+    public static final FlowsVaultConnectioSetupJwtAlgorithmEnum HS256 =
+            new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.HS256, "HS256");
+
+    public static final FlowsVaultConnectioSetupJwtAlgorithmEnum ES512 =
+            new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.ES512, "ES512");
+
+    public static final FlowsVaultConnectioSetupJwtAlgorithmEnum RS384 =
+            new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.RS384, "RS384");
+
     public static final FlowsVaultConnectioSetupJwtAlgorithmEnum HS512 =
             new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.HS512, "HS512");
 
     public static final FlowsVaultConnectioSetupJwtAlgorithmEnum RS256 =
             new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.RS256, "RS256");
-
-    public static final FlowsVaultConnectioSetupJwtAlgorithmEnum RS384 =
-            new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.RS384, "RS384");
 
     private final Value value;
 
@@ -78,28 +78,28 @@ public final class FlowsVaultConnectioSetupJwtAlgorithmEnum {
         switch (value) {
             case RS512:
                 return visitor.visitRs512();
-            case ES256:
-                return visitor.visitEs256();
-            case PS256:
-                return visitor.visitPs256();
             case ES384:
                 return visitor.visitEs384();
             case PS384:
                 return visitor.visitPs384();
-            case HS256:
-                return visitor.visitHs256();
-            case ES512:
-                return visitor.visitEs512();
+            case ES256:
+                return visitor.visitEs256();
+            case PS256:
+                return visitor.visitPs256();
             case HS384:
                 return visitor.visitHs384();
             case PS512:
                 return visitor.visitPs512();
+            case HS256:
+                return visitor.visitHs256();
+            case ES512:
+                return visitor.visitEs512();
+            case RS384:
+                return visitor.visitRs384();
             case HS512:
                 return visitor.visitHs512();
             case RS256:
                 return visitor.visitRs256();
-            case RS384:
-                return visitor.visitRs384();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -111,28 +111,28 @@ public final class FlowsVaultConnectioSetupJwtAlgorithmEnum {
         switch (value) {
             case "RS512":
                 return RS512;
-            case "ES256":
-                return ES256;
-            case "PS256":
-                return PS256;
             case "ES384":
                 return ES384;
             case "PS384":
                 return PS384;
-            case "HS256":
-                return HS256;
-            case "ES512":
-                return ES512;
+            case "ES256":
+                return ES256;
+            case "PS256":
+                return PS256;
             case "HS384":
                 return HS384;
             case "PS512":
                 return PS512;
+            case "HS256":
+                return HS256;
+            case "ES512":
+                return ES512;
+            case "RS384":
+                return RS384;
             case "HS512":
                 return HS512;
             case "RS256":
                 return RS256;
-            case "RS384":
-                return RS384;
             default:
                 return new FlowsVaultConnectioSetupJwtAlgorithmEnum(Value.UNKNOWN, value);
         }

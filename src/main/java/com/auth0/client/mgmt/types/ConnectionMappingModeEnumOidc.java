@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ConnectionMappingModeEnumOidc {
-    public static final ConnectionMappingModeEnumOidc USE_MAP =
-            new ConnectionMappingModeEnumOidc(Value.USE_MAP, "use_map");
-
     public static final ConnectionMappingModeEnumOidc BIND_ALL =
             new ConnectionMappingModeEnumOidc(Value.BIND_ALL, "bind_all");
+
+    public static final ConnectionMappingModeEnumOidc USE_MAP =
+            new ConnectionMappingModeEnumOidc(Value.USE_MAP, "use_map");
 
     private final Value value;
 
@@ -46,10 +46,10 @@ public final class ConnectionMappingModeEnumOidc {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case USE_MAP:
-                return visitor.visitUseMap();
             case BIND_ALL:
                 return visitor.visitBindAll();
+            case USE_MAP:
+                return visitor.visitUseMap();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -59,10 +59,10 @@ public final class ConnectionMappingModeEnumOidc {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ConnectionMappingModeEnumOidc valueOf(String value) {
         switch (value) {
-            case "use_map":
-                return USE_MAP;
             case "bind_all":
                 return BIND_ALL;
+            case "use_map":
+                return USE_MAP;
             default:
                 return new ConnectionMappingModeEnumOidc(Value.UNKNOWN, value);
         }

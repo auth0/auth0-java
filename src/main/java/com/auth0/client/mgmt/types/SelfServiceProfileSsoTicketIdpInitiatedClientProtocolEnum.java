@@ -10,11 +10,11 @@ public final class SelfServiceProfileSsoTicketIdpInitiatedClientProtocolEnum {
     public static final SelfServiceProfileSsoTicketIdpInitiatedClientProtocolEnum WSFED =
             new SelfServiceProfileSsoTicketIdpInitiatedClientProtocolEnum(Value.WSFED, "wsfed");
 
-    public static final SelfServiceProfileSsoTicketIdpInitiatedClientProtocolEnum SAMLP =
-            new SelfServiceProfileSsoTicketIdpInitiatedClientProtocolEnum(Value.SAMLP, "samlp");
-
     public static final SelfServiceProfileSsoTicketIdpInitiatedClientProtocolEnum OAUTH2 =
             new SelfServiceProfileSsoTicketIdpInitiatedClientProtocolEnum(Value.OAUTH2, "oauth2");
+
+    public static final SelfServiceProfileSsoTicketIdpInitiatedClientProtocolEnum SAMLP =
+            new SelfServiceProfileSsoTicketIdpInitiatedClientProtocolEnum(Value.SAMLP, "samlp");
 
     private final Value value;
 
@@ -52,10 +52,10 @@ public final class SelfServiceProfileSsoTicketIdpInitiatedClientProtocolEnum {
         switch (value) {
             case WSFED:
                 return visitor.visitWsfed();
-            case SAMLP:
-                return visitor.visitSamlp();
             case OAUTH2:
                 return visitor.visitOauth2();
+            case SAMLP:
+                return visitor.visitSamlp();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -67,10 +67,10 @@ public final class SelfServiceProfileSsoTicketIdpInitiatedClientProtocolEnum {
         switch (value) {
             case "wsfed":
                 return WSFED;
-            case "samlp":
-                return SAMLP;
             case "oauth2":
                 return OAUTH2;
+            case "samlp":
+                return SAMLP;
             default:
                 return new SelfServiceProfileSsoTicketIdpInitiatedClientProtocolEnum(Value.UNKNOWN, value);
         }

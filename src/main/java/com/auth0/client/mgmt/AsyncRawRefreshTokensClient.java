@@ -21,6 +21,7 @@ import com.auth0.client.mgmt.types.GetRefreshTokenResponseContent;
 import com.auth0.client.mgmt.types.GetRefreshTokensPaginatedResponseContent;
 import com.auth0.client.mgmt.types.GetRefreshTokensRequestParameters;
 import com.auth0.client.mgmt.types.RefreshTokenResponseContent;
+import com.auth0.client.mgmt.types.RevokeRefreshTokensRequestContent;
 import com.auth0.client.mgmt.types.UpdateRefreshTokenRequestContent;
 import com.auth0.client.mgmt.types.UpdateRefreshTokenResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -147,6 +148,111 @@ public class AsyncRawRefreshTokensClient {
                                 return;
                             case 404:
                                 future.completeExceptionally(new NotFoundError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    /**
+     * Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Void>> revoke() {
+        return revoke(RevokeRefreshTokensRequestContent.builder().build());
+    }
+
+    /**
+     * Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Void>> revoke(RequestOptions requestOptions) {
+        return revoke(RevokeRefreshTokensRequestContent.builder().build(), requestOptions);
+    }
+
+    /**
+     * Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Void>> revoke(RevokeRefreshTokensRequestContent request) {
+        return revoke(request, null);
+    }
+
+    /**
+     * Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+     */
+    public CompletableFuture<ManagementApiHttpResponse<Void>> revoke(
+            RevokeRefreshTokensRequestContent request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("refresh-tokens/revoke");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new ManagementException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("POST", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<ManagementApiHttpResponse<Void>> future = new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (response.isSuccessful()) {
+                        future.complete(new ManagementApiHttpResponse<>(null, response));
+                        return;
+                    }
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
                                         response));
                                 return;

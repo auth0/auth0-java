@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class SynchronizeGroupsEnum {
     public static final SynchronizeGroupsEnum ALL = new SynchronizeGroupsEnum(Value.ALL, "all");
 
-    public static final SynchronizeGroupsEnum OFF = new SynchronizeGroupsEnum(Value.OFF, "off");
-
     public static final SynchronizeGroupsEnum SELECTED = new SynchronizeGroupsEnum(Value.SELECTED, "selected");
+
+    public static final SynchronizeGroupsEnum OFF = new SynchronizeGroupsEnum(Value.OFF, "off");
 
     private final Value value;
 
@@ -48,10 +48,10 @@ public final class SynchronizeGroupsEnum {
         switch (value) {
             case ALL:
                 return visitor.visitAll();
-            case OFF:
-                return visitor.visitOff();
             case SELECTED:
                 return visitor.visitSelected();
+            case OFF:
+                return visitor.visitOff();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -63,10 +63,10 @@ public final class SynchronizeGroupsEnum {
         switch (value) {
             case "all":
                 return ALL;
-            case "off":
-                return OFF;
             case "selected":
                 return SELECTED;
+            case "off":
+                return OFF;
             default:
                 return new SynchronizeGroupsEnum(Value.UNKNOWN, value);
         }

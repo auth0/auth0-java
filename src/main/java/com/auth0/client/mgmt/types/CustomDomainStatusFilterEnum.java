@@ -9,10 +9,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class CustomDomainStatusFilterEnum {
     public static final CustomDomainStatusFilterEnum FAILED = new CustomDomainStatusFilterEnum(Value.FAILED, "failed");
 
-    public static final CustomDomainStatusFilterEnum READY = new CustomDomainStatusFilterEnum(Value.READY, "ready");
-
     public static final CustomDomainStatusFilterEnum PENDING_VERIFICATION =
             new CustomDomainStatusFilterEnum(Value.PENDING_VERIFICATION, "pending_verification");
+
+    public static final CustomDomainStatusFilterEnum READY = new CustomDomainStatusFilterEnum(Value.READY, "ready");
 
     private final Value value;
 
@@ -49,10 +49,10 @@ public final class CustomDomainStatusFilterEnum {
         switch (value) {
             case FAILED:
                 return visitor.visitFailed();
-            case READY:
-                return visitor.visitReady();
             case PENDING_VERIFICATION:
                 return visitor.visitPendingVerification();
+            case READY:
+                return visitor.visitReady();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -64,10 +64,10 @@ public final class CustomDomainStatusFilterEnum {
         switch (value) {
             case "failed":
                 return FAILED;
-            case "ready":
-                return READY;
             case "pending_verification":
                 return PENDING_VERIFICATION;
+            case "ready":
+                return READY;
             default:
                 return new CustomDomainStatusFilterEnum(Value.UNKNOWN, value);
         }

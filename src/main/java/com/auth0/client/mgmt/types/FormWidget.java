@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = FormWidget.Deserializer.class)
@@ -89,17 +90,36 @@ public final class FormWidget {
         @java.lang.Override
         public FormWidget deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FormWidgetAuth0VerifiableCredentials.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("category")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("config")) {
+                try {
+                    return of(
+                            ObjectMappers.JSON_MAPPER.convertValue(value, FormWidgetAuth0VerifiableCredentials.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FormWidgetGMapsAddress.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("category")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("config")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FormWidgetGMapsAddress.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FormWidgetRecaptcha.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("category")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("config")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FormWidgetRecaptcha.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

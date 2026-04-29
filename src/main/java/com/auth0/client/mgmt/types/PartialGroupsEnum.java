@@ -9,12 +9,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class PartialGroupsEnum {
     public static final PartialGroupsEnum SIGNUP_ID = new PartialGroupsEnum(Value.SIGNUP_ID, "signup-id");
 
-    public static final PartialGroupsEnum PASSKEYS = new PartialGroupsEnum(Value.PASSKEYS, "passkeys");
-
     public static final PartialGroupsEnum LOGIN = new PartialGroupsEnum(Value.LOGIN, "login");
 
     public static final PartialGroupsEnum SIGNUP_PASSWORD =
             new PartialGroupsEnum(Value.SIGNUP_PASSWORD, "signup-password");
+
+    public static final PartialGroupsEnum LOGIN_ID = new PartialGroupsEnum(Value.LOGIN_ID, "login-id");
 
     public static final PartialGroupsEnum SIGNUP = new PartialGroupsEnum(Value.SIGNUP, "signup");
 
@@ -27,7 +27,7 @@ public final class PartialGroupsEnum {
     public static final PartialGroupsEnum LOGIN_PASSWORDLESS =
             new PartialGroupsEnum(Value.LOGIN_PASSWORDLESS, "login-passwordless");
 
-    public static final PartialGroupsEnum LOGIN_ID = new PartialGroupsEnum(Value.LOGIN_ID, "login-id");
+    public static final PartialGroupsEnum PASSKEYS = new PartialGroupsEnum(Value.PASSKEYS, "passkeys");
 
     private final Value value;
 
@@ -63,12 +63,12 @@ public final class PartialGroupsEnum {
         switch (value) {
             case SIGNUP_ID:
                 return visitor.visitSignupId();
-            case PASSKEYS:
-                return visitor.visitPasskeys();
             case LOGIN:
                 return visitor.visitLogin();
             case SIGNUP_PASSWORD:
                 return visitor.visitSignupPassword();
+            case LOGIN_ID:
+                return visitor.visitLoginId();
             case SIGNUP:
                 return visitor.visitSignup();
             case CUSTOMIZED_CONSENT:
@@ -77,8 +77,8 @@ public final class PartialGroupsEnum {
                 return visitor.visitLoginPassword();
             case LOGIN_PASSWORDLESS:
                 return visitor.visitLoginPasswordless();
-            case LOGIN_ID:
-                return visitor.visitLoginId();
+            case PASSKEYS:
+                return visitor.visitPasskeys();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -90,12 +90,12 @@ public final class PartialGroupsEnum {
         switch (value) {
             case "signup-id":
                 return SIGNUP_ID;
-            case "passkeys":
-                return PASSKEYS;
             case "login":
                 return LOGIN;
             case "signup-password":
                 return SIGNUP_PASSWORD;
+            case "login-id":
+                return LOGIN_ID;
             case "signup":
                 return SIGNUP;
             case "customized-consent":
@@ -104,8 +104,8 @@ public final class PartialGroupsEnum {
                 return LOGIN_PASSWORD;
             case "login-passwordless":
                 return LOGIN_PASSWORDLESS;
-            case "login-id":
-                return LOGIN_ID;
+            case "passkeys":
+                return PASSKEYS;
             default:
                 return new PartialGroupsEnum(Value.UNKNOWN, value);
         }

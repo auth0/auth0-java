@@ -7,25 +7,25 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class GuardianFactorNameEnum {
-    public static final GuardianFactorNameEnum EMAIL = new GuardianFactorNameEnum(Value.EMAIL, "email");
-
-    public static final GuardianFactorNameEnum DUO = new GuardianFactorNameEnum(Value.DUO, "duo");
-
     public static final GuardianFactorNameEnum OTP = new GuardianFactorNameEnum(Value.OTP, "otp");
 
     public static final GuardianFactorNameEnum WEBAUTHN_PLATFORM =
             new GuardianFactorNameEnum(Value.WEBAUTHN_PLATFORM, "webauthn-platform");
 
-    public static final GuardianFactorNameEnum PUSH_NOTIFICATION =
-            new GuardianFactorNameEnum(Value.PUSH_NOTIFICATION, "push-notification");
+    public static final GuardianFactorNameEnum EMAIL = new GuardianFactorNameEnum(Value.EMAIL, "email");
 
-    public static final GuardianFactorNameEnum SMS = new GuardianFactorNameEnum(Value.SMS, "sms");
+    public static final GuardianFactorNameEnum DUO = new GuardianFactorNameEnum(Value.DUO, "duo");
 
     public static final GuardianFactorNameEnum WEBAUTHN_ROAMING =
             new GuardianFactorNameEnum(Value.WEBAUTHN_ROAMING, "webauthn-roaming");
 
     public static final GuardianFactorNameEnum RECOVERY_CODE =
             new GuardianFactorNameEnum(Value.RECOVERY_CODE, "recovery-code");
+
+    public static final GuardianFactorNameEnum SMS = new GuardianFactorNameEnum(Value.SMS, "sms");
+
+    public static final GuardianFactorNameEnum PUSH_NOTIFICATION =
+            new GuardianFactorNameEnum(Value.PUSH_NOTIFICATION, "push-notification");
 
     private final Value value;
 
@@ -60,22 +60,22 @@ public final class GuardianFactorNameEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case EMAIL:
-                return visitor.visitEmail();
-            case DUO:
-                return visitor.visitDuo();
             case OTP:
                 return visitor.visitOtp();
             case WEBAUTHN_PLATFORM:
                 return visitor.visitWebauthnPlatform();
-            case PUSH_NOTIFICATION:
-                return visitor.visitPushNotification();
-            case SMS:
-                return visitor.visitSms();
+            case EMAIL:
+                return visitor.visitEmail();
+            case DUO:
+                return visitor.visitDuo();
             case WEBAUTHN_ROAMING:
                 return visitor.visitWebauthnRoaming();
             case RECOVERY_CODE:
                 return visitor.visitRecoveryCode();
+            case SMS:
+                return visitor.visitSms();
+            case PUSH_NOTIFICATION:
+                return visitor.visitPushNotification();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -85,22 +85,22 @@ public final class GuardianFactorNameEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static GuardianFactorNameEnum valueOf(String value) {
         switch (value) {
-            case "email":
-                return EMAIL;
-            case "duo":
-                return DUO;
             case "otp":
                 return OTP;
             case "webauthn-platform":
                 return WEBAUTHN_PLATFORM;
-            case "push-notification":
-                return PUSH_NOTIFICATION;
-            case "sms":
-                return SMS;
+            case "email":
+                return EMAIL;
+            case "duo":
+                return DUO;
             case "webauthn-roaming":
                 return WEBAUTHN_ROAMING;
             case "recovery-code":
                 return RECOVERY_CODE;
+            case "sms":
+                return SMS;
+            case "push-notification":
+                return PUSH_NOTIFICATION;
             default:
                 return new GuardianFactorNameEnum(Value.UNKNOWN, value);
         }

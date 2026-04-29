@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = FormFieldPaymentConfigCharge.Deserializer.class)
@@ -82,14 +83,22 @@ public final class FormFieldPaymentConfigCharge {
         public FormFieldPaymentConfigCharge deserialize(JsonParser p, DeserializationContext context)
                 throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FormFieldPaymentConfigChargeOneOff.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("one_off")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FormFieldPaymentConfigChargeOneOff.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(
-                        ObjectMappers.JSON_MAPPER.convertValue(value, FormFieldPaymentConfigChargeSubscription.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("subscription")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(
+                            value, FormFieldPaymentConfigChargeSubscription.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

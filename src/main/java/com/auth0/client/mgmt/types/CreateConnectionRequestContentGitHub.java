@@ -27,7 +27,7 @@ public final class CreateConnectionRequestContentGitHub implements IConnectionPu
 
     private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
 
-    private final String name;
+    private final Optional<String> name;
 
     private final Optional<List<String>> enabledClients;
 
@@ -46,7 +46,7 @@ public final class CreateConnectionRequestContentGitHub implements IConnectionPu
     private CreateConnectionRequestContentGitHub(
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
-            String name,
+            Optional<String> name,
             Optional<List<String>> enabledClients,
             Optional<String> displayName,
             Optional<Boolean> isDomainConnection,
@@ -80,7 +80,7 @@ public final class CreateConnectionRequestContentGitHub implements IConnectionPu
 
     @JsonProperty("name")
     @java.lang.Override
-    public String getName() {
+    public Optional<String> getName() {
         return name;
     }
 
@@ -164,18 +164,14 @@ public final class CreateConnectionRequestContentGitHub implements IConnectionPu
         return ObjectMappers.stringify(this);
     }
 
-    public static NameStage builder() {
+    public static StrategyStage builder() {
         return new Builder();
-    }
-
-    public interface NameStage {
-        StrategyStage name(@NotNull String name);
-
-        Builder from(CreateConnectionRequestContentGitHub other);
     }
 
     public interface StrategyStage {
         _FinalStage strategy(@NotNull CreateConnectionRequestContentGitHubStrategy strategy);
+
+        Builder from(CreateConnectionRequestContentGitHub other);
     }
 
     public interface _FinalStage {
@@ -192,6 +188,10 @@ public final class CreateConnectionRequestContentGitHub implements IConnectionPu
         _FinalStage connectedAccounts(Optional<ConnectionConnectedAccountsPurpose> connectedAccounts);
 
         _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts);
+
+        _FinalStage name(Optional<String> name);
+
+        _FinalStage name(String name);
 
         /**
          * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
@@ -218,9 +218,7 @@ public final class CreateConnectionRequestContentGitHub implements IConnectionPu
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements NameStage, StrategyStage, _FinalStage {
-        private String name;
-
+    public static final class Builder implements StrategyStage, _FinalStage {
         private CreateConnectionRequestContentGitHubStrategy strategy;
 
         private Optional<ConnectionOptionsGitHub> options = Optional.empty();
@@ -232,6 +230,8 @@ public final class CreateConnectionRequestContentGitHub implements IConnectionPu
         private Optional<String> displayName = Optional.empty();
 
         private Optional<List<String>> enabledClients = Optional.empty();
+
+        private Optional<String> name = Optional.empty();
 
         private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
 
@@ -253,13 +253,6 @@ public final class CreateConnectionRequestContentGitHub implements IConnectionPu
             metadata(other.getMetadata());
             strategy(other.getStrategy());
             options(other.getOptions());
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter("name")
-        public StrategyStage name(@NotNull String name) {
-            this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
@@ -339,6 +332,19 @@ public final class CreateConnectionRequestContentGitHub implements IConnectionPu
         @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
         public _FinalStage enabledClients(Optional<List<String>> enabledClients) {
             this.enabledClients = enabledClients;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage name(String name) {
+            this.name = Optional.ofNullable(name);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "name", nulls = Nulls.SKIP)
+        public _FinalStage name(Optional<String> name) {
+            this.name = name;
             return this;
         }
 

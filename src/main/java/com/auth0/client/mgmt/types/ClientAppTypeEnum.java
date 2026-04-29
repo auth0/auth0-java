@@ -9,17 +9,15 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class ClientAppTypeEnum {
     public static final ClientAppTypeEnum DROPBOX = new ClientAppTypeEnum(Value.DROPBOX, "dropbox");
 
-    public static final ClientAppTypeEnum REGULAR_WEB = new ClientAppTypeEnum(Value.REGULAR_WEB, "regular_web");
-
     public static final ClientAppTypeEnum NEWRELIC = new ClientAppTypeEnum(Value.NEWRELIC, "newrelic");
 
-    public static final ClientAppTypeEnum NATIVE = new ClientAppTypeEnum(Value.NATIVE, "native");
+    public static final ClientAppTypeEnum REGULAR_WEB = new ClientAppTypeEnum(Value.REGULAR_WEB, "regular_web");
 
     public static final ClientAppTypeEnum SPA = new ClientAppTypeEnum(Value.SPA, "spa");
 
     public static final ClientAppTypeEnum SPRINGCM = new ClientAppTypeEnum(Value.SPRINGCM, "springcm");
 
-    public static final ClientAppTypeEnum SHAREPOINT = new ClientAppTypeEnum(Value.SHAREPOINT, "sharepoint");
+    public static final ClientAppTypeEnum NATIVE = new ClientAppTypeEnum(Value.NATIVE, "native");
 
     public static final ClientAppTypeEnum EGNYTE = new ClientAppTypeEnum(Value.EGNYTE, "egnyte");
 
@@ -28,9 +26,11 @@ public final class ClientAppTypeEnum {
     public static final ClientAppTypeEnum NON_INTERACTIVE =
             new ClientAppTypeEnum(Value.NON_INTERACTIVE, "non_interactive");
 
-    public static final ClientAppTypeEnum SLACK = new ClientAppTypeEnum(Value.SLACK, "slack");
+    public static final ClientAppTypeEnum SHAREPOINT = new ClientAppTypeEnum(Value.SHAREPOINT, "sharepoint");
 
     public static final ClientAppTypeEnum SENTRY = new ClientAppTypeEnum(Value.SENTRY, "sentry");
+
+    public static final ClientAppTypeEnum SLACK = new ClientAppTypeEnum(Value.SLACK, "slack");
 
     public static final ClientAppTypeEnum EXPRESS_CONFIGURATION =
             new ClientAppTypeEnum(Value.EXPRESS_CONFIGURATION, "express_configuration");
@@ -38,9 +38,9 @@ public final class ClientAppTypeEnum {
     public static final ClientAppTypeEnum SSO_INTEGRATION =
             new ClientAppTypeEnum(Value.SSO_INTEGRATION, "sso_integration");
 
-    public static final ClientAppTypeEnum ECHOSIGN = new ClientAppTypeEnum(Value.ECHOSIGN, "echosign");
-
     public static final ClientAppTypeEnum BOX = new ClientAppTypeEnum(Value.BOX, "box");
+
+    public static final ClientAppTypeEnum ECHOSIGN = new ClientAppTypeEnum(Value.ECHOSIGN, "echosign");
 
     public static final ClientAppTypeEnum RMS = new ClientAppTypeEnum(Value.RMS, "rms");
 
@@ -48,18 +48,18 @@ public final class ClientAppTypeEnum {
 
     public static final ClientAppTypeEnum SALESFORCE = new ClientAppTypeEnum(Value.SALESFORCE, "salesforce");
 
-    public static final ClientAppTypeEnum CONCUR = new ClientAppTypeEnum(Value.CONCUR, "concur");
-
     public static final ClientAppTypeEnum RESOURCE_SERVER =
             new ClientAppTypeEnum(Value.RESOURCE_SERVER, "resource_server");
 
     public static final ClientAppTypeEnum ZOOM = new ClientAppTypeEnum(Value.ZOOM, "zoom");
 
+    public static final ClientAppTypeEnum CONCUR = new ClientAppTypeEnum(Value.CONCUR, "concur");
+
+    public static final ClientAppTypeEnum OFFICE365 = new ClientAppTypeEnum(Value.OFFICE365, "office365");
+
     public static final ClientAppTypeEnum MSCRM = new ClientAppTypeEnum(Value.MSCRM, "mscrm");
 
     public static final ClientAppTypeEnum OAG = new ClientAppTypeEnum(Value.OAG, "oag");
-
-    public static final ClientAppTypeEnum OFFICE365 = new ClientAppTypeEnum(Value.OFFICE365, "office365");
 
     private final Value value;
 
@@ -95,54 +95,54 @@ public final class ClientAppTypeEnum {
         switch (value) {
             case DROPBOX:
                 return visitor.visitDropbox();
-            case REGULAR_WEB:
-                return visitor.visitRegularWeb();
             case NEWRELIC:
                 return visitor.visitNewrelic();
-            case NATIVE:
-                return visitor.visitNative();
+            case REGULAR_WEB:
+                return visitor.visitRegularWeb();
             case SPA:
                 return visitor.visitSpa();
             case SPRINGCM:
                 return visitor.visitSpringcm();
-            case SHAREPOINT:
-                return visitor.visitSharepoint();
+            case NATIVE:
+                return visitor.visitNative();
             case EGNYTE:
                 return visitor.visitEgnyte();
             case ZENDESK:
                 return visitor.visitZendesk();
             case NON_INTERACTIVE:
                 return visitor.visitNonInteractive();
-            case SLACK:
-                return visitor.visitSlack();
+            case SHAREPOINT:
+                return visitor.visitSharepoint();
             case SENTRY:
                 return visitor.visitSentry();
+            case SLACK:
+                return visitor.visitSlack();
             case EXPRESS_CONFIGURATION:
                 return visitor.visitExpressConfiguration();
             case SSO_INTEGRATION:
                 return visitor.visitSsoIntegration();
-            case ECHOSIGN:
-                return visitor.visitEchosign();
             case BOX:
                 return visitor.visitBox();
+            case ECHOSIGN:
+                return visitor.visitEchosign();
             case RMS:
                 return visitor.visitRms();
             case CLOUDBEES:
                 return visitor.visitCloudbees();
             case SALESFORCE:
                 return visitor.visitSalesforce();
-            case CONCUR:
-                return visitor.visitConcur();
             case RESOURCE_SERVER:
                 return visitor.visitResourceServer();
             case ZOOM:
                 return visitor.visitZoom();
+            case CONCUR:
+                return visitor.visitConcur();
+            case OFFICE365:
+                return visitor.visitOffice365();
             case MSCRM:
                 return visitor.visitMscrm();
             case OAG:
                 return visitor.visitOag();
-            case OFFICE365:
-                return visitor.visitOffice365();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -154,54 +154,54 @@ public final class ClientAppTypeEnum {
         switch (value) {
             case "dropbox":
                 return DROPBOX;
-            case "regular_web":
-                return REGULAR_WEB;
             case "newrelic":
                 return NEWRELIC;
-            case "native":
-                return NATIVE;
+            case "regular_web":
+                return REGULAR_WEB;
             case "spa":
                 return SPA;
             case "springcm":
                 return SPRINGCM;
-            case "sharepoint":
-                return SHAREPOINT;
+            case "native":
+                return NATIVE;
             case "egnyte":
                 return EGNYTE;
             case "zendesk":
                 return ZENDESK;
             case "non_interactive":
                 return NON_INTERACTIVE;
-            case "slack":
-                return SLACK;
+            case "sharepoint":
+                return SHAREPOINT;
             case "sentry":
                 return SENTRY;
+            case "slack":
+                return SLACK;
             case "express_configuration":
                 return EXPRESS_CONFIGURATION;
             case "sso_integration":
                 return SSO_INTEGRATION;
-            case "echosign":
-                return ECHOSIGN;
             case "box":
                 return BOX;
+            case "echosign":
+                return ECHOSIGN;
             case "rms":
                 return RMS;
             case "cloudbees":
                 return CLOUDBEES;
             case "salesforce":
                 return SALESFORCE;
-            case "concur":
-                return CONCUR;
             case "resource_server":
                 return RESOURCE_SERVER;
             case "zoom":
                 return ZOOM;
+            case "concur":
+                return CONCUR;
+            case "office365":
+                return OFFICE365;
             case "mscrm":
                 return MSCRM;
             case "oag":
                 return OAG;
-            case "office365":
-                return OFFICE365;
             default:
                 return new ClientAppTypeEnum(Value.UNKNOWN, value);
         }

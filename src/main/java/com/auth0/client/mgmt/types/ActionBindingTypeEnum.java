@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ActionBindingTypeEnum {
-    public static final ActionBindingTypeEnum TRIGGER_BOUND =
-            new ActionBindingTypeEnum(Value.TRIGGER_BOUND, "trigger-bound");
-
     public static final ActionBindingTypeEnum ENTITY_BOUND =
             new ActionBindingTypeEnum(Value.ENTITY_BOUND, "entity-bound");
+
+    public static final ActionBindingTypeEnum TRIGGER_BOUND =
+            new ActionBindingTypeEnum(Value.TRIGGER_BOUND, "trigger-bound");
 
     private final Value value;
 
@@ -46,10 +46,10 @@ public final class ActionBindingTypeEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case TRIGGER_BOUND:
-                return visitor.visitTriggerBound();
             case ENTITY_BOUND:
                 return visitor.visitEntityBound();
+            case TRIGGER_BOUND:
+                return visitor.visitTriggerBound();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -59,10 +59,10 @@ public final class ActionBindingTypeEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ActionBindingTypeEnum valueOf(String value) {
         switch (value) {
-            case "trigger-bound":
-                return TRIGGER_BOUND;
             case "entity-bound":
                 return ENTITY_BOUND;
+            case "trigger-bound":
+                return TRIGGER_BOUND;
             default:
                 return new ActionBindingTypeEnum(Value.UNKNOWN, value);
         }

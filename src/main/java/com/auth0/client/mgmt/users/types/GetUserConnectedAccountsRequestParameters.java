@@ -51,6 +51,9 @@ public final class GetUserConnectedAccountsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getTake() {
+        if (take == null) {
+            return OptionalNullable.absent();
+        }
         return take;
     }
 
@@ -139,7 +142,7 @@ public final class GetUserConnectedAccountsRequestParameters {
          * <p>Number of results to return.  Defaults to 10 with a maximum of 20</p>
          */
         @JsonSetter(value = "take", nulls = Nulls.SKIP)
-        public Builder take(OptionalNullable<Integer> take) {
+        public Builder take(@Nullable OptionalNullable<Integer> take) {
             this.take = take;
             return this;
         }

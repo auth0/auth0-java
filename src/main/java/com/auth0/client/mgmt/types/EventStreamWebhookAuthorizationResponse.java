@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = EventStreamWebhookAuthorizationResponse.Deserializer.class)
@@ -91,17 +92,27 @@ public final class EventStreamWebhookAuthorizationResponse {
         public EventStreamWebhookAuthorizationResponse deserialize(JsonParser p, DeserializationContext context)
                 throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, EventStreamWebhookBasicAuth.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("method")
+                    && ((Map<?, ?>) value).containsKey("username")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, EventStreamWebhookBasicAuth.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, EventStreamWebhookBearerAuth.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?> && ((Map<?, ?>) value).containsKey("method")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, EventStreamWebhookBearerAuth.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, EventStreamWebhookCustomHeaderAuth.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("method")
+                    && ((Map<?, ?>) value).containsKey("header_key")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, EventStreamWebhookCustomHeaderAuth.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

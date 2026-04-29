@@ -374,7 +374,7 @@ public class UsersAuthenticationMethodsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"type\":\"phone\",\"name\":\"name\",\"totp_secret\":\"totp_secret\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"authentication_methods\":[{\"type\":\"totp\",\"id\":\"id\"}],\"preferred_authentication_method\":\"voice\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"aaguid\":\"aaguid\",\"relying_party_identifier\":\"relying_party_identifier\",\"created_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"type\":\"phone\",\"name\":\"name\",\"totp_secret\":\"totp_secret\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"authentication_methods\":[{\"type\":\"totp\",\"id\":\"id\"}],\"preferred_authentication_method\":\"voice\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"aaguid\":\"aaguid\",\"relying_party_identifier\":\"relying_party_identifier\",\"confirmed\":true,\"created_at\":\"2024-01-15T09:30:00Z\"}"));
         UpdateUserAuthenticationMethodResponseContent response = client.users()
                 .authenticationMethods()
                 .update(
@@ -436,6 +436,7 @@ public class UsersAuthenticationMethodsWireTest {
                 + "  \"public_key\": \"public_key\",\n"
                 + "  \"aaguid\": \"aaguid\",\n"
                 + "  \"relying_party_identifier\": \"relying_party_identifier\",\n"
+                + "  \"confirmed\": true,\n"
                 + "  \"created_at\": \"2024-01-15T09:30:00Z\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
@@ -485,7 +486,9 @@ public class UsersAuthenticationMethodsWireTest {
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
                 JsonNode actualValue = actual.get(entry.getKey());
-                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
+                if (actualValue == null) {
+                    if (!entry.getValue().isNull()) return false;
+                } else if (!jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }

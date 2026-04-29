@@ -9,6 +9,7 @@ import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.GetRefreshTokenResponseContent;
 import com.auth0.client.mgmt.types.GetRefreshTokensRequestParameters;
 import com.auth0.client.mgmt.types.RefreshTokenResponseContent;
+import com.auth0.client.mgmt.types.RevokeRefreshTokensRequestContent;
 import com.auth0.client.mgmt.types.UpdateRefreshTokenRequestContent;
 import com.auth0.client.mgmt.types.UpdateRefreshTokenResponseContent;
 import java.util.concurrent.CompletableFuture;
@@ -44,6 +45,34 @@ public class AsyncRefreshTokensClient {
     public CompletableFuture<SyncPagingIterable<RefreshTokenResponseContent>> list(
             GetRefreshTokensRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+     */
+    public CompletableFuture<Void> revoke() {
+        return this.rawClient.revoke().thenApply(response -> response.body());
+    }
+
+    /**
+     * Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+     */
+    public CompletableFuture<Void> revoke(RequestOptions requestOptions) {
+        return this.rawClient.revoke(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+     */
+    public CompletableFuture<Void> revoke(RevokeRefreshTokensRequestContent request) {
+        return this.rawClient.revoke(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+     */
+    public CompletableFuture<Void> revoke(RevokeRefreshTokensRequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.revoke(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**

@@ -47,6 +47,8 @@ public final class UpdateUserAuthenticationMethodResponseContent {
 
     private final Optional<String> relyingPartyIdentifier;
 
+    private final Optional<Boolean> confirmed;
+
     private final Optional<OffsetDateTime> createdAt;
 
     private final Map<String, Object> additionalProperties;
@@ -64,6 +66,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
             Optional<String> publicKey,
             Optional<String> aaguid,
             Optional<String> relyingPartyIdentifier,
+            Optional<Boolean> confirmed,
             Optional<OffsetDateTime> createdAt,
             Map<String, Object> additionalProperties) {
         this.id = id;
@@ -78,6 +81,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         this.publicKey = publicKey;
         this.aaguid = aaguid;
         this.relyingPartyIdentifier = relyingPartyIdentifier;
+        this.confirmed = confirmed;
         this.createdAt = createdAt;
         this.additionalProperties = additionalProperties;
     }
@@ -170,6 +174,14 @@ public final class UpdateUserAuthenticationMethodResponseContent {
     }
 
     /**
+     * @return Whether the authentication method has been confirmed.
+     */
+    @JsonProperty("confirmed")
+    public Optional<Boolean> getConfirmed() {
+        return confirmed;
+    }
+
+    /**
      * @return Authentication method creation date
      */
     @JsonProperty("created_at")
@@ -202,6 +214,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
                 && publicKey.equals(other.publicKey)
                 && aaguid.equals(other.aaguid)
                 && relyingPartyIdentifier.equals(other.relyingPartyIdentifier)
+                && confirmed.equals(other.confirmed)
                 && createdAt.equals(other.createdAt);
     }
 
@@ -220,6 +233,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
                 this.publicKey,
                 this.aaguid,
                 this.relyingPartyIdentifier,
+                this.confirmed,
                 this.createdAt);
     }
 
@@ -318,6 +332,13 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         _FinalStage relyingPartyIdentifier(String relyingPartyIdentifier);
 
         /**
+         * <p>Whether the authentication method has been confirmed.</p>
+         */
+        _FinalStage confirmed(Optional<Boolean> confirmed);
+
+        _FinalStage confirmed(Boolean confirmed);
+
+        /**
          * <p>Authentication method creation date</p>
          */
         _FinalStage createdAt(Optional<OffsetDateTime> createdAt);
@@ -330,6 +351,8 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         private CreatedAuthenticationMethodTypeEnum type;
 
         private Optional<OffsetDateTime> createdAt = Optional.empty();
+
+        private Optional<Boolean> confirmed = Optional.empty();
 
         private Optional<String> relyingPartyIdentifier = Optional.empty();
 
@@ -372,6 +395,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
             publicKey(other.getPublicKey());
             aaguid(other.getAaguid());
             relyingPartyIdentifier(other.getRelyingPartyIdentifier());
+            confirmed(other.getConfirmed());
             createdAt(other.getCreatedAt());
             return this;
         }
@@ -400,6 +424,26 @@ public final class UpdateUserAuthenticationMethodResponseContent {
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<OffsetDateTime> createdAt) {
             this.createdAt = createdAt;
+            return this;
+        }
+
+        /**
+         * <p>Whether the authentication method has been confirmed.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage confirmed(Boolean confirmed) {
+            this.confirmed = Optional.ofNullable(confirmed);
+            return this;
+        }
+
+        /**
+         * <p>Whether the authentication method has been confirmed.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "confirmed", nulls = Nulls.SKIP)
+        public _FinalStage confirmed(Optional<Boolean> confirmed) {
+            this.confirmed = confirmed;
             return this;
         }
 
@@ -627,6 +671,7 @@ public final class UpdateUserAuthenticationMethodResponseContent {
                     publicKey,
                     aaguid,
                     relyingPartyIdentifier,
+                    confirmed,
                     createdAt,
                     additionalProperties);
         }

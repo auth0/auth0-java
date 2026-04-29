@@ -7,8 +7,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ActionTriggerTypeEnum {
+    public static final ActionTriggerTypeEnum PASSWORD_RESET_POST_CHALLENGE =
+            new ActionTriggerTypeEnum(Value.PASSWORD_RESET_POST_CHALLENGE, "password-reset-post-challenge");
+
     public static final ActionTriggerTypeEnum SIGNUP_POST_IDENTIFIER =
             new ActionTriggerTypeEnum(Value.SIGNUP_POST_IDENTIFIER, "signup-post-identifier");
+
+    public static final ActionTriggerTypeEnum CUSTOM_PHONE_PROVIDER =
+            new ActionTriggerTypeEnum(Value.CUSTOM_PHONE_PROVIDER, "custom-phone-provider");
+
+    public static final ActionTriggerTypeEnum CUSTOM_EMAIL_PROVIDER =
+            new ActionTriggerTypeEnum(Value.CUSTOM_EMAIL_PROVIDER, "custom-email-provider");
 
     public static final ActionTriggerTypeEnum PRE_USER_REGISTRATION =
             new ActionTriggerTypeEnum(Value.PRE_USER_REGISTRATION, "pre-user-registration");
@@ -16,11 +25,8 @@ public final class ActionTriggerTypeEnum {
     public static final ActionTriggerTypeEnum LOGIN_POST_IDENTIFIER =
             new ActionTriggerTypeEnum(Value.LOGIN_POST_IDENTIFIER, "login-post-identifier");
 
-    public static final ActionTriggerTypeEnum CUSTOM_EMAIL_PROVIDER =
-            new ActionTriggerTypeEnum(Value.CUSTOM_EMAIL_PROVIDER, "custom-email-provider");
-
-    public static final ActionTriggerTypeEnum PASSWORD_RESET_POST_CHALLENGE =
-            new ActionTriggerTypeEnum(Value.PASSWORD_RESET_POST_CHALLENGE, "password-reset-post-challenge");
+    public static final ActionTriggerTypeEnum POST_USER_REGISTRATION =
+            new ActionTriggerTypeEnum(Value.POST_USER_REGISTRATION, "post-user-registration");
 
     public static final ActionTriggerTypeEnum PASSWORD_HASH_MIGRATION =
             new ActionTriggerTypeEnum(Value.PASSWORD_HASH_MIGRATION, "password-hash-migration");
@@ -31,22 +37,16 @@ public final class ActionTriggerTypeEnum {
     public static final ActionTriggerTypeEnum CUSTOM_TOKEN_EXCHANGE =
             new ActionTriggerTypeEnum(Value.CUSTOM_TOKEN_EXCHANGE, "custom-token-exchange");
 
-    public static final ActionTriggerTypeEnum POST_USER_REGISTRATION =
-            new ActionTriggerTypeEnum(Value.POST_USER_REGISTRATION, "post-user-registration");
-
-    public static final ActionTriggerTypeEnum CUSTOM_PHONE_PROVIDER =
-            new ActionTriggerTypeEnum(Value.CUSTOM_PHONE_PROVIDER, "custom-phone-provider");
-
-    public static final ActionTriggerTypeEnum POST_LOGIN = new ActionTriggerTypeEnum(Value.POST_LOGIN, "post-login");
-
-    public static final ActionTriggerTypeEnum EVENT_STREAM =
-            new ActionTriggerTypeEnum(Value.EVENT_STREAM, "event-stream");
-
     public static final ActionTriggerTypeEnum POST_CHANGE_PASSWORD =
             new ActionTriggerTypeEnum(Value.POST_CHANGE_PASSWORD, "post-change-password");
 
     public static final ActionTriggerTypeEnum SEND_PHONE_MESSAGE =
             new ActionTriggerTypeEnum(Value.SEND_PHONE_MESSAGE, "send-phone-message");
+
+    public static final ActionTriggerTypeEnum EVENT_STREAM =
+            new ActionTriggerTypeEnum(Value.EVENT_STREAM, "event-stream");
+
+    public static final ActionTriggerTypeEnum POST_LOGIN = new ActionTriggerTypeEnum(Value.POST_LOGIN, "post-login");
 
     private final Value value;
 
@@ -81,34 +81,34 @@ public final class ActionTriggerTypeEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case PASSWORD_RESET_POST_CHALLENGE:
+                return visitor.visitPasswordResetPostChallenge();
             case SIGNUP_POST_IDENTIFIER:
                 return visitor.visitSignupPostIdentifier();
+            case CUSTOM_PHONE_PROVIDER:
+                return visitor.visitCustomPhoneProvider();
+            case CUSTOM_EMAIL_PROVIDER:
+                return visitor.visitCustomEmailProvider();
             case PRE_USER_REGISTRATION:
                 return visitor.visitPreUserRegistration();
             case LOGIN_POST_IDENTIFIER:
                 return visitor.visitLoginPostIdentifier();
-            case CUSTOM_EMAIL_PROVIDER:
-                return visitor.visitCustomEmailProvider();
-            case PASSWORD_RESET_POST_CHALLENGE:
-                return visitor.visitPasswordResetPostChallenge();
+            case POST_USER_REGISTRATION:
+                return visitor.visitPostUserRegistration();
             case PASSWORD_HASH_MIGRATION:
                 return visitor.visitPasswordHashMigration();
             case CREDENTIALS_EXCHANGE:
                 return visitor.visitCredentialsExchange();
             case CUSTOM_TOKEN_EXCHANGE:
                 return visitor.visitCustomTokenExchange();
-            case POST_USER_REGISTRATION:
-                return visitor.visitPostUserRegistration();
-            case CUSTOM_PHONE_PROVIDER:
-                return visitor.visitCustomPhoneProvider();
-            case POST_LOGIN:
-                return visitor.visitPostLogin();
-            case EVENT_STREAM:
-                return visitor.visitEventStream();
             case POST_CHANGE_PASSWORD:
                 return visitor.visitPostChangePassword();
             case SEND_PHONE_MESSAGE:
                 return visitor.visitSendPhoneMessage();
+            case EVENT_STREAM:
+                return visitor.visitEventStream();
+            case POST_LOGIN:
+                return visitor.visitPostLogin();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -118,34 +118,34 @@ public final class ActionTriggerTypeEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ActionTriggerTypeEnum valueOf(String value) {
         switch (value) {
+            case "password-reset-post-challenge":
+                return PASSWORD_RESET_POST_CHALLENGE;
             case "signup-post-identifier":
                 return SIGNUP_POST_IDENTIFIER;
+            case "custom-phone-provider":
+                return CUSTOM_PHONE_PROVIDER;
+            case "custom-email-provider":
+                return CUSTOM_EMAIL_PROVIDER;
             case "pre-user-registration":
                 return PRE_USER_REGISTRATION;
             case "login-post-identifier":
                 return LOGIN_POST_IDENTIFIER;
-            case "custom-email-provider":
-                return CUSTOM_EMAIL_PROVIDER;
-            case "password-reset-post-challenge":
-                return PASSWORD_RESET_POST_CHALLENGE;
+            case "post-user-registration":
+                return POST_USER_REGISTRATION;
             case "password-hash-migration":
                 return PASSWORD_HASH_MIGRATION;
             case "credentials-exchange":
                 return CREDENTIALS_EXCHANGE;
             case "custom-token-exchange":
                 return CUSTOM_TOKEN_EXCHANGE;
-            case "post-user-registration":
-                return POST_USER_REGISTRATION;
-            case "custom-phone-provider":
-                return CUSTOM_PHONE_PROVIDER;
-            case "post-login":
-                return POST_LOGIN;
-            case "event-stream":
-                return EVENT_STREAM;
             case "post-change-password":
                 return POST_CHANGE_PASSWORD;
             case "send-phone-message":
                 return SEND_PHONE_MESSAGE;
+            case "event-stream":
+                return EVENT_STREAM;
+            case "post-login":
+                return POST_LOGIN;
             default:
                 return new ActionTriggerTypeEnum(Value.UNKNOWN, value);
         }

@@ -13,14 +13,14 @@ public final class CreatedUserAuthenticationMethodTypeEnum {
     public static final CreatedUserAuthenticationMethodTypeEnum TOTP =
             new CreatedUserAuthenticationMethodTypeEnum(Value.TOTP, "totp");
 
+    public static final CreatedUserAuthenticationMethodTypeEnum WEBAUTHN_ROAMING =
+            new CreatedUserAuthenticationMethodTypeEnum(Value.WEBAUTHN_ROAMING, "webauthn-roaming");
+
     public static final CreatedUserAuthenticationMethodTypeEnum PASSKEY =
             new CreatedUserAuthenticationMethodTypeEnum(Value.PASSKEY, "passkey");
 
     public static final CreatedUserAuthenticationMethodTypeEnum PHONE =
             new CreatedUserAuthenticationMethodTypeEnum(Value.PHONE, "phone");
-
-    public static final CreatedUserAuthenticationMethodTypeEnum WEBAUTHN_ROAMING =
-            new CreatedUserAuthenticationMethodTypeEnum(Value.WEBAUTHN_ROAMING, "webauthn-roaming");
 
     private final Value value;
 
@@ -59,12 +59,12 @@ public final class CreatedUserAuthenticationMethodTypeEnum {
                 return visitor.visitEmail();
             case TOTP:
                 return visitor.visitTotp();
+            case WEBAUTHN_ROAMING:
+                return visitor.visitWebauthnRoaming();
             case PASSKEY:
                 return visitor.visitPasskey();
             case PHONE:
                 return visitor.visitPhone();
-            case WEBAUTHN_ROAMING:
-                return visitor.visitWebauthnRoaming();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -78,12 +78,12 @@ public final class CreatedUserAuthenticationMethodTypeEnum {
                 return EMAIL;
             case "totp":
                 return TOTP;
+            case "webauthn-roaming":
+                return WEBAUTHN_ROAMING;
             case "passkey":
                 return PASSKEY;
             case "phone":
                 return PHONE;
-            case "webauthn-roaming":
-                return WEBAUTHN_ROAMING;
             default:
                 return new CreatedUserAuthenticationMethodTypeEnum(Value.UNKNOWN, value);
         }

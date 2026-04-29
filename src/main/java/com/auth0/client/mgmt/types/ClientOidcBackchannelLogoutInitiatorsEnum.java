@@ -7,32 +7,32 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ClientOidcBackchannelLogoutInitiatorsEnum {
-    public static final ClientOidcBackchannelLogoutInitiatorsEnum EMAIL_IDENTIFIER_CHANGED =
-            new ClientOidcBackchannelLogoutInitiatorsEnum(Value.EMAIL_IDENTIFIER_CHANGED, "email-identifier-changed");
-
-    public static final ClientOidcBackchannelLogoutInitiatorsEnum MFA_PHONE_UNENROLLED =
-            new ClientOidcBackchannelLogoutInitiatorsEnum(Value.MFA_PHONE_UNENROLLED, "mfa-phone-unenrolled");
+    public static final ClientOidcBackchannelLogoutInitiatorsEnum SESSION_REVOKED =
+            new ClientOidcBackchannelLogoutInitiatorsEnum(Value.SESSION_REVOKED, "session-revoked");
 
     public static final ClientOidcBackchannelLogoutInitiatorsEnum ACCOUNT_DELETED =
             new ClientOidcBackchannelLogoutInitiatorsEnum(Value.ACCOUNT_DELETED, "account-deleted");
 
-    public static final ClientOidcBackchannelLogoutInitiatorsEnum SESSION_EXPIRED =
-            new ClientOidcBackchannelLogoutInitiatorsEnum(Value.SESSION_EXPIRED, "session-expired");
+    public static final ClientOidcBackchannelLogoutInitiatorsEnum EMAIL_IDENTIFIER_CHANGED =
+            new ClientOidcBackchannelLogoutInitiatorsEnum(Value.EMAIL_IDENTIFIER_CHANGED, "email-identifier-changed");
 
     public static final ClientOidcBackchannelLogoutInitiatorsEnum ACCOUNT_DEACTIVATED =
             new ClientOidcBackchannelLogoutInitiatorsEnum(Value.ACCOUNT_DEACTIVATED, "account-deactivated");
 
-    public static final ClientOidcBackchannelLogoutInitiatorsEnum PASSWORD_CHANGED =
-            new ClientOidcBackchannelLogoutInitiatorsEnum(Value.PASSWORD_CHANGED, "password-changed");
+    public static final ClientOidcBackchannelLogoutInitiatorsEnum IDP_LOGOUT =
+            new ClientOidcBackchannelLogoutInitiatorsEnum(Value.IDP_LOGOUT, "idp-logout");
 
     public static final ClientOidcBackchannelLogoutInitiatorsEnum RP_LOGOUT =
             new ClientOidcBackchannelLogoutInitiatorsEnum(Value.RP_LOGOUT, "rp-logout");
 
-    public static final ClientOidcBackchannelLogoutInitiatorsEnum IDP_LOGOUT =
-            new ClientOidcBackchannelLogoutInitiatorsEnum(Value.IDP_LOGOUT, "idp-logout");
+    public static final ClientOidcBackchannelLogoutInitiatorsEnum PASSWORD_CHANGED =
+            new ClientOidcBackchannelLogoutInitiatorsEnum(Value.PASSWORD_CHANGED, "password-changed");
 
-    public static final ClientOidcBackchannelLogoutInitiatorsEnum SESSION_REVOKED =
-            new ClientOidcBackchannelLogoutInitiatorsEnum(Value.SESSION_REVOKED, "session-revoked");
+    public static final ClientOidcBackchannelLogoutInitiatorsEnum SESSION_EXPIRED =
+            new ClientOidcBackchannelLogoutInitiatorsEnum(Value.SESSION_EXPIRED, "session-expired");
+
+    public static final ClientOidcBackchannelLogoutInitiatorsEnum MFA_PHONE_UNENROLLED =
+            new ClientOidcBackchannelLogoutInitiatorsEnum(Value.MFA_PHONE_UNENROLLED, "mfa-phone-unenrolled");
 
     private final Value value;
 
@@ -67,24 +67,24 @@ public final class ClientOidcBackchannelLogoutInitiatorsEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case EMAIL_IDENTIFIER_CHANGED:
-                return visitor.visitEmailIdentifierChanged();
-            case MFA_PHONE_UNENROLLED:
-                return visitor.visitMfaPhoneUnenrolled();
-            case ACCOUNT_DELETED:
-                return visitor.visitAccountDeleted();
-            case SESSION_EXPIRED:
-                return visitor.visitSessionExpired();
-            case ACCOUNT_DEACTIVATED:
-                return visitor.visitAccountDeactivated();
-            case PASSWORD_CHANGED:
-                return visitor.visitPasswordChanged();
-            case RP_LOGOUT:
-                return visitor.visitRpLogout();
-            case IDP_LOGOUT:
-                return visitor.visitIdpLogout();
             case SESSION_REVOKED:
                 return visitor.visitSessionRevoked();
+            case ACCOUNT_DELETED:
+                return visitor.visitAccountDeleted();
+            case EMAIL_IDENTIFIER_CHANGED:
+                return visitor.visitEmailIdentifierChanged();
+            case ACCOUNT_DEACTIVATED:
+                return visitor.visitAccountDeactivated();
+            case IDP_LOGOUT:
+                return visitor.visitIdpLogout();
+            case RP_LOGOUT:
+                return visitor.visitRpLogout();
+            case PASSWORD_CHANGED:
+                return visitor.visitPasswordChanged();
+            case SESSION_EXPIRED:
+                return visitor.visitSessionExpired();
+            case MFA_PHONE_UNENROLLED:
+                return visitor.visitMfaPhoneUnenrolled();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -94,24 +94,24 @@ public final class ClientOidcBackchannelLogoutInitiatorsEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ClientOidcBackchannelLogoutInitiatorsEnum valueOf(String value) {
         switch (value) {
-            case "email-identifier-changed":
-                return EMAIL_IDENTIFIER_CHANGED;
-            case "mfa-phone-unenrolled":
-                return MFA_PHONE_UNENROLLED;
-            case "account-deleted":
-                return ACCOUNT_DELETED;
-            case "session-expired":
-                return SESSION_EXPIRED;
-            case "account-deactivated":
-                return ACCOUNT_DEACTIVATED;
-            case "password-changed":
-                return PASSWORD_CHANGED;
-            case "rp-logout":
-                return RP_LOGOUT;
-            case "idp-logout":
-                return IDP_LOGOUT;
             case "session-revoked":
                 return SESSION_REVOKED;
+            case "account-deleted":
+                return ACCOUNT_DELETED;
+            case "email-identifier-changed":
+                return EMAIL_IDENTIFIER_CHANGED;
+            case "account-deactivated":
+                return ACCOUNT_DEACTIVATED;
+            case "idp-logout":
+                return IDP_LOGOUT;
+            case "rp-logout":
+                return RP_LOGOUT;
+            case "password-changed":
+                return PASSWORD_CHANGED;
+            case "session-expired":
+                return SESSION_EXPIRED;
+            case "mfa-phone-unenrolled":
+                return MFA_PHONE_UNENROLLED;
             default:
                 return new ClientOidcBackchannelLogoutInitiatorsEnum(Value.UNKNOWN, value);
         }

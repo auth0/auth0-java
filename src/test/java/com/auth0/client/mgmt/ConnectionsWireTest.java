@@ -5,6 +5,7 @@ import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.ConnectionForList;
 import com.auth0.client.mgmt.types.ConnectionIdentityProviderEnum;
+import com.auth0.client.mgmt.types.ConnectionStrategyEnum;
 import com.auth0.client.mgmt.types.CreateConnectionRequestContent;
 import com.auth0.client.mgmt.types.CreateConnectionResponseContent;
 import com.auth0.client.mgmt.types.GetConnectionRequestParameters;
@@ -14,6 +15,8 @@ import com.auth0.client.mgmt.types.UpdateConnectionRequestContent;
 import com.auth0.client.mgmt.types.UpdateConnectionResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
+import java.util.Optional;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -56,6 +59,7 @@ public class ConnectionsWireTest {
                         .name(OptionalNullable.of("name"))
                         .fields(OptionalNullable.of("fields"))
                         .includeFields(OptionalNullable.of(true))
+                        .strategy(Arrays.asList(Optional.of(ConnectionStrategyEnum.AD)))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -392,7 +396,9 @@ public class ConnectionsWireTest {
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
                 JsonNode actualValue = actual.get(entry.getKey());
-                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
+                if (actualValue == null) {
+                    if (!entry.getValue().isNull()) return false;
+                } else if (!jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }

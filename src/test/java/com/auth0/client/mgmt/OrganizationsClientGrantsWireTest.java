@@ -9,6 +9,8 @@ import com.auth0.client.mgmt.types.AssociateOrganizationClientGrantResponseConte
 import com.auth0.client.mgmt.types.OrganizationClientGrant;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
+import java.util.Optional;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -54,6 +56,7 @@ public class OrganizationsClientGrantsWireTest {
                                 .page(OptionalNullable.of(1))
                                 .perPage(OptionalNullable.of(1))
                                 .includeTotals(OptionalNullable.of(true))
+                                .grantIds(Arrays.asList(Optional.of("grant_ids")))
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -182,7 +185,9 @@ public class OrganizationsClientGrantsWireTest {
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
                 JsonNode actualValue = actual.get(entry.getKey());
-                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
+                if (actualValue == null) {
+                    if (!entry.getValue().isNull()) return false;
+                } else if (!jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }

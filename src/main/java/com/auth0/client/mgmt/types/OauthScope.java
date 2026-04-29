@@ -7,39 +7,96 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class OauthScope {
-    public static final OauthScope READ_AUTHENTICATION_METHODS =
-            new OauthScope(Value.READ_AUTHENTICATION_METHODS, "read:authentication_methods");
+    public static final OauthScope DELETE_ACTIONS = new OauthScope(Value.DELETE_ACTIONS, "delete:actions");
 
-    public static final OauthScope UPDATE_CLIENT_TOKEN_VAULT_PRIVILEGED_ACCESS = new OauthScope(
-            Value.UPDATE_CLIENT_TOKEN_VAULT_PRIVILEGED_ACCESS, "update:client_token_vault_privileged_access");
+    public static final OauthScope READ_CONNECTIONS_KEYS =
+            new OauthScope(Value.READ_CONNECTIONS_KEYS, "read:connections_keys");
 
-    public static final OauthScope UPDATE_USERS_APP_METADATA =
-            new OauthScope(Value.UPDATE_USERS_APP_METADATA, "update:users_app_metadata");
+    public static final OauthScope READ_GROUPS = new OauthScope(Value.READ_GROUPS, "read:groups");
 
-    public static final OauthScope READ_ANOMALY_BLOCKS =
-            new OauthScope(Value.READ_ANOMALY_BLOCKS, "read:anomaly_blocks");
+    public static final OauthScope READ_ACTIONS = new OauthScope(Value.READ_ACTIONS, "read:actions");
 
-    public static final OauthScope READ_CLIENT_SUMMARY =
-            new OauthScope(Value.READ_CLIENT_SUMMARY, "read:client_summary");
+    public static final OauthScope DELETE_ROLE_MEMBERS =
+            new OauthScope(Value.DELETE_ROLE_MEMBERS, "delete:role_members");
 
-    public static final OauthScope READ_SCIM_CONFIG = new OauthScope(Value.READ_SCIM_CONFIG, "read:scim_config");
+    public static final OauthScope CREATE_CLIENT_GRANTS =
+            new OauthScope(Value.CREATE_CLIENT_GRANTS, "create:client_grants");
 
-    public static final OauthScope CREATE_RULES = new OauthScope(Value.CREATE_RULES, "create:rules");
+    public static final OauthScope UPDATE_TOKEN_EXCHANGE_PROFILES =
+            new OauthScope(Value.UPDATE_TOKEN_EXCHANGE_PROFILES, "update:token_exchange_profiles");
 
-    public static final OauthScope UPDATE_SCIM_CONFIG = new OauthScope(Value.UPDATE_SCIM_CONFIG, "update:scim_config");
+    public static final OauthScope READ_CURRENT_USER = new OauthScope(Value.READ_CURRENT_USER, "read:current_user");
 
-    public static final OauthScope READ_PROMPTS = new OauthScope(Value.READ_PROMPTS, "read:prompts");
+    public static final OauthScope READ_SCIM_TOKEN = new OauthScope(Value.READ_SCIM_TOKEN, "read:scim_token");
+
+    public static final OauthScope UPDATE_ROLES = new OauthScope(Value.UPDATE_ROLES, "update:roles");
+
+    public static final OauthScope CREATE_ORGANIZATIONS =
+            new OauthScope(Value.CREATE_ORGANIZATIONS, "create:organizations");
+
+    public static final OauthScope READ_CONNECTIONS = new OauthScope(Value.READ_CONNECTIONS, "read:connections");
+
+    public static final OauthScope CREATE_DIRECTORY_PROVISIONINGS =
+            new OauthScope(Value.CREATE_DIRECTORY_PROVISIONINGS, "create:directory_provisionings");
+
+    public static final OauthScope DELETE_ORGANIZATIONS =
+            new OauthScope(Value.DELETE_ORGANIZATIONS, "delete:organizations");
+
+    public static final OauthScope CREATE_ORGANIZATION_MEMBER_ROLES =
+            new OauthScope(Value.CREATE_ORGANIZATION_MEMBER_ROLES, "create:organization_member_roles");
+
+    public static final OauthScope DELETE_CLIENT_GRANTS =
+            new OauthScope(Value.DELETE_CLIENT_GRANTS, "delete:client_grants");
+
+    public static final OauthScope UPDATE_CURRENT_USER_METADATA =
+            new OauthScope(Value.UPDATE_CURRENT_USER_METADATA, "update:current_user_metadata");
+
+    public static final OauthScope READ_EVENT_DELIVERIES =
+            new OauthScope(Value.READ_EVENT_DELIVERIES, "read:event_deliveries");
+
+    public static final OauthScope DELETE_PHONE_PROVIDERS =
+            new OauthScope(Value.DELETE_PHONE_PROVIDERS, "delete:phone_providers");
+
+    public static final OauthScope UPDATE_CLIENTS = new OauthScope(Value.UPDATE_CLIENTS, "update:clients");
+
+    public static final OauthScope READ_REFRESH_TOKENS =
+            new OauthScope(Value.READ_REFRESH_TOKENS, "read:refresh_tokens");
+
+    public static final OauthScope CREATE_SSO_ACCESS_TICKETS =
+            new OauthScope(Value.CREATE_SSO_ACCESS_TICKETS, "create:sso_access_tickets");
+
+    public static final OauthScope UPDATE_EMAIL_TEMPLATES =
+            new OauthScope(Value.UPDATE_EMAIL_TEMPLATES, "update:email_templates");
+
+    public static final OauthScope CREATE_USERS = new OauthScope(Value.CREATE_USERS, "create:users");
+
+    public static final OauthScope READ_PHONE_TEMPLATES =
+            new OauthScope(Value.READ_PHONE_TEMPLATES, "read:phone_templates");
+
+    public static final OauthScope DELETE_GROUPS = new OauthScope(Value.DELETE_GROUPS, "delete:groups");
+
+    public static final OauthScope DELETE_ORGANIZATION_CONNECTIONS =
+            new OauthScope(Value.DELETE_ORGANIZATION_CONNECTIONS, "delete:organization_connections");
+
+    public static final OauthScope READ_ROLE_MEMBERS = new OauthScope(Value.READ_ROLE_MEMBERS, "read:role_members");
+
+    public static final OauthScope DELETE_FEDERATED_CONNECTIONS_TOKENS =
+            new OauthScope(Value.DELETE_FEDERATED_CONNECTIONS_TOKENS, "delete:federated_connections_tokens");
+
+    public static final OauthScope READ_SELF_SERVICE_PROFILES =
+            new OauthScope(Value.READ_SELF_SERVICE_PROFILES, "read:self_service_profiles");
 
     public static final OauthScope CREATE_ORGANIZATION_DISCOVERY_DOMAINS =
             new OauthScope(Value.CREATE_ORGANIZATION_DISCOVERY_DOMAINS, "create:organization_discovery_domains");
 
-    public static final OauthScope CREATE_PHONE_TEMPLATES =
-            new OauthScope(Value.CREATE_PHONE_TEMPLATES, "create:phone_templates");
+    public static final OauthScope READ_SCIM_CONFIG = new OauthScope(Value.READ_SCIM_CONFIG, "read:scim_config");
 
-    public static final OauthScope UPDATE_PHONE_PROVIDERS =
-            new OauthScope(Value.UPDATE_PHONE_PROVIDERS, "update:phone_providers");
+    public static final OauthScope UPDATE_SCIM_CONFIG = new OauthScope(Value.UPDATE_SCIM_CONFIG, "update:scim_config");
 
-    public static final OauthScope CREATE_ROLES = new OauthScope(Value.CREATE_ROLES, "create:roles");
+    public static final OauthScope DELETE_CLIENTS = new OauthScope(Value.DELETE_CLIENTS, "delete:clients");
+
+    public static final OauthScope READ_FLOWS_EXECUTIONS =
+            new OauthScope(Value.READ_FLOWS_EXECUTIONS, "read:flows_executions");
 
     public static final OauthScope DELETE_AUTHENTICATION_METHODS =
             new OauthScope(Value.DELETE_AUTHENTICATION_METHODS, "delete:authentication_methods");
@@ -47,36 +104,171 @@ public final class OauthScope {
     public static final OauthScope CREATE_CONNECTIONS_KEYS =
             new OauthScope(Value.CREATE_CONNECTIONS_KEYS, "create:connections_keys");
 
+    public static final OauthScope DELETE_ORGANIZATION_CLIENT_GRANTS =
+            new OauthScope(Value.DELETE_ORGANIZATION_CLIENT_GRANTS, "delete:organization_client_grants");
+
+    public static final OauthScope UPDATE_SELF_SERVICE_PROFILES =
+            new OauthScope(Value.UPDATE_SELF_SERVICE_PROFILES, "update:self_service_profiles");
+
+    public static final OauthScope CREATE_ROLES = new OauthScope(Value.CREATE_ROLES, "create:roles");
+
+    public static final OauthScope CREATE_SIGNING_KEYS =
+            new OauthScope(Value.CREATE_SIGNING_KEYS, "create:signing_keys");
+
+    public static final OauthScope UPDATE_EVENT_STREAMS =
+            new OauthScope(Value.UPDATE_EVENT_STREAMS, "update:event_streams");
+
+    public static final OauthScope READ_GROUP_MEMBERS = new OauthScope(Value.READ_GROUP_MEMBERS, "read:group_members");
+
+    public static final OauthScope UPDATE_ACTIONS = new OauthScope(Value.UPDATE_ACTIONS, "update:actions");
+
+    public static final OauthScope CREATE_FLOWS = new OauthScope(Value.CREATE_FLOWS, "create:flows");
+
+    public static final OauthScope READ_CUSTOM_SIGNING_KEYS =
+            new OauthScope(Value.READ_CUSTOM_SIGNING_KEYS, "read:custom_signing_keys");
+
+    public static final OauthScope DELETE_CLIENT_CREDENTIALS =
+            new OauthScope(Value.DELETE_CLIENT_CREDENTIALS, "delete:client_credentials");
+
+    public static final OauthScope DELETE_ORGANIZATION_INVITATIONS =
+            new OauthScope(Value.DELETE_ORGANIZATION_INVITATIONS, "delete:organization_invitations");
+
+    public static final OauthScope CREATE_ORGANIZATION_CLIENT_GRANTS =
+            new OauthScope(Value.CREATE_ORGANIZATION_CLIENT_GRANTS, "create:organization_client_grants");
+
+    public static final OauthScope READ_USER_IDP_TOKENS =
+            new OauthScope(Value.READ_USER_IDP_TOKENS, "read:user_idp_tokens");
+
+    public static final OauthScope DELETE_REFRESH_TOKENS =
+            new OauthScope(Value.DELETE_REFRESH_TOKENS, "delete:refresh_tokens");
+
+    public static final OauthScope CREATE_SELF_SERVICE_PROFILES =
+            new OauthScope(Value.CREATE_SELF_SERVICE_PROFILES, "create:self_service_profiles");
+
+    public static final OauthScope UPDATE_USER_ATTRIBUTE_PROFILES =
+            new OauthScope(Value.UPDATE_USER_ATTRIBUTE_PROFILES, "update:user_attribute_profiles");
+
+    public static final OauthScope CREATE_VDCS_TEMPLATES =
+            new OauthScope(Value.CREATE_VDCS_TEMPLATES, "create:vdcs_templates");
+
+    public static final OauthScope CREATE_CUSTOM_DOMAINS =
+            new OauthScope(Value.CREATE_CUSTOM_DOMAINS, "create:custom_domains");
+
+    public static final OauthScope READ_ORGANIZATION_DISCOVERY_DOMAINS =
+            new OauthScope(Value.READ_ORGANIZATION_DISCOVERY_DOMAINS, "read:organization_discovery_domains");
+
+    public static final OauthScope DELETE_DIRECTORY_PROVISIONINGS =
+            new OauthScope(Value.DELETE_DIRECTORY_PROVISIONINGS, "delete:directory_provisionings");
+
+    public static final OauthScope READ_CLIENT_CREDENTIALS =
+            new OauthScope(Value.READ_CLIENT_CREDENTIALS, "read:client_credentials");
+
+    public static final OauthScope CREATE_EMAIL_PROVIDER =
+            new OauthScope(Value.CREATE_EMAIL_PROVIDER, "create:email_provider");
+
+    public static final OauthScope CREATE_SCIM_TOKEN = new OauthScope(Value.CREATE_SCIM_TOKEN, "create:scim_token");
+
+    public static final OauthScope READ_GUARDIAN_FACTORS =
+            new OauthScope(Value.READ_GUARDIAN_FACTORS, "read:guardian_factors");
+
+    public static final OauthScope DELETE_CONNECTION_PROFILES =
+            new OauthScope(Value.DELETE_CONNECTION_PROFILES, "delete:connection_profiles");
+
+    public static final OauthScope UPDATE_FLOWS = new OauthScope(Value.UPDATE_FLOWS, "update:flows");
+
+    public static final OauthScope READ_ORGANIZATIONS_SUMMARY =
+            new OauthScope(Value.READ_ORGANIZATIONS_SUMMARY, "read:organizations_summary");
+
+    public static final OauthScope READ_SESSIONS = new OauthScope(Value.READ_SESSIONS, "read:sessions");
+
+    public static final OauthScope CREATE_RESOURCE_SERVERS =
+            new OauthScope(Value.CREATE_RESOURCE_SERVERS, "create:resource_servers");
+
+    public static final OauthScope CREATE_FLOWS_VAULT_CONNECTIONS =
+            new OauthScope(Value.CREATE_FLOWS_VAULT_CONNECTIONS, "create:flows_vault_connections");
+
+    public static final OauthScope READ_BRANDING = new OauthScope(Value.READ_BRANDING, "read:branding");
+
+    public static final OauthScope UPDATE_FORMS = new OauthScope(Value.UPDATE_FORMS, "update:forms");
+
+    public static final OauthScope UPDATE_MFA_POLICIES =
+            new OauthScope(Value.UPDATE_MFA_POLICIES, "update:mfa_policies");
+
+    public static final OauthScope READ_LOGS_USERS = new OauthScope(Value.READ_LOGS_USERS, "read:logs_users");
+
+    public static final OauthScope READ_ORGANIZATION_CLIENT_GRANTS =
+            new OauthScope(Value.READ_ORGANIZATION_CLIENT_GRANTS, "read:organization_client_grants");
+
+    public static final OauthScope READ_ROLES = new OauthScope(Value.READ_ROLES, "read:roles");
+
+    public static final OauthScope READ_DEVICE_CREDENTIALS =
+            new OauthScope(Value.READ_DEVICE_CREDENTIALS, "read:device_credentials");
+
+    public static final OauthScope CREATE_ENCRYPTION_KEYS =
+            new OauthScope(Value.CREATE_ENCRYPTION_KEYS, "create:encryption_keys");
+
+    public static final OauthScope UPDATE_CURRENT_USER_IDENTITIES =
+            new OauthScope(Value.UPDATE_CURRENT_USER_IDENTITIES, "update:current_user_identities");
+
+    public static final OauthScope DELETE_FORMS = new OauthScope(Value.DELETE_FORMS, "delete:forms");
+
+    public static final OauthScope READ_SELF_SERVICE_PROFILE_CUSTOM_TEXTS =
+            new OauthScope(Value.READ_SELF_SERVICE_PROFILE_CUSTOM_TEXTS, "read:self_service_profile_custom_texts");
+
+    public static final OauthScope UPDATE_ORGANIZATION_DISCOVERY_DOMAINS =
+            new OauthScope(Value.UPDATE_ORGANIZATION_DISCOVERY_DOMAINS, "update:organization_discovery_domains");
+
+    public static final OauthScope READ_ANOMALY_BLOCKS =
+            new OauthScope(Value.READ_ANOMALY_BLOCKS, "read:anomaly_blocks");
+
+    public static final OauthScope UPDATE_CLIENT_TOKEN_VAULT_PRIVILEGED_ACCESS = new OauthScope(
+            Value.UPDATE_CLIENT_TOKEN_VAULT_PRIVILEGED_ACCESS, "update:client_token_vault_privileged_access");
+
+    public static final OauthScope CREATE_FORMS = new OauthScope(Value.CREATE_FORMS, "create:forms");
+
+    public static final OauthScope READ_CLIENT_SUMMARY =
+            new OauthScope(Value.READ_CLIENT_SUMMARY, "read:client_summary");
+
+    public static final OauthScope CREATE_AUTHENTICATION_METHODS =
+            new OauthScope(Value.CREATE_AUTHENTICATION_METHODS, "create:authentication_methods");
+
+    public static final OauthScope READ_DIRECTORY_PROVISIONINGS =
+            new OauthScope(Value.READ_DIRECTORY_PROVISIONINGS, "read:directory_provisionings");
+
+    public static final OauthScope CREATE_PHONE_PROVIDERS =
+            new OauthScope(Value.CREATE_PHONE_PROVIDERS, "create:phone_providers");
+
+    public static final OauthScope CREATE_RULES = new OauthScope(Value.CREATE_RULES, "create:rules");
+
+    public static final OauthScope READ_EMAIL_TEMPLATES =
+            new OauthScope(Value.READ_EMAIL_TEMPLATES, "read:email_templates");
+
     public static final OauthScope UPDATE_RULES = new OauthScope(Value.UPDATE_RULES, "update:rules");
 
     public static final OauthScope UPDATE_FLOWS_VAULT_CONNECTIONS =
             new OauthScope(Value.UPDATE_FLOWS_VAULT_CONNECTIONS, "update:flows_vault_connections");
 
-    public static final OauthScope READ_ENCRYPTION_KEYS =
-            new OauthScope(Value.READ_ENCRYPTION_KEYS, "read:encryption_keys");
-
-    public static final OauthScope DELETE_SESSIONS = new OauthScope(Value.DELETE_SESSIONS, "delete:sessions");
-
-    public static final OauthScope UPDATE_ACTIONS = new OauthScope(Value.UPDATE_ACTIONS, "update:actions");
+    public static final OauthScope UPDATE_PHONE_PROVIDERS =
+            new OauthScope(Value.UPDATE_PHONE_PROVIDERS, "update:phone_providers");
 
     public static final OauthScope CREATE_EVENT_STREAMS =
             new OauthScope(Value.CREATE_EVENT_STREAMS, "create:event_streams");
 
-    public static final OauthScope DELETE_EVENT_STREAMS =
-            new OauthScope(Value.DELETE_EVENT_STREAMS, "delete:event_streams");
-
-    public static final OauthScope DELETE_FLOWS = new OauthScope(Value.DELETE_FLOWS, "delete:flows");
-
-    public static final OauthScope DELETE_PHONE_PROVIDERS =
-            new OauthScope(Value.DELETE_PHONE_PROVIDERS, "delete:phone_providers");
-
     public static final OauthScope DELETE_SELF_SERVICE_PROFILES =
             new OauthScope(Value.DELETE_SELF_SERVICE_PROFILES, "delete:self_service_profiles");
 
-    public static final OauthScope READ_GROUP_MEMBERS = new OauthScope(Value.READ_GROUP_MEMBERS, "read:group_members");
+    public static final OauthScope DELETE_SESSIONS = new OauthScope(Value.DELETE_SESSIONS, "delete:sessions");
 
-    public static final OauthScope CREATE_SIGNING_KEYS =
-            new OauthScope(Value.CREATE_SIGNING_KEYS, "create:signing_keys");
+    public static final OauthScope CREATE_CLIENTS = new OauthScope(Value.CREATE_CLIENTS, "create:clients");
+
+    public static final OauthScope DELETE_LOG_STREAMS = new OauthScope(Value.DELETE_LOG_STREAMS, "delete:log_streams");
+
+    public static final OauthScope CREATE_USER_ATTRIBUTE_PROFILES =
+            new OauthScope(Value.CREATE_USER_ATTRIBUTE_PROFILES, "create:user_attribute_profiles");
+
+    public static final OauthScope UPDATE_USERS = new OauthScope(Value.UPDATE_USERS, "update:users");
+
+    public static final OauthScope READ_GRANTS = new OauthScope(Value.READ_GRANTS, "read:grants");
 
     public static final OauthScope UPDATE_SIGNING_KEYS =
             new OauthScope(Value.UPDATE_SIGNING_KEYS, "update:signing_keys");
@@ -84,24 +276,27 @@ public final class OauthScope {
     public static final OauthScope CREATE_USER_TICKETS =
             new OauthScope(Value.CREATE_USER_TICKETS, "create:user_tickets");
 
+    public static final OauthScope READ_LOG_STREAMS = new OauthScope(Value.READ_LOG_STREAMS, "read:log_streams");
+
+    public static final OauthScope UPDATE_BRANDING = new OauthScope(Value.UPDATE_BRANDING, "update:branding");
+
+    public static final OauthScope UPDATE_CUSTOM_SIGNING_KEYS =
+            new OauthScope(Value.UPDATE_CUSTOM_SIGNING_KEYS, "update:custom_signing_keys");
+
+    public static final OauthScope READ_CLIENTS = new OauthScope(Value.READ_CLIENTS, "read:clients");
+
     public static final OauthScope DELETE_GRANTS = new OauthScope(Value.DELETE_GRANTS, "delete:grants");
-
-    public static final OauthScope DELETE_REFRESH_TOKENS =
-            new OauthScope(Value.DELETE_REFRESH_TOKENS, "delete:refresh_tokens");
-
-    public static final OauthScope READ_RULES_CONFIGS = new OauthScope(Value.READ_RULES_CONFIGS, "read:rules_configs");
-
-    public static final OauthScope CREATE_SELF_SERVICE_PROFILES =
-            new OauthScope(Value.CREATE_SELF_SERVICE_PROFILES, "create:self_service_profiles");
 
     public static final OauthScope UPDATE_REFRESH_TOKENS =
             new OauthScope(Value.UPDATE_REFRESH_TOKENS, "update:refresh_tokens");
 
-    public static final OauthScope READ_USER_IDP_TOKENS =
-            new OauthScope(Value.READ_USER_IDP_TOKENS, "read:user_idp_tokens");
+    public static final OauthScope UPDATE_RULES_CONFIGS =
+            new OauthScope(Value.UPDATE_RULES_CONFIGS, "update:rules_configs");
 
-    public static final OauthScope READ_CUSTOM_SIGNING_KEYS =
-            new OauthScope(Value.READ_CUSTOM_SIGNING_KEYS, "read:custom_signing_keys");
+    public static final OauthScope UPDATE_CUSTOM_DOMAINS =
+            new OauthScope(Value.UPDATE_CUSTOM_DOMAINS, "update:custom_domains");
+
+    public static final OauthScope READ_RULES_CONFIGS = new OauthScope(Value.READ_RULES_CONFIGS, "read:rules_configs");
 
     public static final OauthScope READ_HOOKS = new OauthScope(Value.READ_HOOKS, "read:hooks");
 
@@ -110,330 +305,71 @@ public final class OauthScope {
 
     public static final OauthScope DELETE_BRANDING = new OauthScope(Value.DELETE_BRANDING, "delete:branding");
 
-    public static final OauthScope DELETE_CLIENT_CREDENTIALS =
-            new OauthScope(Value.DELETE_CLIENT_CREDENTIALS, "delete:client_credentials");
-
     public static final OauthScope UPDATE_TENANT_SETTINGS =
             new OauthScope(Value.UPDATE_TENANT_SETTINGS, "update:tenant_settings");
-
-    public static final OauthScope READ_ORGANIZATION_INVITATIONS =
-            new OauthScope(Value.READ_ORGANIZATION_INVITATIONS, "read:organization_invitations");
-
-    public static final OauthScope READ_GRANTS = new OauthScope(Value.READ_GRANTS, "read:grants");
-
-    public static final OauthScope DELETE_ORGANIZATION_INVITATIONS =
-            new OauthScope(Value.DELETE_ORGANIZATION_INVITATIONS, "delete:organization_invitations");
-
-    public static final OauthScope UPDATE_RULES_CONFIGS =
-            new OauthScope(Value.UPDATE_RULES_CONFIGS, "update:rules_configs");
-
-    public static final OauthScope UPDATE_CONNECTION_PROFILES =
-            new OauthScope(Value.UPDATE_CONNECTION_PROFILES, "update:connection_profiles");
-
-    public static final OauthScope READ_GROUPS = new OauthScope(Value.READ_GROUPS, "read:groups");
-
-    public static final OauthScope DELETE_ACTIONS = new OauthScope(Value.DELETE_ACTIONS, "delete:actions");
-
-    public static final OauthScope UPDATE_AUTHENTICATION_METHODS =
-            new OauthScope(Value.UPDATE_AUTHENTICATION_METHODS, "update:authentication_methods");
-
-    public static final OauthScope CREATE_VDCS_TEMPLATES =
-            new OauthScope(Value.CREATE_VDCS_TEMPLATES, "create:vdcs_templates");
-
-    public static final OauthScope READ_ATTACK_PROTECTION =
-            new OauthScope(Value.READ_ATTACK_PROTECTION, "read:attack_protection");
-
-    public static final OauthScope READ_ORGANIZATION_DISCOVERY_DOMAINS =
-            new OauthScope(Value.READ_ORGANIZATION_DISCOVERY_DOMAINS, "read:organization_discovery_domains");
-
-    public static final OauthScope CREATE_CUSTOM_DOMAINS =
-            new OauthScope(Value.CREATE_CUSTOM_DOMAINS, "create:custom_domains");
-
-    public static final OauthScope READ_CURRENT_USER = new OauthScope(Value.READ_CURRENT_USER, "read:current_user");
-
-    public static final OauthScope DELETE_ORGANIZATION_CONNECTIONS =
-            new OauthScope(Value.DELETE_ORGANIZATION_CONNECTIONS, "delete:organization_connections");
-
-    public static final OauthScope READ_CLIENT_CREDENTIALS =
-            new OauthScope(Value.READ_CLIENT_CREDENTIALS, "read:client_credentials");
-
-    public static final OauthScope CREATE_ORGANIZATIONS =
-            new OauthScope(Value.CREATE_ORGANIZATIONS, "create:organizations");
-
-    public static final OauthScope READ_ORGANIZATIONS_SUMMARY =
-            new OauthScope(Value.READ_ORGANIZATIONS_SUMMARY, "read:organizations_summary");
-
-    public static final OauthScope DELETE_ORGANIZATIONS =
-            new OauthScope(Value.DELETE_ORGANIZATIONS, "delete:organizations");
-
-    public static final OauthScope READ_SCIM_TOKEN = new OauthScope(Value.READ_SCIM_TOKEN, "read:scim_token");
-
-    public static final OauthScope READ_CONNECTIONS = new OauthScope(Value.READ_CONNECTIONS, "read:connections");
-
-    public static final OauthScope READ_SIGNING_KEYS = new OauthScope(Value.READ_SIGNING_KEYS, "read:signing_keys");
-
-    public static final OauthScope DELETE_FEDERATED_CONNECTIONS_TOKENS =
-            new OauthScope(Value.DELETE_FEDERATED_CONNECTIONS_TOKENS, "delete:federated_connections_tokens");
-
-    public static final OauthScope DELETE_CONNECTIONS = new OauthScope(Value.DELETE_CONNECTIONS, "delete:connections");
-
-    public static final OauthScope UPDATE_RESOURCE_SERVERS =
-            new OauthScope(Value.UPDATE_RESOURCE_SERVERS, "update:resource_servers");
-
-    public static final OauthScope CREATE_USERS = new OauthScope(Value.CREATE_USERS, "create:users");
-
-    public static final OauthScope READ_PHONE_TEMPLATES =
-            new OauthScope(Value.READ_PHONE_TEMPLATES, "read:phone_templates");
-
-    public static final OauthScope UPDATE_ROLES = new OauthScope(Value.UPDATE_ROLES, "update:roles");
-
-    public static final OauthScope CREATE_SSO_ACCESS_TICKETS =
-            new OauthScope(Value.CREATE_SSO_ACCESS_TICKETS, "create:sso_access_tickets");
-
-    public static final OauthScope DELETE_GROUPS = new OauthScope(Value.DELETE_GROUPS, "delete:groups");
-
-    public static final OauthScope READ_SELF_SERVICE_PROFILE_CUSTOM_TEXTS =
-            new OauthScope(Value.READ_SELF_SERVICE_PROFILE_CUSTOM_TEXTS, "read:self_service_profile_custom_texts");
-
-    public static final OauthScope DELETE_SCIM_TOKEN = new OauthScope(Value.DELETE_SCIM_TOKEN, "delete:scim_token");
-
-    public static final OauthScope DELETE_FORMS = new OauthScope(Value.DELETE_FORMS, "delete:forms");
-
-    public static final OauthScope READ_SELF_SERVICE_PROFILES =
-            new OauthScope(Value.READ_SELF_SERVICE_PROFILES, "read:self_service_profiles");
-
-    public static final OauthScope DELETE_RULES_CONFIGS =
-            new OauthScope(Value.DELETE_RULES_CONFIGS, "delete:rules_configs");
-
-    public static final OauthScope CREATE_FORMS = new OauthScope(Value.CREATE_FORMS, "create:forms");
-
-    public static final OauthScope READ_USER_ATTRIBUTE_PROFILES =
-            new OauthScope(Value.READ_USER_ATTRIBUTE_PROFILES, "read:user_attribute_profiles");
-
-    public static final OauthScope READ_DIRECTORY_PROVISIONINGS =
-            new OauthScope(Value.READ_DIRECTORY_PROVISIONINGS, "read:directory_provisionings");
-
-    public static final OauthScope CREATE_AUTHENTICATION_METHODS =
-            new OauthScope(Value.CREATE_AUTHENTICATION_METHODS, "create:authentication_methods");
-
-    public static final OauthScope CREATE_PHONE_PROVIDERS =
-            new OauthScope(Value.CREATE_PHONE_PROVIDERS, "create:phone_providers");
-
-    public static final OauthScope DELETE_ORGANIZATION_CLIENT_GRANTS =
-            new OauthScope(Value.DELETE_ORGANIZATION_CLIENT_GRANTS, "delete:organization_client_grants");
-
-    public static final OauthScope CREATE_SCIM_CONFIG = new OauthScope(Value.CREATE_SCIM_CONFIG, "create:scim_config");
-
-    public static final OauthScope CREATE_CLIENTS = new OauthScope(Value.CREATE_CLIENTS, "create:clients");
-
-    public static final OauthScope UPDATE_USERS = new OauthScope(Value.UPDATE_USERS, "update:users");
-
-    public static final OauthScope READ_ORGANIZATION_MEMBERS =
-            new OauthScope(Value.READ_ORGANIZATION_MEMBERS, "read:organization_members");
-
-    public static final OauthScope UPDATE_EVENT_STREAMS =
-            new OauthScope(Value.UPDATE_EVENT_STREAMS, "update:event_streams");
-
-    public static final OauthScope UPDATE_CUSTOM_SIGNING_KEYS =
-            new OauthScope(Value.UPDATE_CUSTOM_SIGNING_KEYS, "update:custom_signing_keys");
-
-    public static final OauthScope READ_LOG_STREAMS = new OauthScope(Value.READ_LOG_STREAMS, "read:log_streams");
-
-    public static final OauthScope UPDATE_LOG_STREAMS = new OauthScope(Value.UPDATE_LOG_STREAMS, "update:log_streams");
-
-    public static final OauthScope READ_CLIENTS = new OauthScope(Value.READ_CLIENTS, "read:clients");
-
-    public static final OauthScope DELETE_ENCRYPTION_KEYS =
-            new OauthScope(Value.DELETE_ENCRYPTION_KEYS, "delete:encryption_keys");
-
-    public static final OauthScope UPDATE_USER_ATTRIBUTE_PROFILES =
-            new OauthScope(Value.UPDATE_USER_ATTRIBUTE_PROFILES, "update:user_attribute_profiles");
 
     public static final OauthScope CREATE_CUSTOM_SIGNING_KEYS =
             new OauthScope(Value.CREATE_CUSTOM_SIGNING_KEYS, "create:custom_signing_keys");
 
-    public static final OauthScope READ_CLIENT_KEYS = new OauthScope(Value.READ_CLIENT_KEYS, "read:client_keys");
+    public static final OauthScope READ_AUTHENTICATION_METHODS =
+            new OauthScope(Value.READ_AUTHENTICATION_METHODS, "read:authentication_methods");
 
-    public static final OauthScope CREATE_EMAIL_PROVIDER =
-            new OauthScope(Value.CREATE_EMAIL_PROVIDER, "create:email_provider");
-
-    public static final OauthScope UPDATE_NETWORK_ACLS =
-            new OauthScope(Value.UPDATE_NETWORK_ACLS, "update:network_acls");
-
-    public static final OauthScope DELETE_VDCS_TEMPLATES =
-            new OauthScope(Value.DELETE_VDCS_TEMPLATES, "delete:vdcs_templates");
-
-    public static final OauthScope READ_FLOWS = new OauthScope(Value.READ_FLOWS, "read:flows");
-
-    public static final OauthScope READ_SESSIONS = new OauthScope(Value.READ_SESSIONS, "read:sessions");
-
-    public static final OauthScope CREATE_ORGANIZATION_MEMBER_ROLES =
-            new OauthScope(Value.CREATE_ORGANIZATION_MEMBER_ROLES, "create:organization_member_roles");
-
-    public static final OauthScope CREATE_DIRECTORY_PROVISIONINGS =
-            new OauthScope(Value.CREATE_DIRECTORY_PROVISIONINGS, "create:directory_provisionings");
-
-    public static final OauthScope DELETE_ORGANIZATION_MEMBERS =
-            new OauthScope(Value.DELETE_ORGANIZATION_MEMBERS, "delete:organization_members");
-
-    public static final OauthScope UPDATE_FORMS = new OauthScope(Value.UPDATE_FORMS, "update:forms");
-
-    public static final OauthScope CREATE_RESOURCE_SERVERS =
-            new OauthScope(Value.CREATE_RESOURCE_SERVERS, "create:resource_servers");
-
-    public static final OauthScope READ_BRANDING = new OauthScope(Value.READ_BRANDING, "read:branding");
-
-    public static final OauthScope UPDATE_MFA_POLICIES =
-            new OauthScope(Value.UPDATE_MFA_POLICIES, "update:mfa_policies");
-
-    public static final OauthScope UPDATE_CURRENT_USER_METADATA =
-            new OauthScope(Value.UPDATE_CURRENT_USER_METADATA, "update:current_user_metadata");
-
-    public static final OauthScope READ_FLOWS_VAULT_CONNECTIONS =
-            new OauthScope(Value.READ_FLOWS_VAULT_CONNECTIONS, "read:flows_vault_connections");
-
-    public static final OauthScope READ_ORGANIZATION_CLIENT_GRANTS =
-            new OauthScope(Value.READ_ORGANIZATION_CLIENT_GRANTS, "read:organization_client_grants");
-
-    public static final OauthScope UPDATE_CLIENTS = new OauthScope(Value.UPDATE_CLIENTS, "update:clients");
-
-    public static final OauthScope DELETE_CLIENT_GRANTS =
-            new OauthScope(Value.DELETE_CLIENT_GRANTS, "delete:client_grants");
-
-    public static final OauthScope CREATE_ENCRYPTION_KEYS =
-            new OauthScope(Value.CREATE_ENCRYPTION_KEYS, "create:encryption_keys");
-
-    public static final OauthScope UPDATE_ENCRYPTION_KEYS =
-            new OauthScope(Value.UPDATE_ENCRYPTION_KEYS, "update:encryption_keys");
-
-    public static final OauthScope READ_ROLES = new OauthScope(Value.READ_ROLES, "read:roles");
-
-    public static final OauthScope READ_DEVICE_CREDENTIALS =
-            new OauthScope(Value.READ_DEVICE_CREDENTIALS, "read:device_credentials");
-
-    public static final OauthScope DELETE_DIRECTORY_PROVISIONINGS =
-            new OauthScope(Value.DELETE_DIRECTORY_PROVISIONINGS, "delete:directory_provisionings");
-
-    public static final OauthScope DELETE_TOKEN_EXCHANGE_PROFILES =
-            new OauthScope(Value.DELETE_TOKEN_EXCHANGE_PROFILES, "delete:token_exchange_profiles");
-
-    public static final OauthScope UPDATE_ORGANIZATION_DISCOVERY_DOMAINS =
-            new OauthScope(Value.UPDATE_ORGANIZATION_DISCOVERY_DOMAINS, "update:organization_discovery_domains");
-
-    public static final OauthScope READ_LOGS = new OauthScope(Value.READ_LOGS, "read:logs");
-
-    public static final OauthScope UPDATE_EMAIL_PROVIDER =
-            new OauthScope(Value.UPDATE_EMAIL_PROVIDER, "update:email_provider");
-
-    public static final OauthScope DELETE_FLOWS_VAULT_CONNECTIONS =
-            new OauthScope(Value.DELETE_FLOWS_VAULT_CONNECTIONS, "delete:flows_vault_connections");
-
-    public static final OauthScope DELETE_NETWORK_ACLS =
-            new OauthScope(Value.DELETE_NETWORK_ACLS, "delete:network_acls");
-
-    public static final OauthScope UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS =
-            new OauthScope(Value.UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS, "update:self_service_profile_custom_texts");
-
-    public static final OauthScope DELETE_ORGANIZATION_DISCOVERY_DOMAINS =
-            new OauthScope(Value.DELETE_ORGANIZATION_DISCOVERY_DOMAINS, "delete:organization_discovery_domains");
-
-    public static final OauthScope UPDATE_CLIENT_GRANTS =
-            new OauthScope(Value.UPDATE_CLIENT_GRANTS, "update:client_grants");
-
-    public static final OauthScope READ_EMAIL_TEMPLATES =
-            new OauthScope(Value.READ_EMAIL_TEMPLATES, "read:email_templates");
-
-    public static final OauthScope UPDATE_VDCS_TEMPLATES =
-            new OauthScope(Value.UPDATE_VDCS_TEMPLATES, "update:vdcs_templates");
-
-    public static final OauthScope CREATE_USER_ATTRIBUTE_PROFILES =
-            new OauthScope(Value.CREATE_USER_ATTRIBUTE_PROFILES, "create:user_attribute_profiles");
-
-    public static final OauthScope CREATE_ORGANIZATION_INVITATIONS =
-            new OauthScope(Value.CREATE_ORGANIZATION_INVITATIONS, "create:organization_invitations");
-
-    public static final OauthScope DELETE_LOG_STREAMS = new OauthScope(Value.DELETE_LOG_STREAMS, "delete:log_streams");
-
-    public static final OauthScope DELETE_CUSTOM_SIGNING_KEYS =
-            new OauthScope(Value.DELETE_CUSTOM_SIGNING_KEYS, "delete:custom_signing_keys");
-
-    public static final OauthScope DELETE_RESOURCE_SERVERS =
-            new OauthScope(Value.DELETE_RESOURCE_SERVERS, "delete:resource_servers");
-
-    public static final OauthScope UPDATE_GUARDIAN_FACTORS =
-            new OauthScope(Value.UPDATE_GUARDIAN_FACTORS, "update:guardian_factors");
-
-    public static final OauthScope DELETE_ORGANIZATION_MEMBER_ROLES =
-            new OauthScope(Value.DELETE_ORGANIZATION_MEMBER_ROLES, "delete:organization_member_roles");
-
-    public static final OauthScope READ_USERS = new OauthScope(Value.READ_USERS, "read:users");
-
-    public static final OauthScope UPDATE_BRANDING = new OauthScope(Value.UPDATE_BRANDING, "update:branding");
-
-    public static final OauthScope DELETE_SSO_ACCESS_TICKETS =
-            new OauthScope(Value.DELETE_SSO_ACCESS_TICKETS, "delete:sso_access_tickets");
-
-    public static final OauthScope UPDATE_ORGANIZATION_CONNECTIONS =
-            new OauthScope(Value.UPDATE_ORGANIZATION_CONNECTIONS, "update:organization_connections");
-
-    public static final OauthScope UPDATE_CUSTOM_DOMAINS =
-            new OauthScope(Value.UPDATE_CUSTOM_DOMAINS, "update:custom_domains");
-
-    public static final OauthScope READ_NETWORK_ACLS = new OauthScope(Value.READ_NETWORK_ACLS, "read:network_acls");
-
-    public static final OauthScope DELETE_EMAIL_PROVIDER =
-            new OauthScope(Value.DELETE_EMAIL_PROVIDER, "delete:email_provider");
-
-    public static final OauthScope READ_FORMS = new OauthScope(Value.READ_FORMS, "read:forms");
+    public static final OauthScope UPDATE_ATTACK_PROTECTION =
+            new OauthScope(Value.UPDATE_ATTACK_PROTECTION, "update:attack_protection");
 
     public static final OauthScope CREATE_GUARDIAN_ENROLLMENT_TICKETS =
             new OauthScope(Value.CREATE_GUARDIAN_ENROLLMENT_TICKETS, "create:guardian_enrollment_tickets");
 
-    public static final OauthScope READ_EVENT_STREAMS = new OauthScope(Value.READ_EVENT_STREAMS, "read:event_streams");
-
-    public static final OauthScope CREATE_NETWORK_ACLS =
-            new OauthScope(Value.CREATE_NETWORK_ACLS, "create:network_acls");
+    public static final OauthScope DELETE_EMAIL_PROVIDER =
+            new OauthScope(Value.DELETE_EMAIL_PROVIDER, "delete:email_provider");
 
     public static final OauthScope DELETE_CUSTOM_DOMAINS =
             new OauthScope(Value.DELETE_CUSTOM_DOMAINS, "delete:custom_domains");
 
-    public static final OauthScope CREATE_SCIM_TOKEN = new OauthScope(Value.CREATE_SCIM_TOKEN, "create:scim_token");
+    public static final OauthScope CREATE_NETWORK_ACLS =
+            new OauthScope(Value.CREATE_NETWORK_ACLS, "create:network_acls");
+
+    public static final OauthScope DELETE_VDCS_TEMPLATES =
+            new OauthScope(Value.DELETE_VDCS_TEMPLATES, "delete:vdcs_templates");
+
+    public static final OauthScope READ_EVENTS = new OauthScope(Value.READ_EVENTS, "read:events");
+
+    public static final OauthScope READ_FLOWS = new OauthScope(Value.READ_FLOWS, "read:flows");
+
+    public static final OauthScope READ_FORMS = new OauthScope(Value.READ_FORMS, "read:forms");
+
+    public static final OauthScope UPDATE_NETWORK_ACLS =
+            new OauthScope(Value.UPDATE_NETWORK_ACLS, "update:network_acls");
 
     public static final OauthScope UPDATE_SESSIONS = new OauthScope(Value.UPDATE_SESSIONS, "update:sessions");
 
-    public static final OauthScope DELETE_CONNECTION_PROFILES =
-            new OauthScope(Value.DELETE_CONNECTION_PROFILES, "delete:connection_profiles");
+    public static final OauthScope CREATE_HOOKS = new OauthScope(Value.CREATE_HOOKS, "create:hooks");
 
-    public static final OauthScope UPDATE_CONNECTIONS = new OauthScope(Value.UPDATE_CONNECTIONS, "update:connections");
+    public static final OauthScope READ_CLIENT_KEYS = new OauthScope(Value.READ_CLIENT_KEYS, "read:client_keys");
 
-    public static final OauthScope DELETE_DEVICE_CREDENTIALS =
-            new OauthScope(Value.DELETE_DEVICE_CREDENTIALS, "delete:device_credentials");
-
-    public static final OauthScope READ_GUARDIAN_FACTORS =
-            new OauthScope(Value.READ_GUARDIAN_FACTORS, "read:guardian_factors");
-
-    public static final OauthScope READ_TENANT_SETTINGS =
-            new OauthScope(Value.READ_TENANT_SETTINGS, "read:tenant_settings");
-
-    public static final OauthScope DELETE_SCIM_CONFIG = new OauthScope(Value.DELETE_SCIM_CONFIG, "delete:scim_config");
-
-    public static final OauthScope DELETE_RULES = new OauthScope(Value.DELETE_RULES, "delete:rules");
-
-    public static final OauthScope READ_ORGANIZATION_MEMBER_ROLES =
-            new OauthScope(Value.READ_ORGANIZATION_MEMBER_ROLES, "read:organization_member_roles");
+    public static final OauthScope CREATE_LOG_STREAMS = new OauthScope(Value.CREATE_LOG_STREAMS, "create:log_streams");
 
     public static final OauthScope READ_FEDERATED_CONNECTIONS_TOKENS =
             new OauthScope(Value.READ_FEDERATED_CONNECTIONS_TOKENS, "read:federated_connections_tokens");
 
-    public static final OauthScope UPDATE_FLOWS = new OauthScope(Value.UPDATE_FLOWS, "update:flows");
+    public static final OauthScope DELETE_ORGANIZATION_MEMBERS =
+            new OauthScope(Value.DELETE_ORGANIZATION_MEMBERS, "delete:organization_members");
 
-    public static final OauthScope CREATE_LOG_STREAMS = new OauthScope(Value.CREATE_LOG_STREAMS, "create:log_streams");
+    public static final OauthScope READ_ORGANIZATION_MEMBER_ROLES =
+            new OauthScope(Value.READ_ORGANIZATION_MEMBER_ROLES, "read:organization_member_roles");
+
+    public static final OauthScope DELETE_SCIM_CONFIG = new OauthScope(Value.DELETE_SCIM_CONFIG, "delete:scim_config");
+
+    public static final OauthScope UPDATE_HOOKS = new OauthScope(Value.UPDATE_HOOKS, "update:hooks");
+
+    public static final OauthScope READ_MFA_POLICIES = new OauthScope(Value.READ_MFA_POLICIES, "read:mfa_policies");
 
     public static final OauthScope CREATE_CONNECTION_PROFILES =
             new OauthScope(Value.CREATE_CONNECTION_PROFILES, "create:connection_profiles");
 
-    public static final OauthScope CREATE_FLOWS_VAULT_CONNECTIONS =
-            new OauthScope(Value.CREATE_FLOWS_VAULT_CONNECTIONS, "create:flows_vault_connections");
+    public static final OauthScope CREATE_ACTIONS = new OauthScope(Value.CREATE_ACTIONS, "create:actions");
+
+    public static final OauthScope READ_CLIENT_GRANTS = new OauthScope(Value.READ_CLIENT_GRANTS, "read:client_grants");
 
     public static final OauthScope UPDATE_DIRECTORY_PROVISIONINGS =
             new OauthScope(Value.UPDATE_DIRECTORY_PROVISIONINGS, "update:directory_provisionings");
@@ -441,157 +377,223 @@ public final class OauthScope {
     public static final OauthScope DELETE_USER_ATTRIBUTE_PROFILES =
             new OauthScope(Value.DELETE_USER_ATTRIBUTE_PROFILES, "delete:user_attribute_profiles");
 
-    public static final OauthScope READ_CLIENT_GRANTS = new OauthScope(Value.READ_CLIENT_GRANTS, "read:client_grants");
+    public static final OauthScope READ_FLOWS_VAULT_CONNECTIONS =
+            new OauthScope(Value.READ_FLOWS_VAULT_CONNECTIONS, "read:flows_vault_connections");
 
-    public static final OauthScope CREATE_TOKEN_EXCHANGE_PROFILES =
-            new OauthScope(Value.CREATE_TOKEN_EXCHANGE_PROFILES, "create:token_exchange_profiles");
+    public static final OauthScope UPDATE_ENCRYPTION_KEYS =
+            new OauthScope(Value.UPDATE_ENCRYPTION_KEYS, "update:encryption_keys");
 
-    public static final OauthScope READ_LOGS_USERS = new OauthScope(Value.READ_LOGS_USERS, "read:logs_users");
-
-    public static final OauthScope READ_RULES = new OauthScope(Value.READ_RULES, "read:rules");
+    public static final OauthScope UPDATE_CLIENT_KEYS = new OauthScope(Value.UPDATE_CLIENT_KEYS, "update:client_keys");
 
     public static final OauthScope DELETE_GUARDIAN_ENROLLMENTS =
             new OauthScope(Value.DELETE_GUARDIAN_ENROLLMENTS, "delete:guardian_enrollments");
 
-    public static final OauthScope UPDATE_CLIENT_KEYS = new OauthScope(Value.UPDATE_CLIENT_KEYS, "update:client_keys");
+    public static final OauthScope DELETE_TOKEN_EXCHANGE_PROFILES =
+            new OauthScope(Value.DELETE_TOKEN_EXCHANGE_PROFILES, "delete:token_exchange_profiles");
 
-    public static final OauthScope UPDATE_CURRENT_USER_IDENTITIES =
-            new OauthScope(Value.UPDATE_CURRENT_USER_IDENTITIES, "update:current_user_identities");
+    public static final OauthScope UPDATE_EMAIL_PROVIDER =
+            new OauthScope(Value.UPDATE_EMAIL_PROVIDER, "update:email_provider");
 
     public static final OauthScope CREATE_ORGANIZATION_CONNECTIONS =
             new OauthScope(Value.CREATE_ORGANIZATION_CONNECTIONS, "create:organization_connections");
 
+    public static final OauthScope DELETE_RULES_CONFIGS =
+            new OauthScope(Value.DELETE_RULES_CONFIGS, "delete:rules_configs");
+
+    public static final OauthScope READ_USER_ATTRIBUTE_PROFILES =
+            new OauthScope(Value.READ_USER_ATTRIBUTE_PROFILES, "read:user_attribute_profiles");
+
     public static final OauthScope READ_EMAIL_PROVIDER =
             new OauthScope(Value.READ_EMAIL_PROVIDER, "read:email_provider");
 
-    public static final OauthScope READ_FLOWS_EXECUTIONS =
-            new OauthScope(Value.READ_FLOWS_EXECUTIONS, "read:flows_executions");
+    public static final OauthScope DELETE_FLOWS_VAULT_CONNECTIONS =
+            new OauthScope(Value.DELETE_FLOWS_VAULT_CONNECTIONS, "delete:flows_vault_connections");
 
-    public static final OauthScope DELETE_CLIENTS = new OauthScope(Value.DELETE_CLIENTS, "delete:clients");
+    public static final OauthScope DELETE_ORGANIZATION_DISCOVERY_DOMAINS =
+            new OauthScope(Value.DELETE_ORGANIZATION_DISCOVERY_DOMAINS, "delete:organization_discovery_domains");
 
-    public static final OauthScope CREATE_ROLE_MEMBERS =
-            new OauthScope(Value.CREATE_ROLE_MEMBERS, "create:role_members");
+    public static final OauthScope UPDATE_CLIENT_GRANTS =
+            new OauthScope(Value.UPDATE_CLIENT_GRANTS, "update:client_grants");
 
-    public static final OauthScope CREATE_FLOWS = new OauthScope(Value.CREATE_FLOWS, "create:flows");
+    public static final OauthScope DELETE_ORGANIZATION_MEMBER_ROLES =
+            new OauthScope(Value.DELETE_ORGANIZATION_MEMBER_ROLES, "delete:organization_member_roles");
 
-    public static final OauthScope DELETE_HOOKS = new OauthScope(Value.DELETE_HOOKS, "delete:hooks");
-
-    public static final OauthScope DELETE_CURRENT_USER =
-            new OauthScope(Value.DELETE_CURRENT_USER, "delete:current_user");
+    public static final OauthScope UPDATE_VDCS_TEMPLATES =
+            new OauthScope(Value.UPDATE_VDCS_TEMPLATES, "update:vdcs_templates");
 
     public static final OauthScope READ_ORGANIZATIONS = new OauthScope(Value.READ_ORGANIZATIONS, "read:organizations");
-
-    public static final OauthScope DELETE_ROLES = new OauthScope(Value.DELETE_ROLES, "delete:roles");
-
-    public static final OauthScope READ_CONNECTION_PROFILES =
-            new OauthScope(Value.READ_CONNECTION_PROFILES, "read:connection_profiles");
-
-    public static final OauthScope UPDATE_PHONE_TEMPLATES =
-            new OauthScope(Value.UPDATE_PHONE_TEMPLATES, "update:phone_templates");
-
-    public static final OauthScope READ_STATS = new OauthScope(Value.READ_STATS, "read:stats");
 
     public static final OauthScope READ_CUSTOM_DOMAINS =
             new OauthScope(Value.READ_CUSTOM_DOMAINS, "read:custom_domains");
 
-    public static final OauthScope READ_TOKEN_EXCHANGE_PROFILES =
-            new OauthScope(Value.READ_TOKEN_EXCHANGE_PROFILES, "read:token_exchange_profiles");
+    public static final OauthScope CREATE_SCIM_CONFIG = new OauthScope(Value.CREATE_SCIM_CONFIG, "create:scim_config");
 
-    public static final OauthScope READ_GUARDIAN_ENROLLMENTS =
-            new OauthScope(Value.READ_GUARDIAN_ENROLLMENTS, "read:guardian_enrollments");
+    public static final OauthScope DELETE_CUSTOM_SIGNING_KEYS =
+            new OauthScope(Value.DELETE_CUSTOM_SIGNING_KEYS, "delete:custom_signing_keys");
 
     public static final OauthScope UPDATE_ORGANIZATIONS =
             new OauthScope(Value.UPDATE_ORGANIZATIONS, "update:organizations");
 
-    public static final OauthScope UPDATE_SELF_SERVICE_PROFILES =
-            new OauthScope(Value.UPDATE_SELF_SERVICE_PROFILES, "update:self_service_profiles");
+    public static final OauthScope DELETE_RULES = new OauthScope(Value.DELETE_RULES, "delete:rules");
 
-    public static final OauthScope CREATE_ORGANIZATION_CLIENT_GRANTS =
-            new OauthScope(Value.CREATE_ORGANIZATION_CLIENT_GRANTS, "create:organization_client_grants");
+    public static final OauthScope READ_USERS = new OauthScope(Value.READ_USERS, "read:users");
+
+    public static final OauthScope UPDATE_GUARDIAN_FACTORS =
+            new OauthScope(Value.UPDATE_GUARDIAN_FACTORS, "update:guardian_factors");
 
     public static final OauthScope DELETE_FLOWS_EXECUTIONS =
             new OauthScope(Value.DELETE_FLOWS_EXECUTIONS, "delete:flows_executions");
 
-    public static final OauthScope UPDATE_CONNECTIONS_KEYS =
-            new OauthScope(Value.UPDATE_CONNECTIONS_KEYS, "update:connections_keys");
+    public static final OauthScope READ_ORGANIZATION_MEMBERS =
+            new OauthScope(Value.READ_ORGANIZATION_MEMBERS, "read:organization_members");
 
-    public static final OauthScope UPDATE_EVENT_DELIVERIES =
-            new OauthScope(Value.UPDATE_EVENT_DELIVERIES, "update:event_deliveries");
+    public static final OauthScope DELETE_SSO_ACCESS_TICKETS =
+            new OauthScope(Value.DELETE_SSO_ACCESS_TICKETS, "delete:sso_access_tickets");
+
+    public static final OauthScope UPDATE_LOG_STREAMS = new OauthScope(Value.UPDATE_LOG_STREAMS, "update:log_streams");
 
     public static final OauthScope DELETE_CURRENT_USER_DEVICE_CREDENTIALS =
             new OauthScope(Value.DELETE_CURRENT_USER_DEVICE_CREDENTIALS, "delete:current_user_device_credentials");
 
-    public static final OauthScope READ_VDCS_TEMPLATES =
-            new OauthScope(Value.READ_VDCS_TEMPLATES, "read:vdcs_templates");
+    public static final OauthScope READ_EVENT_STREAMS = new OauthScope(Value.READ_EVENT_STREAMS, "read:event_streams");
 
-    public static final OauthScope READ_PHONE_PROVIDERS =
-            new OauthScope(Value.READ_PHONE_PROVIDERS, "read:phone_providers");
+    public static final OauthScope DELETE_ENCRYPTION_KEYS =
+            new OauthScope(Value.DELETE_ENCRYPTION_KEYS, "delete:encryption_keys");
 
-    public static final OauthScope CREATE_CLIENT_GRANTS =
-            new OauthScope(Value.CREATE_CLIENT_GRANTS, "create:client_grants");
+    public static final OauthScope UPDATE_AUTHENTICATION_METHODS =
+            new OauthScope(Value.UPDATE_AUTHENTICATION_METHODS, "update:authentication_methods");
 
     public static final OauthScope DELETE_ANOMALY_BLOCKS =
             new OauthScope(Value.DELETE_ANOMALY_BLOCKS, "delete:anomaly_blocks");
 
-    public static final OauthScope READ_CONNECTIONS_KEYS =
-            new OauthScope(Value.READ_CONNECTIONS_KEYS, "read:connections_keys");
+    public static final OauthScope DELETE_USERS = new OauthScope(Value.DELETE_USERS, "delete:users");
 
-    public static final OauthScope READ_ACTIONS = new OauthScope(Value.READ_ACTIONS, "read:actions");
-
-    public static final OauthScope READ_RESOURCE_SERVERS =
-            new OauthScope(Value.READ_RESOURCE_SERVERS, "read:resource_servers");
-
-    public static final OauthScope UPDATE_TOKEN_EXCHANGE_PROFILES =
-            new OauthScope(Value.UPDATE_TOKEN_EXCHANGE_PROFILES, "update:token_exchange_profiles");
-
-    public static final OauthScope DELETE_ROLE_MEMBERS =
-            new OauthScope(Value.DELETE_ROLE_MEMBERS, "delete:role_members");
+    public static final OauthScope READ_ATTACK_PROTECTION =
+            new OauthScope(Value.READ_ATTACK_PROTECTION, "read:attack_protection");
 
     public static final OauthScope READ_ORGANIZATION_CONNECTIONS =
             new OauthScope(Value.READ_ORGANIZATION_CONNECTIONS, "read:organization_connections");
 
-    public static final OauthScope UPDATE_PROMPTS = new OauthScope(Value.UPDATE_PROMPTS, "update:prompts");
-
-    public static final OauthScope CREATE_HOOKS = new OauthScope(Value.CREATE_HOOKS, "create:hooks");
-
     public static final OauthScope CREATE_CONNECTIONS = new OauthScope(Value.CREATE_CONNECTIONS, "create:connections");
+
+    public static final OauthScope DELETE_DEVICE_CREDENTIALS =
+            new OauthScope(Value.DELETE_DEVICE_CREDENTIALS, "delete:device_credentials");
+
+    public static final OauthScope READ_RULES = new OauthScope(Value.READ_RULES, "read:rules");
+
+    public static final OauthScope READ_TENANT_SETTINGS =
+            new OauthScope(Value.READ_TENANT_SETTINGS, "read:tenant_settings");
+
+    public static final OauthScope UPDATE_PROMPTS = new OauthScope(Value.UPDATE_PROMPTS, "update:prompts");
 
     public static final OauthScope CREATE_EMAIL_TEMPLATES =
             new OauthScope(Value.CREATE_EMAIL_TEMPLATES, "create:email_templates");
 
-    public static final OauthScope UPDATE_ATTACK_PROTECTION =
-            new OauthScope(Value.UPDATE_ATTACK_PROTECTION, "update:attack_protection");
-
-    public static final OauthScope READ_MFA_POLICIES = new OauthScope(Value.READ_MFA_POLICIES, "read:mfa_policies");
-
-    public static final OauthScope UPDATE_HOOKS = new OauthScope(Value.UPDATE_HOOKS, "update:hooks");
-
-    public static final OauthScope DELETE_USERS = new OauthScope(Value.DELETE_USERS, "delete:users");
+    public static final OauthScope UPDATE_CONNECTIONS = new OauthScope(Value.UPDATE_CONNECTIONS, "update:connections");
 
     public static final OauthScope CREATE_CLIENT_CREDENTIALS =
             new OauthScope(Value.CREATE_CLIENT_CREDENTIALS, "create:client_credentials");
 
-    public static final OauthScope UPDATE_CLIENT_CREDENTIALS =
-            new OauthScope(Value.UPDATE_CLIENT_CREDENTIALS, "update:client_credentials");
+    public static final OauthScope READ_SIGNING_KEYS = new OauthScope(Value.READ_SIGNING_KEYS, "read:signing_keys");
 
-    public static final OauthScope CREATE_ACTIONS = new OauthScope(Value.CREATE_ACTIONS, "create:actions");
+    public static final OauthScope DELETE_CONNECTIONS = new OauthScope(Value.DELETE_CONNECTIONS, "delete:connections");
 
-    public static final OauthScope READ_EVENT_DELIVERIES =
-            new OauthScope(Value.READ_EVENT_DELIVERIES, "read:event_deliveries");
+    public static final OauthScope UPDATE_RESOURCE_SERVERS =
+            new OauthScope(Value.UPDATE_RESOURCE_SERVERS, "update:resource_servers");
 
     public static final OauthScope DELETE_PHONE_TEMPLATES =
             new OauthScope(Value.DELETE_PHONE_TEMPLATES, "delete:phone_templates");
 
-    public static final OauthScope READ_REFRESH_TOKENS =
-            new OauthScope(Value.READ_REFRESH_TOKENS, "read:refresh_tokens");
+    public static final OauthScope CREATE_TOKEN_EXCHANGE_PROFILES =
+            new OauthScope(Value.CREATE_TOKEN_EXCHANGE_PROFILES, "create:token_exchange_profiles");
 
-    public static final OauthScope UPDATE_EMAIL_TEMPLATES =
-            new OauthScope(Value.UPDATE_EMAIL_TEMPLATES, "update:email_templates");
+    public static final OauthScope DELETE_SCIM_TOKEN = new OauthScope(Value.DELETE_SCIM_TOKEN, "delete:scim_token");
 
-    public static final OauthScope READ_ROLE_MEMBERS = new OauthScope(Value.READ_ROLE_MEMBERS, "read:role_members");
+    public static final OauthScope UPDATE_CLIENT_CREDENTIALS =
+            new OauthScope(Value.UPDATE_CLIENT_CREDENTIALS, "update:client_credentials");
 
     public static final OauthScope CREATE_ORGANIZATION_MEMBERS =
             new OauthScope(Value.CREATE_ORGANIZATION_MEMBERS, "create:organization_members");
+
+    public static final OauthScope UPDATE_CONNECTION_PROFILES =
+            new OauthScope(Value.UPDATE_CONNECTION_PROFILES, "update:connection_profiles");
+
+    public static final OauthScope READ_PROMPTS = new OauthScope(Value.READ_PROMPTS, "read:prompts");
+
+    public static final OauthScope UPDATE_USERS_APP_METADATA =
+            new OauthScope(Value.UPDATE_USERS_APP_METADATA, "update:users_app_metadata");
+
+    public static final OauthScope DELETE_NETWORK_ACLS =
+            new OauthScope(Value.DELETE_NETWORK_ACLS, "delete:network_acls");
+
+    public static final OauthScope CREATE_ROLE_MEMBERS =
+            new OauthScope(Value.CREATE_ROLE_MEMBERS, "create:role_members");
+
+    public static final OauthScope UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS =
+            new OauthScope(Value.UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS, "update:self_service_profile_custom_texts");
+
+    public static final OauthScope DELETE_CURRENT_USER =
+            new OauthScope(Value.DELETE_CURRENT_USER, "delete:current_user");
+
+    public static final OauthScope READ_LOGS = new OauthScope(Value.READ_LOGS, "read:logs");
+
+    public static final OauthScope READ_CONNECTION_PROFILES =
+            new OauthScope(Value.READ_CONNECTION_PROFILES, "read:connection_profiles");
+
+    public static final OauthScope DELETE_EVENT_STREAMS =
+            new OauthScope(Value.DELETE_EVENT_STREAMS, "delete:event_streams");
+
+    public static final OauthScope UPDATE_PHONE_TEMPLATES =
+            new OauthScope(Value.UPDATE_PHONE_TEMPLATES, "update:phone_templates");
+
+    public static final OauthScope READ_GUARDIAN_ENROLLMENTS =
+            new OauthScope(Value.READ_GUARDIAN_ENROLLMENTS, "read:guardian_enrollments");
+
+    public static final OauthScope DELETE_FLOWS = new OauthScope(Value.DELETE_FLOWS, "delete:flows");
+
+    public static final OauthScope READ_STATS = new OauthScope(Value.READ_STATS, "read:stats");
+
+    public static final OauthScope DELETE_ROLES = new OauthScope(Value.DELETE_ROLES, "delete:roles");
+
+    public static final OauthScope READ_ENCRYPTION_KEYS =
+            new OauthScope(Value.READ_ENCRYPTION_KEYS, "read:encryption_keys");
+
+    public static final OauthScope CREATE_ORGANIZATION_INVITATIONS =
+            new OauthScope(Value.CREATE_ORGANIZATION_INVITATIONS, "create:organization_invitations");
+
+    public static final OauthScope DELETE_HOOKS = new OauthScope(Value.DELETE_HOOKS, "delete:hooks");
+
+    public static final OauthScope CREATE_PHONE_TEMPLATES =
+            new OauthScope(Value.CREATE_PHONE_TEMPLATES, "create:phone_templates");
+
+    public static final OauthScope READ_TOKEN_EXCHANGE_PROFILES =
+            new OauthScope(Value.READ_TOKEN_EXCHANGE_PROFILES, "read:token_exchange_profiles");
+
+    public static final OauthScope UPDATE_CONNECTIONS_KEYS =
+            new OauthScope(Value.UPDATE_CONNECTIONS_KEYS, "update:connections_keys");
+
+    public static final OauthScope DELETE_RESOURCE_SERVERS =
+            new OauthScope(Value.DELETE_RESOURCE_SERVERS, "delete:resource_servers");
+
+    public static final OauthScope READ_RESOURCE_SERVERS =
+            new OauthScope(Value.READ_RESOURCE_SERVERS, "read:resource_servers");
+
+    public static final OauthScope UPDATE_EVENT_DELIVERIES =
+            new OauthScope(Value.UPDATE_EVENT_DELIVERIES, "update:event_deliveries");
+
+    public static final OauthScope UPDATE_ORGANIZATION_CONNECTIONS =
+            new OauthScope(Value.UPDATE_ORGANIZATION_CONNECTIONS, "update:organization_connections");
+
+    public static final OauthScope READ_VDCS_TEMPLATES =
+            new OauthScope(Value.READ_VDCS_TEMPLATES, "read:vdcs_templates");
+
+    public static final OauthScope READ_ORGANIZATION_INVITATIONS =
+            new OauthScope(Value.READ_ORGANIZATION_INVITATIONS, "read:organization_invitations");
+
+    public static final OauthScope READ_PHONE_PROVIDERS =
+            new OauthScope(Value.READ_PHONE_PROVIDERS, "read:phone_providers");
+
+    public static final OauthScope READ_NETWORK_ACLS = new OauthScope(Value.READ_NETWORK_ACLS, "read:network_acls");
 
     private final Value value;
 
@@ -624,446 +626,448 @@ public final class OauthScope {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case READ_AUTHENTICATION_METHODS:
-                return visitor.visitReadAuthenticationMethods();
-            case UPDATE_CLIENT_TOKEN_VAULT_PRIVILEGED_ACCESS:
-                return visitor.visitUpdateClientTokenVaultPrivilegedAccess();
-            case UPDATE_USERS_APP_METADATA:
-                return visitor.visitUpdateUsersAppMetadata();
-            case READ_ANOMALY_BLOCKS:
-                return visitor.visitReadAnomalyBlocks();
-            case READ_CLIENT_SUMMARY:
-                return visitor.visitReadClientSummary();
-            case READ_SCIM_CONFIG:
-                return visitor.visitReadScimConfig();
-            case CREATE_RULES:
-                return visitor.visitCreateRules();
-            case UPDATE_SCIM_CONFIG:
-                return visitor.visitUpdateScimConfig();
-            case READ_PROMPTS:
-                return visitor.visitReadPrompts();
+            case DELETE_ACTIONS:
+                return visitor.visitDeleteActions();
+            case READ_CONNECTIONS_KEYS:
+                return visitor.visitReadConnectionsKeys();
+            case READ_GROUPS:
+                return visitor.visitReadGroups();
+            case READ_ACTIONS:
+                return visitor.visitReadActions();
+            case DELETE_ROLE_MEMBERS:
+                return visitor.visitDeleteRoleMembers();
+            case CREATE_CLIENT_GRANTS:
+                return visitor.visitCreateClientGrants();
+            case UPDATE_TOKEN_EXCHANGE_PROFILES:
+                return visitor.visitUpdateTokenExchangeProfiles();
+            case READ_CURRENT_USER:
+                return visitor.visitReadCurrentUser();
+            case READ_SCIM_TOKEN:
+                return visitor.visitReadScimToken();
+            case UPDATE_ROLES:
+                return visitor.visitUpdateRoles();
+            case CREATE_ORGANIZATIONS:
+                return visitor.visitCreateOrganizations();
+            case READ_CONNECTIONS:
+                return visitor.visitReadConnections();
+            case CREATE_DIRECTORY_PROVISIONINGS:
+                return visitor.visitCreateDirectoryProvisionings();
+            case DELETE_ORGANIZATIONS:
+                return visitor.visitDeleteOrganizations();
+            case CREATE_ORGANIZATION_MEMBER_ROLES:
+                return visitor.visitCreateOrganizationMemberRoles();
+            case DELETE_CLIENT_GRANTS:
+                return visitor.visitDeleteClientGrants();
+            case UPDATE_CURRENT_USER_METADATA:
+                return visitor.visitUpdateCurrentUserMetadata();
+            case READ_EVENT_DELIVERIES:
+                return visitor.visitReadEventDeliveries();
+            case DELETE_PHONE_PROVIDERS:
+                return visitor.visitDeletePhoneProviders();
+            case UPDATE_CLIENTS:
+                return visitor.visitUpdateClients();
+            case READ_REFRESH_TOKENS:
+                return visitor.visitReadRefreshTokens();
+            case CREATE_SSO_ACCESS_TICKETS:
+                return visitor.visitCreateSsoAccessTickets();
+            case UPDATE_EMAIL_TEMPLATES:
+                return visitor.visitUpdateEmailTemplates();
+            case CREATE_USERS:
+                return visitor.visitCreateUsers();
+            case READ_PHONE_TEMPLATES:
+                return visitor.visitReadPhoneTemplates();
+            case DELETE_GROUPS:
+                return visitor.visitDeleteGroups();
+            case DELETE_ORGANIZATION_CONNECTIONS:
+                return visitor.visitDeleteOrganizationConnections();
+            case READ_ROLE_MEMBERS:
+                return visitor.visitReadRoleMembers();
+            case DELETE_FEDERATED_CONNECTIONS_TOKENS:
+                return visitor.visitDeleteFederatedConnectionsTokens();
+            case READ_SELF_SERVICE_PROFILES:
+                return visitor.visitReadSelfServiceProfiles();
             case CREATE_ORGANIZATION_DISCOVERY_DOMAINS:
                 return visitor.visitCreateOrganizationDiscoveryDomains();
-            case CREATE_PHONE_TEMPLATES:
-                return visitor.visitCreatePhoneTemplates();
-            case UPDATE_PHONE_PROVIDERS:
-                return visitor.visitUpdatePhoneProviders();
-            case CREATE_ROLES:
-                return visitor.visitCreateRoles();
+            case READ_SCIM_CONFIG:
+                return visitor.visitReadScimConfig();
+            case UPDATE_SCIM_CONFIG:
+                return visitor.visitUpdateScimConfig();
+            case DELETE_CLIENTS:
+                return visitor.visitDeleteClients();
+            case READ_FLOWS_EXECUTIONS:
+                return visitor.visitReadFlowsExecutions();
             case DELETE_AUTHENTICATION_METHODS:
                 return visitor.visitDeleteAuthenticationMethods();
             case CREATE_CONNECTIONS_KEYS:
                 return visitor.visitCreateConnectionsKeys();
+            case DELETE_ORGANIZATION_CLIENT_GRANTS:
+                return visitor.visitDeleteOrganizationClientGrants();
+            case UPDATE_SELF_SERVICE_PROFILES:
+                return visitor.visitUpdateSelfServiceProfiles();
+            case CREATE_ROLES:
+                return visitor.visitCreateRoles();
+            case CREATE_SIGNING_KEYS:
+                return visitor.visitCreateSigningKeys();
+            case UPDATE_EVENT_STREAMS:
+                return visitor.visitUpdateEventStreams();
+            case READ_GROUP_MEMBERS:
+                return visitor.visitReadGroupMembers();
+            case UPDATE_ACTIONS:
+                return visitor.visitUpdateActions();
+            case CREATE_FLOWS:
+                return visitor.visitCreateFlows();
+            case READ_CUSTOM_SIGNING_KEYS:
+                return visitor.visitReadCustomSigningKeys();
+            case DELETE_CLIENT_CREDENTIALS:
+                return visitor.visitDeleteClientCredentials();
+            case DELETE_ORGANIZATION_INVITATIONS:
+                return visitor.visitDeleteOrganizationInvitations();
+            case CREATE_ORGANIZATION_CLIENT_GRANTS:
+                return visitor.visitCreateOrganizationClientGrants();
+            case READ_USER_IDP_TOKENS:
+                return visitor.visitReadUserIdpTokens();
+            case DELETE_REFRESH_TOKENS:
+                return visitor.visitDeleteRefreshTokens();
+            case CREATE_SELF_SERVICE_PROFILES:
+                return visitor.visitCreateSelfServiceProfiles();
+            case UPDATE_USER_ATTRIBUTE_PROFILES:
+                return visitor.visitUpdateUserAttributeProfiles();
+            case CREATE_VDCS_TEMPLATES:
+                return visitor.visitCreateVdcsTemplates();
+            case CREATE_CUSTOM_DOMAINS:
+                return visitor.visitCreateCustomDomains();
+            case READ_ORGANIZATION_DISCOVERY_DOMAINS:
+                return visitor.visitReadOrganizationDiscoveryDomains();
+            case DELETE_DIRECTORY_PROVISIONINGS:
+                return visitor.visitDeleteDirectoryProvisionings();
+            case READ_CLIENT_CREDENTIALS:
+                return visitor.visitReadClientCredentials();
+            case CREATE_EMAIL_PROVIDER:
+                return visitor.visitCreateEmailProvider();
+            case CREATE_SCIM_TOKEN:
+                return visitor.visitCreateScimToken();
+            case READ_GUARDIAN_FACTORS:
+                return visitor.visitReadGuardianFactors();
+            case DELETE_CONNECTION_PROFILES:
+                return visitor.visitDeleteConnectionProfiles();
+            case UPDATE_FLOWS:
+                return visitor.visitUpdateFlows();
+            case READ_ORGANIZATIONS_SUMMARY:
+                return visitor.visitReadOrganizationsSummary();
+            case READ_SESSIONS:
+                return visitor.visitReadSessions();
+            case CREATE_RESOURCE_SERVERS:
+                return visitor.visitCreateResourceServers();
+            case CREATE_FLOWS_VAULT_CONNECTIONS:
+                return visitor.visitCreateFlowsVaultConnections();
+            case READ_BRANDING:
+                return visitor.visitReadBranding();
+            case UPDATE_FORMS:
+                return visitor.visitUpdateForms();
+            case UPDATE_MFA_POLICIES:
+                return visitor.visitUpdateMfaPolicies();
+            case READ_LOGS_USERS:
+                return visitor.visitReadLogsUsers();
+            case READ_ORGANIZATION_CLIENT_GRANTS:
+                return visitor.visitReadOrganizationClientGrants();
+            case READ_ROLES:
+                return visitor.visitReadRoles();
+            case READ_DEVICE_CREDENTIALS:
+                return visitor.visitReadDeviceCredentials();
+            case CREATE_ENCRYPTION_KEYS:
+                return visitor.visitCreateEncryptionKeys();
+            case UPDATE_CURRENT_USER_IDENTITIES:
+                return visitor.visitUpdateCurrentUserIdentities();
+            case DELETE_FORMS:
+                return visitor.visitDeleteForms();
+            case READ_SELF_SERVICE_PROFILE_CUSTOM_TEXTS:
+                return visitor.visitReadSelfServiceProfileCustomTexts();
+            case UPDATE_ORGANIZATION_DISCOVERY_DOMAINS:
+                return visitor.visitUpdateOrganizationDiscoveryDomains();
+            case READ_ANOMALY_BLOCKS:
+                return visitor.visitReadAnomalyBlocks();
+            case UPDATE_CLIENT_TOKEN_VAULT_PRIVILEGED_ACCESS:
+                return visitor.visitUpdateClientTokenVaultPrivilegedAccess();
+            case CREATE_FORMS:
+                return visitor.visitCreateForms();
+            case READ_CLIENT_SUMMARY:
+                return visitor.visitReadClientSummary();
+            case CREATE_AUTHENTICATION_METHODS:
+                return visitor.visitCreateAuthenticationMethods();
+            case READ_DIRECTORY_PROVISIONINGS:
+                return visitor.visitReadDirectoryProvisionings();
+            case CREATE_PHONE_PROVIDERS:
+                return visitor.visitCreatePhoneProviders();
+            case CREATE_RULES:
+                return visitor.visitCreateRules();
+            case READ_EMAIL_TEMPLATES:
+                return visitor.visitReadEmailTemplates();
             case UPDATE_RULES:
                 return visitor.visitUpdateRules();
             case UPDATE_FLOWS_VAULT_CONNECTIONS:
                 return visitor.visitUpdateFlowsVaultConnections();
-            case READ_ENCRYPTION_KEYS:
-                return visitor.visitReadEncryptionKeys();
-            case DELETE_SESSIONS:
-                return visitor.visitDeleteSessions();
-            case UPDATE_ACTIONS:
-                return visitor.visitUpdateActions();
+            case UPDATE_PHONE_PROVIDERS:
+                return visitor.visitUpdatePhoneProviders();
             case CREATE_EVENT_STREAMS:
                 return visitor.visitCreateEventStreams();
-            case DELETE_EVENT_STREAMS:
-                return visitor.visitDeleteEventStreams();
-            case DELETE_FLOWS:
-                return visitor.visitDeleteFlows();
-            case DELETE_PHONE_PROVIDERS:
-                return visitor.visitDeletePhoneProviders();
             case DELETE_SELF_SERVICE_PROFILES:
                 return visitor.visitDeleteSelfServiceProfiles();
-            case READ_GROUP_MEMBERS:
-                return visitor.visitReadGroupMembers();
-            case CREATE_SIGNING_KEYS:
-                return visitor.visitCreateSigningKeys();
+            case DELETE_SESSIONS:
+                return visitor.visitDeleteSessions();
+            case CREATE_CLIENTS:
+                return visitor.visitCreateClients();
+            case DELETE_LOG_STREAMS:
+                return visitor.visitDeleteLogStreams();
+            case CREATE_USER_ATTRIBUTE_PROFILES:
+                return visitor.visitCreateUserAttributeProfiles();
+            case UPDATE_USERS:
+                return visitor.visitUpdateUsers();
+            case READ_GRANTS:
+                return visitor.visitReadGrants();
             case UPDATE_SIGNING_KEYS:
                 return visitor.visitUpdateSigningKeys();
             case CREATE_USER_TICKETS:
                 return visitor.visitCreateUserTickets();
+            case READ_LOG_STREAMS:
+                return visitor.visitReadLogStreams();
+            case UPDATE_BRANDING:
+                return visitor.visitUpdateBranding();
+            case UPDATE_CUSTOM_SIGNING_KEYS:
+                return visitor.visitUpdateCustomSigningKeys();
+            case READ_CLIENTS:
+                return visitor.visitReadClients();
             case DELETE_GRANTS:
                 return visitor.visitDeleteGrants();
-            case DELETE_REFRESH_TOKENS:
-                return visitor.visitDeleteRefreshTokens();
-            case READ_RULES_CONFIGS:
-                return visitor.visitReadRulesConfigs();
-            case CREATE_SELF_SERVICE_PROFILES:
-                return visitor.visitCreateSelfServiceProfiles();
             case UPDATE_REFRESH_TOKENS:
                 return visitor.visitUpdateRefreshTokens();
-            case READ_USER_IDP_TOKENS:
-                return visitor.visitReadUserIdpTokens();
-            case READ_CUSTOM_SIGNING_KEYS:
-                return visitor.visitReadCustomSigningKeys();
+            case UPDATE_RULES_CONFIGS:
+                return visitor.visitUpdateRulesConfigs();
+            case UPDATE_CUSTOM_DOMAINS:
+                return visitor.visitUpdateCustomDomains();
+            case READ_RULES_CONFIGS:
+                return visitor.visitReadRulesConfigs();
             case READ_HOOKS:
                 return visitor.visitReadHooks();
             case CREATE_CURRENT_USER_DEVICE_CREDENTIALS:
                 return visitor.visitCreateCurrentUserDeviceCredentials();
             case DELETE_BRANDING:
                 return visitor.visitDeleteBranding();
-            case DELETE_CLIENT_CREDENTIALS:
-                return visitor.visitDeleteClientCredentials();
             case UPDATE_TENANT_SETTINGS:
                 return visitor.visitUpdateTenantSettings();
-            case READ_ORGANIZATION_INVITATIONS:
-                return visitor.visitReadOrganizationInvitations();
-            case READ_GRANTS:
-                return visitor.visitReadGrants();
-            case DELETE_ORGANIZATION_INVITATIONS:
-                return visitor.visitDeleteOrganizationInvitations();
-            case UPDATE_RULES_CONFIGS:
-                return visitor.visitUpdateRulesConfigs();
-            case UPDATE_CONNECTION_PROFILES:
-                return visitor.visitUpdateConnectionProfiles();
-            case READ_GROUPS:
-                return visitor.visitReadGroups();
-            case DELETE_ACTIONS:
-                return visitor.visitDeleteActions();
-            case UPDATE_AUTHENTICATION_METHODS:
-                return visitor.visitUpdateAuthenticationMethods();
-            case CREATE_VDCS_TEMPLATES:
-                return visitor.visitCreateVdcsTemplates();
-            case READ_ATTACK_PROTECTION:
-                return visitor.visitReadAttackProtection();
-            case READ_ORGANIZATION_DISCOVERY_DOMAINS:
-                return visitor.visitReadOrganizationDiscoveryDomains();
-            case CREATE_CUSTOM_DOMAINS:
-                return visitor.visitCreateCustomDomains();
-            case READ_CURRENT_USER:
-                return visitor.visitReadCurrentUser();
-            case DELETE_ORGANIZATION_CONNECTIONS:
-                return visitor.visitDeleteOrganizationConnections();
-            case READ_CLIENT_CREDENTIALS:
-                return visitor.visitReadClientCredentials();
-            case CREATE_ORGANIZATIONS:
-                return visitor.visitCreateOrganizations();
-            case READ_ORGANIZATIONS_SUMMARY:
-                return visitor.visitReadOrganizationsSummary();
-            case DELETE_ORGANIZATIONS:
-                return visitor.visitDeleteOrganizations();
-            case READ_SCIM_TOKEN:
-                return visitor.visitReadScimToken();
-            case READ_CONNECTIONS:
-                return visitor.visitReadConnections();
-            case READ_SIGNING_KEYS:
-                return visitor.visitReadSigningKeys();
-            case DELETE_FEDERATED_CONNECTIONS_TOKENS:
-                return visitor.visitDeleteFederatedConnectionsTokens();
-            case DELETE_CONNECTIONS:
-                return visitor.visitDeleteConnections();
-            case UPDATE_RESOURCE_SERVERS:
-                return visitor.visitUpdateResourceServers();
-            case CREATE_USERS:
-                return visitor.visitCreateUsers();
-            case READ_PHONE_TEMPLATES:
-                return visitor.visitReadPhoneTemplates();
-            case UPDATE_ROLES:
-                return visitor.visitUpdateRoles();
-            case CREATE_SSO_ACCESS_TICKETS:
-                return visitor.visitCreateSsoAccessTickets();
-            case DELETE_GROUPS:
-                return visitor.visitDeleteGroups();
-            case READ_SELF_SERVICE_PROFILE_CUSTOM_TEXTS:
-                return visitor.visitReadSelfServiceProfileCustomTexts();
-            case DELETE_SCIM_TOKEN:
-                return visitor.visitDeleteScimToken();
-            case DELETE_FORMS:
-                return visitor.visitDeleteForms();
-            case READ_SELF_SERVICE_PROFILES:
-                return visitor.visitReadSelfServiceProfiles();
-            case DELETE_RULES_CONFIGS:
-                return visitor.visitDeleteRulesConfigs();
-            case CREATE_FORMS:
-                return visitor.visitCreateForms();
-            case READ_USER_ATTRIBUTE_PROFILES:
-                return visitor.visitReadUserAttributeProfiles();
-            case READ_DIRECTORY_PROVISIONINGS:
-                return visitor.visitReadDirectoryProvisionings();
-            case CREATE_AUTHENTICATION_METHODS:
-                return visitor.visitCreateAuthenticationMethods();
-            case CREATE_PHONE_PROVIDERS:
-                return visitor.visitCreatePhoneProviders();
-            case DELETE_ORGANIZATION_CLIENT_GRANTS:
-                return visitor.visitDeleteOrganizationClientGrants();
-            case CREATE_SCIM_CONFIG:
-                return visitor.visitCreateScimConfig();
-            case CREATE_CLIENTS:
-                return visitor.visitCreateClients();
-            case UPDATE_USERS:
-                return visitor.visitUpdateUsers();
-            case READ_ORGANIZATION_MEMBERS:
-                return visitor.visitReadOrganizationMembers();
-            case UPDATE_EVENT_STREAMS:
-                return visitor.visitUpdateEventStreams();
-            case UPDATE_CUSTOM_SIGNING_KEYS:
-                return visitor.visitUpdateCustomSigningKeys();
-            case READ_LOG_STREAMS:
-                return visitor.visitReadLogStreams();
-            case UPDATE_LOG_STREAMS:
-                return visitor.visitUpdateLogStreams();
-            case READ_CLIENTS:
-                return visitor.visitReadClients();
-            case DELETE_ENCRYPTION_KEYS:
-                return visitor.visitDeleteEncryptionKeys();
-            case UPDATE_USER_ATTRIBUTE_PROFILES:
-                return visitor.visitUpdateUserAttributeProfiles();
             case CREATE_CUSTOM_SIGNING_KEYS:
                 return visitor.visitCreateCustomSigningKeys();
-            case READ_CLIENT_KEYS:
-                return visitor.visitReadClientKeys();
-            case CREATE_EMAIL_PROVIDER:
-                return visitor.visitCreateEmailProvider();
-            case UPDATE_NETWORK_ACLS:
-                return visitor.visitUpdateNetworkAcls();
-            case DELETE_VDCS_TEMPLATES:
-                return visitor.visitDeleteVdcsTemplates();
-            case READ_FLOWS:
-                return visitor.visitReadFlows();
-            case READ_SESSIONS:
-                return visitor.visitReadSessions();
-            case CREATE_ORGANIZATION_MEMBER_ROLES:
-                return visitor.visitCreateOrganizationMemberRoles();
-            case CREATE_DIRECTORY_PROVISIONINGS:
-                return visitor.visitCreateDirectoryProvisionings();
-            case DELETE_ORGANIZATION_MEMBERS:
-                return visitor.visitDeleteOrganizationMembers();
-            case UPDATE_FORMS:
-                return visitor.visitUpdateForms();
-            case CREATE_RESOURCE_SERVERS:
-                return visitor.visitCreateResourceServers();
-            case READ_BRANDING:
-                return visitor.visitReadBranding();
-            case UPDATE_MFA_POLICIES:
-                return visitor.visitUpdateMfaPolicies();
-            case UPDATE_CURRENT_USER_METADATA:
-                return visitor.visitUpdateCurrentUserMetadata();
-            case READ_FLOWS_VAULT_CONNECTIONS:
-                return visitor.visitReadFlowsVaultConnections();
-            case READ_ORGANIZATION_CLIENT_GRANTS:
-                return visitor.visitReadOrganizationClientGrants();
-            case UPDATE_CLIENTS:
-                return visitor.visitUpdateClients();
-            case DELETE_CLIENT_GRANTS:
-                return visitor.visitDeleteClientGrants();
-            case CREATE_ENCRYPTION_KEYS:
-                return visitor.visitCreateEncryptionKeys();
-            case UPDATE_ENCRYPTION_KEYS:
-                return visitor.visitUpdateEncryptionKeys();
-            case READ_ROLES:
-                return visitor.visitReadRoles();
-            case READ_DEVICE_CREDENTIALS:
-                return visitor.visitReadDeviceCredentials();
-            case DELETE_DIRECTORY_PROVISIONINGS:
-                return visitor.visitDeleteDirectoryProvisionings();
-            case DELETE_TOKEN_EXCHANGE_PROFILES:
-                return visitor.visitDeleteTokenExchangeProfiles();
-            case UPDATE_ORGANIZATION_DISCOVERY_DOMAINS:
-                return visitor.visitUpdateOrganizationDiscoveryDomains();
-            case READ_LOGS:
-                return visitor.visitReadLogs();
-            case UPDATE_EMAIL_PROVIDER:
-                return visitor.visitUpdateEmailProvider();
-            case DELETE_FLOWS_VAULT_CONNECTIONS:
-                return visitor.visitDeleteFlowsVaultConnections();
-            case DELETE_NETWORK_ACLS:
-                return visitor.visitDeleteNetworkAcls();
-            case UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS:
-                return visitor.visitUpdateSelfServiceProfileCustomTexts();
-            case DELETE_ORGANIZATION_DISCOVERY_DOMAINS:
-                return visitor.visitDeleteOrganizationDiscoveryDomains();
-            case UPDATE_CLIENT_GRANTS:
-                return visitor.visitUpdateClientGrants();
-            case READ_EMAIL_TEMPLATES:
-                return visitor.visitReadEmailTemplates();
-            case UPDATE_VDCS_TEMPLATES:
-                return visitor.visitUpdateVdcsTemplates();
-            case CREATE_USER_ATTRIBUTE_PROFILES:
-                return visitor.visitCreateUserAttributeProfiles();
-            case CREATE_ORGANIZATION_INVITATIONS:
-                return visitor.visitCreateOrganizationInvitations();
-            case DELETE_LOG_STREAMS:
-                return visitor.visitDeleteLogStreams();
-            case DELETE_CUSTOM_SIGNING_KEYS:
-                return visitor.visitDeleteCustomSigningKeys();
-            case DELETE_RESOURCE_SERVERS:
-                return visitor.visitDeleteResourceServers();
-            case UPDATE_GUARDIAN_FACTORS:
-                return visitor.visitUpdateGuardianFactors();
-            case DELETE_ORGANIZATION_MEMBER_ROLES:
-                return visitor.visitDeleteOrganizationMemberRoles();
-            case READ_USERS:
-                return visitor.visitReadUsers();
-            case UPDATE_BRANDING:
-                return visitor.visitUpdateBranding();
-            case DELETE_SSO_ACCESS_TICKETS:
-                return visitor.visitDeleteSsoAccessTickets();
-            case UPDATE_ORGANIZATION_CONNECTIONS:
-                return visitor.visitUpdateOrganizationConnections();
-            case UPDATE_CUSTOM_DOMAINS:
-                return visitor.visitUpdateCustomDomains();
-            case READ_NETWORK_ACLS:
-                return visitor.visitReadNetworkAcls();
-            case DELETE_EMAIL_PROVIDER:
-                return visitor.visitDeleteEmailProvider();
-            case READ_FORMS:
-                return visitor.visitReadForms();
+            case READ_AUTHENTICATION_METHODS:
+                return visitor.visitReadAuthenticationMethods();
+            case UPDATE_ATTACK_PROTECTION:
+                return visitor.visitUpdateAttackProtection();
             case CREATE_GUARDIAN_ENROLLMENT_TICKETS:
                 return visitor.visitCreateGuardianEnrollmentTickets();
-            case READ_EVENT_STREAMS:
-                return visitor.visitReadEventStreams();
-            case CREATE_NETWORK_ACLS:
-                return visitor.visitCreateNetworkAcls();
+            case DELETE_EMAIL_PROVIDER:
+                return visitor.visitDeleteEmailProvider();
             case DELETE_CUSTOM_DOMAINS:
                 return visitor.visitDeleteCustomDomains();
-            case CREATE_SCIM_TOKEN:
-                return visitor.visitCreateScimToken();
+            case CREATE_NETWORK_ACLS:
+                return visitor.visitCreateNetworkAcls();
+            case DELETE_VDCS_TEMPLATES:
+                return visitor.visitDeleteVdcsTemplates();
+            case READ_EVENTS:
+                return visitor.visitReadEvents();
+            case READ_FLOWS:
+                return visitor.visitReadFlows();
+            case READ_FORMS:
+                return visitor.visitReadForms();
+            case UPDATE_NETWORK_ACLS:
+                return visitor.visitUpdateNetworkAcls();
             case UPDATE_SESSIONS:
                 return visitor.visitUpdateSessions();
-            case DELETE_CONNECTION_PROFILES:
-                return visitor.visitDeleteConnectionProfiles();
-            case UPDATE_CONNECTIONS:
-                return visitor.visitUpdateConnections();
-            case DELETE_DEVICE_CREDENTIALS:
-                return visitor.visitDeleteDeviceCredentials();
-            case READ_GUARDIAN_FACTORS:
-                return visitor.visitReadGuardianFactors();
-            case READ_TENANT_SETTINGS:
-                return visitor.visitReadTenantSettings();
-            case DELETE_SCIM_CONFIG:
-                return visitor.visitDeleteScimConfig();
-            case DELETE_RULES:
-                return visitor.visitDeleteRules();
-            case READ_ORGANIZATION_MEMBER_ROLES:
-                return visitor.visitReadOrganizationMemberRoles();
-            case READ_FEDERATED_CONNECTIONS_TOKENS:
-                return visitor.visitReadFederatedConnectionsTokens();
-            case UPDATE_FLOWS:
-                return visitor.visitUpdateFlows();
+            case CREATE_HOOKS:
+                return visitor.visitCreateHooks();
+            case READ_CLIENT_KEYS:
+                return visitor.visitReadClientKeys();
             case CREATE_LOG_STREAMS:
                 return visitor.visitCreateLogStreams();
+            case READ_FEDERATED_CONNECTIONS_TOKENS:
+                return visitor.visitReadFederatedConnectionsTokens();
+            case DELETE_ORGANIZATION_MEMBERS:
+                return visitor.visitDeleteOrganizationMembers();
+            case READ_ORGANIZATION_MEMBER_ROLES:
+                return visitor.visitReadOrganizationMemberRoles();
+            case DELETE_SCIM_CONFIG:
+                return visitor.visitDeleteScimConfig();
+            case UPDATE_HOOKS:
+                return visitor.visitUpdateHooks();
+            case READ_MFA_POLICIES:
+                return visitor.visitReadMfaPolicies();
             case CREATE_CONNECTION_PROFILES:
                 return visitor.visitCreateConnectionProfiles();
-            case CREATE_FLOWS_VAULT_CONNECTIONS:
-                return visitor.visitCreateFlowsVaultConnections();
+            case CREATE_ACTIONS:
+                return visitor.visitCreateActions();
+            case READ_CLIENT_GRANTS:
+                return visitor.visitReadClientGrants();
             case UPDATE_DIRECTORY_PROVISIONINGS:
                 return visitor.visitUpdateDirectoryProvisionings();
             case DELETE_USER_ATTRIBUTE_PROFILES:
                 return visitor.visitDeleteUserAttributeProfiles();
-            case READ_CLIENT_GRANTS:
-                return visitor.visitReadClientGrants();
-            case CREATE_TOKEN_EXCHANGE_PROFILES:
-                return visitor.visitCreateTokenExchangeProfiles();
-            case READ_LOGS_USERS:
-                return visitor.visitReadLogsUsers();
-            case READ_RULES:
-                return visitor.visitReadRules();
-            case DELETE_GUARDIAN_ENROLLMENTS:
-                return visitor.visitDeleteGuardianEnrollments();
+            case READ_FLOWS_VAULT_CONNECTIONS:
+                return visitor.visitReadFlowsVaultConnections();
+            case UPDATE_ENCRYPTION_KEYS:
+                return visitor.visitUpdateEncryptionKeys();
             case UPDATE_CLIENT_KEYS:
                 return visitor.visitUpdateClientKeys();
-            case UPDATE_CURRENT_USER_IDENTITIES:
-                return visitor.visitUpdateCurrentUserIdentities();
+            case DELETE_GUARDIAN_ENROLLMENTS:
+                return visitor.visitDeleteGuardianEnrollments();
+            case DELETE_TOKEN_EXCHANGE_PROFILES:
+                return visitor.visitDeleteTokenExchangeProfiles();
+            case UPDATE_EMAIL_PROVIDER:
+                return visitor.visitUpdateEmailProvider();
             case CREATE_ORGANIZATION_CONNECTIONS:
                 return visitor.visitCreateOrganizationConnections();
+            case DELETE_RULES_CONFIGS:
+                return visitor.visitDeleteRulesConfigs();
+            case READ_USER_ATTRIBUTE_PROFILES:
+                return visitor.visitReadUserAttributeProfiles();
             case READ_EMAIL_PROVIDER:
                 return visitor.visitReadEmailProvider();
-            case READ_FLOWS_EXECUTIONS:
-                return visitor.visitReadFlowsExecutions();
-            case DELETE_CLIENTS:
-                return visitor.visitDeleteClients();
-            case CREATE_ROLE_MEMBERS:
-                return visitor.visitCreateRoleMembers();
-            case CREATE_FLOWS:
-                return visitor.visitCreateFlows();
-            case DELETE_HOOKS:
-                return visitor.visitDeleteHooks();
-            case DELETE_CURRENT_USER:
-                return visitor.visitDeleteCurrentUser();
+            case DELETE_FLOWS_VAULT_CONNECTIONS:
+                return visitor.visitDeleteFlowsVaultConnections();
+            case DELETE_ORGANIZATION_DISCOVERY_DOMAINS:
+                return visitor.visitDeleteOrganizationDiscoveryDomains();
+            case UPDATE_CLIENT_GRANTS:
+                return visitor.visitUpdateClientGrants();
+            case DELETE_ORGANIZATION_MEMBER_ROLES:
+                return visitor.visitDeleteOrganizationMemberRoles();
+            case UPDATE_VDCS_TEMPLATES:
+                return visitor.visitUpdateVdcsTemplates();
             case READ_ORGANIZATIONS:
                 return visitor.visitReadOrganizations();
-            case DELETE_ROLES:
-                return visitor.visitDeleteRoles();
-            case READ_CONNECTION_PROFILES:
-                return visitor.visitReadConnectionProfiles();
-            case UPDATE_PHONE_TEMPLATES:
-                return visitor.visitUpdatePhoneTemplates();
-            case READ_STATS:
-                return visitor.visitReadStats();
             case READ_CUSTOM_DOMAINS:
                 return visitor.visitReadCustomDomains();
-            case READ_TOKEN_EXCHANGE_PROFILES:
-                return visitor.visitReadTokenExchangeProfiles();
-            case READ_GUARDIAN_ENROLLMENTS:
-                return visitor.visitReadGuardianEnrollments();
+            case CREATE_SCIM_CONFIG:
+                return visitor.visitCreateScimConfig();
+            case DELETE_CUSTOM_SIGNING_KEYS:
+                return visitor.visitDeleteCustomSigningKeys();
             case UPDATE_ORGANIZATIONS:
                 return visitor.visitUpdateOrganizations();
-            case UPDATE_SELF_SERVICE_PROFILES:
-                return visitor.visitUpdateSelfServiceProfiles();
-            case CREATE_ORGANIZATION_CLIENT_GRANTS:
-                return visitor.visitCreateOrganizationClientGrants();
+            case DELETE_RULES:
+                return visitor.visitDeleteRules();
+            case READ_USERS:
+                return visitor.visitReadUsers();
+            case UPDATE_GUARDIAN_FACTORS:
+                return visitor.visitUpdateGuardianFactors();
             case DELETE_FLOWS_EXECUTIONS:
                 return visitor.visitDeleteFlowsExecutions();
-            case UPDATE_CONNECTIONS_KEYS:
-                return visitor.visitUpdateConnectionsKeys();
-            case UPDATE_EVENT_DELIVERIES:
-                return visitor.visitUpdateEventDeliveries();
+            case READ_ORGANIZATION_MEMBERS:
+                return visitor.visitReadOrganizationMembers();
+            case DELETE_SSO_ACCESS_TICKETS:
+                return visitor.visitDeleteSsoAccessTickets();
+            case UPDATE_LOG_STREAMS:
+                return visitor.visitUpdateLogStreams();
             case DELETE_CURRENT_USER_DEVICE_CREDENTIALS:
                 return visitor.visitDeleteCurrentUserDeviceCredentials();
-            case READ_VDCS_TEMPLATES:
-                return visitor.visitReadVdcsTemplates();
-            case READ_PHONE_PROVIDERS:
-                return visitor.visitReadPhoneProviders();
-            case CREATE_CLIENT_GRANTS:
-                return visitor.visitCreateClientGrants();
+            case READ_EVENT_STREAMS:
+                return visitor.visitReadEventStreams();
+            case DELETE_ENCRYPTION_KEYS:
+                return visitor.visitDeleteEncryptionKeys();
+            case UPDATE_AUTHENTICATION_METHODS:
+                return visitor.visitUpdateAuthenticationMethods();
             case DELETE_ANOMALY_BLOCKS:
                 return visitor.visitDeleteAnomalyBlocks();
-            case READ_CONNECTIONS_KEYS:
-                return visitor.visitReadConnectionsKeys();
-            case READ_ACTIONS:
-                return visitor.visitReadActions();
-            case READ_RESOURCE_SERVERS:
-                return visitor.visitReadResourceServers();
-            case UPDATE_TOKEN_EXCHANGE_PROFILES:
-                return visitor.visitUpdateTokenExchangeProfiles();
-            case DELETE_ROLE_MEMBERS:
-                return visitor.visitDeleteRoleMembers();
-            case READ_ORGANIZATION_CONNECTIONS:
-                return visitor.visitReadOrganizationConnections();
-            case UPDATE_PROMPTS:
-                return visitor.visitUpdatePrompts();
-            case CREATE_HOOKS:
-                return visitor.visitCreateHooks();
-            case CREATE_CONNECTIONS:
-                return visitor.visitCreateConnections();
-            case CREATE_EMAIL_TEMPLATES:
-                return visitor.visitCreateEmailTemplates();
-            case UPDATE_ATTACK_PROTECTION:
-                return visitor.visitUpdateAttackProtection();
-            case READ_MFA_POLICIES:
-                return visitor.visitReadMfaPolicies();
-            case UPDATE_HOOKS:
-                return visitor.visitUpdateHooks();
             case DELETE_USERS:
                 return visitor.visitDeleteUsers();
+            case READ_ATTACK_PROTECTION:
+                return visitor.visitReadAttackProtection();
+            case READ_ORGANIZATION_CONNECTIONS:
+                return visitor.visitReadOrganizationConnections();
+            case CREATE_CONNECTIONS:
+                return visitor.visitCreateConnections();
+            case DELETE_DEVICE_CREDENTIALS:
+                return visitor.visitDeleteDeviceCredentials();
+            case READ_RULES:
+                return visitor.visitReadRules();
+            case READ_TENANT_SETTINGS:
+                return visitor.visitReadTenantSettings();
+            case UPDATE_PROMPTS:
+                return visitor.visitUpdatePrompts();
+            case CREATE_EMAIL_TEMPLATES:
+                return visitor.visitCreateEmailTemplates();
+            case UPDATE_CONNECTIONS:
+                return visitor.visitUpdateConnections();
             case CREATE_CLIENT_CREDENTIALS:
                 return visitor.visitCreateClientCredentials();
-            case UPDATE_CLIENT_CREDENTIALS:
-                return visitor.visitUpdateClientCredentials();
-            case CREATE_ACTIONS:
-                return visitor.visitCreateActions();
-            case READ_EVENT_DELIVERIES:
-                return visitor.visitReadEventDeliveries();
+            case READ_SIGNING_KEYS:
+                return visitor.visitReadSigningKeys();
+            case DELETE_CONNECTIONS:
+                return visitor.visitDeleteConnections();
+            case UPDATE_RESOURCE_SERVERS:
+                return visitor.visitUpdateResourceServers();
             case DELETE_PHONE_TEMPLATES:
                 return visitor.visitDeletePhoneTemplates();
-            case READ_REFRESH_TOKENS:
-                return visitor.visitReadRefreshTokens();
-            case UPDATE_EMAIL_TEMPLATES:
-                return visitor.visitUpdateEmailTemplates();
-            case READ_ROLE_MEMBERS:
-                return visitor.visitReadRoleMembers();
+            case CREATE_TOKEN_EXCHANGE_PROFILES:
+                return visitor.visitCreateTokenExchangeProfiles();
+            case DELETE_SCIM_TOKEN:
+                return visitor.visitDeleteScimToken();
+            case UPDATE_CLIENT_CREDENTIALS:
+                return visitor.visitUpdateClientCredentials();
             case CREATE_ORGANIZATION_MEMBERS:
                 return visitor.visitCreateOrganizationMembers();
+            case UPDATE_CONNECTION_PROFILES:
+                return visitor.visitUpdateConnectionProfiles();
+            case READ_PROMPTS:
+                return visitor.visitReadPrompts();
+            case UPDATE_USERS_APP_METADATA:
+                return visitor.visitUpdateUsersAppMetadata();
+            case DELETE_NETWORK_ACLS:
+                return visitor.visitDeleteNetworkAcls();
+            case CREATE_ROLE_MEMBERS:
+                return visitor.visitCreateRoleMembers();
+            case UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS:
+                return visitor.visitUpdateSelfServiceProfileCustomTexts();
+            case DELETE_CURRENT_USER:
+                return visitor.visitDeleteCurrentUser();
+            case READ_LOGS:
+                return visitor.visitReadLogs();
+            case READ_CONNECTION_PROFILES:
+                return visitor.visitReadConnectionProfiles();
+            case DELETE_EVENT_STREAMS:
+                return visitor.visitDeleteEventStreams();
+            case UPDATE_PHONE_TEMPLATES:
+                return visitor.visitUpdatePhoneTemplates();
+            case READ_GUARDIAN_ENROLLMENTS:
+                return visitor.visitReadGuardianEnrollments();
+            case DELETE_FLOWS:
+                return visitor.visitDeleteFlows();
+            case READ_STATS:
+                return visitor.visitReadStats();
+            case DELETE_ROLES:
+                return visitor.visitDeleteRoles();
+            case READ_ENCRYPTION_KEYS:
+                return visitor.visitReadEncryptionKeys();
+            case CREATE_ORGANIZATION_INVITATIONS:
+                return visitor.visitCreateOrganizationInvitations();
+            case DELETE_HOOKS:
+                return visitor.visitDeleteHooks();
+            case CREATE_PHONE_TEMPLATES:
+                return visitor.visitCreatePhoneTemplates();
+            case READ_TOKEN_EXCHANGE_PROFILES:
+                return visitor.visitReadTokenExchangeProfiles();
+            case UPDATE_CONNECTIONS_KEYS:
+                return visitor.visitUpdateConnectionsKeys();
+            case DELETE_RESOURCE_SERVERS:
+                return visitor.visitDeleteResourceServers();
+            case READ_RESOURCE_SERVERS:
+                return visitor.visitReadResourceServers();
+            case UPDATE_EVENT_DELIVERIES:
+                return visitor.visitUpdateEventDeliveries();
+            case UPDATE_ORGANIZATION_CONNECTIONS:
+                return visitor.visitUpdateOrganizationConnections();
+            case READ_VDCS_TEMPLATES:
+                return visitor.visitReadVdcsTemplates();
+            case READ_ORGANIZATION_INVITATIONS:
+                return visitor.visitReadOrganizationInvitations();
+            case READ_PHONE_PROVIDERS:
+                return visitor.visitReadPhoneProviders();
+            case READ_NETWORK_ACLS:
+                return visitor.visitReadNetworkAcls();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -1073,446 +1077,448 @@ public final class OauthScope {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static OauthScope valueOf(String value) {
         switch (value) {
-            case "read:authentication_methods":
-                return READ_AUTHENTICATION_METHODS;
-            case "update:client_token_vault_privileged_access":
-                return UPDATE_CLIENT_TOKEN_VAULT_PRIVILEGED_ACCESS;
-            case "update:users_app_metadata":
-                return UPDATE_USERS_APP_METADATA;
-            case "read:anomaly_blocks":
-                return READ_ANOMALY_BLOCKS;
-            case "read:client_summary":
-                return READ_CLIENT_SUMMARY;
-            case "read:scim_config":
-                return READ_SCIM_CONFIG;
-            case "create:rules":
-                return CREATE_RULES;
-            case "update:scim_config":
-                return UPDATE_SCIM_CONFIG;
-            case "read:prompts":
-                return READ_PROMPTS;
+            case "delete:actions":
+                return DELETE_ACTIONS;
+            case "read:connections_keys":
+                return READ_CONNECTIONS_KEYS;
+            case "read:groups":
+                return READ_GROUPS;
+            case "read:actions":
+                return READ_ACTIONS;
+            case "delete:role_members":
+                return DELETE_ROLE_MEMBERS;
+            case "create:client_grants":
+                return CREATE_CLIENT_GRANTS;
+            case "update:token_exchange_profiles":
+                return UPDATE_TOKEN_EXCHANGE_PROFILES;
+            case "read:current_user":
+                return READ_CURRENT_USER;
+            case "read:scim_token":
+                return READ_SCIM_TOKEN;
+            case "update:roles":
+                return UPDATE_ROLES;
+            case "create:organizations":
+                return CREATE_ORGANIZATIONS;
+            case "read:connections":
+                return READ_CONNECTIONS;
+            case "create:directory_provisionings":
+                return CREATE_DIRECTORY_PROVISIONINGS;
+            case "delete:organizations":
+                return DELETE_ORGANIZATIONS;
+            case "create:organization_member_roles":
+                return CREATE_ORGANIZATION_MEMBER_ROLES;
+            case "delete:client_grants":
+                return DELETE_CLIENT_GRANTS;
+            case "update:current_user_metadata":
+                return UPDATE_CURRENT_USER_METADATA;
+            case "read:event_deliveries":
+                return READ_EVENT_DELIVERIES;
+            case "delete:phone_providers":
+                return DELETE_PHONE_PROVIDERS;
+            case "update:clients":
+                return UPDATE_CLIENTS;
+            case "read:refresh_tokens":
+                return READ_REFRESH_TOKENS;
+            case "create:sso_access_tickets":
+                return CREATE_SSO_ACCESS_TICKETS;
+            case "update:email_templates":
+                return UPDATE_EMAIL_TEMPLATES;
+            case "create:users":
+                return CREATE_USERS;
+            case "read:phone_templates":
+                return READ_PHONE_TEMPLATES;
+            case "delete:groups":
+                return DELETE_GROUPS;
+            case "delete:organization_connections":
+                return DELETE_ORGANIZATION_CONNECTIONS;
+            case "read:role_members":
+                return READ_ROLE_MEMBERS;
+            case "delete:federated_connections_tokens":
+                return DELETE_FEDERATED_CONNECTIONS_TOKENS;
+            case "read:self_service_profiles":
+                return READ_SELF_SERVICE_PROFILES;
             case "create:organization_discovery_domains":
                 return CREATE_ORGANIZATION_DISCOVERY_DOMAINS;
-            case "create:phone_templates":
-                return CREATE_PHONE_TEMPLATES;
-            case "update:phone_providers":
-                return UPDATE_PHONE_PROVIDERS;
-            case "create:roles":
-                return CREATE_ROLES;
+            case "read:scim_config":
+                return READ_SCIM_CONFIG;
+            case "update:scim_config":
+                return UPDATE_SCIM_CONFIG;
+            case "delete:clients":
+                return DELETE_CLIENTS;
+            case "read:flows_executions":
+                return READ_FLOWS_EXECUTIONS;
             case "delete:authentication_methods":
                 return DELETE_AUTHENTICATION_METHODS;
             case "create:connections_keys":
                 return CREATE_CONNECTIONS_KEYS;
+            case "delete:organization_client_grants":
+                return DELETE_ORGANIZATION_CLIENT_GRANTS;
+            case "update:self_service_profiles":
+                return UPDATE_SELF_SERVICE_PROFILES;
+            case "create:roles":
+                return CREATE_ROLES;
+            case "create:signing_keys":
+                return CREATE_SIGNING_KEYS;
+            case "update:event_streams":
+                return UPDATE_EVENT_STREAMS;
+            case "read:group_members":
+                return READ_GROUP_MEMBERS;
+            case "update:actions":
+                return UPDATE_ACTIONS;
+            case "create:flows":
+                return CREATE_FLOWS;
+            case "read:custom_signing_keys":
+                return READ_CUSTOM_SIGNING_KEYS;
+            case "delete:client_credentials":
+                return DELETE_CLIENT_CREDENTIALS;
+            case "delete:organization_invitations":
+                return DELETE_ORGANIZATION_INVITATIONS;
+            case "create:organization_client_grants":
+                return CREATE_ORGANIZATION_CLIENT_GRANTS;
+            case "read:user_idp_tokens":
+                return READ_USER_IDP_TOKENS;
+            case "delete:refresh_tokens":
+                return DELETE_REFRESH_TOKENS;
+            case "create:self_service_profiles":
+                return CREATE_SELF_SERVICE_PROFILES;
+            case "update:user_attribute_profiles":
+                return UPDATE_USER_ATTRIBUTE_PROFILES;
+            case "create:vdcs_templates":
+                return CREATE_VDCS_TEMPLATES;
+            case "create:custom_domains":
+                return CREATE_CUSTOM_DOMAINS;
+            case "read:organization_discovery_domains":
+                return READ_ORGANIZATION_DISCOVERY_DOMAINS;
+            case "delete:directory_provisionings":
+                return DELETE_DIRECTORY_PROVISIONINGS;
+            case "read:client_credentials":
+                return READ_CLIENT_CREDENTIALS;
+            case "create:email_provider":
+                return CREATE_EMAIL_PROVIDER;
+            case "create:scim_token":
+                return CREATE_SCIM_TOKEN;
+            case "read:guardian_factors":
+                return READ_GUARDIAN_FACTORS;
+            case "delete:connection_profiles":
+                return DELETE_CONNECTION_PROFILES;
+            case "update:flows":
+                return UPDATE_FLOWS;
+            case "read:organizations_summary":
+                return READ_ORGANIZATIONS_SUMMARY;
+            case "read:sessions":
+                return READ_SESSIONS;
+            case "create:resource_servers":
+                return CREATE_RESOURCE_SERVERS;
+            case "create:flows_vault_connections":
+                return CREATE_FLOWS_VAULT_CONNECTIONS;
+            case "read:branding":
+                return READ_BRANDING;
+            case "update:forms":
+                return UPDATE_FORMS;
+            case "update:mfa_policies":
+                return UPDATE_MFA_POLICIES;
+            case "read:logs_users":
+                return READ_LOGS_USERS;
+            case "read:organization_client_grants":
+                return READ_ORGANIZATION_CLIENT_GRANTS;
+            case "read:roles":
+                return READ_ROLES;
+            case "read:device_credentials":
+                return READ_DEVICE_CREDENTIALS;
+            case "create:encryption_keys":
+                return CREATE_ENCRYPTION_KEYS;
+            case "update:current_user_identities":
+                return UPDATE_CURRENT_USER_IDENTITIES;
+            case "delete:forms":
+                return DELETE_FORMS;
+            case "read:self_service_profile_custom_texts":
+                return READ_SELF_SERVICE_PROFILE_CUSTOM_TEXTS;
+            case "update:organization_discovery_domains":
+                return UPDATE_ORGANIZATION_DISCOVERY_DOMAINS;
+            case "read:anomaly_blocks":
+                return READ_ANOMALY_BLOCKS;
+            case "update:client_token_vault_privileged_access":
+                return UPDATE_CLIENT_TOKEN_VAULT_PRIVILEGED_ACCESS;
+            case "create:forms":
+                return CREATE_FORMS;
+            case "read:client_summary":
+                return READ_CLIENT_SUMMARY;
+            case "create:authentication_methods":
+                return CREATE_AUTHENTICATION_METHODS;
+            case "read:directory_provisionings":
+                return READ_DIRECTORY_PROVISIONINGS;
+            case "create:phone_providers":
+                return CREATE_PHONE_PROVIDERS;
+            case "create:rules":
+                return CREATE_RULES;
+            case "read:email_templates":
+                return READ_EMAIL_TEMPLATES;
             case "update:rules":
                 return UPDATE_RULES;
             case "update:flows_vault_connections":
                 return UPDATE_FLOWS_VAULT_CONNECTIONS;
-            case "read:encryption_keys":
-                return READ_ENCRYPTION_KEYS;
-            case "delete:sessions":
-                return DELETE_SESSIONS;
-            case "update:actions":
-                return UPDATE_ACTIONS;
+            case "update:phone_providers":
+                return UPDATE_PHONE_PROVIDERS;
             case "create:event_streams":
                 return CREATE_EVENT_STREAMS;
-            case "delete:event_streams":
-                return DELETE_EVENT_STREAMS;
-            case "delete:flows":
-                return DELETE_FLOWS;
-            case "delete:phone_providers":
-                return DELETE_PHONE_PROVIDERS;
             case "delete:self_service_profiles":
                 return DELETE_SELF_SERVICE_PROFILES;
-            case "read:group_members":
-                return READ_GROUP_MEMBERS;
-            case "create:signing_keys":
-                return CREATE_SIGNING_KEYS;
+            case "delete:sessions":
+                return DELETE_SESSIONS;
+            case "create:clients":
+                return CREATE_CLIENTS;
+            case "delete:log_streams":
+                return DELETE_LOG_STREAMS;
+            case "create:user_attribute_profiles":
+                return CREATE_USER_ATTRIBUTE_PROFILES;
+            case "update:users":
+                return UPDATE_USERS;
+            case "read:grants":
+                return READ_GRANTS;
             case "update:signing_keys":
                 return UPDATE_SIGNING_KEYS;
             case "create:user_tickets":
                 return CREATE_USER_TICKETS;
+            case "read:log_streams":
+                return READ_LOG_STREAMS;
+            case "update:branding":
+                return UPDATE_BRANDING;
+            case "update:custom_signing_keys":
+                return UPDATE_CUSTOM_SIGNING_KEYS;
+            case "read:clients":
+                return READ_CLIENTS;
             case "delete:grants":
                 return DELETE_GRANTS;
-            case "delete:refresh_tokens":
-                return DELETE_REFRESH_TOKENS;
-            case "read:rules_configs":
-                return READ_RULES_CONFIGS;
-            case "create:self_service_profiles":
-                return CREATE_SELF_SERVICE_PROFILES;
             case "update:refresh_tokens":
                 return UPDATE_REFRESH_TOKENS;
-            case "read:user_idp_tokens":
-                return READ_USER_IDP_TOKENS;
-            case "read:custom_signing_keys":
-                return READ_CUSTOM_SIGNING_KEYS;
+            case "update:rules_configs":
+                return UPDATE_RULES_CONFIGS;
+            case "update:custom_domains":
+                return UPDATE_CUSTOM_DOMAINS;
+            case "read:rules_configs":
+                return READ_RULES_CONFIGS;
             case "read:hooks":
                 return READ_HOOKS;
             case "create:current_user_device_credentials":
                 return CREATE_CURRENT_USER_DEVICE_CREDENTIALS;
             case "delete:branding":
                 return DELETE_BRANDING;
-            case "delete:client_credentials":
-                return DELETE_CLIENT_CREDENTIALS;
             case "update:tenant_settings":
                 return UPDATE_TENANT_SETTINGS;
-            case "read:organization_invitations":
-                return READ_ORGANIZATION_INVITATIONS;
-            case "read:grants":
-                return READ_GRANTS;
-            case "delete:organization_invitations":
-                return DELETE_ORGANIZATION_INVITATIONS;
-            case "update:rules_configs":
-                return UPDATE_RULES_CONFIGS;
-            case "update:connection_profiles":
-                return UPDATE_CONNECTION_PROFILES;
-            case "read:groups":
-                return READ_GROUPS;
-            case "delete:actions":
-                return DELETE_ACTIONS;
-            case "update:authentication_methods":
-                return UPDATE_AUTHENTICATION_METHODS;
-            case "create:vdcs_templates":
-                return CREATE_VDCS_TEMPLATES;
-            case "read:attack_protection":
-                return READ_ATTACK_PROTECTION;
-            case "read:organization_discovery_domains":
-                return READ_ORGANIZATION_DISCOVERY_DOMAINS;
-            case "create:custom_domains":
-                return CREATE_CUSTOM_DOMAINS;
-            case "read:current_user":
-                return READ_CURRENT_USER;
-            case "delete:organization_connections":
-                return DELETE_ORGANIZATION_CONNECTIONS;
-            case "read:client_credentials":
-                return READ_CLIENT_CREDENTIALS;
-            case "create:organizations":
-                return CREATE_ORGANIZATIONS;
-            case "read:organizations_summary":
-                return READ_ORGANIZATIONS_SUMMARY;
-            case "delete:organizations":
-                return DELETE_ORGANIZATIONS;
-            case "read:scim_token":
-                return READ_SCIM_TOKEN;
-            case "read:connections":
-                return READ_CONNECTIONS;
-            case "read:signing_keys":
-                return READ_SIGNING_KEYS;
-            case "delete:federated_connections_tokens":
-                return DELETE_FEDERATED_CONNECTIONS_TOKENS;
-            case "delete:connections":
-                return DELETE_CONNECTIONS;
-            case "update:resource_servers":
-                return UPDATE_RESOURCE_SERVERS;
-            case "create:users":
-                return CREATE_USERS;
-            case "read:phone_templates":
-                return READ_PHONE_TEMPLATES;
-            case "update:roles":
-                return UPDATE_ROLES;
-            case "create:sso_access_tickets":
-                return CREATE_SSO_ACCESS_TICKETS;
-            case "delete:groups":
-                return DELETE_GROUPS;
-            case "read:self_service_profile_custom_texts":
-                return READ_SELF_SERVICE_PROFILE_CUSTOM_TEXTS;
-            case "delete:scim_token":
-                return DELETE_SCIM_TOKEN;
-            case "delete:forms":
-                return DELETE_FORMS;
-            case "read:self_service_profiles":
-                return READ_SELF_SERVICE_PROFILES;
-            case "delete:rules_configs":
-                return DELETE_RULES_CONFIGS;
-            case "create:forms":
-                return CREATE_FORMS;
-            case "read:user_attribute_profiles":
-                return READ_USER_ATTRIBUTE_PROFILES;
-            case "read:directory_provisionings":
-                return READ_DIRECTORY_PROVISIONINGS;
-            case "create:authentication_methods":
-                return CREATE_AUTHENTICATION_METHODS;
-            case "create:phone_providers":
-                return CREATE_PHONE_PROVIDERS;
-            case "delete:organization_client_grants":
-                return DELETE_ORGANIZATION_CLIENT_GRANTS;
-            case "create:scim_config":
-                return CREATE_SCIM_CONFIG;
-            case "create:clients":
-                return CREATE_CLIENTS;
-            case "update:users":
-                return UPDATE_USERS;
-            case "read:organization_members":
-                return READ_ORGANIZATION_MEMBERS;
-            case "update:event_streams":
-                return UPDATE_EVENT_STREAMS;
-            case "update:custom_signing_keys":
-                return UPDATE_CUSTOM_SIGNING_KEYS;
-            case "read:log_streams":
-                return READ_LOG_STREAMS;
-            case "update:log_streams":
-                return UPDATE_LOG_STREAMS;
-            case "read:clients":
-                return READ_CLIENTS;
-            case "delete:encryption_keys":
-                return DELETE_ENCRYPTION_KEYS;
-            case "update:user_attribute_profiles":
-                return UPDATE_USER_ATTRIBUTE_PROFILES;
             case "create:custom_signing_keys":
                 return CREATE_CUSTOM_SIGNING_KEYS;
-            case "read:client_keys":
-                return READ_CLIENT_KEYS;
-            case "create:email_provider":
-                return CREATE_EMAIL_PROVIDER;
-            case "update:network_acls":
-                return UPDATE_NETWORK_ACLS;
-            case "delete:vdcs_templates":
-                return DELETE_VDCS_TEMPLATES;
-            case "read:flows":
-                return READ_FLOWS;
-            case "read:sessions":
-                return READ_SESSIONS;
-            case "create:organization_member_roles":
-                return CREATE_ORGANIZATION_MEMBER_ROLES;
-            case "create:directory_provisionings":
-                return CREATE_DIRECTORY_PROVISIONINGS;
-            case "delete:organization_members":
-                return DELETE_ORGANIZATION_MEMBERS;
-            case "update:forms":
-                return UPDATE_FORMS;
-            case "create:resource_servers":
-                return CREATE_RESOURCE_SERVERS;
-            case "read:branding":
-                return READ_BRANDING;
-            case "update:mfa_policies":
-                return UPDATE_MFA_POLICIES;
-            case "update:current_user_metadata":
-                return UPDATE_CURRENT_USER_METADATA;
-            case "read:flows_vault_connections":
-                return READ_FLOWS_VAULT_CONNECTIONS;
-            case "read:organization_client_grants":
-                return READ_ORGANIZATION_CLIENT_GRANTS;
-            case "update:clients":
-                return UPDATE_CLIENTS;
-            case "delete:client_grants":
-                return DELETE_CLIENT_GRANTS;
-            case "create:encryption_keys":
-                return CREATE_ENCRYPTION_KEYS;
-            case "update:encryption_keys":
-                return UPDATE_ENCRYPTION_KEYS;
-            case "read:roles":
-                return READ_ROLES;
-            case "read:device_credentials":
-                return READ_DEVICE_CREDENTIALS;
-            case "delete:directory_provisionings":
-                return DELETE_DIRECTORY_PROVISIONINGS;
-            case "delete:token_exchange_profiles":
-                return DELETE_TOKEN_EXCHANGE_PROFILES;
-            case "update:organization_discovery_domains":
-                return UPDATE_ORGANIZATION_DISCOVERY_DOMAINS;
-            case "read:logs":
-                return READ_LOGS;
-            case "update:email_provider":
-                return UPDATE_EMAIL_PROVIDER;
-            case "delete:flows_vault_connections":
-                return DELETE_FLOWS_VAULT_CONNECTIONS;
-            case "delete:network_acls":
-                return DELETE_NETWORK_ACLS;
-            case "update:self_service_profile_custom_texts":
-                return UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS;
-            case "delete:organization_discovery_domains":
-                return DELETE_ORGANIZATION_DISCOVERY_DOMAINS;
-            case "update:client_grants":
-                return UPDATE_CLIENT_GRANTS;
-            case "read:email_templates":
-                return READ_EMAIL_TEMPLATES;
-            case "update:vdcs_templates":
-                return UPDATE_VDCS_TEMPLATES;
-            case "create:user_attribute_profiles":
-                return CREATE_USER_ATTRIBUTE_PROFILES;
-            case "create:organization_invitations":
-                return CREATE_ORGANIZATION_INVITATIONS;
-            case "delete:log_streams":
-                return DELETE_LOG_STREAMS;
-            case "delete:custom_signing_keys":
-                return DELETE_CUSTOM_SIGNING_KEYS;
-            case "delete:resource_servers":
-                return DELETE_RESOURCE_SERVERS;
-            case "update:guardian_factors":
-                return UPDATE_GUARDIAN_FACTORS;
-            case "delete:organization_member_roles":
-                return DELETE_ORGANIZATION_MEMBER_ROLES;
-            case "read:users":
-                return READ_USERS;
-            case "update:branding":
-                return UPDATE_BRANDING;
-            case "delete:sso_access_tickets":
-                return DELETE_SSO_ACCESS_TICKETS;
-            case "update:organization_connections":
-                return UPDATE_ORGANIZATION_CONNECTIONS;
-            case "update:custom_domains":
-                return UPDATE_CUSTOM_DOMAINS;
-            case "read:network_acls":
-                return READ_NETWORK_ACLS;
-            case "delete:email_provider":
-                return DELETE_EMAIL_PROVIDER;
-            case "read:forms":
-                return READ_FORMS;
+            case "read:authentication_methods":
+                return READ_AUTHENTICATION_METHODS;
+            case "update:attack_protection":
+                return UPDATE_ATTACK_PROTECTION;
             case "create:guardian_enrollment_tickets":
                 return CREATE_GUARDIAN_ENROLLMENT_TICKETS;
-            case "read:event_streams":
-                return READ_EVENT_STREAMS;
-            case "create:network_acls":
-                return CREATE_NETWORK_ACLS;
+            case "delete:email_provider":
+                return DELETE_EMAIL_PROVIDER;
             case "delete:custom_domains":
                 return DELETE_CUSTOM_DOMAINS;
-            case "create:scim_token":
-                return CREATE_SCIM_TOKEN;
+            case "create:network_acls":
+                return CREATE_NETWORK_ACLS;
+            case "delete:vdcs_templates":
+                return DELETE_VDCS_TEMPLATES;
+            case "read:events":
+                return READ_EVENTS;
+            case "read:flows":
+                return READ_FLOWS;
+            case "read:forms":
+                return READ_FORMS;
+            case "update:network_acls":
+                return UPDATE_NETWORK_ACLS;
             case "update:sessions":
                 return UPDATE_SESSIONS;
-            case "delete:connection_profiles":
-                return DELETE_CONNECTION_PROFILES;
-            case "update:connections":
-                return UPDATE_CONNECTIONS;
-            case "delete:device_credentials":
-                return DELETE_DEVICE_CREDENTIALS;
-            case "read:guardian_factors":
-                return READ_GUARDIAN_FACTORS;
-            case "read:tenant_settings":
-                return READ_TENANT_SETTINGS;
-            case "delete:scim_config":
-                return DELETE_SCIM_CONFIG;
-            case "delete:rules":
-                return DELETE_RULES;
-            case "read:organization_member_roles":
-                return READ_ORGANIZATION_MEMBER_ROLES;
-            case "read:federated_connections_tokens":
-                return READ_FEDERATED_CONNECTIONS_TOKENS;
-            case "update:flows":
-                return UPDATE_FLOWS;
+            case "create:hooks":
+                return CREATE_HOOKS;
+            case "read:client_keys":
+                return READ_CLIENT_KEYS;
             case "create:log_streams":
                 return CREATE_LOG_STREAMS;
+            case "read:federated_connections_tokens":
+                return READ_FEDERATED_CONNECTIONS_TOKENS;
+            case "delete:organization_members":
+                return DELETE_ORGANIZATION_MEMBERS;
+            case "read:organization_member_roles":
+                return READ_ORGANIZATION_MEMBER_ROLES;
+            case "delete:scim_config":
+                return DELETE_SCIM_CONFIG;
+            case "update:hooks":
+                return UPDATE_HOOKS;
+            case "read:mfa_policies":
+                return READ_MFA_POLICIES;
             case "create:connection_profiles":
                 return CREATE_CONNECTION_PROFILES;
-            case "create:flows_vault_connections":
-                return CREATE_FLOWS_VAULT_CONNECTIONS;
+            case "create:actions":
+                return CREATE_ACTIONS;
+            case "read:client_grants":
+                return READ_CLIENT_GRANTS;
             case "update:directory_provisionings":
                 return UPDATE_DIRECTORY_PROVISIONINGS;
             case "delete:user_attribute_profiles":
                 return DELETE_USER_ATTRIBUTE_PROFILES;
-            case "read:client_grants":
-                return READ_CLIENT_GRANTS;
-            case "create:token_exchange_profiles":
-                return CREATE_TOKEN_EXCHANGE_PROFILES;
-            case "read:logs_users":
-                return READ_LOGS_USERS;
-            case "read:rules":
-                return READ_RULES;
-            case "delete:guardian_enrollments":
-                return DELETE_GUARDIAN_ENROLLMENTS;
+            case "read:flows_vault_connections":
+                return READ_FLOWS_VAULT_CONNECTIONS;
+            case "update:encryption_keys":
+                return UPDATE_ENCRYPTION_KEYS;
             case "update:client_keys":
                 return UPDATE_CLIENT_KEYS;
-            case "update:current_user_identities":
-                return UPDATE_CURRENT_USER_IDENTITIES;
+            case "delete:guardian_enrollments":
+                return DELETE_GUARDIAN_ENROLLMENTS;
+            case "delete:token_exchange_profiles":
+                return DELETE_TOKEN_EXCHANGE_PROFILES;
+            case "update:email_provider":
+                return UPDATE_EMAIL_PROVIDER;
             case "create:organization_connections":
                 return CREATE_ORGANIZATION_CONNECTIONS;
+            case "delete:rules_configs":
+                return DELETE_RULES_CONFIGS;
+            case "read:user_attribute_profiles":
+                return READ_USER_ATTRIBUTE_PROFILES;
             case "read:email_provider":
                 return READ_EMAIL_PROVIDER;
-            case "read:flows_executions":
-                return READ_FLOWS_EXECUTIONS;
-            case "delete:clients":
-                return DELETE_CLIENTS;
-            case "create:role_members":
-                return CREATE_ROLE_MEMBERS;
-            case "create:flows":
-                return CREATE_FLOWS;
-            case "delete:hooks":
-                return DELETE_HOOKS;
-            case "delete:current_user":
-                return DELETE_CURRENT_USER;
+            case "delete:flows_vault_connections":
+                return DELETE_FLOWS_VAULT_CONNECTIONS;
+            case "delete:organization_discovery_domains":
+                return DELETE_ORGANIZATION_DISCOVERY_DOMAINS;
+            case "update:client_grants":
+                return UPDATE_CLIENT_GRANTS;
+            case "delete:organization_member_roles":
+                return DELETE_ORGANIZATION_MEMBER_ROLES;
+            case "update:vdcs_templates":
+                return UPDATE_VDCS_TEMPLATES;
             case "read:organizations":
                 return READ_ORGANIZATIONS;
-            case "delete:roles":
-                return DELETE_ROLES;
-            case "read:connection_profiles":
-                return READ_CONNECTION_PROFILES;
-            case "update:phone_templates":
-                return UPDATE_PHONE_TEMPLATES;
-            case "read:stats":
-                return READ_STATS;
             case "read:custom_domains":
                 return READ_CUSTOM_DOMAINS;
-            case "read:token_exchange_profiles":
-                return READ_TOKEN_EXCHANGE_PROFILES;
-            case "read:guardian_enrollments":
-                return READ_GUARDIAN_ENROLLMENTS;
+            case "create:scim_config":
+                return CREATE_SCIM_CONFIG;
+            case "delete:custom_signing_keys":
+                return DELETE_CUSTOM_SIGNING_KEYS;
             case "update:organizations":
                 return UPDATE_ORGANIZATIONS;
-            case "update:self_service_profiles":
-                return UPDATE_SELF_SERVICE_PROFILES;
-            case "create:organization_client_grants":
-                return CREATE_ORGANIZATION_CLIENT_GRANTS;
+            case "delete:rules":
+                return DELETE_RULES;
+            case "read:users":
+                return READ_USERS;
+            case "update:guardian_factors":
+                return UPDATE_GUARDIAN_FACTORS;
             case "delete:flows_executions":
                 return DELETE_FLOWS_EXECUTIONS;
-            case "update:connections_keys":
-                return UPDATE_CONNECTIONS_KEYS;
-            case "update:event_deliveries":
-                return UPDATE_EVENT_DELIVERIES;
+            case "read:organization_members":
+                return READ_ORGANIZATION_MEMBERS;
+            case "delete:sso_access_tickets":
+                return DELETE_SSO_ACCESS_TICKETS;
+            case "update:log_streams":
+                return UPDATE_LOG_STREAMS;
             case "delete:current_user_device_credentials":
                 return DELETE_CURRENT_USER_DEVICE_CREDENTIALS;
-            case "read:vdcs_templates":
-                return READ_VDCS_TEMPLATES;
-            case "read:phone_providers":
-                return READ_PHONE_PROVIDERS;
-            case "create:client_grants":
-                return CREATE_CLIENT_GRANTS;
+            case "read:event_streams":
+                return READ_EVENT_STREAMS;
+            case "delete:encryption_keys":
+                return DELETE_ENCRYPTION_KEYS;
+            case "update:authentication_methods":
+                return UPDATE_AUTHENTICATION_METHODS;
             case "delete:anomaly_blocks":
                 return DELETE_ANOMALY_BLOCKS;
-            case "read:connections_keys":
-                return READ_CONNECTIONS_KEYS;
-            case "read:actions":
-                return READ_ACTIONS;
-            case "read:resource_servers":
-                return READ_RESOURCE_SERVERS;
-            case "update:token_exchange_profiles":
-                return UPDATE_TOKEN_EXCHANGE_PROFILES;
-            case "delete:role_members":
-                return DELETE_ROLE_MEMBERS;
-            case "read:organization_connections":
-                return READ_ORGANIZATION_CONNECTIONS;
-            case "update:prompts":
-                return UPDATE_PROMPTS;
-            case "create:hooks":
-                return CREATE_HOOKS;
-            case "create:connections":
-                return CREATE_CONNECTIONS;
-            case "create:email_templates":
-                return CREATE_EMAIL_TEMPLATES;
-            case "update:attack_protection":
-                return UPDATE_ATTACK_PROTECTION;
-            case "read:mfa_policies":
-                return READ_MFA_POLICIES;
-            case "update:hooks":
-                return UPDATE_HOOKS;
             case "delete:users":
                 return DELETE_USERS;
+            case "read:attack_protection":
+                return READ_ATTACK_PROTECTION;
+            case "read:organization_connections":
+                return READ_ORGANIZATION_CONNECTIONS;
+            case "create:connections":
+                return CREATE_CONNECTIONS;
+            case "delete:device_credentials":
+                return DELETE_DEVICE_CREDENTIALS;
+            case "read:rules":
+                return READ_RULES;
+            case "read:tenant_settings":
+                return READ_TENANT_SETTINGS;
+            case "update:prompts":
+                return UPDATE_PROMPTS;
+            case "create:email_templates":
+                return CREATE_EMAIL_TEMPLATES;
+            case "update:connections":
+                return UPDATE_CONNECTIONS;
             case "create:client_credentials":
                 return CREATE_CLIENT_CREDENTIALS;
-            case "update:client_credentials":
-                return UPDATE_CLIENT_CREDENTIALS;
-            case "create:actions":
-                return CREATE_ACTIONS;
-            case "read:event_deliveries":
-                return READ_EVENT_DELIVERIES;
+            case "read:signing_keys":
+                return READ_SIGNING_KEYS;
+            case "delete:connections":
+                return DELETE_CONNECTIONS;
+            case "update:resource_servers":
+                return UPDATE_RESOURCE_SERVERS;
             case "delete:phone_templates":
                 return DELETE_PHONE_TEMPLATES;
-            case "read:refresh_tokens":
-                return READ_REFRESH_TOKENS;
-            case "update:email_templates":
-                return UPDATE_EMAIL_TEMPLATES;
-            case "read:role_members":
-                return READ_ROLE_MEMBERS;
+            case "create:token_exchange_profiles":
+                return CREATE_TOKEN_EXCHANGE_PROFILES;
+            case "delete:scim_token":
+                return DELETE_SCIM_TOKEN;
+            case "update:client_credentials":
+                return UPDATE_CLIENT_CREDENTIALS;
             case "create:organization_members":
                 return CREATE_ORGANIZATION_MEMBERS;
+            case "update:connection_profiles":
+                return UPDATE_CONNECTION_PROFILES;
+            case "read:prompts":
+                return READ_PROMPTS;
+            case "update:users_app_metadata":
+                return UPDATE_USERS_APP_METADATA;
+            case "delete:network_acls":
+                return DELETE_NETWORK_ACLS;
+            case "create:role_members":
+                return CREATE_ROLE_MEMBERS;
+            case "update:self_service_profile_custom_texts":
+                return UPDATE_SELF_SERVICE_PROFILE_CUSTOM_TEXTS;
+            case "delete:current_user":
+                return DELETE_CURRENT_USER;
+            case "read:logs":
+                return READ_LOGS;
+            case "read:connection_profiles":
+                return READ_CONNECTION_PROFILES;
+            case "delete:event_streams":
+                return DELETE_EVENT_STREAMS;
+            case "update:phone_templates":
+                return UPDATE_PHONE_TEMPLATES;
+            case "read:guardian_enrollments":
+                return READ_GUARDIAN_ENROLLMENTS;
+            case "delete:flows":
+                return DELETE_FLOWS;
+            case "read:stats":
+                return READ_STATS;
+            case "delete:roles":
+                return DELETE_ROLES;
+            case "read:encryption_keys":
+                return READ_ENCRYPTION_KEYS;
+            case "create:organization_invitations":
+                return CREATE_ORGANIZATION_INVITATIONS;
+            case "delete:hooks":
+                return DELETE_HOOKS;
+            case "create:phone_templates":
+                return CREATE_PHONE_TEMPLATES;
+            case "read:token_exchange_profiles":
+                return READ_TOKEN_EXCHANGE_PROFILES;
+            case "update:connections_keys":
+                return UPDATE_CONNECTIONS_KEYS;
+            case "delete:resource_servers":
+                return DELETE_RESOURCE_SERVERS;
+            case "read:resource_servers":
+                return READ_RESOURCE_SERVERS;
+            case "update:event_deliveries":
+                return UPDATE_EVENT_DELIVERIES;
+            case "update:organization_connections":
+                return UPDATE_ORGANIZATION_CONNECTIONS;
+            case "read:vdcs_templates":
+                return READ_VDCS_TEMPLATES;
+            case "read:organization_invitations":
+                return READ_ORGANIZATION_INVITATIONS;
+            case "read:phone_providers":
+                return READ_PHONE_PROVIDERS;
+            case "read:network_acls":
+                return READ_NETWORK_ACLS;
             default:
                 return new OauthScope(Value.UNKNOWN, value);
         }
@@ -1676,6 +1682,8 @@ public final class OauthScope {
         UPDATE_EVENT_STREAMS,
 
         DELETE_EVENT_STREAMS,
+
+        READ_EVENTS,
 
         READ_FEDERATED_CONNECTIONS_TOKENS,
 
@@ -2120,6 +2128,8 @@ public final class OauthScope {
         T visitUpdateEventStreams();
 
         T visitDeleteEventStreams();
+
+        T visitReadEvents();
 
         T visitReadFederatedConnectionsTokens();
 

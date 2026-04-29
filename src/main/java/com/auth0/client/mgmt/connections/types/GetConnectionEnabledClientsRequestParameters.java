@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.connections.types;
 
-import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -18,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = GetConnectionEnabledClientsRequestParameters.Builder.class)
@@ -40,6 +40,9 @@ public final class GetConnectionEnabledClientsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getTake() {
+        if (take == null) {
+            return OptionalNullable.absent();
+        }
         return take;
     }
 
@@ -105,7 +108,7 @@ public final class GetConnectionEnabledClientsRequestParameters {
          * <p>Number of results per page. Defaults to 50.</p>
          */
         @JsonSetter(value = "take", nulls = Nulls.SKIP)
-        public Builder take(OptionalNullable<Integer> take) {
+        public Builder take(@Nullable OptionalNullable<Integer> take) {
             this.take = take;
             return this;
         }
@@ -124,7 +127,7 @@ public final class GetConnectionEnabledClientsRequestParameters {
             return this;
         }
 
-        public Builder take(Nullable<Integer> take) {
+        public Builder take(com.auth0.client.mgmt.core.Nullable<Integer> take) {
             if (take.isNull()) {
                 this.take = OptionalNullable.ofNull();
             } else if (take.isEmpty()) {
@@ -139,7 +142,7 @@ public final class GetConnectionEnabledClientsRequestParameters {
          * <p>Optional Id from which to start selection.</p>
          */
         @JsonSetter(value = "from", nulls = Nulls.SKIP)
-        public Builder from(@org.jetbrains.annotations.Nullable OptionalNullable<String> from) {
+        public Builder from(@Nullable OptionalNullable<String> from) {
             this.from = from;
             return this;
         }
@@ -158,7 +161,7 @@ public final class GetConnectionEnabledClientsRequestParameters {
             return this;
         }
 
-        public Builder from(Nullable<String> from) {
+        public Builder from(com.auth0.client.mgmt.core.Nullable<String> from) {
             if (from.isNull()) {
                 this.from = OptionalNullable.ofNull();
             } else if (from.isEmpty()) {

@@ -9,21 +9,21 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class CustomSigningKeyAlgorithmEnum {
     public static final CustomSigningKeyAlgorithmEnum RS512 = new CustomSigningKeyAlgorithmEnum(Value.RS512, "RS512");
 
-    public static final CustomSigningKeyAlgorithmEnum ES256 = new CustomSigningKeyAlgorithmEnum(Value.ES256, "ES256");
-
-    public static final CustomSigningKeyAlgorithmEnum PS256 = new CustomSigningKeyAlgorithmEnum(Value.PS256, "PS256");
-
     public static final CustomSigningKeyAlgorithmEnum ES384 = new CustomSigningKeyAlgorithmEnum(Value.ES384, "ES384");
 
     public static final CustomSigningKeyAlgorithmEnum PS384 = new CustomSigningKeyAlgorithmEnum(Value.PS384, "PS384");
 
-    public static final CustomSigningKeyAlgorithmEnum ES512 = new CustomSigningKeyAlgorithmEnum(Value.ES512, "ES512");
+    public static final CustomSigningKeyAlgorithmEnum ES256 = new CustomSigningKeyAlgorithmEnum(Value.ES256, "ES256");
+
+    public static final CustomSigningKeyAlgorithmEnum PS256 = new CustomSigningKeyAlgorithmEnum(Value.PS256, "PS256");
 
     public static final CustomSigningKeyAlgorithmEnum PS512 = new CustomSigningKeyAlgorithmEnum(Value.PS512, "PS512");
 
-    public static final CustomSigningKeyAlgorithmEnum RS256 = new CustomSigningKeyAlgorithmEnum(Value.RS256, "RS256");
+    public static final CustomSigningKeyAlgorithmEnum ES512 = new CustomSigningKeyAlgorithmEnum(Value.ES512, "ES512");
 
     public static final CustomSigningKeyAlgorithmEnum RS384 = new CustomSigningKeyAlgorithmEnum(Value.RS384, "RS384");
+
+    public static final CustomSigningKeyAlgorithmEnum RS256 = new CustomSigningKeyAlgorithmEnum(Value.RS256, "RS256");
 
     private final Value value;
 
@@ -60,22 +60,22 @@ public final class CustomSigningKeyAlgorithmEnum {
         switch (value) {
             case RS512:
                 return visitor.visitRs512();
-            case ES256:
-                return visitor.visitEs256();
-            case PS256:
-                return visitor.visitPs256();
             case ES384:
                 return visitor.visitEs384();
             case PS384:
                 return visitor.visitPs384();
-            case ES512:
-                return visitor.visitEs512();
+            case ES256:
+                return visitor.visitEs256();
+            case PS256:
+                return visitor.visitPs256();
             case PS512:
                 return visitor.visitPs512();
-            case RS256:
-                return visitor.visitRs256();
+            case ES512:
+                return visitor.visitEs512();
             case RS384:
                 return visitor.visitRs384();
+            case RS256:
+                return visitor.visitRs256();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -87,22 +87,22 @@ public final class CustomSigningKeyAlgorithmEnum {
         switch (value) {
             case "RS512":
                 return RS512;
-            case "ES256":
-                return ES256;
-            case "PS256":
-                return PS256;
             case "ES384":
                 return ES384;
             case "PS384":
                 return PS384;
-            case "ES512":
-                return ES512;
+            case "ES256":
+                return ES256;
+            case "PS256":
+                return PS256;
             case "PS512":
                 return PS512;
-            case "RS256":
-                return RS256;
+            case "ES512":
+                return ES512;
             case "RS384":
                 return RS384;
+            case "RS256":
+                return RS256;
             default:
                 return new CustomSigningKeyAlgorithmEnum(Value.UNKNOWN, value);
         }

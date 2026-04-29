@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class FlowsVaultConnectionHttpApiKeySetupInEnum {
-    public static final FlowsVaultConnectionHttpApiKeySetupInEnum QUERY =
-            new FlowsVaultConnectionHttpApiKeySetupInEnum(Value.QUERY, "QUERY");
-
     public static final FlowsVaultConnectionHttpApiKeySetupInEnum HEADER =
             new FlowsVaultConnectionHttpApiKeySetupInEnum(Value.HEADER, "HEADER");
+
+    public static final FlowsVaultConnectionHttpApiKeySetupInEnum QUERY =
+            new FlowsVaultConnectionHttpApiKeySetupInEnum(Value.QUERY, "QUERY");
 
     private final Value value;
 
@@ -46,10 +46,10 @@ public final class FlowsVaultConnectionHttpApiKeySetupInEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case QUERY:
-                return visitor.visitQuery();
             case HEADER:
                 return visitor.visitHeader();
+            case QUERY:
+                return visitor.visitQuery();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -59,10 +59,10 @@ public final class FlowsVaultConnectionHttpApiKeySetupInEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static FlowsVaultConnectionHttpApiKeySetupInEnum valueOf(String value) {
         switch (value) {
-            case "QUERY":
-                return QUERY;
             case "HEADER":
                 return HEADER;
+            case "QUERY":
+                return QUERY;
             default:
                 return new FlowsVaultConnectionHttpApiKeySetupInEnum(Value.UNKNOWN, value);
         }

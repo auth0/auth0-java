@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = UpdateUniversalLoginTemplateRequestContent.Deserializer.class)
@@ -88,10 +89,12 @@ public final class UpdateUniversalLoginTemplateRequestContent {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, String.class));
             } catch (RuntimeException e) {
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(
-                        value, UpdateUniversalLoginTemplateRequestContentTemplate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?> && ((Map<?, ?>) value).containsKey("template")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(
+                            value, UpdateUniversalLoginTemplateRequestContentTemplate.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

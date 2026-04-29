@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = EventStreamsCreateRequest.Deserializer.class)
@@ -89,18 +90,26 @@ public final class EventStreamsCreateRequest {
         @java.lang.Override
         public EventStreamsCreateRequest deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, CreateEventStreamWebHookRequestContent.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?> && ((Map<?, ?>) value).containsKey("destination")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(
+                            value, CreateEventStreamWebHookRequestContent.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(
-                        value, CreateEventStreamEventBridgeRequestContent.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?> && ((Map<?, ?>) value).containsKey("destination")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(
+                            value, CreateEventStreamEventBridgeRequestContent.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, CreateEventStreamActionRequestContent.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?> && ((Map<?, ?>) value).containsKey("destination")) {
+                try {
+                    return of(
+                            ObjectMappers.JSON_MAPPER.convertValue(value, CreateEventStreamActionRequestContent.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

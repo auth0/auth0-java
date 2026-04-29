@@ -10,14 +10,14 @@ public final class BreachedPasswordDetectionAdminNotificationFrequencyEnum {
     public static final BreachedPasswordDetectionAdminNotificationFrequencyEnum IMMEDIATELY =
             new BreachedPasswordDetectionAdminNotificationFrequencyEnum(Value.IMMEDIATELY, "immediately");
 
-    public static final BreachedPasswordDetectionAdminNotificationFrequencyEnum MONTHLY =
-            new BreachedPasswordDetectionAdminNotificationFrequencyEnum(Value.MONTHLY, "monthly");
-
     public static final BreachedPasswordDetectionAdminNotificationFrequencyEnum DAILY =
             new BreachedPasswordDetectionAdminNotificationFrequencyEnum(Value.DAILY, "daily");
 
     public static final BreachedPasswordDetectionAdminNotificationFrequencyEnum WEEKLY =
             new BreachedPasswordDetectionAdminNotificationFrequencyEnum(Value.WEEKLY, "weekly");
+
+    public static final BreachedPasswordDetectionAdminNotificationFrequencyEnum MONTHLY =
+            new BreachedPasswordDetectionAdminNotificationFrequencyEnum(Value.MONTHLY, "monthly");
 
     private final Value value;
 
@@ -55,12 +55,12 @@ public final class BreachedPasswordDetectionAdminNotificationFrequencyEnum {
         switch (value) {
             case IMMEDIATELY:
                 return visitor.visitImmediately();
-            case MONTHLY:
-                return visitor.visitMonthly();
             case DAILY:
                 return visitor.visitDaily();
             case WEEKLY:
                 return visitor.visitWeekly();
+            case MONTHLY:
+                return visitor.visitMonthly();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -72,12 +72,12 @@ public final class BreachedPasswordDetectionAdminNotificationFrequencyEnum {
         switch (value) {
             case "immediately":
                 return IMMEDIATELY;
-            case "monthly":
-                return MONTHLY;
             case "daily":
                 return DAILY;
             case "weekly":
                 return WEEKLY;
+            case "monthly":
+                return MONTHLY;
             default:
                 return new BreachedPasswordDetectionAdminNotificationFrequencyEnum(Value.UNKNOWN, value);
         }

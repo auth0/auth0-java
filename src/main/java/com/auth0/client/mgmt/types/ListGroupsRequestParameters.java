@@ -28,6 +28,8 @@ public final class ListGroupsRequestParameters {
 
     private final OptionalNullable<String> externalId;
 
+    private final OptionalNullable<String> search;
+
     private final OptionalNullable<String> fields;
 
     private final OptionalNullable<Boolean> includeFields;
@@ -42,6 +44,7 @@ public final class ListGroupsRequestParameters {
             OptionalNullable<String> connectionId,
             OptionalNullable<String> name,
             OptionalNullable<String> externalId,
+            OptionalNullable<String> search,
             OptionalNullable<String> fields,
             OptionalNullable<Boolean> includeFields,
             OptionalNullable<String> from,
@@ -50,6 +53,7 @@ public final class ListGroupsRequestParameters {
         this.connectionId = connectionId;
         this.name = name;
         this.externalId = externalId;
+        this.search = search;
         this.fields = fields;
         this.includeFields = includeFields;
         this.from = from;
@@ -91,6 +95,17 @@ public final class ListGroupsRequestParameters {
     }
 
     /**
+     * @return Search for groups by name or external ID.
+     */
+    @JsonIgnore
+    public OptionalNullable<String> getSearch() {
+        if (search == null) {
+            return OptionalNullable.absent();
+        }
+        return search;
+    }
+
+    /**
      * @return A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields
      */
     @JsonIgnore
@@ -128,6 +143,9 @@ public final class ListGroupsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getTake() {
+        if (take == null) {
+            return OptionalNullable.absent();
+        }
         return take;
     }
 
@@ -146,6 +164,7 @@ public final class ListGroupsRequestParameters {
         return connectionId.equals(other.connectionId)
                 && name.equals(other.name)
                 && externalId.equals(other.externalId)
+                && search.equals(other.search)
                 && fields.equals(other.fields)
                 && includeFields.equals(other.includeFields)
                 && from.equals(other.from)
@@ -155,7 +174,14 @@ public final class ListGroupsRequestParameters {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.connectionId, this.name, this.externalId, this.fields, this.includeFields, this.from, this.take);
+                this.connectionId,
+                this.name,
+                this.externalId,
+                this.search,
+                this.fields,
+                this.includeFields,
+                this.from,
+                this.take);
     }
 
     @java.lang.Override
@@ -175,6 +201,8 @@ public final class ListGroupsRequestParameters {
 
         private OptionalNullable<String> externalId = OptionalNullable.absent();
 
+        private OptionalNullable<String> search = OptionalNullable.absent();
+
         private OptionalNullable<String> fields = OptionalNullable.absent();
 
         private OptionalNullable<Boolean> includeFields = OptionalNullable.absent();
@@ -192,6 +220,7 @@ public final class ListGroupsRequestParameters {
             connectionId(other.getConnectionId());
             name(other.getName());
             externalId(other.getExternalId());
+            search(other.getSearch());
             fields(other.getFields());
             includeFields(other.getIncludeFields());
             from(other.getFrom());
@@ -302,6 +331,40 @@ public final class ListGroupsRequestParameters {
         }
 
         /**
+         * <p>Search for groups by name or external ID.</p>
+         */
+        @JsonSetter(value = "search", nulls = Nulls.SKIP)
+        public Builder search(@Nullable OptionalNullable<String> search) {
+            this.search = search;
+            return this;
+        }
+
+        public Builder search(String search) {
+            this.search = OptionalNullable.of(search);
+            return this;
+        }
+
+        public Builder search(Optional<String> search) {
+            if (search.isPresent()) {
+                this.search = OptionalNullable.of(search.get());
+            } else {
+                this.search = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder search(com.auth0.client.mgmt.core.Nullable<String> search) {
+            if (search.isNull()) {
+                this.search = OptionalNullable.ofNull();
+            } else if (search.isEmpty()) {
+                this.search = OptionalNullable.absent();
+            } else {
+                this.search = OptionalNullable.of(search.get());
+            }
+            return this;
+        }
+
+        /**
          * <p>A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields</p>
          */
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
@@ -407,7 +470,7 @@ public final class ListGroupsRequestParameters {
          * <p>Number of results per page. Defaults to 50.</p>
          */
         @JsonSetter(value = "take", nulls = Nulls.SKIP)
-        public Builder take(OptionalNullable<Integer> take) {
+        public Builder take(@Nullable OptionalNullable<Integer> take) {
             this.take = take;
             return this;
         }
@@ -439,7 +502,7 @@ public final class ListGroupsRequestParameters {
 
         public ListGroupsRequestParameters build() {
             return new ListGroupsRequestParameters(
-                    connectionId, name, externalId, fields, includeFields, from, take, additionalProperties);
+                    connectionId, name, externalId, search, fields, includeFields, from, take, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

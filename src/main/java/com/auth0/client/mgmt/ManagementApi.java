@@ -38,6 +38,8 @@ public class ManagementApi {
 
     protected final Supplier<EventStreamsClient> eventStreamsClient;
 
+    protected final Supplier<EventsClient> eventsClient;
+
     protected final Supplier<FlowsClient> flowsClient;
 
     protected final Supplier<FormsClient> formsClient;
@@ -116,6 +118,7 @@ public class ManagementApi {
         this.deviceCredentialsClient = Suppliers.memoize(() -> new DeviceCredentialsClient(clientOptions));
         this.emailTemplatesClient = Suppliers.memoize(() -> new EmailTemplatesClient(clientOptions));
         this.eventStreamsClient = Suppliers.memoize(() -> new EventStreamsClient(clientOptions));
+        this.eventsClient = Suppliers.memoize(() -> new EventsClient(clientOptions));
         this.flowsClient = Suppliers.memoize(() -> new FlowsClient(clientOptions));
         this.formsClient = Suppliers.memoize(() -> new FormsClient(clientOptions));
         this.userGrantsClient = Suppliers.memoize(() -> new UserGrantsClient(clientOptions));
@@ -189,6 +192,10 @@ public class ManagementApi {
 
     public EventStreamsClient eventStreams() {
         return this.eventStreamsClient.get();
+    }
+
+    public EventsClient events() {
+        return this.eventsClient.get();
     }
 
     public FlowsClient flows() {

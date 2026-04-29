@@ -40,7 +40,7 @@ public class AsyncRawCustomTextClient {
     }
 
     /**
-     * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
+     * Retrieves text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, String>>> list(
             String id, SelfServiceProfileCustomTextLanguageEnum language, SelfServiceProfileCustomTextPageEnum page) {
@@ -48,7 +48,7 @@ public class AsyncRawCustomTextClient {
     }
 
     /**
-     * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
+     * Retrieves text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, String>>> list(
             String id,
@@ -134,7 +134,7 @@ public class AsyncRawCustomTextClient {
     }
 
     /**
-     * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
+     * Updates text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, String>>> set(
             String id,
@@ -145,7 +145,7 @@ public class AsyncRawCustomTextClient {
     }
 
     /**
-     * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
+     * Updates text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
      */
     public CompletableFuture<ManagementApiHttpResponse<Map<String, String>>> set(
             String id,

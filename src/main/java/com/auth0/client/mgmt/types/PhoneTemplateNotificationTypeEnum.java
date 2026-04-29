@@ -13,11 +13,11 @@ public final class PhoneTemplateNotificationTypeEnum {
     public static final PhoneTemplateNotificationTypeEnum OTP_VERIFY =
             new PhoneTemplateNotificationTypeEnum(Value.OTP_VERIFY, "otp_verify");
 
-    public static final PhoneTemplateNotificationTypeEnum BLOCKED_ACCOUNT =
-            new PhoneTemplateNotificationTypeEnum(Value.BLOCKED_ACCOUNT, "blocked_account");
-
     public static final PhoneTemplateNotificationTypeEnum OTP_ENROLL =
             new PhoneTemplateNotificationTypeEnum(Value.OTP_ENROLL, "otp_enroll");
+
+    public static final PhoneTemplateNotificationTypeEnum BLOCKED_ACCOUNT =
+            new PhoneTemplateNotificationTypeEnum(Value.BLOCKED_ACCOUNT, "blocked_account");
 
     public static final PhoneTemplateNotificationTypeEnum PASSWORD_BREACH =
             new PhoneTemplateNotificationTypeEnum(Value.PASSWORD_BREACH, "password_breach");
@@ -59,10 +59,10 @@ public final class PhoneTemplateNotificationTypeEnum {
                 return visitor.visitChangePassword();
             case OTP_VERIFY:
                 return visitor.visitOtpVerify();
-            case BLOCKED_ACCOUNT:
-                return visitor.visitBlockedAccount();
             case OTP_ENROLL:
                 return visitor.visitOtpEnroll();
+            case BLOCKED_ACCOUNT:
+                return visitor.visitBlockedAccount();
             case PASSWORD_BREACH:
                 return visitor.visitPasswordBreach();
             case UNKNOWN:
@@ -78,10 +78,10 @@ public final class PhoneTemplateNotificationTypeEnum {
                 return CHANGE_PASSWORD;
             case "otp_verify":
                 return OTP_VERIFY;
-            case "blocked_account":
-                return BLOCKED_ACCOUNT;
             case "otp_enroll":
                 return OTP_ENROLL;
+            case "blocked_account":
+                return BLOCKED_ACCOUNT;
             case "password_breach":
                 return PASSWORD_BREACH;
             default:

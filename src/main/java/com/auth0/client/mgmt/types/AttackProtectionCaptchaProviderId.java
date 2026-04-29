@@ -19,11 +19,11 @@ public final class AttackProtectionCaptchaProviderId {
     public static final AttackProtectionCaptchaProviderId ARKOSE =
             new AttackProtectionCaptchaProviderId(Value.ARKOSE, "arkose");
 
-    public static final AttackProtectionCaptchaProviderId HCAPTCHA =
-            new AttackProtectionCaptchaProviderId(Value.HCAPTCHA, "hcaptcha");
-
     public static final AttackProtectionCaptchaProviderId SIMPLE_CAPTCHA =
             new AttackProtectionCaptchaProviderId(Value.SIMPLE_CAPTCHA, "simple_captcha");
+
+    public static final AttackProtectionCaptchaProviderId HCAPTCHA =
+            new AttackProtectionCaptchaProviderId(Value.HCAPTCHA, "hcaptcha");
 
     public static final AttackProtectionCaptchaProviderId RECAPTCHA_ENTERPRISE =
             new AttackProtectionCaptchaProviderId(Value.RECAPTCHA_ENTERPRISE, "recaptcha_enterprise");
@@ -69,10 +69,10 @@ public final class AttackProtectionCaptchaProviderId {
                 return visitor.visitFriendlyCaptcha();
             case ARKOSE:
                 return visitor.visitArkose();
-            case HCAPTCHA:
-                return visitor.visitHcaptcha();
             case SIMPLE_CAPTCHA:
                 return visitor.visitSimpleCaptcha();
+            case HCAPTCHA:
+                return visitor.visitHcaptcha();
             case RECAPTCHA_ENTERPRISE:
                 return visitor.visitRecaptchaEnterprise();
             case UNKNOWN:
@@ -92,10 +92,10 @@ public final class AttackProtectionCaptchaProviderId {
                 return FRIENDLY_CAPTCHA;
             case "arkose":
                 return ARKOSE;
-            case "hcaptcha":
-                return HCAPTCHA;
             case "simple_captcha":
                 return SIMPLE_CAPTCHA;
+            case "hcaptcha":
+                return HCAPTCHA;
             case "recaptcha_enterprise":
                 return RECAPTCHA_ENTERPRISE;
             default:

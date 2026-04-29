@@ -10,11 +10,11 @@ public final class ConnectionProfileOrganizationShowAsButtonEnum {
     public static final ConnectionProfileOrganizationShowAsButtonEnum REQUIRED =
             new ConnectionProfileOrganizationShowAsButtonEnum(Value.REQUIRED, "required");
 
-    public static final ConnectionProfileOrganizationShowAsButtonEnum NONE =
-            new ConnectionProfileOrganizationShowAsButtonEnum(Value.NONE, "none");
-
     public static final ConnectionProfileOrganizationShowAsButtonEnum OPTIONAL =
             new ConnectionProfileOrganizationShowAsButtonEnum(Value.OPTIONAL, "optional");
+
+    public static final ConnectionProfileOrganizationShowAsButtonEnum NONE =
+            new ConnectionProfileOrganizationShowAsButtonEnum(Value.NONE, "none");
 
     private final Value value;
 
@@ -51,10 +51,10 @@ public final class ConnectionProfileOrganizationShowAsButtonEnum {
         switch (value) {
             case REQUIRED:
                 return visitor.visitRequired();
-            case NONE:
-                return visitor.visitNone();
             case OPTIONAL:
                 return visitor.visitOptional();
+            case NONE:
+                return visitor.visitNone();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -66,10 +66,10 @@ public final class ConnectionProfileOrganizationShowAsButtonEnum {
         switch (value) {
             case "required":
                 return REQUIRED;
-            case "none":
-                return NONE;
             case "optional":
                 return OPTIONAL;
+            case "none":
+                return NONE;
             default:
                 return new ConnectionProfileOrganizationShowAsButtonEnum(Value.UNKNOWN, value);
         }

@@ -7,20 +7,20 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class GuardianEnrollmentFactorEnum {
-    public static final GuardianEnrollmentFactorEnum EMAIL = new GuardianEnrollmentFactorEnum(Value.EMAIL, "email");
-
     public static final GuardianEnrollmentFactorEnum OTP = new GuardianEnrollmentFactorEnum(Value.OTP, "otp");
 
     public static final GuardianEnrollmentFactorEnum WEBAUTHN_PLATFORM =
             new GuardianEnrollmentFactorEnum(Value.WEBAUTHN_PLATFORM, "webauthn-platform");
 
+    public static final GuardianEnrollmentFactorEnum EMAIL = new GuardianEnrollmentFactorEnum(Value.EMAIL, "email");
+
+    public static final GuardianEnrollmentFactorEnum WEBAUTHN_ROAMING =
+            new GuardianEnrollmentFactorEnum(Value.WEBAUTHN_ROAMING, "webauthn-roaming");
+
     public static final GuardianEnrollmentFactorEnum PHONE = new GuardianEnrollmentFactorEnum(Value.PHONE, "phone");
 
     public static final GuardianEnrollmentFactorEnum PUSH_NOTIFICATION =
             new GuardianEnrollmentFactorEnum(Value.PUSH_NOTIFICATION, "push-notification");
-
-    public static final GuardianEnrollmentFactorEnum WEBAUTHN_ROAMING =
-            new GuardianEnrollmentFactorEnum(Value.WEBAUTHN_ROAMING, "webauthn-roaming");
 
     private final Value value;
 
@@ -55,18 +55,18 @@ public final class GuardianEnrollmentFactorEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case EMAIL:
-                return visitor.visitEmail();
             case OTP:
                 return visitor.visitOtp();
             case WEBAUTHN_PLATFORM:
                 return visitor.visitWebauthnPlatform();
+            case EMAIL:
+                return visitor.visitEmail();
+            case WEBAUTHN_ROAMING:
+                return visitor.visitWebauthnRoaming();
             case PHONE:
                 return visitor.visitPhone();
             case PUSH_NOTIFICATION:
                 return visitor.visitPushNotification();
-            case WEBAUTHN_ROAMING:
-                return visitor.visitWebauthnRoaming();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -76,18 +76,18 @@ public final class GuardianEnrollmentFactorEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static GuardianEnrollmentFactorEnum valueOf(String value) {
         switch (value) {
-            case "email":
-                return EMAIL;
             case "otp":
                 return OTP;
             case "webauthn-platform":
                 return WEBAUTHN_PLATFORM;
+            case "email":
+                return EMAIL;
+            case "webauthn-roaming":
+                return WEBAUTHN_ROAMING;
             case "phone":
                 return PHONE;
             case "push-notification":
                 return PUSH_NOTIFICATION;
-            case "webauthn-roaming":
-                return WEBAUTHN_ROAMING;
             default:
                 return new GuardianEnrollmentFactorEnum(Value.UNKNOWN, value);
         }

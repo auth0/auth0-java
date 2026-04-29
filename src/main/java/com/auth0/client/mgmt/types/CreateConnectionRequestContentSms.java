@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CreateConnectionRequestContentSms.Builder.class)
 public final class CreateConnectionRequestContentSms implements ICreateConnectionCommon {
-    private final String name;
+    private final Optional<String> name;
 
     private final Optional<List<String>> enabledClients;
 
@@ -40,7 +40,7 @@ public final class CreateConnectionRequestContentSms implements ICreateConnectio
     private final Map<String, Object> additionalProperties;
 
     private CreateConnectionRequestContentSms(
-            String name,
+            Optional<String> name,
             Optional<List<String>> enabledClients,
             Optional<String> displayName,
             Optional<Boolean> isDomainConnection,
@@ -60,7 +60,7 @@ public final class CreateConnectionRequestContentSms implements ICreateConnectio
 
     @JsonProperty("name")
     @java.lang.Override
-    public String getName() {
+    public Optional<String> getName() {
         return name;
     }
 
@@ -139,18 +139,14 @@ public final class CreateConnectionRequestContentSms implements ICreateConnectio
         return ObjectMappers.stringify(this);
     }
 
-    public static NameStage builder() {
+    public static StrategyStage builder() {
         return new Builder();
-    }
-
-    public interface NameStage {
-        StrategyStage name(@NotNull String name);
-
-        Builder from(CreateConnectionRequestContentSms other);
     }
 
     public interface StrategyStage {
         _FinalStage strategy(@NotNull CreateConnectionRequestContentSmsStrategy strategy);
+
+        Builder from(CreateConnectionRequestContentSms other);
     }
 
     public interface _FinalStage {
@@ -159,6 +155,10 @@ public final class CreateConnectionRequestContentSms implements ICreateConnectio
         _FinalStage additionalProperty(String key, Object value);
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        _FinalStage name(Optional<String> name);
+
+        _FinalStage name(String name);
 
         /**
          * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
@@ -185,9 +185,7 @@ public final class CreateConnectionRequestContentSms implements ICreateConnectio
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements NameStage, StrategyStage, _FinalStage {
-        private String name;
-
+    public static final class Builder implements StrategyStage, _FinalStage {
         private CreateConnectionRequestContentSmsStrategy strategy;
 
         private Optional<ConnectionOptionsSms> options = Optional.empty();
@@ -199,6 +197,8 @@ public final class CreateConnectionRequestContentSms implements ICreateConnectio
         private Optional<String> displayName = Optional.empty();
 
         private Optional<List<String>> enabledClients = Optional.empty();
+
+        private Optional<String> name = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -214,13 +214,6 @@ public final class CreateConnectionRequestContentSms implements ICreateConnectio
             metadata(other.getMetadata());
             strategy(other.getStrategy());
             options(other.getOptions());
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter("name")
-        public StrategyStage name(@NotNull String name) {
-            this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
@@ -300,6 +293,19 @@ public final class CreateConnectionRequestContentSms implements ICreateConnectio
         @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
         public _FinalStage enabledClients(Optional<List<String>> enabledClients) {
             this.enabledClients = enabledClients;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage name(String name) {
+            this.name = Optional.ofNullable(name);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "name", nulls = Nulls.SKIP)
+        public _FinalStage name(Optional<String> name) {
+            this.name = name;
             return this;
         }
 

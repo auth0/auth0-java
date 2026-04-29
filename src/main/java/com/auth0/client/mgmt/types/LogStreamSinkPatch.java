@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = LogStreamSinkPatch.Deserializer.class)
@@ -113,29 +114,48 @@ public final class LogStreamSinkPatch {
         @java.lang.Override
         public LogStreamSinkPatch deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, LogStreamHttpSink.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?> && ((Map<?, ?>) value).containsKey("httpEndpoint")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, LogStreamHttpSink.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, LogStreamDatadogSink.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("datadogApiKey")
+                    && ((Map<?, ?>) value).containsKey("datadogRegion")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, LogStreamDatadogSink.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, LogStreamSplunkSink.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("splunkDomain")
+                    && ((Map<?, ?>) value).containsKey("splunkPort")
+                    && ((Map<?, ?>) value).containsKey("splunkToken")
+                    && ((Map<?, ?>) value).containsKey("splunkSecure")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, LogStreamSplunkSink.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, LogStreamSumoSink.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?> && ((Map<?, ?>) value).containsKey("sumoSourceAddress")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, LogStreamSumoSink.class));
+                } catch (RuntimeException e) {
+                }
             }
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, LogStreamSegmentSink.class));
             } catch (RuntimeException e) {
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, LogStreamMixpanelSinkPatch.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("mixpanelRegion")
+                    && ((Map<?, ?>) value).containsKey("mixpanelProjectId")
+                    && ((Map<?, ?>) value).containsKey("mixpanelServiceAccountUsername")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, LogStreamMixpanelSinkPatch.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

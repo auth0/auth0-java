@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = FlowActionTwilio.Deserializer.class)
@@ -81,13 +82,25 @@ public final class FlowActionTwilio {
         @java.lang.Override
         public FlowActionTwilio deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionTwilioMakeCall.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("action")
+                    && ((Map<?, ?>) value).containsKey("params")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionTwilioMakeCall.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionTwilioSendSms.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("action")
+                    && ((Map<?, ?>) value).containsKey("params")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionTwilioSendSms.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

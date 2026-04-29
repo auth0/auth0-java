@@ -7,12 +7,16 @@ import com.auth0.client.mgmt.types.CreateFlowRequestContent;
 import com.auth0.client.mgmt.types.CreateFlowResponseContent;
 import com.auth0.client.mgmt.types.FlowSummary;
 import com.auth0.client.mgmt.types.GetFlowRequestParameters;
+import com.auth0.client.mgmt.types.GetFlowRequestParametersHydrateEnum;
 import com.auth0.client.mgmt.types.GetFlowResponseContent;
 import com.auth0.client.mgmt.types.ListFlowsRequestParameters;
+import com.auth0.client.mgmt.types.ListFlowsRequestParametersHydrateEnum;
 import com.auth0.client.mgmt.types.UpdateFlowRequestContent;
 import com.auth0.client.mgmt.types.UpdateFlowResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
+import java.util.Optional;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -54,6 +58,7 @@ public class FlowsWireTest {
                         .perPage(OptionalNullable.of(1))
                         .includeTotals(OptionalNullable.of(true))
                         .synchronous(OptionalNullable.of(true))
+                        .hydrate(Arrays.asList(Optional.of(ListFlowsRequestParametersHydrateEnum.FORM_COUNT)))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -170,8 +175,12 @@ public class FlowsWireTest {
                         .setResponseCode(200)
                         .setBody(
                                 "{\"id\":\"id\",\"name\":\"name\",\"actions\":[{\"id\":\"id\",\"alias\":\"alias\",\"type\":\"ACTIVECAMPAIGN\",\"action\":\"LIST_CONTACTS\",\"allow_failure\":true,\"mask_output\":true,\"params\":{\"connection_id\":\"connection_id\",\"email\":\"email\"}}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"executed_at\":\"executed_at\"}"));
-        GetFlowResponseContent response =
-                client.flows().get("id", GetFlowRequestParameters.builder().build());
+        GetFlowResponseContent response = client.flows()
+                .get(
+                        "id",
+                        GetFlowRequestParameters.builder()
+                                .hydrate(Arrays.asList(Optional.of(GetFlowRequestParametersHydrateEnum.FORM_COUNT)))
+                                .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("GET", request.getMethod());
@@ -355,7 +364,9 @@ public class FlowsWireTest {
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
                 JsonNode actualValue = actual.get(entry.getKey());
-                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
+                if (actualValue == null) {
+                    if (!entry.getValue().isNull()) return false;
+                } else if (!jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }

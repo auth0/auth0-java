@@ -34,7 +34,7 @@ public class RawSsoTicketClient {
     }
 
     /**
-     * Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
+     * Creates an access ticket to initiate the Self-Service Enterprise Configuration flow using a self-service profile.
      */
     public ManagementApiHttpResponse<CreateSelfServiceProfileSsoTicketResponseContent> create(String id) {
         return create(
@@ -42,7 +42,7 @@ public class RawSsoTicketClient {
     }
 
     /**
-     * Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
+     * Creates an access ticket to initiate the Self-Service Enterprise Configuration flow using a self-service profile.
      */
     public ManagementApiHttpResponse<CreateSelfServiceProfileSsoTicketResponseContent> create(
             String id, RequestOptions requestOptions) {
@@ -51,7 +51,7 @@ public class RawSsoTicketClient {
     }
 
     /**
-     * Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
+     * Creates an access ticket to initiate the Self-Service Enterprise Configuration flow using a self-service profile.
      */
     public ManagementApiHttpResponse<CreateSelfServiceProfileSsoTicketResponseContent> create(
             String id, CreateSelfServiceProfileSsoTicketRequestContent request) {
@@ -59,7 +59,7 @@ public class RawSsoTicketClient {
     }
 
     /**
-     * Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
+     * Creates an access ticket to initiate the Self-Service Enterprise Configuration flow using a self-service profile.
      */
     public ManagementApiHttpResponse<CreateSelfServiceProfileSsoTicketResponseContent> create(
             String id, CreateSelfServiceProfileSsoTicketRequestContent request, RequestOptions requestOptions) {
@@ -127,7 +127,7 @@ public class RawSsoTicketClient {
     }
 
     /**
-     * Revokes an SSO access ticket and invalidates associated sessions. The ticket will no longer be accepted to initiate a Self-Service SSO session. If any users have already started a session through this ticket, their session will be terminated. Clients should expect a <code>202 Accepted</code> response upon successful processing, indicating that the request has been acknowledged and that the revocation is underway but may not be fully completed at the time of response. If the specified ticket does not exist, a <code>202 Accepted</code> response is also returned, signaling that no further action is required.
+     * Revokes a Self-Service Enterprise Configuration access ticket and invalidates associated sessions. The ticket will no longer be accepted to initiate a Self-Service Enterprise Configuration session. If any users have already started a session through this ticket, their session will be terminated. Clients should expect a <code>202 Accepted</code> response upon successful processing, indicating that the request has been acknowledged and that the revocation is underway but may not be fully completed at the time of response. If the specified ticket does not exist, a <code>202 Accepted</code> response is also returned, signaling that no further action is required.
      * Clients should treat these <code>202</code> responses as an acknowledgment that the request has been accepted and is in progress, even if the ticket was not found.
      */
     public ManagementApiHttpResponse<Void> revoke(String profileId, String id) {
@@ -135,7 +135,7 @@ public class RawSsoTicketClient {
     }
 
     /**
-     * Revokes an SSO access ticket and invalidates associated sessions. The ticket will no longer be accepted to initiate a Self-Service SSO session. If any users have already started a session through this ticket, their session will be terminated. Clients should expect a <code>202 Accepted</code> response upon successful processing, indicating that the request has been acknowledged and that the revocation is underway but may not be fully completed at the time of response. If the specified ticket does not exist, a <code>202 Accepted</code> response is also returned, signaling that no further action is required.
+     * Revokes a Self-Service Enterprise Configuration access ticket and invalidates associated sessions. The ticket will no longer be accepted to initiate a Self-Service Enterprise Configuration session. If any users have already started a session through this ticket, their session will be terminated. Clients should expect a <code>202 Accepted</code> response upon successful processing, indicating that the request has been acknowledged and that the revocation is underway but may not be fully completed at the time of response. If the specified ticket does not exist, a <code>202 Accepted</code> response is also returned, signaling that no further action is required.
      * Clients should treat these <code>202</code> responses as an acknowledgment that the request has been accepted and is in progress, even if the ticket was not found.
      */
     public ManagementApiHttpResponse<Void> revoke(String profileId, String id, RequestOptions requestOptions) {

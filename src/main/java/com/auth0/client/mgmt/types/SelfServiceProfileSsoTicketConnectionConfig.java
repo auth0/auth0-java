@@ -56,7 +56,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
     }
 
     /**
-     * @return The name of the connection that will be created as a part of the SSO flow.
+     * @return The name of the connection that will be created as a part of the Self-Service Enterprise Configuration flow.
      */
     @JsonProperty("name")
     public String getName() {
@@ -145,7 +145,7 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
 
     public interface NameStage {
         /**
-         * <p>The name of the connection that will be created as a part of the SSO flow.</p>
+         * <p>The name of the connection that will be created as a part of the Self-Service Enterprise Configuration flow.</p>
          */
         _FinalStage name(@NotNull String name);
 
@@ -224,8 +224,8 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
         }
 
         /**
-         * <p>The name of the connection that will be created as a part of the SSO flow.</p>
-         * <p>The name of the connection that will be created as a part of the SSO flow.</p>
+         * <p>The name of the connection that will be created as a part of the Self-Service Enterprise Configuration flow.</p>
+         * <p>The name of the connection that will be created as a part of the Self-Service Enterprise Configuration flow.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -79,6 +79,10 @@ public class RawGroupsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "external_id", request.getExternalId().orElse(null), false);
         }
+        if (!request.getSearch().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "search", request.getSearch().orElse(null), false);
+        }
         if (!request.getFields().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "fields", request.getFields().orElse(null), false);

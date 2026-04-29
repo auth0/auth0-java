@@ -10,11 +10,11 @@ public final class PublicKeyCredentialAlgorithmEnum {
     public static final PublicKeyCredentialAlgorithmEnum PS256 =
             new PublicKeyCredentialAlgorithmEnum(Value.PS256, "PS256");
 
-    public static final PublicKeyCredentialAlgorithmEnum RS256 =
-            new PublicKeyCredentialAlgorithmEnum(Value.RS256, "RS256");
-
     public static final PublicKeyCredentialAlgorithmEnum RS384 =
             new PublicKeyCredentialAlgorithmEnum(Value.RS384, "RS384");
+
+    public static final PublicKeyCredentialAlgorithmEnum RS256 =
+            new PublicKeyCredentialAlgorithmEnum(Value.RS256, "RS256");
 
     private final Value value;
 
@@ -51,10 +51,10 @@ public final class PublicKeyCredentialAlgorithmEnum {
         switch (value) {
             case PS256:
                 return visitor.visitPs256();
-            case RS256:
-                return visitor.visitRs256();
             case RS384:
                 return visitor.visitRs384();
+            case RS256:
+                return visitor.visitRs256();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -66,10 +66,10 @@ public final class PublicKeyCredentialAlgorithmEnum {
         switch (value) {
             case "PS256":
                 return PS256;
-            case "RS256":
-                return RS256;
             case "RS384":
                 return RS384;
+            case "RS256":
+                return RS256;
             default:
                 return new PublicKeyCredentialAlgorithmEnum(Value.UNKNOWN, value);
         }

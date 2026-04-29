@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.actions.triggers.types;
 
-import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -18,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListActionTriggerBindingsRequestParameters.Builder.class)
@@ -42,6 +42,9 @@ public final class ListActionTriggerBindingsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getPage() {
+        if (page == null) {
+            return OptionalNullable.absent();
+        }
         return page;
     }
 
@@ -50,6 +53,9 @@ public final class ListActionTriggerBindingsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getPerPage() {
+        if (perPage == null) {
+            return OptionalNullable.absent();
+        }
         return perPage;
     }
 
@@ -104,7 +110,7 @@ public final class ListActionTriggerBindingsRequestParameters {
          * <p>Use this field to request a specific page of the list results.</p>
          */
         @JsonSetter(value = "page", nulls = Nulls.SKIP)
-        public Builder page(OptionalNullable<Integer> page) {
+        public Builder page(@Nullable OptionalNullable<Integer> page) {
             this.page = page;
             return this;
         }
@@ -123,7 +129,7 @@ public final class ListActionTriggerBindingsRequestParameters {
             return this;
         }
 
-        public Builder page(Nullable<Integer> page) {
+        public Builder page(com.auth0.client.mgmt.core.Nullable<Integer> page) {
             if (page.isNull()) {
                 this.page = OptionalNullable.ofNull();
             } else if (page.isEmpty()) {
@@ -138,7 +144,7 @@ public final class ListActionTriggerBindingsRequestParameters {
          * <p>The maximum number of results to be returned in a single request. 20 by default</p>
          */
         @JsonSetter(value = "per_page", nulls = Nulls.SKIP)
-        public Builder perPage(OptionalNullable<Integer> perPage) {
+        public Builder perPage(@Nullable OptionalNullable<Integer> perPage) {
             this.perPage = perPage;
             return this;
         }
@@ -157,7 +163,7 @@ public final class ListActionTriggerBindingsRequestParameters {
             return this;
         }
 
-        public Builder perPage(Nullable<Integer> perPage) {
+        public Builder perPage(com.auth0.client.mgmt.core.Nullable<Integer> perPage) {
             if (perPage.isNull()) {
                 this.perPage = OptionalNullable.ofNull();
             } else if (perPage.isEmpty()) {

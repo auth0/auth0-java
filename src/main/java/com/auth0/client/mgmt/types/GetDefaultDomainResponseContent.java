@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = GetDefaultDomainResponseContent.Deserializer.class)
@@ -82,14 +83,24 @@ public final class GetDefaultDomainResponseContent {
         public GetDefaultDomainResponseContent deserialize(JsonParser p, DeserializationContext context)
                 throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, GetDefaultCustomDomainResponseContent.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("custom_domain_id")
+                    && ((Map<?, ?>) value).containsKey("domain")
+                    && ((Map<?, ?>) value).containsKey("primary")
+                    && ((Map<?, ?>) value).containsKey("status")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(
+                            ObjectMappers.JSON_MAPPER.convertValue(value, GetDefaultCustomDomainResponseContent.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(
-                        ObjectMappers.JSON_MAPPER.convertValue(value, GetDefaultCanonicalDomainResponseContent.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?> && ((Map<?, ?>) value).containsKey("domain")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(
+                            value, GetDefaultCanonicalDomainResponseContent.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

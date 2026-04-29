@@ -90,7 +90,7 @@ public final class GetSelfServiceProfileResponseContent {
     }
 
     /**
-     * @return List of attributes to be mapped that will be shown to the user during the SS-SSO flow.
+     * @return List of attributes to be mapped that will be shown to the user during the Self-Service Enterprise Configuration flow.
      */
     @JsonProperty("user_attributes")
     public Optional<List<SelfServiceProfileUserAttribute>> getUserAttributes() {
@@ -119,7 +119,7 @@ public final class GetSelfServiceProfileResponseContent {
     }
 
     /**
-     * @return List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>auth0-samlp</code>, <code>okta-samlp</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]
+     * @return List of IdP strategies that will be shown to users during the Self-Service Enterprise Configuration flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>auth0-samlp</code>, <code>okta-samlp</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]
      */
     @JsonProperty("allowed_strategies")
     public Optional<List<SelfServiceProfileAllowedStrategyEnum>> getAllowedStrategies() {
@@ -262,7 +262,7 @@ public final class GetSelfServiceProfileResponseContent {
         }
 
         /**
-         * <p>List of attributes to be mapped that will be shown to the user during the SS-SSO flow.</p>
+         * <p>List of attributes to be mapped that will be shown to the user during the Self-Service Enterprise Configuration flow.</p>
          */
         @JsonSetter(value = "user_attributes", nulls = Nulls.SKIP)
         public Builder userAttributes(Optional<List<SelfServiceProfileUserAttribute>> userAttributes) {
@@ -315,7 +315,7 @@ public final class GetSelfServiceProfileResponseContent {
         }
 
         /**
-         * <p>List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>auth0-samlp</code>, <code>okta-samlp</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]</p>
+         * <p>List of IdP strategies that will be shown to users during the Self-Service Enterprise Configuration flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>auth0-samlp</code>, <code>okta-samlp</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]</p>
          */
         @JsonSetter(value = "allowed_strategies", nulls = Nulls.SKIP)
         public Builder allowedStrategies(Optional<List<SelfServiceProfileAllowedStrategyEnum>> allowedStrategies) {

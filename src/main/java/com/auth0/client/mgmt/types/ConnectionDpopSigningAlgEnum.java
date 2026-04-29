@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ConnectionDpopSigningAlgEnum {
-    public static final ConnectionDpopSigningAlgEnum ES256 = new ConnectionDpopSigningAlgEnum(Value.ES256, "ES256");
-
     public static final ConnectionDpopSigningAlgEnum ED25519 =
             new ConnectionDpopSigningAlgEnum(Value.ED25519, "Ed25519");
+
+    public static final ConnectionDpopSigningAlgEnum ES256 = new ConnectionDpopSigningAlgEnum(Value.ES256, "ES256");
 
     private final Value value;
 
@@ -45,10 +45,10 @@ public final class ConnectionDpopSigningAlgEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case ES256:
-                return visitor.visitEs256();
             case ED25519:
                 return visitor.visitEd25519();
+            case ES256:
+                return visitor.visitEs256();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -58,10 +58,10 @@ public final class ConnectionDpopSigningAlgEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ConnectionDpopSigningAlgEnum valueOf(String value) {
         switch (value) {
-            case "ES256":
-                return ES256;
             case "Ed25519":
                 return ED25519;
+            case "ES256":
+                return ES256;
             default:
                 return new ConnectionDpopSigningAlgEnum(Value.UNKNOWN, value);
         }

@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ClientComplianceLevelEnum {
-    public static final ClientComplianceLevelEnum FAPI1ADV_MTLS_PAR =
-            new ClientComplianceLevelEnum(Value.FAPI1ADV_MTLS_PAR, "fapi1_adv_mtls_par");
-
     public static final ClientComplianceLevelEnum FAPI2SP_PKJ_MTLS =
             new ClientComplianceLevelEnum(Value.FAPI2SP_PKJ_MTLS, "fapi2_sp_pkj_mtls");
+
+    public static final ClientComplianceLevelEnum FAPI1ADV_MTLS_PAR =
+            new ClientComplianceLevelEnum(Value.FAPI1ADV_MTLS_PAR, "fapi1_adv_mtls_par");
 
     public static final ClientComplianceLevelEnum FAPI2SP_MTLS_MTLS =
             new ClientComplianceLevelEnum(Value.FAPI2SP_MTLS_MTLS, "fapi2_sp_mtls_mtls");
@@ -54,10 +54,10 @@ public final class ClientComplianceLevelEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case FAPI1ADV_MTLS_PAR:
-                return visitor.visitFapi1AdvMtlsPar();
             case FAPI2SP_PKJ_MTLS:
                 return visitor.visitFapi2SpPkjMtls();
+            case FAPI1ADV_MTLS_PAR:
+                return visitor.visitFapi1AdvMtlsPar();
             case FAPI2SP_MTLS_MTLS:
                 return visitor.visitFapi2SpMtlsMtls();
             case NONE:
@@ -73,10 +73,10 @@ public final class ClientComplianceLevelEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ClientComplianceLevelEnum valueOf(String value) {
         switch (value) {
-            case "fapi1_adv_mtls_par":
-                return FAPI1ADV_MTLS_PAR;
             case "fapi2_sp_pkj_mtls":
                 return FAPI2SP_PKJ_MTLS;
+            case "fapi1_adv_mtls_par":
+                return FAPI1ADV_MTLS_PAR;
             case "fapi2_sp_mtls_mtls":
                 return FAPI2SP_MTLS_MTLS;
             case "none":

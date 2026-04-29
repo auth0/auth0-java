@@ -13,11 +13,11 @@ public final class FlowActionFlowDelayFlowParamsUnits {
     public static final FlowActionFlowDelayFlowParamsUnits MINUTES =
             new FlowActionFlowDelayFlowParamsUnits(Value.MINUTES, "MINUTES");
 
-    public static final FlowActionFlowDelayFlowParamsUnits DAYS =
-            new FlowActionFlowDelayFlowParamsUnits(Value.DAYS, "DAYS");
-
     public static final FlowActionFlowDelayFlowParamsUnits HOURS =
             new FlowActionFlowDelayFlowParamsUnits(Value.HOURS, "HOURS");
+
+    public static final FlowActionFlowDelayFlowParamsUnits DAYS =
+            new FlowActionFlowDelayFlowParamsUnits(Value.DAYS, "DAYS");
 
     private final Value value;
 
@@ -56,10 +56,10 @@ public final class FlowActionFlowDelayFlowParamsUnits {
                 return visitor.visitSeconds();
             case MINUTES:
                 return visitor.visitMinutes();
-            case DAYS:
-                return visitor.visitDays();
             case HOURS:
                 return visitor.visitHours();
+            case DAYS:
+                return visitor.visitDays();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -73,10 +73,10 @@ public final class FlowActionFlowDelayFlowParamsUnits {
                 return SECONDS;
             case "MINUTES":
                 return MINUTES;
-            case "DAYS":
-                return DAYS;
             case "HOURS":
                 return HOURS;
+            case "DAYS":
+                return DAYS;
             default:
                 return new FlowActionFlowDelayFlowParamsUnits(Value.UNKNOWN, value);
         }

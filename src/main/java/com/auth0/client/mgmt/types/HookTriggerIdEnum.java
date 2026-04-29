@@ -7,20 +7,20 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class HookTriggerIdEnum {
-    public static final HookTriggerIdEnum CREDENTIALS_EXCHANGE =
-            new HookTriggerIdEnum(Value.CREDENTIALS_EXCHANGE, "credentials-exchange");
-
     public static final HookTriggerIdEnum POST_USER_REGISTRATION =
             new HookTriggerIdEnum(Value.POST_USER_REGISTRATION, "post-user-registration");
 
-    public static final HookTriggerIdEnum PRE_USER_REGISTRATION =
-            new HookTriggerIdEnum(Value.PRE_USER_REGISTRATION, "pre-user-registration");
+    public static final HookTriggerIdEnum CREDENTIALS_EXCHANGE =
+            new HookTriggerIdEnum(Value.CREDENTIALS_EXCHANGE, "credentials-exchange");
 
     public static final HookTriggerIdEnum POST_CHANGE_PASSWORD =
             new HookTriggerIdEnum(Value.POST_CHANGE_PASSWORD, "post-change-password");
 
     public static final HookTriggerIdEnum SEND_PHONE_MESSAGE =
             new HookTriggerIdEnum(Value.SEND_PHONE_MESSAGE, "send-phone-message");
+
+    public static final HookTriggerIdEnum PRE_USER_REGISTRATION =
+            new HookTriggerIdEnum(Value.PRE_USER_REGISTRATION, "pre-user-registration");
 
     private final Value value;
 
@@ -54,16 +54,16 @@ public final class HookTriggerIdEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case CREDENTIALS_EXCHANGE:
-                return visitor.visitCredentialsExchange();
             case POST_USER_REGISTRATION:
                 return visitor.visitPostUserRegistration();
-            case PRE_USER_REGISTRATION:
-                return visitor.visitPreUserRegistration();
+            case CREDENTIALS_EXCHANGE:
+                return visitor.visitCredentialsExchange();
             case POST_CHANGE_PASSWORD:
                 return visitor.visitPostChangePassword();
             case SEND_PHONE_MESSAGE:
                 return visitor.visitSendPhoneMessage();
+            case PRE_USER_REGISTRATION:
+                return visitor.visitPreUserRegistration();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -73,16 +73,16 @@ public final class HookTriggerIdEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static HookTriggerIdEnum valueOf(String value) {
         switch (value) {
-            case "credentials-exchange":
-                return CREDENTIALS_EXCHANGE;
             case "post-user-registration":
                 return POST_USER_REGISTRATION;
-            case "pre-user-registration":
-                return PRE_USER_REGISTRATION;
+            case "credentials-exchange":
+                return CREDENTIALS_EXCHANGE;
             case "post-change-password":
                 return POST_CHANGE_PASSWORD;
             case "send-phone-message":
                 return SEND_PHONE_MESSAGE;
+            case "pre-user-registration":
+                return PRE_USER_REGISTRATION;
             default:
                 return new HookTriggerIdEnum(Value.UNKNOWN, value);
         }

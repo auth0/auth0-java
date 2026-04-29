@@ -10,6 +10,9 @@ public final class UserEnrollmentAuthMethodEnum {
     public static final UserEnrollmentAuthMethodEnum WEBAUTHN_PLATFORM =
             new UserEnrollmentAuthMethodEnum(Value.WEBAUTHN_PLATFORM, "webauthn-platform");
 
+    public static final UserEnrollmentAuthMethodEnum WEBAUTHN_ROAMING =
+            new UserEnrollmentAuthMethodEnum(Value.WEBAUTHN_ROAMING, "webauthn-roaming");
+
     public static final UserEnrollmentAuthMethodEnum GUARDIAN =
             new UserEnrollmentAuthMethodEnum(Value.GUARDIAN, "guardian");
 
@@ -17,9 +20,6 @@ public final class UserEnrollmentAuthMethodEnum {
             new UserEnrollmentAuthMethodEnum(Value.AUTHENTICATOR, "authenticator");
 
     public static final UserEnrollmentAuthMethodEnum SMS = new UserEnrollmentAuthMethodEnum(Value.SMS, "sms");
-
-    public static final UserEnrollmentAuthMethodEnum WEBAUTHN_ROAMING =
-            new UserEnrollmentAuthMethodEnum(Value.WEBAUTHN_ROAMING, "webauthn-roaming");
 
     private final Value value;
 
@@ -56,14 +56,14 @@ public final class UserEnrollmentAuthMethodEnum {
         switch (value) {
             case WEBAUTHN_PLATFORM:
                 return visitor.visitWebauthnPlatform();
+            case WEBAUTHN_ROAMING:
+                return visitor.visitWebauthnRoaming();
             case GUARDIAN:
                 return visitor.visitGuardian();
             case AUTHENTICATOR:
                 return visitor.visitAuthenticator();
             case SMS:
                 return visitor.visitSms();
-            case WEBAUTHN_ROAMING:
-                return visitor.visitWebauthnRoaming();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -75,14 +75,14 @@ public final class UserEnrollmentAuthMethodEnum {
         switch (value) {
             case "webauthn-platform":
                 return WEBAUTHN_PLATFORM;
+            case "webauthn-roaming":
+                return WEBAUTHN_ROAMING;
             case "guardian":
                 return GUARDIAN;
             case "authenticator":
                 return AUTHENTICATOR;
             case "sms":
                 return SMS;
-            case "webauthn-roaming":
-                return WEBAUTHN_ROAMING;
             default:
                 return new UserEnrollmentAuthMethodEnum(Value.UNKNOWN, value);
         }

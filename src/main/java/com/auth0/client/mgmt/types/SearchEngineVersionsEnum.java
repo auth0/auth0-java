@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class SearchEngineVersionsEnum {
-    public static final SearchEngineVersionsEnum V1 = new SearchEngineVersionsEnum(Value.V1, "v1");
-
     public static final SearchEngineVersionsEnum V2 = new SearchEngineVersionsEnum(Value.V2, "v2");
+
+    public static final SearchEngineVersionsEnum V1 = new SearchEngineVersionsEnum(Value.V1, "v1");
 
     public static final SearchEngineVersionsEnum V3 = new SearchEngineVersionsEnum(Value.V3, "v3");
 
@@ -46,10 +46,10 @@ public final class SearchEngineVersionsEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case V1:
-                return visitor.visitV1();
             case V2:
                 return visitor.visitV2();
+            case V1:
+                return visitor.visitV1();
             case V3:
                 return visitor.visitV3();
             case UNKNOWN:
@@ -61,10 +61,10 @@ public final class SearchEngineVersionsEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static SearchEngineVersionsEnum valueOf(String value) {
         switch (value) {
-            case "v1":
-                return V1;
             case "v2":
                 return V2;
+            case "v1":
+                return V1;
             case "v3":
                 return V3;
             default:

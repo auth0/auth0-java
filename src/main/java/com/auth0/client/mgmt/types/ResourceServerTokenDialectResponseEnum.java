@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ResourceServerTokenDialectResponseEnum {
-    public static final ResourceServerTokenDialectResponseEnum RFC9068PROFILE =
-            new ResourceServerTokenDialectResponseEnum(Value.RFC9068PROFILE, "rfc9068_profile");
-
     public static final ResourceServerTokenDialectResponseEnum ACCESS_TOKEN_AUTHZ =
             new ResourceServerTokenDialectResponseEnum(Value.ACCESS_TOKEN_AUTHZ, "access_token_authz");
+
+    public static final ResourceServerTokenDialectResponseEnum RFC9068PROFILE =
+            new ResourceServerTokenDialectResponseEnum(Value.RFC9068PROFILE, "rfc9068_profile");
 
     public static final ResourceServerTokenDialectResponseEnum RFC9068PROFILE_AUTHZ =
             new ResourceServerTokenDialectResponseEnum(Value.RFC9068PROFILE_AUTHZ, "rfc9068_profile_authz");
@@ -52,10 +52,10 @@ public final class ResourceServerTokenDialectResponseEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case RFC9068PROFILE:
-                return visitor.visitRfc9068Profile();
             case ACCESS_TOKEN_AUTHZ:
                 return visitor.visitAccessTokenAuthz();
+            case RFC9068PROFILE:
+                return visitor.visitRfc9068Profile();
             case RFC9068PROFILE_AUTHZ:
                 return visitor.visitRfc9068ProfileAuthz();
             case ACCESS_TOKEN:
@@ -69,10 +69,10 @@ public final class ResourceServerTokenDialectResponseEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ResourceServerTokenDialectResponseEnum valueOf(String value) {
         switch (value) {
-            case "rfc9068_profile":
-                return RFC9068PROFILE;
             case "access_token_authz":
                 return ACCESS_TOKEN_AUTHZ;
+            case "rfc9068_profile":
+                return RFC9068PROFILE;
             case "rfc9068_profile_authz":
                 return RFC9068PROFILE_AUTHZ;
             case "access_token":

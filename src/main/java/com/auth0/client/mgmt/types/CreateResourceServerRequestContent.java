@@ -57,6 +57,8 @@ public final class CreateResourceServerRequestContent {
 
     private final Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization;
 
+    private final OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateResourceServerRequestContent(
@@ -76,6 +78,7 @@ public final class CreateResourceServerRequestContent {
             OptionalNullable<List<Object>> authorizationDetails,
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
             Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
+            OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.identifier = identifier;
@@ -93,6 +96,7 @@ public final class CreateResourceServerRequestContent {
         this.authorizationDetails = authorizationDetails;
         this.proofOfPossession = proofOfPossession;
         this.subjectTypeAuthorization = subjectTypeAuthorization;
+        this.authorizationPolicy = authorizationPolicy;
         this.additionalProperties = additionalProperties;
     }
 
@@ -220,6 +224,15 @@ public final class CreateResourceServerRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("authorization_policy")
+    public OptionalNullable<ResourceServerAuthorizationPolicy> getAuthorizationPolicy() {
+        if (authorizationPolicy == null) {
+            return OptionalNullable.absent();
+        }
+        return authorizationPolicy;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_encryption")
     private OptionalNullable<ResourceServerTokenEncryption> _getTokenEncryption() {
         return tokenEncryption;
@@ -241,6 +254,12 @@ public final class CreateResourceServerRequestContent {
     @JsonProperty("proof_of_possession")
     private OptionalNullable<ResourceServerProofOfPossession> _getProofOfPossession() {
         return proofOfPossession;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("authorization_policy")
+    private OptionalNullable<ResourceServerAuthorizationPolicy> _getAuthorizationPolicy() {
+        return authorizationPolicy;
     }
 
     @java.lang.Override
@@ -271,7 +290,8 @@ public final class CreateResourceServerRequestContent {
                 && consentPolicy.equals(other.consentPolicy)
                 && authorizationDetails.equals(other.authorizationDetails)
                 && proofOfPossession.equals(other.proofOfPossession)
-                && subjectTypeAuthorization.equals(other.subjectTypeAuthorization);
+                && subjectTypeAuthorization.equals(other.subjectTypeAuthorization)
+                && authorizationPolicy.equals(other.authorizationPolicy);
     }
 
     @java.lang.Override
@@ -292,7 +312,8 @@ public final class CreateResourceServerRequestContent {
                 this.consentPolicy,
                 this.authorizationDetails,
                 this.proofOfPossession,
-                this.subjectTypeAuthorization);
+                this.subjectTypeAuthorization,
+                this.authorizationPolicy);
     }
 
     @java.lang.Override
@@ -421,11 +442,23 @@ public final class CreateResourceServerRequestContent {
         _FinalStage subjectTypeAuthorization(Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization);
 
         _FinalStage subjectTypeAuthorization(ResourceServerSubjectTypeAuthorization subjectTypeAuthorization);
+
+        _FinalStage authorizationPolicy(
+                @Nullable OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy);
+
+        _FinalStage authorizationPolicy(ResourceServerAuthorizationPolicy authorizationPolicy);
+
+        _FinalStage authorizationPolicy(Optional<ResourceServerAuthorizationPolicy> authorizationPolicy);
+
+        _FinalStage authorizationPolicy(
+                com.auth0.client.mgmt.core.Nullable<ResourceServerAuthorizationPolicy> authorizationPolicy);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements IdentifierStage, _FinalStage {
         private String identifier;
+
+        private OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy = OptionalNullable.absent();
 
         private Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization = Optional.empty();
 
@@ -480,6 +513,7 @@ public final class CreateResourceServerRequestContent {
             authorizationDetails(other.getAuthorizationDetails());
             proofOfPossession(other.getProofOfPossession());
             subjectTypeAuthorization(other.getSubjectTypeAuthorization());
+            authorizationPolicy(other.getAuthorizationPolicy());
             return this;
         }
 
@@ -492,6 +526,43 @@ public final class CreateResourceServerRequestContent {
         @JsonSetter("identifier")
         public _FinalStage identifier(@NotNull String identifier) {
             this.identifier = Objects.requireNonNull(identifier, "identifier must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage authorizationPolicy(
+                com.auth0.client.mgmt.core.Nullable<ResourceServerAuthorizationPolicy> authorizationPolicy) {
+            if (authorizationPolicy.isNull()) {
+                this.authorizationPolicy = OptionalNullable.ofNull();
+            } else if (authorizationPolicy.isEmpty()) {
+                this.authorizationPolicy = OptionalNullable.absent();
+            } else {
+                this.authorizationPolicy = OptionalNullable.of(authorizationPolicy.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage authorizationPolicy(Optional<ResourceServerAuthorizationPolicy> authorizationPolicy) {
+            if (authorizationPolicy.isPresent()) {
+                this.authorizationPolicy = OptionalNullable.of(authorizationPolicy.get());
+            } else {
+                this.authorizationPolicy = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage authorizationPolicy(ResourceServerAuthorizationPolicy authorizationPolicy) {
+            this.authorizationPolicy = OptionalNullable.of(authorizationPolicy);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "authorization_policy", nulls = Nulls.SKIP)
+        public _FinalStage authorizationPolicy(
+                @Nullable OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy) {
+            this.authorizationPolicy = authorizationPolicy;
             return this;
         }
 
@@ -862,6 +933,7 @@ public final class CreateResourceServerRequestContent {
                     authorizationDetails,
                     proofOfPossession,
                     subjectTypeAuthorization,
+                    authorizationPolicy,
                     additionalProperties);
         }
 

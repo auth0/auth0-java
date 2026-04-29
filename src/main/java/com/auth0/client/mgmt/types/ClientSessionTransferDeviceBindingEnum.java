@@ -10,11 +10,11 @@ public final class ClientSessionTransferDeviceBindingEnum {
     public static final ClientSessionTransferDeviceBindingEnum ASN =
             new ClientSessionTransferDeviceBindingEnum(Value.ASN, "asn");
 
-    public static final ClientSessionTransferDeviceBindingEnum NONE =
-            new ClientSessionTransferDeviceBindingEnum(Value.NONE, "none");
-
     public static final ClientSessionTransferDeviceBindingEnum IP =
             new ClientSessionTransferDeviceBindingEnum(Value.IP, "ip");
+
+    public static final ClientSessionTransferDeviceBindingEnum NONE =
+            new ClientSessionTransferDeviceBindingEnum(Value.NONE, "none");
 
     private final Value value;
 
@@ -51,10 +51,10 @@ public final class ClientSessionTransferDeviceBindingEnum {
         switch (value) {
             case ASN:
                 return visitor.visitAsn();
-            case NONE:
-                return visitor.visitNone();
             case IP:
                 return visitor.visitIp();
+            case NONE:
+                return visitor.visitNone();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -66,10 +66,10 @@ public final class ClientSessionTransferDeviceBindingEnum {
         switch (value) {
             case "asn":
                 return ASN;
-            case "none":
-                return NONE;
             case "ip":
                 return IP;
+            case "none":
+                return NONE;
             default:
                 return new ClientSessionTransferDeviceBindingEnum(Value.UNKNOWN, value);
         }

@@ -43,7 +43,7 @@ public final class SelfServiceProfileSsoTicketDomainAliasesConfig {
     }
 
     /**
-     * @return List of domains that will be submitted for verification during the self-service SSO flow.
+     * @return List of domains that will be submitted for verification during the Self-Service Enterprise Configuration flow.
      */
     @JsonProperty("pending_domains")
     public Optional<List<String>> getPendingDomains() {
@@ -94,7 +94,7 @@ public final class SelfServiceProfileSsoTicketDomainAliasesConfig {
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
         /**
-         * <p>List of domains that will be submitted for verification during the self-service SSO flow.</p>
+         * <p>List of domains that will be submitted for verification during the Self-Service Enterprise Configuration flow.</p>
          */
         _FinalStage pendingDomains(Optional<List<String>> pendingDomains);
 
@@ -128,7 +128,7 @@ public final class SelfServiceProfileSsoTicketDomainAliasesConfig {
         }
 
         /**
-         * <p>List of domains that will be submitted for verification during the self-service SSO flow.</p>
+         * <p>List of domains that will be submitted for verification during the Self-Service Enterprise Configuration flow.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -138,7 +138,7 @@ public final class SelfServiceProfileSsoTicketDomainAliasesConfig {
         }
 
         /**
-         * <p>List of domains that will be submitted for verification during the self-service SSO flow.</p>
+         * <p>List of domains that will be submitted for verification during the Self-Service Enterprise Configuration flow.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "pending_domains", nulls = Nulls.SKIP)

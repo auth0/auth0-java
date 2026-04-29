@@ -20,27 +20,27 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FormFieldBooleanConfigOptions.Builder.class)
 public final class FormFieldBooleanConfigOptions {
-    private final Optional<String> true_;
+    private final Optional<String> _true;
 
-    private final Optional<String> false_;
+    private final Optional<String> _false;
 
     private final Map<String, Object> additionalProperties;
 
     private FormFieldBooleanConfigOptions(
-            Optional<String> true_, Optional<String> false_, Map<String, Object> additionalProperties) {
-        this.true_ = true_;
-        this.false_ = false_;
+            Optional<String> _true, Optional<String> _false, Map<String, Object> additionalProperties) {
+        this._true = _true;
+        this._false = _false;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("true")
     public Optional<String> getTrue() {
-        return true_;
+        return _true;
     }
 
     @JsonProperty("false")
     public Optional<String> getFalse() {
-        return false_;
+        return _false;
     }
 
     @java.lang.Override
@@ -55,12 +55,12 @@ public final class FormFieldBooleanConfigOptions {
     }
 
     private boolean equalTo(FormFieldBooleanConfigOptions other) {
-        return true_.equals(other.true_) && false_.equals(other.false_);
+        return _true.equals(other._true) && _false.equals(other._false);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.true_, this.false_);
+        return Objects.hash(this._true, this._false);
     }
 
     @java.lang.Override
@@ -74,9 +74,9 @@ public final class FormFieldBooleanConfigOptions {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<String> true_ = Optional.empty();
+        private Optional<String> _true = Optional.empty();
 
-        private Optional<String> false_ = Optional.empty();
+        private Optional<String> _false = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -84,35 +84,35 @@ public final class FormFieldBooleanConfigOptions {
         private Builder() {}
 
         public Builder from(FormFieldBooleanConfigOptions other) {
-            true_(other.getTrue());
-            false_(other.getFalse());
+            _true(other.getTrue());
+            _false(other.getFalse());
             return this;
         }
 
         @JsonSetter(value = "true", nulls = Nulls.SKIP)
-        public Builder true_(Optional<String> true_) {
-            this.true_ = true_;
+        public Builder _true(Optional<String> _true) {
+            this._true = _true;
             return this;
         }
 
-        public Builder true_(String true_) {
-            this.true_ = Optional.ofNullable(true_);
+        public Builder _true(String _true) {
+            this._true = Optional.ofNullable(_true);
             return this;
         }
 
         @JsonSetter(value = "false", nulls = Nulls.SKIP)
-        public Builder false_(Optional<String> false_) {
-            this.false_ = false_;
+        public Builder _false(Optional<String> _false) {
+            this._false = _false;
             return this;
         }
 
-        public Builder false_(String false_) {
-            this.false_ = Optional.ofNullable(false_);
+        public Builder _false(String _false) {
+            this._false = Optional.ofNullable(_false);
             return this;
         }
 
         public FormFieldBooleanConfigOptions build() {
-            return new FormFieldBooleanConfigOptions(true_, false_, additionalProperties);
+            return new FormFieldBooleanConfigOptions(_true, _false, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

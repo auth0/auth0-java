@@ -7,14 +7,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class LogStreamEventGridRegionEnum {
-    public static final LogStreamEventGridRegionEnum GERMANYWESTCENTRAL =
-            new LogStreamEventGridRegionEnum(Value.GERMANYWESTCENTRAL, "germanywestcentral");
-
     public static final LogStreamEventGridRegionEnum WESTINDIA =
             new LogStreamEventGridRegionEnum(Value.WESTINDIA, "westindia");
 
     public static final LogStreamEventGridRegionEnum SOUTHCENTRALUS =
             new LogStreamEventGridRegionEnum(Value.SOUTHCENTRALUS, "southcentralus");
+
+    public static final LogStreamEventGridRegionEnum GERMANYWESTCENTRAL =
+            new LogStreamEventGridRegionEnum(Value.GERMANYWESTCENTRAL, "germanywestcentral");
 
     public static final LogStreamEventGridRegionEnum JAPANEAST =
             new LogStreamEventGridRegionEnum(Value.JAPANEAST, "japaneast");
@@ -22,11 +22,11 @@ public final class LogStreamEventGridRegionEnum {
     public static final LogStreamEventGridRegionEnum KOREACENTRAL =
             new LogStreamEventGridRegionEnum(Value.KOREACENTRAL, "koreacentral");
 
-    public static final LogStreamEventGridRegionEnum AUSTRALIASOUTHEAST =
-            new LogStreamEventGridRegionEnum(Value.AUSTRALIASOUTHEAST, "australiasoutheast");
-
     public static final LogStreamEventGridRegionEnum SOUTHAFRICANORTH =
             new LogStreamEventGridRegionEnum(Value.SOUTHAFRICANORTH, "southafricanorth");
+
+    public static final LogStreamEventGridRegionEnum AUSTRALIASOUTHEAST =
+            new LogStreamEventGridRegionEnum(Value.AUSTRALIASOUTHEAST, "australiasoutheast");
 
     public static final LogStreamEventGridRegionEnum CANADACENTRAL =
             new LogStreamEventGridRegionEnum(Value.CANADACENTRAL, "canadacentral");
@@ -34,34 +34,39 @@ public final class LogStreamEventGridRegionEnum {
     public static final LogStreamEventGridRegionEnum CANADAEAST =
             new LogStreamEventGridRegionEnum(Value.CANADAEAST, "canadaeast");
 
+    public static final LogStreamEventGridRegionEnum BRAZILSOUTH =
+            new LogStreamEventGridRegionEnum(Value.BRAZILSOUTH, "brazilsouth");
+
     public static final LogStreamEventGridRegionEnum SOUTHINDIA =
             new LogStreamEventGridRegionEnum(Value.SOUTHINDIA, "southindia");
 
     public static final LogStreamEventGridRegionEnum KOREASOUTH =
             new LogStreamEventGridRegionEnum(Value.KOREASOUTH, "koreasouth");
 
-    public static final LogStreamEventGridRegionEnum BRAZILSOUTH =
-            new LogStreamEventGridRegionEnum(Value.BRAZILSOUTH, "brazilsouth");
-
     public static final LogStreamEventGridRegionEnum CENTRALINDIA =
             new LogStreamEventGridRegionEnum(Value.CENTRALINDIA, "centralindia");
-
-    public static final LogStreamEventGridRegionEnum EASTUS2 =
-            new LogStreamEventGridRegionEnum(Value.EASTUS2, "eastus2");
 
     public static final LogStreamEventGridRegionEnum SOUTHEASTASIA =
             new LogStreamEventGridRegionEnum(Value.SOUTHEASTASIA, "southeastasia");
 
+    public static final LogStreamEventGridRegionEnum EASTUS2 =
+            new LogStreamEventGridRegionEnum(Value.EASTUS2, "eastus2");
+
     public static final LogStreamEventGridRegionEnum AUSTRALIAEAST =
             new LogStreamEventGridRegionEnum(Value.AUSTRALIAEAST, "australiaeast");
+
+    public static final LogStreamEventGridRegionEnum SWITZERLANDNORTH =
+            new LogStreamEventGridRegionEnum(Value.SWITZERLANDNORTH, "switzerlandnorth");
 
     public static final LogStreamEventGridRegionEnum EASTUS = new LogStreamEventGridRegionEnum(Value.EASTUS, "eastus");
 
     public static final LogStreamEventGridRegionEnum FRANCECENTRAL =
             new LogStreamEventGridRegionEnum(Value.FRANCECENTRAL, "francecentral");
 
-    public static final LogStreamEventGridRegionEnum SWITZERLANDNORTH =
-            new LogStreamEventGridRegionEnum(Value.SWITZERLANDNORTH, "switzerlandnorth");
+    public static final LogStreamEventGridRegionEnum NORTHCENTRALUS =
+            new LogStreamEventGridRegionEnum(Value.NORTHCENTRALUS, "northcentralus");
+
+    public static final LogStreamEventGridRegionEnum UKWEST = new LogStreamEventGridRegionEnum(Value.UKWEST, "ukwest");
 
     public static final LogStreamEventGridRegionEnum UAENORTH =
             new LogStreamEventGridRegionEnum(Value.UAENORTH, "uaenorth");
@@ -69,21 +74,13 @@ public final class LogStreamEventGridRegionEnum {
     public static final LogStreamEventGridRegionEnum NORTHEUROPE =
             new LogStreamEventGridRegionEnum(Value.NORTHEUROPE, "northeurope");
 
-    public static final LogStreamEventGridRegionEnum NORTHCENTRALUS =
-            new LogStreamEventGridRegionEnum(Value.NORTHCENTRALUS, "northcentralus");
-
-    public static final LogStreamEventGridRegionEnum UKWEST = new LogStreamEventGridRegionEnum(Value.UKWEST, "ukwest");
+    public static final LogStreamEventGridRegionEnum WESTCENTRALUS =
+            new LogStreamEventGridRegionEnum(Value.WESTCENTRALUS, "westcentralus");
 
     public static final LogStreamEventGridRegionEnum NORWAYEAST =
             new LogStreamEventGridRegionEnum(Value.NORWAYEAST, "norwayeast");
 
     public static final LogStreamEventGridRegionEnum WESTUS = new LogStreamEventGridRegionEnum(Value.WESTUS, "westus");
-
-    public static final LogStreamEventGridRegionEnum WESTCENTRALUS =
-            new LogStreamEventGridRegionEnum(Value.WESTCENTRALUS, "westcentralus");
-
-    public static final LogStreamEventGridRegionEnum EASTASIA =
-            new LogStreamEventGridRegionEnum(Value.EASTASIA, "eastasia");
 
     public static final LogStreamEventGridRegionEnum AUSTRALIACENTRAL =
             new LogStreamEventGridRegionEnum(Value.AUSTRALIACENTRAL, "australiacentral");
@@ -91,14 +88,17 @@ public final class LogStreamEventGridRegionEnum {
     public static final LogStreamEventGridRegionEnum SWEDENCENTRAL =
             new LogStreamEventGridRegionEnum(Value.SWEDENCENTRAL, "swedencentral");
 
+    public static final LogStreamEventGridRegionEnum EASTASIA =
+            new LogStreamEventGridRegionEnum(Value.EASTASIA, "eastasia");
+
+    public static final LogStreamEventGridRegionEnum JAPANWEST =
+            new LogStreamEventGridRegionEnum(Value.JAPANWEST, "japanwest");
+
     public static final LogStreamEventGridRegionEnum CENTRALUS =
             new LogStreamEventGridRegionEnum(Value.CENTRALUS, "centralus");
 
     public static final LogStreamEventGridRegionEnum WESTEUROPE =
             new LogStreamEventGridRegionEnum(Value.WESTEUROPE, "westeurope");
-
-    public static final LogStreamEventGridRegionEnum JAPANWEST =
-            new LogStreamEventGridRegionEnum(Value.JAPANWEST, "japanwest");
 
     public static final LogStreamEventGridRegionEnum WESTUS2 =
             new LogStreamEventGridRegionEnum(Value.WESTUS2, "westus2");
@@ -139,70 +139,70 @@ public final class LogStreamEventGridRegionEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case GERMANYWESTCENTRAL:
-                return visitor.visitGermanywestcentral();
             case WESTINDIA:
                 return visitor.visitWestindia();
             case SOUTHCENTRALUS:
                 return visitor.visitSouthcentralus();
+            case GERMANYWESTCENTRAL:
+                return visitor.visitGermanywestcentral();
             case JAPANEAST:
                 return visitor.visitJapaneast();
             case KOREACENTRAL:
                 return visitor.visitKoreacentral();
-            case AUSTRALIASOUTHEAST:
-                return visitor.visitAustraliasoutheast();
             case SOUTHAFRICANORTH:
                 return visitor.visitSouthafricanorth();
+            case AUSTRALIASOUTHEAST:
+                return visitor.visitAustraliasoutheast();
             case CANADACENTRAL:
                 return visitor.visitCanadacentral();
             case CANADAEAST:
                 return visitor.visitCanadaeast();
+            case BRAZILSOUTH:
+                return visitor.visitBrazilsouth();
             case SOUTHINDIA:
                 return visitor.visitSouthindia();
             case KOREASOUTH:
                 return visitor.visitKoreasouth();
-            case BRAZILSOUTH:
-                return visitor.visitBrazilsouth();
             case CENTRALINDIA:
                 return visitor.visitCentralindia();
-            case EASTUS2:
-                return visitor.visitEastus2();
             case SOUTHEASTASIA:
                 return visitor.visitSoutheastasia();
+            case EASTUS2:
+                return visitor.visitEastus2();
             case AUSTRALIAEAST:
                 return visitor.visitAustraliaeast();
+            case SWITZERLANDNORTH:
+                return visitor.visitSwitzerlandnorth();
             case EASTUS:
                 return visitor.visitEastus();
             case FRANCECENTRAL:
                 return visitor.visitFrancecentral();
-            case SWITZERLANDNORTH:
-                return visitor.visitSwitzerlandnorth();
-            case UAENORTH:
-                return visitor.visitUaenorth();
-            case NORTHEUROPE:
-                return visitor.visitNortheurope();
             case NORTHCENTRALUS:
                 return visitor.visitNorthcentralus();
             case UKWEST:
                 return visitor.visitUkwest();
+            case UAENORTH:
+                return visitor.visitUaenorth();
+            case NORTHEUROPE:
+                return visitor.visitNortheurope();
+            case WESTCENTRALUS:
+                return visitor.visitWestcentralus();
             case NORWAYEAST:
                 return visitor.visitNorwayeast();
             case WESTUS:
                 return visitor.visitWestus();
-            case WESTCENTRALUS:
-                return visitor.visitWestcentralus();
-            case EASTASIA:
-                return visitor.visitEastasia();
             case AUSTRALIACENTRAL:
                 return visitor.visitAustraliacentral();
             case SWEDENCENTRAL:
                 return visitor.visitSwedencentral();
+            case EASTASIA:
+                return visitor.visitEastasia();
+            case JAPANWEST:
+                return visitor.visitJapanwest();
             case CENTRALUS:
                 return visitor.visitCentralus();
             case WESTEUROPE:
                 return visitor.visitWesteurope();
-            case JAPANWEST:
-                return visitor.visitJapanwest();
             case WESTUS2:
                 return visitor.visitWestus2();
             case UKSOUTH:
@@ -216,70 +216,70 @@ public final class LogStreamEventGridRegionEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static LogStreamEventGridRegionEnum valueOf(String value) {
         switch (value) {
-            case "germanywestcentral":
-                return GERMANYWESTCENTRAL;
             case "westindia":
                 return WESTINDIA;
             case "southcentralus":
                 return SOUTHCENTRALUS;
+            case "germanywestcentral":
+                return GERMANYWESTCENTRAL;
             case "japaneast":
                 return JAPANEAST;
             case "koreacentral":
                 return KOREACENTRAL;
-            case "australiasoutheast":
-                return AUSTRALIASOUTHEAST;
             case "southafricanorth":
                 return SOUTHAFRICANORTH;
+            case "australiasoutheast":
+                return AUSTRALIASOUTHEAST;
             case "canadacentral":
                 return CANADACENTRAL;
             case "canadaeast":
                 return CANADAEAST;
+            case "brazilsouth":
+                return BRAZILSOUTH;
             case "southindia":
                 return SOUTHINDIA;
             case "koreasouth":
                 return KOREASOUTH;
-            case "brazilsouth":
-                return BRAZILSOUTH;
             case "centralindia":
                 return CENTRALINDIA;
-            case "eastus2":
-                return EASTUS2;
             case "southeastasia":
                 return SOUTHEASTASIA;
+            case "eastus2":
+                return EASTUS2;
             case "australiaeast":
                 return AUSTRALIAEAST;
+            case "switzerlandnorth":
+                return SWITZERLANDNORTH;
             case "eastus":
                 return EASTUS;
             case "francecentral":
                 return FRANCECENTRAL;
-            case "switzerlandnorth":
-                return SWITZERLANDNORTH;
-            case "uaenorth":
-                return UAENORTH;
-            case "northeurope":
-                return NORTHEUROPE;
             case "northcentralus":
                 return NORTHCENTRALUS;
             case "ukwest":
                 return UKWEST;
+            case "uaenorth":
+                return UAENORTH;
+            case "northeurope":
+                return NORTHEUROPE;
+            case "westcentralus":
+                return WESTCENTRALUS;
             case "norwayeast":
                 return NORWAYEAST;
             case "westus":
                 return WESTUS;
-            case "westcentralus":
-                return WESTCENTRALUS;
-            case "eastasia":
-                return EASTASIA;
             case "australiacentral":
                 return AUSTRALIACENTRAL;
             case "swedencentral":
                 return SWEDENCENTRAL;
+            case "eastasia":
+                return EASTASIA;
+            case "japanwest":
+                return JAPANWEST;
             case "centralus":
                 return CENTRALUS;
             case "westeurope":
                 return WESTEUROPE;
-            case "japanwest":
-                return JAPANWEST;
             case "westus2":
                 return WESTUS2;
             case "uksouth":

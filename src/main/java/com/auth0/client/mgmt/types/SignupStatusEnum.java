@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class SignupStatusEnum {
-    public static final SignupStatusEnum INACTIVE = new SignupStatusEnum(Value.INACTIVE, "inactive");
-
     public static final SignupStatusEnum REQUIRED = new SignupStatusEnum(Value.REQUIRED, "required");
+
+    public static final SignupStatusEnum INACTIVE = new SignupStatusEnum(Value.INACTIVE, "inactive");
 
     public static final SignupStatusEnum OPTIONAL = new SignupStatusEnum(Value.OPTIONAL, "optional");
 
@@ -45,10 +45,10 @@ public final class SignupStatusEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case INACTIVE:
-                return visitor.visitInactive();
             case REQUIRED:
                 return visitor.visitRequired();
+            case INACTIVE:
+                return visitor.visitInactive();
             case OPTIONAL:
                 return visitor.visitOptional();
             case UNKNOWN:
@@ -60,10 +60,10 @@ public final class SignupStatusEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static SignupStatusEnum valueOf(String value) {
         switch (value) {
-            case "inactive":
-                return INACTIVE;
             case "required":
                 return REQUIRED;
+            case "inactive":
+                return INACTIVE;
             case "optional":
                 return OPTIONAL;
             default:

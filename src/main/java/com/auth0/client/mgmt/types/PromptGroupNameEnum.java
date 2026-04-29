@@ -7,16 +7,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class PromptGroupNameEnum {
+    public static final PromptGroupNameEnum MFA_VOICE = new PromptGroupNameEnum(Value.MFA_VOICE, "mfa-voice");
+
+    public static final PromptGroupNameEnum INVITATION = new PromptGroupNameEnum(Value.INVITATION, "invitation");
+
     public static final PromptGroupNameEnum MFA_PUSH = new PromptGroupNameEnum(Value.MFA_PUSH, "mfa-push");
 
     public static final PromptGroupNameEnum CAPTCHA = new PromptGroupNameEnum(Value.CAPTCHA, "captcha");
 
     public static final PromptGroupNameEnum EMAIL_IDENTIFIER_CHALLENGE =
             new PromptGroupNameEnum(Value.EMAIL_IDENTIFIER_CHALLENGE, "email-identifier-challenge");
-
-    public static final PromptGroupNameEnum INVITATION = new PromptGroupNameEnum(Value.INVITATION, "invitation");
-
-    public static final PromptGroupNameEnum MFA_VOICE = new PromptGroupNameEnum(Value.MFA_VOICE, "mfa-voice");
 
     public static final PromptGroupNameEnum SIGNUP = new PromptGroupNameEnum(Value.SIGNUP, "signup");
 
@@ -26,34 +26,32 @@ public final class PromptGroupNameEnum {
     public static final PromptGroupNameEnum BRUTE_FORCE_PROTECTION =
             new PromptGroupNameEnum(Value.BRUTE_FORCE_PROTECTION, "brute-force-protection");
 
+    public static final PromptGroupNameEnum PHONE_IDENTIFIER_ENROLLMENT =
+            new PromptGroupNameEnum(Value.PHONE_IDENTIFIER_ENROLLMENT, "phone-identifier-enrollment");
+
     public static final PromptGroupNameEnum MFA = new PromptGroupNameEnum(Value.MFA, "mfa");
 
     public static final PromptGroupNameEnum COMMON = new PromptGroupNameEnum(Value.COMMON, "common");
+
+    public static final PromptGroupNameEnum LOGOUT = new PromptGroupNameEnum(Value.LOGOUT, "logout");
 
     public static final PromptGroupNameEnum MFA_PHONE = new PromptGroupNameEnum(Value.MFA_PHONE, "mfa-phone");
 
     public static final PromptGroupNameEnum CUSTOM_FORM = new PromptGroupNameEnum(Value.CUSTOM_FORM, "custom-form");
 
-    public static final PromptGroupNameEnum LOGOUT = new PromptGroupNameEnum(Value.LOGOUT, "logout");
-
-    public static final PromptGroupNameEnum PHONE_IDENTIFIER_ENROLLMENT =
-            new PromptGroupNameEnum(Value.PHONE_IDENTIFIER_ENROLLMENT, "phone-identifier-enrollment");
-
-    public static final PromptGroupNameEnum LOGIN_PASSWORD =
-            new PromptGroupNameEnum(Value.LOGIN_PASSWORD, "login-password");
-
     public static final PromptGroupNameEnum LOGIN_EMAIL_VERIFICATION =
             new PromptGroupNameEnum(Value.LOGIN_EMAIL_VERIFICATION, "login-email-verification");
-
-    public static final PromptGroupNameEnum ORGANIZATIONS =
-            new PromptGroupNameEnum(Value.ORGANIZATIONS, "organizations");
 
     public static final PromptGroupNameEnum LOGIN_ID = new PromptGroupNameEnum(Value.LOGIN_ID, "login-id");
 
     public static final PromptGroupNameEnum ASYNC_APPROVAL_FLOW =
             new PromptGroupNameEnum(Value.ASYNC_APPROVAL_FLOW, "async-approval-flow");
 
-    public static final PromptGroupNameEnum MFA_OTP = new PromptGroupNameEnum(Value.MFA_OTP, "mfa-otp");
+    public static final PromptGroupNameEnum LOGIN_PASSWORD =
+            new PromptGroupNameEnum(Value.LOGIN_PASSWORD, "login-password");
+
+    public static final PromptGroupNameEnum ORGANIZATIONS =
+            new PromptGroupNameEnum(Value.ORGANIZATIONS, "organizations");
 
     public static final PromptGroupNameEnum STATUS = new PromptGroupNameEnum(Value.STATUS, "status");
 
@@ -64,35 +62,37 @@ public final class PromptGroupNameEnum {
 
     public static final PromptGroupNameEnum SIGNUP_ID = new PromptGroupNameEnum(Value.SIGNUP_ID, "signup-id");
 
-    public static final PromptGroupNameEnum LOGIN_PASSWORDLESS =
-            new PromptGroupNameEnum(Value.LOGIN_PASSWORDLESS, "login-passwordless");
-
-    public static final PromptGroupNameEnum MFA_SMS = new PromptGroupNameEnum(Value.MFA_SMS, "mfa-sms");
-
-    public static final PromptGroupNameEnum MFA_WEBAUTHN = new PromptGroupNameEnum(Value.MFA_WEBAUTHN, "mfa-webauthn");
+    public static final PromptGroupNameEnum MFA_OTP = new PromptGroupNameEnum(Value.MFA_OTP, "mfa-otp");
 
     public static final PromptGroupNameEnum RESET_PASSWORD =
             new PromptGroupNameEnum(Value.RESET_PASSWORD, "reset-password");
 
-    public static final PromptGroupNameEnum MFA_RECOVERY_CODE =
-            new PromptGroupNameEnum(Value.MFA_RECOVERY_CODE, "mfa-recovery-code");
+    public static final PromptGroupNameEnum MFA_SMS = new PromptGroupNameEnum(Value.MFA_SMS, "mfa-sms");
+
+    public static final PromptGroupNameEnum LOGIN_PASSWORDLESS =
+            new PromptGroupNameEnum(Value.LOGIN_PASSWORDLESS, "login-passwordless");
+
+    public static final PromptGroupNameEnum MFA_WEBAUTHN = new PromptGroupNameEnum(Value.MFA_WEBAUTHN, "mfa-webauthn");
 
     public static final PromptGroupNameEnum EMAIL_VERIFICATION =
             new PromptGroupNameEnum(Value.EMAIL_VERIFICATION, "email-verification");
-
-    public static final PromptGroupNameEnum PASSKEYS = new PromptGroupNameEnum(Value.PASSKEYS, "passkeys");
 
     public static final PromptGroupNameEnum LOGIN = new PromptGroupNameEnum(Value.LOGIN, "login");
 
     public static final PromptGroupNameEnum SIGNUP_PASSWORD =
             new PromptGroupNameEnum(Value.SIGNUP_PASSWORD, "signup-password");
 
+    public static final PromptGroupNameEnum MFA_RECOVERY_CODE =
+            new PromptGroupNameEnum(Value.MFA_RECOVERY_CODE, "mfa-recovery-code");
+
+    public static final PromptGroupNameEnum MFA_EMAIL = new PromptGroupNameEnum(Value.MFA_EMAIL, "mfa-email");
+
+    public static final PromptGroupNameEnum PASSKEYS = new PromptGroupNameEnum(Value.PASSKEYS, "passkeys");
+
     public static final PromptGroupNameEnum PHONE_IDENTIFIER_CHALLENGE =
             new PromptGroupNameEnum(Value.PHONE_IDENTIFIER_CHALLENGE, "phone-identifier-challenge");
 
     public static final PromptGroupNameEnum DEVICE_FLOW = new PromptGroupNameEnum(Value.DEVICE_FLOW, "device-flow");
-
-    public static final PromptGroupNameEnum MFA_EMAIL = new PromptGroupNameEnum(Value.MFA_EMAIL, "mfa-email");
 
     private final Value value;
 
@@ -126,46 +126,44 @@ public final class PromptGroupNameEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case MFA_VOICE:
+                return visitor.visitMfaVoice();
+            case INVITATION:
+                return visitor.visitInvitation();
             case MFA_PUSH:
                 return visitor.visitMfaPush();
             case CAPTCHA:
                 return visitor.visitCaptcha();
             case EMAIL_IDENTIFIER_CHALLENGE:
                 return visitor.visitEmailIdentifierChallenge();
-            case INVITATION:
-                return visitor.visitInvitation();
-            case MFA_VOICE:
-                return visitor.visitMfaVoice();
             case SIGNUP:
                 return visitor.visitSignup();
             case CUSTOMIZED_CONSENT:
                 return visitor.visitCustomizedConsent();
             case BRUTE_FORCE_PROTECTION:
                 return visitor.visitBruteForceProtection();
+            case PHONE_IDENTIFIER_ENROLLMENT:
+                return visitor.visitPhoneIdentifierEnrollment();
             case MFA:
                 return visitor.visitMfa();
             case COMMON:
                 return visitor.visitCommon();
+            case LOGOUT:
+                return visitor.visitLogout();
             case MFA_PHONE:
                 return visitor.visitMfaPhone();
             case CUSTOM_FORM:
                 return visitor.visitCustomForm();
-            case LOGOUT:
-                return visitor.visitLogout();
-            case PHONE_IDENTIFIER_ENROLLMENT:
-                return visitor.visitPhoneIdentifierEnrollment();
-            case LOGIN_PASSWORD:
-                return visitor.visitLoginPassword();
             case LOGIN_EMAIL_VERIFICATION:
                 return visitor.visitLoginEmailVerification();
-            case ORGANIZATIONS:
-                return visitor.visitOrganizations();
             case LOGIN_ID:
                 return visitor.visitLoginId();
             case ASYNC_APPROVAL_FLOW:
                 return visitor.visitAsyncApprovalFlow();
-            case MFA_OTP:
-                return visitor.visitMfaOtp();
+            case LOGIN_PASSWORD:
+                return visitor.visitLoginPassword();
+            case ORGANIZATIONS:
+                return visitor.visitOrganizations();
             case STATUS:
                 return visitor.visitStatus();
             case EMAIL_OTP_CHALLENGE:
@@ -174,30 +172,32 @@ public final class PromptGroupNameEnum {
                 return visitor.visitConsent();
             case SIGNUP_ID:
                 return visitor.visitSignupId();
-            case LOGIN_PASSWORDLESS:
-                return visitor.visitLoginPasswordless();
-            case MFA_SMS:
-                return visitor.visitMfaSms();
-            case MFA_WEBAUTHN:
-                return visitor.visitMfaWebauthn();
+            case MFA_OTP:
+                return visitor.visitMfaOtp();
             case RESET_PASSWORD:
                 return visitor.visitResetPassword();
-            case MFA_RECOVERY_CODE:
-                return visitor.visitMfaRecoveryCode();
+            case MFA_SMS:
+                return visitor.visitMfaSms();
+            case LOGIN_PASSWORDLESS:
+                return visitor.visitLoginPasswordless();
+            case MFA_WEBAUTHN:
+                return visitor.visitMfaWebauthn();
             case EMAIL_VERIFICATION:
                 return visitor.visitEmailVerification();
-            case PASSKEYS:
-                return visitor.visitPasskeys();
             case LOGIN:
                 return visitor.visitLogin();
             case SIGNUP_PASSWORD:
                 return visitor.visitSignupPassword();
+            case MFA_RECOVERY_CODE:
+                return visitor.visitMfaRecoveryCode();
+            case MFA_EMAIL:
+                return visitor.visitMfaEmail();
+            case PASSKEYS:
+                return visitor.visitPasskeys();
             case PHONE_IDENTIFIER_CHALLENGE:
                 return visitor.visitPhoneIdentifierChallenge();
             case DEVICE_FLOW:
                 return visitor.visitDeviceFlow();
-            case MFA_EMAIL:
-                return visitor.visitMfaEmail();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -207,46 +207,44 @@ public final class PromptGroupNameEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static PromptGroupNameEnum valueOf(String value) {
         switch (value) {
+            case "mfa-voice":
+                return MFA_VOICE;
+            case "invitation":
+                return INVITATION;
             case "mfa-push":
                 return MFA_PUSH;
             case "captcha":
                 return CAPTCHA;
             case "email-identifier-challenge":
                 return EMAIL_IDENTIFIER_CHALLENGE;
-            case "invitation":
-                return INVITATION;
-            case "mfa-voice":
-                return MFA_VOICE;
             case "signup":
                 return SIGNUP;
             case "customized-consent":
                 return CUSTOMIZED_CONSENT;
             case "brute-force-protection":
                 return BRUTE_FORCE_PROTECTION;
+            case "phone-identifier-enrollment":
+                return PHONE_IDENTIFIER_ENROLLMENT;
             case "mfa":
                 return MFA;
             case "common":
                 return COMMON;
+            case "logout":
+                return LOGOUT;
             case "mfa-phone":
                 return MFA_PHONE;
             case "custom-form":
                 return CUSTOM_FORM;
-            case "logout":
-                return LOGOUT;
-            case "phone-identifier-enrollment":
-                return PHONE_IDENTIFIER_ENROLLMENT;
-            case "login-password":
-                return LOGIN_PASSWORD;
             case "login-email-verification":
                 return LOGIN_EMAIL_VERIFICATION;
-            case "organizations":
-                return ORGANIZATIONS;
             case "login-id":
                 return LOGIN_ID;
             case "async-approval-flow":
                 return ASYNC_APPROVAL_FLOW;
-            case "mfa-otp":
-                return MFA_OTP;
+            case "login-password":
+                return LOGIN_PASSWORD;
+            case "organizations":
+                return ORGANIZATIONS;
             case "status":
                 return STATUS;
             case "email-otp-challenge":
@@ -255,30 +253,32 @@ public final class PromptGroupNameEnum {
                 return CONSENT;
             case "signup-id":
                 return SIGNUP_ID;
-            case "login-passwordless":
-                return LOGIN_PASSWORDLESS;
-            case "mfa-sms":
-                return MFA_SMS;
-            case "mfa-webauthn":
-                return MFA_WEBAUTHN;
+            case "mfa-otp":
+                return MFA_OTP;
             case "reset-password":
                 return RESET_PASSWORD;
-            case "mfa-recovery-code":
-                return MFA_RECOVERY_CODE;
+            case "mfa-sms":
+                return MFA_SMS;
+            case "login-passwordless":
+                return LOGIN_PASSWORDLESS;
+            case "mfa-webauthn":
+                return MFA_WEBAUTHN;
             case "email-verification":
                 return EMAIL_VERIFICATION;
-            case "passkeys":
-                return PASSKEYS;
             case "login":
                 return LOGIN;
             case "signup-password":
                 return SIGNUP_PASSWORD;
+            case "mfa-recovery-code":
+                return MFA_RECOVERY_CODE;
+            case "mfa-email":
+                return MFA_EMAIL;
+            case "passkeys":
+                return PASSKEYS;
             case "phone-identifier-challenge":
                 return PHONE_IDENTIFIER_CHALLENGE;
             case "device-flow":
                 return DEVICE_FLOW;
-            case "mfa-email":
-                return MFA_EMAIL;
             default:
                 return new PromptGroupNameEnum(Value.UNKNOWN, value);
         }

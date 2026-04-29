@@ -7,121 +7,33 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class PromptLanguageEnum {
-    public static final PromptLanguageEnum AZ = new PromptLanguageEnum(Value.AZ, "az");
-
-    public static final PromptLanguageEnum MK = new PromptLanguageEnum(Value.MK, "mk");
-
-    public static final PromptLanguageEnum CA_ES = new PromptLanguageEnum(Value.CA_ES, "ca-ES");
-
-    public static final PromptLanguageEnum ML = new PromptLanguageEnum(Value.ML, "ml");
-
-    public static final PromptLanguageEnum TR = new PromptLanguageEnum(Value.TR, "tr");
-
-    public static final PromptLanguageEnum GU = new PromptLanguageEnum(Value.GU, "gu");
-
-    public static final PromptLanguageEnum ES_AR = new PromptLanguageEnum(Value.ES_AR, "es-AR");
-
-    public static final PromptLanguageEnum ID = new PromptLanguageEnum(Value.ID, "id");
-
-    public static final PromptLanguageEnum CNR = new PromptLanguageEnum(Value.CNR, "cnr");
-
-    public static final PromptLanguageEnum MN = new PromptLanguageEnum(Value.MN, "mn");
-
-    public static final PromptLanguageEnum FI = new PromptLanguageEnum(Value.FI, "fi");
-
-    public static final PromptLanguageEnum PL = new PromptLanguageEnum(Value.PL, "pl");
-
-    public static final PromptLanguageEnum EN_CA = new PromptLanguageEnum(Value.EN_CA, "en-CA");
-
-    public static final PromptLanguageEnum AR_EG = new PromptLanguageEnum(Value.AR_EG, "ar-EG");
-
-    public static final PromptLanguageEnum MR = new PromptLanguageEnum(Value.MR, "mr");
-
-    public static final PromptLanguageEnum MS = new PromptLanguageEnum(Value.MS, "ms");
-
-    public static final PromptLanguageEnum PT_PT = new PromptLanguageEnum(Value.PT_PT, "pt-PT");
-
-    public static final PromptLanguageEnum SK = new PromptLanguageEnum(Value.SK, "sk");
-
-    public static final PromptLanguageEnum SL = new PromptLanguageEnum(Value.SL, "sl");
-
-    public static final PromptLanguageEnum CS = new PromptLanguageEnum(Value.CS, "cs");
-
-    public static final PromptLanguageEnum UR = new PromptLanguageEnum(Value.UR, "ur");
-
-    public static final PromptLanguageEnum HU = new PromptLanguageEnum(Value.HU, "hu");
-
-    public static final PromptLanguageEnum TE = new PromptLanguageEnum(Value.TE, "te");
-
-    public static final PromptLanguageEnum ZH_CN = new PromptLanguageEnum(Value.ZH_CN, "zh-CN");
-
-    public static final PromptLanguageEnum AR_SA = new PromptLanguageEnum(Value.AR_SA, "ar-SA");
-
-    public static final PromptLanguageEnum SO = new PromptLanguageEnum(Value.SO, "so");
-
-    public static final PromptLanguageEnum FR = new PromptLanguageEnum(Value.FR, "fr");
-
-    public static final PromptLanguageEnum NO = new PromptLanguageEnum(Value.NO, "no");
-
-    public static final PromptLanguageEnum ZH_TW = new PromptLanguageEnum(Value.ZH_TW, "zh-TW");
-
-    public static final PromptLanguageEnum AR = new PromptLanguageEnum(Value.AR, "ar");
-
-    public static final PromptLanguageEnum PT = new PromptLanguageEnum(Value.PT, "pt");
-
-    public static final PromptLanguageEnum MY = new PromptLanguageEnum(Value.MY, "my");
-
-    public static final PromptLanguageEnum SQ = new PromptLanguageEnum(Value.SQ, "sq");
-
-    public static final PromptLanguageEnum HY = new PromptLanguageEnum(Value.HY, "hy");
-
-    public static final PromptLanguageEnum FR_FR = new PromptLanguageEnum(Value.FR_FR, "fr-FR");
-
-    public static final PromptLanguageEnum CY = new PromptLanguageEnum(Value.CY, "cy");
-
-    public static final PromptLanguageEnum PA = new PromptLanguageEnum(Value.PA, "pa");
-
-    public static final PromptLanguageEnum KA = new PromptLanguageEnum(Value.KA, "ka");
-
-    public static final PromptLanguageEnum IS = new PromptLanguageEnum(Value.IS, "is");
-
-    public static final PromptLanguageEnum FA = new PromptLanguageEnum(Value.FA, "fa");
-
-    public static final PromptLanguageEnum BN = new PromptLanguageEnum(Value.BN, "bn");
-
-    public static final PromptLanguageEnum PT_BR = new PromptLanguageEnum(Value.PT_BR, "pt-BR");
-
-    public static final PromptLanguageEnum SW = new PromptLanguageEnum(Value.SW, "sw");
-
-    public static final PromptLanguageEnum HI = new PromptLanguageEnum(Value.HI, "hi");
-
     public static final PromptLanguageEnum EN = new PromptLanguageEnum(Value.EN, "en");
 
     public static final PromptLanguageEnum NB = new PromptLanguageEnum(Value.NB, "nb");
+
+    public static final PromptLanguageEnum HI = new PromptLanguageEnum(Value.HI, "hi");
+
+    public static final PromptLanguageEnum BS = new PromptLanguageEnum(Value.BS, "bs");
 
     public static final PromptLanguageEnum DA = new PromptLanguageEnum(Value.DA, "da");
 
     public static final PromptLanguageEnum LT = new PromptLanguageEnum(Value.LT, "lt");
 
-    public static final PromptLanguageEnum BS = new PromptLanguageEnum(Value.BS, "bs");
+    public static final PromptLanguageEnum LV = new PromptLanguageEnum(Value.LV, "lv");
 
     public static final PromptLanguageEnum ES_MX = new PromptLanguageEnum(Value.ES_MX, "es-MX");
-
-    public static final PromptLanguageEnum LV = new PromptLanguageEnum(Value.LV, "lv");
 
     public static final PromptLanguageEnum RO = new PromptLanguageEnum(Value.RO, "ro");
 
     public static final PromptLanguageEnum UK = new PromptLanguageEnum(Value.UK, "uk");
 
-    public static final PromptLanguageEnum DE = new PromptLanguageEnum(Value.DE, "de");
-
     public static final PromptLanguageEnum ES = new PromptLanguageEnum(Value.ES, "es");
 
     public static final PromptLanguageEnum KK = new PromptLanguageEnum(Value.KK, "kk");
 
-    public static final PromptLanguageEnum ET = new PromptLanguageEnum(Value.ET, "et");
+    public static final PromptLanguageEnum DE = new PromptLanguageEnum(Value.DE, "de");
 
-    public static final PromptLanguageEnum TA = new PromptLanguageEnum(Value.TA, "ta");
+    public static final PromptLanguageEnum ET = new PromptLanguageEnum(Value.ET, "et");
 
     public static final PromptLanguageEnum HR = new PromptLanguageEnum(Value.HR, "hr");
 
@@ -129,13 +41,15 @@ public final class PromptLanguageEnum {
 
     public static final PromptLanguageEnum ZGH = new PromptLanguageEnum(Value.ZGH, "zgh");
 
+    public static final PromptLanguageEnum TA = new PromptLanguageEnum(Value.TA, "ta");
+
+    public static final PromptLanguageEnum RU = new PromptLanguageEnum(Value.RU, "ru");
+
     public static final PromptLanguageEnum AM = new PromptLanguageEnum(Value.AM, "am");
 
     public static final PromptLanguageEnum JA = new PromptLanguageEnum(Value.JA, "ja");
 
     public static final PromptLanguageEnum KO = new PromptLanguageEnum(Value.KO, "ko");
-
-    public static final PromptLanguageEnum RU = new PromptLanguageEnum(Value.RU, "ru");
 
     public static final PromptLanguageEnum NL = new PromptLanguageEnum(Value.NL, "nl");
 
@@ -143,19 +57,17 @@ public final class PromptLanguageEnum {
 
     public static final PromptLanguageEnum VI = new PromptLanguageEnum(Value.VI, "vi");
 
-    public static final PromptLanguageEnum BG = new PromptLanguageEnum(Value.BG, "bg");
-
     public static final PromptLanguageEnum NN = new PromptLanguageEnum(Value.NN, "nn");
 
-    public static final PromptLanguageEnum GL_ES = new PromptLanguageEnum(Value.GL_ES, "gl-ES");
+    public static final PromptLanguageEnum BG = new PromptLanguageEnum(Value.BG, "bg");
 
-    public static final PromptLanguageEnum TH = new PromptLanguageEnum(Value.TH, "th");
+    public static final PromptLanguageEnum GL_ES = new PromptLanguageEnum(Value.GL_ES, "gl-ES");
 
     public static final PromptLanguageEnum SR = new PromptLanguageEnum(Value.SR, "sr");
 
     public static final PromptLanguageEnum ES419 = new PromptLanguageEnum(Value.ES419, "es-419");
 
-    public static final PromptLanguageEnum HE = new PromptLanguageEnum(Value.HE, "he");
+    public static final PromptLanguageEnum TH = new PromptLanguageEnum(Value.TH, "th");
 
     public static final PromptLanguageEnum ZH_HK = new PromptLanguageEnum(Value.ZH_HK, "zh-HK");
 
@@ -163,13 +75,101 @@ public final class PromptLanguageEnum {
 
     public static final PromptLanguageEnum TL = new PromptLanguageEnum(Value.TL, "tl");
 
-    public static final PromptLanguageEnum IT = new PromptLanguageEnum(Value.IT, "it");
+    public static final PromptLanguageEnum HE = new PromptLanguageEnum(Value.HE, "he");
 
     public static final PromptLanguageEnum SV = new PromptLanguageEnum(Value.SV, "sv");
 
-    public static final PromptLanguageEnum FR_CA = new PromptLanguageEnum(Value.FR_CA, "fr-CA");
+    public static final PromptLanguageEnum IT = new PromptLanguageEnum(Value.IT, "it");
 
     public static final PromptLanguageEnum EL = new PromptLanguageEnum(Value.EL, "el");
+
+    public static final PromptLanguageEnum FR_CA = new PromptLanguageEnum(Value.FR_CA, "fr-CA");
+
+    public static final PromptLanguageEnum AZ = new PromptLanguageEnum(Value.AZ, "az");
+
+    public static final PromptLanguageEnum ML = new PromptLanguageEnum(Value.ML, "ml");
+
+    public static final PromptLanguageEnum MK = new PromptLanguageEnum(Value.MK, "mk");
+
+    public static final PromptLanguageEnum CA_ES = new PromptLanguageEnum(Value.CA_ES, "ca-ES");
+
+    public static final PromptLanguageEnum GU = new PromptLanguageEnum(Value.GU, "gu");
+
+    public static final PromptLanguageEnum ES_AR = new PromptLanguageEnum(Value.ES_AR, "es-AR");
+
+    public static final PromptLanguageEnum ID = new PromptLanguageEnum(Value.ID, "id");
+
+    public static final PromptLanguageEnum TR = new PromptLanguageEnum(Value.TR, "tr");
+
+    public static final PromptLanguageEnum FI = new PromptLanguageEnum(Value.FI, "fi");
+
+    public static final PromptLanguageEnum CNR = new PromptLanguageEnum(Value.CNR, "cnr");
+
+    public static final PromptLanguageEnum MN = new PromptLanguageEnum(Value.MN, "mn");
+
+    public static final PromptLanguageEnum AR_EG = new PromptLanguageEnum(Value.AR_EG, "ar-EG");
+
+    public static final PromptLanguageEnum PL = new PromptLanguageEnum(Value.PL, "pl");
+
+    public static final PromptLanguageEnum EN_CA = new PromptLanguageEnum(Value.EN_CA, "en-CA");
+
+    public static final PromptLanguageEnum MS = new PromptLanguageEnum(Value.MS, "ms");
+
+    public static final PromptLanguageEnum PT_PT = new PromptLanguageEnum(Value.PT_PT, "pt-PT");
+
+    public static final PromptLanguageEnum SK = new PromptLanguageEnum(Value.SK, "sk");
+
+    public static final PromptLanguageEnum MR = new PromptLanguageEnum(Value.MR, "mr");
+
+    public static final PromptLanguageEnum SL = new PromptLanguageEnum(Value.SL, "sl");
+
+    public static final PromptLanguageEnum CS = new PromptLanguageEnum(Value.CS, "cs");
+
+    public static final PromptLanguageEnum UR = new PromptLanguageEnum(Value.UR, "ur");
+
+    public static final PromptLanguageEnum AR_SA = new PromptLanguageEnum(Value.AR_SA, "ar-SA");
+
+    public static final PromptLanguageEnum HU = new PromptLanguageEnum(Value.HU, "hu");
+
+    public static final PromptLanguageEnum TE = new PromptLanguageEnum(Value.TE, "te");
+
+    public static final PromptLanguageEnum ZH_CN = new PromptLanguageEnum(Value.ZH_CN, "zh-CN");
+
+    public static final PromptLanguageEnum SO = new PromptLanguageEnum(Value.SO, "so");
+
+    public static final PromptLanguageEnum AR = new PromptLanguageEnum(Value.AR, "ar");
+
+    public static final PromptLanguageEnum PT = new PromptLanguageEnum(Value.PT, "pt");
+
+    public static final PromptLanguageEnum FR = new PromptLanguageEnum(Value.FR, "fr");
+
+    public static final PromptLanguageEnum NO = new PromptLanguageEnum(Value.NO, "no");
+
+    public static final PromptLanguageEnum ZH_TW = new PromptLanguageEnum(Value.ZH_TW, "zh-TW");
+
+    public static final PromptLanguageEnum HY = new PromptLanguageEnum(Value.HY, "hy");
+
+    public static final PromptLanguageEnum MY = new PromptLanguageEnum(Value.MY, "my");
+
+    public static final PromptLanguageEnum SQ = new PromptLanguageEnum(Value.SQ, "sq");
+
+    public static final PromptLanguageEnum PA = new PromptLanguageEnum(Value.PA, "pa");
+
+    public static final PromptLanguageEnum FR_FR = new PromptLanguageEnum(Value.FR_FR, "fr-FR");
+
+    public static final PromptLanguageEnum CY = new PromptLanguageEnum(Value.CY, "cy");
+
+    public static final PromptLanguageEnum IS = new PromptLanguageEnum(Value.IS, "is");
+
+    public static final PromptLanguageEnum FA = new PromptLanguageEnum(Value.FA, "fa");
+
+    public static final PromptLanguageEnum KA = new PromptLanguageEnum(Value.KA, "ka");
+
+    public static final PromptLanguageEnum BN = new PromptLanguageEnum(Value.BN, "bn");
+
+    public static final PromptLanguageEnum SW = new PromptLanguageEnum(Value.SW, "sw");
+
+    public static final PromptLanguageEnum PT_BR = new PromptLanguageEnum(Value.PT_BR, "pt-BR");
 
     private final Value value;
 
@@ -203,170 +203,170 @@ public final class PromptLanguageEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case AZ:
-                return visitor.visitAz();
-            case MK:
-                return visitor.visitMk();
-            case CA_ES:
-                return visitor.visitCaEs();
-            case ML:
-                return visitor.visitMl();
-            case TR:
-                return visitor.visitTr();
-            case GU:
-                return visitor.visitGu();
-            case ES_AR:
-                return visitor.visitEsAr();
-            case ID:
-                return visitor.visitId();
-            case CNR:
-                return visitor.visitCnr();
-            case MN:
-                return visitor.visitMn();
-            case FI:
-                return visitor.visitFi();
-            case PL:
-                return visitor.visitPl();
-            case EN_CA:
-                return visitor.visitEnCa();
-            case AR_EG:
-                return visitor.visitArEg();
-            case MR:
-                return visitor.visitMr();
-            case MS:
-                return visitor.visitMs();
-            case PT_PT:
-                return visitor.visitPtPt();
-            case SK:
-                return visitor.visitSk();
-            case SL:
-                return visitor.visitSl();
-            case CS:
-                return visitor.visitCs();
-            case UR:
-                return visitor.visitUr();
-            case HU:
-                return visitor.visitHu();
-            case TE:
-                return visitor.visitTe();
-            case ZH_CN:
-                return visitor.visitZhCn();
-            case AR_SA:
-                return visitor.visitArSa();
-            case SO:
-                return visitor.visitSo();
-            case FR:
-                return visitor.visitFr();
-            case NO:
-                return visitor.visitNo();
-            case ZH_TW:
-                return visitor.visitZhTw();
-            case AR:
-                return visitor.visitAr();
-            case PT:
-                return visitor.visitPt();
-            case MY:
-                return visitor.visitMy();
-            case SQ:
-                return visitor.visitSq();
-            case HY:
-                return visitor.visitHy();
-            case FR_FR:
-                return visitor.visitFrFr();
-            case CY:
-                return visitor.visitCy();
-            case PA:
-                return visitor.visitPa();
-            case KA:
-                return visitor.visitKa();
-            case IS:
-                return visitor.visitIs();
-            case FA:
-                return visitor.visitFa();
-            case BN:
-                return visitor.visitBn();
-            case PT_BR:
-                return visitor.visitPtBr();
-            case SW:
-                return visitor.visitSw();
-            case HI:
-                return visitor.visitHi();
             case EN:
                 return visitor.visitEn();
             case NB:
                 return visitor.visitNb();
+            case HI:
+                return visitor.visitHi();
+            case BS:
+                return visitor.visitBs();
             case DA:
                 return visitor.visitDa();
             case LT:
                 return visitor.visitLt();
-            case BS:
-                return visitor.visitBs();
-            case ES_MX:
-                return visitor.visitEsMx();
             case LV:
                 return visitor.visitLv();
+            case ES_MX:
+                return visitor.visitEsMx();
             case RO:
                 return visitor.visitRo();
             case UK:
                 return visitor.visitUk();
-            case DE:
-                return visitor.visitDe();
             case ES:
                 return visitor.visitEs();
             case KK:
                 return visitor.visitKk();
+            case DE:
+                return visitor.visitDe();
             case ET:
                 return visitor.visitEt();
-            case TA:
-                return visitor.visitTa();
             case HR:
                 return visitor.visitHr();
             case KN:
                 return visitor.visitKn();
             case ZGH:
                 return visitor.visitZgh();
+            case TA:
+                return visitor.visitTa();
+            case RU:
+                return visitor.visitRu();
             case AM:
                 return visitor.visitAm();
             case JA:
                 return visitor.visitJa();
             case KO:
                 return visitor.visitKo();
-            case RU:
-                return visitor.visitRu();
             case NL:
                 return visitor.visitNl();
             case ZH_MO:
                 return visitor.visitZhMo();
             case VI:
                 return visitor.visitVi();
-            case BG:
-                return visitor.visitBg();
             case NN:
                 return visitor.visitNn();
+            case BG:
+                return visitor.visitBg();
             case GL_ES:
                 return visitor.visitGlEs();
-            case TH:
-                return visitor.visitTh();
             case SR:
                 return visitor.visitSr();
             case ES419:
                 return visitor.visitEs419();
-            case HE:
-                return visitor.visitHe();
+            case TH:
+                return visitor.visitTh();
             case ZH_HK:
                 return visitor.visitZhHk();
             case EU_ES:
                 return visitor.visitEuEs();
             case TL:
                 return visitor.visitTl();
-            case IT:
-                return visitor.visitIt();
+            case HE:
+                return visitor.visitHe();
             case SV:
                 return visitor.visitSv();
-            case FR_CA:
-                return visitor.visitFrCa();
+            case IT:
+                return visitor.visitIt();
             case EL:
                 return visitor.visitEl();
+            case FR_CA:
+                return visitor.visitFrCa();
+            case AZ:
+                return visitor.visitAz();
+            case ML:
+                return visitor.visitMl();
+            case MK:
+                return visitor.visitMk();
+            case CA_ES:
+                return visitor.visitCaEs();
+            case GU:
+                return visitor.visitGu();
+            case ES_AR:
+                return visitor.visitEsAr();
+            case ID:
+                return visitor.visitId();
+            case TR:
+                return visitor.visitTr();
+            case FI:
+                return visitor.visitFi();
+            case CNR:
+                return visitor.visitCnr();
+            case MN:
+                return visitor.visitMn();
+            case AR_EG:
+                return visitor.visitArEg();
+            case PL:
+                return visitor.visitPl();
+            case EN_CA:
+                return visitor.visitEnCa();
+            case MS:
+                return visitor.visitMs();
+            case PT_PT:
+                return visitor.visitPtPt();
+            case SK:
+                return visitor.visitSk();
+            case MR:
+                return visitor.visitMr();
+            case SL:
+                return visitor.visitSl();
+            case CS:
+                return visitor.visitCs();
+            case UR:
+                return visitor.visitUr();
+            case AR_SA:
+                return visitor.visitArSa();
+            case HU:
+                return visitor.visitHu();
+            case TE:
+                return visitor.visitTe();
+            case ZH_CN:
+                return visitor.visitZhCn();
+            case SO:
+                return visitor.visitSo();
+            case AR:
+                return visitor.visitAr();
+            case PT:
+                return visitor.visitPt();
+            case FR:
+                return visitor.visitFr();
+            case NO:
+                return visitor.visitNo();
+            case ZH_TW:
+                return visitor.visitZhTw();
+            case HY:
+                return visitor.visitHy();
+            case MY:
+                return visitor.visitMy();
+            case SQ:
+                return visitor.visitSq();
+            case PA:
+                return visitor.visitPa();
+            case FR_FR:
+                return visitor.visitFrFr();
+            case CY:
+                return visitor.visitCy();
+            case IS:
+                return visitor.visitIs();
+            case FA:
+                return visitor.visitFa();
+            case KA:
+                return visitor.visitKa();
+            case BN:
+                return visitor.visitBn();
+            case SW:
+                return visitor.visitSw();
+            case PT_BR:
+                return visitor.visitPtBr();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -376,170 +376,170 @@ public final class PromptLanguageEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static PromptLanguageEnum valueOf(String value) {
         switch (value) {
-            case "az":
-                return AZ;
-            case "mk":
-                return MK;
-            case "ca-ES":
-                return CA_ES;
-            case "ml":
-                return ML;
-            case "tr":
-                return TR;
-            case "gu":
-                return GU;
-            case "es-AR":
-                return ES_AR;
-            case "id":
-                return ID;
-            case "cnr":
-                return CNR;
-            case "mn":
-                return MN;
-            case "fi":
-                return FI;
-            case "pl":
-                return PL;
-            case "en-CA":
-                return EN_CA;
-            case "ar-EG":
-                return AR_EG;
-            case "mr":
-                return MR;
-            case "ms":
-                return MS;
-            case "pt-PT":
-                return PT_PT;
-            case "sk":
-                return SK;
-            case "sl":
-                return SL;
-            case "cs":
-                return CS;
-            case "ur":
-                return UR;
-            case "hu":
-                return HU;
-            case "te":
-                return TE;
-            case "zh-CN":
-                return ZH_CN;
-            case "ar-SA":
-                return AR_SA;
-            case "so":
-                return SO;
-            case "fr":
-                return FR;
-            case "no":
-                return NO;
-            case "zh-TW":
-                return ZH_TW;
-            case "ar":
-                return AR;
-            case "pt":
-                return PT;
-            case "my":
-                return MY;
-            case "sq":
-                return SQ;
-            case "hy":
-                return HY;
-            case "fr-FR":
-                return FR_FR;
-            case "cy":
-                return CY;
-            case "pa":
-                return PA;
-            case "ka":
-                return KA;
-            case "is":
-                return IS;
-            case "fa":
-                return FA;
-            case "bn":
-                return BN;
-            case "pt-BR":
-                return PT_BR;
-            case "sw":
-                return SW;
-            case "hi":
-                return HI;
             case "en":
                 return EN;
             case "nb":
                 return NB;
+            case "hi":
+                return HI;
+            case "bs":
+                return BS;
             case "da":
                 return DA;
             case "lt":
                 return LT;
-            case "bs":
-                return BS;
-            case "es-MX":
-                return ES_MX;
             case "lv":
                 return LV;
+            case "es-MX":
+                return ES_MX;
             case "ro":
                 return RO;
             case "uk":
                 return UK;
-            case "de":
-                return DE;
             case "es":
                 return ES;
             case "kk":
                 return KK;
+            case "de":
+                return DE;
             case "et":
                 return ET;
-            case "ta":
-                return TA;
             case "hr":
                 return HR;
             case "kn":
                 return KN;
             case "zgh":
                 return ZGH;
+            case "ta":
+                return TA;
+            case "ru":
+                return RU;
             case "am":
                 return AM;
             case "ja":
                 return JA;
             case "ko":
                 return KO;
-            case "ru":
-                return RU;
             case "nl":
                 return NL;
             case "zh-MO":
                 return ZH_MO;
             case "vi":
                 return VI;
-            case "bg":
-                return BG;
             case "nn":
                 return NN;
+            case "bg":
+                return BG;
             case "gl-ES":
                 return GL_ES;
-            case "th":
-                return TH;
             case "sr":
                 return SR;
             case "es-419":
                 return ES419;
-            case "he":
-                return HE;
+            case "th":
+                return TH;
             case "zh-HK":
                 return ZH_HK;
             case "eu-ES":
                 return EU_ES;
             case "tl":
                 return TL;
-            case "it":
-                return IT;
+            case "he":
+                return HE;
             case "sv":
                 return SV;
-            case "fr-CA":
-                return FR_CA;
+            case "it":
+                return IT;
             case "el":
                 return EL;
+            case "fr-CA":
+                return FR_CA;
+            case "az":
+                return AZ;
+            case "ml":
+                return ML;
+            case "mk":
+                return MK;
+            case "ca-ES":
+                return CA_ES;
+            case "gu":
+                return GU;
+            case "es-AR":
+                return ES_AR;
+            case "id":
+                return ID;
+            case "tr":
+                return TR;
+            case "fi":
+                return FI;
+            case "cnr":
+                return CNR;
+            case "mn":
+                return MN;
+            case "ar-EG":
+                return AR_EG;
+            case "pl":
+                return PL;
+            case "en-CA":
+                return EN_CA;
+            case "ms":
+                return MS;
+            case "pt-PT":
+                return PT_PT;
+            case "sk":
+                return SK;
+            case "mr":
+                return MR;
+            case "sl":
+                return SL;
+            case "cs":
+                return CS;
+            case "ur":
+                return UR;
+            case "ar-SA":
+                return AR_SA;
+            case "hu":
+                return HU;
+            case "te":
+                return TE;
+            case "zh-CN":
+                return ZH_CN;
+            case "so":
+                return SO;
+            case "ar":
+                return AR;
+            case "pt":
+                return PT;
+            case "fr":
+                return FR;
+            case "no":
+                return NO;
+            case "zh-TW":
+                return ZH_TW;
+            case "hy":
+                return HY;
+            case "my":
+                return MY;
+            case "sq":
+                return SQ;
+            case "pa":
+                return PA;
+            case "fr-FR":
+                return FR_FR;
+            case "cy":
+                return CY;
+            case "is":
+                return IS;
+            case "fa":
+                return FA;
+            case "ka":
+                return KA;
+            case "bn":
+                return BN;
+            case "sw":
+                return SW;
+            case "pt-BR":
+                return PT_BR;
             default:
                 return new PromptLanguageEnum(Value.UNKNOWN, value);
         }

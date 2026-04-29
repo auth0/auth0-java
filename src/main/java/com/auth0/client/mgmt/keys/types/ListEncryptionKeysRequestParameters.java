@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.keys.types;
 
-import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -18,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListEncryptionKeysRequestParameters.Builder.class)
@@ -46,6 +46,9 @@ public final class ListEncryptionKeysRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getPage() {
+        if (page == null) {
+            return OptionalNullable.absent();
+        }
         return page;
     }
 
@@ -54,6 +57,9 @@ public final class ListEncryptionKeysRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getPerPage() {
+        if (perPage == null) {
+            return OptionalNullable.absent();
+        }
         return perPage;
     }
 
@@ -62,6 +68,9 @@ public final class ListEncryptionKeysRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Boolean> getIncludeTotals() {
+        if (includeTotals == null) {
+            return OptionalNullable.absent();
+        }
         return includeTotals;
     }
 
@@ -119,7 +128,7 @@ public final class ListEncryptionKeysRequestParameters {
          * <p>Page index of the results to return. First page is 0.</p>
          */
         @JsonSetter(value = "page", nulls = Nulls.SKIP)
-        public Builder page(OptionalNullable<Integer> page) {
+        public Builder page(@Nullable OptionalNullable<Integer> page) {
             this.page = page;
             return this;
         }
@@ -138,7 +147,7 @@ public final class ListEncryptionKeysRequestParameters {
             return this;
         }
 
-        public Builder page(Nullable<Integer> page) {
+        public Builder page(com.auth0.client.mgmt.core.Nullable<Integer> page) {
             if (page.isNull()) {
                 this.page = OptionalNullable.ofNull();
             } else if (page.isEmpty()) {
@@ -153,7 +162,7 @@ public final class ListEncryptionKeysRequestParameters {
          * <p>Number of results per page. Default value is 50, maximum value is 100.</p>
          */
         @JsonSetter(value = "per_page", nulls = Nulls.SKIP)
-        public Builder perPage(OptionalNullable<Integer> perPage) {
+        public Builder perPage(@Nullable OptionalNullable<Integer> perPage) {
             this.perPage = perPage;
             return this;
         }
@@ -172,7 +181,7 @@ public final class ListEncryptionKeysRequestParameters {
             return this;
         }
 
-        public Builder perPage(Nullable<Integer> perPage) {
+        public Builder perPage(com.auth0.client.mgmt.core.Nullable<Integer> perPage) {
             if (perPage.isNull()) {
                 this.perPage = OptionalNullable.ofNull();
             } else if (perPage.isEmpty()) {
@@ -187,7 +196,7 @@ public final class ListEncryptionKeysRequestParameters {
          * <p>Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).</p>
          */
         @JsonSetter(value = "include_totals", nulls = Nulls.SKIP)
-        public Builder includeTotals(OptionalNullable<Boolean> includeTotals) {
+        public Builder includeTotals(@Nullable OptionalNullable<Boolean> includeTotals) {
             this.includeTotals = includeTotals;
             return this;
         }
@@ -206,7 +215,7 @@ public final class ListEncryptionKeysRequestParameters {
             return this;
         }
 
-        public Builder includeTotals(Nullable<Boolean> includeTotals) {
+        public Builder includeTotals(com.auth0.client.mgmt.core.Nullable<Boolean> includeTotals) {
             if (includeTotals.isNull()) {
                 this.includeTotals = OptionalNullable.ofNull();
             } else if (includeTotals.isEmpty()) {
