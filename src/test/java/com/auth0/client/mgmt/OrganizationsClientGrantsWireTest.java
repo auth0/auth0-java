@@ -10,7 +10,6 @@ import com.auth0.client.mgmt.types.OrganizationClientGrant;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Arrays;
-import java.util.Optional;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -56,7 +55,7 @@ public class OrganizationsClientGrantsWireTest {
                                 .page(OptionalNullable.of(1))
                                 .perPage(OptionalNullable.of(1))
                                 .includeTotals(OptionalNullable.of(true))
-                                .grantIds(Arrays.asList(Optional.of("grant_ids")))
+                                .grantIds(Arrays.asList("grant_ids"))
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

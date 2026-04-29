@@ -87,6 +87,8 @@ public final class UpdateConnectionOptions {
 
     private final Optional<ConnectionPasswordOptions> passwordOptions;
 
+    private final Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings;
+
     private final OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs;
 
     private final OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod;
@@ -129,6 +131,7 @@ public final class UpdateConnectionOptions {
             OptionalNullable<ConnectionGatewayAuthentication> gatewayAuthentication,
             OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens,
             Optional<ConnectionPasswordOptions> passwordOptions,
+            Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings,
             OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs,
             OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod,
             OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg,
@@ -165,6 +168,7 @@ public final class UpdateConnectionOptions {
         this.gatewayAuthentication = gatewayAuthentication;
         this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
         this.passwordOptions = passwordOptions;
+        this.assertionDecryptionSettings = assertionDecryptionSettings;
         this.idTokenSignedResponseAlgs = idTokenSignedResponseAlgs;
         this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
         this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
@@ -397,6 +401,11 @@ public final class UpdateConnectionOptions {
         return passwordOptions;
     }
 
+    @JsonProperty("assertion_decryption_settings")
+    public Optional<ConnectionAssertionDecryptionSettings> getAssertionDecryptionSettings() {
+        return assertionDecryptionSettings;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("id_token_signed_response_algs")
     public OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> getIdTokenSignedResponseAlgs() {
@@ -569,6 +578,7 @@ public final class UpdateConnectionOptions {
                 && gatewayAuthentication.equals(other.gatewayAuthentication)
                 && federatedConnectionsAccessTokens.equals(other.federatedConnectionsAccessTokens)
                 && passwordOptions.equals(other.passwordOptions)
+                && assertionDecryptionSettings.equals(other.assertionDecryptionSettings)
                 && idTokenSignedResponseAlgs.equals(other.idTokenSignedResponseAlgs)
                 && tokenEndpointAuthMethod.equals(other.tokenEndpointAuthMethod)
                 && tokenEndpointAuthSigningAlg.equals(other.tokenEndpointAuthSigningAlg)
@@ -609,6 +619,7 @@ public final class UpdateConnectionOptions {
                 this.gatewayAuthentication,
                 this.federatedConnectionsAccessTokens,
                 this.passwordOptions,
+                this.assertionDecryptionSettings,
                 this.idTokenSignedResponseAlgs,
                 this.tokenEndpointAuthMethod,
                 this.tokenEndpointAuthSigningAlg,
@@ -692,6 +703,8 @@ public final class UpdateConnectionOptions {
 
         private Optional<ConnectionPasswordOptions> passwordOptions = Optional.empty();
 
+        private Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings = Optional.empty();
+
         private OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs =
                 OptionalNullable.absent();
 
@@ -740,6 +753,7 @@ public final class UpdateConnectionOptions {
             gatewayAuthentication(other.getGatewayAuthentication());
             federatedConnectionsAccessTokens(other.getFederatedConnectionsAccessTokens());
             passwordOptions(other.getPasswordOptions());
+            assertionDecryptionSettings(other.getAssertionDecryptionSettings());
             idTokenSignedResponseAlgs(other.getIdTokenSignedResponseAlgs());
             tokenEndpointAuthMethod(other.getTokenEndpointAuthMethod());
             tokenEndpointAuthSigningAlg(other.getTokenEndpointAuthSigningAlg());
@@ -1395,6 +1409,18 @@ public final class UpdateConnectionOptions {
             return this;
         }
 
+        @JsonSetter(value = "assertion_decryption_settings", nulls = Nulls.SKIP)
+        public Builder assertionDecryptionSettings(
+                Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings) {
+            this.assertionDecryptionSettings = assertionDecryptionSettings;
+            return this;
+        }
+
+        public Builder assertionDecryptionSettings(ConnectionAssertionDecryptionSettings assertionDecryptionSettings) {
+            this.assertionDecryptionSettings = Optional.ofNullable(assertionDecryptionSettings);
+            return this;
+        }
+
         @JsonSetter(value = "id_token_signed_response_algs", nulls = Nulls.SKIP)
         public Builder idTokenSignedResponseAlgs(
                 @Nullable OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs) {
@@ -1547,6 +1573,7 @@ public final class UpdateConnectionOptions {
                     gatewayAuthentication,
                     federatedConnectionsAccessTokens,
                     passwordOptions,
+                    assertionDecryptionSettings,
                     idTokenSignedResponseAlgs,
                     tokenEndpointAuthMethod,
                     tokenEndpointAuthSigningAlg,

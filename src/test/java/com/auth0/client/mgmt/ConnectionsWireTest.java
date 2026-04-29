@@ -16,7 +16,6 @@ import com.auth0.client.mgmt.types.UpdateConnectionResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Arrays;
-import java.util.Optional;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -59,7 +58,7 @@ public class ConnectionsWireTest {
                         .name(OptionalNullable.of("name"))
                         .fields(OptionalNullable.of("fields"))
                         .includeFields(OptionalNullable.of(true))
-                        .strategy(Arrays.asList(Optional.of(ConnectionStrategyEnum.AD)))
+                        .strategy(Arrays.asList(ConnectionStrategyEnum.AD))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

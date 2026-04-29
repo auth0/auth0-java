@@ -3266,7 +3266,7 @@ client.connections().list(
             OptionalNullable.of(true)
         )
         .strategy(
-            Arrays.asList(Optional.of(ConnectionStrategyEnum.AD))
+            Arrays.asList(ConnectionStrategyEnum.AD)
         )
         .build()
 );
@@ -5566,9 +5566,7 @@ client.events().subscribe(
             OptionalNullable.of("from_timestamp")
         )
         .eventType(
-            OptionalNullable.of(
-                EventStreamSubscribeEventsEventTypeParam.of(EventStreamSubscribeEventsEventTypeEnum.GROUP_CREATED)
-            )
+            Arrays.asList(EventStreamSubscribeEventsEventTypeEnum.GROUP_CREATED)
         )
         .build()
 );
@@ -5602,7 +5600,7 @@ client.events().subscribe(
 <dl>
 <dd>
 
-**eventType:** `Optional<EventStreamSubscribeEventsEventTypeParam>` — Event type(s) to listen for. Specify multiple times for multiple types (e.g., ?event_type=user.created&event_type=user.updated). If not provided, all event types will be streamed.
+**eventType:** `Optional<EventStreamSubscribeEventsEventTypeEnum>` — Event type(s) to listen for. Specify multiple times for multiple types (e.g., ?event_type=user.created&event_type=user.updated). If not provided, all event types will be streamed.
     
 </dd>
 </dl>
@@ -5644,7 +5642,7 @@ client.flows().list(
             OptionalNullable.of(true)
         )
         .hydrate(
-            Arrays.asList(Optional.of(ListFlowsRequestParametersHydrateEnum.FORM_COUNT))
+            Arrays.asList(ListFlowsRequestParametersHydrateEnum.FORM_COUNT)
         )
         .build()
 );
@@ -5777,7 +5775,7 @@ client.flows().get(
     GetFlowRequestParameters
         .builder()
         .hydrate(
-            Arrays.asList(Optional.of(GetFlowRequestParametersHydrateEnum.FORM_COUNT))
+            Arrays.asList(GetFlowRequestParametersHydrateEnum.FORM_COUNT)
         )
         .build()
 );
@@ -5943,7 +5941,7 @@ client.forms().list(
             OptionalNullable.of(true)
         )
         .hydrate(
-            Arrays.asList(Optional.of(FormsRequestParametersHydrateEnum.FLOW_COUNT))
+            Arrays.asList(FormsRequestParametersHydrateEnum.FLOW_COUNT)
         )
         .build()
 );
@@ -6116,7 +6114,7 @@ client.forms().get(
     GetFormRequestParameters
         .builder()
         .hydrate(
-            Arrays.asList(Optional.of(FormsRequestParametersHydrateEnum.FLOW_COUNT))
+            Arrays.asList(FormsRequestParametersHydrateEnum.FLOW_COUNT)
         )
         .build()
 );
@@ -9754,7 +9752,7 @@ client.resourceServers().list(
             OptionalNullable.of(true)
         )
         .identifiers(
-            Arrays.asList(Optional.of("identifiers"))
+            Arrays.asList("identifiers")
         )
         .build()
 );
@@ -18365,7 +18363,7 @@ client.clients().connections().get(
             OptionalNullable.of(true)
         )
         .strategy(
-            Arrays.asList(Optional.of(ConnectionStrategyEnum.AD))
+            Arrays.asList(ConnectionStrategyEnum.AD)
         )
         .build()
 );
@@ -20735,7 +20733,7 @@ client.flows().executions().get(
     GetFlowExecutionRequestParameters
         .builder()
         .hydrate(
-            Arrays.asList(Optional.of(GetFlowExecutionRequestParametersHydrateEnum.DEBUG))
+            Arrays.asList(GetFlowExecutionRequestParametersHydrateEnum.DEBUG)
         )
         .build()
 );
@@ -24597,7 +24595,7 @@ client.organizations().clientGrants().list(
             OptionalNullable.of(true)
         )
         .grantIds(
-            Arrays.asList(Optional.of("grant_ids"))
+            Arrays.asList("grant_ids")
         )
         .build()
 );

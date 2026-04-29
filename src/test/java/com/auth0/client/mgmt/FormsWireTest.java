@@ -15,7 +15,6 @@ import com.auth0.client.mgmt.types.UpdateFormResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Arrays;
-import java.util.Optional;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -56,7 +55,7 @@ public class FormsWireTest {
                         .page(OptionalNullable.of(1))
                         .perPage(OptionalNullable.of(1))
                         .includeTotals(OptionalNullable.of(true))
-                        .hydrate(Arrays.asList(Optional.of(FormsRequestParametersHydrateEnum.FLOW_COUNT)))
+                        .hydrate(Arrays.asList(FormsRequestParametersHydrateEnum.FLOW_COUNT))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -152,7 +151,7 @@ public class FormsWireTest {
                 .get(
                         "id",
                         GetFormRequestParameters.builder()
-                                .hydrate(Arrays.asList(Optional.of(FormsRequestParametersHydrateEnum.FLOW_COUNT)))
+                                .hydrate(Arrays.asList(FormsRequestParametersHydrateEnum.FLOW_COUNT))
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

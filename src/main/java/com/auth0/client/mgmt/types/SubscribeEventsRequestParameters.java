@@ -13,7 +13,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -22,23 +24,34 @@ import org.jetbrains.annotations.Nullable;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = SubscribeEventsRequestParameters.Builder.class)
 public final class SubscribeEventsRequestParameters {
+    private final Optional<List<EventStreamSubscribeEventsEventTypeEnum>> eventType;
+
     private final OptionalNullable<String> from;
 
     private final OptionalNullable<String> fromTimestamp;
 
-    private final OptionalNullable<EventStreamSubscribeEventsEventTypeParam> eventType;
-
     private final Map<String, Object> additionalProperties;
 
     private SubscribeEventsRequestParameters(
+            Optional<List<EventStreamSubscribeEventsEventTypeEnum>> eventType,
             OptionalNullable<String> from,
             OptionalNullable<String> fromTimestamp,
-            OptionalNullable<EventStreamSubscribeEventsEventTypeParam> eventType,
             Map<String, Object> additionalProperties) {
+        this.eventType = eventType;
         this.from = from;
         this.fromTimestamp = fromTimestamp;
-        this.eventType = eventType;
         this.additionalProperties = additionalProperties;
+    }
+
+    /**
+     * @return Event type(s) to listen for. Specify multiple times for multiple types (e.g., ?event_type=user.created&amp;event_type=user.updated). If not provided, all event types will be streamed.
+     */
+    @JsonIgnore
+    public Optional<List<EventStreamSubscribeEventsEventTypeEnum>> getEventType() {
+        if (eventType == null) {
+            return Optional.empty();
+        }
+        return eventType;
     }
 
     /**
@@ -63,17 +76,6 @@ public final class SubscribeEventsRequestParameters {
         return fromTimestamp;
     }
 
-    /**
-     * @return Event type(s) to listen for. Specify multiple times for multiple types (e.g., ?event_type=user.created&amp;event_type=user.updated). If not provided, all event types will be streamed.
-     */
-    @JsonIgnore
-    public OptionalNullable<EventStreamSubscribeEventsEventTypeParam> getEventType() {
-        if (eventType == null) {
-            return OptionalNullable.absent();
-        }
-        return eventType;
-    }
-
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -86,14 +88,14 @@ public final class SubscribeEventsRequestParameters {
     }
 
     private boolean equalTo(SubscribeEventsRequestParameters other) {
-        return from.equals(other.from)
-                && fromTimestamp.equals(other.fromTimestamp)
-                && eventType.equals(other.eventType);
+        return eventType.equals(other.eventType)
+                && from.equals(other.from)
+                && fromTimestamp.equals(other.fromTimestamp);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.from, this.fromTimestamp, this.eventType);
+        return Objects.hash(this.eventType, this.from, this.fromTimestamp);
     }
 
     @java.lang.Override
@@ -107,11 +109,11 @@ public final class SubscribeEventsRequestParameters {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<List<EventStreamSubscribeEventsEventTypeEnum>> eventType = Optional.empty();
+
         private OptionalNullable<String> from = OptionalNullable.absent();
 
         private OptionalNullable<String> fromTimestamp = OptionalNullable.absent();
-
-        private OptionalNullable<EventStreamSubscribeEventsEventTypeParam> eventType = OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -119,9 +121,40 @@ public final class SubscribeEventsRequestParameters {
         private Builder() {}
 
         public Builder from(SubscribeEventsRequestParameters other) {
+            eventType(other.getEventType());
             from(other.getFrom());
             fromTimestamp(other.getFromTimestamp());
-            eventType(other.getEventType());
+            return this;
+        }
+
+        /**
+         * <p>Event type(s) to listen for. Specify multiple times for multiple types (e.g., ?event_type=user.created&amp;event_type=user.updated). If not provided, all event types will be streamed.</p>
+         */
+        @JsonSetter(value = "event_type", nulls = Nulls.SKIP)
+        public Builder eventType(@Nullable Optional<List<EventStreamSubscribeEventsEventTypeEnum>> eventType) {
+            this.eventType = eventType;
+            return this;
+        }
+
+        public Builder eventType(List<EventStreamSubscribeEventsEventTypeEnum> eventType) {
+            this.eventType = Optional.ofNullable(eventType);
+            return this;
+        }
+
+        public Builder eventType(
+                com.auth0.client.mgmt.core.Nullable<List<EventStreamSubscribeEventsEventTypeEnum>> eventType) {
+            if (eventType.isNull()) {
+                this.eventType = null;
+            } else if (eventType.isEmpty()) {
+                this.eventType = Optional.empty();
+            } else {
+                this.eventType = Optional.of(eventType.get());
+            }
+            return this;
+        }
+
+        public Builder eventType(EventStreamSubscribeEventsEventTypeEnum eventType) {
+            this.eventType = Optional.of(Collections.singletonList(eventType));
             return this;
         }
 
@@ -193,43 +226,8 @@ public final class SubscribeEventsRequestParameters {
             return this;
         }
 
-        /**
-         * <p>Event type(s) to listen for. Specify multiple times for multiple types (e.g., ?event_type=user.created&amp;event_type=user.updated). If not provided, all event types will be streamed.</p>
-         */
-        @JsonSetter(value = "event_type", nulls = Nulls.SKIP)
-        public Builder eventType(@Nullable OptionalNullable<EventStreamSubscribeEventsEventTypeParam> eventType) {
-            this.eventType = eventType;
-            return this;
-        }
-
-        public Builder eventType(EventStreamSubscribeEventsEventTypeParam eventType) {
-            this.eventType = OptionalNullable.of(eventType);
-            return this;
-        }
-
-        public Builder eventType(Optional<EventStreamSubscribeEventsEventTypeParam> eventType) {
-            if (eventType.isPresent()) {
-                this.eventType = OptionalNullable.of(eventType.get());
-            } else {
-                this.eventType = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        public Builder eventType(
-                com.auth0.client.mgmt.core.Nullable<EventStreamSubscribeEventsEventTypeParam> eventType) {
-            if (eventType.isNull()) {
-                this.eventType = OptionalNullable.ofNull();
-            } else if (eventType.isEmpty()) {
-                this.eventType = OptionalNullable.absent();
-            } else {
-                this.eventType = OptionalNullable.of(eventType.get());
-            }
-            return this;
-        }
-
         public SubscribeEventsRequestParameters build() {
-            return new SubscribeEventsRequestParameters(from, fromTimestamp, eventType, additionalProperties);
+            return new SubscribeEventsRequestParameters(eventType, from, fromTimestamp, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

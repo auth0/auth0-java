@@ -25,6 +25,8 @@ import org.jetbrains.annotations.Nullable;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsPingFederate.Builder.class)
 public final class ConnectionOptionsPingFederate implements IConnectionOptionsCommonSaml, IConnectionOptionsCommon {
+    private final Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings;
+
     private final Optional<String> cert;
 
     private final Optional<ConnectionDecryptionKeySaml> decryptionKey;
@@ -65,6 +67,7 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
     private final Map<String, Object> additionalProperties;
 
     private ConnectionOptionsPingFederate(
+            Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings,
             Optional<String> cert,
             Optional<ConnectionDecryptionKeySaml> decryptionKey,
             Optional<ConnectionDigestAlgorithmEnumSaml> digestAlgorithm,
@@ -84,6 +87,7 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
             String pingFederateBaseUrl,
             Optional<String> signingCert,
             Map<String, Object> additionalProperties) {
+        this.assertionDecryptionSettings = assertionDecryptionSettings;
         this.cert = cert;
         this.decryptionKey = decryptionKey;
         this.digestAlgorithm = digestAlgorithm;
@@ -103,6 +107,12 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
         this.pingFederateBaseUrl = pingFederateBaseUrl;
         this.signingCert = signingCert;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("assertion_decryption_settings")
+    @java.lang.Override
+    public Optional<ConnectionAssertionDecryptionSettings> getAssertionDecryptionSettings() {
+        return assertionDecryptionSettings;
     }
 
     @JsonProperty("cert")
@@ -234,7 +244,8 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
     }
 
     private boolean equalTo(ConnectionOptionsPingFederate other) {
-        return cert.equals(other.cert)
+        return assertionDecryptionSettings.equals(other.assertionDecryptionSettings)
+                && cert.equals(other.cert)
                 && decryptionKey.equals(other.decryptionKey)
                 && digestAlgorithm.equals(other.digestAlgorithm)
                 && domainAliases.equals(other.domainAliases)
@@ -257,6 +268,7 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.assertionDecryptionSettings,
                 this.cert,
                 this.decryptionKey,
                 this.digestAlgorithm,
@@ -298,6 +310,11 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
         _FinalStage additionalProperty(String key, Object value);
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        _FinalStage assertionDecryptionSettings(
+                Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings);
+
+        _FinalStage assertionDecryptionSettings(ConnectionAssertionDecryptionSettings assertionDecryptionSettings);
 
         _FinalStage cert(Optional<String> cert);
 
@@ -419,6 +436,8 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
 
         private Optional<String> cert = Optional.empty();
 
+        private Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -426,6 +445,7 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
 
         @java.lang.Override
         public Builder from(ConnectionOptionsPingFederate other) {
+            assertionDecryptionSettings(other.getAssertionDecryptionSettings());
             cert(other.getCert());
             decryptionKey(other.getDecryptionKey());
             digestAlgorithm(other.getDigestAlgorithm());
@@ -707,8 +727,24 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
         }
 
         @java.lang.Override
+        public _FinalStage assertionDecryptionSettings(
+                ConnectionAssertionDecryptionSettings assertionDecryptionSettings) {
+            this.assertionDecryptionSettings = Optional.ofNullable(assertionDecryptionSettings);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "assertion_decryption_settings", nulls = Nulls.SKIP)
+        public _FinalStage assertionDecryptionSettings(
+                Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings) {
+            this.assertionDecryptionSettings = assertionDecryptionSettings;
+            return this;
+        }
+
+        @java.lang.Override
         public ConnectionOptionsPingFederate build() {
             return new ConnectionOptionsPingFederate(
+                    assertionDecryptionSettings,
                     cert,
                     decryptionKey,
                     digestAlgorithm,

@@ -11,7 +11,6 @@ import com.auth0.client.mgmt.types.GetFlowExecutionResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Arrays;
-import java.util.Optional;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -78,7 +77,7 @@ public class FlowsExecutionsWireTest {
                         "flow_id",
                         "execution_id",
                         GetFlowExecutionRequestParameters.builder()
-                                .hydrate(Arrays.asList(Optional.of(GetFlowExecutionRequestParametersHydrateEnum.DEBUG)))
+                                .hydrate(Arrays.asList(GetFlowExecutionRequestParametersHydrateEnum.DEBUG))
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
