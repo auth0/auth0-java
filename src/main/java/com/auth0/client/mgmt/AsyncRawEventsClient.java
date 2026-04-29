@@ -81,9 +81,9 @@ public class AsyncRawEventsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "from_timestamp", request.getFromTimestamp().orElse(null), false);
         }
-        if (!request.getEventType().isAbsent()) {
+        if (request.getEventType().isPresent()) {
             QueryStringMapper.addQueryParameter(
-                    httpUrl, "event_type", request.getEventType().orElse(null), false);
+                    httpUrl, "event_type", request.getEventType().get(), true);
         }
         if (requestOptions != null) {
             requestOptions.getQueryParameters().forEach((_key, _value) -> {

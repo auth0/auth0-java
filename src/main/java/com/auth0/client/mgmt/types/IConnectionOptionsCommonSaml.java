@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface IConnectionOptionsCommonSaml {
+    Optional<ConnectionAssertionDecryptionSettings> getAssertionDecryptionSettings();
+
     Optional<String> getCert();
 
     Optional<ConnectionDecryptionKeySaml> getDecryptionKey();

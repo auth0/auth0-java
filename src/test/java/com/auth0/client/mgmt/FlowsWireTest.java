@@ -16,7 +16,6 @@ import com.auth0.client.mgmt.types.UpdateFlowResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Arrays;
-import java.util.Optional;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -58,7 +57,7 @@ public class FlowsWireTest {
                         .perPage(OptionalNullable.of(1))
                         .includeTotals(OptionalNullable.of(true))
                         .synchronous(OptionalNullable.of(true))
-                        .hydrate(Arrays.asList(Optional.of(ListFlowsRequestParametersHydrateEnum.FORM_COUNT)))
+                        .hydrate(Arrays.asList(ListFlowsRequestParametersHydrateEnum.FORM_COUNT))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -179,7 +178,7 @@ public class FlowsWireTest {
                 .get(
                         "id",
                         GetFlowRequestParameters.builder()
-                                .hydrate(Arrays.asList(Optional.of(GetFlowRequestParametersHydrateEnum.FORM_COUNT)))
+                                .hydrate(Arrays.asList(GetFlowRequestParametersHydrateEnum.FORM_COUNT))
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

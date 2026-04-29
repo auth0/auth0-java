@@ -3,11 +3,11 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.EventStreamSubscribeEventsEventTypeEnum;
-import com.auth0.client.mgmt.types.EventStreamSubscribeEventsEventTypeParam;
 import com.auth0.client.mgmt.types.EventStreamSubscribeEventsResponseContent;
 import com.auth0.client.mgmt.types.SubscribeEventsRequestParameters;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -43,8 +43,7 @@ public class EventsWireTest {
                 .subscribe(SubscribeEventsRequestParameters.builder()
                         .from(OptionalNullable.of("from"))
                         .fromTimestamp(OptionalNullable.of("from_timestamp"))
-                        .eventType(OptionalNullable.of(EventStreamSubscribeEventsEventTypeParam.of(
-                                EventStreamSubscribeEventsEventTypeEnum.GROUP_CREATED)))
+                        .eventType(Arrays.asList(EventStreamSubscribeEventsEventTypeEnum.GROUP_CREATED))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
