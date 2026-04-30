@@ -75,7 +75,7 @@ public final class CreateSelfServiceProfileRequestContent {
     }
 
     /**
-     * @return List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>auth0-samlp</code>, <code>okta-samlp</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]
+     * @return List of IdP strategies that will be shown to users during the Self-Service Enterprise Configuration flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>auth0-samlp</code>, <code>okta-samlp</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]
      */
     @JsonProperty("allowed_strategies")
     public Optional<List<SelfServiceProfileAllowedStrategyEnum>> getAllowedStrategies() {
@@ -83,7 +83,7 @@ public final class CreateSelfServiceProfileRequestContent {
     }
 
     /**
-     * @return List of attributes to be mapped that will be shown to the user during the SS-SSO flow.
+     * @return List of attributes to be mapped that will be shown to the user during the Self-Service Enterprise Configuration flow.
      */
     @JsonProperty("user_attributes")
     public Optional<List<SelfServiceProfileUserAttribute>> getUserAttributes() {
@@ -167,14 +167,14 @@ public final class CreateSelfServiceProfileRequestContent {
         _FinalStage branding(SelfServiceProfileBrandingProperties branding);
 
         /**
-         * <p>List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>auth0-samlp</code>, <code>okta-samlp</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]</p>
+         * <p>List of IdP strategies that will be shown to users during the Self-Service Enterprise Configuration flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>auth0-samlp</code>, <code>okta-samlp</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]</p>
          */
         _FinalStage allowedStrategies(Optional<List<SelfServiceProfileAllowedStrategyEnum>> allowedStrategies);
 
         _FinalStage allowedStrategies(List<SelfServiceProfileAllowedStrategyEnum> allowedStrategies);
 
         /**
-         * <p>List of attributes to be mapped that will be shown to the user during the SS-SSO flow.</p>
+         * <p>List of attributes to be mapped that will be shown to the user during the Self-Service Enterprise Configuration flow.</p>
          */
         _FinalStage userAttributes(Optional<List<SelfServiceProfileUserAttribute>> userAttributes);
 
@@ -251,7 +251,7 @@ public final class CreateSelfServiceProfileRequestContent {
         }
 
         /**
-         * <p>List of attributes to be mapped that will be shown to the user during the SS-SSO flow.</p>
+         * <p>List of attributes to be mapped that will be shown to the user during the Self-Service Enterprise Configuration flow.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -261,7 +261,7 @@ public final class CreateSelfServiceProfileRequestContent {
         }
 
         /**
-         * <p>List of attributes to be mapped that will be shown to the user during the SS-SSO flow.</p>
+         * <p>List of attributes to be mapped that will be shown to the user during the Self-Service Enterprise Configuration flow.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "user_attributes", nulls = Nulls.SKIP)
@@ -271,7 +271,7 @@ public final class CreateSelfServiceProfileRequestContent {
         }
 
         /**
-         * <p>List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>auth0-samlp</code>, <code>okta-samlp</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]</p>
+         * <p>List of IdP strategies that will be shown to users during the Self-Service Enterprise Configuration flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>auth0-samlp</code>, <code>okta-samlp</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -281,7 +281,7 @@ public final class CreateSelfServiceProfileRequestContent {
         }
 
         /**
-         * <p>List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>auth0-samlp</code>, <code>okta-samlp</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]</p>
+         * <p>List of IdP strategies that will be shown to users during the Self-Service Enterprise Configuration flow. Possible values: [<code>oidc</code>, <code>samlp</code>, <code>waad</code>, <code>google-apps</code>, <code>adfs</code>, <code>okta</code>, <code>auth0-samlp</code>, <code>okta-samlp</code>, <code>keycloak-samlp</code>, <code>pingfederate</code>]</p>
          */
         @java.lang.Override
         @JsonSetter(value = "allowed_strategies", nulls = Nulls.SKIP)

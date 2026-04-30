@@ -12,10 +12,10 @@ public final class PasswordCharacterTypeEnum {
     public static final PasswordCharacterTypeEnum LOWERCASE =
             new PasswordCharacterTypeEnum(Value.LOWERCASE, "lowercase");
 
-    public static final PasswordCharacterTypeEnum SPECIAL = new PasswordCharacterTypeEnum(Value.SPECIAL, "special");
-
     public static final PasswordCharacterTypeEnum UPPERCASE =
             new PasswordCharacterTypeEnum(Value.UPPERCASE, "uppercase");
+
+    public static final PasswordCharacterTypeEnum SPECIAL = new PasswordCharacterTypeEnum(Value.SPECIAL, "special");
 
     private final Value value;
 
@@ -54,10 +54,10 @@ public final class PasswordCharacterTypeEnum {
                 return visitor.visitNumber();
             case LOWERCASE:
                 return visitor.visitLowercase();
-            case SPECIAL:
-                return visitor.visitSpecial();
             case UPPERCASE:
                 return visitor.visitUppercase();
+            case SPECIAL:
+                return visitor.visitSpecial();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -71,10 +71,10 @@ public final class PasswordCharacterTypeEnum {
                 return NUMBER;
             case "lowercase":
                 return LOWERCASE;
-            case "special":
-                return SPECIAL;
             case "uppercase":
                 return UPPERCASE;
+            case "special":
+                return SPECIAL;
             default:
                 return new PasswordCharacterTypeEnum(Value.UNKNOWN, value);
         }

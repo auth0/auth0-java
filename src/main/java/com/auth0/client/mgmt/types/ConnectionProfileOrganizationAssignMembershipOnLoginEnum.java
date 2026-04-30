@@ -10,11 +10,11 @@ public final class ConnectionProfileOrganizationAssignMembershipOnLoginEnum {
     public static final ConnectionProfileOrganizationAssignMembershipOnLoginEnum REQUIRED =
             new ConnectionProfileOrganizationAssignMembershipOnLoginEnum(Value.REQUIRED, "required");
 
-    public static final ConnectionProfileOrganizationAssignMembershipOnLoginEnum NONE =
-            new ConnectionProfileOrganizationAssignMembershipOnLoginEnum(Value.NONE, "none");
-
     public static final ConnectionProfileOrganizationAssignMembershipOnLoginEnum OPTIONAL =
             new ConnectionProfileOrganizationAssignMembershipOnLoginEnum(Value.OPTIONAL, "optional");
+
+    public static final ConnectionProfileOrganizationAssignMembershipOnLoginEnum NONE =
+            new ConnectionProfileOrganizationAssignMembershipOnLoginEnum(Value.NONE, "none");
 
     private final Value value;
 
@@ -52,10 +52,10 @@ public final class ConnectionProfileOrganizationAssignMembershipOnLoginEnum {
         switch (value) {
             case REQUIRED:
                 return visitor.visitRequired();
-            case NONE:
-                return visitor.visitNone();
             case OPTIONAL:
                 return visitor.visitOptional();
+            case NONE:
+                return visitor.visitNone();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -67,10 +67,10 @@ public final class ConnectionProfileOrganizationAssignMembershipOnLoginEnum {
         switch (value) {
             case "required":
                 return REQUIRED;
-            case "none":
-                return NONE;
             case "optional":
                 return OPTIONAL;
+            case "none":
+                return NONE;
             default:
                 return new ConnectionProfileOrganizationAssignMembershipOnLoginEnum(Value.UNKNOWN, value);
         }

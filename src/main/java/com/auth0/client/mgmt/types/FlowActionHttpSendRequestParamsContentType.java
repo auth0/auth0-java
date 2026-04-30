@@ -10,11 +10,11 @@ public final class FlowActionHttpSendRequestParamsContentType {
     public static final FlowActionHttpSendRequestParamsContentType FORM =
             new FlowActionHttpSendRequestParamsContentType(Value.FORM, "FORM");
 
-    public static final FlowActionHttpSendRequestParamsContentType XML =
-            new FlowActionHttpSendRequestParamsContentType(Value.XML, "XML");
-
     public static final FlowActionHttpSendRequestParamsContentType JSON =
             new FlowActionHttpSendRequestParamsContentType(Value.JSON, "JSON");
+
+    public static final FlowActionHttpSendRequestParamsContentType XML =
+            new FlowActionHttpSendRequestParamsContentType(Value.XML, "XML");
 
     private final Value value;
 
@@ -51,10 +51,10 @@ public final class FlowActionHttpSendRequestParamsContentType {
         switch (value) {
             case FORM:
                 return visitor.visitForm();
-            case XML:
-                return visitor.visitXml();
             case JSON:
                 return visitor.visitJson();
+            case XML:
+                return visitor.visitXml();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -66,10 +66,10 @@ public final class FlowActionHttpSendRequestParamsContentType {
         switch (value) {
             case "FORM":
                 return FORM;
-            case "XML":
-                return XML;
             case "JSON":
                 return JSON;
+            case "XML":
+                return XML;
             default:
                 return new FlowActionHttpSendRequestParamsContentType(Value.UNKNOWN, value);
         }

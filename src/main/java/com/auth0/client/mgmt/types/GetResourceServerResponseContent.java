@@ -62,6 +62,8 @@ public final class GetResourceServerResponseContent {
 
     private final Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization;
 
+    private final OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy;
+
     private final Optional<String> clientId;
 
     private final Map<String, Object> additionalProperties;
@@ -86,6 +88,7 @@ public final class GetResourceServerResponseContent {
             OptionalNullable<List<Object>> authorizationDetails,
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
             Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
+            OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy,
             Optional<String> clientId,
             Map<String, Object> additionalProperties) {
         this.id = id;
@@ -107,6 +110,7 @@ public final class GetResourceServerResponseContent {
         this.authorizationDetails = authorizationDetails;
         this.proofOfPossession = proofOfPossession;
         this.subjectTypeAuthorization = subjectTypeAuthorization;
+        this.authorizationPolicy = authorizationPolicy;
         this.clientId = clientId;
         this.additionalProperties = additionalProperties;
     }
@@ -258,6 +262,15 @@ public final class GetResourceServerResponseContent {
         return subjectTypeAuthorization;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("authorization_policy")
+    public OptionalNullable<ResourceServerAuthorizationPolicy> getAuthorizationPolicy() {
+        if (authorizationPolicy == null) {
+            return OptionalNullable.absent();
+        }
+        return authorizationPolicy;
+    }
+
     /**
      * @return The client ID of the client that this resource server is linked to
      */
@@ -288,6 +301,12 @@ public final class GetResourceServerResponseContent {
     @JsonProperty("proof_of_possession")
     private OptionalNullable<ResourceServerProofOfPossession> _getProofOfPossession() {
         return proofOfPossession;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("authorization_policy")
+    private OptionalNullable<ResourceServerAuthorizationPolicy> _getAuthorizationPolicy() {
+        return authorizationPolicy;
     }
 
     @java.lang.Override
@@ -321,6 +340,7 @@ public final class GetResourceServerResponseContent {
                 && authorizationDetails.equals(other.authorizationDetails)
                 && proofOfPossession.equals(other.proofOfPossession)
                 && subjectTypeAuthorization.equals(other.subjectTypeAuthorization)
+                && authorizationPolicy.equals(other.authorizationPolicy)
                 && clientId.equals(other.clientId);
     }
 
@@ -346,6 +366,7 @@ public final class GetResourceServerResponseContent {
                 this.authorizationDetails,
                 this.proofOfPossession,
                 this.subjectTypeAuthorization,
+                this.authorizationPolicy,
                 this.clientId);
     }
 
@@ -398,6 +419,8 @@ public final class GetResourceServerResponseContent {
 
         private Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization = Optional.empty();
 
+        private OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy = OptionalNullable.absent();
+
         private Optional<String> clientId = Optional.empty();
 
         @JsonAnySetter
@@ -425,6 +448,7 @@ public final class GetResourceServerResponseContent {
             authorizationDetails(other.getAuthorizationDetails());
             proofOfPossession(other.getProofOfPossession());
             subjectTypeAuthorization(other.getSubjectTypeAuthorization());
+            authorizationPolicy(other.getAuthorizationPolicy());
             clientId(other.getClientId());
             return this;
         }
@@ -761,6 +785,39 @@ public final class GetResourceServerResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "authorization_policy", nulls = Nulls.SKIP)
+        public Builder authorizationPolicy(
+                @Nullable OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy) {
+            this.authorizationPolicy = authorizationPolicy;
+            return this;
+        }
+
+        public Builder authorizationPolicy(ResourceServerAuthorizationPolicy authorizationPolicy) {
+            this.authorizationPolicy = OptionalNullable.of(authorizationPolicy);
+            return this;
+        }
+
+        public Builder authorizationPolicy(Optional<ResourceServerAuthorizationPolicy> authorizationPolicy) {
+            if (authorizationPolicy.isPresent()) {
+                this.authorizationPolicy = OptionalNullable.of(authorizationPolicy.get());
+            } else {
+                this.authorizationPolicy = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder authorizationPolicy(
+                com.auth0.client.mgmt.core.Nullable<ResourceServerAuthorizationPolicy> authorizationPolicy) {
+            if (authorizationPolicy.isNull()) {
+                this.authorizationPolicy = OptionalNullable.ofNull();
+            } else if (authorizationPolicy.isEmpty()) {
+                this.authorizationPolicy = OptionalNullable.absent();
+            } else {
+                this.authorizationPolicy = OptionalNullable.of(authorizationPolicy.get());
+            }
+            return this;
+        }
+
         /**
          * <p>The client ID of the client that this resource server is linked to</p>
          */
@@ -796,6 +853,7 @@ public final class GetResourceServerResponseContent {
                     authorizationDetails,
                     proofOfPossession,
                     subjectTypeAuthorization,
+                    authorizationPolicy,
                     clientId,
                     additionalProperties);
         }

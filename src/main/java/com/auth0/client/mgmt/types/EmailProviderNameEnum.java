@@ -13,9 +13,9 @@ public final class EmailProviderNameEnum {
 
     public static final EmailProviderNameEnum MS365 = new EmailProviderNameEnum(Value.MS365, "ms365");
 
-    public static final EmailProviderNameEnum CUSTOM = new EmailProviderNameEnum(Value.CUSTOM, "custom");
-
     public static final EmailProviderNameEnum SPARKPOST = new EmailProviderNameEnum(Value.SPARKPOST, "sparkpost");
+
+    public static final EmailProviderNameEnum CUSTOM = new EmailProviderNameEnum(Value.CUSTOM, "custom");
 
     public static final EmailProviderNameEnum RESEND = new EmailProviderNameEnum(Value.RESEND, "resend");
 
@@ -66,10 +66,10 @@ public final class EmailProviderNameEnum {
                 return visitor.visitSes();
             case MS365:
                 return visitor.visitMs365();
-            case CUSTOM:
-                return visitor.visitCustom();
             case SPARKPOST:
                 return visitor.visitSparkpost();
+            case CUSTOM:
+                return visitor.visitCustom();
             case RESEND:
                 return visitor.visitResend();
             case AZURE_CS:
@@ -95,10 +95,10 @@ public final class EmailProviderNameEnum {
                 return SES;
             case "ms365":
                 return MS365;
-            case "custom":
-                return CUSTOM;
             case "sparkpost":
                 return SPARKPOST;
+            case "custom":
+                return CUSTOM;
             case "resend":
                 return RESEND;
             case "azure_cs":

@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = UpdateFlowsVaultConnectionSetup.Deserializer.class)
@@ -194,72 +195,143 @@ public final class UpdateFlowsVaultConnectionSetup {
         public UpdateFlowsVaultConnectionSetup deserialize(JsonParser p, DeserializationContext context)
                 throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(
-                        ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupApiKeyWithBaseUrl.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("api_key")
+                    && ((Map<?, ?>) value).containsKey("base_url")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(
+                            value, FlowsVaultConnectioSetupApiKeyWithBaseUrl.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupApiKey.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("api_key")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupApiKey.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupOauthApp.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("client_id")
+                    && ((Map<?, ?>) value).containsKey("client_secret")
+                    && ((Map<?, ?>) value).containsKey("domain")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupOauthApp.class));
+                } catch (RuntimeException e) {
+                }
             }
             try {
                 return of(
                         ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupBigqueryOauthJwt.class));
             } catch (RuntimeException e) {
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupSecretApiKey.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("secret_key")) {
+                try {
+                    return of(
+                            ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupSecretApiKey.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupHttpBearer.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("token")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupHttpBearer.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectionHttpBasicAuthSetup.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("username")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(
+                            value, FlowsVaultConnectionHttpBasicAuthSetup.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectionHttpApiKeySetup.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("name")
+                    && ((Map<?, ?>) value).containsKey("value")
+                    && ((Map<?, ?>) value).containsKey("in")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectionHttpApiKeySetup.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(
-                        value, FlowsVaultConnectionHttpOauthClientCredentialsSetup.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("client_id")
+                    && ((Map<?, ?>) value).containsKey("client_secret")
+                    && ((Map<?, ?>) value).containsKey("token_endpoint")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(
+                            value, FlowsVaultConnectionHttpOauthClientCredentialsSetup.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupJwt.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("algorithm")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupJwt.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupMailjetApiKey.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("api_key")
+                    && ((Map<?, ?>) value).containsKey("secret_key")) {
+                try {
+                    return of(
+                            ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupMailjetApiKey.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupToken.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("token")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupToken.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupWebhook.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("url")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupWebhook.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupStripeKeyPair.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("private_key")
+                    && ((Map<?, ?>) value).containsKey("public_key")) {
+                try {
+                    return of(
+                            ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupStripeKeyPair.class));
+                } catch (RuntimeException e) {
+                }
             }
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupOauthCode.class));
             } catch (RuntimeException e) {
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupTwilioApiKey.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("account_id")
+                    && ((Map<?, ?>) value).containsKey("api_key")) {
+                try {
+                    return of(
+                            ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupTwilioApiKey.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

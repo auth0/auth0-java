@@ -7,65 +7,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class IdentityProviderEnum {
-    public static final IdentityProviderEnum SHOP = new IdentityProviderEnum(Value.SHOP, "shop");
-
-    public static final IdentityProviderEnum AUTH0OIDC = new IdentityProviderEnum(Value.AUTH0OIDC, "auth0-oidc");
-
-    public static final IdentityProviderEnum DWOLLA = new IdentityProviderEnum(Value.DWOLLA, "dwolla");
-
-    public static final IdentityProviderEnum OKTA = new IdentityProviderEnum(Value.OKTA, "okta");
-
-    public static final IdentityProviderEnum PLANNINGCENTER =
-            new IdentityProviderEnum(Value.PLANNINGCENTER, "planningcenter");
-
-    public static final IdentityProviderEnum GOOGLE_OAUTH2 =
-            new IdentityProviderEnum(Value.GOOGLE_OAUTH2, "google-oauth2");
-
-    public static final IdentityProviderEnum AUTH0 = new IdentityProviderEnum(Value.AUTH0, "auth0");
-
-    public static final IdentityProviderEnum EXACT = new IdentityProviderEnum(Value.EXACT, "exact");
-
-    public static final IdentityProviderEnum WORDPRESS = new IdentityProviderEnum(Value.WORDPRESS, "wordpress");
-
-    public static final IdentityProviderEnum FITBIT = new IdentityProviderEnum(Value.FITBIT, "fitbit");
-
-    public static final IdentityProviderEnum EVERNOTE = new IdentityProviderEnum(Value.EVERNOTE, "evernote");
-
-    public static final IdentityProviderEnum SHAREPOINT = new IdentityProviderEnum(Value.SHAREPOINT, "sharepoint");
-
-    public static final IdentityProviderEnum SHOPIFY = new IdentityProviderEnum(Value.SHOPIFY, "shopify");
-
-    public static final IdentityProviderEnum SALESFORCE_SANDBOX =
-            new IdentityProviderEnum(Value.SALESFORCE_SANDBOX, "salesforce-sandbox");
-
-    public static final IdentityProviderEnum FACEBOOK = new IdentityProviderEnum(Value.FACEBOOK, "facebook");
-
-    public static final IdentityProviderEnum OAUTH1 = new IdentityProviderEnum(Value.OAUTH1, "oauth1");
-
-    public static final IdentityProviderEnum APPLE = new IdentityProviderEnum(Value.APPLE, "apple");
-
-    public static final IdentityProviderEnum UNTAPPD = new IdentityProviderEnum(Value.UNTAPPD, "untappd");
-
-    public static final IdentityProviderEnum AMAZON = new IdentityProviderEnum(Value.AMAZON, "amazon");
-
-    public static final IdentityProviderEnum LINE = new IdentityProviderEnum(Value.LINE, "line");
-
-    public static final IdentityProviderEnum BITBUCKET = new IdentityProviderEnum(Value.BITBUCKET, "bitbucket");
-
-    public static final IdentityProviderEnum GITHUB = new IdentityProviderEnum(Value.GITHUB, "github");
-
-    public static final IdentityProviderEnum SALESFORCE = new IdentityProviderEnum(Value.SALESFORCE, "salesforce");
-
-    public static final IdentityProviderEnum OFFICE365 = new IdentityProviderEnum(Value.OFFICE365, "office365");
-
-    public static final IdentityProviderEnum SMS = new IdentityProviderEnum(Value.SMS, "sms");
-
-    public static final IdentityProviderEnum TWITTER = new IdentityProviderEnum(Value.TWITTER, "twitter");
-
-    public static final IdentityProviderEnum WINDOWSLIVE = new IdentityProviderEnum(Value.WINDOWSLIVE, "windowslive");
-
-    public static final IdentityProviderEnum YANDEX = new IdentityProviderEnum(Value.YANDEX, "yandex");
-
     public static final IdentityProviderEnum AD = new IdentityProviderEnum(Value.AD, "ad");
 
     public static final IdentityProviderEnum BAIDU = new IdentityProviderEnum(Value.BAIDU, "baidu");
@@ -81,10 +22,10 @@ public final class IdentityProviderEnum {
 
     public static final IdentityProviderEnum VKONTAKTE = new IdentityProviderEnum(Value.VKONTAKTE, "vkontakte");
 
+    public static final IdentityProviderEnum INSTAGRAM = new IdentityProviderEnum(Value.INSTAGRAM, "instagram");
+
     public static final IdentityProviderEnum PINGFEDERATE =
             new IdentityProviderEnum(Value.PINGFEDERATE, "pingfederate");
-
-    public static final IdentityProviderEnum INSTAGRAM = new IdentityProviderEnum(Value.INSTAGRAM, "instagram");
 
     public static final IdentityProviderEnum THIRTYSEVENSIGNALS =
             new IdentityProviderEnum(Value.THIRTYSEVENSIGNALS, "thirtysevensignals");
@@ -93,15 +34,15 @@ public final class IdentityProviderEnum {
 
     public static final IdentityProviderEnum OIDC = new IdentityProviderEnum(Value.OIDC, "oidc");
 
-    public static final IdentityProviderEnum EVERNOTE_SANDBOX =
-            new IdentityProviderEnum(Value.EVERNOTE_SANDBOX, "evernote-sandbox");
-
     public static final IdentityProviderEnum SALESFORCE_COMMUNITY =
             new IdentityProviderEnum(Value.SALESFORCE_COMMUNITY, "salesforce-community");
 
     public static final IdentityProviderEnum DACCOUNT = new IdentityProviderEnum(Value.DACCOUNT, "daccount");
 
     public static final IdentityProviderEnum SOUNDCLOUD = new IdentityProviderEnum(Value.SOUNDCLOUD, "soundcloud");
+
+    public static final IdentityProviderEnum EVERNOTE_SANDBOX =
+            new IdentityProviderEnum(Value.EVERNOTE_SANDBOX, "evernote-sandbox");
 
     public static final IdentityProviderEnum OAUTH2 = new IdentityProviderEnum(Value.OAUTH2, "oauth2");
 
@@ -113,17 +54,76 @@ public final class IdentityProviderEnum {
 
     public static final IdentityProviderEnum EMAIL = new IdentityProviderEnum(Value.EMAIL, "email");
 
-    public static final IdentityProviderEnum CUSTOM = new IdentityProviderEnum(Value.CUSTOM, "custom");
-
     public static final IdentityProviderEnum YAHOO = new IdentityProviderEnum(Value.YAHOO, "yahoo");
 
     public static final IdentityProviderEnum WEIBO = new IdentityProviderEnum(Value.WEIBO, "weibo");
 
-    public static final IdentityProviderEnum GOOGLE_APPS = new IdentityProviderEnum(Value.GOOGLE_APPS, "google-apps");
+    public static final IdentityProviderEnum CUSTOM = new IdentityProviderEnum(Value.CUSTOM, "custom");
 
     public static final IdentityProviderEnum PAYPAL = new IdentityProviderEnum(Value.PAYPAL, "paypal");
 
     public static final IdentityProviderEnum LINKEDIN = new IdentityProviderEnum(Value.LINKEDIN, "linkedin");
+
+    public static final IdentityProviderEnum GOOGLE_APPS = new IdentityProviderEnum(Value.GOOGLE_APPS, "google-apps");
+
+    public static final IdentityProviderEnum DWOLLA = new IdentityProviderEnum(Value.DWOLLA, "dwolla");
+
+    public static final IdentityProviderEnum SHOP = new IdentityProviderEnum(Value.SHOP, "shop");
+
+    public static final IdentityProviderEnum AUTH0OIDC = new IdentityProviderEnum(Value.AUTH0OIDC, "auth0-oidc");
+
+    public static final IdentityProviderEnum PLANNINGCENTER =
+            new IdentityProviderEnum(Value.PLANNINGCENTER, "planningcenter");
+
+    public static final IdentityProviderEnum OKTA = new IdentityProviderEnum(Value.OKTA, "okta");
+
+    public static final IdentityProviderEnum AUTH0 = new IdentityProviderEnum(Value.AUTH0, "auth0");
+
+    public static final IdentityProviderEnum GOOGLE_OAUTH2 =
+            new IdentityProviderEnum(Value.GOOGLE_OAUTH2, "google-oauth2");
+
+    public static final IdentityProviderEnum WORDPRESS = new IdentityProviderEnum(Value.WORDPRESS, "wordpress");
+
+    public static final IdentityProviderEnum EXACT = new IdentityProviderEnum(Value.EXACT, "exact");
+
+    public static final IdentityProviderEnum FITBIT = new IdentityProviderEnum(Value.FITBIT, "fitbit");
+
+    public static final IdentityProviderEnum EVERNOTE = new IdentityProviderEnum(Value.EVERNOTE, "evernote");
+
+    public static final IdentityProviderEnum SHAREPOINT = new IdentityProviderEnum(Value.SHAREPOINT, "sharepoint");
+
+    public static final IdentityProviderEnum SHOPIFY = new IdentityProviderEnum(Value.SHOPIFY, "shopify");
+
+    public static final IdentityProviderEnum SALESFORCE_SANDBOX =
+            new IdentityProviderEnum(Value.SALESFORCE_SANDBOX, "salesforce-sandbox");
+
+    public static final IdentityProviderEnum FACEBOOK = new IdentityProviderEnum(Value.FACEBOOK, "facebook");
+
+    public static final IdentityProviderEnum APPLE = new IdentityProviderEnum(Value.APPLE, "apple");
+
+    public static final IdentityProviderEnum OAUTH1 = new IdentityProviderEnum(Value.OAUTH1, "oauth1");
+
+    public static final IdentityProviderEnum AMAZON = new IdentityProviderEnum(Value.AMAZON, "amazon");
+
+    public static final IdentityProviderEnum LINE = new IdentityProviderEnum(Value.LINE, "line");
+
+    public static final IdentityProviderEnum UNTAPPD = new IdentityProviderEnum(Value.UNTAPPD, "untappd");
+
+    public static final IdentityProviderEnum GITHUB = new IdentityProviderEnum(Value.GITHUB, "github");
+
+    public static final IdentityProviderEnum SALESFORCE = new IdentityProviderEnum(Value.SALESFORCE, "salesforce");
+
+    public static final IdentityProviderEnum BITBUCKET = new IdentityProviderEnum(Value.BITBUCKET, "bitbucket");
+
+    public static final IdentityProviderEnum OFFICE365 = new IdentityProviderEnum(Value.OFFICE365, "office365");
+
+    public static final IdentityProviderEnum SMS = new IdentityProviderEnum(Value.SMS, "sms");
+
+    public static final IdentityProviderEnum WINDOWSLIVE = new IdentityProviderEnum(Value.WINDOWSLIVE, "windowslive");
+
+    public static final IdentityProviderEnum YANDEX = new IdentityProviderEnum(Value.YANDEX, "yandex");
+
+    public static final IdentityProviderEnum TWITTER = new IdentityProviderEnum(Value.TWITTER, "twitter");
 
     private final Value value;
 
@@ -157,62 +157,6 @@ public final class IdentityProviderEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case SHOP:
-                return visitor.visitShop();
-            case AUTH0OIDC:
-                return visitor.visitAuth0Oidc();
-            case DWOLLA:
-                return visitor.visitDwolla();
-            case OKTA:
-                return visitor.visitOkta();
-            case PLANNINGCENTER:
-                return visitor.visitPlanningcenter();
-            case GOOGLE_OAUTH2:
-                return visitor.visitGoogleOauth2();
-            case AUTH0:
-                return visitor.visitAuth0();
-            case EXACT:
-                return visitor.visitExact();
-            case WORDPRESS:
-                return visitor.visitWordpress();
-            case FITBIT:
-                return visitor.visitFitbit();
-            case EVERNOTE:
-                return visitor.visitEvernote();
-            case SHAREPOINT:
-                return visitor.visitSharepoint();
-            case SHOPIFY:
-                return visitor.visitShopify();
-            case SALESFORCE_SANDBOX:
-                return visitor.visitSalesforceSandbox();
-            case FACEBOOK:
-                return visitor.visitFacebook();
-            case OAUTH1:
-                return visitor.visitOauth1();
-            case APPLE:
-                return visitor.visitApple();
-            case UNTAPPD:
-                return visitor.visitUntappd();
-            case AMAZON:
-                return visitor.visitAmazon();
-            case LINE:
-                return visitor.visitLine();
-            case BITBUCKET:
-                return visitor.visitBitbucket();
-            case GITHUB:
-                return visitor.visitGithub();
-            case SALESFORCE:
-                return visitor.visitSalesforce();
-            case OFFICE365:
-                return visitor.visitOffice365();
-            case SMS:
-                return visitor.visitSms();
-            case TWITTER:
-                return visitor.visitTwitter();
-            case WINDOWSLIVE:
-                return visitor.visitWindowslive();
-            case YANDEX:
-                return visitor.visitYandex();
             case AD:
                 return visitor.visitAd();
             case BAIDU:
@@ -227,24 +171,24 @@ public final class IdentityProviderEnum {
                 return visitor.visitDropbox();
             case VKONTAKTE:
                 return visitor.visitVkontakte();
-            case PINGFEDERATE:
-                return visitor.visitPingfederate();
             case INSTAGRAM:
                 return visitor.visitInstagram();
+            case PINGFEDERATE:
+                return visitor.visitPingfederate();
             case THIRTYSEVENSIGNALS:
                 return visitor.visitThirtysevensignals();
             case WAAD:
                 return visitor.visitWaad();
             case OIDC:
                 return visitor.visitOidc();
-            case EVERNOTE_SANDBOX:
-                return visitor.visitEvernoteSandbox();
             case SALESFORCE_COMMUNITY:
                 return visitor.visitSalesforceCommunity();
             case DACCOUNT:
                 return visitor.visitDaccount();
             case SOUNDCLOUD:
                 return visitor.visitSoundcloud();
+            case EVERNOTE_SANDBOX:
+                return visitor.visitEvernoteSandbox();
             case OAUTH2:
                 return visitor.visitOauth2();
             case BOX:
@@ -255,18 +199,74 @@ public final class IdentityProviderEnum {
                 return visitor.visitAdfs();
             case EMAIL:
                 return visitor.visitEmail();
-            case CUSTOM:
-                return visitor.visitCustom();
             case YAHOO:
                 return visitor.visitYahoo();
             case WEIBO:
                 return visitor.visitWeibo();
-            case GOOGLE_APPS:
-                return visitor.visitGoogleApps();
+            case CUSTOM:
+                return visitor.visitCustom();
             case PAYPAL:
                 return visitor.visitPaypal();
             case LINKEDIN:
                 return visitor.visitLinkedin();
+            case GOOGLE_APPS:
+                return visitor.visitGoogleApps();
+            case DWOLLA:
+                return visitor.visitDwolla();
+            case SHOP:
+                return visitor.visitShop();
+            case AUTH0OIDC:
+                return visitor.visitAuth0Oidc();
+            case PLANNINGCENTER:
+                return visitor.visitPlanningcenter();
+            case OKTA:
+                return visitor.visitOkta();
+            case AUTH0:
+                return visitor.visitAuth0();
+            case GOOGLE_OAUTH2:
+                return visitor.visitGoogleOauth2();
+            case WORDPRESS:
+                return visitor.visitWordpress();
+            case EXACT:
+                return visitor.visitExact();
+            case FITBIT:
+                return visitor.visitFitbit();
+            case EVERNOTE:
+                return visitor.visitEvernote();
+            case SHAREPOINT:
+                return visitor.visitSharepoint();
+            case SHOPIFY:
+                return visitor.visitShopify();
+            case SALESFORCE_SANDBOX:
+                return visitor.visitSalesforceSandbox();
+            case FACEBOOK:
+                return visitor.visitFacebook();
+            case APPLE:
+                return visitor.visitApple();
+            case OAUTH1:
+                return visitor.visitOauth1();
+            case AMAZON:
+                return visitor.visitAmazon();
+            case LINE:
+                return visitor.visitLine();
+            case UNTAPPD:
+                return visitor.visitUntappd();
+            case GITHUB:
+                return visitor.visitGithub();
+            case SALESFORCE:
+                return visitor.visitSalesforce();
+            case BITBUCKET:
+                return visitor.visitBitbucket();
+            case OFFICE365:
+                return visitor.visitOffice365();
+            case SMS:
+                return visitor.visitSms();
+            case WINDOWSLIVE:
+                return visitor.visitWindowslive();
+            case YANDEX:
+                return visitor.visitYandex();
+            case TWITTER:
+                return visitor.visitTwitter();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -276,62 +276,6 @@ public final class IdentityProviderEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static IdentityProviderEnum valueOf(String value) {
         switch (value) {
-            case "shop":
-                return SHOP;
-            case "auth0-oidc":
-                return AUTH0OIDC;
-            case "dwolla":
-                return DWOLLA;
-            case "okta":
-                return OKTA;
-            case "planningcenter":
-                return PLANNINGCENTER;
-            case "google-oauth2":
-                return GOOGLE_OAUTH2;
-            case "auth0":
-                return AUTH0;
-            case "exact":
-                return EXACT;
-            case "wordpress":
-                return WORDPRESS;
-            case "fitbit":
-                return FITBIT;
-            case "evernote":
-                return EVERNOTE;
-            case "sharepoint":
-                return SHAREPOINT;
-            case "shopify":
-                return SHOPIFY;
-            case "salesforce-sandbox":
-                return SALESFORCE_SANDBOX;
-            case "facebook":
-                return FACEBOOK;
-            case "oauth1":
-                return OAUTH1;
-            case "apple":
-                return APPLE;
-            case "untappd":
-                return UNTAPPD;
-            case "amazon":
-                return AMAZON;
-            case "line":
-                return LINE;
-            case "bitbucket":
-                return BITBUCKET;
-            case "github":
-                return GITHUB;
-            case "salesforce":
-                return SALESFORCE;
-            case "office365":
-                return OFFICE365;
-            case "sms":
-                return SMS;
-            case "twitter":
-                return TWITTER;
-            case "windowslive":
-                return WINDOWSLIVE;
-            case "yandex":
-                return YANDEX;
             case "ad":
                 return AD;
             case "baidu":
@@ -346,24 +290,24 @@ public final class IdentityProviderEnum {
                 return DROPBOX;
             case "vkontakte":
                 return VKONTAKTE;
-            case "pingfederate":
-                return PINGFEDERATE;
             case "instagram":
                 return INSTAGRAM;
+            case "pingfederate":
+                return PINGFEDERATE;
             case "thirtysevensignals":
                 return THIRTYSEVENSIGNALS;
             case "waad":
                 return WAAD;
             case "oidc":
                 return OIDC;
-            case "evernote-sandbox":
-                return EVERNOTE_SANDBOX;
             case "salesforce-community":
                 return SALESFORCE_COMMUNITY;
             case "daccount":
                 return DACCOUNT;
             case "soundcloud":
                 return SOUNDCLOUD;
+            case "evernote-sandbox":
+                return EVERNOTE_SANDBOX;
             case "oauth2":
                 return OAUTH2;
             case "box":
@@ -374,18 +318,74 @@ public final class IdentityProviderEnum {
                 return ADFS;
             case "email":
                 return EMAIL;
-            case "custom":
-                return CUSTOM;
             case "yahoo":
                 return YAHOO;
             case "weibo":
                 return WEIBO;
-            case "google-apps":
-                return GOOGLE_APPS;
+            case "custom":
+                return CUSTOM;
             case "paypal":
                 return PAYPAL;
             case "linkedin":
                 return LINKEDIN;
+            case "google-apps":
+                return GOOGLE_APPS;
+            case "dwolla":
+                return DWOLLA;
+            case "shop":
+                return SHOP;
+            case "auth0-oidc":
+                return AUTH0OIDC;
+            case "planningcenter":
+                return PLANNINGCENTER;
+            case "okta":
+                return OKTA;
+            case "auth0":
+                return AUTH0;
+            case "google-oauth2":
+                return GOOGLE_OAUTH2;
+            case "wordpress":
+                return WORDPRESS;
+            case "exact":
+                return EXACT;
+            case "fitbit":
+                return FITBIT;
+            case "evernote":
+                return EVERNOTE;
+            case "sharepoint":
+                return SHAREPOINT;
+            case "shopify":
+                return SHOPIFY;
+            case "salesforce-sandbox":
+                return SALESFORCE_SANDBOX;
+            case "facebook":
+                return FACEBOOK;
+            case "apple":
+                return APPLE;
+            case "oauth1":
+                return OAUTH1;
+            case "amazon":
+                return AMAZON;
+            case "line":
+                return LINE;
+            case "untappd":
+                return UNTAPPD;
+            case "github":
+                return GITHUB;
+            case "salesforce":
+                return SALESFORCE;
+            case "bitbucket":
+                return BITBUCKET;
+            case "office365":
+                return OFFICE365;
+            case "sms":
+                return SMS;
+            case "windowslive":
+                return WINDOWSLIVE;
+            case "yandex":
+                return YANDEX;
+            case "twitter":
+                return TWITTER;
             default:
                 return new IdentityProviderEnum(Value.UNKNOWN, value);
         }

@@ -10,11 +10,11 @@ public final class GuardianFactorsProviderSmsProviderEnum {
     public static final GuardianFactorsProviderSmsProviderEnum PHONE_MESSAGE_HOOK =
             new GuardianFactorsProviderSmsProviderEnum(Value.PHONE_MESSAGE_HOOK, "phone-message-hook");
 
-    public static final GuardianFactorsProviderSmsProviderEnum TWILIO =
-            new GuardianFactorsProviderSmsProviderEnum(Value.TWILIO, "twilio");
-
     public static final GuardianFactorsProviderSmsProviderEnum AUTH0 =
             new GuardianFactorsProviderSmsProviderEnum(Value.AUTH0, "auth0");
+
+    public static final GuardianFactorsProviderSmsProviderEnum TWILIO =
+            new GuardianFactorsProviderSmsProviderEnum(Value.TWILIO, "twilio");
 
     private final Value value;
 
@@ -51,10 +51,10 @@ public final class GuardianFactorsProviderSmsProviderEnum {
         switch (value) {
             case PHONE_MESSAGE_HOOK:
                 return visitor.visitPhoneMessageHook();
-            case TWILIO:
-                return visitor.visitTwilio();
             case AUTH0:
                 return visitor.visitAuth0();
+            case TWILIO:
+                return visitor.visitTwilio();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -66,10 +66,10 @@ public final class GuardianFactorsProviderSmsProviderEnum {
         switch (value) {
             case "phone-message-hook":
                 return PHONE_MESSAGE_HOOK;
-            case "twilio":
-                return TWILIO;
             case "auth0":
                 return AUTH0;
+            case "twilio":
+                return TWILIO;
             default:
                 return new GuardianFactorsProviderSmsProviderEnum(Value.UNKNOWN, value);
         }

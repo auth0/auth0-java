@@ -54,6 +54,8 @@ public final class UpdateResourceServerRequestContent {
 
     private final Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization;
 
+    private final OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateResourceServerRequestContent(
@@ -72,6 +74,7 @@ public final class UpdateResourceServerRequestContent {
             OptionalNullable<List<Object>> authorizationDetails,
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
             Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
+            OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.scopes = scopes;
@@ -88,6 +91,7 @@ public final class UpdateResourceServerRequestContent {
         this.authorizationDetails = authorizationDetails;
         this.proofOfPossession = proofOfPossession;
         this.subjectTypeAuthorization = subjectTypeAuthorization;
+        this.authorizationPolicy = authorizationPolicy;
         this.additionalProperties = additionalProperties;
     }
 
@@ -207,6 +211,15 @@ public final class UpdateResourceServerRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("authorization_policy")
+    public OptionalNullable<ResourceServerAuthorizationPolicy> getAuthorizationPolicy() {
+        if (authorizationPolicy == null) {
+            return OptionalNullable.absent();
+        }
+        return authorizationPolicy;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_encryption")
     private OptionalNullable<ResourceServerTokenEncryption> _getTokenEncryption() {
         return tokenEncryption;
@@ -228,6 +241,12 @@ public final class UpdateResourceServerRequestContent {
     @JsonProperty("proof_of_possession")
     private OptionalNullable<ResourceServerProofOfPossession> _getProofOfPossession() {
         return proofOfPossession;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("authorization_policy")
+    private OptionalNullable<ResourceServerAuthorizationPolicy> _getAuthorizationPolicy() {
+        return authorizationPolicy;
     }
 
     @java.lang.Override
@@ -257,7 +276,8 @@ public final class UpdateResourceServerRequestContent {
                 && consentPolicy.equals(other.consentPolicy)
                 && authorizationDetails.equals(other.authorizationDetails)
                 && proofOfPossession.equals(other.proofOfPossession)
-                && subjectTypeAuthorization.equals(other.subjectTypeAuthorization);
+                && subjectTypeAuthorization.equals(other.subjectTypeAuthorization)
+                && authorizationPolicy.equals(other.authorizationPolicy);
     }
 
     @java.lang.Override
@@ -277,7 +297,8 @@ public final class UpdateResourceServerRequestContent {
                 this.consentPolicy,
                 this.authorizationDetails,
                 this.proofOfPossession,
-                this.subjectTypeAuthorization);
+                this.subjectTypeAuthorization,
+                this.authorizationPolicy);
     }
 
     @java.lang.Override
@@ -321,6 +342,8 @@ public final class UpdateResourceServerRequestContent {
 
         private Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization = Optional.empty();
 
+        private OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -342,6 +365,7 @@ public final class UpdateResourceServerRequestContent {
             authorizationDetails(other.getAuthorizationDetails());
             proofOfPossession(other.getProofOfPossession());
             subjectTypeAuthorization(other.getSubjectTypeAuthorization());
+            authorizationPolicy(other.getAuthorizationPolicy());
             return this;
         }
 
@@ -621,6 +645,39 @@ public final class UpdateResourceServerRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "authorization_policy", nulls = Nulls.SKIP)
+        public Builder authorizationPolicy(
+                @Nullable OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy) {
+            this.authorizationPolicy = authorizationPolicy;
+            return this;
+        }
+
+        public Builder authorizationPolicy(ResourceServerAuthorizationPolicy authorizationPolicy) {
+            this.authorizationPolicy = OptionalNullable.of(authorizationPolicy);
+            return this;
+        }
+
+        public Builder authorizationPolicy(Optional<ResourceServerAuthorizationPolicy> authorizationPolicy) {
+            if (authorizationPolicy.isPresent()) {
+                this.authorizationPolicy = OptionalNullable.of(authorizationPolicy.get());
+            } else {
+                this.authorizationPolicy = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder authorizationPolicy(
+                com.auth0.client.mgmt.core.Nullable<ResourceServerAuthorizationPolicy> authorizationPolicy) {
+            if (authorizationPolicy.isNull()) {
+                this.authorizationPolicy = OptionalNullable.ofNull();
+            } else if (authorizationPolicy.isEmpty()) {
+                this.authorizationPolicy = OptionalNullable.absent();
+            } else {
+                this.authorizationPolicy = OptionalNullable.of(authorizationPolicy.get());
+            }
+            return this;
+        }
+
         public UpdateResourceServerRequestContent build() {
             return new UpdateResourceServerRequestContent(
                     name,
@@ -638,6 +695,7 @@ public final class UpdateResourceServerRequestContent {
                     authorizationDetails,
                     proofOfPossession,
                     subjectTypeAuthorization,
+                    authorizationPolicy,
                     additionalProperties);
         }
 

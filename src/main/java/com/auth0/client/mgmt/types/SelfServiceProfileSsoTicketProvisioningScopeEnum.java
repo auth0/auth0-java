@@ -7,14 +7,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class SelfServiceProfileSsoTicketProvisioningScopeEnum {
-    public static final SelfServiceProfileSsoTicketProvisioningScopeEnum PATCH_USERS =
-            new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.PATCH_USERS, "patch:users");
-
     public static final SelfServiceProfileSsoTicketProvisioningScopeEnum DELETE_USERS =
             new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.DELETE_USERS, "delete:users");
-
-    public static final SelfServiceProfileSsoTicketProvisioningScopeEnum GET_GROUPS =
-            new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.GET_GROUPS, "get:groups");
 
     public static final SelfServiceProfileSsoTicketProvisioningScopeEnum DELETE_GROUPS =
             new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.DELETE_GROUPS, "delete:groups");
@@ -36,6 +30,12 @@ public final class SelfServiceProfileSsoTicketProvisioningScopeEnum {
 
     public static final SelfServiceProfileSsoTicketProvisioningScopeEnum PUT_GROUPS =
             new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.PUT_GROUPS, "put:groups");
+
+    public static final SelfServiceProfileSsoTicketProvisioningScopeEnum GET_GROUPS =
+            new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.GET_GROUPS, "get:groups");
+
+    public static final SelfServiceProfileSsoTicketProvisioningScopeEnum PATCH_USERS =
+            new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.PATCH_USERS, "patch:users");
 
     private final Value value;
 
@@ -70,12 +70,8 @@ public final class SelfServiceProfileSsoTicketProvisioningScopeEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case PATCH_USERS:
-                return visitor.visitPatchUsers();
             case DELETE_USERS:
                 return visitor.visitDeleteUsers();
-            case GET_GROUPS:
-                return visitor.visitGetGroups();
             case DELETE_GROUPS:
                 return visitor.visitDeleteGroups();
             case GET_USERS:
@@ -90,6 +86,10 @@ public final class SelfServiceProfileSsoTicketProvisioningScopeEnum {
                 return visitor.visitPatchGroups();
             case PUT_GROUPS:
                 return visitor.visitPutGroups();
+            case GET_GROUPS:
+                return visitor.visitGetGroups();
+            case PATCH_USERS:
+                return visitor.visitPatchUsers();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -99,12 +99,8 @@ public final class SelfServiceProfileSsoTicketProvisioningScopeEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static SelfServiceProfileSsoTicketProvisioningScopeEnum valueOf(String value) {
         switch (value) {
-            case "patch:users":
-                return PATCH_USERS;
             case "delete:users":
                 return DELETE_USERS;
-            case "get:groups":
-                return GET_GROUPS;
             case "delete:groups":
                 return DELETE_GROUPS;
             case "get:users":
@@ -119,6 +115,10 @@ public final class SelfServiceProfileSsoTicketProvisioningScopeEnum {
                 return PATCH_GROUPS;
             case "put:groups":
                 return PUT_GROUPS;
+            case "get:groups":
+                return GET_GROUPS;
+            case "patch:users":
+                return PATCH_USERS;
             default:
                 return new SelfServiceProfileSsoTicketProvisioningScopeEnum(Value.UNKNOWN, value);
         }

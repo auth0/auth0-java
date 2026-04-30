@@ -7,21 +7,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class AuthenticationMethodTypeEnum {
+    public static final AuthenticationMethodTypeEnum WEBAUTHN_PLATFORM =
+            new AuthenticationMethodTypeEnum(Value.WEBAUTHN_PLATFORM, "webauthn-platform");
+
     public static final AuthenticationMethodTypeEnum TOTP = new AuthenticationMethodTypeEnum(Value.TOTP, "totp");
 
     public static final AuthenticationMethodTypeEnum EMAIL = new AuthenticationMethodTypeEnum(Value.EMAIL, "email");
+
+    public static final AuthenticationMethodTypeEnum WEBAUTHN_ROAMING =
+            new AuthenticationMethodTypeEnum(Value.WEBAUTHN_ROAMING, "webauthn-roaming");
 
     public static final AuthenticationMethodTypeEnum PASSKEY =
             new AuthenticationMethodTypeEnum(Value.PASSKEY, "passkey");
 
     public static final AuthenticationMethodTypeEnum PASSWORD =
             new AuthenticationMethodTypeEnum(Value.PASSWORD, "password");
-
-    public static final AuthenticationMethodTypeEnum WEBAUTHN_PLATFORM =
-            new AuthenticationMethodTypeEnum(Value.WEBAUTHN_PLATFORM, "webauthn-platform");
-
-    public static final AuthenticationMethodTypeEnum GUARDIAN =
-            new AuthenticationMethodTypeEnum(Value.GUARDIAN, "guardian");
 
     public static final AuthenticationMethodTypeEnum PHONE = new AuthenticationMethodTypeEnum(Value.PHONE, "phone");
 
@@ -30,8 +30,8 @@ public final class AuthenticationMethodTypeEnum {
 
     public static final AuthenticationMethodTypeEnum PUSH = new AuthenticationMethodTypeEnum(Value.PUSH, "push");
 
-    public static final AuthenticationMethodTypeEnum WEBAUTHN_ROAMING =
-            new AuthenticationMethodTypeEnum(Value.WEBAUTHN_ROAMING, "webauthn-roaming");
+    public static final AuthenticationMethodTypeEnum GUARDIAN =
+            new AuthenticationMethodTypeEnum(Value.GUARDIAN, "guardian");
 
     public static final AuthenticationMethodTypeEnum RECOVERY_CODE =
             new AuthenticationMethodTypeEnum(Value.RECOVERY_CODE, "recovery-code");
@@ -69,26 +69,26 @@ public final class AuthenticationMethodTypeEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case WEBAUTHN_PLATFORM:
+                return visitor.visitWebauthnPlatform();
             case TOTP:
                 return visitor.visitTotp();
             case EMAIL:
                 return visitor.visitEmail();
+            case WEBAUTHN_ROAMING:
+                return visitor.visitWebauthnRoaming();
             case PASSKEY:
                 return visitor.visitPasskey();
             case PASSWORD:
                 return visitor.visitPassword();
-            case WEBAUTHN_PLATFORM:
-                return visitor.visitWebauthnPlatform();
-            case GUARDIAN:
-                return visitor.visitGuardian();
             case PHONE:
                 return visitor.visitPhone();
             case EMAIL_VERIFICATION:
                 return visitor.visitEmailVerification();
             case PUSH:
                 return visitor.visitPush();
-            case WEBAUTHN_ROAMING:
-                return visitor.visitWebauthnRoaming();
+            case GUARDIAN:
+                return visitor.visitGuardian();
             case RECOVERY_CODE:
                 return visitor.visitRecoveryCode();
             case UNKNOWN:
@@ -100,26 +100,26 @@ public final class AuthenticationMethodTypeEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static AuthenticationMethodTypeEnum valueOf(String value) {
         switch (value) {
+            case "webauthn-platform":
+                return WEBAUTHN_PLATFORM;
             case "totp":
                 return TOTP;
             case "email":
                 return EMAIL;
+            case "webauthn-roaming":
+                return WEBAUTHN_ROAMING;
             case "passkey":
                 return PASSKEY;
             case "password":
                 return PASSWORD;
-            case "webauthn-platform":
-                return WEBAUTHN_PLATFORM;
-            case "guardian":
-                return GUARDIAN;
             case "phone":
                 return PHONE;
             case "email-verification":
                 return EMAIL_VERIFICATION;
             case "push":
                 return PUSH;
-            case "webauthn-roaming":
-                return WEBAUTHN_ROAMING;
+            case "guardian":
+                return GUARDIAN;
             case "recovery-code":
                 return RECOVERY_CODE;
             default:

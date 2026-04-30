@@ -7,17 +7,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class LogStreamFilterGroupNameEnum {
-    public static final LogStreamFilterGroupNameEnum AUTH_LOGIN_SUCCESS =
-            new LogStreamFilterGroupNameEnum(Value.AUTH_LOGIN_SUCCESS, "auth.login.success");
-
     public static final LogStreamFilterGroupNameEnum AUTH_LOGOUT_SUCCESS =
             new LogStreamFilterGroupNameEnum(Value.AUTH_LOGOUT_SUCCESS, "auth.logout.success");
+
+    public static final LogStreamFilterGroupNameEnum SYSTEM_NOTIFICATION =
+            new LogStreamFilterGroupNameEnum(Value.SYSTEM_NOTIFICATION, "system.notification");
 
     public static final LogStreamFilterGroupNameEnum AUTH_TOKEN_EXCHANGE_FAIL =
             new LogStreamFilterGroupNameEnum(Value.AUTH_TOKEN_EXCHANGE_FAIL, "auth.token_exchange.fail");
 
-    public static final LogStreamFilterGroupNameEnum SYSTEM_NOTIFICATION =
-            new LogStreamFilterGroupNameEnum(Value.SYSTEM_NOTIFICATION, "system.notification");
+    public static final LogStreamFilterGroupNameEnum MANAGEMENT_FAIL =
+            new LogStreamFilterGroupNameEnum(Value.MANAGEMENT_FAIL, "management.fail");
 
     public static final LogStreamFilterGroupNameEnum ACTIONS =
             new LogStreamFilterGroupNameEnum(Value.ACTIONS, "actions");
@@ -25,8 +25,8 @@ public final class LogStreamFilterGroupNameEnum {
     public static final LogStreamFilterGroupNameEnum AUTH_SILENT_AUTH_FAIL =
             new LogStreamFilterGroupNameEnum(Value.AUTH_SILENT_AUTH_FAIL, "auth.silent_auth.fail");
 
-    public static final LogStreamFilterGroupNameEnum MANAGEMENT_FAIL =
-            new LogStreamFilterGroupNameEnum(Value.MANAGEMENT_FAIL, "management.fail");
+    public static final LogStreamFilterGroupNameEnum AUTH_LOGOUT_FAIL =
+            new LogStreamFilterGroupNameEnum(Value.AUTH_LOGOUT_FAIL, "auth.logout.fail");
 
     public static final LogStreamFilterGroupNameEnum AUTH_TOKEN_EXCHANGE_SUCCESS =
             new LogStreamFilterGroupNameEnum(Value.AUTH_TOKEN_EXCHANGE_SUCCESS, "auth.token_exchange.success");
@@ -34,14 +34,17 @@ public final class LogStreamFilterGroupNameEnum {
     public static final LogStreamFilterGroupNameEnum USER_NOTIFICATION =
             new LogStreamFilterGroupNameEnum(Value.USER_NOTIFICATION, "user.notification");
 
+    public static final LogStreamFilterGroupNameEnum AUTH_LOGIN_SUCCESS =
+            new LogStreamFilterGroupNameEnum(Value.AUTH_LOGIN_SUCCESS, "auth.login.success");
+
     public static final LogStreamFilterGroupNameEnum AUTH_SILENT_AUTH_SUCCESS =
             new LogStreamFilterGroupNameEnum(Value.AUTH_SILENT_AUTH_SUCCESS, "auth.silent_auth.success");
 
-    public static final LogStreamFilterGroupNameEnum AUTH_LOGOUT_FAIL =
-            new LogStreamFilterGroupNameEnum(Value.AUTH_LOGOUT_FAIL, "auth.logout.fail");
-
     public static final LogStreamFilterGroupNameEnum MANAGEMENT_SUCCESS =
             new LogStreamFilterGroupNameEnum(Value.MANAGEMENT_SUCCESS, "management.success");
+
+    public static final LogStreamFilterGroupNameEnum SCIM_EVENT =
+            new LogStreamFilterGroupNameEnum(Value.SCIM_EVENT, "scim.event");
 
     public static final LogStreamFilterGroupNameEnum OTHER = new LogStreamFilterGroupNameEnum(Value.OTHER, "other");
 
@@ -51,17 +54,14 @@ public final class LogStreamFilterGroupNameEnum {
     public static final LogStreamFilterGroupNameEnum AUTH_SIGNUP_SUCCESS =
             new LogStreamFilterGroupNameEnum(Value.AUTH_SIGNUP_SUCCESS, "auth.signup.success");
 
-    public static final LogStreamFilterGroupNameEnum SCIM_EVENT =
-            new LogStreamFilterGroupNameEnum(Value.SCIM_EVENT, "scim.event");
+    public static final LogStreamFilterGroupNameEnum USER_FAIL =
+            new LogStreamFilterGroupNameEnum(Value.USER_FAIL, "user.fail");
 
     public static final LogStreamFilterGroupNameEnum AUTH_LOGIN_FAIL =
             new LogStreamFilterGroupNameEnum(Value.AUTH_LOGIN_FAIL, "auth.login.fail");
 
     public static final LogStreamFilterGroupNameEnum AUTH_LOGIN_NOTIFICATION =
             new LogStreamFilterGroupNameEnum(Value.AUTH_LOGIN_NOTIFICATION, "auth.login.notification");
-
-    public static final LogStreamFilterGroupNameEnum USER_FAIL =
-            new LogStreamFilterGroupNameEnum(Value.USER_FAIL, "user.fail");
 
     public static final LogStreamFilterGroupNameEnum USER_SUCCESS =
             new LogStreamFilterGroupNameEnum(Value.USER_SUCCESS, "user.success");
@@ -99,44 +99,44 @@ public final class LogStreamFilterGroupNameEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case AUTH_LOGIN_SUCCESS:
-                return visitor.visitAuthLoginSuccess();
             case AUTH_LOGOUT_SUCCESS:
                 return visitor.visitAuthLogoutSuccess();
-            case AUTH_TOKEN_EXCHANGE_FAIL:
-                return visitor.visitAuthTokenExchangeFail();
             case SYSTEM_NOTIFICATION:
                 return visitor.visitSystemNotification();
+            case AUTH_TOKEN_EXCHANGE_FAIL:
+                return visitor.visitAuthTokenExchangeFail();
+            case MANAGEMENT_FAIL:
+                return visitor.visitManagementFail();
             case ACTIONS:
                 return visitor.visitActions();
             case AUTH_SILENT_AUTH_FAIL:
                 return visitor.visitAuthSilentAuthFail();
-            case MANAGEMENT_FAIL:
-                return visitor.visitManagementFail();
+            case AUTH_LOGOUT_FAIL:
+                return visitor.visitAuthLogoutFail();
             case AUTH_TOKEN_EXCHANGE_SUCCESS:
                 return visitor.visitAuthTokenExchangeSuccess();
             case USER_NOTIFICATION:
                 return visitor.visitUserNotification();
+            case AUTH_LOGIN_SUCCESS:
+                return visitor.visitAuthLoginSuccess();
             case AUTH_SILENT_AUTH_SUCCESS:
                 return visitor.visitAuthSilentAuthSuccess();
-            case AUTH_LOGOUT_FAIL:
-                return visitor.visitAuthLogoutFail();
             case MANAGEMENT_SUCCESS:
                 return visitor.visitManagementSuccess();
+            case SCIM_EVENT:
+                return visitor.visitScimEvent();
             case OTHER:
                 return visitor.visitOther();
             case AUTH_SIGNUP_FAIL:
                 return visitor.visitAuthSignupFail();
             case AUTH_SIGNUP_SUCCESS:
                 return visitor.visitAuthSignupSuccess();
-            case SCIM_EVENT:
-                return visitor.visitScimEvent();
+            case USER_FAIL:
+                return visitor.visitUserFail();
             case AUTH_LOGIN_FAIL:
                 return visitor.visitAuthLoginFail();
             case AUTH_LOGIN_NOTIFICATION:
                 return visitor.visitAuthLoginNotification();
-            case USER_FAIL:
-                return visitor.visitUserFail();
             case USER_SUCCESS:
                 return visitor.visitUserSuccess();
             case UNKNOWN:
@@ -148,44 +148,44 @@ public final class LogStreamFilterGroupNameEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static LogStreamFilterGroupNameEnum valueOf(String value) {
         switch (value) {
-            case "auth.login.success":
-                return AUTH_LOGIN_SUCCESS;
             case "auth.logout.success":
                 return AUTH_LOGOUT_SUCCESS;
-            case "auth.token_exchange.fail":
-                return AUTH_TOKEN_EXCHANGE_FAIL;
             case "system.notification":
                 return SYSTEM_NOTIFICATION;
+            case "auth.token_exchange.fail":
+                return AUTH_TOKEN_EXCHANGE_FAIL;
+            case "management.fail":
+                return MANAGEMENT_FAIL;
             case "actions":
                 return ACTIONS;
             case "auth.silent_auth.fail":
                 return AUTH_SILENT_AUTH_FAIL;
-            case "management.fail":
-                return MANAGEMENT_FAIL;
+            case "auth.logout.fail":
+                return AUTH_LOGOUT_FAIL;
             case "auth.token_exchange.success":
                 return AUTH_TOKEN_EXCHANGE_SUCCESS;
             case "user.notification":
                 return USER_NOTIFICATION;
+            case "auth.login.success":
+                return AUTH_LOGIN_SUCCESS;
             case "auth.silent_auth.success":
                 return AUTH_SILENT_AUTH_SUCCESS;
-            case "auth.logout.fail":
-                return AUTH_LOGOUT_FAIL;
             case "management.success":
                 return MANAGEMENT_SUCCESS;
+            case "scim.event":
+                return SCIM_EVENT;
             case "other":
                 return OTHER;
             case "auth.signup.fail":
                 return AUTH_SIGNUP_FAIL;
             case "auth.signup.success":
                 return AUTH_SIGNUP_SUCCESS;
-            case "scim.event":
-                return SCIM_EVENT;
+            case "user.fail":
+                return USER_FAIL;
             case "auth.login.fail":
                 return AUTH_LOGIN_FAIL;
             case "auth.login.notification":
                 return AUTH_LOGIN_NOTIFICATION;
-            case "user.fail":
-                return USER_FAIL;
             case "user.success":
                 return USER_SUCCESS;
             default:

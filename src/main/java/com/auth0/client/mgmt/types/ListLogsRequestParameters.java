@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -18,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListLogsRequestParameters.Builder.class)
@@ -62,6 +62,9 @@ public final class ListLogsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getPage() {
+        if (page == null) {
+            return OptionalNullable.absent();
+        }
         return page;
     }
 
@@ -70,6 +73,9 @@ public final class ListLogsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getPerPage() {
+        if (perPage == null) {
+            return OptionalNullable.absent();
+        }
         return perPage;
     }
 
@@ -111,6 +117,9 @@ public final class ListLogsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Boolean> getIncludeTotals() {
+        if (includeTotals == null) {
+            return OptionalNullable.absent();
+        }
         return includeTotals;
     }
 
@@ -199,7 +208,7 @@ public final class ListLogsRequestParameters {
          * <p>Page index of the results to return. First page is 0.</p>
          */
         @JsonSetter(value = "page", nulls = Nulls.SKIP)
-        public Builder page(OptionalNullable<Integer> page) {
+        public Builder page(@Nullable OptionalNullable<Integer> page) {
             this.page = page;
             return this;
         }
@@ -218,7 +227,7 @@ public final class ListLogsRequestParameters {
             return this;
         }
 
-        public Builder page(Nullable<Integer> page) {
+        public Builder page(com.auth0.client.mgmt.core.Nullable<Integer> page) {
             if (page.isNull()) {
                 this.page = OptionalNullable.ofNull();
             } else if (page.isEmpty()) {
@@ -233,7 +242,7 @@ public final class ListLogsRequestParameters {
          * <p>Number of results per page. Paging is disabled if parameter not sent. Default: <code>50</code>. Max value: <code>100</code></p>
          */
         @JsonSetter(value = "per_page", nulls = Nulls.SKIP)
-        public Builder perPage(OptionalNullable<Integer> perPage) {
+        public Builder perPage(@Nullable OptionalNullable<Integer> perPage) {
             this.perPage = perPage;
             return this;
         }
@@ -252,7 +261,7 @@ public final class ListLogsRequestParameters {
             return this;
         }
 
-        public Builder perPage(Nullable<Integer> perPage) {
+        public Builder perPage(com.auth0.client.mgmt.core.Nullable<Integer> perPage) {
             if (perPage.isNull()) {
                 this.perPage = OptionalNullable.ofNull();
             } else if (perPage.isEmpty()) {
@@ -267,7 +276,7 @@ public final class ListLogsRequestParameters {
          * <p>Field to use for sorting appended with <code>:1</code>  for ascending and <code>:-1</code> for descending. e.g. <code>date:-1</code></p>
          */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
-        public Builder sort(@org.jetbrains.annotations.Nullable OptionalNullable<String> sort) {
+        public Builder sort(@Nullable OptionalNullable<String> sort) {
             this.sort = sort;
             return this;
         }
@@ -286,7 +295,7 @@ public final class ListLogsRequestParameters {
             return this;
         }
 
-        public Builder sort(Nullable<String> sort) {
+        public Builder sort(com.auth0.client.mgmt.core.Nullable<String> sort) {
             if (sort.isNull()) {
                 this.sort = OptionalNullable.ofNull();
             } else if (sort.isEmpty()) {
@@ -301,7 +310,7 @@ public final class ListLogsRequestParameters {
          * <p>Comma-separated list of fields to include or exclude (based on value provided for <code>include_fields</code>) in the result. Leave empty to retrieve all fields.</p>
          */
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
-        public Builder fields(@org.jetbrains.annotations.Nullable OptionalNullable<String> fields) {
+        public Builder fields(@Nullable OptionalNullable<String> fields) {
             this.fields = fields;
             return this;
         }
@@ -320,7 +329,7 @@ public final class ListLogsRequestParameters {
             return this;
         }
 
-        public Builder fields(Nullable<String> fields) {
+        public Builder fields(com.auth0.client.mgmt.core.Nullable<String> fields) {
             if (fields.isNull()) {
                 this.fields = OptionalNullable.ofNull();
             } else if (fields.isEmpty()) {
@@ -335,7 +344,7 @@ public final class ListLogsRequestParameters {
          * <p>Whether specified fields are to be included (<code>true</code>) or excluded (<code>false</code>)</p>
          */
         @JsonSetter(value = "include_fields", nulls = Nulls.SKIP)
-        public Builder includeFields(@org.jetbrains.annotations.Nullable OptionalNullable<Boolean> includeFields) {
+        public Builder includeFields(@Nullable OptionalNullable<Boolean> includeFields) {
             this.includeFields = includeFields;
             return this;
         }
@@ -354,7 +363,7 @@ public final class ListLogsRequestParameters {
             return this;
         }
 
-        public Builder includeFields(Nullable<Boolean> includeFields) {
+        public Builder includeFields(com.auth0.client.mgmt.core.Nullable<Boolean> includeFields) {
             if (includeFields.isNull()) {
                 this.includeFields = OptionalNullable.ofNull();
             } else if (includeFields.isEmpty()) {
@@ -369,7 +378,7 @@ public final class ListLogsRequestParameters {
          * <p>Return results as an array when false (default). Return results inside an object that also contains a total result count when true.</p>
          */
         @JsonSetter(value = "include_totals", nulls = Nulls.SKIP)
-        public Builder includeTotals(OptionalNullable<Boolean> includeTotals) {
+        public Builder includeTotals(@Nullable OptionalNullable<Boolean> includeTotals) {
             this.includeTotals = includeTotals;
             return this;
         }
@@ -388,7 +397,7 @@ public final class ListLogsRequestParameters {
             return this;
         }
 
-        public Builder includeTotals(Nullable<Boolean> includeTotals) {
+        public Builder includeTotals(com.auth0.client.mgmt.core.Nullable<Boolean> includeTotals) {
             if (includeTotals.isNull()) {
                 this.includeTotals = OptionalNullable.ofNull();
             } else if (includeTotals.isEmpty()) {
@@ -405,7 +414,7 @@ public final class ListLogsRequestParameters {
          * Values specified without quotes are matched using a case insensitive 'starts with' search. If quotes are used a case insensitve exact search is used. If multiple fields are used, the AND operator is used to join the clauses.</p>
          */
         @JsonSetter(value = "search", nulls = Nulls.SKIP)
-        public Builder search(@org.jetbrains.annotations.Nullable OptionalNullable<String> search) {
+        public Builder search(@Nullable OptionalNullable<String> search) {
             this.search = search;
             return this;
         }
@@ -424,7 +433,7 @@ public final class ListLogsRequestParameters {
             return this;
         }
 
-        public Builder search(Nullable<String> search) {
+        public Builder search(com.auth0.client.mgmt.core.Nullable<String> search) {
             if (search.isNull()) {
                 this.search = OptionalNullable.ofNull();
             } else if (search.isEmpty()) {

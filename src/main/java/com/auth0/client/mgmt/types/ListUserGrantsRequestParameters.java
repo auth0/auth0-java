@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -18,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListUserGrantsRequestParameters.Builder.class)
@@ -58,6 +58,9 @@ public final class ListUserGrantsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getPerPage() {
+        if (perPage == null) {
+            return OptionalNullable.absent();
+        }
         return perPage;
     }
 
@@ -66,6 +69,9 @@ public final class ListUserGrantsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getPage() {
+        if (page == null) {
+            return OptionalNullable.absent();
+        }
         return page;
     }
 
@@ -74,6 +80,9 @@ public final class ListUserGrantsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Boolean> getIncludeTotals() {
+        if (includeTotals == null) {
+            return OptionalNullable.absent();
+        }
         return includeTotals;
     }
 
@@ -177,7 +186,7 @@ public final class ListUserGrantsRequestParameters {
          * <p>Number of results per page.</p>
          */
         @JsonSetter(value = "per_page", nulls = Nulls.SKIP)
-        public Builder perPage(OptionalNullable<Integer> perPage) {
+        public Builder perPage(@Nullable OptionalNullable<Integer> perPage) {
             this.perPage = perPage;
             return this;
         }
@@ -196,7 +205,7 @@ public final class ListUserGrantsRequestParameters {
             return this;
         }
 
-        public Builder perPage(Nullable<Integer> perPage) {
+        public Builder perPage(com.auth0.client.mgmt.core.Nullable<Integer> perPage) {
             if (perPage.isNull()) {
                 this.perPage = OptionalNullable.ofNull();
             } else if (perPage.isEmpty()) {
@@ -211,7 +220,7 @@ public final class ListUserGrantsRequestParameters {
          * <p>Page index of the results to return. First page is 0.</p>
          */
         @JsonSetter(value = "page", nulls = Nulls.SKIP)
-        public Builder page(OptionalNullable<Integer> page) {
+        public Builder page(@Nullable OptionalNullable<Integer> page) {
             this.page = page;
             return this;
         }
@@ -230,7 +239,7 @@ public final class ListUserGrantsRequestParameters {
             return this;
         }
 
-        public Builder page(Nullable<Integer> page) {
+        public Builder page(com.auth0.client.mgmt.core.Nullable<Integer> page) {
             if (page.isNull()) {
                 this.page = OptionalNullable.ofNull();
             } else if (page.isEmpty()) {
@@ -245,7 +254,7 @@ public final class ListUserGrantsRequestParameters {
          * <p>Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).</p>
          */
         @JsonSetter(value = "include_totals", nulls = Nulls.SKIP)
-        public Builder includeTotals(OptionalNullable<Boolean> includeTotals) {
+        public Builder includeTotals(@Nullable OptionalNullable<Boolean> includeTotals) {
             this.includeTotals = includeTotals;
             return this;
         }
@@ -264,7 +273,7 @@ public final class ListUserGrantsRequestParameters {
             return this;
         }
 
-        public Builder includeTotals(Nullable<Boolean> includeTotals) {
+        public Builder includeTotals(com.auth0.client.mgmt.core.Nullable<Boolean> includeTotals) {
             if (includeTotals.isNull()) {
                 this.includeTotals = OptionalNullable.ofNull();
             } else if (includeTotals.isEmpty()) {
@@ -279,7 +288,7 @@ public final class ListUserGrantsRequestParameters {
          * <p>user_id of the grants to retrieve.</p>
          */
         @JsonSetter(value = "user_id", nulls = Nulls.SKIP)
-        public Builder userId(@org.jetbrains.annotations.Nullable OptionalNullable<String> userId) {
+        public Builder userId(@Nullable OptionalNullable<String> userId) {
             this.userId = userId;
             return this;
         }
@@ -298,7 +307,7 @@ public final class ListUserGrantsRequestParameters {
             return this;
         }
 
-        public Builder userId(Nullable<String> userId) {
+        public Builder userId(com.auth0.client.mgmt.core.Nullable<String> userId) {
             if (userId.isNull()) {
                 this.userId = OptionalNullable.ofNull();
             } else if (userId.isEmpty()) {
@@ -313,7 +322,7 @@ public final class ListUserGrantsRequestParameters {
          * <p>client_id of the grants to retrieve.</p>
          */
         @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
-        public Builder clientId(@org.jetbrains.annotations.Nullable OptionalNullable<String> clientId) {
+        public Builder clientId(@Nullable OptionalNullable<String> clientId) {
             this.clientId = clientId;
             return this;
         }
@@ -332,7 +341,7 @@ public final class ListUserGrantsRequestParameters {
             return this;
         }
 
-        public Builder clientId(Nullable<String> clientId) {
+        public Builder clientId(com.auth0.client.mgmt.core.Nullable<String> clientId) {
             if (clientId.isNull()) {
                 this.clientId = OptionalNullable.ofNull();
             } else if (clientId.isEmpty()) {
@@ -347,7 +356,7 @@ public final class ListUserGrantsRequestParameters {
          * <p>audience of the grants to retrieve.</p>
          */
         @JsonSetter(value = "audience", nulls = Nulls.SKIP)
-        public Builder audience(@org.jetbrains.annotations.Nullable OptionalNullable<String> audience) {
+        public Builder audience(@Nullable OptionalNullable<String> audience) {
             this.audience = audience;
             return this;
         }
@@ -366,7 +375,7 @@ public final class ListUserGrantsRequestParameters {
             return this;
         }
 
-        public Builder audience(Nullable<String> audience) {
+        public Builder audience(com.auth0.client.mgmt.core.Nullable<String> audience) {
             if (audience.isNull()) {
                 this.audience = OptionalNullable.ofNull();
             } else if (audience.isEmpty()) {

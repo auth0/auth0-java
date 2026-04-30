@@ -9,15 +9,15 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class FormFieldPasswordConfigHashEnum {
     public static final FormFieldPasswordConfigHashEnum SHA1 = new FormFieldPasswordConfigHashEnum(Value.SHA1, "SHA1");
 
+    public static final FormFieldPasswordConfigHashEnum NONE = new FormFieldPasswordConfigHashEnum(Value.NONE, "NONE");
+
     public static final FormFieldPasswordConfigHashEnum SHA256 =
             new FormFieldPasswordConfigHashEnum(Value.SHA256, "SHA256");
 
-    public static final FormFieldPasswordConfigHashEnum NONE = new FormFieldPasswordConfigHashEnum(Value.NONE, "NONE");
+    public static final FormFieldPasswordConfigHashEnum MD5 = new FormFieldPasswordConfigHashEnum(Value.MD5, "MD5");
 
     public static final FormFieldPasswordConfigHashEnum SHA512 =
             new FormFieldPasswordConfigHashEnum(Value.SHA512, "SHA512");
-
-    public static final FormFieldPasswordConfigHashEnum MD5 = new FormFieldPasswordConfigHashEnum(Value.MD5, "MD5");
 
     private final Value value;
 
@@ -54,14 +54,14 @@ public final class FormFieldPasswordConfigHashEnum {
         switch (value) {
             case SHA1:
                 return visitor.visitSha1();
-            case SHA256:
-                return visitor.visitSha256();
             case NONE:
                 return visitor.visitNone();
-            case SHA512:
-                return visitor.visitSha512();
+            case SHA256:
+                return visitor.visitSha256();
             case MD5:
                 return visitor.visitMd5();
+            case SHA512:
+                return visitor.visitSha512();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -73,14 +73,14 @@ public final class FormFieldPasswordConfigHashEnum {
         switch (value) {
             case "SHA1":
                 return SHA1;
-            case "SHA256":
-                return SHA256;
             case "NONE":
                 return NONE;
-            case "SHA512":
-                return SHA512;
+            case "SHA256":
+                return SHA256;
             case "MD5":
                 return MD5;
+            case "SHA512":
+                return SHA512;
             default:
                 return new FormFieldPasswordConfigHashEnum(Value.UNKNOWN, value);
         }

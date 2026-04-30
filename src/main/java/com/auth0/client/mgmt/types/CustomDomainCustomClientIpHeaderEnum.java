@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class CustomDomainCustomClientIpHeaderEnum {
+    public static final CustomDomainCustomClientIpHeaderEnum X_FORWARDED_FOR =
+            new CustomDomainCustomClientIpHeaderEnum(Value.X_FORWARDED_FOR, "x-forwarded-for");
+
     public static final CustomDomainCustomClientIpHeaderEnum TRUE_CLIENT_IP =
             new CustomDomainCustomClientIpHeaderEnum(Value.TRUE_CLIENT_IP, "true-client-ip");
 
@@ -15,9 +18,6 @@ public final class CustomDomainCustomClientIpHeaderEnum {
 
     public static final CustomDomainCustomClientIpHeaderEnum EMPTY =
             new CustomDomainCustomClientIpHeaderEnum(Value.EMPTY, "");
-
-    public static final CustomDomainCustomClientIpHeaderEnum X_FORWARDED_FOR =
-            new CustomDomainCustomClientIpHeaderEnum(Value.X_FORWARDED_FOR, "x-forwarded-for");
 
     public static final CustomDomainCustomClientIpHeaderEnum CF_CONNECTING_IP =
             new CustomDomainCustomClientIpHeaderEnum(Value.CF_CONNECTING_IP, "cf-connecting-ip");
@@ -55,14 +55,14 @@ public final class CustomDomainCustomClientIpHeaderEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case X_FORWARDED_FOR:
+                return visitor.visitXForwardedFor();
             case TRUE_CLIENT_IP:
                 return visitor.visitTrueClientIp();
             case X_AZURE_CLIENTIP:
                 return visitor.visitXAzureClientip();
             case EMPTY:
                 return visitor.visitEmpty();
-            case X_FORWARDED_FOR:
-                return visitor.visitXForwardedFor();
             case CF_CONNECTING_IP:
                 return visitor.visitCfConnectingIp();
             case UNKNOWN:
@@ -74,14 +74,14 @@ public final class CustomDomainCustomClientIpHeaderEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static CustomDomainCustomClientIpHeaderEnum valueOf(String value) {
         switch (value) {
+            case "x-forwarded-for":
+                return X_FORWARDED_FOR;
             case "true-client-ip":
                 return TRUE_CLIENT_IP;
             case "x-azure-clientip":
                 return X_AZURE_CLIENTIP;
             case "":
                 return EMPTY;
-            case "x-forwarded-for":
-                return X_FORWARDED_FOR;
             case "cf-connecting-ip":
                 return CF_CONNECTING_IP;
             default:

@@ -7,11 +7,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class AculContextEnum {
-    public static final AculContextEnum TENANT_FRIENDLY_NAME =
-            new AculContextEnum(Value.TENANT_FRIENDLY_NAME, "tenant.friendly_name");
+    public static final AculContextEnum UNTRUSTED_DATA_AUTHORIZATION_PARAMS_UI_LOCALES = new AculContextEnum(
+            Value.UNTRUSTED_DATA_AUTHORIZATION_PARAMS_UI_LOCALES, "untrusted_data.authorization_params.ui_locales");
 
     public static final AculContextEnum UNTRUSTED_DATA_AUTHORIZATION_PARAMS_SCREEN_HINT = new AculContextEnum(
             Value.UNTRUSTED_DATA_AUTHORIZATION_PARAMS_SCREEN_HINT, "untrusted_data.authorization_params.screen_hint");
+
+    public static final AculContextEnum TENANT_FRIENDLY_NAME =
+            new AculContextEnum(Value.TENANT_FRIENDLY_NAME, "tenant.friendly_name");
 
     public static final AculContextEnum ORGANIZATION_BRANDING =
             new AculContextEnum(Value.ORGANIZATION_BRANDING, "organization.branding");
@@ -27,19 +30,13 @@ public final class AculContextEnum {
     public static final AculContextEnum TRANSACTION_CUSTOM_DOMAIN_DOMAIN =
             new AculContextEnum(Value.TRANSACTION_CUSTOM_DOMAIN_DOMAIN, "transaction.custom_domain.domain");
 
+    public static final AculContextEnum CLIENT_LOGO_URI = new AculContextEnum(Value.CLIENT_LOGO_URI, "client.logo_uri");
+
     public static final AculContextEnum UNTRUSTED_DATA_SUBMITTED_FORM_DATA =
             new AculContextEnum(Value.UNTRUSTED_DATA_SUBMITTED_FORM_DATA, "untrusted_data.submitted_form_data");
 
-    public static final AculContextEnum CLIENT_LOGO_URI = new AculContextEnum(Value.CLIENT_LOGO_URI, "client.logo_uri");
-
     public static final AculContextEnum TENANT_ENABLED_LOCALES =
             new AculContextEnum(Value.TENANT_ENABLED_LOCALES, "tenant.enabled_locales");
-
-    public static final AculContextEnum ORGANIZATION_DISPLAY_NAME =
-            new AculContextEnum(Value.ORGANIZATION_DISPLAY_NAME, "organization.display_name");
-
-    public static final AculContextEnum UNTRUSTED_DATA_AUTHORIZATION_PARAMS_LOGIN_HINT = new AculContextEnum(
-            Value.UNTRUSTED_DATA_AUTHORIZATION_PARAMS_LOGIN_HINT, "untrusted_data.authorization_params.login_hint");
 
     public static final AculContextEnum USER_ORGANIZATIONS =
             new AculContextEnum(Value.USER_ORGANIZATIONS, "user.organizations");
@@ -47,12 +44,15 @@ public final class AculContextEnum {
     public static final AculContextEnum BRANDING_THEMES_DEFAULT =
             new AculContextEnum(Value.BRANDING_THEMES_DEFAULT, "branding.themes.default");
 
+    public static final AculContextEnum ORGANIZATION_DISPLAY_NAME =
+            new AculContextEnum(Value.ORGANIZATION_DISPLAY_NAME, "organization.display_name");
+
     public static final AculContextEnum TENANT_NAME = new AculContextEnum(Value.TENANT_NAME, "tenant.name");
 
-    public static final AculContextEnum UNTRUSTED_DATA_AUTHORIZATION_PARAMS_UI_LOCALES = new AculContextEnum(
-            Value.UNTRUSTED_DATA_AUTHORIZATION_PARAMS_UI_LOCALES, "untrusted_data.authorization_params.ui_locales");
-
     public static final AculContextEnum TENANT_LOGO_URL = new AculContextEnum(Value.TENANT_LOGO_URL, "tenant.logo_url");
+
+    public static final AculContextEnum UNTRUSTED_DATA_AUTHORIZATION_PARAMS_LOGIN_HINT = new AculContextEnum(
+            Value.UNTRUSTED_DATA_AUTHORIZATION_PARAMS_LOGIN_HINT, "untrusted_data.authorization_params.login_hint");
 
     private final Value value;
 
@@ -86,10 +86,12 @@ public final class AculContextEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case TENANT_FRIENDLY_NAME:
-                return visitor.visitTenantFriendlyName();
+            case UNTRUSTED_DATA_AUTHORIZATION_PARAMS_UI_LOCALES:
+                return visitor.visitUntrustedDataAuthorizationParamsUiLocales();
             case UNTRUSTED_DATA_AUTHORIZATION_PARAMS_SCREEN_HINT:
                 return visitor.visitUntrustedDataAuthorizationParamsScreenHint();
+            case TENANT_FRIENDLY_NAME:
+                return visitor.visitTenantFriendlyName();
             case ORGANIZATION_BRANDING:
                 return visitor.visitOrganizationBranding();
             case CLIENT_DESCRIPTION:
@@ -100,26 +102,24 @@ public final class AculContextEnum {
                 return visitor.visitBrandingSettings();
             case TRANSACTION_CUSTOM_DOMAIN_DOMAIN:
                 return visitor.visitTransactionCustomDomainDomain();
-            case UNTRUSTED_DATA_SUBMITTED_FORM_DATA:
-                return visitor.visitUntrustedDataSubmittedFormData();
             case CLIENT_LOGO_URI:
                 return visitor.visitClientLogoUri();
+            case UNTRUSTED_DATA_SUBMITTED_FORM_DATA:
+                return visitor.visitUntrustedDataSubmittedFormData();
             case TENANT_ENABLED_LOCALES:
                 return visitor.visitTenantEnabledLocales();
-            case ORGANIZATION_DISPLAY_NAME:
-                return visitor.visitOrganizationDisplayName();
-            case UNTRUSTED_DATA_AUTHORIZATION_PARAMS_LOGIN_HINT:
-                return visitor.visitUntrustedDataAuthorizationParamsLoginHint();
             case USER_ORGANIZATIONS:
                 return visitor.visitUserOrganizations();
             case BRANDING_THEMES_DEFAULT:
                 return visitor.visitBrandingThemesDefault();
+            case ORGANIZATION_DISPLAY_NAME:
+                return visitor.visitOrganizationDisplayName();
             case TENANT_NAME:
                 return visitor.visitTenantName();
-            case UNTRUSTED_DATA_AUTHORIZATION_PARAMS_UI_LOCALES:
-                return visitor.visitUntrustedDataAuthorizationParamsUiLocales();
             case TENANT_LOGO_URL:
                 return visitor.visitTenantLogoUrl();
+            case UNTRUSTED_DATA_AUTHORIZATION_PARAMS_LOGIN_HINT:
+                return visitor.visitUntrustedDataAuthorizationParamsLoginHint();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -129,10 +129,12 @@ public final class AculContextEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static AculContextEnum valueOf(String value) {
         switch (value) {
-            case "tenant.friendly_name":
-                return TENANT_FRIENDLY_NAME;
+            case "untrusted_data.authorization_params.ui_locales":
+                return UNTRUSTED_DATA_AUTHORIZATION_PARAMS_UI_LOCALES;
             case "untrusted_data.authorization_params.screen_hint":
                 return UNTRUSTED_DATA_AUTHORIZATION_PARAMS_SCREEN_HINT;
+            case "tenant.friendly_name":
+                return TENANT_FRIENDLY_NAME;
             case "organization.branding":
                 return ORGANIZATION_BRANDING;
             case "client.description":
@@ -143,26 +145,24 @@ public final class AculContextEnum {
                 return BRANDING_SETTINGS;
             case "transaction.custom_domain.domain":
                 return TRANSACTION_CUSTOM_DOMAIN_DOMAIN;
-            case "untrusted_data.submitted_form_data":
-                return UNTRUSTED_DATA_SUBMITTED_FORM_DATA;
             case "client.logo_uri":
                 return CLIENT_LOGO_URI;
+            case "untrusted_data.submitted_form_data":
+                return UNTRUSTED_DATA_SUBMITTED_FORM_DATA;
             case "tenant.enabled_locales":
                 return TENANT_ENABLED_LOCALES;
-            case "organization.display_name":
-                return ORGANIZATION_DISPLAY_NAME;
-            case "untrusted_data.authorization_params.login_hint":
-                return UNTRUSTED_DATA_AUTHORIZATION_PARAMS_LOGIN_HINT;
             case "user.organizations":
                 return USER_ORGANIZATIONS;
             case "branding.themes.default":
                 return BRANDING_THEMES_DEFAULT;
+            case "organization.display_name":
+                return ORGANIZATION_DISPLAY_NAME;
             case "tenant.name":
                 return TENANT_NAME;
-            case "untrusted_data.authorization_params.ui_locales":
-                return UNTRUSTED_DATA_AUTHORIZATION_PARAMS_UI_LOCALES;
             case "tenant.logo_url":
                 return TENANT_LOGO_URL;
+            case "untrusted_data.authorization_params.login_hint":
+                return UNTRUSTED_DATA_AUTHORIZATION_PARAMS_LOGIN_HINT;
             default:
                 return new AculContextEnum(Value.UNKNOWN, value);
         }

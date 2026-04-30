@@ -7,9 +7,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class FlowActionWhatsappSendMessageParamsType {
-    public static final FlowActionWhatsappSendMessageParamsType INTERACTIVE =
-            new FlowActionWhatsappSendMessageParamsType(Value.INTERACTIVE, "INTERACTIVE");
-
     public static final FlowActionWhatsappSendMessageParamsType DOCUMENT =
             new FlowActionWhatsappSendMessageParamsType(Value.DOCUMENT, "DOCUMENT");
 
@@ -19,20 +16,23 @@ public final class FlowActionWhatsappSendMessageParamsType {
     public static final FlowActionWhatsappSendMessageParamsType TEXT =
             new FlowActionWhatsappSendMessageParamsType(Value.TEXT, "TEXT");
 
+    public static final FlowActionWhatsappSendMessageParamsType INTERACTIVE =
+            new FlowActionWhatsappSendMessageParamsType(Value.INTERACTIVE, "INTERACTIVE");
+
     public static final FlowActionWhatsappSendMessageParamsType AUDIO =
             new FlowActionWhatsappSendMessageParamsType(Value.AUDIO, "AUDIO");
 
     public static final FlowActionWhatsappSendMessageParamsType CONTACTS =
             new FlowActionWhatsappSendMessageParamsType(Value.CONTACTS, "CONTACTS");
 
+    public static final FlowActionWhatsappSendMessageParamsType IMAGE =
+            new FlowActionWhatsappSendMessageParamsType(Value.IMAGE, "IMAGE");
+
     public static final FlowActionWhatsappSendMessageParamsType LOCATION =
             new FlowActionWhatsappSendMessageParamsType(Value.LOCATION, "LOCATION");
 
     public static final FlowActionWhatsappSendMessageParamsType STICKER =
             new FlowActionWhatsappSendMessageParamsType(Value.STICKER, "STICKER");
-
-    public static final FlowActionWhatsappSendMessageParamsType IMAGE =
-            new FlowActionWhatsappSendMessageParamsType(Value.IMAGE, "IMAGE");
 
     private final Value value;
 
@@ -67,24 +67,24 @@ public final class FlowActionWhatsappSendMessageParamsType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case INTERACTIVE:
-                return visitor.visitInteractive();
             case DOCUMENT:
                 return visitor.visitDocument();
             case TEMPLATE:
                 return visitor.visitTemplate();
             case TEXT:
                 return visitor.visitText();
+            case INTERACTIVE:
+                return visitor.visitInteractive();
             case AUDIO:
                 return visitor.visitAudio();
             case CONTACTS:
                 return visitor.visitContacts();
+            case IMAGE:
+                return visitor.visitImage();
             case LOCATION:
                 return visitor.visitLocation();
             case STICKER:
                 return visitor.visitSticker();
-            case IMAGE:
-                return visitor.visitImage();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -94,24 +94,24 @@ public final class FlowActionWhatsappSendMessageParamsType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static FlowActionWhatsappSendMessageParamsType valueOf(String value) {
         switch (value) {
-            case "INTERACTIVE":
-                return INTERACTIVE;
             case "DOCUMENT":
                 return DOCUMENT;
             case "TEMPLATE":
                 return TEMPLATE;
             case "TEXT":
                 return TEXT;
+            case "INTERACTIVE":
+                return INTERACTIVE;
             case "AUDIO":
                 return AUDIO;
             case "CONTACTS":
                 return CONTACTS;
+            case "IMAGE":
+                return IMAGE;
             case "LOCATION":
                 return LOCATION;
             case "STICKER":
                 return STICKER;
-            case "IMAGE":
-                return IMAGE;
             default:
                 return new FlowActionWhatsappSendMessageParamsType(Value.UNKNOWN, value);
         }

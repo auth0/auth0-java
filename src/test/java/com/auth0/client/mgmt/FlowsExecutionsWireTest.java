@@ -6,9 +6,11 @@ import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.flows.types.GetFlowExecutionRequestParameters;
 import com.auth0.client.mgmt.flows.types.ListFlowExecutionsRequestParameters;
 import com.auth0.client.mgmt.types.FlowExecutionSummary;
+import com.auth0.client.mgmt.types.GetFlowExecutionRequestParametersHydrateEnum;
 import com.auth0.client.mgmt.types.GetFlowExecutionResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -74,7 +76,9 @@ public class FlowsExecutionsWireTest {
                 .get(
                         "flow_id",
                         "execution_id",
-                        GetFlowExecutionRequestParameters.builder().build());
+                        GetFlowExecutionRequestParameters.builder()
+                                .hydrate(Arrays.asList(GetFlowExecutionRequestParametersHydrateEnum.DEBUG))
+                                .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("GET", request.getMethod());
@@ -152,7 +156,9 @@ public class FlowsExecutionsWireTest {
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
                 JsonNode actualValue = actual.get(entry.getKey());
-                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
+                if (actualValue == null) {
+                    if (!entry.getValue().isNull()) return false;
+                } else if (!jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }

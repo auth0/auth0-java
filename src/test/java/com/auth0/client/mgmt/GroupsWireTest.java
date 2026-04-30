@@ -48,6 +48,7 @@ public class GroupsWireTest {
                         .connectionId(OptionalNullable.of("connection_id"))
                         .name(OptionalNullable.of("name"))
                         .externalId(OptionalNullable.of("external_id"))
+                        .search(OptionalNullable.of("search"))
                         .fields(OptionalNullable.of("fields"))
                         .includeFields(OptionalNullable.of(true))
                         .from(OptionalNullable.of("from"))
@@ -144,7 +145,9 @@ public class GroupsWireTest {
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
                 JsonNode actualValue = actual.get(entry.getKey());
-                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
+                if (actualValue == null) {
+                    if (!entry.getValue().isNull()) return false;
+                } else if (!jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }

@@ -6,6 +6,7 @@ import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateFormRequestContent;
 import com.auth0.client.mgmt.types.CreateFormResponseContent;
 import com.auth0.client.mgmt.types.FormSummary;
+import com.auth0.client.mgmt.types.FormsRequestParametersHydrateEnum;
 import com.auth0.client.mgmt.types.GetFormRequestParameters;
 import com.auth0.client.mgmt.types.GetFormResponseContent;
 import com.auth0.client.mgmt.types.ListFormsRequestParameters;
@@ -13,6 +14,7 @@ import com.auth0.client.mgmt.types.UpdateFormRequestContent;
 import com.auth0.client.mgmt.types.UpdateFormResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -53,6 +55,7 @@ public class FormsWireTest {
                         .page(OptionalNullable.of(1))
                         .perPage(OptionalNullable.of(1))
                         .includeTotals(OptionalNullable.of(true))
+                        .hydrate(Arrays.asList(FormsRequestParametersHydrateEnum.FLOW_COUNT))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -144,8 +147,12 @@ public class FormsWireTest {
         server.enqueue(new MockResponse()
                 .setResponseCode(200)
                 .setBody(TestResources.loadResource("/wire-tests/FormsWireTest_testGet_response.json")));
-        GetFormResponseContent response =
-                client.forms().get("id", GetFormRequestParameters.builder().build());
+        GetFormResponseContent response = client.forms()
+                .get(
+                        "id",
+                        GetFormRequestParameters.builder()
+                                .hydrate(Arrays.asList(FormsRequestParametersHydrateEnum.FLOW_COUNT))
+                                .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("GET", request.getMethod());
@@ -285,7 +292,9 @@ public class FormsWireTest {
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
                 JsonNode actualValue = actual.get(entry.getKey());
-                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
+                if (actualValue == null) {
+                    if (!entry.getValue().isNull()) return false;
+                } else if (!jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }

@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class LogStreamStatusEnum {
-    public static final LogStreamStatusEnum PAUSED = new LogStreamStatusEnum(Value.PAUSED, "paused");
-
     public static final LogStreamStatusEnum SUSPENDED = new LogStreamStatusEnum(Value.SUSPENDED, "suspended");
+
+    public static final LogStreamStatusEnum PAUSED = new LogStreamStatusEnum(Value.PAUSED, "paused");
 
     public static final LogStreamStatusEnum ACTIVE = new LogStreamStatusEnum(Value.ACTIVE, "active");
 
@@ -45,10 +45,10 @@ public final class LogStreamStatusEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case PAUSED:
-                return visitor.visitPaused();
             case SUSPENDED:
                 return visitor.visitSuspended();
+            case PAUSED:
+                return visitor.visitPaused();
             case ACTIVE:
                 return visitor.visitActive();
             case UNKNOWN:
@@ -60,10 +60,10 @@ public final class LogStreamStatusEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static LogStreamStatusEnum valueOf(String value) {
         switch (value) {
-            case "paused":
-                return PAUSED;
             case "suspended":
                 return SUSPENDED;
+            case "paused":
+                return PAUSED;
             case "active":
                 return ACTIVE;
             default:

@@ -38,6 +38,8 @@ public class AsyncManagementApi {
 
     protected final Supplier<AsyncEventStreamsClient> eventStreamsClient;
 
+    protected final Supplier<AsyncEventsClient> eventsClient;
+
     protected final Supplier<AsyncFlowsClient> flowsClient;
 
     protected final Supplier<AsyncFormsClient> formsClient;
@@ -116,6 +118,7 @@ public class AsyncManagementApi {
         this.deviceCredentialsClient = Suppliers.memoize(() -> new AsyncDeviceCredentialsClient(clientOptions));
         this.emailTemplatesClient = Suppliers.memoize(() -> new AsyncEmailTemplatesClient(clientOptions));
         this.eventStreamsClient = Suppliers.memoize(() -> new AsyncEventStreamsClient(clientOptions));
+        this.eventsClient = Suppliers.memoize(() -> new AsyncEventsClient(clientOptions));
         this.flowsClient = Suppliers.memoize(() -> new AsyncFlowsClient(clientOptions));
         this.formsClient = Suppliers.memoize(() -> new AsyncFormsClient(clientOptions));
         this.userGrantsClient = Suppliers.memoize(() -> new AsyncUserGrantsClient(clientOptions));
@@ -189,6 +192,10 @@ public class AsyncManagementApi {
 
     public AsyncEventStreamsClient eventStreams() {
         return this.eventStreamsClient.get();
+    }
+
+    public AsyncEventsClient events() {
+        return this.eventsClient.get();
     }
 
     public AsyncFlowsClient flows() {

@@ -7,17 +7,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class FormFieldPaymentConfigChargeOneOffCurrencyEnum {
-    public static final FormFieldPaymentConfigChargeOneOffCurrencyEnum AUD =
-            new FormFieldPaymentConfigChargeOneOffCurrencyEnum(Value.AUD, "AUD");
-
     public static final FormFieldPaymentConfigChargeOneOffCurrencyEnum CAD =
             new FormFieldPaymentConfigChargeOneOffCurrencyEnum(Value.CAD, "CAD");
 
+    public static final FormFieldPaymentConfigChargeOneOffCurrencyEnum AUD =
+            new FormFieldPaymentConfigChargeOneOffCurrencyEnum(Value.AUD, "AUD");
+
     public static final FormFieldPaymentConfigChargeOneOffCurrencyEnum USD =
             new FormFieldPaymentConfigChargeOneOffCurrencyEnum(Value.USD, "USD");
-
-    public static final FormFieldPaymentConfigChargeOneOffCurrencyEnum CHF =
-            new FormFieldPaymentConfigChargeOneOffCurrencyEnum(Value.CHF, "CHF");
 
     public static final FormFieldPaymentConfigChargeOneOffCurrencyEnum EUR =
             new FormFieldPaymentConfigChargeOneOffCurrencyEnum(Value.EUR, "EUR");
@@ -25,14 +22,17 @@ public final class FormFieldPaymentConfigChargeOneOffCurrencyEnum {
     public static final FormFieldPaymentConfigChargeOneOffCurrencyEnum INR =
             new FormFieldPaymentConfigChargeOneOffCurrencyEnum(Value.INR, "INR");
 
-    public static final FormFieldPaymentConfigChargeOneOffCurrencyEnum MXN =
-            new FormFieldPaymentConfigChargeOneOffCurrencyEnum(Value.MXN, "MXN");
+    public static final FormFieldPaymentConfigChargeOneOffCurrencyEnum CHF =
+            new FormFieldPaymentConfigChargeOneOffCurrencyEnum(Value.CHF, "CHF");
 
     public static final FormFieldPaymentConfigChargeOneOffCurrencyEnum GBP =
             new FormFieldPaymentConfigChargeOneOffCurrencyEnum(Value.GBP, "GBP");
 
     public static final FormFieldPaymentConfigChargeOneOffCurrencyEnum SEK =
             new FormFieldPaymentConfigChargeOneOffCurrencyEnum(Value.SEK, "SEK");
+
+    public static final FormFieldPaymentConfigChargeOneOffCurrencyEnum MXN =
+            new FormFieldPaymentConfigChargeOneOffCurrencyEnum(Value.MXN, "MXN");
 
     private final Value value;
 
@@ -67,24 +67,24 @@ public final class FormFieldPaymentConfigChargeOneOffCurrencyEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case AUD:
-                return visitor.visitAud();
             case CAD:
                 return visitor.visitCad();
+            case AUD:
+                return visitor.visitAud();
             case USD:
                 return visitor.visitUsd();
-            case CHF:
-                return visitor.visitChf();
             case EUR:
                 return visitor.visitEur();
             case INR:
                 return visitor.visitInr();
-            case MXN:
-                return visitor.visitMxn();
+            case CHF:
+                return visitor.visitChf();
             case GBP:
                 return visitor.visitGbp();
             case SEK:
                 return visitor.visitSek();
+            case MXN:
+                return visitor.visitMxn();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -94,24 +94,24 @@ public final class FormFieldPaymentConfigChargeOneOffCurrencyEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static FormFieldPaymentConfigChargeOneOffCurrencyEnum valueOf(String value) {
         switch (value) {
-            case "AUD":
-                return AUD;
             case "CAD":
                 return CAD;
+            case "AUD":
+                return AUD;
             case "USD":
                 return USD;
-            case "CHF":
-                return CHF;
             case "EUR":
                 return EUR;
             case "INR":
                 return INR;
-            case "MXN":
-                return MXN;
+            case "CHF":
+                return CHF;
             case "GBP":
                 return GBP;
             case "SEK":
                 return SEK;
+            case "MXN":
+                return MXN;
             default:
                 return new FormFieldPaymentConfigChargeOneOffCurrencyEnum(Value.UNKNOWN, value);
         }

@@ -714,6 +714,14 @@ client.branding().update(
 <dl>
 <dd>
 
+**identifiers:** `Optional<UpdateBrandingIdentifiers>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **font:** `Optional<UpdateBrandingFont>` 
     
 </dd>
@@ -842,7 +850,7 @@ client.clientGrants().list(
 <dl>
 <dd>
 
-**defaultFor:** `Optional<ClientGrantDefaultForEnum>` — Applies this client grant as the default for all clients in the specified group. The only accepted value is `third_party_clients`, which applies the grant to all third-party clients. Per-client grants for the same audience take precedence. Mutually exclusive with `client_id`.
+**defaultFor:** `Optional<ClientGrantDefaultForEnum>` — Applies this client grant as the default for all clients in the specified group. The only accepted value is <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants#default-permissions-for-third-party-applications">`third_party_clients`</a>, which applies the grant to all third-party clients. Per-client grants for the same audience take precedence. Mutually exclusive with `client_id`.
     
 </dd>
 </dl>
@@ -3257,6 +3265,9 @@ client.connections().list(
         .includeFields(
             OptionalNullable.of(true)
         )
+        .strategy(
+            Arrays.asList(ConnectionStrategyEnum.AD)
+        )
         .build()
 );
 ```
@@ -5517,6 +5528,90 @@ client.eventStreams().test(
 </dl>
 </details>
 
+## Events
+<details><summary><code>client.events.subscribe() -> Iterable&amp;lt;EventStreamSubscribeEventsResponseContent&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Subscribe to events via Server-Sent Events (SSE)
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.events().subscribe(
+    SubscribeEventsRequestParameters
+        .builder()
+        .from(
+            OptionalNullable.of("from")
+        )
+        .fromTimestamp(
+            OptionalNullable.of("from_timestamp")
+        )
+        .eventType(
+            Arrays.asList(EventStreamSubscribeEventsEventTypeEnum.GROUP_CREATED)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Opaque token representing position in the stream. If not provided, stream will start from the latest events.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fromTimestamp:** `Optional<String>` — RFC-3339 timestamp indicating where to start streaming events from. This should only be used on the initial query when a cursor may not be available. Subsequent requests should use the cursor (from) as it will be more accurate.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**eventType:** `Optional<EventStreamSubscribeEventsEventTypeEnum>` — Event type(s) to listen for. Specify multiple times for multiple types (e.g., ?event_type=user.created&event_type=user.updated). If not provided, all event types will be streamed.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Flows
 <details><summary><code>client.flows.list() -> SyncPagingIterable&amp;lt;FlowSummary&amp;gt;</code></summary>
 <dl>
@@ -5545,6 +5640,9 @@ client.flows().list(
         )
         .synchronous(
             OptionalNullable.of(true)
+        )
+        .hydrate(
+            Arrays.asList(ListFlowsRequestParametersHydrateEnum.FORM_COUNT)
         )
         .build()
 );
@@ -5676,6 +5774,9 @@ client.flows().get(
     "id",
     GetFlowRequestParameters
         .builder()
+        .hydrate(
+            Arrays.asList(GetFlowRequestParametersHydrateEnum.FORM_COUNT)
+        )
         .build()
 );
 ```
@@ -5838,6 +5939,9 @@ client.forms().list(
         )
         .includeTotals(
             OptionalNullable.of(true)
+        )
+        .hydrate(
+            Arrays.asList(FormsRequestParametersHydrateEnum.FLOW_COUNT)
         )
         .build()
 );
@@ -6009,6 +6113,9 @@ client.forms().get(
     "id",
     GetFormRequestParameters
         .builder()
+        .hydrate(
+            Arrays.asList(FormsRequestParametersHydrateEnum.FLOW_COUNT)
+        )
         .build()
 );
 ```
@@ -6464,6 +6571,9 @@ client.groups().list(
         .externalId(
             OptionalNullable.of("external_id")
         )
+        .search(
+            OptionalNullable.of("search")
+        )
         .fields(
             OptionalNullable.of("fields")
         )
@@ -6509,6 +6619,14 @@ client.groups().list(
 <dd>
 
 **externalId:** `Optional<String>` — Filter groups by external ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**search:** `Optional<String>` — Search for groups by name or external ID.
     
 </dd>
 </dl>
@@ -9341,6 +9459,80 @@ client.refreshTokens().list(
 </dl>
 </details>
 
+<details><summary><code>client.refreshTokens.revoke(request)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.refreshTokens().revoke(
+    RevokeRefreshTokensRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**ids:** `Optional<List<String>>` — Array of refresh token IDs to revoke. Limited to 100 at a time.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userId:** `Optional<String>` — Revoke all refresh tokens for this user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**clientId:** `Optional<String>` — Revoke all refresh tokens for this client.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.refreshTokens.get(id) -> GetRefreshTokenResponseContent</code></summary>
 <dl>
 <dd>
@@ -9558,6 +9750,9 @@ client.resourceServers().list(
         )
         .includeFields(
             OptionalNullable.of(true)
+        )
+        .identifiers(
+            Arrays.asList("identifiers")
         )
         .build()
 );
@@ -9787,6 +9982,14 @@ client.resourceServers().create(
 <dd>
 
 **subjectTypeAuthorization:** `Optional<ResourceServerSubjectTypeAuthorization>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**authorizationPolicy:** `Optional<ResourceServerAuthorizationPolicy>` 
     
 </dd>
 </dl>
@@ -10090,6 +10293,14 @@ client.resourceServers().update(
 <dd>
 
 **subjectTypeAuthorization:** `Optional<ResourceServerSubjectTypeAuthorization>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**authorizationPolicy:** `Optional<ResourceServerAuthorizationPolicy>` 
     
 </dd>
 </dl>
@@ -11198,7 +11409,7 @@ client.selfServiceProfiles().create(
 <dl>
 <dd>
 
-**allowedStrategies:** `Optional<List<SelfServiceProfileAllowedStrategyEnum>>` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
+**allowedStrategies:** `Optional<List<SelfServiceProfileAllowedStrategyEnum>>` — List of IdP strategies that will be shown to users during the Self-Service Enterprise Configuration flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
     
 </dd>
 </dl>
@@ -11206,7 +11417,7 @@ client.selfServiceProfiles().create(
 <dl>
 <dd>
 
-**userAttributes:** `Optional<List<SelfServiceProfileUserAttribute>>` — List of attributes to be mapped that will be shown to the user during the SS-SSO flow.
+**userAttributes:** `Optional<List<SelfServiceProfileUserAttribute>>` — List of attributes to be mapped that will be shown to the user during the Self-Service Enterprise Configuration flow.
     
 </dd>
 </dl>
@@ -11413,7 +11624,7 @@ client.selfServiceProfiles().update(
 <dl>
 <dd>
 
-**allowedStrategies:** `Optional<List<SelfServiceProfileAllowedStrategyEnum>>` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
+**allowedStrategies:** `Optional<List<SelfServiceProfileAllowedStrategyEnum>>` — List of IdP strategies that will be shown to users during the Self-Service Enterprise Configuration flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
     
 </dd>
 </dl>
@@ -18151,6 +18362,9 @@ client.clients().connections().get(
         .includeFields(
             OptionalNullable.of(true)
         )
+        .strategy(
+            Arrays.asList(ConnectionStrategyEnum.AD)
+        )
         .build()
 );
 ```
@@ -20518,6 +20732,9 @@ client.flows().executions().get(
     "execution_id",
     GetFlowExecutionRequestParameters
         .builder()
+        .hydrate(
+            Arrays.asList(GetFlowExecutionRequestParametersHydrateEnum.DEBUG)
+        )
         .build()
 );
 ```
@@ -24377,6 +24594,9 @@ client.organizations().clientGrants().list(
         .includeTotals(
             OptionalNullable.of(true)
         )
+        .grantIds(
+            Arrays.asList("grant_ids")
+        )
         .build()
 );
 ```
@@ -27975,7 +28195,7 @@ client.roles().users().assign(
 <dl>
 <dd>
 
-Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
+Retrieves text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
 </dd>
 </dl>
 </dd>
@@ -28045,7 +28265,7 @@ client.selfServiceProfiles().customText().list("id", SelfServiceProfileCustomTex
 <dl>
 <dd>
 
-Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
+Updates text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
 </dd>
 </dl>
 </dd>
@@ -28131,7 +28351,7 @@ client.selfServiceProfiles().customText().set(
 <dl>
 <dd>
 
-Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
+Creates an access ticket to initiate the Self-Service Enterprise Configuration flow using a self-service profile.
 </dd>
 </dl>
 </dd>
@@ -28174,7 +28394,7 @@ client.selfServiceProfiles().ssoTicket().create(
 <dl>
 <dd>
 
-**connectionId:** `Optional<String>` — If provided, this will allow editing of the provided connection during the SSO Flow
+**connectionId:** `Optional<String>` — If provided, this will allow editing of the provided connection during the Self-Service Enterprise Configuration flow
     
 </dd>
 </dl>
@@ -28262,7 +28482,7 @@ client.selfServiceProfiles().ssoTicket().create(
 <dl>
 <dd>
 
-Revokes an SSO access ticket and invalidates associated sessions. The ticket will no longer be accepted to initiate a Self-Service SSO session. If any users have already started a session through this ticket, their session will be terminated. Clients should expect a `202 Accepted` response upon successful processing, indicating that the request has been acknowledged and that the revocation is underway but may not be fully completed at the time of response. If the specified ticket does not exist, a `202 Accepted` response is also returned, signaling that no further action is required.
+Revokes a Self-Service Enterprise Configuration access ticket and invalidates associated sessions. The ticket will no longer be accepted to initiate a Self-Service Enterprise Configuration session. If any users have already started a session through this ticket, their session will be terminated. Clients should expect a `202 Accepted` response upon successful processing, indicating that the request has been acknowledged and that the revocation is underway but may not be fully completed at the time of response. If the specified ticket does not exist, a `202 Accepted` response is also returned, signaling that no further action is required.
 Clients should treat these `202` responses as an acknowledgment that the request has been accepted and is in progress, even if the ticket was not found.
 </dd>
 </dl>

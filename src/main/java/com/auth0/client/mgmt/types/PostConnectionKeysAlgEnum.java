@@ -9,17 +9,17 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class PostConnectionKeysAlgEnum {
     public static final PostConnectionKeysAlgEnum RS512 = new PostConnectionKeysAlgEnum(Value.RS512, "RS512");
 
-    public static final PostConnectionKeysAlgEnum PS256 = new PostConnectionKeysAlgEnum(Value.PS256, "PS256");
-
-    public static final PostConnectionKeysAlgEnum ES256 = new PostConnectionKeysAlgEnum(Value.ES256, "ES256");
-
     public static final PostConnectionKeysAlgEnum PS384 = new PostConnectionKeysAlgEnum(Value.PS384, "PS384");
 
     public static final PostConnectionKeysAlgEnum ES384 = new PostConnectionKeysAlgEnum(Value.ES384, "ES384");
 
-    public static final PostConnectionKeysAlgEnum RS256 = new PostConnectionKeysAlgEnum(Value.RS256, "RS256");
+    public static final PostConnectionKeysAlgEnum PS256 = new PostConnectionKeysAlgEnum(Value.PS256, "PS256");
+
+    public static final PostConnectionKeysAlgEnum ES256 = new PostConnectionKeysAlgEnum(Value.ES256, "ES256");
 
     public static final PostConnectionKeysAlgEnum RS384 = new PostConnectionKeysAlgEnum(Value.RS384, "RS384");
+
+    public static final PostConnectionKeysAlgEnum RS256 = new PostConnectionKeysAlgEnum(Value.RS256, "RS256");
 
     private final Value value;
 
@@ -56,18 +56,18 @@ public final class PostConnectionKeysAlgEnum {
         switch (value) {
             case RS512:
                 return visitor.visitRs512();
-            case PS256:
-                return visitor.visitPs256();
-            case ES256:
-                return visitor.visitEs256();
             case PS384:
                 return visitor.visitPs384();
             case ES384:
                 return visitor.visitEs384();
-            case RS256:
-                return visitor.visitRs256();
+            case PS256:
+                return visitor.visitPs256();
+            case ES256:
+                return visitor.visitEs256();
             case RS384:
                 return visitor.visitRs384();
+            case RS256:
+                return visitor.visitRs256();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -79,18 +79,18 @@ public final class PostConnectionKeysAlgEnum {
         switch (value) {
             case "RS512":
                 return RS512;
-            case "PS256":
-                return PS256;
-            case "ES256":
-                return ES256;
             case "PS384":
                 return PS384;
             case "ES384":
                 return ES384;
-            case "RS256":
-                return RS256;
+            case "PS256":
+                return PS256;
+            case "ES256":
+                return ES256;
             case "RS384":
                 return RS384;
+            case "RS256":
+                return RS256;
             default:
                 return new PostConnectionKeysAlgEnum(Value.UNKNOWN, value);
         }

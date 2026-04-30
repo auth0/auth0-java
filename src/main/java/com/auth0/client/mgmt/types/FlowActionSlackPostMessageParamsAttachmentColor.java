@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class FlowActionSlackPostMessageParamsAttachmentColor {
-    public static final FlowActionSlackPostMessageParamsAttachmentColor DANGER =
-            new FlowActionSlackPostMessageParamsAttachmentColor(Value.DANGER, "DANGER");
-
     public static final FlowActionSlackPostMessageParamsAttachmentColor GOOD =
             new FlowActionSlackPostMessageParamsAttachmentColor(Value.GOOD, "GOOD");
+
+    public static final FlowActionSlackPostMessageParamsAttachmentColor DANGER =
+            new FlowActionSlackPostMessageParamsAttachmentColor(Value.DANGER, "DANGER");
 
     public static final FlowActionSlackPostMessageParamsAttachmentColor WARNING =
             new FlowActionSlackPostMessageParamsAttachmentColor(Value.WARNING, "WARNING");
@@ -49,10 +49,10 @@ public final class FlowActionSlackPostMessageParamsAttachmentColor {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case DANGER:
-                return visitor.visitDanger();
             case GOOD:
                 return visitor.visitGood();
+            case DANGER:
+                return visitor.visitDanger();
             case WARNING:
                 return visitor.visitWarning();
             case UNKNOWN:
@@ -64,10 +64,10 @@ public final class FlowActionSlackPostMessageParamsAttachmentColor {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static FlowActionSlackPostMessageParamsAttachmentColor valueOf(String value) {
         switch (value) {
-            case "DANGER":
-                return DANGER;
             case "GOOD":
                 return GOOD;
+            case "DANGER":
+                return DANGER;
             case "WARNING":
                 return WARNING;
             default:

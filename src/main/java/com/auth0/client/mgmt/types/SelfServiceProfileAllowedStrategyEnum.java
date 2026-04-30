@@ -19,23 +19,23 @@ public final class SelfServiceProfileAllowedStrategyEnum {
     public static final SelfServiceProfileAllowedStrategyEnum SAMLP =
             new SelfServiceProfileAllowedStrategyEnum(Value.SAMLP, "samlp");
 
-    public static final SelfServiceProfileAllowedStrategyEnum GOOGLE_APPS =
-            new SelfServiceProfileAllowedStrategyEnum(Value.GOOGLE_APPS, "google-apps");
-
-    public static final SelfServiceProfileAllowedStrategyEnum KEYCLOAK_SAMLP =
-            new SelfServiceProfileAllowedStrategyEnum(Value.KEYCLOAK_SAMLP, "keycloak-samlp");
-
     public static final SelfServiceProfileAllowedStrategyEnum WAAD =
             new SelfServiceProfileAllowedStrategyEnum(Value.WAAD, "waad");
 
     public static final SelfServiceProfileAllowedStrategyEnum AUTH0SAMLP =
             new SelfServiceProfileAllowedStrategyEnum(Value.AUTH0SAMLP, "auth0-samlp");
 
+    public static final SelfServiceProfileAllowedStrategyEnum KEYCLOAK_SAMLP =
+            new SelfServiceProfileAllowedStrategyEnum(Value.KEYCLOAK_SAMLP, "keycloak-samlp");
+
     public static final SelfServiceProfileAllowedStrategyEnum OIDC =
             new SelfServiceProfileAllowedStrategyEnum(Value.OIDC, "oidc");
 
     public static final SelfServiceProfileAllowedStrategyEnum ADFS =
             new SelfServiceProfileAllowedStrategyEnum(Value.ADFS, "adfs");
+
+    public static final SelfServiceProfileAllowedStrategyEnum GOOGLE_APPS =
+            new SelfServiceProfileAllowedStrategyEnum(Value.GOOGLE_APPS, "google-apps");
 
     private final Value value;
 
@@ -78,18 +78,18 @@ public final class SelfServiceProfileAllowedStrategyEnum {
                 return visitor.visitOkta();
             case SAMLP:
                 return visitor.visitSamlp();
-            case GOOGLE_APPS:
-                return visitor.visitGoogleApps();
-            case KEYCLOAK_SAMLP:
-                return visitor.visitKeycloakSamlp();
             case WAAD:
                 return visitor.visitWaad();
             case AUTH0SAMLP:
                 return visitor.visitAuth0Samlp();
+            case KEYCLOAK_SAMLP:
+                return visitor.visitKeycloakSamlp();
             case OIDC:
                 return visitor.visitOidc();
             case ADFS:
                 return visitor.visitAdfs();
+            case GOOGLE_APPS:
+                return visitor.visitGoogleApps();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -107,18 +107,18 @@ public final class SelfServiceProfileAllowedStrategyEnum {
                 return OKTA;
             case "samlp":
                 return SAMLP;
-            case "google-apps":
-                return GOOGLE_APPS;
-            case "keycloak-samlp":
-                return KEYCLOAK_SAMLP;
             case "waad":
                 return WAAD;
             case "auth0-samlp":
                 return AUTH0SAMLP;
+            case "keycloak-samlp":
+                return KEYCLOAK_SAMLP;
             case "oidc":
                 return OIDC;
             case "adfs":
                 return ADFS;
+            case "google-apps":
+                return GOOGLE_APPS;
             default:
                 return new SelfServiceProfileAllowedStrategyEnum(Value.UNKNOWN, value);
         }

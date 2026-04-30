@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class DeviceCredentialTypeEnum {
-    public static final DeviceCredentialTypeEnum REFRESH_TOKEN =
-            new DeviceCredentialTypeEnum(Value.REFRESH_TOKEN, "refresh_token");
-
     public static final DeviceCredentialTypeEnum ROTATING_REFRESH_TOKEN =
             new DeviceCredentialTypeEnum(Value.ROTATING_REFRESH_TOKEN, "rotating_refresh_token");
+
+    public static final DeviceCredentialTypeEnum REFRESH_TOKEN =
+            new DeviceCredentialTypeEnum(Value.REFRESH_TOKEN, "refresh_token");
 
     public static final DeviceCredentialTypeEnum PUBLIC_KEY =
             new DeviceCredentialTypeEnum(Value.PUBLIC_KEY, "public_key");
@@ -49,10 +49,10 @@ public final class DeviceCredentialTypeEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case REFRESH_TOKEN:
-                return visitor.visitRefreshToken();
             case ROTATING_REFRESH_TOKEN:
                 return visitor.visitRotatingRefreshToken();
+            case REFRESH_TOKEN:
+                return visitor.visitRefreshToken();
             case PUBLIC_KEY:
                 return visitor.visitPublicKey();
             case UNKNOWN:
@@ -64,10 +64,10 @@ public final class DeviceCredentialTypeEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static DeviceCredentialTypeEnum valueOf(String value) {
         switch (value) {
-            case "refresh_token":
-                return REFRESH_TOKEN;
             case "rotating_refresh_token":
                 return ROTATING_REFRESH_TOKEN;
+            case "refresh_token":
+                return REFRESH_TOKEN;
             case "public_key":
                 return PUBLIC_KEY;
             default:

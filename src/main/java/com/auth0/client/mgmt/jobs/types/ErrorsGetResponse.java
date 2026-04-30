@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = ErrorsGetResponse.Deserializer.class)
@@ -90,9 +91,14 @@ public final class ErrorsGetResponse {
                         value, new TypeReference<List<GetJobErrorResponseContent>>() {}));
             } catch (RuntimeException e) {
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, GetJobGenericErrorResponseContent.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("status")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("id")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, GetJobGenericErrorResponseContent.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

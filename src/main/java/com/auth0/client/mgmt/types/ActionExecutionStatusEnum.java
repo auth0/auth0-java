@@ -12,14 +12,14 @@ public final class ActionExecutionStatusEnum {
     public static final ActionExecutionStatusEnum UNSPECIFIED =
             new ActionExecutionStatusEnum(Value.UNSPECIFIED, "unspecified");
 
-    public static final ActionExecutionStatusEnum FINAL = new ActionExecutionStatusEnum(Value.FINAL, "final");
-
     public static final ActionExecutionStatusEnum PENDING = new ActionExecutionStatusEnum(Value.PENDING, "pending");
 
     public static final ActionExecutionStatusEnum CANCELED = new ActionExecutionStatusEnum(Value.CANCELED, "canceled");
 
     public static final ActionExecutionStatusEnum SUSPENDED =
             new ActionExecutionStatusEnum(Value.SUSPENDED, "suspended");
+
+    public static final ActionExecutionStatusEnum FINAL = new ActionExecutionStatusEnum(Value.FINAL, "final");
 
     private final Value value;
 
@@ -58,14 +58,14 @@ public final class ActionExecutionStatusEnum {
                 return visitor.visitPartial();
             case UNSPECIFIED:
                 return visitor.visitUnspecified();
-            case FINAL:
-                return visitor.visitFinal();
             case PENDING:
                 return visitor.visitPending();
             case CANCELED:
                 return visitor.visitCanceled();
             case SUSPENDED:
                 return visitor.visitSuspended();
+            case FINAL:
+                return visitor.visitFinal();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -79,14 +79,14 @@ public final class ActionExecutionStatusEnum {
                 return PARTIAL;
             case "unspecified":
                 return UNSPECIFIED;
-            case "final":
-                return FINAL;
             case "pending":
                 return PENDING;
             case "canceled":
                 return CANCELED;
             case "suspended":
                 return SUSPENDED;
+            case "final":
+                return FINAL;
             default:
                 return new ActionExecutionStatusEnum(Value.UNKNOWN, value);
         }

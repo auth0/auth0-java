@@ -29,6 +29,8 @@ public final class UpdateBrandingRequestContent {
 
     private final OptionalNullable<String> logoUrl;
 
+    private final OptionalNullable<UpdateBrandingIdentifiers> identifiers;
+
     private final OptionalNullable<UpdateBrandingFont> font;
 
     private final Map<String, Object> additionalProperties;
@@ -37,11 +39,13 @@ public final class UpdateBrandingRequestContent {
             OptionalNullable<UpdateBrandingColors> colors,
             OptionalNullable<String> faviconUrl,
             OptionalNullable<String> logoUrl,
+            OptionalNullable<UpdateBrandingIdentifiers> identifiers,
             OptionalNullable<UpdateBrandingFont> font,
             Map<String, Object> additionalProperties) {
         this.colors = colors;
         this.faviconUrl = faviconUrl;
         this.logoUrl = logoUrl;
+        this.identifiers = identifiers;
         this.font = font;
         this.additionalProperties = additionalProperties;
     }
@@ -80,6 +84,15 @@ public final class UpdateBrandingRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("identifiers")
+    public OptionalNullable<UpdateBrandingIdentifiers> getIdentifiers() {
+        if (identifiers == null) {
+            return OptionalNullable.absent();
+        }
+        return identifiers;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("font")
     public OptionalNullable<UpdateBrandingFont> getFont() {
         if (font == null) {
@@ -107,6 +120,12 @@ public final class UpdateBrandingRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("identifiers")
+    private OptionalNullable<UpdateBrandingIdentifiers> _getIdentifiers() {
+        return identifiers;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("font")
     private OptionalNullable<UpdateBrandingFont> _getFont() {
         return font;
@@ -127,12 +146,13 @@ public final class UpdateBrandingRequestContent {
         return colors.equals(other.colors)
                 && faviconUrl.equals(other.faviconUrl)
                 && logoUrl.equals(other.logoUrl)
+                && identifiers.equals(other.identifiers)
                 && font.equals(other.font);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.colors, this.faviconUrl, this.logoUrl, this.font);
+        return Objects.hash(this.colors, this.faviconUrl, this.logoUrl, this.identifiers, this.font);
     }
 
     @java.lang.Override
@@ -152,6 +172,8 @@ public final class UpdateBrandingRequestContent {
 
         private OptionalNullable<String> logoUrl = OptionalNullable.absent();
 
+        private OptionalNullable<UpdateBrandingIdentifiers> identifiers = OptionalNullable.absent();
+
         private OptionalNullable<UpdateBrandingFont> font = OptionalNullable.absent();
 
         @JsonAnySetter
@@ -163,6 +185,7 @@ public final class UpdateBrandingRequestContent {
             colors(other.getColors());
             faviconUrl(other.getFaviconUrl());
             logoUrl(other.getLogoUrl());
+            identifiers(other.getIdentifiers());
             font(other.getFont());
             return this;
         }
@@ -266,6 +289,37 @@ public final class UpdateBrandingRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "identifiers", nulls = Nulls.SKIP)
+        public Builder identifiers(@Nullable OptionalNullable<UpdateBrandingIdentifiers> identifiers) {
+            this.identifiers = identifiers;
+            return this;
+        }
+
+        public Builder identifiers(UpdateBrandingIdentifiers identifiers) {
+            this.identifiers = OptionalNullable.of(identifiers);
+            return this;
+        }
+
+        public Builder identifiers(Optional<UpdateBrandingIdentifiers> identifiers) {
+            if (identifiers.isPresent()) {
+                this.identifiers = OptionalNullable.of(identifiers.get());
+            } else {
+                this.identifiers = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder identifiers(com.auth0.client.mgmt.core.Nullable<UpdateBrandingIdentifiers> identifiers) {
+            if (identifiers.isNull()) {
+                this.identifiers = OptionalNullable.ofNull();
+            } else if (identifiers.isEmpty()) {
+                this.identifiers = OptionalNullable.absent();
+            } else {
+                this.identifiers = OptionalNullable.of(identifiers.get());
+            }
+            return this;
+        }
+
         @JsonSetter(value = "font", nulls = Nulls.SKIP)
         public Builder font(@Nullable OptionalNullable<UpdateBrandingFont> font) {
             this.font = font;
@@ -298,7 +352,8 @@ public final class UpdateBrandingRequestContent {
         }
 
         public UpdateBrandingRequestContent build() {
-            return new UpdateBrandingRequestContent(colors, faviconUrl, logoUrl, font, additionalProperties);
+            return new UpdateBrandingRequestContent(
+                    colors, faviconUrl, logoUrl, identifiers, font, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

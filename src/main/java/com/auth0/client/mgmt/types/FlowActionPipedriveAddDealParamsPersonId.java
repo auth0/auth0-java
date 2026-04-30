@@ -83,12 +83,12 @@ public final class FlowActionPipedriveAddDealParamsPersonId {
         public FlowActionPipedriveAddDealParamsPersonId deserialize(JsonParser p, DeserializationContext context)
                 throws IOException {
             Object value = p.readValueAs(Object.class);
+            if (value instanceof Double) {
+                return of((Double) value);
+            }
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, String.class));
             } catch (RuntimeException e) {
-            }
-            if (value instanceof Double) {
-                return of((Double) value);
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

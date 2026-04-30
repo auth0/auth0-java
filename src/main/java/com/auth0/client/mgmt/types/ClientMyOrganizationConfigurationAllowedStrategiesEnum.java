@@ -16,9 +16,6 @@ public final class ClientMyOrganizationConfigurationAllowedStrategiesEnum {
     public static final ClientMyOrganizationConfigurationAllowedStrategiesEnum SAMLP =
             new ClientMyOrganizationConfigurationAllowedStrategiesEnum(Value.SAMLP, "samlp");
 
-    public static final ClientMyOrganizationConfigurationAllowedStrategiesEnum GOOGLE_APPS =
-            new ClientMyOrganizationConfigurationAllowedStrategiesEnum(Value.GOOGLE_APPS, "google-apps");
-
     public static final ClientMyOrganizationConfigurationAllowedStrategiesEnum WAAD =
             new ClientMyOrganizationConfigurationAllowedStrategiesEnum(Value.WAAD, "waad");
 
@@ -27,6 +24,9 @@ public final class ClientMyOrganizationConfigurationAllowedStrategiesEnum {
 
     public static final ClientMyOrganizationConfigurationAllowedStrategiesEnum OIDC =
             new ClientMyOrganizationConfigurationAllowedStrategiesEnum(Value.OIDC, "oidc");
+
+    public static final ClientMyOrganizationConfigurationAllowedStrategiesEnum GOOGLE_APPS =
+            new ClientMyOrganizationConfigurationAllowedStrategiesEnum(Value.GOOGLE_APPS, "google-apps");
 
     private final Value value;
 
@@ -67,14 +67,14 @@ public final class ClientMyOrganizationConfigurationAllowedStrategiesEnum {
                 return visitor.visitOkta();
             case SAMLP:
                 return visitor.visitSamlp();
-            case GOOGLE_APPS:
-                return visitor.visitGoogleApps();
             case WAAD:
                 return visitor.visitWaad();
             case ADFS:
                 return visitor.visitAdfs();
             case OIDC:
                 return visitor.visitOidc();
+            case GOOGLE_APPS:
+                return visitor.visitGoogleApps();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -90,14 +90,14 @@ public final class ClientMyOrganizationConfigurationAllowedStrategiesEnum {
                 return OKTA;
             case "samlp":
                 return SAMLP;
-            case "google-apps":
-                return GOOGLE_APPS;
             case "waad":
                 return WAAD;
             case "adfs":
                 return ADFS;
             case "oidc":
                 return OIDC;
+            case "google-apps":
+                return GOOGLE_APPS;
             default:
                 return new ClientMyOrganizationConfigurationAllowedStrategiesEnum(Value.UNKNOWN, value);
         }

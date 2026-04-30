@@ -13,11 +13,11 @@ public final class CreatedAuthenticationMethodTypeEnum {
     public static final CreatedAuthenticationMethodTypeEnum TOTP =
             new CreatedAuthenticationMethodTypeEnum(Value.TOTP, "totp");
 
-    public static final CreatedAuthenticationMethodTypeEnum PHONE =
-            new CreatedAuthenticationMethodTypeEnum(Value.PHONE, "phone");
-
     public static final CreatedAuthenticationMethodTypeEnum WEBAUTHN_ROAMING =
             new CreatedAuthenticationMethodTypeEnum(Value.WEBAUTHN_ROAMING, "webauthn-roaming");
+
+    public static final CreatedAuthenticationMethodTypeEnum PHONE =
+            new CreatedAuthenticationMethodTypeEnum(Value.PHONE, "phone");
 
     private final Value value;
 
@@ -56,10 +56,10 @@ public final class CreatedAuthenticationMethodTypeEnum {
                 return visitor.visitEmail();
             case TOTP:
                 return visitor.visitTotp();
-            case PHONE:
-                return visitor.visitPhone();
             case WEBAUTHN_ROAMING:
                 return visitor.visitWebauthnRoaming();
+            case PHONE:
+                return visitor.visitPhone();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -73,10 +73,10 @@ public final class CreatedAuthenticationMethodTypeEnum {
                 return EMAIL;
             case "totp":
                 return TOTP;
-            case "phone":
-                return PHONE;
             case "webauthn-roaming":
                 return WEBAUTHN_ROAMING;
+            case "phone":
+                return PHONE;
             default:
                 return new CreatedAuthenticationMethodTypeEnum(Value.UNKNOWN, value);
         }

@@ -13,6 +13,7 @@ import com.auth0.client.mgmt.types.UpdateResourceServerRequestContent;
 import com.auth0.client.mgmt.types.UpdateResourceServerResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -47,13 +48,14 @@ public class ResourceServersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"resource_servers\":[{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"allow_online_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"alg\":\"RSA-OAEP-256\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true},\"client_id\":\"client_id\"}]}"));
+                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"resource_servers\":[{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"allow_online_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"alg\":\"RSA-OAEP-256\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true},\"authorization_policy\":{\"policy_id\":\"policy_id\"},\"client_id\":\"client_id\"}]}"));
         SyncPagingIterable<ResourceServer> response = client.resourceServers()
                 .list(ListResourceServerRequestParameters.builder()
                         .page(OptionalNullable.of(1))
                         .perPage(OptionalNullable.of(1))
                         .includeTotals(OptionalNullable.of(true))
                         .includeFields(OptionalNullable.of(true))
+                        .identifiers(Arrays.asList("identifiers"))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -67,11 +69,9 @@ public class ResourceServersWireTest {
 
     @Test
     public void testCreate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"allow_online_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true,\"required_for\":\"public_clients\"},\"subject_type_authorization\":{\"user\":{\"policy\":\"allow_all\"},\"client\":{\"policy\":\"deny_all\"}},\"client_id\":\"client_id\"}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource("/wire-tests/ResourceServersWireTest_testCreate_response.json")));
         CreateResourceServerResponseContent response = client.resourceServers()
                 .create(CreateResourceServerRequestContent.builder()
                         .identifier("identifier")
@@ -112,57 +112,8 @@ public class ResourceServersWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"id\": \"id\",\n"
-                + "  \"name\": \"name\",\n"
-                + "  \"is_system\": true,\n"
-                + "  \"identifier\": \"identifier\",\n"
-                + "  \"scopes\": [\n"
-                + "    {\n"
-                + "      \"value\": \"value\",\n"
-                + "      \"description\": \"description\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"signing_alg\": \"HS256\",\n"
-                + "  \"signing_secret\": \"signing_secret\",\n"
-                + "  \"allow_offline_access\": true,\n"
-                + "  \"allow_online_access\": true,\n"
-                + "  \"skip_consent_for_verifiable_first_party_clients\": true,\n"
-                + "  \"token_lifetime\": 1,\n"
-                + "  \"token_lifetime_for_web\": 1,\n"
-                + "  \"enforce_policies\": true,\n"
-                + "  \"token_dialect\": \"access_token\",\n"
-                + "  \"token_encryption\": {\n"
-                + "    \"format\": \"compact-nested-jwe\",\n"
-                + "    \"encryption_key\": {\n"
-                + "      \"name\": \"name\",\n"
-                + "      \"alg\": \"RSA-OAEP-256\",\n"
-                + "      \"kid\": \"kid\",\n"
-                + "      \"pem\": \"pem\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"consent_policy\": \"transactional-authorization-with-mfa\",\n"
-                + "  \"authorization_details\": [\n"
-                + "    {\n"
-                + "      \"key\": \"value\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"proof_of_possession\": {\n"
-                + "    \"mechanism\": \"mtls\",\n"
-                + "    \"required\": true,\n"
-                + "    \"required_for\": \"public_clients\"\n"
-                + "  },\n"
-                + "  \"subject_type_authorization\": {\n"
-                + "    \"user\": {\n"
-                + "      \"policy\": \"allow_all\"\n"
-                + "    },\n"
-                + "    \"client\": {\n"
-                + "      \"policy\": \"deny_all\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"client_id\": \"client_id\"\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/ResourceServersWireTest_testCreate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -196,11 +147,9 @@ public class ResourceServersWireTest {
 
     @Test
     public void testGet() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"allow_online_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true,\"required_for\":\"public_clients\"},\"subject_type_authorization\":{\"user\":{\"policy\":\"allow_all\"},\"client\":{\"policy\":\"deny_all\"}},\"client_id\":\"client_id\"}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource("/wire-tests/ResourceServersWireTest_testGet_response.json")));
         GetResourceServerResponseContent response = client.resourceServers()
                 .get(
                         "id",
@@ -214,57 +163,8 @@ public class ResourceServersWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"id\": \"id\",\n"
-                + "  \"name\": \"name\",\n"
-                + "  \"is_system\": true,\n"
-                + "  \"identifier\": \"identifier\",\n"
-                + "  \"scopes\": [\n"
-                + "    {\n"
-                + "      \"value\": \"value\",\n"
-                + "      \"description\": \"description\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"signing_alg\": \"HS256\",\n"
-                + "  \"signing_secret\": \"signing_secret\",\n"
-                + "  \"allow_offline_access\": true,\n"
-                + "  \"allow_online_access\": true,\n"
-                + "  \"skip_consent_for_verifiable_first_party_clients\": true,\n"
-                + "  \"token_lifetime\": 1,\n"
-                + "  \"token_lifetime_for_web\": 1,\n"
-                + "  \"enforce_policies\": true,\n"
-                + "  \"token_dialect\": \"access_token\",\n"
-                + "  \"token_encryption\": {\n"
-                + "    \"format\": \"compact-nested-jwe\",\n"
-                + "    \"encryption_key\": {\n"
-                + "      \"name\": \"name\",\n"
-                + "      \"alg\": \"RSA-OAEP-256\",\n"
-                + "      \"kid\": \"kid\",\n"
-                + "      \"pem\": \"pem\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"consent_policy\": \"transactional-authorization-with-mfa\",\n"
-                + "  \"authorization_details\": [\n"
-                + "    {\n"
-                + "      \"key\": \"value\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"proof_of_possession\": {\n"
-                + "    \"mechanism\": \"mtls\",\n"
-                + "    \"required\": true,\n"
-                + "    \"required_for\": \"public_clients\"\n"
-                + "  },\n"
-                + "  \"subject_type_authorization\": {\n"
-                + "    \"user\": {\n"
-                + "      \"policy\": \"allow_all\"\n"
-                + "    },\n"
-                + "    \"client\": {\n"
-                + "      \"policy\": \"deny_all\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"client_id\": \"client_id\"\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/ResourceServersWireTest_testGet_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -307,11 +207,9 @@ public class ResourceServersWireTest {
 
     @Test
     public void testUpdate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\",\"description\":\"description\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"allow_online_access\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"name\":\"name\",\"alg\":\"RSA-OAEP-256\",\"kid\":\"kid\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"authorization_details\":[{\"key\":\"value\"}],\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true,\"required_for\":\"public_clients\"},\"subject_type_authorization\":{\"user\":{\"policy\":\"allow_all\"},\"client\":{\"policy\":\"deny_all\"}},\"client_id\":\"client_id\"}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource("/wire-tests/ResourceServersWireTest_testUpdate_response.json")));
         UpdateResourceServerResponseContent response = client.resourceServers()
                 .update("id", UpdateResourceServerRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -350,57 +248,8 @@ public class ResourceServersWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"id\": \"id\",\n"
-                + "  \"name\": \"name\",\n"
-                + "  \"is_system\": true,\n"
-                + "  \"identifier\": \"identifier\",\n"
-                + "  \"scopes\": [\n"
-                + "    {\n"
-                + "      \"value\": \"value\",\n"
-                + "      \"description\": \"description\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"signing_alg\": \"HS256\",\n"
-                + "  \"signing_secret\": \"signing_secret\",\n"
-                + "  \"allow_offline_access\": true,\n"
-                + "  \"allow_online_access\": true,\n"
-                + "  \"skip_consent_for_verifiable_first_party_clients\": true,\n"
-                + "  \"token_lifetime\": 1,\n"
-                + "  \"token_lifetime_for_web\": 1,\n"
-                + "  \"enforce_policies\": true,\n"
-                + "  \"token_dialect\": \"access_token\",\n"
-                + "  \"token_encryption\": {\n"
-                + "    \"format\": \"compact-nested-jwe\",\n"
-                + "    \"encryption_key\": {\n"
-                + "      \"name\": \"name\",\n"
-                + "      \"alg\": \"RSA-OAEP-256\",\n"
-                + "      \"kid\": \"kid\",\n"
-                + "      \"pem\": \"pem\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"consent_policy\": \"transactional-authorization-with-mfa\",\n"
-                + "  \"authorization_details\": [\n"
-                + "    {\n"
-                + "      \"key\": \"value\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"proof_of_possession\": {\n"
-                + "    \"mechanism\": \"mtls\",\n"
-                + "    \"required\": true,\n"
-                + "    \"required_for\": \"public_clients\"\n"
-                + "  },\n"
-                + "  \"subject_type_authorization\": {\n"
-                + "    \"user\": {\n"
-                + "      \"policy\": \"allow_all\"\n"
-                + "    },\n"
-                + "    \"client\": {\n"
-                + "      \"policy\": \"deny_all\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"client_id\": \"client_id\"\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/ResourceServersWireTest_testUpdate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -448,7 +297,9 @@ public class ResourceServersWireTest {
             while (iter.hasNext()) {
                 java.util.Map.Entry<String, JsonNode> entry = iter.next();
                 JsonNode actualValue = actual.get(entry.getKey());
-                if (actualValue == null || !jsonEquals(entry.getValue(), actualValue)) return false;
+                if (actualValue == null) {
+                    if (!entry.getValue().isNull()) return false;
+                } else if (!jsonEquals(entry.getValue(), actualValue)) return false;
             }
             return true;
         }

@@ -27,7 +27,7 @@ public class CustomTextClient {
     }
 
     /**
-     * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
+     * Retrieves text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
      */
     public Map<String, String> list(
             String id, SelfServiceProfileCustomTextLanguageEnum language, SelfServiceProfileCustomTextPageEnum page) {
@@ -35,7 +35,7 @@ public class CustomTextClient {
     }
 
     /**
-     * Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
+     * Retrieves text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
      */
     public Map<String, String> list(
             String id,
@@ -46,7 +46,7 @@ public class CustomTextClient {
     }
 
     /**
-     * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
+     * Updates text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
      */
     public Map<String, String> set(
             String id,
@@ -57,7 +57,7 @@ public class CustomTextClient {
     }
 
     /**
-     * Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
+     * Updates text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
      */
     public Map<String, String> set(
             String id,

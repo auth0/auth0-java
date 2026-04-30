@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.organizations.types;
 
-import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -18,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListOrganizationInvitationsRequestParameters.Builder.class)
@@ -58,6 +58,9 @@ public final class ListOrganizationInvitationsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getPage() {
+        if (page == null) {
+            return OptionalNullable.absent();
+        }
         return page;
     }
 
@@ -66,6 +69,9 @@ public final class ListOrganizationInvitationsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getPerPage() {
+        if (perPage == null) {
+            return OptionalNullable.absent();
+        }
         return perPage;
     }
 
@@ -74,6 +80,9 @@ public final class ListOrganizationInvitationsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Boolean> getIncludeTotals() {
+        if (includeTotals == null) {
+            return OptionalNullable.absent();
+        }
         return includeTotals;
     }
 
@@ -178,7 +187,7 @@ public final class ListOrganizationInvitationsRequestParameters {
          * <p>Page index of the results to return. First page is 0.</p>
          */
         @JsonSetter(value = "page", nulls = Nulls.SKIP)
-        public Builder page(OptionalNullable<Integer> page) {
+        public Builder page(@Nullable OptionalNullable<Integer> page) {
             this.page = page;
             return this;
         }
@@ -197,7 +206,7 @@ public final class ListOrganizationInvitationsRequestParameters {
             return this;
         }
 
-        public Builder page(Nullable<Integer> page) {
+        public Builder page(com.auth0.client.mgmt.core.Nullable<Integer> page) {
             if (page.isNull()) {
                 this.page = OptionalNullable.ofNull();
             } else if (page.isEmpty()) {
@@ -212,7 +221,7 @@ public final class ListOrganizationInvitationsRequestParameters {
          * <p>Number of results per page. Defaults to 50.</p>
          */
         @JsonSetter(value = "per_page", nulls = Nulls.SKIP)
-        public Builder perPage(OptionalNullable<Integer> perPage) {
+        public Builder perPage(@Nullable OptionalNullable<Integer> perPage) {
             this.perPage = perPage;
             return this;
         }
@@ -231,7 +240,7 @@ public final class ListOrganizationInvitationsRequestParameters {
             return this;
         }
 
-        public Builder perPage(Nullable<Integer> perPage) {
+        public Builder perPage(com.auth0.client.mgmt.core.Nullable<Integer> perPage) {
             if (perPage.isNull()) {
                 this.perPage = OptionalNullable.ofNull();
             } else if (perPage.isEmpty()) {
@@ -246,7 +255,7 @@ public final class ListOrganizationInvitationsRequestParameters {
          * <p>When true, return results inside an object that also contains the start and limit.  When false (default), a direct array of results is returned.  We do not yet support returning the total invitations count.</p>
          */
         @JsonSetter(value = "include_totals", nulls = Nulls.SKIP)
-        public Builder includeTotals(OptionalNullable<Boolean> includeTotals) {
+        public Builder includeTotals(@Nullable OptionalNullable<Boolean> includeTotals) {
             this.includeTotals = includeTotals;
             return this;
         }
@@ -265,7 +274,7 @@ public final class ListOrganizationInvitationsRequestParameters {
             return this;
         }
 
-        public Builder includeTotals(Nullable<Boolean> includeTotals) {
+        public Builder includeTotals(com.auth0.client.mgmt.core.Nullable<Boolean> includeTotals) {
             if (includeTotals.isNull()) {
                 this.includeTotals = OptionalNullable.ofNull();
             } else if (includeTotals.isEmpty()) {
@@ -280,7 +289,7 @@ public final class ListOrganizationInvitationsRequestParameters {
          * <p>Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.</p>
          */
         @JsonSetter(value = "fields", nulls = Nulls.SKIP)
-        public Builder fields(@org.jetbrains.annotations.Nullable OptionalNullable<String> fields) {
+        public Builder fields(@Nullable OptionalNullable<String> fields) {
             this.fields = fields;
             return this;
         }
@@ -299,7 +308,7 @@ public final class ListOrganizationInvitationsRequestParameters {
             return this;
         }
 
-        public Builder fields(Nullable<String> fields) {
+        public Builder fields(com.auth0.client.mgmt.core.Nullable<String> fields) {
             if (fields.isNull()) {
                 this.fields = OptionalNullable.ofNull();
             } else if (fields.isEmpty()) {
@@ -314,7 +323,7 @@ public final class ListOrganizationInvitationsRequestParameters {
          * <p>Whether specified fields are to be included (true) or excluded (false). Defaults to true.</p>
          */
         @JsonSetter(value = "include_fields", nulls = Nulls.SKIP)
-        public Builder includeFields(@org.jetbrains.annotations.Nullable OptionalNullable<Boolean> includeFields) {
+        public Builder includeFields(@Nullable OptionalNullable<Boolean> includeFields) {
             this.includeFields = includeFields;
             return this;
         }
@@ -333,7 +342,7 @@ public final class ListOrganizationInvitationsRequestParameters {
             return this;
         }
 
-        public Builder includeFields(Nullable<Boolean> includeFields) {
+        public Builder includeFields(com.auth0.client.mgmt.core.Nullable<Boolean> includeFields) {
             if (includeFields.isNull()) {
                 this.includeFields = OptionalNullable.ofNull();
             } else if (includeFields.isEmpty()) {
@@ -348,7 +357,7 @@ public final class ListOrganizationInvitationsRequestParameters {
          * <p>Field to sort by. Use field:order where order is 1 for ascending and -1 for descending Defaults to created_at:-1.</p>
          */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
-        public Builder sort(@org.jetbrains.annotations.Nullable OptionalNullable<String> sort) {
+        public Builder sort(@Nullable OptionalNullable<String> sort) {
             this.sort = sort;
             return this;
         }
@@ -367,7 +376,7 @@ public final class ListOrganizationInvitationsRequestParameters {
             return this;
         }
 
-        public Builder sort(Nullable<String> sort) {
+        public Builder sort(com.auth0.client.mgmt.core.Nullable<String> sort) {
             if (sort.isNull()) {
                 this.sort = OptionalNullable.ofNull();
             } else if (sort.isEmpty()) {

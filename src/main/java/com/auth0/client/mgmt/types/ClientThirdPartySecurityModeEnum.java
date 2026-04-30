@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ClientThirdPartySecurityModeEnum {
-    public static final ClientThirdPartySecurityModeEnum STRICT =
-            new ClientThirdPartySecurityModeEnum(Value.STRICT, "strict");
-
     public static final ClientThirdPartySecurityModeEnum PERMISSIVE =
             new ClientThirdPartySecurityModeEnum(Value.PERMISSIVE, "permissive");
+
+    public static final ClientThirdPartySecurityModeEnum STRICT =
+            new ClientThirdPartySecurityModeEnum(Value.STRICT, "strict");
 
     private final Value value;
 
@@ -46,10 +46,10 @@ public final class ClientThirdPartySecurityModeEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case STRICT:
-                return visitor.visitStrict();
             case PERMISSIVE:
                 return visitor.visitPermissive();
+            case STRICT:
+                return visitor.visitStrict();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -59,10 +59,10 @@ public final class ClientThirdPartySecurityModeEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ClientThirdPartySecurityModeEnum valueOf(String value) {
         switch (value) {
-            case "strict":
-                return STRICT;
             case "permissive":
                 return PERMISSIVE;
+            case "strict":
+                return STRICT;
             default:
                 return new ClientThirdPartySecurityModeEnum(Value.UNKNOWN, value);
         }

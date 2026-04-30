@@ -7,17 +7,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class FlowActionHttpSendRequestParamsMethod {
-    public static final FlowActionHttpSendRequestParamsMethod PATCH =
-            new FlowActionHttpSendRequestParamsMethod(Value.PATCH, "PATCH");
-
-    public static final FlowActionHttpSendRequestParamsMethod DELETE =
-            new FlowActionHttpSendRequestParamsMethod(Value.DELETE, "DELETE");
-
     public static final FlowActionHttpSendRequestParamsMethod GET =
             new FlowActionHttpSendRequestParamsMethod(Value.GET, "GET");
 
     public static final FlowActionHttpSendRequestParamsMethod PUT =
             new FlowActionHttpSendRequestParamsMethod(Value.PUT, "PUT");
+
+    public static final FlowActionHttpSendRequestParamsMethod PATCH =
+            new FlowActionHttpSendRequestParamsMethod(Value.PATCH, "PATCH");
+
+    public static final FlowActionHttpSendRequestParamsMethod DELETE =
+            new FlowActionHttpSendRequestParamsMethod(Value.DELETE, "DELETE");
 
     public static final FlowActionHttpSendRequestParamsMethod POST =
             new FlowActionHttpSendRequestParamsMethod(Value.POST, "POST");
@@ -55,14 +55,14 @@ public final class FlowActionHttpSendRequestParamsMethod {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case PATCH:
-                return visitor.visitPatch();
-            case DELETE:
-                return visitor.visitDelete();
             case GET:
                 return visitor.visitGet();
             case PUT:
                 return visitor.visitPut();
+            case PATCH:
+                return visitor.visitPatch();
+            case DELETE:
+                return visitor.visitDelete();
             case POST:
                 return visitor.visitPost();
             case UNKNOWN:
@@ -74,14 +74,14 @@ public final class FlowActionHttpSendRequestParamsMethod {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static FlowActionHttpSendRequestParamsMethod valueOf(String value) {
         switch (value) {
-            case "PATCH":
-                return PATCH;
-            case "DELETE":
-                return DELETE;
             case "GET":
                 return GET;
             case "PUT":
                 return PUT;
+            case "PATCH":
+                return PATCH;
+            case "DELETE":
+                return DELETE;
             case "POST":
                 return POST;
             default:

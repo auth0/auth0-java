@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ConnectionUpstreamAliasEnum {
+    public static final ConnectionUpstreamAliasEnum CLIENT_ID =
+            new ConnectionUpstreamAliasEnum(Value.CLIENT_ID, "client_id");
+
+    public static final ConnectionUpstreamAliasEnum UI_LOCALES =
+            new ConnectionUpstreamAliasEnum(Value.UI_LOCALES, "ui_locales");
+
     public static final ConnectionUpstreamAliasEnum ACR_VALUES =
             new ConnectionUpstreamAliasEnum(Value.ACR_VALUES, "acr_values");
 
@@ -19,18 +25,10 @@ public final class ConnectionUpstreamAliasEnum {
     public static final ConnectionUpstreamAliasEnum RESPONSE_TYPE =
             new ConnectionUpstreamAliasEnum(Value.RESPONSE_TYPE, "response_type");
 
-    public static final ConnectionUpstreamAliasEnum CLIENT_ID =
-            new ConnectionUpstreamAliasEnum(Value.CLIENT_ID, "client_id");
-
-    public static final ConnectionUpstreamAliasEnum UI_LOCALES =
-            new ConnectionUpstreamAliasEnum(Value.UI_LOCALES, "ui_locales");
-
     public static final ConnectionUpstreamAliasEnum ID_TOKEN_HINT =
             new ConnectionUpstreamAliasEnum(Value.ID_TOKEN_HINT, "id_token_hint");
 
     public static final ConnectionUpstreamAliasEnum DISPLAY = new ConnectionUpstreamAliasEnum(Value.DISPLAY, "display");
-
-    public static final ConnectionUpstreamAliasEnum PROMPT = new ConnectionUpstreamAliasEnum(Value.PROMPT, "prompt");
 
     public static final ConnectionUpstreamAliasEnum MAX_AGE = new ConnectionUpstreamAliasEnum(Value.MAX_AGE, "max_age");
 
@@ -39,6 +37,8 @@ public final class ConnectionUpstreamAliasEnum {
 
     public static final ConnectionUpstreamAliasEnum RESPONSE_MODE =
             new ConnectionUpstreamAliasEnum(Value.RESPONSE_MODE, "response_mode");
+
+    public static final ConnectionUpstreamAliasEnum PROMPT = new ConnectionUpstreamAliasEnum(Value.PROMPT, "prompt");
 
     private final Value value;
 
@@ -73,6 +73,10 @@ public final class ConnectionUpstreamAliasEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case CLIENT_ID:
+                return visitor.visitClientId();
+            case UI_LOCALES:
+                return visitor.visitUiLocales();
             case ACR_VALUES:
                 return visitor.visitAcrValues();
             case AUDIENCE:
@@ -81,22 +85,18 @@ public final class ConnectionUpstreamAliasEnum {
                 return visitor.visitLoginHint();
             case RESPONSE_TYPE:
                 return visitor.visitResponseType();
-            case CLIENT_ID:
-                return visitor.visitClientId();
-            case UI_LOCALES:
-                return visitor.visitUiLocales();
             case ID_TOKEN_HINT:
                 return visitor.visitIdTokenHint();
             case DISPLAY:
                 return visitor.visitDisplay();
-            case PROMPT:
-                return visitor.visitPrompt();
             case MAX_AGE:
                 return visitor.visitMaxAge();
             case RESOURCE:
                 return visitor.visitResource();
             case RESPONSE_MODE:
                 return visitor.visitResponseMode();
+            case PROMPT:
+                return visitor.visitPrompt();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -106,6 +106,10 @@ public final class ConnectionUpstreamAliasEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ConnectionUpstreamAliasEnum valueOf(String value) {
         switch (value) {
+            case "client_id":
+                return CLIENT_ID;
+            case "ui_locales":
+                return UI_LOCALES;
             case "acr_values":
                 return ACR_VALUES;
             case "audience":
@@ -114,22 +118,18 @@ public final class ConnectionUpstreamAliasEnum {
                 return LOGIN_HINT;
             case "response_type":
                 return RESPONSE_TYPE;
-            case "client_id":
-                return CLIENT_ID;
-            case "ui_locales":
-                return UI_LOCALES;
             case "id_token_hint":
                 return ID_TOKEN_HINT;
             case "display":
                 return DISPLAY;
-            case "prompt":
-                return PROMPT;
             case "max_age":
                 return MAX_AGE;
             case "resource":
                 return RESOURCE;
             case "response_mode":
                 return RESPONSE_MODE;
+            case "prompt":
+                return PROMPT;
             default:
                 return new ConnectionUpstreamAliasEnum(Value.UNKNOWN, value);
         }

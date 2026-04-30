@@ -61,6 +61,9 @@ public final class ListOrganizationMembersRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getTake() {
+        if (take == null) {
+            return OptionalNullable.absent();
+        }
         return take;
     }
 
@@ -180,7 +183,7 @@ public final class ListOrganizationMembersRequestParameters {
          * <p>Number of results per page. Defaults to 50.</p>
          */
         @JsonSetter(value = "take", nulls = Nulls.SKIP)
-        public Builder take(OptionalNullable<Integer> take) {
+        public Builder take(@Nullable OptionalNullable<Integer> take) {
             this.take = take;
             return this;
         }

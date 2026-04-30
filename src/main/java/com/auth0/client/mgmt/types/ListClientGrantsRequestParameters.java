@@ -73,6 +73,9 @@ public final class ListClientGrantsRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getTake() {
+        if (take == null) {
+            return OptionalNullable.absent();
+        }
         return take;
     }
 
@@ -121,7 +124,7 @@ public final class ListClientGrantsRequestParameters {
     }
 
     /**
-     * @return Applies this client grant as the default for all clients in the specified group. The only accepted value is <code>third_party_clients</code>, which applies the grant to all third-party clients. Per-client grants for the same audience take precedence. Mutually exclusive with <code>client_id</code>.
+     * @return Applies this client grant as the default for all clients in the specified group. The only accepted value is <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants#default-permissions-for-third-party-applications"><code>third_party_clients</code></a>, which applies the grant to all third-party clients. Per-client grants for the same audience take precedence. Mutually exclusive with <code>client_id</code>.
      */
     @JsonIgnore
     public OptionalNullable<ClientGrantDefaultForEnum> getDefaultFor() {
@@ -243,7 +246,7 @@ public final class ListClientGrantsRequestParameters {
          * <p>Number of results per page. Defaults to 50.</p>
          */
         @JsonSetter(value = "take", nulls = Nulls.SKIP)
-        public Builder take(OptionalNullable<Integer> take) {
+        public Builder take(@Nullable OptionalNullable<Integer> take) {
             this.take = take;
             return this;
         }
@@ -410,7 +413,7 @@ public final class ListClientGrantsRequestParameters {
         }
 
         /**
-         * <p>Applies this client grant as the default for all clients in the specified group. The only accepted value is <code>third_party_clients</code>, which applies the grant to all third-party clients. Per-client grants for the same audience take precedence. Mutually exclusive with <code>client_id</code>.</p>
+         * <p>Applies this client grant as the default for all clients in the specified group. The only accepted value is <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants#default-permissions-for-third-party-applications"><code>third_party_clients</code></a>, which applies the grant to all third-party clients. Per-client grants for the same audience take precedence. Mutually exclusive with <code>client_id</code>.</p>
          */
         @JsonSetter(value = "default_for", nulls = Nulls.SKIP)
         public Builder defaultFor(@Nullable OptionalNullable<ClientGrantDefaultForEnum> defaultFor) {

@@ -87,6 +87,16 @@ public final class UpdateConnectionOptions {
 
     private final Optional<ConnectionPasswordOptions> passwordOptions;
 
+    private final Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings;
+
+    private final OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs;
+
+    private final OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod;
+
+    private final OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg;
+
+    private final Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateConnectionOptions(
@@ -121,6 +131,11 @@ public final class UpdateConnectionOptions {
             OptionalNullable<ConnectionGatewayAuthentication> gatewayAuthentication,
             OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens,
             Optional<ConnectionPasswordOptions> passwordOptions,
+            Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings,
+            OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs,
+            OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod,
+            OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg,
+            Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
             Map<String, Object> additionalProperties) {
         this.validation = validation;
         this.nonPersistentAttrs = nonPersistentAttrs;
@@ -153,6 +168,11 @@ public final class UpdateConnectionOptions {
         this.gatewayAuthentication = gatewayAuthentication;
         this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
         this.passwordOptions = passwordOptions;
+        this.assertionDecryptionSettings = assertionDecryptionSettings;
+        this.idTokenSignedResponseAlgs = idTokenSignedResponseAlgs;
+        this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
+        this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
+        this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
         this.additionalProperties = additionalProperties;
     }
 
@@ -381,6 +401,43 @@ public final class UpdateConnectionOptions {
         return passwordOptions;
     }
 
+    @JsonProperty("assertion_decryption_settings")
+    public Optional<ConnectionAssertionDecryptionSettings> getAssertionDecryptionSettings() {
+        return assertionDecryptionSettings;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("id_token_signed_response_algs")
+    public OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> getIdTokenSignedResponseAlgs() {
+        if (idTokenSignedResponseAlgs == null) {
+            return OptionalNullable.absent();
+        }
+        return idTokenSignedResponseAlgs;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_endpoint_auth_method")
+    public OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> getTokenEndpointAuthMethod() {
+        if (tokenEndpointAuthMethod == null) {
+            return OptionalNullable.absent();
+        }
+        return tokenEndpointAuthMethod;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_endpoint_auth_signing_alg")
+    public OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> getTokenEndpointAuthSigningAlg() {
+        if (tokenEndpointAuthSigningAlg == null) {
+            return OptionalNullable.absent();
+        }
+        return tokenEndpointAuthSigningAlg;
+    }
+
+    @JsonProperty("token_endpoint_jwtca_aud_format")
+    public Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> getTokenEndpointJwtcaAudFormat() {
+        return tokenEndpointJwtcaAudFormat;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("validation")
     private OptionalNullable<ConnectionValidationOptions> _getValidation() {
@@ -460,6 +517,24 @@ public final class UpdateConnectionOptions {
         return federatedConnectionsAccessTokens;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("id_token_signed_response_algs")
+    private OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> _getIdTokenSignedResponseAlgs() {
+        return idTokenSignedResponseAlgs;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_endpoint_auth_method")
+    private OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> _getTokenEndpointAuthMethod() {
+        return tokenEndpointAuthMethod;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_endpoint_auth_signing_alg")
+    private OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> _getTokenEndpointAuthSigningAlg() {
+        return tokenEndpointAuthSigningAlg;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -502,7 +577,12 @@ public final class UpdateConnectionOptions {
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
                 && gatewayAuthentication.equals(other.gatewayAuthentication)
                 && federatedConnectionsAccessTokens.equals(other.federatedConnectionsAccessTokens)
-                && passwordOptions.equals(other.passwordOptions);
+                && passwordOptions.equals(other.passwordOptions)
+                && assertionDecryptionSettings.equals(other.assertionDecryptionSettings)
+                && idTokenSignedResponseAlgs.equals(other.idTokenSignedResponseAlgs)
+                && tokenEndpointAuthMethod.equals(other.tokenEndpointAuthMethod)
+                && tokenEndpointAuthSigningAlg.equals(other.tokenEndpointAuthSigningAlg)
+                && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat);
     }
 
     @java.lang.Override
@@ -538,7 +618,12 @@ public final class UpdateConnectionOptions {
                 this.setUserRootAttributes,
                 this.gatewayAuthentication,
                 this.federatedConnectionsAccessTokens,
-                this.passwordOptions);
+                this.passwordOptions,
+                this.assertionDecryptionSettings,
+                this.idTokenSignedResponseAlgs,
+                this.tokenEndpointAuthMethod,
+                this.tokenEndpointAuthSigningAlg,
+                this.tokenEndpointJwtcaAudFormat);
     }
 
     @java.lang.Override
@@ -618,6 +703,19 @@ public final class UpdateConnectionOptions {
 
         private Optional<ConnectionPasswordOptions> passwordOptions = Optional.empty();
 
+        private Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings = Optional.empty();
+
+        private OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs =
+                OptionalNullable.absent();
+
+        private OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod =
+                OptionalNullable.absent();
+
+        private OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg =
+                OptionalNullable.absent();
+
+        private Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -655,6 +753,11 @@ public final class UpdateConnectionOptions {
             gatewayAuthentication(other.getGatewayAuthentication());
             federatedConnectionsAccessTokens(other.getFederatedConnectionsAccessTokens());
             passwordOptions(other.getPasswordOptions());
+            assertionDecryptionSettings(other.getAssertionDecryptionSettings());
+            idTokenSignedResponseAlgs(other.getIdTokenSignedResponseAlgs());
+            tokenEndpointAuthMethod(other.getTokenEndpointAuthMethod());
+            tokenEndpointAuthSigningAlg(other.getTokenEndpointAuthSigningAlg());
+            tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
             return this;
         }
 
@@ -1306,6 +1409,137 @@ public final class UpdateConnectionOptions {
             return this;
         }
 
+        @JsonSetter(value = "assertion_decryption_settings", nulls = Nulls.SKIP)
+        public Builder assertionDecryptionSettings(
+                Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings) {
+            this.assertionDecryptionSettings = assertionDecryptionSettings;
+            return this;
+        }
+
+        public Builder assertionDecryptionSettings(ConnectionAssertionDecryptionSettings assertionDecryptionSettings) {
+            this.assertionDecryptionSettings = Optional.ofNullable(assertionDecryptionSettings);
+            return this;
+        }
+
+        @JsonSetter(value = "id_token_signed_response_algs", nulls = Nulls.SKIP)
+        public Builder idTokenSignedResponseAlgs(
+                @Nullable OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs) {
+            this.idTokenSignedResponseAlgs = idTokenSignedResponseAlgs;
+            return this;
+        }
+
+        public Builder idTokenSignedResponseAlgs(
+                List<ConnectionIdTokenSignedResponseAlgEnum> idTokenSignedResponseAlgs) {
+            this.idTokenSignedResponseAlgs = OptionalNullable.of(idTokenSignedResponseAlgs);
+            return this;
+        }
+
+        public Builder idTokenSignedResponseAlgs(
+                Optional<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs) {
+            if (idTokenSignedResponseAlgs.isPresent()) {
+                this.idTokenSignedResponseAlgs = OptionalNullable.of(idTokenSignedResponseAlgs.get());
+            } else {
+                this.idTokenSignedResponseAlgs = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder idTokenSignedResponseAlgs(
+                com.auth0.client.mgmt.core.Nullable<List<ConnectionIdTokenSignedResponseAlgEnum>>
+                        idTokenSignedResponseAlgs) {
+            if (idTokenSignedResponseAlgs.isNull()) {
+                this.idTokenSignedResponseAlgs = OptionalNullable.ofNull();
+            } else if (idTokenSignedResponseAlgs.isEmpty()) {
+                this.idTokenSignedResponseAlgs = OptionalNullable.absent();
+            } else {
+                this.idTokenSignedResponseAlgs = OptionalNullable.of(idTokenSignedResponseAlgs.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "token_endpoint_auth_method", nulls = Nulls.SKIP)
+        public Builder tokenEndpointAuthMethod(
+                @Nullable OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
+            this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
+            return this;
+        }
+
+        public Builder tokenEndpointAuthMethod(ConnectionTokenEndpointAuthMethodEnum tokenEndpointAuthMethod) {
+            this.tokenEndpointAuthMethod = OptionalNullable.of(tokenEndpointAuthMethod);
+            return this;
+        }
+
+        public Builder tokenEndpointAuthMethod(
+                Optional<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
+            if (tokenEndpointAuthMethod.isPresent()) {
+                this.tokenEndpointAuthMethod = OptionalNullable.of(tokenEndpointAuthMethod.get());
+            } else {
+                this.tokenEndpointAuthMethod = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder tokenEndpointAuthMethod(
+                com.auth0.client.mgmt.core.Nullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
+            if (tokenEndpointAuthMethod.isNull()) {
+                this.tokenEndpointAuthMethod = OptionalNullable.ofNull();
+            } else if (tokenEndpointAuthMethod.isEmpty()) {
+                this.tokenEndpointAuthMethod = OptionalNullable.absent();
+            } else {
+                this.tokenEndpointAuthMethod = OptionalNullable.of(tokenEndpointAuthMethod.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "token_endpoint_auth_signing_alg", nulls = Nulls.SKIP)
+        public Builder tokenEndpointAuthSigningAlg(
+                @Nullable OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg) {
+            this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
+            return this;
+        }
+
+        public Builder tokenEndpointAuthSigningAlg(
+                ConnectionTokenEndpointAuthSigningAlgEnum tokenEndpointAuthSigningAlg) {
+            this.tokenEndpointAuthSigningAlg = OptionalNullable.of(tokenEndpointAuthSigningAlg);
+            return this;
+        }
+
+        public Builder tokenEndpointAuthSigningAlg(
+                Optional<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg) {
+            if (tokenEndpointAuthSigningAlg.isPresent()) {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.of(tokenEndpointAuthSigningAlg.get());
+            } else {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder tokenEndpointAuthSigningAlg(
+                com.auth0.client.mgmt.core.Nullable<ConnectionTokenEndpointAuthSigningAlgEnum>
+                        tokenEndpointAuthSigningAlg) {
+            if (tokenEndpointAuthSigningAlg.isNull()) {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.ofNull();
+            } else if (tokenEndpointAuthSigningAlg.isEmpty()) {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.absent();
+            } else {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.of(tokenEndpointAuthSigningAlg.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "token_endpoint_jwtca_aud_format", nulls = Nulls.SKIP)
+        public Builder tokenEndpointJwtcaAudFormat(
+                Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat) {
+            this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
+            return this;
+        }
+
+        public Builder tokenEndpointJwtcaAudFormat(
+                ConnectionTokenEndpointJwtcaAudFormatEnumOidc tokenEndpointJwtcaAudFormat) {
+            this.tokenEndpointJwtcaAudFormat = Optional.ofNullable(tokenEndpointJwtcaAudFormat);
+            return this;
+        }
+
         public UpdateConnectionOptions build() {
             return new UpdateConnectionOptions(
                     validation,
@@ -1339,6 +1573,11 @@ public final class UpdateConnectionOptions {
                     gatewayAuthentication,
                     federatedConnectionsAccessTokens,
                     passwordOptions,
+                    assertionDecryptionSettings,
+                    idTokenSignedResponseAlgs,
+                    tokenEndpointAuthMethod,
+                    tokenEndpointAuthSigningAlg,
+                    tokenEndpointJwtcaAudFormat,
                     additionalProperties);
         }
 

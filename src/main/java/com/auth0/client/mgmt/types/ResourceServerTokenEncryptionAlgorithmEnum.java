@@ -10,11 +10,11 @@ public final class ResourceServerTokenEncryptionAlgorithmEnum {
     public static final ResourceServerTokenEncryptionAlgorithmEnum RSA_OAEP256 =
             new ResourceServerTokenEncryptionAlgorithmEnum(Value.RSA_OAEP256, "RSA-OAEP-256");
 
-    public static final ResourceServerTokenEncryptionAlgorithmEnum RSA_OAEP512 =
-            new ResourceServerTokenEncryptionAlgorithmEnum(Value.RSA_OAEP512, "RSA-OAEP-512");
-
     public static final ResourceServerTokenEncryptionAlgorithmEnum RSA_OAEP384 =
             new ResourceServerTokenEncryptionAlgorithmEnum(Value.RSA_OAEP384, "RSA-OAEP-384");
+
+    public static final ResourceServerTokenEncryptionAlgorithmEnum RSA_OAEP512 =
+            new ResourceServerTokenEncryptionAlgorithmEnum(Value.RSA_OAEP512, "RSA-OAEP-512");
 
     private final Value value;
 
@@ -51,10 +51,10 @@ public final class ResourceServerTokenEncryptionAlgorithmEnum {
         switch (value) {
             case RSA_OAEP256:
                 return visitor.visitRsaOaep256();
-            case RSA_OAEP512:
-                return visitor.visitRsaOaep512();
             case RSA_OAEP384:
                 return visitor.visitRsaOaep384();
+            case RSA_OAEP512:
+                return visitor.visitRsaOaep512();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -66,10 +66,10 @@ public final class ResourceServerTokenEncryptionAlgorithmEnum {
         switch (value) {
             case "RSA-OAEP-256":
                 return RSA_OAEP256;
-            case "RSA-OAEP-512":
-                return RSA_OAEP512;
             case "RSA-OAEP-384":
                 return RSA_OAEP384;
+            case "RSA-OAEP-512":
+                return RSA_OAEP512;
             default:
                 return new ResourceServerTokenEncryptionAlgorithmEnum(Value.UNKNOWN, value);
         }

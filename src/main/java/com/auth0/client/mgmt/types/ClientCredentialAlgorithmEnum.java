@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class ClientCredentialAlgorithmEnum {
     public static final ClientCredentialAlgorithmEnum PS256 = new ClientCredentialAlgorithmEnum(Value.PS256, "PS256");
 
-    public static final ClientCredentialAlgorithmEnum RS256 = new ClientCredentialAlgorithmEnum(Value.RS256, "RS256");
-
     public static final ClientCredentialAlgorithmEnum RS384 = new ClientCredentialAlgorithmEnum(Value.RS384, "RS384");
+
+    public static final ClientCredentialAlgorithmEnum RS256 = new ClientCredentialAlgorithmEnum(Value.RS256, "RS256");
 
     private final Value value;
 
@@ -48,10 +48,10 @@ public final class ClientCredentialAlgorithmEnum {
         switch (value) {
             case PS256:
                 return visitor.visitPs256();
-            case RS256:
-                return visitor.visitRs256();
             case RS384:
                 return visitor.visitRs384();
+            case RS256:
+                return visitor.visitRs256();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -63,10 +63,10 @@ public final class ClientCredentialAlgorithmEnum {
         switch (value) {
             case "PS256":
                 return PS256;
-            case "RS256":
-                return RS256;
             case "RS384":
                 return RS384;
+            case "RS256":
+                return RS256;
             default:
                 return new ClientCredentialAlgorithmEnum(Value.UNKNOWN, value);
         }

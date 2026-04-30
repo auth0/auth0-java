@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ConnectionOptionsProtocolEnumTwitter {
-    public static final ConnectionOptionsProtocolEnumTwitter OAUTH1 =
-            new ConnectionOptionsProtocolEnumTwitter(Value.OAUTH1, "oauth1");
-
     public static final ConnectionOptionsProtocolEnumTwitter OAUTH2 =
             new ConnectionOptionsProtocolEnumTwitter(Value.OAUTH2, "oauth2");
+
+    public static final ConnectionOptionsProtocolEnumTwitter OAUTH1 =
+            new ConnectionOptionsProtocolEnumTwitter(Value.OAUTH1, "oauth1");
 
     private final Value value;
 
@@ -46,10 +46,10 @@ public final class ConnectionOptionsProtocolEnumTwitter {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case OAUTH1:
-                return visitor.visitOauth1();
             case OAUTH2:
                 return visitor.visitOauth2();
+            case OAUTH1:
+                return visitor.visitOauth1();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -59,10 +59,10 @@ public final class ConnectionOptionsProtocolEnumTwitter {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ConnectionOptionsProtocolEnumTwitter valueOf(String value) {
         switch (value) {
-            case "oauth1":
-                return OAUTH1;
             case "oauth2":
                 return OAUTH2;
+            case "oauth1":
+                return OAUTH1;
             default:
                 return new ConnectionOptionsProtocolEnumTwitter(Value.UNKNOWN, value);
         }

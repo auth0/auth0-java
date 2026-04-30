@@ -10,13 +10,13 @@ public final class IntegrationFeatureTypeEnum {
     public static final IntegrationFeatureTypeEnum UNSPECIFIED =
             new IntegrationFeatureTypeEnum(Value.UNSPECIFIED, "unspecified");
 
-    public static final IntegrationFeatureTypeEnum SMS_PROVIDER =
-            new IntegrationFeatureTypeEnum(Value.SMS_PROVIDER, "sms_provider");
-
     public static final IntegrationFeatureTypeEnum ACTION = new IntegrationFeatureTypeEnum(Value.ACTION, "action");
 
     public static final IntegrationFeatureTypeEnum SSO_INTEGRATION =
             new IntegrationFeatureTypeEnum(Value.SSO_INTEGRATION, "sso_integration");
+
+    public static final IntegrationFeatureTypeEnum SMS_PROVIDER =
+            new IntegrationFeatureTypeEnum(Value.SMS_PROVIDER, "sms_provider");
 
     public static final IntegrationFeatureTypeEnum SOCIAL_CONNECTION =
             new IntegrationFeatureTypeEnum(Value.SOCIAL_CONNECTION, "social_connection");
@@ -59,12 +59,12 @@ public final class IntegrationFeatureTypeEnum {
         switch (value) {
             case UNSPECIFIED:
                 return visitor.visitUnspecified();
-            case SMS_PROVIDER:
-                return visitor.visitSmsProvider();
             case ACTION:
                 return visitor.visitAction();
             case SSO_INTEGRATION:
                 return visitor.visitSsoIntegration();
+            case SMS_PROVIDER:
+                return visitor.visitSmsProvider();
             case SOCIAL_CONNECTION:
                 return visitor.visitSocialConnection();
             case LOG_STREAM:
@@ -80,12 +80,12 @@ public final class IntegrationFeatureTypeEnum {
         switch (value) {
             case "unspecified":
                 return UNSPECIFIED;
-            case "sms_provider":
-                return SMS_PROVIDER;
             case "action":
                 return ACTION;
             case "sso_integration":
                 return SSO_INTEGRATION;
+            case "sms_provider":
+                return SMS_PROVIDER;
             case "social_connection":
                 return SOCIAL_CONNECTION;
             case "log_stream":

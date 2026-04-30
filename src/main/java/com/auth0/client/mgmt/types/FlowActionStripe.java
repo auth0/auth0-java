@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = FlowActionStripe.Deserializer.class)
@@ -121,33 +122,75 @@ public final class FlowActionStripe {
         @java.lang.Override
         public FlowActionStripe deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripeAddTaxId.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("action")
+                    && ((Map<?, ?>) value).containsKey("params")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripeAddTaxId.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripeCreateCustomer.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("action")
+                    && ((Map<?, ?>) value).containsKey("params")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripeCreateCustomer.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripeCreatePortalSession.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("action")
+                    && ((Map<?, ?>) value).containsKey("params")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripeCreatePortalSession.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripeDeleteTaxId.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("action")
+                    && ((Map<?, ?>) value).containsKey("params")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripeDeleteTaxId.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripeFindCustomers.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("action")
+                    && ((Map<?, ?>) value).containsKey("params")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripeFindCustomers.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripeGetCustomer.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("action")
+                    && ((Map<?, ?>) value).containsKey("params")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripeGetCustomer.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripeUpdateCustomer.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("action")
+                    && ((Map<?, ?>) value).containsKey("params")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripeUpdateCustomer.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

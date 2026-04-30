@@ -10,17 +10,14 @@ public final class EventStreamEventTypeEnum {
     public static final EventStreamEventTypeEnum GROUP_DELETED =
             new EventStreamEventTypeEnum(Value.GROUP_DELETED, "group.deleted");
 
+    public static final EventStreamEventTypeEnum ORGANIZATION_CONNECTION_UPDATED =
+            new EventStreamEventTypeEnum(Value.ORGANIZATION_CONNECTION_UPDATED, "organization.connection.updated");
+
     public static final EventStreamEventTypeEnum ORGANIZATION_CONNECTION_ADDED =
             new EventStreamEventTypeEnum(Value.ORGANIZATION_CONNECTION_ADDED, "organization.connection.added");
 
     public static final EventStreamEventTypeEnum USER_DELETED =
             new EventStreamEventTypeEnum(Value.USER_DELETED, "user.deleted");
-
-    public static final EventStreamEventTypeEnum ORGANIZATION_CONNECTION_UPDATED =
-            new EventStreamEventTypeEnum(Value.ORGANIZATION_CONNECTION_UPDATED, "organization.connection.updated");
-
-    public static final EventStreamEventTypeEnum USER_UPDATED =
-            new EventStreamEventTypeEnum(Value.USER_UPDATED, "user.updated");
 
     public static final EventStreamEventTypeEnum GROUP_ROLE_DELETED =
             new EventStreamEventTypeEnum(Value.GROUP_ROLE_DELETED, "group.role.deleted");
@@ -30,6 +27,9 @@ public final class EventStreamEventTypeEnum {
 
     public static final EventStreamEventTypeEnum ORGANIZATION_MEMBER_DELETED =
             new EventStreamEventTypeEnum(Value.ORGANIZATION_MEMBER_DELETED, "organization.member.deleted");
+
+    public static final EventStreamEventTypeEnum USER_UPDATED =
+            new EventStreamEventTypeEnum(Value.USER_UPDATED, "user.updated");
 
     public static final EventStreamEventTypeEnum ORGANIZATION_UPDATED =
             new EventStreamEventTypeEnum(Value.ORGANIZATION_UPDATED, "organization.updated");
@@ -43,12 +43,6 @@ public final class EventStreamEventTypeEnum {
     public static final EventStreamEventTypeEnum GROUP_CREATED =
             new EventStreamEventTypeEnum(Value.GROUP_CREATED, "group.created");
 
-    public static final EventStreamEventTypeEnum GROUP_UPDATED =
-            new EventStreamEventTypeEnum(Value.GROUP_UPDATED, "group.updated");
-
-    public static final EventStreamEventTypeEnum GROUP_ROLE_ASSIGNED =
-            new EventStreamEventTypeEnum(Value.GROUP_ROLE_ASSIGNED, "group.role.assigned");
-
     public static final EventStreamEventTypeEnum ORGANIZATION_CONNECTION_REMOVED =
             new EventStreamEventTypeEnum(Value.ORGANIZATION_CONNECTION_REMOVED, "organization.connection.removed");
 
@@ -58,17 +52,23 @@ public final class EventStreamEventTypeEnum {
     public static final EventStreamEventTypeEnum GROUP_MEMBER_DELETED =
             new EventStreamEventTypeEnum(Value.GROUP_MEMBER_DELETED, "group.member.deleted");
 
-    public static final EventStreamEventTypeEnum ORGANIZATION_GROUP_ROLE_DELETED =
-            new EventStreamEventTypeEnum(Value.ORGANIZATION_GROUP_ROLE_DELETED, "organization.group.role.deleted");
+    public static final EventStreamEventTypeEnum GROUP_UPDATED =
+            new EventStreamEventTypeEnum(Value.GROUP_UPDATED, "group.updated");
 
-    public static final EventStreamEventTypeEnum ORGANIZATION_MEMBER_ROLE_ASSIGNED =
-            new EventStreamEventTypeEnum(Value.ORGANIZATION_MEMBER_ROLE_ASSIGNED, "organization.member.role.assigned");
+    public static final EventStreamEventTypeEnum GROUP_ROLE_ASSIGNED =
+            new EventStreamEventTypeEnum(Value.GROUP_ROLE_ASSIGNED, "group.role.assigned");
 
     public static final EventStreamEventTypeEnum ORGANIZATION_DELETED =
             new EventStreamEventTypeEnum(Value.ORGANIZATION_DELETED, "organization.deleted");
 
     public static final EventStreamEventTypeEnum ORGANIZATION_MEMBER_ADDED =
             new EventStreamEventTypeEnum(Value.ORGANIZATION_MEMBER_ADDED, "organization.member.added");
+
+    public static final EventStreamEventTypeEnum ORGANIZATION_GROUP_ROLE_DELETED =
+            new EventStreamEventTypeEnum(Value.ORGANIZATION_GROUP_ROLE_DELETED, "organization.group.role.deleted");
+
+    public static final EventStreamEventTypeEnum ORGANIZATION_MEMBER_ROLE_ASSIGNED =
+            new EventStreamEventTypeEnum(Value.ORGANIZATION_MEMBER_ROLE_ASSIGNED, "organization.member.role.assigned");
 
     public static final EventStreamEventTypeEnum ORGANIZATION_MEMBER_ROLE_DELETED =
             new EventStreamEventTypeEnum(Value.ORGANIZATION_MEMBER_ROLE_DELETED, "organization.member.role.deleted");
@@ -108,20 +108,20 @@ public final class EventStreamEventTypeEnum {
         switch (value) {
             case GROUP_DELETED:
                 return visitor.visitGroupDeleted();
+            case ORGANIZATION_CONNECTION_UPDATED:
+                return visitor.visitOrganizationConnectionUpdated();
             case ORGANIZATION_CONNECTION_ADDED:
                 return visitor.visitOrganizationConnectionAdded();
             case USER_DELETED:
                 return visitor.visitUserDeleted();
-            case ORGANIZATION_CONNECTION_UPDATED:
-                return visitor.visitOrganizationConnectionUpdated();
-            case USER_UPDATED:
-                return visitor.visitUserUpdated();
             case GROUP_ROLE_DELETED:
                 return visitor.visitGroupRoleDeleted();
             case ORGANIZATION_CREATED:
                 return visitor.visitOrganizationCreated();
             case ORGANIZATION_MEMBER_DELETED:
                 return visitor.visitOrganizationMemberDeleted();
+            case USER_UPDATED:
+                return visitor.visitUserUpdated();
             case ORGANIZATION_UPDATED:
                 return visitor.visitOrganizationUpdated();
             case GROUP_MEMBER_ADDED:
@@ -130,24 +130,24 @@ public final class EventStreamEventTypeEnum {
                 return visitor.visitOrganizationGroupRoleAssigned();
             case GROUP_CREATED:
                 return visitor.visitGroupCreated();
-            case GROUP_UPDATED:
-                return visitor.visitGroupUpdated();
-            case GROUP_ROLE_ASSIGNED:
-                return visitor.visitGroupRoleAssigned();
             case ORGANIZATION_CONNECTION_REMOVED:
                 return visitor.visitOrganizationConnectionRemoved();
             case USER_CREATED:
                 return visitor.visitUserCreated();
             case GROUP_MEMBER_DELETED:
                 return visitor.visitGroupMemberDeleted();
-            case ORGANIZATION_GROUP_ROLE_DELETED:
-                return visitor.visitOrganizationGroupRoleDeleted();
-            case ORGANIZATION_MEMBER_ROLE_ASSIGNED:
-                return visitor.visitOrganizationMemberRoleAssigned();
+            case GROUP_UPDATED:
+                return visitor.visitGroupUpdated();
+            case GROUP_ROLE_ASSIGNED:
+                return visitor.visitGroupRoleAssigned();
             case ORGANIZATION_DELETED:
                 return visitor.visitOrganizationDeleted();
             case ORGANIZATION_MEMBER_ADDED:
                 return visitor.visitOrganizationMemberAdded();
+            case ORGANIZATION_GROUP_ROLE_DELETED:
+                return visitor.visitOrganizationGroupRoleDeleted();
+            case ORGANIZATION_MEMBER_ROLE_ASSIGNED:
+                return visitor.visitOrganizationMemberRoleAssigned();
             case ORGANIZATION_MEMBER_ROLE_DELETED:
                 return visitor.visitOrganizationMemberRoleDeleted();
             case UNKNOWN:
@@ -161,20 +161,20 @@ public final class EventStreamEventTypeEnum {
         switch (value) {
             case "group.deleted":
                 return GROUP_DELETED;
+            case "organization.connection.updated":
+                return ORGANIZATION_CONNECTION_UPDATED;
             case "organization.connection.added":
                 return ORGANIZATION_CONNECTION_ADDED;
             case "user.deleted":
                 return USER_DELETED;
-            case "organization.connection.updated":
-                return ORGANIZATION_CONNECTION_UPDATED;
-            case "user.updated":
-                return USER_UPDATED;
             case "group.role.deleted":
                 return GROUP_ROLE_DELETED;
             case "organization.created":
                 return ORGANIZATION_CREATED;
             case "organization.member.deleted":
                 return ORGANIZATION_MEMBER_DELETED;
+            case "user.updated":
+                return USER_UPDATED;
             case "organization.updated":
                 return ORGANIZATION_UPDATED;
             case "group.member.added":
@@ -183,24 +183,24 @@ public final class EventStreamEventTypeEnum {
                 return ORGANIZATION_GROUP_ROLE_ASSIGNED;
             case "group.created":
                 return GROUP_CREATED;
-            case "group.updated":
-                return GROUP_UPDATED;
-            case "group.role.assigned":
-                return GROUP_ROLE_ASSIGNED;
             case "organization.connection.removed":
                 return ORGANIZATION_CONNECTION_REMOVED;
             case "user.created":
                 return USER_CREATED;
             case "group.member.deleted":
                 return GROUP_MEMBER_DELETED;
-            case "organization.group.role.deleted":
-                return ORGANIZATION_GROUP_ROLE_DELETED;
-            case "organization.member.role.assigned":
-                return ORGANIZATION_MEMBER_ROLE_ASSIGNED;
+            case "group.updated":
+                return GROUP_UPDATED;
+            case "group.role.assigned":
+                return GROUP_ROLE_ASSIGNED;
             case "organization.deleted":
                 return ORGANIZATION_DELETED;
             case "organization.member.added":
                 return ORGANIZATION_MEMBER_ADDED;
+            case "organization.group.role.deleted":
+                return ORGANIZATION_GROUP_ROLE_DELETED;
+            case "organization.member.role.assigned":
+                return ORGANIZATION_MEMBER_ROLE_ASSIGNED;
             case "organization.member.role.deleted":
                 return ORGANIZATION_MEMBER_ROLE_DELETED;
             default:

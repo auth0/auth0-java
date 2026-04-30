@@ -24,6 +24,8 @@ import org.jetbrains.annotations.Nullable;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionOptionsSaml.Builder.class)
 public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml, IConnectionOptionsCommon {
+    private final Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings;
+
     private final Optional<String> cert;
 
     private final Optional<ConnectionDecryptionKeySaml> decryptionKey;
@@ -90,6 +92,7 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
     private final Map<String, Object> additionalProperties;
 
     private ConnectionOptionsSaml(
+            Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings,
             Optional<String> cert,
             Optional<ConnectionDecryptionKeySaml> decryptionKey,
             Optional<ConnectionDigestAlgorithmEnumSaml> digestAlgorithm,
@@ -122,6 +125,7 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             Optional<String> signOutEndpoint,
             Optional<String> userIdAttribute,
             Map<String, Object> additionalProperties) {
+        this.assertionDecryptionSettings = assertionDecryptionSettings;
         this.cert = cert;
         this.decryptionKey = decryptionKey;
         this.digestAlgorithm = digestAlgorithm;
@@ -154,6 +158,12 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         this.signOutEndpoint = signOutEndpoint;
         this.userIdAttribute = userIdAttribute;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("assertion_decryption_settings")
+    @java.lang.Override
+    public Optional<ConnectionAssertionDecryptionSettings> getAssertionDecryptionSettings() {
+        return assertionDecryptionSettings;
     }
 
     @JsonProperty("cert")
@@ -353,7 +363,8 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
     }
 
     private boolean equalTo(ConnectionOptionsSaml other) {
-        return cert.equals(other.cert)
+        return assertionDecryptionSettings.equals(other.assertionDecryptionSettings)
+                && cert.equals(other.cert)
                 && decryptionKey.equals(other.decryptionKey)
                 && digestAlgorithm.equals(other.digestAlgorithm)
                 && domainAliases.equals(other.domainAliases)
@@ -389,6 +400,7 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.assertionDecryptionSettings,
                 this.cert,
                 this.decryptionKey,
                 this.digestAlgorithm,
@@ -433,6 +445,8 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings = Optional.empty();
+
         private Optional<String> cert = Optional.empty();
 
         private Optional<ConnectionDecryptionKeySaml> decryptionKey = Optional.empty();
@@ -502,6 +516,7 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         private Builder() {}
 
         public Builder from(ConnectionOptionsSaml other) {
+            assertionDecryptionSettings(other.getAssertionDecryptionSettings());
             cert(other.getCert());
             decryptionKey(other.getDecryptionKey());
             digestAlgorithm(other.getDigestAlgorithm());
@@ -533,6 +548,18 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             signingKey(other.getSigningKey());
             signOutEndpoint(other.getSignOutEndpoint());
             userIdAttribute(other.getUserIdAttribute());
+            return this;
+        }
+
+        @JsonSetter(value = "assertion_decryption_settings", nulls = Nulls.SKIP)
+        public Builder assertionDecryptionSettings(
+                Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings) {
+            this.assertionDecryptionSettings = assertionDecryptionSettings;
+            return this;
+        }
+
+        public Builder assertionDecryptionSettings(ConnectionAssertionDecryptionSettings assertionDecryptionSettings) {
+            this.assertionDecryptionSettings = Optional.ofNullable(assertionDecryptionSettings);
             return this;
         }
 
@@ -910,6 +937,7 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
         public ConnectionOptionsSaml build() {
             return new ConnectionOptionsSaml(
+                    assertionDecryptionSettings,
                     cert,
                     decryptionKey,
                     digestAlgorithm,

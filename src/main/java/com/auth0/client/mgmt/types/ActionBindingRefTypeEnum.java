@@ -10,10 +10,10 @@ public final class ActionBindingRefTypeEnum {
     public static final ActionBindingRefTypeEnum BINDING_ID =
             new ActionBindingRefTypeEnum(Value.BINDING_ID, "binding_id");
 
+    public static final ActionBindingRefTypeEnum ACTION_ID = new ActionBindingRefTypeEnum(Value.ACTION_ID, "action_id");
+
     public static final ActionBindingRefTypeEnum ACTION_NAME =
             new ActionBindingRefTypeEnum(Value.ACTION_NAME, "action_name");
-
-    public static final ActionBindingRefTypeEnum ACTION_ID = new ActionBindingRefTypeEnum(Value.ACTION_ID, "action_id");
 
     private final Value value;
 
@@ -50,10 +50,10 @@ public final class ActionBindingRefTypeEnum {
         switch (value) {
             case BINDING_ID:
                 return visitor.visitBindingId();
-            case ACTION_NAME:
-                return visitor.visitActionName();
             case ACTION_ID:
                 return visitor.visitActionId();
+            case ACTION_NAME:
+                return visitor.visitActionName();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -65,10 +65,10 @@ public final class ActionBindingRefTypeEnum {
         switch (value) {
             case "binding_id":
                 return BINDING_ID;
-            case "action_name":
-                return ACTION_NAME;
             case "action_id":
                 return ACTION_ID;
+            case "action_name":
+                return ACTION_NAME;
             default:
                 return new ActionBindingRefTypeEnum(Value.UNKNOWN, value);
         }

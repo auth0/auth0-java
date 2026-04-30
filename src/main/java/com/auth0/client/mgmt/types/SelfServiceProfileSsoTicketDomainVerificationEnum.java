@@ -10,11 +10,11 @@ public final class SelfServiceProfileSsoTicketDomainVerificationEnum {
     public static final SelfServiceProfileSsoTicketDomainVerificationEnum REQUIRED =
             new SelfServiceProfileSsoTicketDomainVerificationEnum(Value.REQUIRED, "required");
 
-    public static final SelfServiceProfileSsoTicketDomainVerificationEnum NONE =
-            new SelfServiceProfileSsoTicketDomainVerificationEnum(Value.NONE, "none");
-
     public static final SelfServiceProfileSsoTicketDomainVerificationEnum OPTIONAL =
             new SelfServiceProfileSsoTicketDomainVerificationEnum(Value.OPTIONAL, "optional");
+
+    public static final SelfServiceProfileSsoTicketDomainVerificationEnum NONE =
+            new SelfServiceProfileSsoTicketDomainVerificationEnum(Value.NONE, "none");
 
     private final Value value;
 
@@ -51,10 +51,10 @@ public final class SelfServiceProfileSsoTicketDomainVerificationEnum {
         switch (value) {
             case REQUIRED:
                 return visitor.visitRequired();
-            case NONE:
-                return visitor.visitNone();
             case OPTIONAL:
                 return visitor.visitOptional();
+            case NONE:
+                return visitor.visitNone();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -66,10 +66,10 @@ public final class SelfServiceProfileSsoTicketDomainVerificationEnum {
         switch (value) {
             case "required":
                 return REQUIRED;
-            case "none":
-                return NONE;
             case "optional":
                 return OPTIONAL;
+            case "none":
+                return NONE;
             default:
                 return new SelfServiceProfileSsoTicketDomainVerificationEnum(Value.UNKNOWN, value);
         }

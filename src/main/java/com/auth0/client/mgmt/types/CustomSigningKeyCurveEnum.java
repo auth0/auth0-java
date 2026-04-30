@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class CustomSigningKeyCurveEnum {
     public static final CustomSigningKeyCurveEnum P521 = new CustomSigningKeyCurveEnum(Value.P521, "P-521");
 
-    public static final CustomSigningKeyCurveEnum P256 = new CustomSigningKeyCurveEnum(Value.P256, "P-256");
-
     public static final CustomSigningKeyCurveEnum P384 = new CustomSigningKeyCurveEnum(Value.P384, "P-384");
+
+    public static final CustomSigningKeyCurveEnum P256 = new CustomSigningKeyCurveEnum(Value.P256, "P-256");
 
     private final Value value;
 
@@ -48,10 +48,10 @@ public final class CustomSigningKeyCurveEnum {
         switch (value) {
             case P521:
                 return visitor.visitP521();
-            case P256:
-                return visitor.visitP256();
             case P384:
                 return visitor.visitP384();
+            case P256:
+                return visitor.visitP256();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -63,10 +63,10 @@ public final class CustomSigningKeyCurveEnum {
         switch (value) {
             case "P-521":
                 return P521;
-            case "P-256":
-                return P256;
             case "P-384":
                 return P384;
+            case "P-256":
+                return P256;
             default:
                 return new CustomSigningKeyCurveEnum(Value.UNKNOWN, value);
         }

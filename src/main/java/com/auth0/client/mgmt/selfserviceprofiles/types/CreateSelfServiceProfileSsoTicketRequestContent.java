@@ -70,7 +70,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
     }
 
     /**
-     * @return If provided, this will allow editing of the provided connection during the SSO Flow
+     * @return If provided, this will allow editing of the provided connection during the Self-Service Enterprise Configuration flow
      */
     @JsonProperty("connection_id")
     public Optional<String> getConnectionId() {
@@ -215,7 +215,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
         }
 
         /**
-         * <p>If provided, this will allow editing of the provided connection during the SSO Flow</p>
+         * <p>If provided, this will allow editing of the provided connection during the Self-Service Enterprise Configuration flow</p>
          */
         @JsonSetter(value = "connection_id", nulls = Nulls.SKIP)
         public Builder connectionId(Optional<String> connectionId) {

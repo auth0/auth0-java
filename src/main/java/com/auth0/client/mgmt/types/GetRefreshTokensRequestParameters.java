@@ -89,6 +89,9 @@ public final class GetRefreshTokensRequestParameters {
      */
     @JsonIgnore
     public OptionalNullable<Integer> getTake() {
+        if (take == null) {
+            return OptionalNullable.absent();
+        }
         return take;
     }
 
@@ -189,7 +192,7 @@ public final class GetRefreshTokensRequestParameters {
         /**
          * <p>Number of results per page. Defaults to 50.</p>
          */
-        _FinalStage take(OptionalNullable<Integer> take);
+        _FinalStage take(@Nullable OptionalNullable<Integer> take);
 
         _FinalStage take(Integer take);
 
@@ -407,7 +410,7 @@ public final class GetRefreshTokensRequestParameters {
          */
         @java.lang.Override
         @JsonSetter(value = "take", nulls = Nulls.SKIP)
-        public _FinalStage take(OptionalNullable<Integer> take) {
+        public _FinalStage take(@Nullable OptionalNullable<Integer> take) {
             this.take = take;
             return this;
         }

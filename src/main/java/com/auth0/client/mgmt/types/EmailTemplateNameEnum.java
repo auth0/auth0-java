@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class EmailTemplateNameEnum {
-    public static final EmailTemplateNameEnum RESET_EMAIL_BY_CODE =
-            new EmailTemplateNameEnum(Value.RESET_EMAIL_BY_CODE, "reset_email_by_code");
-
     public static final EmailTemplateNameEnum CHANGE_PASSWORD =
             new EmailTemplateNameEnum(Value.CHANGE_PASSWORD, "change_password");
+
+    public static final EmailTemplateNameEnum RESET_EMAIL_BY_CODE =
+            new EmailTemplateNameEnum(Value.RESET_EMAIL_BY_CODE, "reset_email_by_code");
 
     public static final EmailTemplateNameEnum STOLEN_CREDENTIALS =
             new EmailTemplateNameEnum(Value.STOLEN_CREDENTIALS, "stolen_credentials");
@@ -28,22 +28,22 @@ public final class EmailTemplateNameEnum {
     public static final EmailTemplateNameEnum PASSWORD_RESET =
             new EmailTemplateNameEnum(Value.PASSWORD_RESET, "password_reset");
 
-    public static final EmailTemplateNameEnum VERIFY_EMAIL =
-            new EmailTemplateNameEnum(Value.VERIFY_EMAIL, "verify_email");
-
     public static final EmailTemplateNameEnum WELCOME_EMAIL =
             new EmailTemplateNameEnum(Value.WELCOME_EMAIL, "welcome_email");
 
     public static final EmailTemplateNameEnum VERIFY_EMAIL_BY_CODE =
             new EmailTemplateNameEnum(Value.VERIFY_EMAIL_BY_CODE, "verify_email_by_code");
 
+    public static final EmailTemplateNameEnum VERIFY_EMAIL =
+            new EmailTemplateNameEnum(Value.VERIFY_EMAIL, "verify_email");
+
     public static final EmailTemplateNameEnum MFA_OOB_CODE =
             new EmailTemplateNameEnum(Value.MFA_OOB_CODE, "mfa_oob_code");
 
+    public static final EmailTemplateNameEnum RESET_EMAIL = new EmailTemplateNameEnum(Value.RESET_EMAIL, "reset_email");
+
     public static final EmailTemplateNameEnum ASYNC_APPROVAL =
             new EmailTemplateNameEnum(Value.ASYNC_APPROVAL, "async_approval");
-
-    public static final EmailTemplateNameEnum RESET_EMAIL = new EmailTemplateNameEnum(Value.RESET_EMAIL, "reset_email");
 
     private final Value value;
 
@@ -78,10 +78,10 @@ public final class EmailTemplateNameEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case RESET_EMAIL_BY_CODE:
-                return visitor.visitResetEmailByCode();
             case CHANGE_PASSWORD:
                 return visitor.visitChangePassword();
+            case RESET_EMAIL_BY_CODE:
+                return visitor.visitResetEmailByCode();
             case STOLEN_CREDENTIALS:
                 return visitor.visitStolenCredentials();
             case USER_INVITATION:
@@ -92,18 +92,18 @@ public final class EmailTemplateNameEnum {
                 return visitor.visitEnrollmentEmail();
             case PASSWORD_RESET:
                 return visitor.visitPasswordReset();
-            case VERIFY_EMAIL:
-                return visitor.visitVerifyEmail();
             case WELCOME_EMAIL:
                 return visitor.visitWelcomeEmail();
             case VERIFY_EMAIL_BY_CODE:
                 return visitor.visitVerifyEmailByCode();
+            case VERIFY_EMAIL:
+                return visitor.visitVerifyEmail();
             case MFA_OOB_CODE:
                 return visitor.visitMfaOobCode();
-            case ASYNC_APPROVAL:
-                return visitor.visitAsyncApproval();
             case RESET_EMAIL:
                 return visitor.visitResetEmail();
+            case ASYNC_APPROVAL:
+                return visitor.visitAsyncApproval();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -113,10 +113,10 @@ public final class EmailTemplateNameEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static EmailTemplateNameEnum valueOf(String value) {
         switch (value) {
-            case "reset_email_by_code":
-                return RESET_EMAIL_BY_CODE;
             case "change_password":
                 return CHANGE_PASSWORD;
+            case "reset_email_by_code":
+                return RESET_EMAIL_BY_CODE;
             case "stolen_credentials":
                 return STOLEN_CREDENTIALS;
             case "user_invitation":
@@ -127,18 +127,18 @@ public final class EmailTemplateNameEnum {
                 return ENROLLMENT_EMAIL;
             case "password_reset":
                 return PASSWORD_RESET;
-            case "verify_email":
-                return VERIFY_EMAIL;
             case "welcome_email":
                 return WELCOME_EMAIL;
             case "verify_email_by_code":
                 return VERIFY_EMAIL_BY_CODE;
+            case "verify_email":
+                return VERIFY_EMAIL;
             case "mfa_oob_code":
                 return MFA_OOB_CODE;
-            case "async_approval":
-                return ASYNC_APPROVAL;
             case "reset_email":
                 return RESET_EMAIL;
+            case "async_approval":
+                return ASYNC_APPROVAL;
             default:
                 return new EmailTemplateNameEnum(Value.UNKNOWN, value);
         }

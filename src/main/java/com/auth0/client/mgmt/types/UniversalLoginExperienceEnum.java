@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class UniversalLoginExperienceEnum {
+    public static final UniversalLoginExperienceEnum NEW = new UniversalLoginExperienceEnum(Value.NEW, "new");
+
     public static final UniversalLoginExperienceEnum CLASSIC =
             new UniversalLoginExperienceEnum(Value.CLASSIC, "classic");
-
-    public static final UniversalLoginExperienceEnum NEW = new UniversalLoginExperienceEnum(Value.NEW, "new");
 
     private final Value value;
 
@@ -45,10 +45,10 @@ public final class UniversalLoginExperienceEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case CLASSIC:
-                return visitor.visitClassic();
             case NEW:
                 return visitor.visitNew();
+            case CLASSIC:
+                return visitor.visitClassic();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -58,10 +58,10 @@ public final class UniversalLoginExperienceEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static UniversalLoginExperienceEnum valueOf(String value) {
         switch (value) {
-            case "classic":
-                return CLASSIC;
             case "new":
                 return NEW;
+            case "classic":
+                return CLASSIC;
             default:
                 return new UniversalLoginExperienceEnum(Value.UNKNOWN, value);
         }

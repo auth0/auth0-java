@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class CreateEncryptionKeyType {
-    public static final CreateEncryptionKeyType CUSTOMER_PROVIDED_ROOT_KEY =
-            new CreateEncryptionKeyType(Value.CUSTOMER_PROVIDED_ROOT_KEY, "customer-provided-root-key");
-
     public static final CreateEncryptionKeyType TENANT_ENCRYPTION_KEY =
             new CreateEncryptionKeyType(Value.TENANT_ENCRYPTION_KEY, "tenant-encryption-key");
+
+    public static final CreateEncryptionKeyType CUSTOMER_PROVIDED_ROOT_KEY =
+            new CreateEncryptionKeyType(Value.CUSTOMER_PROVIDED_ROOT_KEY, "customer-provided-root-key");
 
     private final Value value;
 
@@ -46,10 +46,10 @@ public final class CreateEncryptionKeyType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case CUSTOMER_PROVIDED_ROOT_KEY:
-                return visitor.visitCustomerProvidedRootKey();
             case TENANT_ENCRYPTION_KEY:
                 return visitor.visitTenantEncryptionKey();
+            case CUSTOMER_PROVIDED_ROOT_KEY:
+                return visitor.visitCustomerProvidedRootKey();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -59,10 +59,10 @@ public final class CreateEncryptionKeyType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static CreateEncryptionKeyType valueOf(String value) {
         switch (value) {
-            case "customer-provided-root-key":
-                return CUSTOMER_PROVIDED_ROOT_KEY;
             case "tenant-encryption-key":
                 return TENANT_ENCRYPTION_KEY;
+            case "customer-provided-root-key":
+                return CUSTOMER_PROVIDED_ROOT_KEY;
             default:
                 return new CreateEncryptionKeyType(Value.UNKNOWN, value);
         }

@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ConnectionConnectionSettingsPkceEnum {
-    public static final ConnectionConnectionSettingsPkceEnum AUTO =
-            new ConnectionConnectionSettingsPkceEnum(Value.AUTO, "auto");
-
     public static final ConnectionConnectionSettingsPkceEnum S256 =
             new ConnectionConnectionSettingsPkceEnum(Value.S256, "S256");
+
+    public static final ConnectionConnectionSettingsPkceEnum AUTO =
+            new ConnectionConnectionSettingsPkceEnum(Value.AUTO, "auto");
 
     public static final ConnectionConnectionSettingsPkceEnum DISABLED =
             new ConnectionConnectionSettingsPkceEnum(Value.DISABLED, "disabled");
@@ -52,10 +52,10 @@ public final class ConnectionConnectionSettingsPkceEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case AUTO:
-                return visitor.visitAuto();
             case S256:
                 return visitor.visitS256();
+            case AUTO:
+                return visitor.visitAuto();
             case DISABLED:
                 return visitor.visitDisabled();
             case PLAIN:
@@ -69,10 +69,10 @@ public final class ConnectionConnectionSettingsPkceEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ConnectionConnectionSettingsPkceEnum valueOf(String value) {
         switch (value) {
-            case "auto":
-                return AUTO;
             case "S256":
                 return S256;
+            case "auto":
+                return AUTO;
             case "disabled":
                 return DISABLED;
             case "plain":
