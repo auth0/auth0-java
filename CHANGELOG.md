@@ -1,5 +1,13 @@
 # Change Log
 
+## [3.5.0](https://github.com/auth0/auth0-java/tree/3.5.0) (2026-04-30)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/3.4.0...3.5.0)
+
+**Added**
+- feat: Add SSE events API, refresh token revocation, branding identifiers, and connection options [\#860](https://github.com/auth0/auth0-java/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+- Add logging support and SDK regeneration — April 22, 2026   [\#858](https://github.com/auth0/auth0-java/pull/858) ([fern-api[bot]](https://github.com/apps/fern-api))
+- Feat: Add Support for Synchronized Groups for a Connection Directory Provisioning Configuration and Self-Service Domain Verification and Organizations Discovery [\#857](https://github.com/auth0/auth0-java/pull/857) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [3.4.0](https://github.com/auth0/auth0-java/tree/3.4.0) (2026-04-09)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/3.3.0...3.4.0)
 

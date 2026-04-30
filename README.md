@@ -39,14 +39,14 @@ Add the dependency via Maven:
 <dependency>
   <groupId>com.auth0</groupId>
   <artifactId>auth0</artifactId>
-  <version>3.4.0</version>
+  <version>3.5.0</version>
 </dependency>
 ```
 
 or Gradle:
 
 ```gradle
-implementation 'com.auth0:auth0:3.4.0'
+implementation 'com.auth0:auth0:3.5.0'
 ```
 
 ### Configure the SDK
