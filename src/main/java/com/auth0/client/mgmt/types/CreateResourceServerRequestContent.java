@@ -39,6 +39,8 @@ public final class CreateResourceServerRequestContent {
 
     private final Optional<Boolean> allowOnlineAccess;
 
+    private final Optional<Boolean> allowOnlineAccessWithEphemeralSessions;
+
     private final Optional<Integer> tokenLifetime;
 
     private final Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect;
@@ -69,6 +71,7 @@ public final class CreateResourceServerRequestContent {
             Optional<String> signingSecret,
             Optional<Boolean> allowOfflineAccess,
             Optional<Boolean> allowOnlineAccess,
+            Optional<Boolean> allowOnlineAccessWithEphemeralSessions,
             Optional<Integer> tokenLifetime,
             Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect,
             Optional<Boolean> skipConsentForVerifiableFirstPartyClients,
@@ -87,6 +90,7 @@ public final class CreateResourceServerRequestContent {
         this.signingSecret = signingSecret;
         this.allowOfflineAccess = allowOfflineAccess;
         this.allowOnlineAccess = allowOnlineAccess;
+        this.allowOnlineAccessWithEphemeralSessions = allowOnlineAccessWithEphemeralSessions;
         this.tokenLifetime = tokenLifetime;
         this.tokenDialect = tokenDialect;
         this.skipConsentForVerifiableFirstPartyClients = skipConsentForVerifiableFirstPartyClients;
@@ -151,6 +155,14 @@ public final class CreateResourceServerRequestContent {
     @JsonProperty("allow_online_access")
     public Optional<Boolean> getAllowOnlineAccess() {
         return allowOnlineAccess;
+    }
+
+    /**
+     * @return Whether Online Refresh Tokens can be issued even when sessions are configured as ephemeral (true) or not (false).
+     */
+    @JsonProperty("allow_online_access_with_ephemeral_sessions")
+    public Optional<Boolean> getAllowOnlineAccessWithEphemeralSessions() {
+        return allowOnlineAccessWithEphemeralSessions;
     }
 
     /**
@@ -282,6 +294,7 @@ public final class CreateResourceServerRequestContent {
                 && signingSecret.equals(other.signingSecret)
                 && allowOfflineAccess.equals(other.allowOfflineAccess)
                 && allowOnlineAccess.equals(other.allowOnlineAccess)
+                && allowOnlineAccessWithEphemeralSessions.equals(other.allowOnlineAccessWithEphemeralSessions)
                 && tokenLifetime.equals(other.tokenLifetime)
                 && tokenDialect.equals(other.tokenDialect)
                 && skipConsentForVerifiableFirstPartyClients.equals(other.skipConsentForVerifiableFirstPartyClients)
@@ -304,6 +317,7 @@ public final class CreateResourceServerRequestContent {
                 this.signingSecret,
                 this.allowOfflineAccess,
                 this.allowOnlineAccess,
+                this.allowOnlineAccessWithEphemeralSessions,
                 this.tokenLifetime,
                 this.tokenDialect,
                 this.skipConsentForVerifiableFirstPartyClients,
@@ -379,6 +393,13 @@ public final class CreateResourceServerRequestContent {
         _FinalStage allowOnlineAccess(Optional<Boolean> allowOnlineAccess);
 
         _FinalStage allowOnlineAccess(Boolean allowOnlineAccess);
+
+        /**
+         * <p>Whether Online Refresh Tokens can be issued even when sessions are configured as ephemeral (true) or not (false).</p>
+         */
+        _FinalStage allowOnlineAccessWithEphemeralSessions(Optional<Boolean> allowOnlineAccessWithEphemeralSessions);
+
+        _FinalStage allowOnlineAccessWithEphemeralSessions(Boolean allowOnlineAccessWithEphemeralSessions);
 
         /**
          * <p>Expiration value (in seconds) for access tokens issued for this API from the token endpoint.</p>
@@ -478,6 +499,8 @@ public final class CreateResourceServerRequestContent {
 
         private Optional<Integer> tokenLifetime = Optional.empty();
 
+        private Optional<Boolean> allowOnlineAccessWithEphemeralSessions = Optional.empty();
+
         private Optional<Boolean> allowOnlineAccess = Optional.empty();
 
         private Optional<Boolean> allowOfflineAccess = Optional.empty();
@@ -504,6 +527,7 @@ public final class CreateResourceServerRequestContent {
             signingSecret(other.getSigningSecret());
             allowOfflineAccess(other.getAllowOfflineAccess());
             allowOnlineAccess(other.getAllowOnlineAccess());
+            allowOnlineAccessWithEphemeralSessions(other.getAllowOnlineAccessWithEphemeralSessions());
             tokenLifetime(other.getTokenLifetime());
             tokenDialect(other.getTokenDialect());
             skipConsentForVerifiableFirstPartyClients(other.getSkipConsentForVerifiableFirstPartyClients());
@@ -802,6 +826,27 @@ public final class CreateResourceServerRequestContent {
         }
 
         /**
+         * <p>Whether Online Refresh Tokens can be issued even when sessions are configured as ephemeral (true) or not (false).</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage allowOnlineAccessWithEphemeralSessions(Boolean allowOnlineAccessWithEphemeralSessions) {
+            this.allowOnlineAccessWithEphemeralSessions = Optional.ofNullable(allowOnlineAccessWithEphemeralSessions);
+            return this;
+        }
+
+        /**
+         * <p>Whether Online Refresh Tokens can be issued even when sessions are configured as ephemeral (true) or not (false).</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "allow_online_access_with_ephemeral_sessions", nulls = Nulls.SKIP)
+        public _FinalStage allowOnlineAccessWithEphemeralSessions(
+                Optional<Boolean> allowOnlineAccessWithEphemeralSessions) {
+            this.allowOnlineAccessWithEphemeralSessions = allowOnlineAccessWithEphemeralSessions;
+            return this;
+        }
+
+        /**
          * <p>Whether Online Refresh Tokens can be issued for this API (true) or not (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -924,6 +969,7 @@ public final class CreateResourceServerRequestContent {
                     signingSecret,
                     allowOfflineAccess,
                     allowOnlineAccess,
+                    allowOnlineAccessWithEphemeralSessions,
                     tokenLifetime,
                     tokenDialect,
                     skipConsentForVerifiableFirstPartyClients,

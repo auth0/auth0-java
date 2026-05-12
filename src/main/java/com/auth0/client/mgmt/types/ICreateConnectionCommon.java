@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface ICreateConnectionCommon {
-    Optional<String> getName();
+    String getName();
 
     Optional<List<String>> getEnabledClients();
 

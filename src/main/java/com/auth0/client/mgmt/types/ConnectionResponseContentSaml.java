@@ -28,11 +28,11 @@ public final class ConnectionResponseContentSaml
 
     private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
 
-    private final Optional<String> id;
+    private final String id;
 
     private final Optional<List<String>> realms;
 
-    private final Optional<String> name;
+    private final String name;
 
     private final Optional<List<String>> enabledClients;
 
@@ -55,9 +55,9 @@ public final class ConnectionResponseContentSaml
     private ConnectionResponseContentSaml(
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
-            Optional<String> id,
+            String id,
             Optional<List<String>> realms,
-            Optional<String> name,
+            String name,
             Optional<List<String>> enabledClients,
             Optional<String> displayName,
             Optional<Boolean> isDomainConnection,
@@ -97,7 +97,7 @@ public final class ConnectionResponseContentSaml
 
     @JsonProperty("id")
     @java.lang.Override
-    public Optional<String> getId() {
+    public String getId() {
         return id;
     }
 
@@ -109,7 +109,7 @@ public final class ConnectionResponseContentSaml
 
     @JsonProperty("name")
     @java.lang.Override
-    public Optional<String> getName() {
+    public String getName() {
         return name;
     }
 
@@ -210,14 +210,22 @@ public final class ConnectionResponseContentSaml
         return ObjectMappers.stringify(this);
     }
 
-    public static StrategyStage builder() {
+    public static IdStage builder() {
         return new Builder();
+    }
+
+    public interface IdStage {
+        NameStage id(@NotNull String id);
+
+        Builder from(ConnectionResponseContentSaml other);
+    }
+
+    public interface NameStage {
+        StrategyStage name(@NotNull String name);
     }
 
     public interface StrategyStage {
         _FinalStage strategy(@NotNull ConnectionResponseContentSamlStrategy strategy);
-
-        Builder from(ConnectionResponseContentSaml other);
     }
 
     public interface _FinalStage {
@@ -235,17 +243,9 @@ public final class ConnectionResponseContentSaml
 
         _FinalStage connectedAccounts(ConnectionConnectedAccountsPurpose connectedAccounts);
 
-        _FinalStage id(Optional<String> id);
-
-        _FinalStage id(String id);
-
         _FinalStage realms(Optional<List<String>> realms);
 
         _FinalStage realms(List<String> realms);
-
-        _FinalStage name(Optional<String> name);
-
-        _FinalStage name(String name);
 
         /**
          * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
@@ -280,7 +280,11 @@ public final class ConnectionResponseContentSaml
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements StrategyStage, _FinalStage {
+    public static final class Builder implements IdStage, NameStage, StrategyStage, _FinalStage {
+        private String id;
+
+        private String name;
+
         private ConnectionResponseContentSamlStrategy strategy;
 
         private Optional<Boolean> showAsButton = Optional.empty();
@@ -297,11 +301,7 @@ public final class ConnectionResponseContentSaml
 
         private Optional<List<String>> enabledClients = Optional.empty();
 
-        private Optional<String> name = Optional.empty();
-
         private Optional<List<String>> realms = Optional.empty();
-
-        private Optional<String> id = Optional.empty();
 
         private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
 
@@ -327,6 +327,20 @@ public final class ConnectionResponseContentSaml
             options(other.getOptions());
             provisioningTicketUrl(other.getProvisioningTicketUrl());
             showAsButton(other.getShowAsButton());
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("id")
+        public NameStage id(@NotNull String id) {
+            this.id = Objects.requireNonNull(id, "id must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("name")
+        public StrategyStage name(@NotNull String name) {
+            this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
@@ -436,19 +450,6 @@ public final class ConnectionResponseContentSaml
         }
 
         @java.lang.Override
-        public _FinalStage name(String name) {
-            this.name = Optional.ofNullable(name);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "name", nulls = Nulls.SKIP)
-        public _FinalStage name(Optional<String> name) {
-            this.name = name;
-            return this;
-        }
-
-        @java.lang.Override
         public _FinalStage realms(List<String> realms) {
             this.realms = Optional.ofNullable(realms);
             return this;
@@ -458,19 +459,6 @@ public final class ConnectionResponseContentSaml
         @JsonSetter(value = "realms", nulls = Nulls.SKIP)
         public _FinalStage realms(Optional<List<String>> realms) {
             this.realms = realms;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage id(String id) {
-            this.id = Optional.ofNullable(id);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "id", nulls = Nulls.SKIP)
-        public _FinalStage id(Optional<String> id) {
-            this.id = id;
             return this;
         }
 
