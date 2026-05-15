@@ -1,5 +1,11 @@
 # Change Log
 
+## [3.5.1](https://github.com/auth0/auth0-java/tree/3.5.1) (2026-05-15)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/3.5.0...3.5.1)
+
+**Added**
+-  Chore: Add Automatic-Module-Name to JAR manifest [\#864](https://github.com/auth0/auth0-java/pull/864) ([tanya732](https://github.com/tanya732))
+
 ## [3.5.0](https://github.com/auth0/auth0-java/tree/3.5.0) (2026-04-30)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/3.4.0...3.5.0)
 
