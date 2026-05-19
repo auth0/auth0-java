@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CreateConnectionRequestContentPaypalSandbox.Builder.class)
 public final class CreateConnectionRequestContentPaypalSandbox implements ICreateConnectionCommon {
-    private final Optional<String> name;
+    private final String name;
 
     private final Optional<List<String>> enabledClients;
 
@@ -40,7 +40,7 @@ public final class CreateConnectionRequestContentPaypalSandbox implements ICreat
     private final Map<String, Object> additionalProperties;
 
     private CreateConnectionRequestContentPaypalSandbox(
-            Optional<String> name,
+            String name,
             Optional<List<String>> enabledClients,
             Optional<String> displayName,
             Optional<Boolean> isDomainConnection,
@@ -60,7 +60,7 @@ public final class CreateConnectionRequestContentPaypalSandbox implements ICreat
 
     @JsonProperty("name")
     @java.lang.Override
-    public Optional<String> getName() {
+    public String getName() {
         return name;
     }
 
@@ -140,14 +140,18 @@ public final class CreateConnectionRequestContentPaypalSandbox implements ICreat
         return ObjectMappers.stringify(this);
     }
 
-    public static StrategyStage builder() {
+    public static NameStage builder() {
         return new Builder();
+    }
+
+    public interface NameStage {
+        StrategyStage name(@NotNull String name);
+
+        Builder from(CreateConnectionRequestContentPaypalSandbox other);
     }
 
     public interface StrategyStage {
         _FinalStage strategy(@NotNull CreateConnectionRequestContentPaypalSandboxStrategy strategy);
-
-        Builder from(CreateConnectionRequestContentPaypalSandbox other);
     }
 
     public interface _FinalStage {
@@ -156,10 +160,6 @@ public final class CreateConnectionRequestContentPaypalSandbox implements ICreat
         _FinalStage additionalProperty(String key, Object value);
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
-
-        _FinalStage name(Optional<String> name);
-
-        _FinalStage name(String name);
 
         /**
          * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
@@ -186,7 +186,9 @@ public final class CreateConnectionRequestContentPaypalSandbox implements ICreat
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements StrategyStage, _FinalStage {
+    public static final class Builder implements NameStage, StrategyStage, _FinalStage {
+        private String name;
+
         private CreateConnectionRequestContentPaypalSandboxStrategy strategy;
 
         private Optional<ConnectionOptionsPaypal> options = Optional.empty();
@@ -198,8 +200,6 @@ public final class CreateConnectionRequestContentPaypalSandbox implements ICreat
         private Optional<String> displayName = Optional.empty();
 
         private Optional<List<String>> enabledClients = Optional.empty();
-
-        private Optional<String> name = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -215,6 +215,13 @@ public final class CreateConnectionRequestContentPaypalSandbox implements ICreat
             metadata(other.getMetadata());
             strategy(other.getStrategy());
             options(other.getOptions());
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("name")
+        public StrategyStage name(@NotNull String name) {
+            this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
@@ -294,19 +301,6 @@ public final class CreateConnectionRequestContentPaypalSandbox implements ICreat
         @JsonSetter(value = "enabled_clients", nulls = Nulls.SKIP)
         public _FinalStage enabledClients(Optional<List<String>> enabledClients) {
             this.enabledClients = enabledClients;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage name(String name) {
-            this.name = Optional.ofNullable(name);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "name", nulls = Nulls.SKIP)
-        public _FinalStage name(Optional<String> name) {
-            this.name = name;
             return this;
         }
 

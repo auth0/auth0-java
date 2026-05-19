@@ -90,3 +90,6 @@ settings.gradle
 build.gradle
 sample-app/
 
+.fern/replay.lock
+.fern/replay.yml
+.gitattributes

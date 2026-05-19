@@ -68,7 +68,7 @@ public final class ChangePasswordTicketRequestContent {
     }
 
     /**
-     * @return URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using client_id or organization_id.
+     * @return URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using organization_id. May be specified together with client_id when the tenant has a custom password reset page enabled and a password-reset-post-challenge Action bound.
      */
     @JsonProperty("result_url")
     public Optional<String> getResultUrl() {
@@ -235,7 +235,7 @@ public final class ChangePasswordTicketRequestContent {
         }
 
         /**
-         * <p>URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using client_id or organization_id.</p>
+         * <p>URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using organization_id. May be specified together with client_id when the tenant has a custom password reset page enabled and a password-reset-post-challenge Action bound.</p>
          */
         @JsonSetter(value = "result_url", nulls = Nulls.SKIP)
         public Builder resultUrl(Optional<String> resultUrl) {

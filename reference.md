@@ -9525,6 +9525,14 @@ client.refreshTokens().revoke(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**audience:** `Optional<String>` — Resource server identifier (audience) to scope the revocation. Must be used with both `user_id` and `client_id`.
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -9917,6 +9925,14 @@ client.resourceServers().create(
 <dl>
 <dd>
 
+**allowOnlineAccessWithEphemeralSessions:** `Optional<Boolean>` — Whether Online Refresh Tokens can be issued even when sessions are configured as ephemeral (true) or not (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **tokenLifetime:** `Optional<Integer>` — Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
     
 </dd>
@@ -10229,6 +10245,14 @@ client.resourceServers().update(
 <dd>
 
 **allowOnlineAccess:** `Optional<Boolean>` — Whether Online Refresh Tokens can be issued for this API (true) or not (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allowOnlineAccessWithEphemeralSessions:** `Optional<Boolean>` — Whether Online Refresh Tokens can be issued even when sessions are configured as ephemeral (true) or not (false).
     
 </dd>
 </dl>
@@ -12249,7 +12273,7 @@ client.tickets().changePassword(
 <dl>
 <dd>
 
-**resultUrl:** `Optional<String>` — URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using client_id or organization_id.
+**resultUrl:** `Optional<String>` — URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using organization_id. May be specified together with client_id when the tenant has a custom password reset page enabled and a password-reset-post-challenge Action bound.
     
 </dd>
 </dl>
@@ -29145,7 +29169,7 @@ client.users().authenticationMethods().create(
 <dl>
 <dd>
 
-**keyId:** `Optional<String>` — Applies to webauthn authentication methods only. The id of the credential.
+**keyId:** `Optional<String>` — Applies to webauthn/passkey authentication methods only. The id of the credential.
     
 </dd>
 </dl>
@@ -29153,7 +29177,15 @@ client.users().authenticationMethods().create(
 <dl>
 <dd>
 
-**publicKey:** `Optional<String>` — Applies to webauthn authentication methods only. The public key, which is encoded as base64.
+**publicKey:** `Optional<String>` — Applies to webauthn/passkey authentication methods only. The public key, which is encoded as base64.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**aaguid:** `Optional<String>` — Applies to passkeys only. Authenticator Attestation Globally Unique Identifier
     
 </dd>
 </dl>
@@ -29162,6 +29194,54 @@ client.users().authenticationMethods().create(
 <dd>
 
 **relyingPartyIdentifier:** `Optional<String>` — Applies to webauthn authentication methods only. The relying party identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**credentialDeviceType:** `Optional<CredentialDeviceTypeEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**credentialBackedUp:** `Optional<Boolean>` — Applies to passkeys only. Whether the credential was backed up.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identityUserId:** `Optional<String>` — Applies to passkeys only. The ID of the user identity linked with the authentication method.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userAgent:** `Optional<String>` — Applies to passkeys only. The user-agent of the browser used to create the passkey.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userHandle:** `Optional<String>` — Applies to passkeys only. The user handle of the user identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transports:** `Optional<List<String>>` — Applies to passkeys only. The transports used by clients to communicate with the authenticator.
     
 </dd>
 </dl>
