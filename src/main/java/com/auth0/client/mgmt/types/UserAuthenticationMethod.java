@@ -59,6 +59,10 @@ public final class UserAuthenticationMethod {
 
     private final Optional<String> userAgent;
 
+    private final Optional<String> userHandle;
+
+    private final Optional<List<String>> transports;
+
     private final Optional<String> aaguid;
 
     private final Optional<String> relyingPartyIdentifier;
@@ -84,6 +88,8 @@ public final class UserAuthenticationMethod {
             Optional<Boolean> credentialBackedUp,
             Optional<String> identityUserId,
             Optional<String> userAgent,
+            Optional<String> userHandle,
+            Optional<List<String>> transports,
             Optional<String> aaguid,
             Optional<String> relyingPartyIdentifier,
             Map<String, Object> additionalProperties) {
@@ -105,6 +111,8 @@ public final class UserAuthenticationMethod {
         this.credentialBackedUp = credentialBackedUp;
         this.identityUserId = identityUserId;
         this.userAgent = userAgent;
+        this.userHandle = userHandle;
+        this.transports = transports;
         this.aaguid = aaguid;
         this.relyingPartyIdentifier = relyingPartyIdentifier;
         this.additionalProperties = additionalProperties;
@@ -246,6 +254,22 @@ public final class UserAuthenticationMethod {
     }
 
     /**
+     * @return Applies to passkeys only. The user handle of the user identity.
+     */
+    @JsonProperty("user_handle")
+    public Optional<String> getUserHandle() {
+        return userHandle;
+    }
+
+    /**
+     * @return Applies to passkeys only. The transports used by clients to communicate with the authenticator.
+     */
+    @JsonProperty("transports")
+    public Optional<List<String>> getTransports() {
+        return transports;
+    }
+
+    /**
      * @return Applies to passkey authentication methods only. Authenticator Attestation Globally Unique Identifier.
      */
     @JsonProperty("aaguid")
@@ -291,6 +315,8 @@ public final class UserAuthenticationMethod {
                 && credentialBackedUp.equals(other.credentialBackedUp)
                 && identityUserId.equals(other.identityUserId)
                 && userAgent.equals(other.userAgent)
+                && userHandle.equals(other.userHandle)
+                && transports.equals(other.transports)
                 && aaguid.equals(other.aaguid)
                 && relyingPartyIdentifier.equals(other.relyingPartyIdentifier);
     }
@@ -316,6 +342,8 @@ public final class UserAuthenticationMethod {
                 this.credentialBackedUp,
                 this.identityUserId,
                 this.userAgent,
+                this.userHandle,
+                this.transports,
                 this.aaguid,
                 this.relyingPartyIdentifier);
     }
@@ -457,6 +485,20 @@ public final class UserAuthenticationMethod {
         _FinalStage userAgent(String userAgent);
 
         /**
+         * <p>Applies to passkeys only. The user handle of the user identity.</p>
+         */
+        _FinalStage userHandle(Optional<String> userHandle);
+
+        _FinalStage userHandle(String userHandle);
+
+        /**
+         * <p>Applies to passkeys only. The transports used by clients to communicate with the authenticator.</p>
+         */
+        _FinalStage transports(Optional<List<String>> transports);
+
+        _FinalStage transports(List<String> transports);
+
+        /**
          * <p>Applies to passkey authentication methods only. Authenticator Attestation Globally Unique Identifier.</p>
          */
         _FinalStage aaguid(Optional<String> aaguid);
@@ -482,6 +524,10 @@ public final class UserAuthenticationMethod {
         private Optional<String> relyingPartyIdentifier = Optional.empty();
 
         private Optional<String> aaguid = Optional.empty();
+
+        private Optional<List<String>> transports = Optional.empty();
+
+        private Optional<String> userHandle = Optional.empty();
 
         private Optional<String> userAgent = Optional.empty();
 
@@ -538,6 +584,8 @@ public final class UserAuthenticationMethod {
             credentialBackedUp(other.getCredentialBackedUp());
             identityUserId(other.getIdentityUserId());
             userAgent(other.getUserAgent());
+            userHandle(other.getUserHandle());
+            transports(other.getTransports());
             aaguid(other.getAaguid());
             relyingPartyIdentifier(other.getRelyingPartyIdentifier());
             return this;
@@ -611,6 +659,46 @@ public final class UserAuthenticationMethod {
         @JsonSetter(value = "aaguid", nulls = Nulls.SKIP)
         public _FinalStage aaguid(Optional<String> aaguid) {
             this.aaguid = aaguid;
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkeys only. The transports used by clients to communicate with the authenticator.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage transports(List<String> transports) {
+            this.transports = Optional.ofNullable(transports);
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkeys only. The transports used by clients to communicate with the authenticator.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "transports", nulls = Nulls.SKIP)
+        public _FinalStage transports(Optional<List<String>> transports) {
+            this.transports = transports;
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkeys only. The user handle of the user identity.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage userHandle(String userHandle) {
+            this.userHandle = Optional.ofNullable(userHandle);
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkeys only. The user handle of the user identity.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "user_handle", nulls = Nulls.SKIP)
+        public _FinalStage userHandle(Optional<String> userHandle) {
+            this.userHandle = userHandle;
             return this;
         }
 
@@ -924,6 +1012,8 @@ public final class UserAuthenticationMethod {
                     credentialBackedUp,
                     identityUserId,
                     userAgent,
+                    userHandle,
+                    transports,
                     aaguid,
                     relyingPartyIdentifier,
                     additionalProperties);

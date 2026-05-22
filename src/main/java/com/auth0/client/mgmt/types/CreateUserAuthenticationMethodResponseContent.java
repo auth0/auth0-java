@@ -47,6 +47,18 @@ public final class CreateUserAuthenticationMethodResponseContent {
 
     private final Optional<String> relyingPartyIdentifier;
 
+    private final Optional<CredentialDeviceTypeEnum> credentialDeviceType;
+
+    private final Optional<Boolean> credentialBackedUp;
+
+    private final Optional<String> identityUserId;
+
+    private final Optional<String> userAgent;
+
+    private final Optional<String> userHandle;
+
+    private final Optional<List<String>> transports;
+
     private final Optional<OffsetDateTime> createdAt;
 
     private final Map<String, Object> additionalProperties;
@@ -64,6 +76,12 @@ public final class CreateUserAuthenticationMethodResponseContent {
             Optional<String> publicKey,
             Optional<String> aaguid,
             Optional<String> relyingPartyIdentifier,
+            Optional<CredentialDeviceTypeEnum> credentialDeviceType,
+            Optional<Boolean> credentialBackedUp,
+            Optional<String> identityUserId,
+            Optional<String> userAgent,
+            Optional<String> userHandle,
+            Optional<List<String>> transports,
             Optional<OffsetDateTime> createdAt,
             Map<String, Object> additionalProperties) {
         this.id = id;
@@ -78,6 +96,12 @@ public final class CreateUserAuthenticationMethodResponseContent {
         this.publicKey = publicKey;
         this.aaguid = aaguid;
         this.relyingPartyIdentifier = relyingPartyIdentifier;
+        this.credentialDeviceType = credentialDeviceType;
+        this.credentialBackedUp = credentialBackedUp;
+        this.identityUserId = identityUserId;
+        this.userAgent = userAgent;
+        this.userHandle = userHandle;
+        this.transports = transports;
         this.createdAt = createdAt;
         this.additionalProperties = additionalProperties;
     }
@@ -172,6 +196,51 @@ public final class CreateUserAuthenticationMethodResponseContent {
         return relyingPartyIdentifier;
     }
 
+    @JsonProperty("credential_device_type")
+    public Optional<CredentialDeviceTypeEnum> getCredentialDeviceType() {
+        return credentialDeviceType;
+    }
+
+    /**
+     * @return Applies to passkeys only. Whether the credential was backed up.
+     */
+    @JsonProperty("credential_backed_up")
+    public Optional<Boolean> getCredentialBackedUp() {
+        return credentialBackedUp;
+    }
+
+    /**
+     * @return Applies to passkeys only. The ID of the user identity linked with the authentication method.
+     */
+    @JsonProperty("identity_user_id")
+    public Optional<String> getIdentityUserId() {
+        return identityUserId;
+    }
+
+    /**
+     * @return Applies to passkeys only. The user-agent of the browser used to create the passkey.
+     */
+    @JsonProperty("user_agent")
+    public Optional<String> getUserAgent() {
+        return userAgent;
+    }
+
+    /**
+     * @return Applies to passkeys only. The user handle of the user identity.
+     */
+    @JsonProperty("user_handle")
+    public Optional<String> getUserHandle() {
+        return userHandle;
+    }
+
+    /**
+     * @return Applies to passkeys only. The transports used by clients to communicate with the authenticator.
+     */
+    @JsonProperty("transports")
+    public Optional<List<String>> getTransports() {
+        return transports;
+    }
+
     /**
      * @return Authentication method creation date
      */
@@ -205,6 +274,12 @@ public final class CreateUserAuthenticationMethodResponseContent {
                 && publicKey.equals(other.publicKey)
                 && aaguid.equals(other.aaguid)
                 && relyingPartyIdentifier.equals(other.relyingPartyIdentifier)
+                && credentialDeviceType.equals(other.credentialDeviceType)
+                && credentialBackedUp.equals(other.credentialBackedUp)
+                && identityUserId.equals(other.identityUserId)
+                && userAgent.equals(other.userAgent)
+                && userHandle.equals(other.userHandle)
+                && transports.equals(other.transports)
                 && createdAt.equals(other.createdAt);
     }
 
@@ -223,6 +298,12 @@ public final class CreateUserAuthenticationMethodResponseContent {
                 this.publicKey,
                 this.aaguid,
                 this.relyingPartyIdentifier,
+                this.credentialDeviceType,
+                this.credentialBackedUp,
+                this.identityUserId,
+                this.userAgent,
+                this.userHandle,
+                this.transports,
                 this.createdAt);
     }
 
@@ -323,6 +404,45 @@ public final class CreateUserAuthenticationMethodResponseContent {
 
         _FinalStage relyingPartyIdentifier(String relyingPartyIdentifier);
 
+        _FinalStage credentialDeviceType(Optional<CredentialDeviceTypeEnum> credentialDeviceType);
+
+        _FinalStage credentialDeviceType(CredentialDeviceTypeEnum credentialDeviceType);
+
+        /**
+         * <p>Applies to passkeys only. Whether the credential was backed up.</p>
+         */
+        _FinalStage credentialBackedUp(Optional<Boolean> credentialBackedUp);
+
+        _FinalStage credentialBackedUp(Boolean credentialBackedUp);
+
+        /**
+         * <p>Applies to passkeys only. The ID of the user identity linked with the authentication method.</p>
+         */
+        _FinalStage identityUserId(Optional<String> identityUserId);
+
+        _FinalStage identityUserId(String identityUserId);
+
+        /**
+         * <p>Applies to passkeys only. The user-agent of the browser used to create the passkey.</p>
+         */
+        _FinalStage userAgent(Optional<String> userAgent);
+
+        _FinalStage userAgent(String userAgent);
+
+        /**
+         * <p>Applies to passkeys only. The user handle of the user identity.</p>
+         */
+        _FinalStage userHandle(Optional<String> userHandle);
+
+        _FinalStage userHandle(String userHandle);
+
+        /**
+         * <p>Applies to passkeys only. The transports used by clients to communicate with the authenticator.</p>
+         */
+        _FinalStage transports(Optional<List<String>> transports);
+
+        _FinalStage transports(List<String> transports);
+
         /**
          * <p>Authentication method creation date</p>
          */
@@ -336,6 +456,18 @@ public final class CreateUserAuthenticationMethodResponseContent {
         private CreatedUserAuthenticationMethodTypeEnum type;
 
         private Optional<OffsetDateTime> createdAt = Optional.empty();
+
+        private Optional<List<String>> transports = Optional.empty();
+
+        private Optional<String> userHandle = Optional.empty();
+
+        private Optional<String> userAgent = Optional.empty();
+
+        private Optional<String> identityUserId = Optional.empty();
+
+        private Optional<Boolean> credentialBackedUp = Optional.empty();
+
+        private Optional<CredentialDeviceTypeEnum> credentialDeviceType = Optional.empty();
 
         private Optional<String> relyingPartyIdentifier = Optional.empty();
 
@@ -378,6 +510,12 @@ public final class CreateUserAuthenticationMethodResponseContent {
             publicKey(other.getPublicKey());
             aaguid(other.getAaguid());
             relyingPartyIdentifier(other.getRelyingPartyIdentifier());
+            credentialDeviceType(other.getCredentialDeviceType());
+            credentialBackedUp(other.getCredentialBackedUp());
+            identityUserId(other.getIdentityUserId());
+            userAgent(other.getUserAgent());
+            userHandle(other.getUserHandle());
+            transports(other.getTransports());
             createdAt(other.getCreatedAt());
             return this;
         }
@@ -406,6 +544,119 @@ public final class CreateUserAuthenticationMethodResponseContent {
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<OffsetDateTime> createdAt) {
             this.createdAt = createdAt;
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkeys only. The transports used by clients to communicate with the authenticator.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage transports(List<String> transports) {
+            this.transports = Optional.ofNullable(transports);
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkeys only. The transports used by clients to communicate with the authenticator.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "transports", nulls = Nulls.SKIP)
+        public _FinalStage transports(Optional<List<String>> transports) {
+            this.transports = transports;
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkeys only. The user handle of the user identity.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage userHandle(String userHandle) {
+            this.userHandle = Optional.ofNullable(userHandle);
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkeys only. The user handle of the user identity.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "user_handle", nulls = Nulls.SKIP)
+        public _FinalStage userHandle(Optional<String> userHandle) {
+            this.userHandle = userHandle;
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkeys only. The user-agent of the browser used to create the passkey.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage userAgent(String userAgent) {
+            this.userAgent = Optional.ofNullable(userAgent);
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkeys only. The user-agent of the browser used to create the passkey.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "user_agent", nulls = Nulls.SKIP)
+        public _FinalStage userAgent(Optional<String> userAgent) {
+            this.userAgent = userAgent;
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkeys only. The ID of the user identity linked with the authentication method.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage identityUserId(String identityUserId) {
+            this.identityUserId = Optional.ofNullable(identityUserId);
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkeys only. The ID of the user identity linked with the authentication method.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "identity_user_id", nulls = Nulls.SKIP)
+        public _FinalStage identityUserId(Optional<String> identityUserId) {
+            this.identityUserId = identityUserId;
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkeys only. Whether the credential was backed up.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage credentialBackedUp(Boolean credentialBackedUp) {
+            this.credentialBackedUp = Optional.ofNullable(credentialBackedUp);
+            return this;
+        }
+
+        /**
+         * <p>Applies to passkeys only. Whether the credential was backed up.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "credential_backed_up", nulls = Nulls.SKIP)
+        public _FinalStage credentialBackedUp(Optional<Boolean> credentialBackedUp) {
+            this.credentialBackedUp = credentialBackedUp;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage credentialDeviceType(CredentialDeviceTypeEnum credentialDeviceType) {
+            this.credentialDeviceType = Optional.ofNullable(credentialDeviceType);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "credential_device_type", nulls = Nulls.SKIP)
+        public _FinalStage credentialDeviceType(Optional<CredentialDeviceTypeEnum> credentialDeviceType) {
+            this.credentialDeviceType = credentialDeviceType;
             return this;
         }
 
@@ -640,6 +891,12 @@ public final class CreateUserAuthenticationMethodResponseContent {
                     publicKey,
                     aaguid,
                     relyingPartyIdentifier,
+                    credentialDeviceType,
+                    credentialBackedUp,
+                    identityUserId,
+                    userAgent,
+                    userHandle,
+                    transports,
                     createdAt,
                     additionalProperties);
         }

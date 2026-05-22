@@ -52,7 +52,7 @@ public class UsersAuthenticationMethodsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"authenticators\":[{\"id\":\"id\",\"type\":\"recovery-code\",\"confirmed\":true,\"name\":\"name\",\"authentication_methods\":[{}],\"preferred_authentication_method\":\"voice\",\"link_id\":\"link_id\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"created_at\":\"2024-01-15T09:30:00Z\",\"enrolled_at\":\"2024-01-15T09:30:00Z\",\"last_auth_at\":\"2024-01-15T09:30:00Z\",\"credential_device_type\":\"credential_device_type\",\"credential_backed_up\":true,\"identity_user_id\":\"identity_user_id\",\"user_agent\":\"user_agent\",\"aaguid\":\"aaguid\",\"relying_party_identifier\":\"relying_party_identifier\"}]}"));
+                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"authenticators\":[{\"id\":\"id\",\"type\":\"recovery-code\",\"confirmed\":true,\"name\":\"name\",\"authentication_methods\":[{}],\"preferred_authentication_method\":\"voice\",\"link_id\":\"link_id\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"created_at\":\"2024-01-15T09:30:00Z\",\"enrolled_at\":\"2024-01-15T09:30:00Z\",\"last_auth_at\":\"2024-01-15T09:30:00Z\",\"credential_device_type\":\"credential_device_type\",\"credential_backed_up\":true,\"identity_user_id\":\"identity_user_id\",\"user_agent\":\"user_agent\",\"user_handle\":\"user_handle\",\"transports\":[\"transports\"],\"aaguid\":\"aaguid\",\"relying_party_identifier\":\"relying_party_identifier\"}]}"));
         SyncPagingIterable<UserAuthenticationMethod> response = client.users()
                 .authenticationMethods()
                 .list(
@@ -78,7 +78,7 @@ public class UsersAuthenticationMethodsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"type\":\"phone\",\"name\":\"name\",\"totp_secret\":\"totp_secret\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"authentication_methods\":[{\"type\":\"totp\",\"id\":\"id\"}],\"preferred_authentication_method\":\"voice\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"aaguid\":\"aaguid\",\"relying_party_identifier\":\"relying_party_identifier\",\"created_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"type\":\"phone\",\"name\":\"name\",\"totp_secret\":\"totp_secret\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"authentication_methods\":[{\"type\":\"totp\",\"id\":\"id\"}],\"preferred_authentication_method\":\"voice\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"aaguid\":\"aaguid\",\"relying_party_identifier\":\"relying_party_identifier\",\"credential_device_type\":\"single_device\",\"credential_backed_up\":true,\"identity_user_id\":\"identity_user_id\",\"user_agent\":\"user_agent\",\"user_handle\":\"user_handle\",\"transports\":[\"transports\"],\"created_at\":\"2024-01-15T09:30:00Z\"}"));
         CreateUserAuthenticationMethodResponseContent response = client.users()
                 .authenticationMethods()
                 .create(
@@ -141,6 +141,14 @@ public class UsersAuthenticationMethodsWireTest {
                 + "  \"public_key\": \"public_key\",\n"
                 + "  \"aaguid\": \"aaguid\",\n"
                 + "  \"relying_party_identifier\": \"relying_party_identifier\",\n"
+                + "  \"credential_device_type\": \"single_device\",\n"
+                + "  \"credential_backed_up\": true,\n"
+                + "  \"identity_user_id\": \"identity_user_id\",\n"
+                + "  \"user_agent\": \"user_agent\",\n"
+                + "  \"user_handle\": \"user_handle\",\n"
+                + "  \"transports\": [\n"
+                + "    \"transports\"\n"
+                + "  ],\n"
                 + "  \"created_at\": \"2024-01-15T09:30:00Z\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
@@ -290,7 +298,7 @@ public class UsersAuthenticationMethodsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"type\":\"recovery-code\",\"confirmed\":true,\"name\":\"name\",\"authentication_methods\":[{\"type\":\"totp\",\"id\":\"id\"}],\"preferred_authentication_method\":\"voice\",\"link_id\":\"link_id\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"created_at\":\"2024-01-15T09:30:00Z\",\"enrolled_at\":\"2024-01-15T09:30:00Z\",\"last_auth_at\":\"2024-01-15T09:30:00Z\",\"credential_device_type\":\"credential_device_type\",\"credential_backed_up\":true,\"identity_user_id\":\"identity_user_id\",\"user_agent\":\"user_agent\",\"aaguid\":\"aaguid\",\"relying_party_identifier\":\"relying_party_identifier\"}"));
+                                "{\"id\":\"id\",\"type\":\"recovery-code\",\"confirmed\":true,\"name\":\"name\",\"authentication_methods\":[{\"type\":\"totp\",\"id\":\"id\"}],\"preferred_authentication_method\":\"voice\",\"link_id\":\"link_id\",\"phone_number\":\"phone_number\",\"email\":\"email\",\"key_id\":\"key_id\",\"public_key\":\"public_key\",\"created_at\":\"2024-01-15T09:30:00Z\",\"enrolled_at\":\"2024-01-15T09:30:00Z\",\"last_auth_at\":\"2024-01-15T09:30:00Z\",\"credential_device_type\":\"credential_device_type\",\"credential_backed_up\":true,\"identity_user_id\":\"identity_user_id\",\"user_agent\":\"user_agent\",\"user_handle\":\"user_handle\",\"transports\":[\"transports\"],\"aaguid\":\"aaguid\",\"relying_party_identifier\":\"relying_party_identifier\"}"));
         GetUserAuthenticationMethodResponseContent response =
                 client.users().authenticationMethods().get("id", "authentication_method_id");
         RecordedRequest request = server.takeRequest();
@@ -325,6 +333,10 @@ public class UsersAuthenticationMethodsWireTest {
                 + "  \"credential_backed_up\": true,\n"
                 + "  \"identity_user_id\": \"identity_user_id\",\n"
                 + "  \"user_agent\": \"user_agent\",\n"
+                + "  \"user_handle\": \"user_handle\",\n"
+                + "  \"transports\": [\n"
+                + "    \"transports\"\n"
+                + "  ],\n"
                 + "  \"aaguid\": \"aaguid\",\n"
                 + "  \"relying_party_identifier\": \"relying_party_identifier\"\n"
                 + "}";
