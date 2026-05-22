@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.6.0](https://github.com/auth0/auth0-java/tree/3.6.0) (2026-05-22)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/3.5.1...3.6.0)
+
+**Added**
+- feat: Add FedCM login and ES384/ES512 DPoP algorithms [\#867](https://github.com/auth0/auth0-java/pull/867) ([fern-api[bot]](https://github.com/apps/fern-api))
+- Feat: Add passkey fields, error types, and resource server enhancements  [\#863](https://github.com/auth0/auth0-java/pull/863) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [3.5.1](https://github.com/auth0/auth0-java/tree/3.5.1) (2026-05-15)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/3.5.0...3.5.1)
 
