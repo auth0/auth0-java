@@ -91,6 +91,8 @@ public final class CreateClientRequestContent {
 
     private final Optional<NativeSocialLogin> nativeSocialLogin;
 
+    private final Optional<FedCmLogin> fedcmLogin;
+
     private final OptionalNullable<ClientRefreshTokenConfiguration> refreshToken;
 
     private final OptionalNullable<ClientDefaultOrganization> defaultOrganization;
@@ -167,6 +169,7 @@ public final class CreateClientRequestContent {
             Optional<ClientMobile> mobile,
             Optional<String> initiateLoginUri,
             Optional<NativeSocialLogin> nativeSocialLogin,
+            Optional<FedCmLogin> fedcmLogin,
             OptionalNullable<ClientRefreshTokenConfiguration> refreshToken,
             OptionalNullable<ClientDefaultOrganization> defaultOrganization,
             Optional<ClientOrganizationUsageEnum> organizationUsage,
@@ -221,6 +224,7 @@ public final class CreateClientRequestContent {
         this.mobile = mobile;
         this.initiateLoginUri = initiateLoginUri;
         this.nativeSocialLogin = nativeSocialLogin;
+        this.fedcmLogin = fedcmLogin;
         this.refreshToken = refreshToken;
         this.defaultOrganization = defaultOrganization;
         this.organizationUsage = organizationUsage;
@@ -486,6 +490,11 @@ public final class CreateClientRequestContent {
         return nativeSocialLogin;
     }
 
+    @JsonProperty("fedcm_login")
+    public Optional<FedCmLogin> getFedcmLogin() {
+        return fedcmLogin;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("refresh_token")
     public OptionalNullable<ClientRefreshTokenConfiguration> getRefreshToken() {
@@ -703,6 +712,7 @@ public final class CreateClientRequestContent {
                 && mobile.equals(other.mobile)
                 && initiateLoginUri.equals(other.initiateLoginUri)
                 && nativeSocialLogin.equals(other.nativeSocialLogin)
+                && fedcmLogin.equals(other.fedcmLogin)
                 && refreshToken.equals(other.refreshToken)
                 && defaultOrganization.equals(other.defaultOrganization)
                 && organizationUsage.equals(other.organizationUsage)
@@ -762,6 +772,7 @@ public final class CreateClientRequestContent {
                 this.mobile,
                 this.initiateLoginUri,
                 this.nativeSocialLogin,
+                this.fedcmLogin,
                 this.refreshToken,
                 this.defaultOrganization,
                 this.organizationUsage,
@@ -1012,6 +1023,10 @@ public final class CreateClientRequestContent {
 
         _FinalStage nativeSocialLogin(NativeSocialLogin nativeSocialLogin);
 
+        _FinalStage fedcmLogin(Optional<FedCmLogin> fedcmLogin);
+
+        _FinalStage fedcmLogin(FedCmLogin fedcmLogin);
+
         _FinalStage refreshToken(@Nullable OptionalNullable<ClientRefreshTokenConfiguration> refreshToken);
 
         _FinalStage refreshToken(ClientRefreshTokenConfiguration refreshToken);
@@ -1182,6 +1197,8 @@ public final class CreateClientRequestContent {
 
         private OptionalNullable<ClientRefreshTokenConfiguration> refreshToken = OptionalNullable.absent();
 
+        private Optional<FedCmLogin> fedcmLogin = Optional.empty();
+
         private Optional<NativeSocialLogin> nativeSocialLogin = Optional.empty();
 
         private Optional<String> initiateLoginUri = Optional.empty();
@@ -1286,6 +1303,7 @@ public final class CreateClientRequestContent {
             mobile(other.getMobile());
             initiateLoginUri(other.getInitiateLoginUri());
             nativeSocialLogin(other.getNativeSocialLogin());
+            fedcmLogin(other.getFedcmLogin());
             refreshToken(other.getRefreshToken());
             defaultOrganization(other.getDefaultOrganization());
             organizationUsage(other.getOrganizationUsage());
@@ -1736,6 +1754,19 @@ public final class CreateClientRequestContent {
         @JsonSetter(value = "refresh_token", nulls = Nulls.SKIP)
         public _FinalStage refreshToken(@Nullable OptionalNullable<ClientRefreshTokenConfiguration> refreshToken) {
             this.refreshToken = refreshToken;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage fedcmLogin(FedCmLogin fedcmLogin) {
+            this.fedcmLogin = Optional.ofNullable(fedcmLogin);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "fedcm_login", nulls = Nulls.SKIP)
+        public _FinalStage fedcmLogin(Optional<FedCmLogin> fedcmLogin) {
+            this.fedcmLogin = fedcmLogin;
             return this;
         }
 
@@ -2392,6 +2423,7 @@ public final class CreateClientRequestContent {
                     mobile,
                     initiateLoginUri,
                     nativeSocialLogin,
+                    fedcmLogin,
                     refreshToken,
                     defaultOrganization,
                     organizationUsage,

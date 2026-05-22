@@ -1710,6 +1710,14 @@ client.clients().create(
 <dl>
 <dd>
 
+**fedcmLogin:** `Optional<FedCmLogin>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **refreshToken:** `Optional<ClientRefreshTokenConfiguration>` 
     
 </dd>
@@ -1953,10 +1961,19 @@ client.clients().previewCimdMetadata(
 <dl>
 <dd>
 
+Idempotent registration for Client ID Metadata Document (CIMD) clients.
+Uses external_client_id as the unique identifier for upsert operations.
 
-      Idempotent registration for Client ID Metadata Document (CIMD) clients.
-      Uses external_client_id as the unique identifier for upsert operations.
-      **Create:** Returns 201 when a new client is created (requires \
+<strong>Create:</strong> Returns 201 when a new client is created (requires <code>create:clients</code> scope).
+<strong>Update:</strong> Returns 200 when an existing client is updated (requires <code>update:clients</code> scope).
+
+This endpoint automatically:
+<ul>
+  <li>Fetches and validates the metadata document</li>
+  <li>Maps CIMD fields to Auth0 client configuration</li>
+  <li>Creates/rotates credentials from the JWKS</li>
+  <li>Enforces CIMD security policies (HTTPS-only, no shared secrets)</li>
+</ul>
 </dd>
 </dl>
 </dd>
@@ -2504,6 +2521,14 @@ client.clients().update(
 <dd>
 
 **nativeSocialLogin:** `Optional<NativeSocialLogin>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fedcmLogin:** `Optional<FedCmLogin>` 
     
 </dd>
 </dl>
