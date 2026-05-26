@@ -8,6 +8,7 @@ import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.groups.AsyncMembersClient;
+import com.auth0.client.mgmt.groups.AsyncRolesClient;
 import com.auth0.client.mgmt.types.GetGroupResponseContent;
 import com.auth0.client.mgmt.types.Group;
 import com.auth0.client.mgmt.types.ListGroupsRequestParameters;
@@ -21,10 +22,13 @@ public class AsyncGroupsClient {
 
     protected final Supplier<AsyncMembersClient> membersClient;
 
+    protected final Supplier<AsyncRolesClient> rolesClient;
+
     public AsyncGroupsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.rawClient = new AsyncRawGroupsClient(clientOptions);
         this.membersClient = Suppliers.memoize(() -> new AsyncMembersClient(clientOptions));
+        this.rolesClient = Suppliers.memoize(() -> new AsyncRolesClient(clientOptions));
     }
 
     /**
@@ -93,5 +97,9 @@ public class AsyncGroupsClient {
 
     public AsyncMembersClient members() {
         return this.membersClient.get();
+    }
+
+    public AsyncRolesClient roles() {
+        return this.rolesClient.get();
     }
 }

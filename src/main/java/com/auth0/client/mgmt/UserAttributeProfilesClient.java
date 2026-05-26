@@ -63,14 +63,14 @@ public class UserAttributeProfilesClient {
     }
 
     /**
-     * Create a User Attribute Profile
+     * Create a User Attribute Profile.
      */
     public CreateUserAttributeProfileResponseContent create(CreateUserAttributeProfileRequestContent request) {
         return this.rawClient.create(request).body();
     }
 
     /**
-     * Create a User Attribute Profile
+     * Create a User Attribute Profile.
      */
     public CreateUserAttributeProfileResponseContent create(
             CreateUserAttributeProfileRequestContent request, RequestOptions requestOptions) {

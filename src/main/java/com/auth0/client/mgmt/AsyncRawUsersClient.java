@@ -64,7 +64,6 @@ public class AsyncRawUsersClient {
      * <li>Select the fields to be returned</li>
      * <li>Specify the number of users to retrieve per page and the page index</li>
      * </ul>
-     * <p> &lt;!-- only v3 is available --&gt;</p>
      * <p>The <code>q</code> query parameter can be used to get users that match the specified criteria <a href="https://auth0.com/docs/users/search/v3/query-syntax">using query string syntax.</a></p>
      * <p><a href="https://auth0.com/docs/users/search/v3">Learn more about searching for users.</a></p>
      * <p>Read about <a href="https://auth0.com/docs/users/search/best-practices">best practices</a> when working with the API endpoints for retrieving users.</p>
@@ -82,7 +81,6 @@ public class AsyncRawUsersClient {
      * <li>Select the fields to be returned</li>
      * <li>Specify the number of users to retrieve per page and the page index</li>
      * </ul>
-     * <p> &lt;!-- only v3 is available --&gt;</p>
      * <p>The <code>q</code> query parameter can be used to get users that match the specified criteria <a href="https://auth0.com/docs/users/search/v3/query-syntax">using query string syntax.</a></p>
      * <p><a href="https://auth0.com/docs/users/search/v3">Learn more about searching for users.</a></p>
      * <p>Read about <a href="https://auth0.com/docs/users/search/best-practices">best practices</a> when working with the API endpoints for retrieving users.</p>
@@ -101,7 +99,6 @@ public class AsyncRawUsersClient {
      * <li>Select the fields to be returned</li>
      * <li>Specify the number of users to retrieve per page and the page index</li>
      * </ul>
-     * <p> &lt;!-- only v3 is available --&gt;</p>
      * <p>The <code>q</code> query parameter can be used to get users that match the specified criteria <a href="https://auth0.com/docs/users/search/v3/query-syntax">using query string syntax.</a></p>
      * <p><a href="https://auth0.com/docs/users/search/v3">Learn more about searching for users.</a></p>
      * <p>Read about <a href="https://auth0.com/docs/users/search/best-practices">best practices</a> when working with the API endpoints for retrieving users.</p>
@@ -120,7 +117,6 @@ public class AsyncRawUsersClient {
      * <li>Select the fields to be returned</li>
      * <li>Specify the number of users to retrieve per page and the page index</li>
      * </ul>
-     * <p> &lt;!-- only v3 is available --&gt;</p>
      * <p>The <code>q</code> query parameter can be used to get users that match the specified criteria <a href="https://auth0.com/docs/users/search/v3/query-syntax">using query string syntax.</a></p>
      * <p><a href="https://auth0.com/docs/users/search/v3">Learn more about searching for users.</a></p>
      * <p>Read about <a href="https://auth0.com/docs/users/search/best-practices">best practices</a> when working with the API endpoints for retrieving users.</p>
@@ -661,57 +657,65 @@ public class AsyncRawUsersClient {
     /**
      * Update a user.
      * <p>These are the attributes that can be updated at the root level:</p>
-     * <p><ul>
-     *     <li>app_metadata</li>
-     *     <li>blocked</li>
-     *     <li>email</li>
-     *     <li>email_verified</li>
-     *     <li>family_name</li>
-     *     <li>given_name</li>
-     *     <li>name</li>
-     *     <li>nickname</li>
-     *     <li>password</li>
-     *     <li>phone_number</li>
-     *     <li>phone_verified</li>
-     *     <li>picture</li>
-     *     <li>username</li>
-     *     <li>user_metadata</li>
-     *     <li>verify_email</li>
-     * </ul></p>
+     * <ul>
+     * <li>app_metadata</li>
+     * <li>blocked</li>
+     * <li>email</li>
+     * <li>email_verified</li>
+     * <li>family_name</li>
+     * <li>given_name</li>
+     * <li>name</li>
+     * <li>nickname</li>
+     * <li>password</li>
+     * <li>phone_number</li>
+     * <li>phone_verified</li>
+     * <li>picture</li>
+     * <li>username</li>
+     * <li>user_metadata</li>
+     * <li>verify_email</li>
+     * </ul>
      * <p>Some considerations:</p>
-     * <p><ul>
-     *     <li>The properties of the new object will replace the old ones.</li>
-     *     <li>The metadata fields are an exception to this rule (<code>user_metadata</code> and <code>app_metadata</code>). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.</li>
-     *     <li>If you are updating <code>email</code>, <code>email_verified</code>, <code>phone_number</code>, <code>phone_verified</code>, <code>username</code> or <code>password</code> of a secondary identity, you need to specify the <code>connection</code> property too.</li>
-     *     <li>If you are updating <code>email</code> or <code>phone_number</code> you can specify, optionally, the <code>client_id</code> property.</li>
-     *     <li>Updating <code>email_verified</code> is not supported for enterprise and passwordless sms connections.</li>
-     *     <li>Updating the <code>blocked</code> to <code>false</code> does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.</li>
-     *     <li>Supported attributes can be unset by supplying <code>null</code> as the value.</li>
-     * </ul></p>
-     * <p><h5>Updating a field (non-metadata property)</h5>
-     * To mark the email address of a user as verified, the body to send should be:
-     * <pre><code>{ &quot;email_verified&quot;: true }</code></pre></p>
-     * <p><h5>Updating a user metadata root property</h5>Let's assume that our test user has the following <code>user_metadata</code>:
-     * <pre><code>{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }</code></pre></p>
+     * <ul>
+     * <li>The properties of the new object will replace the old ones.</li>
+     * <li>The metadata fields are an exception to this rule (<code>user_metadata</code> and <code>app_metadata</code>). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.</li>
+     * <li>If you are updating <code>email</code>, <code>email_verified</code>, <code>phone_number</code>, <code>phone_verified</code>, <code>username</code> or <code>password</code> of a secondary identity, you need to specify the <code>connection</code> property too.</li>
+     * <li>If you are updating <code>email</code> or <code>phone_number</code> you can specify, optionally, the <code>client_id</code> property.</li>
+     * <li>Updating <code>email_verified</code> is not supported for enterprise and passwordless sms connections.</li>
+     * <li>Updating the <code>blocked</code> to <code>false</code> does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.</li>
+     * <li>Supported attributes can be unset by supplying <code>null</code> as the value.</li>
+     * </ul>
+     * <p><strong>Updating a field (non-metadata property)</strong></p>
+     * <p>To mark the email address of a user as verified, the body to send should be:</p>
+     * <pre><code class="language-json">{ &quot;email_verified&quot;: true }
+     * </code></pre>
+     * <p><strong>Updating a user metadata root property</strong></p>
+     * <p>Let's assume that our test user has the following <code>user_metadata</code>:</p>
+     * <pre><code class="language-json">{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }
+     * </code></pre>
      * <p>To add the field <code>addresses</code> the body to send should be:</p>
-     * <p><pre><code>{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}</code></pre></p>
-     * <p>The modified object ends up with the following <code>user_metadata</code> property:<pre><code>{
-     * &quot;user_metadata&quot;: {
-     * &quot;profileCode&quot;: 1479,
-     * &quot;addresses&quot;: { &quot;work_address&quot;: &quot;100 Industrial Way&quot; }
+     * <pre><code class="language-json">{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}
+     * </code></pre>
+     * <p>The modified object ends up with the following <code>user_metadata</code> property:</p>
+     * <pre><code class="language-json">{
+     *   &quot;user_metadata&quot;: {
+     *     &quot;profileCode&quot;: 1479,
+     *     &quot;addresses&quot;: { &quot;work_address&quot;: &quot;100 Industrial Way&quot; }
+     *   }
      * }
-     * }</code></pre></p>
-     * <p><h5>Updating an inner user metadata property</h5>If there's existing user metadata to which we want to add  <code>&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;</code> (using the <code>addresses</code> property) we should send the whole <code>addresses</code> object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:
-     * <pre><code>{
+     * </code></pre>
+     * <p><strong>Updating an inner user metadata property</strong></p>
+     * <p>If there's existing user metadata to which we want to add  <code>&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;</code> (using the <code>addresses</code> property) we should send the whole <code>addresses</code> object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:</p>
+     * <pre><code class="language-json">{
      *   &quot;user_metadata&quot;: {
      *     &quot;addresses&quot;: {
      *       &quot;work_address&quot;: &quot;100 Industrial Way&quot;,
      *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
      *     }
      *   }
-     * }</code></pre></p>
+     * }
+     * </code></pre>
      * <p>The modified object ends up with the following <code>user_metadata</code> property:</p>
-     * <p><pre><code>{
+     * <pre><code class="language-json">{
      *   &quot;user_metadata&quot;: {
      *     &quot;profileCode&quot;: 1479,
      *     &quot;addresses&quot;: {
@@ -719,7 +723,8 @@ public class AsyncRawUsersClient {
      *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
      *     }
      *   }
-     * }</code></pre></p>
+     * }
+     * </code></pre>
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateUserResponseContent>> update(String id) {
         return update(id, UpdateUserRequestContent.builder().build());
@@ -728,57 +733,65 @@ public class AsyncRawUsersClient {
     /**
      * Update a user.
      * <p>These are the attributes that can be updated at the root level:</p>
-     * <p><ul>
-     *     <li>app_metadata</li>
-     *     <li>blocked</li>
-     *     <li>email</li>
-     *     <li>email_verified</li>
-     *     <li>family_name</li>
-     *     <li>given_name</li>
-     *     <li>name</li>
-     *     <li>nickname</li>
-     *     <li>password</li>
-     *     <li>phone_number</li>
-     *     <li>phone_verified</li>
-     *     <li>picture</li>
-     *     <li>username</li>
-     *     <li>user_metadata</li>
-     *     <li>verify_email</li>
-     * </ul></p>
+     * <ul>
+     * <li>app_metadata</li>
+     * <li>blocked</li>
+     * <li>email</li>
+     * <li>email_verified</li>
+     * <li>family_name</li>
+     * <li>given_name</li>
+     * <li>name</li>
+     * <li>nickname</li>
+     * <li>password</li>
+     * <li>phone_number</li>
+     * <li>phone_verified</li>
+     * <li>picture</li>
+     * <li>username</li>
+     * <li>user_metadata</li>
+     * <li>verify_email</li>
+     * </ul>
      * <p>Some considerations:</p>
-     * <p><ul>
-     *     <li>The properties of the new object will replace the old ones.</li>
-     *     <li>The metadata fields are an exception to this rule (<code>user_metadata</code> and <code>app_metadata</code>). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.</li>
-     *     <li>If you are updating <code>email</code>, <code>email_verified</code>, <code>phone_number</code>, <code>phone_verified</code>, <code>username</code> or <code>password</code> of a secondary identity, you need to specify the <code>connection</code> property too.</li>
-     *     <li>If you are updating <code>email</code> or <code>phone_number</code> you can specify, optionally, the <code>client_id</code> property.</li>
-     *     <li>Updating <code>email_verified</code> is not supported for enterprise and passwordless sms connections.</li>
-     *     <li>Updating the <code>blocked</code> to <code>false</code> does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.</li>
-     *     <li>Supported attributes can be unset by supplying <code>null</code> as the value.</li>
-     * </ul></p>
-     * <p><h5>Updating a field (non-metadata property)</h5>
-     * To mark the email address of a user as verified, the body to send should be:
-     * <pre><code>{ &quot;email_verified&quot;: true }</code></pre></p>
-     * <p><h5>Updating a user metadata root property</h5>Let's assume that our test user has the following <code>user_metadata</code>:
-     * <pre><code>{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }</code></pre></p>
+     * <ul>
+     * <li>The properties of the new object will replace the old ones.</li>
+     * <li>The metadata fields are an exception to this rule (<code>user_metadata</code> and <code>app_metadata</code>). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.</li>
+     * <li>If you are updating <code>email</code>, <code>email_verified</code>, <code>phone_number</code>, <code>phone_verified</code>, <code>username</code> or <code>password</code> of a secondary identity, you need to specify the <code>connection</code> property too.</li>
+     * <li>If you are updating <code>email</code> or <code>phone_number</code> you can specify, optionally, the <code>client_id</code> property.</li>
+     * <li>Updating <code>email_verified</code> is not supported for enterprise and passwordless sms connections.</li>
+     * <li>Updating the <code>blocked</code> to <code>false</code> does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.</li>
+     * <li>Supported attributes can be unset by supplying <code>null</code> as the value.</li>
+     * </ul>
+     * <p><strong>Updating a field (non-metadata property)</strong></p>
+     * <p>To mark the email address of a user as verified, the body to send should be:</p>
+     * <pre><code class="language-json">{ &quot;email_verified&quot;: true }
+     * </code></pre>
+     * <p><strong>Updating a user metadata root property</strong></p>
+     * <p>Let's assume that our test user has the following <code>user_metadata</code>:</p>
+     * <pre><code class="language-json">{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }
+     * </code></pre>
      * <p>To add the field <code>addresses</code> the body to send should be:</p>
-     * <p><pre><code>{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}</code></pre></p>
-     * <p>The modified object ends up with the following <code>user_metadata</code> property:<pre><code>{
-     * &quot;user_metadata&quot;: {
-     * &quot;profileCode&quot;: 1479,
-     * &quot;addresses&quot;: { &quot;work_address&quot;: &quot;100 Industrial Way&quot; }
+     * <pre><code class="language-json">{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}
+     * </code></pre>
+     * <p>The modified object ends up with the following <code>user_metadata</code> property:</p>
+     * <pre><code class="language-json">{
+     *   &quot;user_metadata&quot;: {
+     *     &quot;profileCode&quot;: 1479,
+     *     &quot;addresses&quot;: { &quot;work_address&quot;: &quot;100 Industrial Way&quot; }
+     *   }
      * }
-     * }</code></pre></p>
-     * <p><h5>Updating an inner user metadata property</h5>If there's existing user metadata to which we want to add  <code>&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;</code> (using the <code>addresses</code> property) we should send the whole <code>addresses</code> object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:
-     * <pre><code>{
+     * </code></pre>
+     * <p><strong>Updating an inner user metadata property</strong></p>
+     * <p>If there's existing user metadata to which we want to add  <code>&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;</code> (using the <code>addresses</code> property) we should send the whole <code>addresses</code> object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:</p>
+     * <pre><code class="language-json">{
      *   &quot;user_metadata&quot;: {
      *     &quot;addresses&quot;: {
      *       &quot;work_address&quot;: &quot;100 Industrial Way&quot;,
      *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
      *     }
      *   }
-     * }</code></pre></p>
+     * }
+     * </code></pre>
      * <p>The modified object ends up with the following <code>user_metadata</code> property:</p>
-     * <p><pre><code>{
+     * <pre><code class="language-json">{
      *   &quot;user_metadata&quot;: {
      *     &quot;profileCode&quot;: 1479,
      *     &quot;addresses&quot;: {
@@ -786,7 +799,8 @@ public class AsyncRawUsersClient {
      *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
      *     }
      *   }
-     * }</code></pre></p>
+     * }
+     * </code></pre>
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateUserResponseContent>> update(
             String id, RequestOptions requestOptions) {
@@ -796,57 +810,65 @@ public class AsyncRawUsersClient {
     /**
      * Update a user.
      * <p>These are the attributes that can be updated at the root level:</p>
-     * <p><ul>
-     *     <li>app_metadata</li>
-     *     <li>blocked</li>
-     *     <li>email</li>
-     *     <li>email_verified</li>
-     *     <li>family_name</li>
-     *     <li>given_name</li>
-     *     <li>name</li>
-     *     <li>nickname</li>
-     *     <li>password</li>
-     *     <li>phone_number</li>
-     *     <li>phone_verified</li>
-     *     <li>picture</li>
-     *     <li>username</li>
-     *     <li>user_metadata</li>
-     *     <li>verify_email</li>
-     * </ul></p>
+     * <ul>
+     * <li>app_metadata</li>
+     * <li>blocked</li>
+     * <li>email</li>
+     * <li>email_verified</li>
+     * <li>family_name</li>
+     * <li>given_name</li>
+     * <li>name</li>
+     * <li>nickname</li>
+     * <li>password</li>
+     * <li>phone_number</li>
+     * <li>phone_verified</li>
+     * <li>picture</li>
+     * <li>username</li>
+     * <li>user_metadata</li>
+     * <li>verify_email</li>
+     * </ul>
      * <p>Some considerations:</p>
-     * <p><ul>
-     *     <li>The properties of the new object will replace the old ones.</li>
-     *     <li>The metadata fields are an exception to this rule (<code>user_metadata</code> and <code>app_metadata</code>). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.</li>
-     *     <li>If you are updating <code>email</code>, <code>email_verified</code>, <code>phone_number</code>, <code>phone_verified</code>, <code>username</code> or <code>password</code> of a secondary identity, you need to specify the <code>connection</code> property too.</li>
-     *     <li>If you are updating <code>email</code> or <code>phone_number</code> you can specify, optionally, the <code>client_id</code> property.</li>
-     *     <li>Updating <code>email_verified</code> is not supported for enterprise and passwordless sms connections.</li>
-     *     <li>Updating the <code>blocked</code> to <code>false</code> does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.</li>
-     *     <li>Supported attributes can be unset by supplying <code>null</code> as the value.</li>
-     * </ul></p>
-     * <p><h5>Updating a field (non-metadata property)</h5>
-     * To mark the email address of a user as verified, the body to send should be:
-     * <pre><code>{ &quot;email_verified&quot;: true }</code></pre></p>
-     * <p><h5>Updating a user metadata root property</h5>Let's assume that our test user has the following <code>user_metadata</code>:
-     * <pre><code>{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }</code></pre></p>
+     * <ul>
+     * <li>The properties of the new object will replace the old ones.</li>
+     * <li>The metadata fields are an exception to this rule (<code>user_metadata</code> and <code>app_metadata</code>). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.</li>
+     * <li>If you are updating <code>email</code>, <code>email_verified</code>, <code>phone_number</code>, <code>phone_verified</code>, <code>username</code> or <code>password</code> of a secondary identity, you need to specify the <code>connection</code> property too.</li>
+     * <li>If you are updating <code>email</code> or <code>phone_number</code> you can specify, optionally, the <code>client_id</code> property.</li>
+     * <li>Updating <code>email_verified</code> is not supported for enterprise and passwordless sms connections.</li>
+     * <li>Updating the <code>blocked</code> to <code>false</code> does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.</li>
+     * <li>Supported attributes can be unset by supplying <code>null</code> as the value.</li>
+     * </ul>
+     * <p><strong>Updating a field (non-metadata property)</strong></p>
+     * <p>To mark the email address of a user as verified, the body to send should be:</p>
+     * <pre><code class="language-json">{ &quot;email_verified&quot;: true }
+     * </code></pre>
+     * <p><strong>Updating a user metadata root property</strong></p>
+     * <p>Let's assume that our test user has the following <code>user_metadata</code>:</p>
+     * <pre><code class="language-json">{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }
+     * </code></pre>
      * <p>To add the field <code>addresses</code> the body to send should be:</p>
-     * <p><pre><code>{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}</code></pre></p>
-     * <p>The modified object ends up with the following <code>user_metadata</code> property:<pre><code>{
-     * &quot;user_metadata&quot;: {
-     * &quot;profileCode&quot;: 1479,
-     * &quot;addresses&quot;: { &quot;work_address&quot;: &quot;100 Industrial Way&quot; }
+     * <pre><code class="language-json">{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}
+     * </code></pre>
+     * <p>The modified object ends up with the following <code>user_metadata</code> property:</p>
+     * <pre><code class="language-json">{
+     *   &quot;user_metadata&quot;: {
+     *     &quot;profileCode&quot;: 1479,
+     *     &quot;addresses&quot;: { &quot;work_address&quot;: &quot;100 Industrial Way&quot; }
+     *   }
      * }
-     * }</code></pre></p>
-     * <p><h5>Updating an inner user metadata property</h5>If there's existing user metadata to which we want to add  <code>&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;</code> (using the <code>addresses</code> property) we should send the whole <code>addresses</code> object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:
-     * <pre><code>{
+     * </code></pre>
+     * <p><strong>Updating an inner user metadata property</strong></p>
+     * <p>If there's existing user metadata to which we want to add  <code>&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;</code> (using the <code>addresses</code> property) we should send the whole <code>addresses</code> object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:</p>
+     * <pre><code class="language-json">{
      *   &quot;user_metadata&quot;: {
      *     &quot;addresses&quot;: {
      *       &quot;work_address&quot;: &quot;100 Industrial Way&quot;,
      *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
      *     }
      *   }
-     * }</code></pre></p>
+     * }
+     * </code></pre>
      * <p>The modified object ends up with the following <code>user_metadata</code> property:</p>
-     * <p><pre><code>{
+     * <pre><code class="language-json">{
      *   &quot;user_metadata&quot;: {
      *     &quot;profileCode&quot;: 1479,
      *     &quot;addresses&quot;: {
@@ -854,7 +876,8 @@ public class AsyncRawUsersClient {
      *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
      *     }
      *   }
-     * }</code></pre></p>
+     * }
+     * </code></pre>
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateUserResponseContent>> update(
             String id, UpdateUserRequestContent request) {
@@ -864,57 +887,65 @@ public class AsyncRawUsersClient {
     /**
      * Update a user.
      * <p>These are the attributes that can be updated at the root level:</p>
-     * <p><ul>
-     *     <li>app_metadata</li>
-     *     <li>blocked</li>
-     *     <li>email</li>
-     *     <li>email_verified</li>
-     *     <li>family_name</li>
-     *     <li>given_name</li>
-     *     <li>name</li>
-     *     <li>nickname</li>
-     *     <li>password</li>
-     *     <li>phone_number</li>
-     *     <li>phone_verified</li>
-     *     <li>picture</li>
-     *     <li>username</li>
-     *     <li>user_metadata</li>
-     *     <li>verify_email</li>
-     * </ul></p>
+     * <ul>
+     * <li>app_metadata</li>
+     * <li>blocked</li>
+     * <li>email</li>
+     * <li>email_verified</li>
+     * <li>family_name</li>
+     * <li>given_name</li>
+     * <li>name</li>
+     * <li>nickname</li>
+     * <li>password</li>
+     * <li>phone_number</li>
+     * <li>phone_verified</li>
+     * <li>picture</li>
+     * <li>username</li>
+     * <li>user_metadata</li>
+     * <li>verify_email</li>
+     * </ul>
      * <p>Some considerations:</p>
-     * <p><ul>
-     *     <li>The properties of the new object will replace the old ones.</li>
-     *     <li>The metadata fields are an exception to this rule (<code>user_metadata</code> and <code>app_metadata</code>). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.</li>
-     *     <li>If you are updating <code>email</code>, <code>email_verified</code>, <code>phone_number</code>, <code>phone_verified</code>, <code>username</code> or <code>password</code> of a secondary identity, you need to specify the <code>connection</code> property too.</li>
-     *     <li>If you are updating <code>email</code> or <code>phone_number</code> you can specify, optionally, the <code>client_id</code> property.</li>
-     *     <li>Updating <code>email_verified</code> is not supported for enterprise and passwordless sms connections.</li>
-     *     <li>Updating the <code>blocked</code> to <code>false</code> does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.</li>
-     *     <li>Supported attributes can be unset by supplying <code>null</code> as the value.</li>
-     * </ul></p>
-     * <p><h5>Updating a field (non-metadata property)</h5>
-     * To mark the email address of a user as verified, the body to send should be:
-     * <pre><code>{ &quot;email_verified&quot;: true }</code></pre></p>
-     * <p><h5>Updating a user metadata root property</h5>Let's assume that our test user has the following <code>user_metadata</code>:
-     * <pre><code>{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }</code></pre></p>
+     * <ul>
+     * <li>The properties of the new object will replace the old ones.</li>
+     * <li>The metadata fields are an exception to this rule (<code>user_metadata</code> and <code>app_metadata</code>). These properties are merged instead of being replaced but be careful, the merge only occurs on the first level.</li>
+     * <li>If you are updating <code>email</code>, <code>email_verified</code>, <code>phone_number</code>, <code>phone_verified</code>, <code>username</code> or <code>password</code> of a secondary identity, you need to specify the <code>connection</code> property too.</li>
+     * <li>If you are updating <code>email</code> or <code>phone_number</code> you can specify, optionally, the <code>client_id</code> property.</li>
+     * <li>Updating <code>email_verified</code> is not supported for enterprise and passwordless sms connections.</li>
+     * <li>Updating the <code>blocked</code> to <code>false</code> does not affect the user's blocked state from an excessive amount of incorrectly provided credentials. Use the &quot;Unblock a user&quot; endpoint from the &quot;User Blocks&quot; API to change the user's state.</li>
+     * <li>Supported attributes can be unset by supplying <code>null</code> as the value.</li>
+     * </ul>
+     * <p><strong>Updating a field (non-metadata property)</strong></p>
+     * <p>To mark the email address of a user as verified, the body to send should be:</p>
+     * <pre><code class="language-json">{ &quot;email_verified&quot;: true }
+     * </code></pre>
+     * <p><strong>Updating a user metadata root property</strong></p>
+     * <p>Let's assume that our test user has the following <code>user_metadata</code>:</p>
+     * <pre><code class="language-json">{ &quot;user_metadata&quot; : { &quot;profileCode&quot;: 1479 } }
+     * </code></pre>
      * <p>To add the field <code>addresses</code> the body to send should be:</p>
-     * <p><pre><code>{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}</code></pre></p>
-     * <p>The modified object ends up with the following <code>user_metadata</code> property:<pre><code>{
-     * &quot;user_metadata&quot;: {
-     * &quot;profileCode&quot;: 1479,
-     * &quot;addresses&quot;: { &quot;work_address&quot;: &quot;100 Industrial Way&quot; }
+     * <pre><code class="language-json">{ &quot;user_metadata&quot; : { &quot;addresses&quot;: {&quot;work_address&quot;: &quot;100 Industrial Way&quot;} }}
+     * </code></pre>
+     * <p>The modified object ends up with the following <code>user_metadata</code> property:</p>
+     * <pre><code class="language-json">{
+     *   &quot;user_metadata&quot;: {
+     *     &quot;profileCode&quot;: 1479,
+     *     &quot;addresses&quot;: { &quot;work_address&quot;: &quot;100 Industrial Way&quot; }
+     *   }
      * }
-     * }</code></pre></p>
-     * <p><h5>Updating an inner user metadata property</h5>If there's existing user metadata to which we want to add  <code>&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;</code> (using the <code>addresses</code> property) we should send the whole <code>addresses</code> object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:
-     * <pre><code>{
+     * </code></pre>
+     * <p><strong>Updating an inner user metadata property</strong></p>
+     * <p>If there's existing user metadata to which we want to add  <code>&quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;</code> (using the <code>addresses</code> property) we should send the whole <code>addresses</code> object. Since this is a first-level object, the object will be merged in, but its own properties will not be. The body to send should be:</p>
+     * <pre><code class="language-json">{
      *   &quot;user_metadata&quot;: {
      *     &quot;addresses&quot;: {
      *       &quot;work_address&quot;: &quot;100 Industrial Way&quot;,
      *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
      *     }
      *   }
-     * }</code></pre></p>
+     * }
+     * </code></pre>
      * <p>The modified object ends up with the following <code>user_metadata</code> property:</p>
-     * <p><pre><code>{
+     * <pre><code class="language-json">{
      *   &quot;user_metadata&quot;: {
      *     &quot;profileCode&quot;: 1479,
      *     &quot;addresses&quot;: {
@@ -922,7 +953,8 @@ public class AsyncRawUsersClient {
      *       &quot;home_address&quot;: &quot;742 Evergreen Terrace&quot;
      *     }
      *   }
-     * }</code></pre></p>
+     * }
+     * </code></pre>
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateUserResponseContent>> update(
             String id, UpdateUserRequestContent request, RequestOptions requestOptions) {

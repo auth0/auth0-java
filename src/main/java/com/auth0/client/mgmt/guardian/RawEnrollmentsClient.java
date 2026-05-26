@@ -35,9 +35,7 @@ public class RawEnrollmentsClient {
     }
 
     /**
-     * Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket, to a given user.
-     * Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.<br/>
-     * <p>Note: Users cannot enroll in Email as a factor through custom enrollment tickets.</p>
+     * Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.
      */
     public ManagementApiHttpResponse<CreateGuardianEnrollmentTicketResponseContent> createTicket(
             CreateGuardianEnrollmentTicketRequestContent request) {
@@ -45,9 +43,7 @@ public class RawEnrollmentsClient {
     }
 
     /**
-     * Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket, to a given user.
-     * Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.<br/>
-     * <p>Note: Users cannot enroll in Email as a factor through custom enrollment tickets.</p>
+     * Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.
      */
     public ManagementApiHttpResponse<CreateGuardianEnrollmentTicketResponseContent> createTicket(
             CreateGuardianEnrollmentTicketRequestContent request, RequestOptions requestOptions) {

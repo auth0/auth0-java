@@ -95,8 +95,13 @@ public final class OauthScope {
 
     public static final OauthScope DELETE_CLIENTS = new OauthScope(Value.DELETE_CLIENTS, "delete:clients");
 
+    public static final OauthScope DELETE_GROUP_ROLES = new OauthScope(Value.DELETE_GROUP_ROLES, "delete:group_roles");
+
     public static final OauthScope READ_FLOWS_EXECUTIONS =
             new OauthScope(Value.READ_FLOWS_EXECUTIONS, "read:flows_executions");
+
+    public static final OauthScope CREATE_RATE_LIMIT_POLICIES =
+            new OauthScope(Value.CREATE_RATE_LIMIT_POLICIES, "create:rate_limit_policies");
 
     public static final OauthScope DELETE_AUTHENTICATION_METHODS =
             new OauthScope(Value.DELETE_AUTHENTICATION_METHODS, "delete:authentication_methods");
@@ -123,6 +128,9 @@ public final class OauthScope {
     public static final OauthScope UPDATE_ACTIONS = new OauthScope(Value.UPDATE_ACTIONS, "update:actions");
 
     public static final OauthScope CREATE_FLOWS = new OauthScope(Value.CREATE_FLOWS, "create:flows");
+
+    public static final OauthScope UPDATE_RATE_LIMIT_POLICIES =
+            new OauthScope(Value.UPDATE_RATE_LIMIT_POLICIES, "update:rate_limit_policies");
 
     public static final OauthScope READ_CUSTOM_SIGNING_KEYS =
             new OauthScope(Value.READ_CUSTOM_SIGNING_KEYS, "read:custom_signing_keys");
@@ -268,6 +276,8 @@ public final class OauthScope {
 
     public static final OauthScope UPDATE_USERS = new OauthScope(Value.UPDATE_USERS, "update:users");
 
+    public static final OauthScope READ_GROUP_ROLES = new OauthScope(Value.READ_GROUP_ROLES, "read:group_roles");
+
     public static final OauthScope READ_GRANTS = new OauthScope(Value.READ_GRANTS, "read:grants");
 
     public static final OauthScope UPDATE_SIGNING_KEYS =
@@ -284,6 +294,9 @@ public final class OauthScope {
             new OauthScope(Value.UPDATE_CUSTOM_SIGNING_KEYS, "update:custom_signing_keys");
 
     public static final OauthScope READ_CLIENTS = new OauthScope(Value.READ_CLIENTS, "read:clients");
+
+    public static final OauthScope READ_RATE_LIMIT_POLICIES =
+            new OauthScope(Value.READ_RATE_LIMIT_POLICIES, "read:rate_limit_policies");
 
     public static final OauthScope DELETE_GRANTS = new OauthScope(Value.DELETE_GRANTS, "delete:grants");
 
@@ -546,6 +559,8 @@ public final class OauthScope {
     public static final OauthScope UPDATE_PHONE_TEMPLATES =
             new OauthScope(Value.UPDATE_PHONE_TEMPLATES, "update:phone_templates");
 
+    public static final OauthScope CREATE_GROUP_ROLES = new OauthScope(Value.CREATE_GROUP_ROLES, "create:group_roles");
+
     public static final OauthScope READ_GUARDIAN_ENROLLMENTS =
             new OauthScope(Value.READ_GUARDIAN_ENROLLMENTS, "read:guardian_enrollments");
 
@@ -574,6 +589,9 @@ public final class OauthScope {
 
     public static final OauthScope DELETE_RESOURCE_SERVERS =
             new OauthScope(Value.DELETE_RESOURCE_SERVERS, "delete:resource_servers");
+
+    public static final OauthScope DELETE_RATE_LIMIT_POLICIES =
+            new OauthScope(Value.DELETE_RATE_LIMIT_POLICIES, "delete:rate_limit_policies");
 
     public static final OauthScope READ_RESOURCE_SERVERS =
             new OauthScope(Value.READ_RESOURCE_SERVERS, "read:resource_servers");
@@ -694,8 +712,12 @@ public final class OauthScope {
                 return visitor.visitUpdateScimConfig();
             case DELETE_CLIENTS:
                 return visitor.visitDeleteClients();
+            case DELETE_GROUP_ROLES:
+                return visitor.visitDeleteGroupRoles();
             case READ_FLOWS_EXECUTIONS:
                 return visitor.visitReadFlowsExecutions();
+            case CREATE_RATE_LIMIT_POLICIES:
+                return visitor.visitCreateRateLimitPolicies();
             case DELETE_AUTHENTICATION_METHODS:
                 return visitor.visitDeleteAuthenticationMethods();
             case CREATE_CONNECTIONS_KEYS:
@@ -716,6 +738,8 @@ public final class OauthScope {
                 return visitor.visitUpdateActions();
             case CREATE_FLOWS:
                 return visitor.visitCreateFlows();
+            case UPDATE_RATE_LIMIT_POLICIES:
+                return visitor.visitUpdateRateLimitPolicies();
             case READ_CUSTOM_SIGNING_KEYS:
                 return visitor.visitReadCustomSigningKeys();
             case DELETE_CLIENT_CREDENTIALS:
@@ -822,6 +846,8 @@ public final class OauthScope {
                 return visitor.visitCreateUserAttributeProfiles();
             case UPDATE_USERS:
                 return visitor.visitUpdateUsers();
+            case READ_GROUP_ROLES:
+                return visitor.visitReadGroupRoles();
             case READ_GRANTS:
                 return visitor.visitReadGrants();
             case UPDATE_SIGNING_KEYS:
@@ -836,6 +862,8 @@ public final class OauthScope {
                 return visitor.visitUpdateCustomSigningKeys();
             case READ_CLIENTS:
                 return visitor.visitReadClients();
+            case READ_RATE_LIMIT_POLICIES:
+                return visitor.visitReadRateLimitPolicies();
             case DELETE_GRANTS:
                 return visitor.visitDeleteGrants();
             case UPDATE_REFRESH_TOKENS:
@@ -1032,6 +1060,8 @@ public final class OauthScope {
                 return visitor.visitDeleteEventStreams();
             case UPDATE_PHONE_TEMPLATES:
                 return visitor.visitUpdatePhoneTemplates();
+            case CREATE_GROUP_ROLES:
+                return visitor.visitCreateGroupRoles();
             case READ_GUARDIAN_ENROLLMENTS:
                 return visitor.visitReadGuardianEnrollments();
             case DELETE_FLOWS:
@@ -1054,6 +1084,8 @@ public final class OauthScope {
                 return visitor.visitUpdateConnectionsKeys();
             case DELETE_RESOURCE_SERVERS:
                 return visitor.visitDeleteResourceServers();
+            case DELETE_RATE_LIMIT_POLICIES:
+                return visitor.visitDeleteRateLimitPolicies();
             case READ_RESOURCE_SERVERS:
                 return visitor.visitReadResourceServers();
             case UPDATE_EVENT_DELIVERIES:
@@ -1145,8 +1177,12 @@ public final class OauthScope {
                 return UPDATE_SCIM_CONFIG;
             case "delete:clients":
                 return DELETE_CLIENTS;
+            case "delete:group_roles":
+                return DELETE_GROUP_ROLES;
             case "read:flows_executions":
                 return READ_FLOWS_EXECUTIONS;
+            case "create:rate_limit_policies":
+                return CREATE_RATE_LIMIT_POLICIES;
             case "delete:authentication_methods":
                 return DELETE_AUTHENTICATION_METHODS;
             case "create:connections_keys":
@@ -1167,6 +1203,8 @@ public final class OauthScope {
                 return UPDATE_ACTIONS;
             case "create:flows":
                 return CREATE_FLOWS;
+            case "update:rate_limit_policies":
+                return UPDATE_RATE_LIMIT_POLICIES;
             case "read:custom_signing_keys":
                 return READ_CUSTOM_SIGNING_KEYS;
             case "delete:client_credentials":
@@ -1273,6 +1311,8 @@ public final class OauthScope {
                 return CREATE_USER_ATTRIBUTE_PROFILES;
             case "update:users":
                 return UPDATE_USERS;
+            case "read:group_roles":
+                return READ_GROUP_ROLES;
             case "read:grants":
                 return READ_GRANTS;
             case "update:signing_keys":
@@ -1287,6 +1327,8 @@ public final class OauthScope {
                 return UPDATE_CUSTOM_SIGNING_KEYS;
             case "read:clients":
                 return READ_CLIENTS;
+            case "read:rate_limit_policies":
+                return READ_RATE_LIMIT_POLICIES;
             case "delete:grants":
                 return DELETE_GRANTS;
             case "update:refresh_tokens":
@@ -1483,6 +1525,8 @@ public final class OauthScope {
                 return DELETE_EVENT_STREAMS;
             case "update:phone_templates":
                 return UPDATE_PHONE_TEMPLATES;
+            case "create:group_roles":
+                return CREATE_GROUP_ROLES;
             case "read:guardian_enrollments":
                 return READ_GUARDIAN_ENROLLMENTS;
             case "delete:flows":
@@ -1505,6 +1549,8 @@ public final class OauthScope {
                 return UPDATE_CONNECTIONS_KEYS;
             case "delete:resource_servers":
                 return DELETE_RESOURCE_SERVERS;
+            case "delete:rate_limit_policies":
+                return DELETE_RATE_LIMIT_POLICIES;
             case "read:resource_servers":
                 return READ_RESOURCE_SERVERS;
             case "update:event_deliveries":
@@ -1723,6 +1769,12 @@ public final class OauthScope {
 
         READ_GROUP_MEMBERS,
 
+        CREATE_GROUP_ROLES,
+
+        READ_GROUP_ROLES,
+
+        DELETE_GROUP_ROLES,
+
         READ_GROUPS,
 
         DELETE_GROUPS,
@@ -1838,6 +1890,14 @@ public final class OauthScope {
         READ_PROMPTS,
 
         UPDATE_PROMPTS,
+
+        CREATE_RATE_LIMIT_POLICIES,
+
+        READ_RATE_LIMIT_POLICIES,
+
+        UPDATE_RATE_LIMIT_POLICIES,
+
+        DELETE_RATE_LIMIT_POLICIES,
 
         READ_REFRESH_TOKENS,
 
@@ -2169,6 +2229,12 @@ public final class OauthScope {
 
         T visitReadGroupMembers();
 
+        T visitCreateGroupRoles();
+
+        T visitReadGroupRoles();
+
+        T visitDeleteGroupRoles();
+
         T visitReadGroups();
 
         T visitDeleteGroups();
@@ -2284,6 +2350,14 @@ public final class OauthScope {
         T visitReadPrompts();
 
         T visitUpdatePrompts();
+
+        T visitCreateRateLimitPolicies();
+
+        T visitReadRateLimitPolicies();
+
+        T visitUpdateRateLimitPolicies();
+
+        T visitDeleteRateLimitPolicies();
 
         T visitReadRefreshTokens();
 

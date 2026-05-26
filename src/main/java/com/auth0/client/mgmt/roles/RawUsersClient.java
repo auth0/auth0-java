@@ -44,18 +44,18 @@ public class RawUsersClient {
     /**
      * Retrieve list of users associated with a specific role. For Dashboard instructions, review <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles">View Users Assigned to Roles</a>.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<RoleUser>> list(String id) {
         return list(id, ListRoleUsersRequestParameters.builder().build());
@@ -64,18 +64,18 @@ public class RawUsersClient {
     /**
      * Retrieve list of users associated with a specific role. For Dashboard instructions, review <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles">View Users Assigned to Roles</a>.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<RoleUser>> list(String id, RequestOptions requestOptions) {
         return list(id, ListRoleUsersRequestParameters.builder().build(), requestOptions);
@@ -84,18 +84,18 @@ public class RawUsersClient {
     /**
      * Retrieve list of users associated with a specific role. For Dashboard instructions, review <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles">View Users Assigned to Roles</a>.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<RoleUser>> list(
             String id, ListRoleUsersRequestParameters request) {
@@ -105,18 +105,18 @@ public class RawUsersClient {
     /**
      * Retrieve list of users associated with a specific role. For Dashboard instructions, review <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles">View Users Assigned to Roles</a>.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<RoleUser>> list(
             String id, ListRoleUsersRequestParameters request, RequestOptions requestOptions) {
@@ -194,7 +194,7 @@ public class RawUsersClient {
 
     /**
      * Assign one or more users to an existing user role. To learn more, review <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
-     * <p><b>Note</b>: New roles cannot be created through this action.</p>
+     * <p><strong>Note</strong>: New roles cannot be created through this action.</p>
      */
     public ManagementApiHttpResponse<Void> assign(String id, AssignRoleUsersRequestContent request) {
         return assign(id, request, null);
@@ -202,7 +202,7 @@ public class RawUsersClient {
 
     /**
      * Assign one or more users to an existing user role. To learn more, review <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
-     * <p><b>Note</b>: New roles cannot be created through this action.</p>
+     * <p><strong>Note</strong>: New roles cannot be created through this action.</p>
      */
     public ManagementApiHttpResponse<Void> assign(
             String id, AssignRoleUsersRequestContent request, RequestOptions requestOptions) {

@@ -181,7 +181,7 @@ public class AsyncRawUserAttributeProfilesClient {
     }
 
     /**
-     * Create a User Attribute Profile
+     * Create a User Attribute Profile.
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateUserAttributeProfileResponseContent>> create(
             CreateUserAttributeProfileRequestContent request) {
@@ -189,7 +189,7 @@ public class AsyncRawUserAttributeProfilesClient {
     }
 
     /**
-     * Create a User Attribute Profile
+     * Create a User Attribute Profile.
      */
     public CompletableFuture<ManagementApiHttpResponse<CreateUserAttributeProfileResponseContent>> create(
             CreateUserAttributeProfileRequestContent request, RequestOptions requestOptions) {

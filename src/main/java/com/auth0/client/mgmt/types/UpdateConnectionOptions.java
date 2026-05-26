@@ -91,6 +91,8 @@ public final class UpdateConnectionOptions {
 
     private final OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs;
 
+    private final Optional<ConnectionDpopSigningAlgEnum> dpopSigningAlg;
+
     private final OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod;
 
     private final OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg;
@@ -133,6 +135,7 @@ public final class UpdateConnectionOptions {
             Optional<ConnectionPasswordOptions> passwordOptions,
             Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings,
             OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs,
+            Optional<ConnectionDpopSigningAlgEnum> dpopSigningAlg,
             OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod,
             OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg,
             Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
@@ -170,6 +173,7 @@ public final class UpdateConnectionOptions {
         this.passwordOptions = passwordOptions;
         this.assertionDecryptionSettings = assertionDecryptionSettings;
         this.idTokenSignedResponseAlgs = idTokenSignedResponseAlgs;
+        this.dpopSigningAlg = dpopSigningAlg;
         this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
         this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
         this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
@@ -415,6 +419,11 @@ public final class UpdateConnectionOptions {
         return idTokenSignedResponseAlgs;
     }
 
+    @JsonProperty("dpop_signing_alg")
+    public Optional<ConnectionDpopSigningAlgEnum> getDpopSigningAlg() {
+        return dpopSigningAlg;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_endpoint_auth_method")
     public OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> getTokenEndpointAuthMethod() {
@@ -580,6 +589,7 @@ public final class UpdateConnectionOptions {
                 && passwordOptions.equals(other.passwordOptions)
                 && assertionDecryptionSettings.equals(other.assertionDecryptionSettings)
                 && idTokenSignedResponseAlgs.equals(other.idTokenSignedResponseAlgs)
+                && dpopSigningAlg.equals(other.dpopSigningAlg)
                 && tokenEndpointAuthMethod.equals(other.tokenEndpointAuthMethod)
                 && tokenEndpointAuthSigningAlg.equals(other.tokenEndpointAuthSigningAlg)
                 && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat);
@@ -621,6 +631,7 @@ public final class UpdateConnectionOptions {
                 this.passwordOptions,
                 this.assertionDecryptionSettings,
                 this.idTokenSignedResponseAlgs,
+                this.dpopSigningAlg,
                 this.tokenEndpointAuthMethod,
                 this.tokenEndpointAuthSigningAlg,
                 this.tokenEndpointJwtcaAudFormat);
@@ -708,6 +719,8 @@ public final class UpdateConnectionOptions {
         private OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs =
                 OptionalNullable.absent();
 
+        private Optional<ConnectionDpopSigningAlgEnum> dpopSigningAlg = Optional.empty();
+
         private OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod =
                 OptionalNullable.absent();
 
@@ -755,6 +768,7 @@ public final class UpdateConnectionOptions {
             passwordOptions(other.getPasswordOptions());
             assertionDecryptionSettings(other.getAssertionDecryptionSettings());
             idTokenSignedResponseAlgs(other.getIdTokenSignedResponseAlgs());
+            dpopSigningAlg(other.getDpopSigningAlg());
             tokenEndpointAuthMethod(other.getTokenEndpointAuthMethod());
             tokenEndpointAuthSigningAlg(other.getTokenEndpointAuthSigningAlg());
             tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
@@ -1457,6 +1471,17 @@ public final class UpdateConnectionOptions {
             return this;
         }
 
+        @JsonSetter(value = "dpop_signing_alg", nulls = Nulls.SKIP)
+        public Builder dpopSigningAlg(Optional<ConnectionDpopSigningAlgEnum> dpopSigningAlg) {
+            this.dpopSigningAlg = dpopSigningAlg;
+            return this;
+        }
+
+        public Builder dpopSigningAlg(ConnectionDpopSigningAlgEnum dpopSigningAlg) {
+            this.dpopSigningAlg = Optional.ofNullable(dpopSigningAlg);
+            return this;
+        }
+
         @JsonSetter(value = "token_endpoint_auth_method", nulls = Nulls.SKIP)
         public Builder tokenEndpointAuthMethod(
                 @Nullable OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
@@ -1575,6 +1600,7 @@ public final class UpdateConnectionOptions {
                     passwordOptions,
                     assertionDecryptionSettings,
                     idTokenSignedResponseAlgs,
+                    dpopSigningAlg,
                     tokenEndpointAuthMethod,
                     tokenEndpointAuthSigningAlg,
                     tokenEndpointJwtcaAudFormat,

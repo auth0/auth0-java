@@ -51,9 +51,13 @@ public final class CreateUserResponseContent {
 
     private final Optional<List<String>> multifactor;
 
+    private final Optional<UserDateSchema> multifactorLastModified;
+
     private final Optional<String> lastIp;
 
     private final Optional<UserDateSchema> lastLogin;
+
+    private final Optional<UserDateSchema> lastPasswordReset;
 
     private final Optional<Integer> loginsCount;
 
@@ -81,8 +85,10 @@ public final class CreateUserResponseContent {
             Optional<String> name,
             Optional<String> nickname,
             Optional<List<String>> multifactor,
+            Optional<UserDateSchema> multifactorLastModified,
             Optional<String> lastIp,
             Optional<UserDateSchema> lastLogin,
+            Optional<UserDateSchema> lastPasswordReset,
             Optional<Integer> loginsCount,
             Optional<Boolean> blocked,
             Optional<String> givenName,
@@ -103,8 +109,10 @@ public final class CreateUserResponseContent {
         this.name = name;
         this.nickname = nickname;
         this.multifactor = multifactor;
+        this.multifactorLastModified = multifactorLastModified;
         this.lastIp = lastIp;
         this.lastLogin = lastLogin;
+        this.lastPasswordReset = lastPasswordReset;
         this.loginsCount = loginsCount;
         this.blocked = blocked;
         this.givenName = givenName;
@@ -220,6 +228,11 @@ public final class CreateUserResponseContent {
         return multifactor;
     }
 
+    @JsonProperty("multifactor_last_modified")
+    public Optional<UserDateSchema> getMultifactorLastModified() {
+        return multifactorLastModified;
+    }
+
     /**
      * @return Last IP address from which this user logged in.
      */
@@ -231,6 +244,11 @@ public final class CreateUserResponseContent {
     @JsonProperty("last_login")
     public Optional<UserDateSchema> getLastLogin() {
         return lastLogin;
+    }
+
+    @JsonProperty("last_password_reset")
+    public Optional<UserDateSchema> getLastPasswordReset() {
+        return lastPasswordReset;
     }
 
     /**
@@ -292,8 +310,10 @@ public final class CreateUserResponseContent {
                 && name.equals(other.name)
                 && nickname.equals(other.nickname)
                 && multifactor.equals(other.multifactor)
+                && multifactorLastModified.equals(other.multifactorLastModified)
                 && lastIp.equals(other.lastIp)
                 && lastLogin.equals(other.lastLogin)
+                && lastPasswordReset.equals(other.lastPasswordReset)
                 && loginsCount.equals(other.loginsCount)
                 && blocked.equals(other.blocked)
                 && givenName.equals(other.givenName)
@@ -318,8 +338,10 @@ public final class CreateUserResponseContent {
                 this.name,
                 this.nickname,
                 this.multifactor,
+                this.multifactorLastModified,
                 this.lastIp,
                 this.lastLogin,
+                this.lastPasswordReset,
                 this.loginsCount,
                 this.blocked,
                 this.givenName,
@@ -367,9 +389,13 @@ public final class CreateUserResponseContent {
 
         private Optional<List<String>> multifactor = Optional.empty();
 
+        private Optional<UserDateSchema> multifactorLastModified = Optional.empty();
+
         private Optional<String> lastIp = Optional.empty();
 
         private Optional<UserDateSchema> lastLogin = Optional.empty();
+
+        private Optional<UserDateSchema> lastPasswordReset = Optional.empty();
 
         private Optional<Integer> loginsCount = Optional.empty();
 
@@ -400,8 +426,10 @@ public final class CreateUserResponseContent {
             name(other.getName());
             nickname(other.getNickname());
             multifactor(other.getMultifactor());
+            multifactorLastModified(other.getMultifactorLastModified());
             lastIp(other.getLastIp());
             lastLogin(other.getLastLogin());
+            lastPasswordReset(other.getLastPasswordReset());
             loginsCount(other.getLoginsCount());
             blocked(other.getBlocked());
             givenName(other.getGivenName());
@@ -607,6 +635,17 @@ public final class CreateUserResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "multifactor_last_modified", nulls = Nulls.SKIP)
+        public Builder multifactorLastModified(Optional<UserDateSchema> multifactorLastModified) {
+            this.multifactorLastModified = multifactorLastModified;
+            return this;
+        }
+
+        public Builder multifactorLastModified(UserDateSchema multifactorLastModified) {
+            this.multifactorLastModified = Optional.ofNullable(multifactorLastModified);
+            return this;
+        }
+
         /**
          * <p>Last IP address from which this user logged in.</p>
          */
@@ -629,6 +668,17 @@ public final class CreateUserResponseContent {
 
         public Builder lastLogin(UserDateSchema lastLogin) {
             this.lastLogin = Optional.ofNullable(lastLogin);
+            return this;
+        }
+
+        @JsonSetter(value = "last_password_reset", nulls = Nulls.SKIP)
+        public Builder lastPasswordReset(Optional<UserDateSchema> lastPasswordReset) {
+            this.lastPasswordReset = lastPasswordReset;
+            return this;
+        }
+
+        public Builder lastPasswordReset(UserDateSchema lastPasswordReset) {
+            this.lastPasswordReset = Optional.ofNullable(lastPasswordReset);
             return this;
         }
 
@@ -705,8 +755,10 @@ public final class CreateUserResponseContent {
                     name,
                     nickname,
                     multifactor,
+                    multifactorLastModified,
                     lastIp,
                     lastLogin,
+                    lastPasswordReset,
                     loginsCount,
                     blocked,
                     givenName,
