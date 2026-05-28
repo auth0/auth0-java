@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.7.0](https://github.com/auth0/auth0-java/tree/3.7.0) (2026-05-28)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/3.6.0...3.7.0)
+
+**Added**
+- Feat: Add User Effective Roles/Permissions, Organization Groups, Role Groups, and Tenant Country Codes  [\#871](https://github.com/auth0/auth0-java/pull/871) ([fern-api[bot]](https://github.com/apps/fern-api))
+- Feat: Add support for Group Roles and Rate Limit Policies  [\#870](https://github.com/auth0/auth0-java/pull/870) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [3.6.0](https://github.com/auth0/auth0-java/tree/3.6.0) (2026-05-22)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/3.5.1...3.6.0)
 
