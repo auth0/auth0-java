@@ -94,7 +94,7 @@ public class EnabledConnectionsClient {
 
     /**
      * Disable a specific connection for an Organization. Once disabled, Organization members can no longer use that connection to authenticate.
-     * <p><b>Note</b>: This action does not remove the connection from your tenant.</p>
+     * <p><strong>Note</strong>: This action does not remove the connection from your tenant.</p>
      */
     public void delete(String id, String connectionId) {
         this.rawClient.delete(id, connectionId).body();
@@ -102,7 +102,7 @@ public class EnabledConnectionsClient {
 
     /**
      * Disable a specific connection for an Organization. Once disabled, Organization members can no longer use that connection to authenticate.
-     * <p><b>Note</b>: This action does not remove the connection from your tenant.</p>
+     * <p><strong>Note</strong>: This action does not remove the connection from your tenant.</p>
      */
     public void delete(String id, String connectionId, RequestOptions requestOptions) {
         this.rawClient.delete(id, connectionId, requestOptions).body();

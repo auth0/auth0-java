@@ -7,6 +7,7 @@ import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
+import com.auth0.client.mgmt.roles.GroupsClient;
 import com.auth0.client.mgmt.roles.PermissionsClient;
 import com.auth0.client.mgmt.roles.UsersClient;
 import com.auth0.client.mgmt.types.CreateRoleRequestContent;
@@ -23,6 +24,8 @@ public class RolesClient {
 
     private final RawRolesClient rawClient;
 
+    protected final Supplier<GroupsClient> groupsClient;
+
     protected final Supplier<PermissionsClient> permissionsClient;
 
     protected final Supplier<UsersClient> usersClient;
@@ -30,6 +33,7 @@ public class RolesClient {
     public RolesClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.rawClient = new RawRolesClient(clientOptions);
+        this.groupsClient = Suppliers.memoize(() -> new GroupsClient(clientOptions));
         this.permissionsClient = Suppliers.memoize(() -> new PermissionsClient(clientOptions));
         this.usersClient = Suppliers.memoize(() -> new UsersClient(clientOptions));
     }
@@ -144,6 +148,10 @@ public class RolesClient {
     public UpdateRoleResponseContent update(
             String id, UpdateRoleRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.update(id, request, requestOptions).body();
+    }
+
+    public GroupsClient groups() {
+        return this.groupsClient.get();
     }
 
     public PermissionsClient permissions() {

@@ -11,6 +11,7 @@ import com.auth0.client.mgmt.organizations.ClientGrantsClient;
 import com.auth0.client.mgmt.organizations.ConnectionsClient;
 import com.auth0.client.mgmt.organizations.DiscoveryDomainsClient;
 import com.auth0.client.mgmt.organizations.EnabledConnectionsClient;
+import com.auth0.client.mgmt.organizations.GroupsClient;
 import com.auth0.client.mgmt.organizations.InvitationsClient;
 import com.auth0.client.mgmt.organizations.MembersClient;
 import com.auth0.client.mgmt.types.CreateOrganizationRequestContent;
@@ -40,6 +41,8 @@ public class OrganizationsClient {
 
     protected final Supplier<MembersClient> membersClient;
 
+    protected final Supplier<GroupsClient> groupsClient;
+
     public OrganizationsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.rawClient = new RawOrganizationsClient(clientOptions);
@@ -49,6 +52,7 @@ public class OrganizationsClient {
         this.enabledConnectionsClient = Suppliers.memoize(() -> new EnabledConnectionsClient(clientOptions));
         this.invitationsClient = Suppliers.memoize(() -> new InvitationsClient(clientOptions));
         this.membersClient = Suppliers.memoize(() -> new MembersClient(clientOptions));
+        this.groupsClient = Suppliers.memoize(() -> new GroupsClient(clientOptions));
     }
 
     /**
@@ -61,18 +65,18 @@ public class OrganizationsClient {
     /**
      * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public SyncPagingIterable<Organization> list() {
         return this.rawClient.list().body();
@@ -81,18 +85,18 @@ public class OrganizationsClient {
     /**
      * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public SyncPagingIterable<Organization> list(RequestOptions requestOptions) {
         return this.rawClient.list(requestOptions).body();
@@ -101,18 +105,18 @@ public class OrganizationsClient {
     /**
      * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public SyncPagingIterable<Organization> list(ListOrganizationsRequestParameters request) {
         return this.rawClient.list(request).body();
@@ -121,18 +125,18 @@ public class OrganizationsClient {
     /**
      * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public SyncPagingIterable<Organization> list(
             ListOrganizationsRequestParameters request, RequestOptions requestOptions) {
@@ -184,7 +188,7 @@ public class OrganizationsClient {
 
     /**
      * Remove an Organization from your tenant.  This action cannot be undone.
-     * <p><b>Note</b>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <b>not</b> delete these users from your tenant.</p>
+     * <p><strong>Note</strong>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <strong>not</strong> delete these users from your tenant.</p>
      */
     public void delete(String id) {
         this.rawClient.delete(id).body();
@@ -192,7 +196,7 @@ public class OrganizationsClient {
 
     /**
      * Remove an Organization from your tenant.  This action cannot be undone.
-     * <p><b>Note</b>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <b>not</b> delete these users from your tenant.</p>
+     * <p><strong>Note</strong>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <strong>not</strong> delete these users from your tenant.</p>
      */
     public void delete(String id, RequestOptions requestOptions) {
         this.rawClient.delete(id, requestOptions).body();
@@ -249,5 +253,9 @@ public class OrganizationsClient {
 
     public MembersClient members() {
         return this.membersClient.get();
+    }
+
+    public GroupsClient groups() {
+        return this.groupsClient.get();
     }
 }

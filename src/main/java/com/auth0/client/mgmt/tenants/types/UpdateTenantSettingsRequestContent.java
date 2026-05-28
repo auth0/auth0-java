@@ -9,6 +9,7 @@ import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.DefaultTokenQuota;
 import com.auth0.client.mgmt.types.SessionCookieSchema;
 import com.auth0.client.mgmt.types.TenantOidcLogoutSettings;
+import com.auth0.client.mgmt.types.TenantSettingsCountryCodes;
 import com.auth0.client.mgmt.types.TenantSettingsDeviceFlow;
 import com.auth0.client.mgmt.types.TenantSettingsDynamicClientRegistrationSecurityMode;
 import com.auth0.client.mgmt.types.TenantSettingsErrorPage;
@@ -109,6 +110,8 @@ public final class UpdateTenantSettingsRequestContent {
 
     private final Optional<TenantSettingsDynamicClientRegistrationSecurityMode> dynamicClientRegistrationSecurityMode;
 
+    private final OptionalNullable<TenantSettingsCountryCodes> countryCodes;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateTenantSettingsRequestContent(
@@ -148,6 +151,7 @@ public final class UpdateTenantSettingsRequestContent {
             Optional<Boolean> enableAiGuide,
             Optional<Boolean> phoneConsolidatedExperience,
             Optional<TenantSettingsDynamicClientRegistrationSecurityMode> dynamicClientRegistrationSecurityMode,
+            OptionalNullable<TenantSettingsCountryCodes> countryCodes,
             Map<String, Object> additionalProperties) {
         this.changePassword = changePassword;
         this.deviceFlow = deviceFlow;
@@ -185,6 +189,7 @@ public final class UpdateTenantSettingsRequestContent {
         this.enableAiGuide = enableAiGuide;
         this.phoneConsolidatedExperience = phoneConsolidatedExperience;
         this.dynamicClientRegistrationSecurityMode = dynamicClientRegistrationSecurityMode;
+        this.countryCodes = countryCodes;
         this.additionalProperties = additionalProperties;
     }
 
@@ -502,6 +507,15 @@ public final class UpdateTenantSettingsRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("country_codes")
+    public OptionalNullable<TenantSettingsCountryCodes> getCountryCodes() {
+        if (countryCodes == null) {
+            return OptionalNullable.absent();
+        }
+        return countryCodes;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("change_password")
     private OptionalNullable<TenantSettingsPasswordPage> _getChangePassword() {
         return changePassword;
@@ -585,6 +599,12 @@ public final class UpdateTenantSettingsRequestContent {
         return skipNonVerifiableCallbackUriConfirmationPrompt;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("country_codes")
+    private OptionalNullable<TenantSettingsCountryCodes> _getCountryCodes() {
+        return countryCodes;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -634,7 +654,8 @@ public final class UpdateTenantSettingsRequestContent {
                 && clientIdMetadataDocumentSupported.equals(other.clientIdMetadataDocumentSupported)
                 && enableAiGuide.equals(other.enableAiGuide)
                 && phoneConsolidatedExperience.equals(other.phoneConsolidatedExperience)
-                && dynamicClientRegistrationSecurityMode.equals(other.dynamicClientRegistrationSecurityMode);
+                && dynamicClientRegistrationSecurityMode.equals(other.dynamicClientRegistrationSecurityMode)
+                && countryCodes.equals(other.countryCodes);
     }
 
     @java.lang.Override
@@ -675,7 +696,8 @@ public final class UpdateTenantSettingsRequestContent {
                 this.clientIdMetadataDocumentSupported,
                 this.enableAiGuide,
                 this.phoneConsolidatedExperience,
-                this.dynamicClientRegistrationSecurityMode);
+                this.dynamicClientRegistrationSecurityMode,
+                this.countryCodes);
     }
 
     @java.lang.Override
@@ -762,6 +784,8 @@ public final class UpdateTenantSettingsRequestContent {
         private Optional<TenantSettingsDynamicClientRegistrationSecurityMode> dynamicClientRegistrationSecurityMode =
                 Optional.empty();
 
+        private OptionalNullable<TenantSettingsCountryCodes> countryCodes = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -804,6 +828,7 @@ public final class UpdateTenantSettingsRequestContent {
             enableAiGuide(other.getEnableAiGuide());
             phoneConsolidatedExperience(other.getPhoneConsolidatedExperience());
             dynamicClientRegistrationSecurityMode(other.getDynamicClientRegistrationSecurityMode());
+            countryCodes(other.getCountryCodes());
             return this;
         }
 
@@ -1589,6 +1614,37 @@ public final class UpdateTenantSettingsRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "country_codes", nulls = Nulls.SKIP)
+        public Builder countryCodes(@Nullable OptionalNullable<TenantSettingsCountryCodes> countryCodes) {
+            this.countryCodes = countryCodes;
+            return this;
+        }
+
+        public Builder countryCodes(TenantSettingsCountryCodes countryCodes) {
+            this.countryCodes = OptionalNullable.of(countryCodes);
+            return this;
+        }
+
+        public Builder countryCodes(Optional<TenantSettingsCountryCodes> countryCodes) {
+            if (countryCodes.isPresent()) {
+                this.countryCodes = OptionalNullable.of(countryCodes.get());
+            } else {
+                this.countryCodes = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder countryCodes(com.auth0.client.mgmt.core.Nullable<TenantSettingsCountryCodes> countryCodes) {
+            if (countryCodes.isNull()) {
+                this.countryCodes = OptionalNullable.ofNull();
+            } else if (countryCodes.isEmpty()) {
+                this.countryCodes = OptionalNullable.absent();
+            } else {
+                this.countryCodes = OptionalNullable.of(countryCodes.get());
+            }
+            return this;
+        }
+
         public UpdateTenantSettingsRequestContent build() {
             return new UpdateTenantSettingsRequestContent(
                     changePassword,
@@ -1627,6 +1683,7 @@ public final class UpdateTenantSettingsRequestContent {
                     enableAiGuide,
                     phoneConsolidatedExperience,
                     dynamicClientRegistrationSecurityMode,
+                    countryCodes,
                     additionalProperties);
         }
 

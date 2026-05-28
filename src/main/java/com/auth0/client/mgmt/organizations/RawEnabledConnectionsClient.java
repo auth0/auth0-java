@@ -289,7 +289,7 @@ public class RawEnabledConnectionsClient {
 
     /**
      * Disable a specific connection for an Organization. Once disabled, Organization members can no longer use that connection to authenticate.
-     * <p><b>Note</b>: This action does not remove the connection from your tenant.</p>
+     * <p><strong>Note</strong>: This action does not remove the connection from your tenant.</p>
      */
     public ManagementApiHttpResponse<Void> delete(String id, String connectionId) {
         return delete(id, connectionId, null);
@@ -297,7 +297,7 @@ public class RawEnabledConnectionsClient {
 
     /**
      * Disable a specific connection for an Organization. Once disabled, Organization members can no longer use that connection to authenticate.
-     * <p><b>Note</b>: This action does not remove the connection from your tenant.</p>
+     * <p><strong>Note</strong>: This action does not remove the connection from your tenant.</p>
      */
     public ManagementApiHttpResponse<Void> delete(String id, String connectionId, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())

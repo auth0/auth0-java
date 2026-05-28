@@ -44,21 +44,17 @@ public class RawMembersClient {
     /**
      * List organization members.
      * This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
-     * <p><ul>
-     *   <li>
-     *     Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.
-     *   </li>
-     *   <li>
-     *     Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.
-     *   </li>
-     * </ul></p>
+     * <ul>
+     * <li>Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.</li>
+     * <li>Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.</li>
+     * </ul>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
      * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the <code>from</code> parameter. If there are more results, a <code>next</code> value will be included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, this indicates there are no more pages remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<OrganizationMember>> list(String id) {
@@ -68,21 +64,17 @@ public class RawMembersClient {
     /**
      * List organization members.
      * This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
-     * <p><ul>
-     *   <li>
-     *     Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.
-     *   </li>
-     *   <li>
-     *     Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.
-     *   </li>
-     * </ul></p>
+     * <ul>
+     * <li>Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.</li>
+     * <li>Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.</li>
+     * </ul>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
      * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the <code>from</code> parameter. If there are more results, a <code>next</code> value will be included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, this indicates there are no more pages remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<OrganizationMember>> list(
@@ -93,21 +85,17 @@ public class RawMembersClient {
     /**
      * List organization members.
      * This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
-     * <p><ul>
-     *   <li>
-     *     Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.
-     *   </li>
-     *   <li>
-     *     Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.
-     *   </li>
-     * </ul></p>
+     * <ul>
+     * <li>Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.</li>
+     * <li>Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.</li>
+     * </ul>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
      * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the <code>from</code> parameter. If there are more results, a <code>next</code> value will be included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, this indicates there are no more pages remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<OrganizationMember>> list(
@@ -118,21 +106,17 @@ public class RawMembersClient {
     /**
      * List organization members.
      * This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
-     * <p><ul>
-     *   <li>
-     *     Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.
-     *   </li>
-     *   <li>
-     *     Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.
-     *   </li>
-     * </ul></p>
+     * <ul>
+     * <li>Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.</li>
+     * <li>Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.</li>
+     * </ul>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
      * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the <code>from</code> parameter. If there are more results, a <code>next</code> value will be included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, this indicates there are no more pages remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<OrganizationMember>> list(

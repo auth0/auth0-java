@@ -61,7 +61,7 @@ public class AsyncDeviceCredentialsClient {
 
     /**
      * Create a device credential public key to manage refresh token rotation for a given <code>user_id</code>. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
-     * <p>When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read <a href="https://auth0.com/docs/get-started/tenant-settings/signing-keys"> Signing Keys</a>.</p>
+     * <p>When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read <a href="https://auth0.com/docs/get-started/tenant-settings/signing-keys">Signing Keys</a>.</p>
      */
     public CompletableFuture<CreatePublicKeyDeviceCredentialResponseContent> createPublicKey(
             CreatePublicKeyDeviceCredentialRequestContent request) {
@@ -70,7 +70,7 @@ public class AsyncDeviceCredentialsClient {
 
     /**
      * Create a device credential public key to manage refresh token rotation for a given <code>user_id</code>. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
-     * <p>When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read <a href="https://auth0.com/docs/get-started/tenant-settings/signing-keys"> Signing Keys</a>.</p>
+     * <p>When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read <a href="https://auth0.com/docs/get-started/tenant-settings/signing-keys">Signing Keys</a>.</p>
      */
     public CompletableFuture<CreatePublicKeyDeviceCredentialResponseContent> createPublicKey(
             CreatePublicKeyDeviceCredentialRequestContent request, RequestOptions requestOptions) {

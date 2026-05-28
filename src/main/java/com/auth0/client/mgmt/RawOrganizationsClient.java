@@ -50,18 +50,18 @@ public class RawOrganizationsClient {
     /**
      * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<Organization>> list() {
         return list(ListOrganizationsRequestParameters.builder().build());
@@ -70,18 +70,18 @@ public class RawOrganizationsClient {
     /**
      * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<Organization>> list(RequestOptions requestOptions) {
         return list(ListOrganizationsRequestParameters.builder().build(), requestOptions);
@@ -90,18 +90,18 @@ public class RawOrganizationsClient {
     /**
      * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<Organization>> list(
             ListOrganizationsRequestParameters request) {
@@ -111,18 +111,18 @@ public class RawOrganizationsClient {
     /**
      * Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public ManagementApiHttpResponse<SyncPagingIterable<Organization>> list(
             ListOrganizationsRequestParameters request, RequestOptions requestOptions) {
@@ -407,7 +407,7 @@ public class RawOrganizationsClient {
 
     /**
      * Remove an Organization from your tenant.  This action cannot be undone.
-     * <p><b>Note</b>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <b>not</b> delete these users from your tenant.</p>
+     * <p><strong>Note</strong>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <strong>not</strong> delete these users from your tenant.</p>
      */
     public ManagementApiHttpResponse<Void> delete(String id) {
         return delete(id, null);
@@ -415,7 +415,7 @@ public class RawOrganizationsClient {
 
     /**
      * Remove an Organization from your tenant.  This action cannot be undone.
-     * <p><b>Note</b>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <b>not</b> delete these users from your tenant.</p>
+     * <p><strong>Note</strong>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <strong>not</strong> delete these users from your tenant.</p>
      */
     public ManagementApiHttpResponse<Void> delete(String id, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())

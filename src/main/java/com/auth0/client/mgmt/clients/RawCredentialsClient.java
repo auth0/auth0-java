@@ -42,7 +42,7 @@ public class RawCredentialsClient {
 
     /**
      * Get the details of a client credential.
-     * <p><b>Important</b>: To enable credentials to be used for a client authentication method, set the <code>client_authentication_methods</code> property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the <code>signed_request_object</code> property on the client.</p>
+     * <p><strong>Important</strong>: To enable credentials to be used for a client authentication method, set the <code>client_authentication_methods</code> property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the <code>signed_request_object</code> property on the client.</p>
      */
     public ManagementApiHttpResponse<List<ClientCredential>> list(String clientId) {
         return list(clientId, null);
@@ -50,7 +50,7 @@ public class RawCredentialsClient {
 
     /**
      * Get the details of a client credential.
-     * <p><b>Important</b>: To enable credentials to be used for a client authentication method, set the <code>client_authentication_methods</code> property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the <code>signed_request_object</code> property on the client.</p>
+     * <p><strong>Important</strong>: To enable credentials to be used for a client authentication method, set the <code>client_authentication_methods</code> property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the <code>signed_request_object</code> property on the client.</p>
      */
     public ManagementApiHttpResponse<List<ClientCredential>> list(String clientId, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
@@ -110,34 +110,46 @@ public class RawCredentialsClient {
 
     /**
      * Create a client credential associated to your application. Credentials can be used to configure Private Key JWT and mTLS authentication methods, as well as for JWT-secured Authorization requests.
-     * <p><h5>Public Key</h5>Public Key credentials can be used to set up Private Key JWT client authentication and JWT-secured Authorization requests.</p>
-     * <p>Sample: <pre><code>{
-     * &quot;credential_type&quot;: &quot;public_key&quot;,
-     * &quot;name&quot;: &quot;string&quot;,
-     * &quot;pem&quot;: &quot;string&quot;,
-     * &quot;alg&quot;: &quot;RS256&quot;,
-     * &quot;parse_expiry_from_cert&quot;: false,
-     * &quot;expires_at&quot;: &quot;2022-12-31T23:59:59Z&quot;
-     * }</code></pre></p>
-     * <p><h5>Certificate (CA-signed &amp; self-signed)</h5>Certificate credentials can be used to set up mTLS client authentication. CA-signed certificates can be configured either with a signed certificate or with just the certificate Subject DN.</p>
-     * <p>CA-signed Certificate Sample (pem): <pre><code>{
-     * &quot;credential_type&quot;: &quot;x509_cert&quot;,
-     * &quot;name&quot;: &quot;string&quot;,
-     * &quot;pem&quot;: &quot;string&quot;
-     * }</code></pre>CA-signed Certificate Sample (subject_dn): <pre><code>{
-     * &quot;credential_type&quot;: &quot;cert_subject_dn&quot;,
-     * &quot;name&quot;: &quot;string&quot;,
-     * &quot;subject_dn&quot;: &quot;string&quot;
-     * }</code></pre>Self-signed Certificate Sample: <pre><code>{
-     * &quot;credential_type&quot;: &quot;cert_subject_dn&quot;,
-     * &quot;name&quot;: &quot;string&quot;,
-     * &quot;pem&quot;: &quot;string&quot;
-     * }</code></pre></p>
+     * <p><strong>Public Key</strong></p>
+     * <p>Public Key credentials can be used to set up Private Key JWT client authentication and JWT-secured Authorization requests.</p>
+     * <p>Sample:</p>
+     * <pre><code class="language-json">{
+     *   &quot;credential_type&quot;: &quot;public_key&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;pem&quot;: &quot;string&quot;,
+     *   &quot;alg&quot;: &quot;RS256&quot;,
+     *   &quot;parse_expiry_from_cert&quot;: false,
+     *   &quot;expires_at&quot;: &quot;2022-12-31T23:59:59Z&quot;
+     * }
+     * </code></pre>
+     * <p><strong>Certificate (CA-signed &amp; self-signed)</strong></p>
+     * <p>Certificate credentials can be used to set up mTLS client authentication. CA-signed certificates can be configured either with a signed certificate or with just the certificate Subject DN.</p>
+     * <p>CA-signed Certificate Sample (pem):</p>
+     * <pre><code class="language-json">{
+     *   &quot;credential_type&quot;: &quot;x509_cert&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;pem&quot;: &quot;string&quot;
+     * }
+     * </code></pre>
+     * <p>CA-signed Certificate Sample (subject_dn):</p>
+     * <pre><code class="language-json">{
+     *   &quot;credential_type&quot;: &quot;cert_subject_dn&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;subject_dn&quot;: &quot;string&quot;
+     * }
+     * </code></pre>
+     * <p>Self-signed Certificate Sample:</p>
+     * <pre><code class="language-json">{
+     *   &quot;credential_type&quot;: &quot;cert_subject_dn&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;pem&quot;: &quot;string&quot;
+     * }
+     * </code></pre>
      * <p>The credential will be created but not yet enabled for use until you set the corresponding properties in the client:</p>
-     * <p><ul>
-     *   <li>To enable the credential for Private Key JWT or mTLS authentication methods, set the <code>client_authentication_methods</code> property on the client. For more information, read <a href="https://auth0.com/docs/get-started/applications/configure-private-key-jwt">Configure Private Key JWT Authentication</a> and <a href="https://auth0.com/docs/get-started/applications/configure-mtls">Configure mTLS Authentication</a></li>
-     *   <li>To enable the credential for JWT-secured Authorization requests, set the <code>signed_request_object</code>property on the client. For more information, read <a href="https://auth0.com/docs/get-started/applications/configure-jar">Configure JWT-secured Authorization Requests (JAR)</a></li>
-     * </ul></p>
+     * <ul>
+     * <li>To enable the credential for Private Key JWT or mTLS authentication methods, set the <code>client_authentication_methods</code> property on the client. For more information, read <a href="https://auth0.com/docs/get-started/applications/configure-private-key-jwt">Configure Private Key JWT Authentication</a> and <a href="https://auth0.com/docs/get-started/applications/configure-mtls">Configure mTLS Authentication</a></li>
+     * <li>To enable the credential for JWT-secured Authorization requests, set the <code>signed_request_object</code>property on the client. For more information, read <a href="https://auth0.com/docs/get-started/applications/configure-jar">Configure JWT-secured Authorization Requests (JAR)</a></li>
+     * </ul>
      */
     public ManagementApiHttpResponse<PostClientCredentialResponseContent> create(
             String clientId, PostClientCredentialRequestContent request) {
@@ -146,34 +158,46 @@ public class RawCredentialsClient {
 
     /**
      * Create a client credential associated to your application. Credentials can be used to configure Private Key JWT and mTLS authentication methods, as well as for JWT-secured Authorization requests.
-     * <p><h5>Public Key</h5>Public Key credentials can be used to set up Private Key JWT client authentication and JWT-secured Authorization requests.</p>
-     * <p>Sample: <pre><code>{
-     * &quot;credential_type&quot;: &quot;public_key&quot;,
-     * &quot;name&quot;: &quot;string&quot;,
-     * &quot;pem&quot;: &quot;string&quot;,
-     * &quot;alg&quot;: &quot;RS256&quot;,
-     * &quot;parse_expiry_from_cert&quot;: false,
-     * &quot;expires_at&quot;: &quot;2022-12-31T23:59:59Z&quot;
-     * }</code></pre></p>
-     * <p><h5>Certificate (CA-signed &amp; self-signed)</h5>Certificate credentials can be used to set up mTLS client authentication. CA-signed certificates can be configured either with a signed certificate or with just the certificate Subject DN.</p>
-     * <p>CA-signed Certificate Sample (pem): <pre><code>{
-     * &quot;credential_type&quot;: &quot;x509_cert&quot;,
-     * &quot;name&quot;: &quot;string&quot;,
-     * &quot;pem&quot;: &quot;string&quot;
-     * }</code></pre>CA-signed Certificate Sample (subject_dn): <pre><code>{
-     * &quot;credential_type&quot;: &quot;cert_subject_dn&quot;,
-     * &quot;name&quot;: &quot;string&quot;,
-     * &quot;subject_dn&quot;: &quot;string&quot;
-     * }</code></pre>Self-signed Certificate Sample: <pre><code>{
-     * &quot;credential_type&quot;: &quot;cert_subject_dn&quot;,
-     * &quot;name&quot;: &quot;string&quot;,
-     * &quot;pem&quot;: &quot;string&quot;
-     * }</code></pre></p>
+     * <p><strong>Public Key</strong></p>
+     * <p>Public Key credentials can be used to set up Private Key JWT client authentication and JWT-secured Authorization requests.</p>
+     * <p>Sample:</p>
+     * <pre><code class="language-json">{
+     *   &quot;credential_type&quot;: &quot;public_key&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;pem&quot;: &quot;string&quot;,
+     *   &quot;alg&quot;: &quot;RS256&quot;,
+     *   &quot;parse_expiry_from_cert&quot;: false,
+     *   &quot;expires_at&quot;: &quot;2022-12-31T23:59:59Z&quot;
+     * }
+     * </code></pre>
+     * <p><strong>Certificate (CA-signed &amp; self-signed)</strong></p>
+     * <p>Certificate credentials can be used to set up mTLS client authentication. CA-signed certificates can be configured either with a signed certificate or with just the certificate Subject DN.</p>
+     * <p>CA-signed Certificate Sample (pem):</p>
+     * <pre><code class="language-json">{
+     *   &quot;credential_type&quot;: &quot;x509_cert&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;pem&quot;: &quot;string&quot;
+     * }
+     * </code></pre>
+     * <p>CA-signed Certificate Sample (subject_dn):</p>
+     * <pre><code class="language-json">{
+     *   &quot;credential_type&quot;: &quot;cert_subject_dn&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;subject_dn&quot;: &quot;string&quot;
+     * }
+     * </code></pre>
+     * <p>Self-signed Certificate Sample:</p>
+     * <pre><code class="language-json">{
+     *   &quot;credential_type&quot;: &quot;cert_subject_dn&quot;,
+     *   &quot;name&quot;: &quot;string&quot;,
+     *   &quot;pem&quot;: &quot;string&quot;
+     * }
+     * </code></pre>
      * <p>The credential will be created but not yet enabled for use until you set the corresponding properties in the client:</p>
-     * <p><ul>
-     *   <li>To enable the credential for Private Key JWT or mTLS authentication methods, set the <code>client_authentication_methods</code> property on the client. For more information, read <a href="https://auth0.com/docs/get-started/applications/configure-private-key-jwt">Configure Private Key JWT Authentication</a> and <a href="https://auth0.com/docs/get-started/applications/configure-mtls">Configure mTLS Authentication</a></li>
-     *   <li>To enable the credential for JWT-secured Authorization requests, set the <code>signed_request_object</code>property on the client. For more information, read <a href="https://auth0.com/docs/get-started/applications/configure-jar">Configure JWT-secured Authorization Requests (JAR)</a></li>
-     * </ul></p>
+     * <ul>
+     * <li>To enable the credential for Private Key JWT or mTLS authentication methods, set the <code>client_authentication_methods</code> property on the client. For more information, read <a href="https://auth0.com/docs/get-started/applications/configure-private-key-jwt">Configure Private Key JWT Authentication</a> and <a href="https://auth0.com/docs/get-started/applications/configure-mtls">Configure mTLS Authentication</a></li>
+     * <li>To enable the credential for JWT-secured Authorization requests, set the <code>signed_request_object</code>property on the client. For more information, read <a href="https://auth0.com/docs/get-started/applications/configure-jar">Configure JWT-secured Authorization Requests (JAR)</a></li>
+     * </ul>
      */
     public ManagementApiHttpResponse<PostClientCredentialResponseContent> create(
             String clientId, PostClientCredentialRequestContent request, RequestOptions requestOptions) {
@@ -245,7 +269,7 @@ public class RawCredentialsClient {
 
     /**
      * Get the details of a client credential.
-     * <p><b>Important</b>: To enable credentials to be used for a client authentication method, set the <code>client_authentication_methods</code> property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the <code>signed_request_object</code> property on the client.</p>
+     * <p><strong>Important</strong>: To enable credentials to be used for a client authentication method, set the <code>client_authentication_methods</code> property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the <code>signed_request_object</code> property on the client.</p>
      */
     public ManagementApiHttpResponse<GetClientCredentialResponseContent> get(String clientId, String credentialId) {
         return get(clientId, credentialId, null);
@@ -253,7 +277,7 @@ public class RawCredentialsClient {
 
     /**
      * Get the details of a client credential.
-     * <p><b>Important</b>: To enable credentials to be used for a client authentication method, set the <code>client_authentication_methods</code> property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the <code>signed_request_object</code> property on the client.</p>
+     * <p><strong>Important</strong>: To enable credentials to be used for a client authentication method, set the <code>client_authentication_methods</code> property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the <code>signed_request_object</code> property on the client.</p>
      */
     public ManagementApiHttpResponse<GetClientCredentialResponseContent> get(
             String clientId, String credentialId, RequestOptions requestOptions) {

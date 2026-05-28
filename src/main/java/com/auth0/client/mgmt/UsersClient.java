@@ -21,6 +21,8 @@ import com.auth0.client.mgmt.types.UserResponseSchema;
 import com.auth0.client.mgmt.users.AuthenticationMethodsClient;
 import com.auth0.client.mgmt.users.AuthenticatorsClient;
 import com.auth0.client.mgmt.users.ConnectedAccountsClient;
+import com.auth0.client.mgmt.users.EffectivePermissionsClient;
+import com.auth0.client.mgmt.users.EffectiveRolesClient;
 import com.auth0.client.mgmt.users.EnrollmentsClient;
 import com.auth0.client.mgmt.users.FederatedConnectionsTokensetsClient;
 import com.auth0.client.mgmt.users.GroupsClient;
@@ -46,6 +48,10 @@ public class UsersClient {
     protected final Supplier<AuthenticatorsClient> authenticatorsClient;
 
     protected final Supplier<ConnectedAccountsClient> connectedAccountsClient;
+
+    protected final Supplier<EffectivePermissionsClient> effectivePermissionsClient;
+
+    protected final Supplier<EffectiveRolesClient> effectiveRolesClient;
 
     protected final Supplier<EnrollmentsClient> enrollmentsClient;
 
@@ -77,6 +83,8 @@ public class UsersClient {
         this.authenticationMethodsClient = Suppliers.memoize(() -> new AuthenticationMethodsClient(clientOptions));
         this.authenticatorsClient = Suppliers.memoize(() -> new AuthenticatorsClient(clientOptions));
         this.connectedAccountsClient = Suppliers.memoize(() -> new ConnectedAccountsClient(clientOptions));
+        this.effectivePermissionsClient = Suppliers.memoize(() -> new EffectivePermissionsClient(clientOptions));
+        this.effectiveRolesClient = Suppliers.memoize(() -> new EffectiveRolesClient(clientOptions));
         this.enrollmentsClient = Suppliers.memoize(() -> new EnrollmentsClient(clientOptions));
         this.federatedConnectionsTokensetsClient =
                 Suppliers.memoize(() -> new FederatedConnectionsTokensetsClient(clientOptions));
@@ -602,6 +610,14 @@ public class UsersClient {
 
     public ConnectedAccountsClient connectedAccounts() {
         return this.connectedAccountsClient.get();
+    }
+
+    public EffectivePermissionsClient effectivePermissions() {
+        return this.effectivePermissionsClient.get();
+    }
+
+    public EffectiveRolesClient effectiveRoles() {
+        return this.effectiveRolesClient.get();
     }
 
     public EnrollmentsClient enrollments() {
