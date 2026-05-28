@@ -63,14 +63,14 @@ public class RenderingClient {
     }
 
     /**
-     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+     * Learn more about <a href="https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens">configuring render settings</a> for advanced customization.
      */
     public BulkUpdateAculResponseContent bulkUpdate(BulkUpdateAculRequestContent request) {
         return this.rawClient.bulkUpdate(request).body();
     }
 
     /**
-     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+     * Learn more about <a href="https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens">configuring render settings</a> for advanced customization.
      */
     public BulkUpdateAculResponseContent bulkUpdate(
             BulkUpdateAculRequestContent request, RequestOptions requestOptions) {
@@ -93,14 +93,14 @@ public class RenderingClient {
     }
 
     /**
-     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+     * Learn more about <a href="https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens">configuring render settings</a> for advanced customization.
      */
     public UpdateAculResponseContent update(PromptGroupNameEnum prompt, ScreenGroupNameEnum screen) {
         return this.rawClient.update(prompt, screen).body();
     }
 
     /**
-     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+     * Learn more about <a href="https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens">configuring render settings</a> for advanced customization.
      */
     public UpdateAculResponseContent update(
             PromptGroupNameEnum prompt, ScreenGroupNameEnum screen, RequestOptions requestOptions) {
@@ -108,7 +108,7 @@ public class RenderingClient {
     }
 
     /**
-     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+     * Learn more about <a href="https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens">configuring render settings</a> for advanced customization.
      */
     public UpdateAculResponseContent update(
             PromptGroupNameEnum prompt, ScreenGroupNameEnum screen, UpdateAculRequestContent request) {
@@ -116,7 +116,7 @@ public class RenderingClient {
     }
 
     /**
-     * Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+     * Learn more about <a href="https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens">configuring render settings</a> for advanced customization.
      */
     public UpdateAculResponseContent update(
             PromptGroupNameEnum prompt,

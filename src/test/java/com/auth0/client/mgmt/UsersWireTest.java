@@ -52,7 +52,7 @@ public class UsersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"start\":1.1,\"limit\":1.1,\"length\":1.1,\"total\":1.1,\"users\":[{\"user_id\":\"user_id\",\"email\":\"email\",\"email_verified\":true,\"username\":\"username\",\"phone_number\":\"phone_number\",\"phone_verified\":true,\"created_at\":\"created_at\",\"updated_at\":\"updated_at\",\"identities\":[{}],\"app_metadata\":{\"key\":\"value\"},\"user_metadata\":{\"key\":\"value\"},\"picture\":\"picture\",\"name\":\"name\",\"nickname\":\"nickname\",\"multifactor\":[\"multifactor\"],\"last_ip\":\"last_ip\",\"last_login\":\"last_login\",\"logins_count\":1,\"blocked\":true,\"given_name\":\"given_name\",\"family_name\":\"family_name\"}]}"));
+                                "{\"start\":1.1,\"limit\":1.1,\"length\":1.1,\"total\":1.1,\"users\":[{\"user_id\":\"user_id\",\"email\":\"email\",\"email_verified\":true,\"username\":\"username\",\"phone_number\":\"phone_number\",\"phone_verified\":true,\"created_at\":\"created_at\",\"updated_at\":\"updated_at\",\"identities\":[{}],\"app_metadata\":{\"key\":\"value\"},\"user_metadata\":{\"key\":\"value\"},\"picture\":\"picture\",\"name\":\"name\",\"nickname\":\"nickname\",\"multifactor\":[\"multifactor\"],\"multifactor_last_modified\":\"multifactor_last_modified\",\"last_ip\":\"last_ip\",\"last_login\":\"last_login\",\"last_password_reset\":\"last_password_reset\",\"logins_count\":1,\"blocked\":true,\"given_name\":\"given_name\",\"family_name\":\"family_name\"}]}"));
         SyncPagingIterable<UserResponseSchema> response = client.users()
                 .list(ListUsersRequestParameters.builder()
                         .page(OptionalNullable.of(1))
@@ -82,7 +82,7 @@ public class UsersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"user_id\":\"user_id\",\"email\":\"email\",\"email_verified\":true,\"username\":\"username\",\"phone_number\":\"phone_number\",\"phone_verified\":true,\"created_at\":\"created_at\",\"updated_at\":\"updated_at\",\"identities\":[{\"connection\":\"connection\",\"user_id\":\"user_id\",\"provider\":\"ad\",\"isSocial\":true,\"access_token\":\"access_token\",\"access_token_secret\":\"access_token_secret\",\"refresh_token\":\"refresh_token\"}],\"app_metadata\":{\"key\":\"value\"},\"user_metadata\":{\"key\":\"value\"},\"picture\":\"picture\",\"name\":\"name\",\"nickname\":\"nickname\",\"multifactor\":[\"multifactor\"],\"last_ip\":\"last_ip\",\"last_login\":\"last_login\",\"logins_count\":1,\"blocked\":true,\"given_name\":\"given_name\",\"family_name\":\"family_name\"}"));
+                                "{\"user_id\":\"user_id\",\"email\":\"email\",\"email_verified\":true,\"username\":\"username\",\"phone_number\":\"phone_number\",\"phone_verified\":true,\"created_at\":\"created_at\",\"updated_at\":\"updated_at\",\"identities\":[{\"connection\":\"connection\",\"user_id\":\"user_id\",\"provider\":\"ad\",\"isSocial\":true,\"access_token\":\"access_token\",\"access_token_secret\":\"access_token_secret\",\"refresh_token\":\"refresh_token\"}],\"app_metadata\":{\"key\":\"value\"},\"user_metadata\":{\"key\":\"value\"},\"picture\":\"picture\",\"name\":\"name\",\"nickname\":\"nickname\",\"multifactor\":[\"multifactor\"],\"multifactor_last_modified\":\"multifactor_last_modified\",\"last_ip\":\"last_ip\",\"last_login\":\"last_login\",\"last_password_reset\":\"last_password_reset\",\"logins_count\":1,\"blocked\":true,\"given_name\":\"given_name\",\"family_name\":\"family_name\"}"));
         CreateUserResponseContent response = client.users()
                 .create(CreateUserRequestContent.builder()
                         .connection("connection")
@@ -156,8 +156,10 @@ public class UsersWireTest {
                 + "  \"multifactor\": [\n"
                 + "    \"multifactor\"\n"
                 + "  ],\n"
+                + "  \"multifactor_last_modified\": \"multifactor_last_modified\",\n"
                 + "  \"last_ip\": \"last_ip\",\n"
                 + "  \"last_login\": \"last_login\",\n"
+                + "  \"last_password_reset\": \"last_password_reset\",\n"
                 + "  \"logins_count\": 1,\n"
                 + "  \"blocked\": true,\n"
                 + "  \"given_name\": \"given_name\",\n"
@@ -200,7 +202,7 @@ public class UsersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "[{\"user_id\":\"user_id\",\"email\":\"email\",\"email_verified\":true,\"username\":\"username\",\"phone_number\":\"phone_number\",\"phone_verified\":true,\"created_at\":\"created_at\",\"updated_at\":\"updated_at\",\"identities\":[{}],\"app_metadata\":{\"key\":\"value\"},\"user_metadata\":{\"key\":\"value\"},\"picture\":\"picture\",\"name\":\"name\",\"nickname\":\"nickname\",\"multifactor\":[\"multifactor\"],\"last_ip\":\"last_ip\",\"last_login\":\"last_login\",\"logins_count\":1,\"blocked\":true,\"given_name\":\"given_name\",\"family_name\":\"family_name\"}]"));
+                                "[{\"user_id\":\"user_id\",\"email\":\"email\",\"email_verified\":true,\"username\":\"username\",\"phone_number\":\"phone_number\",\"phone_verified\":true,\"created_at\":\"created_at\",\"updated_at\":\"updated_at\",\"identities\":[{}],\"app_metadata\":{\"key\":\"value\"},\"user_metadata\":{\"key\":\"value\"},\"picture\":\"picture\",\"name\":\"name\",\"nickname\":\"nickname\",\"multifactor\":[\"multifactor\"],\"multifactor_last_modified\":\"multifactor_last_modified\",\"last_ip\":\"last_ip\",\"last_login\":\"last_login\",\"last_password_reset\":\"last_password_reset\",\"logins_count\":1,\"blocked\":true,\"given_name\":\"given_name\",\"family_name\":\"family_name\"}]"));
         List<UserResponseSchema> response = client.users()
                 .listUsersByEmail(ListUsersByEmailRequestParameters.builder()
                         .email("email")
@@ -240,8 +242,10 @@ public class UsersWireTest {
                 + "    \"multifactor\": [\n"
                 + "      \"multifactor\"\n"
                 + "    ],\n"
+                + "    \"multifactor_last_modified\": \"multifactor_last_modified\",\n"
                 + "    \"last_ip\": \"last_ip\",\n"
                 + "    \"last_login\": \"last_login\",\n"
+                + "    \"last_password_reset\": \"last_password_reset\",\n"
                 + "    \"logins_count\": 1,\n"
                 + "    \"blocked\": true,\n"
                 + "    \"given_name\": \"given_name\",\n"
@@ -285,7 +289,7 @@ public class UsersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"user_id\":\"user_id\",\"email\":\"email\",\"email_verified\":true,\"username\":\"username\",\"phone_number\":\"phone_number\",\"phone_verified\":true,\"created_at\":\"created_at\",\"updated_at\":\"updated_at\",\"identities\":[{\"connection\":\"connection\",\"user_id\":\"user_id\",\"provider\":\"ad\",\"isSocial\":true,\"access_token\":\"access_token\",\"access_token_secret\":\"access_token_secret\",\"refresh_token\":\"refresh_token\"}],\"app_metadata\":{\"key\":\"value\"},\"user_metadata\":{\"key\":\"value\"},\"picture\":\"picture\",\"name\":\"name\",\"nickname\":\"nickname\",\"multifactor\":[\"multifactor\"],\"last_ip\":\"last_ip\",\"last_login\":\"last_login\",\"logins_count\":1,\"blocked\":true,\"given_name\":\"given_name\",\"family_name\":\"family_name\"}"));
+                                "{\"user_id\":\"user_id\",\"email\":\"email\",\"email_verified\":true,\"username\":\"username\",\"phone_number\":\"phone_number\",\"phone_verified\":true,\"created_at\":\"created_at\",\"updated_at\":\"updated_at\",\"identities\":[{\"connection\":\"connection\",\"user_id\":\"user_id\",\"provider\":\"ad\",\"isSocial\":true,\"access_token\":\"access_token\",\"access_token_secret\":\"access_token_secret\",\"refresh_token\":\"refresh_token\"}],\"app_metadata\":{\"key\":\"value\"},\"user_metadata\":{\"key\":\"value\"},\"picture\":\"picture\",\"name\":\"name\",\"nickname\":\"nickname\",\"multifactor\":[\"multifactor\"],\"multifactor_last_modified\":\"multifactor_last_modified\",\"last_ip\":\"last_ip\",\"last_login\":\"last_login\",\"last_password_reset\":\"last_password_reset\",\"logins_count\":1,\"blocked\":true,\"given_name\":\"given_name\",\"family_name\":\"family_name\"}"));
         GetUserResponseContent response = client.users()
                 .get(
                         "id",
@@ -333,8 +337,10 @@ public class UsersWireTest {
                 + "  \"multifactor\": [\n"
                 + "    \"multifactor\"\n"
                 + "  ],\n"
+                + "  \"multifactor_last_modified\": \"multifactor_last_modified\",\n"
                 + "  \"last_ip\": \"last_ip\",\n"
                 + "  \"last_login\": \"last_login\",\n"
+                + "  \"last_password_reset\": \"last_password_reset\",\n"
                 + "  \"logins_count\": 1,\n"
                 + "  \"blocked\": true,\n"
                 + "  \"given_name\": \"given_name\",\n"
@@ -386,7 +392,7 @@ public class UsersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"user_id\":\"user_id\",\"email\":\"email\",\"email_verified\":true,\"username\":\"username\",\"phone_number\":\"phone_number\",\"phone_verified\":true,\"created_at\":\"created_at\",\"updated_at\":\"updated_at\",\"identities\":[{\"connection\":\"connection\",\"user_id\":\"user_id\",\"provider\":\"ad\",\"isSocial\":true,\"access_token\":\"access_token\",\"access_token_secret\":\"access_token_secret\",\"refresh_token\":\"refresh_token\"}],\"app_metadata\":{\"key\":\"value\"},\"user_metadata\":{\"key\":\"value\"},\"picture\":\"picture\",\"name\":\"name\",\"nickname\":\"nickname\",\"multifactor\":[\"multifactor\"],\"last_ip\":\"last_ip\",\"last_login\":\"last_login\",\"logins_count\":1,\"blocked\":true,\"given_name\":\"given_name\",\"family_name\":\"family_name\"}"));
+                                "{\"user_id\":\"user_id\",\"email\":\"email\",\"email_verified\":true,\"username\":\"username\",\"phone_number\":\"phone_number\",\"phone_verified\":true,\"created_at\":\"created_at\",\"updated_at\":\"updated_at\",\"identities\":[{\"connection\":\"connection\",\"user_id\":\"user_id\",\"provider\":\"ad\",\"isSocial\":true,\"access_token\":\"access_token\",\"access_token_secret\":\"access_token_secret\",\"refresh_token\":\"refresh_token\"}],\"app_metadata\":{\"key\":\"value\"},\"user_metadata\":{\"key\":\"value\"},\"picture\":\"picture\",\"name\":\"name\",\"nickname\":\"nickname\",\"multifactor\":[\"multifactor\"],\"multifactor_last_modified\":\"multifactor_last_modified\",\"last_ip\":\"last_ip\",\"last_login\":\"last_login\",\"last_password_reset\":\"last_password_reset\",\"logins_count\":1,\"blocked\":true,\"given_name\":\"given_name\",\"family_name\":\"family_name\"}"));
         UpdateUserResponseContent response =
                 client.users().update("id", UpdateUserRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -458,8 +464,10 @@ public class UsersWireTest {
                 + "  \"multifactor\": [\n"
                 + "    \"multifactor\"\n"
                 + "  ],\n"
+                + "  \"multifactor_last_modified\": \"multifactor_last_modified\",\n"
                 + "  \"last_ip\": \"last_ip\",\n"
                 + "  \"last_login\": \"last_login\",\n"
+                + "  \"last_password_reset\": \"last_password_reset\",\n"
                 + "  \"logins_count\": 1,\n"
                 + "  \"blocked\": true,\n"
                 + "  \"given_name\": \"given_name\",\n"

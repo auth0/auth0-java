@@ -43,7 +43,7 @@ public class RolesClient {
 
     /**
      * Retrieve detailed list of user roles created in your tenant.
-     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     * <p><strong>Note</strong>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public SyncPagingIterable<Role> list() {
         return this.rawClient.list().body();
@@ -51,7 +51,7 @@ public class RolesClient {
 
     /**
      * Retrieve detailed list of user roles created in your tenant.
-     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     * <p><strong>Note</strong>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public SyncPagingIterable<Role> list(RequestOptions requestOptions) {
         return this.rawClient.list(requestOptions).body();
@@ -59,7 +59,7 @@ public class RolesClient {
 
     /**
      * Retrieve detailed list of user roles created in your tenant.
-     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     * <p><strong>Note</strong>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public SyncPagingIterable<Role> list(ListRolesRequestParameters request) {
         return this.rawClient.list(request).body();
@@ -67,7 +67,7 @@ public class RolesClient {
 
     /**
      * Retrieve detailed list of user roles created in your tenant.
-     * <p><b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
+     * <p><strong>Note</strong>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public SyncPagingIterable<Role> list(ListRolesRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();
@@ -75,7 +75,7 @@ public class RolesClient {
 
     /**
      * Create a user role for <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
-     * <p><b>Note</b>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
+     * <p><strong>Note</strong>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
      */
     public CreateRoleResponseContent create(CreateRoleRequestContent request) {
         return this.rawClient.create(request).body();
@@ -83,7 +83,7 @@ public class RolesClient {
 
     /**
      * Create a user role for <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
-     * <p><b>Note</b>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
+     * <p><strong>Note</strong>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.</p>
      */
     public CreateRoleResponseContent create(CreateRoleRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).body();

@@ -48,7 +48,7 @@ public class AsyncRawRolesClient {
 
     /**
      * Retrieve detailed list of all user roles currently assigned to a user.
-     * <p><b>Note</b>: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles">Get user roles assigned to an Organization member</a>.</p>
+     * <p><strong>Note</strong>: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles">Get user roles assigned to an Organization member</a>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Role>>> list(String id) {
         return list(id, ListUserRolesRequestParameters.builder().build());
@@ -56,7 +56,7 @@ public class AsyncRawRolesClient {
 
     /**
      * Retrieve detailed list of all user roles currently assigned to a user.
-     * <p><b>Note</b>: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles">Get user roles assigned to an Organization member</a>.</p>
+     * <p><strong>Note</strong>: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles">Get user roles assigned to an Organization member</a>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Role>>> list(
             String id, RequestOptions requestOptions) {
@@ -65,7 +65,7 @@ public class AsyncRawRolesClient {
 
     /**
      * Retrieve detailed list of all user roles currently assigned to a user.
-     * <p><b>Note</b>: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles">Get user roles assigned to an Organization member</a>.</p>
+     * <p><strong>Note</strong>: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles">Get user roles assigned to an Organization member</a>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Role>>> list(
             String id, ListUserRolesRequestParameters request) {
@@ -74,7 +74,7 @@ public class AsyncRawRolesClient {
 
     /**
      * Retrieve detailed list of all user roles currently assigned to a user.
-     * <p><b>Note</b>: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles">Get user roles assigned to an Organization member</a>.</p>
+     * <p><strong>Note</strong>: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles">Get user roles assigned to an Organization member</a>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Role>>> list(
             String id, ListUserRolesRequestParameters request, RequestOptions requestOptions) {
@@ -184,7 +184,7 @@ public class AsyncRawRolesClient {
 
     /**
      * Assign one or more existing user roles to a user. For more information, review <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
-     * <p><b>Note</b>: New roles cannot be created through this action. Additionally, this action is used to assign roles to a user in the context of your whole tenant. To assign roles in the context of a specific Organization, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/post-organization-member-roles">Assign user roles to an Organization member</a>.</p>
+     * <p><strong>Note</strong>: New roles cannot be created through this action. Additionally, this action is used to assign roles to a user in the context of your whole tenant. To assign roles in the context of a specific Organization, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/post-organization-member-roles">Assign user roles to an Organization member</a>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> assign(String id, AssignUserRolesRequestContent request) {
         return assign(id, request, null);
@@ -192,7 +192,7 @@ public class AsyncRawRolesClient {
 
     /**
      * Assign one or more existing user roles to a user. For more information, review <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
-     * <p><b>Note</b>: New roles cannot be created through this action. Additionally, this action is used to assign roles to a user in the context of your whole tenant. To assign roles in the context of a specific Organization, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/post-organization-member-roles">Assign user roles to an Organization member</a>.</p>
+     * <p><strong>Note</strong>: New roles cannot be created through this action. Additionally, this action is used to assign roles to a user in the context of your whole tenant. To assign roles in the context of a specific Organization, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/post-organization-member-roles">Assign user roles to an Organization member</a>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> assign(
             String id, AssignUserRolesRequestContent request, RequestOptions requestOptions) {
@@ -279,7 +279,7 @@ public class AsyncRawRolesClient {
 
     /**
      * Remove one or more specified user roles assigned to a user.
-     * <p><b>Note</b>: This action removes a role from a user in the context of your whole tenant. If you want to unassign a role from a user in the context of a specific Organization, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/delete-organization-member-roles">Delete user roles from an Organization member</a>.</p>
+     * <p><strong>Note</strong>: This action removes a role from a user in the context of your whole tenant. If you want to unassign a role from a user in the context of a specific Organization, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/delete-organization-member-roles">Delete user roles from an Organization member</a>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(String id, DeleteUserRolesRequestContent request) {
         return delete(id, request, null);
@@ -287,7 +287,7 @@ public class AsyncRawRolesClient {
 
     /**
      * Remove one or more specified user roles assigned to a user.
-     * <p><b>Note</b>: This action removes a role from a user in the context of your whole tenant. If you want to unassign a role from a user in the context of a specific Organization, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/delete-organization-member-roles">Delete user roles from an Organization member</a>.</p>
+     * <p><strong>Note</strong>: This action removes a role from a user in the context of your whole tenant. If you want to unassign a role from a user in the context of a specific Organization, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/delete-organization-member-roles">Delete user roles from an Organization member</a>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<Void>> delete(
             String id, DeleteUserRolesRequestContent request, RequestOptions requestOptions) {

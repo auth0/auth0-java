@@ -58,18 +58,18 @@ public class AsyncConnectionsClient {
     /**
      * Retrieves detailed list of all <a href="https://auth0.com/docs/authenticate/identity-providers">connections</a> that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 connections.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public CompletableFuture<SyncPagingIterable<ConnectionForList>> list() {
         return this.rawClient.list().thenApply(response -> response.body());
@@ -78,18 +78,18 @@ public class AsyncConnectionsClient {
     /**
      * Retrieves detailed list of all <a href="https://auth0.com/docs/authenticate/identity-providers">connections</a> that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 connections.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public CompletableFuture<SyncPagingIterable<ConnectionForList>> list(RequestOptions requestOptions) {
         return this.rawClient.list(requestOptions).thenApply(response -> response.body());
@@ -98,18 +98,18 @@ public class AsyncConnectionsClient {
     /**
      * Retrieves detailed list of all <a href="https://auth0.com/docs/authenticate/identity-providers">connections</a> that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 connections.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public CompletableFuture<SyncPagingIterable<ConnectionForList>> list(ListConnectionsQueryParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
@@ -118,18 +118,18 @@ public class AsyncConnectionsClient {
     /**
      * Retrieves detailed list of all <a href="https://auth0.com/docs/authenticate/identity-providers">connections</a> that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
      * <p>This endpoint supports two types of pagination:</p>
-     * <p><ul>
+     * <ul>
      * <li>Offset pagination</li>
      * <li>Checkpoint pagination</li>
-     * </ul></p>
+     * </ul>
      * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 connections.</p>
-     * <p><h2>Checkpoint Pagination</h2></p>
+     * <p><strong>Checkpoint Pagination</strong></p>
      * <p>To search by checkpoint, use the following parameters:</p>
-     * <p><ul>
+     * <ul>
      * <li><code>from</code>: Optional id from which to start selection.</li>
      * <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-     * </ul></p>
-     * <p><b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public CompletableFuture<SyncPagingIterable<ConnectionForList>> list(
             ListConnectionsQueryParameters request, RequestOptions requestOptions) {
@@ -138,7 +138,7 @@ public class AsyncConnectionsClient {
 
     /**
      * Creates a new connection according to the JSON object received in <code>body</code>.
-     * <p><b>Note:</b> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.</p>
+     * <p><strong>Note:</strong> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.</p>
      */
     public CompletableFuture<CreateConnectionResponseContent> create(CreateConnectionRequestContent request) {
         return this.rawClient.create(request).thenApply(response -> response.body());
@@ -146,7 +146,7 @@ public class AsyncConnectionsClient {
 
     /**
      * Creates a new connection according to the JSON object received in <code>body</code>.
-     * <p><b>Note:</b> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.</p>
+     * <p><strong>Note:</strong> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.</p>
      */
     public CompletableFuture<CreateConnectionResponseContent> create(
             CreateConnectionRequestContent request, RequestOptions requestOptions) {
@@ -184,7 +184,7 @@ public class AsyncConnectionsClient {
 
     /**
      * Removes a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
-     * <p><b>Note:</b> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name.</p>
+     * <p><strong>Note:</strong> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name.</p>
      */
     public CompletableFuture<Void> delete(String id) {
         return this.rawClient.delete(id).thenApply(response -> response.body());
@@ -192,7 +192,7 @@ public class AsyncConnectionsClient {
 
     /**
      * Removes a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
-     * <p><b>Note:</b> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name.</p>
+     * <p><strong>Note:</strong> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name.</p>
      */
     public CompletableFuture<Void> delete(String id, RequestOptions requestOptions) {
         return this.rawClient.delete(id, requestOptions).thenApply(response -> response.body());
@@ -200,7 +200,7 @@ public class AsyncConnectionsClient {
 
     /**
      * Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
-     * <p><b>Note</b>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
+     * <p><strong>Note</strong>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
      */
     public CompletableFuture<UpdateConnectionResponseContent> update(String id) {
         return this.rawClient.update(id).thenApply(response -> response.body());
@@ -208,7 +208,7 @@ public class AsyncConnectionsClient {
 
     /**
      * Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
-     * <p><b>Note</b>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
+     * <p><strong>Note</strong>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
      */
     public CompletableFuture<UpdateConnectionResponseContent> update(String id, RequestOptions requestOptions) {
         return this.rawClient.update(id, requestOptions).thenApply(response -> response.body());
@@ -216,7 +216,7 @@ public class AsyncConnectionsClient {
 
     /**
      * Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
-     * <p><b>Note</b>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
+     * <p><strong>Note</strong>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
      */
     public CompletableFuture<UpdateConnectionResponseContent> update(
             String id, UpdateConnectionRequestContent request) {
@@ -225,7 +225,7 @@ public class AsyncConnectionsClient {
 
     /**
      * Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
-     * <p><b>Note</b>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
+     * <p><strong>Note</strong>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
      */
     public CompletableFuture<UpdateConnectionResponseContent> update(
             String id, UpdateConnectionRequestContent request, RequestOptions requestOptions) {

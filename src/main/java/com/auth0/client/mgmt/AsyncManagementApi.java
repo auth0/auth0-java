@@ -62,6 +62,8 @@ public class AsyncManagementApi {
 
     protected final Supplier<AsyncPromptsClient> promptsClient;
 
+    protected final Supplier<AsyncRateLimitPoliciesClient> rateLimitPoliciesClient;
+
     protected final Supplier<AsyncRefreshTokensClient> refreshTokensClient;
 
     protected final Supplier<AsyncResourceServersClient> resourceServersClient;
@@ -130,6 +132,7 @@ public class AsyncManagementApi {
         this.networkAclsClient = Suppliers.memoize(() -> new AsyncNetworkAclsClient(clientOptions));
         this.organizationsClient = Suppliers.memoize(() -> new AsyncOrganizationsClient(clientOptions));
         this.promptsClient = Suppliers.memoize(() -> new AsyncPromptsClient(clientOptions));
+        this.rateLimitPoliciesClient = Suppliers.memoize(() -> new AsyncRateLimitPoliciesClient(clientOptions));
         this.refreshTokensClient = Suppliers.memoize(() -> new AsyncRefreshTokensClient(clientOptions));
         this.resourceServersClient = Suppliers.memoize(() -> new AsyncResourceServersClient(clientOptions));
         this.rolesClient = Suppliers.memoize(() -> new AsyncRolesClient(clientOptions));
@@ -240,6 +243,10 @@ public class AsyncManagementApi {
 
     public AsyncPromptsClient prompts() {
         return this.promptsClient.get();
+    }
+
+    public AsyncRateLimitPoliciesClient rateLimitPolicies() {
+        return this.rateLimitPoliciesClient.get();
     }
 
     public AsyncRefreshTokensClient refreshTokens() {

@@ -65,7 +65,7 @@ public class AsyncUserAttributeProfilesClient {
     }
 
     /**
-     * Create a User Attribute Profile
+     * Create a User Attribute Profile.
      */
     public CompletableFuture<CreateUserAttributeProfileResponseContent> create(
             CreateUserAttributeProfileRequestContent request) {
@@ -73,7 +73,7 @@ public class AsyncUserAttributeProfilesClient {
     }
 
     /**
-     * Create a User Attribute Profile
+     * Create a User Attribute Profile.
      */
     public CompletableFuture<CreateUserAttributeProfileResponseContent> create(
             CreateUserAttributeProfileRequestContent request, RequestOptions requestOptions) {

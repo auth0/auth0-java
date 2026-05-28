@@ -31,7 +31,7 @@ public class AsyncClientsClient {
 
     /**
      * Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
-     * <p><b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
+     * <p><strong>Note</strong>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
      */
     public CompletableFuture<SyncPagingIterable<ConnectionEnabledClient>> get(String id) {
         return this.rawClient.get(id).thenApply(response -> response.body());
@@ -39,7 +39,7 @@ public class AsyncClientsClient {
 
     /**
      * Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
-     * <p><b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
+     * <p><strong>Note</strong>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
      */
     public CompletableFuture<SyncPagingIterable<ConnectionEnabledClient>> get(
             String id, RequestOptions requestOptions) {
@@ -48,7 +48,7 @@ public class AsyncClientsClient {
 
     /**
      * Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
-     * <p><b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
+     * <p><strong>Note</strong>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
      */
     public CompletableFuture<SyncPagingIterable<ConnectionEnabledClient>> get(
             String id, GetConnectionEnabledClientsRequestParameters request) {
@@ -57,7 +57,7 @@ public class AsyncClientsClient {
 
     /**
      * Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
-     * <p><b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
+     * <p><strong>Note</strong>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.</p>
      */
     public CompletableFuture<SyncPagingIterable<ConnectionEnabledClient>> get(
             String id, GetConnectionEnabledClientsRequestParameters request, RequestOptions requestOptions) {
