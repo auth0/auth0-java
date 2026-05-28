@@ -21,6 +21,8 @@ import com.auth0.client.mgmt.types.UserResponseSchema;
 import com.auth0.client.mgmt.users.AsyncAuthenticationMethodsClient;
 import com.auth0.client.mgmt.users.AsyncAuthenticatorsClient;
 import com.auth0.client.mgmt.users.AsyncConnectedAccountsClient;
+import com.auth0.client.mgmt.users.AsyncEffectivePermissionsClient;
+import com.auth0.client.mgmt.users.AsyncEffectiveRolesClient;
 import com.auth0.client.mgmt.users.AsyncEnrollmentsClient;
 import com.auth0.client.mgmt.users.AsyncFederatedConnectionsTokensetsClient;
 import com.auth0.client.mgmt.users.AsyncGroupsClient;
@@ -47,6 +49,10 @@ public class AsyncUsersClient {
     protected final Supplier<AsyncAuthenticatorsClient> authenticatorsClient;
 
     protected final Supplier<AsyncConnectedAccountsClient> connectedAccountsClient;
+
+    protected final Supplier<AsyncEffectivePermissionsClient> effectivePermissionsClient;
+
+    protected final Supplier<AsyncEffectiveRolesClient> effectiveRolesClient;
 
     protected final Supplier<AsyncEnrollmentsClient> enrollmentsClient;
 
@@ -78,6 +84,8 @@ public class AsyncUsersClient {
         this.authenticationMethodsClient = Suppliers.memoize(() -> new AsyncAuthenticationMethodsClient(clientOptions));
         this.authenticatorsClient = Suppliers.memoize(() -> new AsyncAuthenticatorsClient(clientOptions));
         this.connectedAccountsClient = Suppliers.memoize(() -> new AsyncConnectedAccountsClient(clientOptions));
+        this.effectivePermissionsClient = Suppliers.memoize(() -> new AsyncEffectivePermissionsClient(clientOptions));
+        this.effectiveRolesClient = Suppliers.memoize(() -> new AsyncEffectiveRolesClient(clientOptions));
         this.enrollmentsClient = Suppliers.memoize(() -> new AsyncEnrollmentsClient(clientOptions));
         this.federatedConnectionsTokensetsClient =
                 Suppliers.memoize(() -> new AsyncFederatedConnectionsTokensetsClient(clientOptions));
@@ -607,6 +615,14 @@ public class AsyncUsersClient {
 
     public AsyncConnectedAccountsClient connectedAccounts() {
         return this.connectedAccountsClient.get();
+    }
+
+    public AsyncEffectivePermissionsClient effectivePermissions() {
+        return this.effectivePermissionsClient.get();
+    }
+
+    public AsyncEffectiveRolesClient effectiveRoles() {
+        return this.effectiveRolesClient.get();
     }
 
     public AsyncEnrollmentsClient enrollments() {

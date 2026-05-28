@@ -7,6 +7,7 @@ import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
+import com.auth0.client.mgmt.roles.AsyncGroupsClient;
 import com.auth0.client.mgmt.roles.AsyncPermissionsClient;
 import com.auth0.client.mgmt.roles.AsyncUsersClient;
 import com.auth0.client.mgmt.types.CreateRoleRequestContent;
@@ -24,6 +25,8 @@ public class AsyncRolesClient {
 
     private final AsyncRawRolesClient rawClient;
 
+    protected final Supplier<AsyncGroupsClient> groupsClient;
+
     protected final Supplier<AsyncPermissionsClient> permissionsClient;
 
     protected final Supplier<AsyncUsersClient> usersClient;
@@ -31,6 +34,7 @@ public class AsyncRolesClient {
     public AsyncRolesClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.rawClient = new AsyncRawRolesClient(clientOptions);
+        this.groupsClient = Suppliers.memoize(() -> new AsyncGroupsClient(clientOptions));
         this.permissionsClient = Suppliers.memoize(() -> new AsyncPermissionsClient(clientOptions));
         this.usersClient = Suppliers.memoize(() -> new AsyncUsersClient(clientOptions));
     }
@@ -147,6 +151,10 @@ public class AsyncRolesClient {
     public CompletableFuture<UpdateRoleResponseContent> update(
             String id, UpdateRoleRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.update(id, request, requestOptions).thenApply(response -> response.body());
+    }
+
+    public AsyncGroupsClient groups() {
+        return this.groupsClient.get();
     }
 
     public AsyncPermissionsClient permissions() {

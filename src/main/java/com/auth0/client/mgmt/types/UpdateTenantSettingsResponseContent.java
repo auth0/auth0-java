@@ -98,6 +98,8 @@ public final class UpdateTenantSettingsResponseContent {
 
     private final Optional<TenantSettingsDynamicClientRegistrationSecurityMode> dynamicClientRegistrationSecurityMode;
 
+    private final Optional<TenantSettingsCountryCodesResponse> countryCodes;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateTenantSettingsResponseContent(
@@ -138,6 +140,7 @@ public final class UpdateTenantSettingsResponseContent {
             Optional<Boolean> phoneConsolidatedExperience,
             Optional<Boolean> enableAiGuide,
             Optional<TenantSettingsDynamicClientRegistrationSecurityMode> dynamicClientRegistrationSecurityMode,
+            Optional<TenantSettingsCountryCodesResponse> countryCodes,
             Map<String, Object> additionalProperties) {
         this.changePassword = changePassword;
         this.guardianMfaPage = guardianMfaPage;
@@ -176,6 +179,7 @@ public final class UpdateTenantSettingsResponseContent {
         this.phoneConsolidatedExperience = phoneConsolidatedExperience;
         this.enableAiGuide = enableAiGuide;
         this.dynamicClientRegistrationSecurityMode = dynamicClientRegistrationSecurityMode;
+        this.countryCodes = countryCodes;
         this.additionalProperties = additionalProperties;
     }
 
@@ -485,6 +489,11 @@ public final class UpdateTenantSettingsResponseContent {
         return dynamicClientRegistrationSecurityMode;
     }
 
+    @JsonProperty("country_codes")
+    public Optional<TenantSettingsCountryCodesResponse> getCountryCodes() {
+        return countryCodes;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("change_password")
     private OptionalNullable<TenantSettingsPasswordPage> _getChangePassword() {
@@ -601,7 +610,8 @@ public final class UpdateTenantSettingsResponseContent {
                 && clientIdMetadataDocumentSupported.equals(other.clientIdMetadataDocumentSupported)
                 && phoneConsolidatedExperience.equals(other.phoneConsolidatedExperience)
                 && enableAiGuide.equals(other.enableAiGuide)
-                && dynamicClientRegistrationSecurityMode.equals(other.dynamicClientRegistrationSecurityMode);
+                && dynamicClientRegistrationSecurityMode.equals(other.dynamicClientRegistrationSecurityMode)
+                && countryCodes.equals(other.countryCodes);
     }
 
     @java.lang.Override
@@ -643,7 +653,8 @@ public final class UpdateTenantSettingsResponseContent {
                 this.clientIdMetadataDocumentSupported,
                 this.phoneConsolidatedExperience,
                 this.enableAiGuide,
-                this.dynamicClientRegistrationSecurityMode);
+                this.dynamicClientRegistrationSecurityMode,
+                this.countryCodes);
     }
 
     @java.lang.Override
@@ -732,6 +743,8 @@ public final class UpdateTenantSettingsResponseContent {
         private Optional<TenantSettingsDynamicClientRegistrationSecurityMode> dynamicClientRegistrationSecurityMode =
                 Optional.empty();
 
+        private Optional<TenantSettingsCountryCodesResponse> countryCodes = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -775,6 +788,7 @@ public final class UpdateTenantSettingsResponseContent {
             phoneConsolidatedExperience(other.getPhoneConsolidatedExperience());
             enableAiGuide(other.getEnableAiGuide());
             dynamicClientRegistrationSecurityMode(other.getDynamicClientRegistrationSecurityMode());
+            countryCodes(other.getCountryCodes());
             return this;
         }
 
@@ -1501,6 +1515,17 @@ public final class UpdateTenantSettingsResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "country_codes", nulls = Nulls.SKIP)
+        public Builder countryCodes(Optional<TenantSettingsCountryCodesResponse> countryCodes) {
+            this.countryCodes = countryCodes;
+            return this;
+        }
+
+        public Builder countryCodes(TenantSettingsCountryCodesResponse countryCodes) {
+            this.countryCodes = Optional.ofNullable(countryCodes);
+            return this;
+        }
+
         public UpdateTenantSettingsResponseContent build() {
             return new UpdateTenantSettingsResponseContent(
                     changePassword,
@@ -1540,6 +1565,7 @@ public final class UpdateTenantSettingsResponseContent {
                     phoneConsolidatedExperience,
                     enableAiGuide,
                     dynamicClientRegistrationSecurityMode,
+                    countryCodes,
                     additionalProperties);
         }
 

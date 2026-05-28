@@ -98,7 +98,7 @@ public class AsyncEnabledConnectionsClient {
 
     /**
      * Disable a specific connection for an Organization. Once disabled, Organization members can no longer use that connection to authenticate.
-     * <p><b>Note</b>: This action does not remove the connection from your tenant.</p>
+     * <p><strong>Note</strong>: This action does not remove the connection from your tenant.</p>
      */
     public CompletableFuture<Void> delete(String id, String connectionId) {
         return this.rawClient.delete(id, connectionId).thenApply(response -> response.body());
@@ -106,7 +106,7 @@ public class AsyncEnabledConnectionsClient {
 
     /**
      * Disable a specific connection for an Organization. Once disabled, Organization members can no longer use that connection to authenticate.
-     * <p><b>Note</b>: This action does not remove the connection from your tenant.</p>
+     * <p><strong>Note</strong>: This action does not remove the connection from your tenant.</p>
      */
     public CompletableFuture<Void> delete(String id, String connectionId, RequestOptions requestOptions) {
         return this.rawClient.delete(id, connectionId, requestOptions).thenApply(response -> response.body());
