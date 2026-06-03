@@ -190,6 +190,27 @@ while (users.hasNext()) {
 }
 ```
 
+### Accessing pagination metadata
+
+List responses are wrapped in a metadata envelope (`total`, `start`, `limit`, `length`, etc.).
+The items come from the iterable as usual; the envelope is read via `getResponse()`, typed to
+the endpoint's response class (for users, `ListUsersOffsetPaginatedResponseContent`):
+
+```java
+SyncPagingIterable<UserResponseSchema> page = client.users().list(
+        ListUsersRequestParameters.builder().perPage(50).build()
+);
+
+Optional<ListUsersOffsetPaginatedResponseContent> listUsersOffsetPaginatedResponseContentOptional = resp.getResponse();
+listUsersOffsetPaginatedResponseContentOptional.ifPresent(m -> {
+        m.getTotal().ifPresent(total   -> System.out.println("total: "  + total));
+        m.getStart().ifPresent(start   -> System.out.println("start: "  + start));
+        m.getLimit().ifPresent(limit   -> System.out.println("limit: "  + limit));
+        m.getLength().ifPresent(length -> System.out.println("length: " + length));
+});
+
+```
+
 ### Accessing raw HTTP responses
 
 Use `withRawResponse()` to access HTTP response metadata:
