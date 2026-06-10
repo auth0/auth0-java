@@ -6,16 +6,14 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class BrandingLoginDisplayEnum {
-    public static final BrandingLoginDisplayEnum SEPARATE = new BrandingLoginDisplayEnum(Value.SEPARATE, "separate");
-
-    public static final BrandingLoginDisplayEnum UNIFIED = new BrandingLoginDisplayEnum(Value.UNIFIED, "unified");
+public final class XssProtectionMode {
+    public static final XssProtectionMode BLOCK = new XssProtectionMode(Value.BLOCK, "block");
 
     private final Value value;
 
     private final String string;
 
-    BrandingLoginDisplayEnum(Value value, String string) {
+    XssProtectionMode(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -33,8 +31,7 @@ public final class BrandingLoginDisplayEnum {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof BrandingLoginDisplayEnum
-                        && this.string.equals(((BrandingLoginDisplayEnum) other).string));
+                || (other instanceof XssProtectionMode && this.string.equals(((XssProtectionMode) other).string));
     }
 
     @java.lang.Override
@@ -44,10 +41,8 @@ public final class BrandingLoginDisplayEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case SEPARATE:
-                return visitor.visitSeparate();
-            case UNIFIED:
-                return visitor.visitUnified();
+            case BLOCK:
+                return visitor.visitBlock();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -55,29 +50,23 @@ public final class BrandingLoginDisplayEnum {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static BrandingLoginDisplayEnum valueOf(String value) {
+    public static XssProtectionMode valueOf(String value) {
         switch (value) {
-            case "separate":
-                return SEPARATE;
-            case "unified":
-                return UNIFIED;
+            case "block":
+                return BLOCK;
             default:
-                return new BrandingLoginDisplayEnum(Value.UNKNOWN, value);
+                return new XssProtectionMode(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        UNIFIED,
-
-        SEPARATE,
+        BLOCK,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitUnified();
-
-        T visitSeparate();
+        T visitBlock();
 
         T visitUnknown(String unknownType);
     }

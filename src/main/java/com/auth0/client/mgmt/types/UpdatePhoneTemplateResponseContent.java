@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdatePhoneTemplateResponseContent.Builder.class)
 public final class UpdatePhoneTemplateResponseContent {
-    private final String id;
+    private final Optional<String> id;
 
     private final Optional<String> channel;
 
@@ -38,7 +38,7 @@ public final class UpdatePhoneTemplateResponseContent {
     private final Map<String, Object> additionalProperties;
 
     private UpdatePhoneTemplateResponseContent(
-            String id,
+            Optional<String> id,
             Optional<String> channel,
             Optional<Boolean> customizable,
             Optional<String> tenant,
@@ -57,7 +57,7 @@ public final class UpdatePhoneTemplateResponseContent {
     }
 
     @JsonProperty("id")
-    public String getId() {
+    public Optional<String> getId() {
         return id;
     }
 
@@ -127,18 +127,14 @@ public final class UpdatePhoneTemplateResponseContent {
         return ObjectMappers.stringify(this);
     }
 
-    public static IdStage builder() {
+    public static ContentStage builder() {
         return new Builder();
-    }
-
-    public interface IdStage {
-        ContentStage id(@NotNull String id);
-
-        Builder from(UpdatePhoneTemplateResponseContent other);
     }
 
     public interface ContentStage {
         TypeStage content(@NotNull PhoneTemplateContent content);
+
+        Builder from(UpdatePhoneTemplateResponseContent other);
     }
 
     public interface TypeStage {
@@ -159,6 +155,10 @@ public final class UpdatePhoneTemplateResponseContent {
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
+        _FinalStage id(Optional<String> id);
+
+        _FinalStage id(String id);
+
         _FinalStage channel(Optional<String> channel);
 
         _FinalStage channel(String channel);
@@ -173,9 +173,7 @@ public final class UpdatePhoneTemplateResponseContent {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements IdStage, ContentStage, TypeStage, DisabledStage, _FinalStage {
-        private String id;
-
+    public static final class Builder implements ContentStage, TypeStage, DisabledStage, _FinalStage {
         private PhoneTemplateContent content;
 
         private PhoneTemplateNotificationTypeEnum type;
@@ -187,6 +185,8 @@ public final class UpdatePhoneTemplateResponseContent {
         private Optional<Boolean> customizable = Optional.empty();
 
         private Optional<String> channel = Optional.empty();
+
+        private Optional<String> id = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -202,13 +202,6 @@ public final class UpdatePhoneTemplateResponseContent {
             content(other.getContent());
             type(other.getType());
             disabled(other.getDisabled());
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter("id")
-        public ContentStage id(@NotNull String id) {
-            this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
@@ -274,6 +267,19 @@ public final class UpdatePhoneTemplateResponseContent {
         @JsonSetter(value = "channel", nulls = Nulls.SKIP)
         public _FinalStage channel(Optional<String> channel) {
             this.channel = channel;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage id(String id) {
+            this.id = Optional.ofNullable(id);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "id", nulls = Nulls.SKIP)
+        public _FinalStage id(Optional<String> id) {
+            this.id = id;
             return this;
         }
 

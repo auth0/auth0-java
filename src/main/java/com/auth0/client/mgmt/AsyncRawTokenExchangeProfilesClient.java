@@ -572,6 +572,11 @@ public class AsyncRawTokenExchangeProfilesClient {
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
                                         response));
                                 return;
+                            case 409:
+                                future.completeExceptionally(new ConflictError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
                             case 429:
                                 future.completeExceptionally(new TooManyRequestsError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
