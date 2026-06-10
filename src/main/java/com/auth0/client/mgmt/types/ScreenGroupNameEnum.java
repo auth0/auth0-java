@@ -69,6 +69,8 @@ public final class ScreenGroupNameEnum {
     public static final ScreenGroupNameEnum MFA_VOICE_CHALLENGE =
             new ScreenGroupNameEnum(Value.MFA_VOICE_CHALLENGE, "mfa-voice-challenge");
 
+    public static final ScreenGroupNameEnum CONFIRMATION = new ScreenGroupNameEnum(Value.CONFIRMATION, "confirmation");
+
     public static final ScreenGroupNameEnum MFA_PUSH_ENROLLMENT_CODE =
             new ScreenGroupNameEnum(Value.MFA_PUSH_ENROLLMENT_CODE, "mfa-push-enrollment-code");
 
@@ -341,6 +343,8 @@ public final class ScreenGroupNameEnum {
                 return visitor.visitPasskeyEnrollmentLocal();
             case MFA_VOICE_CHALLENGE:
                 return visitor.visitMfaVoiceChallenge();
+            case CONFIRMATION:
+                return visitor.visitConfirmation();
             case MFA_PUSH_ENROLLMENT_CODE:
                 return visitor.visitMfaPushEnrollmentCode();
             case MFA_WEBAUTHN_ROAMING_CHALLENGE:
@@ -528,6 +532,8 @@ public final class ScreenGroupNameEnum {
                 return PASSKEY_ENROLLMENT_LOCAL;
             case "mfa-voice-challenge":
                 return MFA_VOICE_CHALLENGE;
+            case "confirmation":
+                return CONFIRMATION;
             case "mfa-push-enrollment-code":
                 return MFA_PUSH_ENROLLMENT_CODE;
             case "mfa-webauthn-roaming-challenge":
@@ -844,6 +850,8 @@ public final class ScreenGroupNameEnum {
 
         ASYNC_APPROVAL_DENIED,
 
+        CONFIRMATION,
+
         ASYNC_APPROVAL_WRONG_USER,
 
         UNKNOWN
@@ -1025,6 +1033,8 @@ public final class ScreenGroupNameEnum {
         T visitAsyncApprovalAccepted();
 
         T visitAsyncApprovalDenied();
+
+        T visitConfirmation();
 
         T visitAsyncApprovalWrongUser();
 

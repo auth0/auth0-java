@@ -47,7 +47,7 @@ public final class RateLimitPolicyConfigurationAction {
     }
 
     /**
-     * @return The maximum number of requests allowed in a single refresh window.
+     * @return The maximum number of requests allowed per second.
      */
     @JsonProperty("limit")
     public int getLimit() {
@@ -103,7 +103,7 @@ public final class RateLimitPolicyConfigurationAction {
 
     public interface LimitStage {
         /**
-         * <p>The maximum number of requests allowed in a single refresh window.</p>
+         * <p>The maximum number of requests allowed per second.</p>
          */
         RedirectUriStage limit(int limit);
     }
@@ -157,8 +157,8 @@ public final class RateLimitPolicyConfigurationAction {
         }
 
         /**
-         * <p>The maximum number of requests allowed in a single refresh window.</p>
-         * <p>The maximum number of requests allowed in a single refresh window.</p>
+         * <p>The maximum number of requests allowed per second.</p>
+         * <p>The maximum number of requests allowed per second.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -53,6 +53,8 @@ public final class PromptGroupNameEnum {
     public static final PromptGroupNameEnum ORGANIZATIONS =
             new PromptGroupNameEnum(Value.ORGANIZATIONS, "organizations");
 
+    public static final PromptGroupNameEnum CONFIRMATION = new PromptGroupNameEnum(Value.CONFIRMATION, "confirmation");
+
     public static final PromptGroupNameEnum STATUS = new PromptGroupNameEnum(Value.STATUS, "status");
 
     public static final PromptGroupNameEnum EMAIL_OTP_CHALLENGE =
@@ -164,6 +166,8 @@ public final class PromptGroupNameEnum {
                 return visitor.visitLoginPassword();
             case ORGANIZATIONS:
                 return visitor.visitOrganizations();
+            case CONFIRMATION:
+                return visitor.visitConfirmation();
             case STATUS:
                 return visitor.visitStatus();
             case EMAIL_OTP_CHALLENGE:
@@ -245,6 +249,8 @@ public final class PromptGroupNameEnum {
                 return LOGIN_PASSWORD;
             case "organizations":
                 return ORGANIZATIONS;
+            case "confirmation":
+                return CONFIRMATION;
             case "status":
                 return STATUS;
             case "email-otp-challenge":
@@ -357,6 +363,8 @@ public final class PromptGroupNameEnum {
 
         ASYNC_APPROVAL_FLOW,
 
+        CONFIRMATION,
+
         UNKNOWN
     }
 
@@ -432,6 +440,8 @@ public final class PromptGroupNameEnum {
         T visitBruteForceProtection();
 
         T visitAsyncApprovalFlow();
+
+        T visitConfirmation();
 
         T visitUnknown(String unknownType);
     }

@@ -24,6 +24,8 @@ public final class AculContextEnum {
 
     public static final AculContextEnum SCREEN_TEXTS = new AculContextEnum(Value.SCREEN_TEXTS, "screen.texts");
 
+    public static final AculContextEnum EXPERIMENT = new AculContextEnum(Value.EXPERIMENT, "experiment");
+
     public static final AculContextEnum BRANDING_SETTINGS =
             new AculContextEnum(Value.BRANDING_SETTINGS, "branding.settings");
 
@@ -98,6 +100,8 @@ public final class AculContextEnum {
                 return visitor.visitClientDescription();
             case SCREEN_TEXTS:
                 return visitor.visitScreenTexts();
+            case EXPERIMENT:
+                return visitor.visitExperiment();
             case BRANDING_SETTINGS:
                 return visitor.visitBrandingSettings();
             case TRANSACTION_CUSTOM_DOMAIN_DOMAIN:
@@ -141,6 +145,8 @@ public final class AculContextEnum {
                 return CLIENT_DESCRIPTION;
             case "screen.texts":
                 return SCREEN_TEXTS;
+            case "experiment":
+                return EXPERIMENT;
             case "branding.settings":
                 return BRANDING_SETTINGS;
             case "transaction.custom_domain.domain":
@@ -203,6 +209,8 @@ public final class AculContextEnum {
 
         TRANSACTION_CUSTOM_DOMAIN_DOMAIN,
 
+        EXPERIMENT,
+
         UNKNOWN
     }
 
@@ -240,6 +248,8 @@ public final class AculContextEnum {
         T visitUserOrganizations();
 
         T visitTransactionCustomDomainDomain();
+
+        T visitExperiment();
 
         T visitUnknown(String unknownType);
     }

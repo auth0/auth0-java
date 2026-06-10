@@ -61,7 +61,7 @@ public final class RevokeRefreshTokensRequestContent {
     }
 
     /**
-     * @return Revoke all refresh tokens for this client.
+     * @return Revoke refresh tokens for this client. Must be paired with <code>user_id</code>; optionally narrowed further with <code>audience</code>.
      */
     @JsonProperty("client_id")
     public Optional<String> getClientId() {
@@ -160,7 +160,7 @@ public final class RevokeRefreshTokensRequestContent {
         }
 
         /**
-         * <p>Revoke all refresh tokens for this client.</p>
+         * <p>Revoke refresh tokens for this client. Must be paired with <code>user_id</code>; optionally narrowed further with <code>audience</code>.</p>
          */
         @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
         public Builder clientId(Optional<String> clientId) {

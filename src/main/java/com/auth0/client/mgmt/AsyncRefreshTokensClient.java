@@ -48,28 +48,28 @@ public class AsyncRefreshTokensClient {
     }
 
     /**
-     * Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+     * Revoke refresh tokens in bulk by ID list, user, user+client, or user+client+audience.
      */
     public CompletableFuture<Void> revoke() {
         return this.rawClient.revoke().thenApply(response -> response.body());
     }
 
     /**
-     * Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+     * Revoke refresh tokens in bulk by ID list, user, user+client, or user+client+audience.
      */
     public CompletableFuture<Void> revoke(RequestOptions requestOptions) {
         return this.rawClient.revoke(requestOptions).thenApply(response -> response.body());
     }
 
     /**
-     * Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+     * Revoke refresh tokens in bulk by ID list, user, user+client, or user+client+audience.
      */
     public CompletableFuture<Void> revoke(RevokeRefreshTokensRequestContent request) {
         return this.rawClient.revoke(request).thenApply(response -> response.body());
     }
 
     /**
-     * Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+     * Revoke refresh tokens in bulk by ID list, user, user+client, or user+client+audience.
      */
     public CompletableFuture<Void> revoke(RevokeRefreshTokensRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.revoke(request, requestOptions).thenApply(response -> response.body());

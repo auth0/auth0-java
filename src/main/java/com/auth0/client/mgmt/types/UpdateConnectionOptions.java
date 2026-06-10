@@ -99,6 +99,8 @@ public final class UpdateConnectionOptions {
 
     private final Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat;
 
+    private final Optional<Boolean> idTokenSessionExpirySupported;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateConnectionOptions(
@@ -139,6 +141,7 @@ public final class UpdateConnectionOptions {
             OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod,
             OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg,
             Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
+            Optional<Boolean> idTokenSessionExpirySupported,
             Map<String, Object> additionalProperties) {
         this.validation = validation;
         this.nonPersistentAttrs = nonPersistentAttrs;
@@ -177,6 +180,7 @@ public final class UpdateConnectionOptions {
         this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
         this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
         this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
+        this.idTokenSessionExpirySupported = idTokenSessionExpirySupported;
         this.additionalProperties = additionalProperties;
     }
 
@@ -447,6 +451,11 @@ public final class UpdateConnectionOptions {
         return tokenEndpointJwtcaAudFormat;
     }
 
+    @JsonProperty("id_token_session_expiry_supported")
+    public Optional<Boolean> getIdTokenSessionExpirySupported() {
+        return idTokenSessionExpirySupported;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("validation")
     private OptionalNullable<ConnectionValidationOptions> _getValidation() {
@@ -592,7 +601,8 @@ public final class UpdateConnectionOptions {
                 && dpopSigningAlg.equals(other.dpopSigningAlg)
                 && tokenEndpointAuthMethod.equals(other.tokenEndpointAuthMethod)
                 && tokenEndpointAuthSigningAlg.equals(other.tokenEndpointAuthSigningAlg)
-                && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat);
+                && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat)
+                && idTokenSessionExpirySupported.equals(other.idTokenSessionExpirySupported);
     }
 
     @java.lang.Override
@@ -634,7 +644,8 @@ public final class UpdateConnectionOptions {
                 this.dpopSigningAlg,
                 this.tokenEndpointAuthMethod,
                 this.tokenEndpointAuthSigningAlg,
-                this.tokenEndpointJwtcaAudFormat);
+                this.tokenEndpointJwtcaAudFormat,
+                this.idTokenSessionExpirySupported);
     }
 
     @java.lang.Override
@@ -729,6 +740,8 @@ public final class UpdateConnectionOptions {
 
         private Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat = Optional.empty();
 
+        private Optional<Boolean> idTokenSessionExpirySupported = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -772,6 +785,7 @@ public final class UpdateConnectionOptions {
             tokenEndpointAuthMethod(other.getTokenEndpointAuthMethod());
             tokenEndpointAuthSigningAlg(other.getTokenEndpointAuthSigningAlg());
             tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
+            idTokenSessionExpirySupported(other.getIdTokenSessionExpirySupported());
             return this;
         }
 
@@ -1565,6 +1579,17 @@ public final class UpdateConnectionOptions {
             return this;
         }
 
+        @JsonSetter(value = "id_token_session_expiry_supported", nulls = Nulls.SKIP)
+        public Builder idTokenSessionExpirySupported(Optional<Boolean> idTokenSessionExpirySupported) {
+            this.idTokenSessionExpirySupported = idTokenSessionExpirySupported;
+            return this;
+        }
+
+        public Builder idTokenSessionExpirySupported(Boolean idTokenSessionExpirySupported) {
+            this.idTokenSessionExpirySupported = Optional.ofNullable(idTokenSessionExpirySupported);
+            return this;
+        }
+
         public UpdateConnectionOptions build() {
             return new UpdateConnectionOptions(
                     validation,
@@ -1604,6 +1629,7 @@ public final class UpdateConnectionOptions {
                     tokenEndpointAuthMethod,
                     tokenEndpointAuthSigningAlg,
                     tokenEndpointJwtcaAudFormat,
+                    idTokenSessionExpirySupported,
                     additionalProperties);
         }
 

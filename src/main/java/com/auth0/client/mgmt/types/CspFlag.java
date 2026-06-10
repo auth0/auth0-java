@@ -6,18 +6,18 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class UpdateBrandingLoginDisplayEnum {
-    public static final UpdateBrandingLoginDisplayEnum SEPARATE =
-            new UpdateBrandingLoginDisplayEnum(Value.SEPARATE, "separate");
+public final class CspFlag {
+    public static final CspFlag BLOCK_ALL_MIXED_CONTENT =
+            new CspFlag(Value.BLOCK_ALL_MIXED_CONTENT, "block-all-mixed-content");
 
-    public static final UpdateBrandingLoginDisplayEnum UNIFIED =
-            new UpdateBrandingLoginDisplayEnum(Value.UNIFIED, "unified");
+    public static final CspFlag UPGRADE_INSECURE_REQUESTS =
+            new CspFlag(Value.UPGRADE_INSECURE_REQUESTS, "upgrade-insecure-requests");
 
     private final Value value;
 
     private final String string;
 
-    UpdateBrandingLoginDisplayEnum(Value value, String string) {
+    CspFlag(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -34,9 +34,7 @@ public final class UpdateBrandingLoginDisplayEnum {
 
     @java.lang.Override
     public boolean equals(Object other) {
-        return (this == other)
-                || (other instanceof UpdateBrandingLoginDisplayEnum
-                        && this.string.equals(((UpdateBrandingLoginDisplayEnum) other).string));
+        return (this == other) || (other instanceof CspFlag && this.string.equals(((CspFlag) other).string));
     }
 
     @java.lang.Override
@@ -46,10 +44,10 @@ public final class UpdateBrandingLoginDisplayEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case SEPARATE:
-                return visitor.visitSeparate();
-            case UNIFIED:
-                return visitor.visitUnified();
+            case BLOCK_ALL_MIXED_CONTENT:
+                return visitor.visitBlockAllMixedContent();
+            case UPGRADE_INSECURE_REQUESTS:
+                return visitor.visitUpgradeInsecureRequests();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -57,29 +55,29 @@ public final class UpdateBrandingLoginDisplayEnum {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static UpdateBrandingLoginDisplayEnum valueOf(String value) {
+    public static CspFlag valueOf(String value) {
         switch (value) {
-            case "separate":
-                return SEPARATE;
-            case "unified":
-                return UNIFIED;
+            case "block-all-mixed-content":
+                return BLOCK_ALL_MIXED_CONTENT;
+            case "upgrade-insecure-requests":
+                return UPGRADE_INSECURE_REQUESTS;
             default:
-                return new UpdateBrandingLoginDisplayEnum(Value.UNKNOWN, value);
+                return new CspFlag(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        UNIFIED,
+        UPGRADE_INSECURE_REQUESTS,
 
-        SEPARATE,
+        BLOCK_ALL_MIXED_CONTENT,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitUnified();
+        T visitUpgradeInsecureRequests();
 
-        T visitSeparate();
+        T visitBlockAllMixedContent();
 
         T visitUnknown(String unknownType);
     }
