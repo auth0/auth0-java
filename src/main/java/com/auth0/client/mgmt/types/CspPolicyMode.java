@@ -6,18 +6,16 @@ package com.auth0.client.mgmt.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class BrandingPhoneFormattingEnum {
-    public static final BrandingPhoneFormattingEnum REGIONAL =
-            new BrandingPhoneFormattingEnum(Value.REGIONAL, "regional");
+public final class CspPolicyMode {
+    public static final CspPolicyMode ENFORCING = new CspPolicyMode(Value.ENFORCING, "enforcing");
 
-    public static final BrandingPhoneFormattingEnum INTERNATIONAL =
-            new BrandingPhoneFormattingEnum(Value.INTERNATIONAL, "international");
+    public static final CspPolicyMode REPORTING = new CspPolicyMode(Value.REPORTING, "reporting");
 
     private final Value value;
 
     private final String string;
 
-    BrandingPhoneFormattingEnum(Value value, String string) {
+    CspPolicyMode(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -35,8 +33,7 @@ public final class BrandingPhoneFormattingEnum {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof BrandingPhoneFormattingEnum
-                        && this.string.equals(((BrandingPhoneFormattingEnum) other).string));
+                || (other instanceof CspPolicyMode && this.string.equals(((CspPolicyMode) other).string));
     }
 
     @java.lang.Override
@@ -46,10 +43,10 @@ public final class BrandingPhoneFormattingEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case REGIONAL:
-                return visitor.visitRegional();
-            case INTERNATIONAL:
-                return visitor.visitInternational();
+            case ENFORCING:
+                return visitor.visitEnforcing();
+            case REPORTING:
+                return visitor.visitReporting();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -57,29 +54,29 @@ public final class BrandingPhoneFormattingEnum {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static BrandingPhoneFormattingEnum valueOf(String value) {
+    public static CspPolicyMode valueOf(String value) {
         switch (value) {
-            case "regional":
-                return REGIONAL;
-            case "international":
-                return INTERNATIONAL;
+            case "enforcing":
+                return ENFORCING;
+            case "reporting":
+                return REPORTING;
             default:
-                return new BrandingPhoneFormattingEnum(Value.UNKNOWN, value);
+                return new CspPolicyMode(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        REGIONAL,
+        ENFORCING,
 
-        INTERNATIONAL,
+        REPORTING,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitRegional();
+        T visitEnforcing();
 
-        T visitInternational();
+        T visitReporting();
 
         T visitUnknown(String unknownType);
     }

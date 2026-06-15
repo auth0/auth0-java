@@ -26,8 +26,6 @@ public final class GetBrandingResponseContent {
 
     private final Optional<String> logoUrl;
 
-    private final Optional<BrandingIdentifiers> identifiers;
-
     private final Optional<BrandingFont> font;
 
     private final Map<String, Object> additionalProperties;
@@ -36,13 +34,11 @@ public final class GetBrandingResponseContent {
             Optional<BrandingColors> colors,
             Optional<String> faviconUrl,
             Optional<String> logoUrl,
-            Optional<BrandingIdentifiers> identifiers,
             Optional<BrandingFont> font,
             Map<String, Object> additionalProperties) {
         this.colors = colors;
         this.faviconUrl = faviconUrl;
         this.logoUrl = logoUrl;
-        this.identifiers = identifiers;
         this.font = font;
         this.additionalProperties = additionalProperties;
     }
@@ -68,11 +64,6 @@ public final class GetBrandingResponseContent {
         return logoUrl;
     }
 
-    @JsonProperty("identifiers")
-    public Optional<BrandingIdentifiers> getIdentifiers() {
-        return identifiers;
-    }
-
     @JsonProperty("font")
     public Optional<BrandingFont> getFont() {
         return font;
@@ -93,13 +84,12 @@ public final class GetBrandingResponseContent {
         return colors.equals(other.colors)
                 && faviconUrl.equals(other.faviconUrl)
                 && logoUrl.equals(other.logoUrl)
-                && identifiers.equals(other.identifiers)
                 && font.equals(other.font);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.colors, this.faviconUrl, this.logoUrl, this.identifiers, this.font);
+        return Objects.hash(this.colors, this.faviconUrl, this.logoUrl, this.font);
     }
 
     @java.lang.Override
@@ -119,8 +109,6 @@ public final class GetBrandingResponseContent {
 
         private Optional<String> logoUrl = Optional.empty();
 
-        private Optional<BrandingIdentifiers> identifiers = Optional.empty();
-
         private Optional<BrandingFont> font = Optional.empty();
 
         @JsonAnySetter
@@ -132,7 +120,6 @@ public final class GetBrandingResponseContent {
             colors(other.getColors());
             faviconUrl(other.getFaviconUrl());
             logoUrl(other.getLogoUrl());
-            identifiers(other.getIdentifiers());
             font(other.getFont());
             return this;
         }
@@ -176,17 +163,6 @@ public final class GetBrandingResponseContent {
             return this;
         }
 
-        @JsonSetter(value = "identifiers", nulls = Nulls.SKIP)
-        public Builder identifiers(Optional<BrandingIdentifiers> identifiers) {
-            this.identifiers = identifiers;
-            return this;
-        }
-
-        public Builder identifiers(BrandingIdentifiers identifiers) {
-            this.identifiers = Optional.ofNullable(identifiers);
-            return this;
-        }
-
         @JsonSetter(value = "font", nulls = Nulls.SKIP)
         public Builder font(Optional<BrandingFont> font) {
             this.font = font;
@@ -199,7 +175,7 @@ public final class GetBrandingResponseContent {
         }
 
         public GetBrandingResponseContent build() {
-            return new GetBrandingResponseContent(colors, faviconUrl, logoUrl, identifiers, font, additionalProperties);
+            return new GetBrandingResponseContent(colors, faviconUrl, logoUrl, font, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

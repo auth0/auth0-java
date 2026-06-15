@@ -240,12 +240,12 @@ public class ClientsClient {
      * <p><strong>Create:</strong> Returns 201 when a new client is created (requires <code>create:clients</code> scope).
      * <strong>Update:</strong> Returns 200 when an existing client is updated (requires <code>update:clients</code> scope).</p>
      * <p>This endpoint automatically:</p>
-     * <p><ul>
-     *   <li>Fetches and validates the metadata document</li>
-     *   <li>Maps CIMD fields to Auth0 client configuration</li>
-     *   <li>Creates/rotates credentials from the JWKS</li>
-     *   <li>Enforces CIMD security policies (HTTPS-only, no shared secrets)</li>
-     * </ul></p>
+     * <ul>
+     * <li>Fetches and validates the metadata document</li>
+     * <li>Maps CIMD fields to Auth0 client configuration</li>
+     * <li>Creates/rotates credentials from the JWKS</li>
+     * <li>Enforces CIMD security policies (HTTPS-only, no shared secrets)</li>
+     * </ul>
      */
     public RegisterCimdClientResponseContent registerCimdClient(RegisterCimdClientRequestContent request) {
         return this.rawClient.registerCimdClient(request).body();
@@ -257,12 +257,12 @@ public class ClientsClient {
      * <p><strong>Create:</strong> Returns 201 when a new client is created (requires <code>create:clients</code> scope).
      * <strong>Update:</strong> Returns 200 when an existing client is updated (requires <code>update:clients</code> scope).</p>
      * <p>This endpoint automatically:</p>
-     * <p><ul>
-     *   <li>Fetches and validates the metadata document</li>
-     *   <li>Maps CIMD fields to Auth0 client configuration</li>
-     *   <li>Creates/rotates credentials from the JWKS</li>
-     *   <li>Enforces CIMD security policies (HTTPS-only, no shared secrets)</li>
-     * </ul></p>
+     * <ul>
+     * <li>Fetches and validates the metadata document</li>
+     * <li>Maps CIMD fields to Auth0 client configuration</li>
+     * <li>Creates/rotates credentials from the JWKS</li>
+     * <li>Enforces CIMD security policies (HTTPS-only, no shared secrets)</li>
+     * </ul>
      */
     public RegisterCimdClientResponseContent registerCimdClient(
             RegisterCimdClientRequestContent request, RequestOptions requestOptions) {

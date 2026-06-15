@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.8.0](https://github.com/auth0/auth0-java/tree/3.8.0) (2026-06-10)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/3.7.0...3.8.0)
+
+**Added**
+-  feat: Add tenant security headers (CSP/XSS) and update Branding/PhoneTemplate models [\#875](https://github.com/auth0/auth0-java/pull/875) ([fern-api[bot]](https://github.com/apps/fern-api))
+- Chore: Add pagination metadata access in Examples [\#873](https://github.com/auth0/auth0-java/pull/873) ([tanya732](https://github.com/tanya732))
+
 ## [3.7.0](https://github.com/auth0/auth0-java/tree/3.7.0) (2026-05-28)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/3.6.0...3.7.0)
 

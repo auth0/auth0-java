@@ -25,6 +25,8 @@ public interface IConnectionOptionsCommonOidc {
 
     Optional<String> getIconUrl();
 
+    Optional<Boolean> getIdTokenSessionExpirySupported();
+
     OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> getIdTokenSignedResponseAlgs();
 
     Optional<String> getIssuer();

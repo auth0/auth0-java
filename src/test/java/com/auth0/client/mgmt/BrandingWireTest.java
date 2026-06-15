@@ -40,7 +40,7 @@ public class BrandingWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"colors\":{\"primary\":\"primary\",\"page_background\":\"page_background\"},\"favicon_url\":\"favicon_url\",\"logo_url\":\"logo_url\",\"identifiers\":{\"login_display\":\"unified\",\"otp_autocomplete\":true,\"phone_display\":{\"masking\":\"show_all\",\"formatting\":\"regional\"}},\"font\":{\"url\":\"url\"}}"));
+                                "{\"colors\":{\"primary\":\"primary\",\"page_background\":\"page_background\"},\"favicon_url\":\"favicon_url\",\"logo_url\":\"logo_url\",\"font\":{\"url\":\"url\"}}"));
         GetBrandingResponseContent response = client.branding().get();
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -57,14 +57,6 @@ public class BrandingWireTest {
                 + "  },\n"
                 + "  \"favicon_url\": \"favicon_url\",\n"
                 + "  \"logo_url\": \"logo_url\",\n"
-                + "  \"identifiers\": {\n"
-                + "    \"login_display\": \"unified\",\n"
-                + "    \"otp_autocomplete\": true,\n"
-                + "    \"phone_display\": {\n"
-                + "      \"masking\": \"show_all\",\n"
-                + "      \"formatting\": \"regional\"\n"
-                + "    }\n"
-                + "  },\n"
                 + "  \"font\": {\n"
                 + "    \"url\": \"url\"\n"
                 + "  }\n"
@@ -106,7 +98,7 @@ public class BrandingWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"colors\":{\"primary\":\"primary\",\"page_background\":\"page_background\"},\"favicon_url\":\"favicon_url\",\"logo_url\":\"logo_url\",\"identifiers\":{\"login_display\":\"unified\",\"otp_autocomplete\":true,\"phone_display\":{\"masking\":\"show_all\",\"formatting\":\"regional\"}},\"font\":{\"url\":\"url\"}}"));
+                                "{\"colors\":{\"primary\":\"primary\",\"page_background\":\"page_background\"},\"favicon_url\":\"favicon_url\",\"logo_url\":\"logo_url\",\"font\":{\"url\":\"url\"}}"));
         UpdateBrandingResponseContent response =
                 client.branding().update(UpdateBrandingRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -153,14 +145,6 @@ public class BrandingWireTest {
                 + "  },\n"
                 + "  \"favicon_url\": \"favicon_url\",\n"
                 + "  \"logo_url\": \"logo_url\",\n"
-                + "  \"identifiers\": {\n"
-                + "    \"login_display\": \"unified\",\n"
-                + "    \"otp_autocomplete\": true,\n"
-                + "    \"phone_display\": {\n"
-                + "      \"masking\": \"show_all\",\n"
-                + "      \"formatting\": \"regional\"\n"
-                + "    }\n"
-                + "  },\n"
                 + "  \"font\": {\n"
                 + "    \"url\": \"url\"\n"
                 + "  }\n"
