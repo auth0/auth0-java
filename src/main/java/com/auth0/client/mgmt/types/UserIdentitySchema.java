@@ -22,7 +22,7 @@ import java.util.Optional;
 public final class UserIdentitySchema {
     private final Optional<String> connection;
 
-    private final Optional<String> userId;
+    private final Optional<UserId> userId;
 
     private final Optional<UserIdentityProviderEnum> provider;
 
@@ -40,7 +40,7 @@ public final class UserIdentitySchema {
 
     private UserIdentitySchema(
             Optional<String> connection,
-            Optional<String> userId,
+            Optional<UserId> userId,
             Optional<UserIdentityProviderEnum> provider,
             Optional<Boolean> isSocial,
             Optional<String> accessToken,
@@ -67,11 +67,8 @@ public final class UserIdentitySchema {
         return connection;
     }
 
-    /**
-     * @return Unique identifier of the user user for this identity.
-     */
     @JsonProperty("user_id")
-    public Optional<String> getUserId() {
+    public Optional<UserId> getUserId() {
         return userId;
     }
 
@@ -165,7 +162,7 @@ public final class UserIdentitySchema {
     public static final class Builder {
         private Optional<String> connection = Optional.empty();
 
-        private Optional<String> userId = Optional.empty();
+        private Optional<UserId> userId = Optional.empty();
 
         private Optional<UserIdentityProviderEnum> provider = Optional.empty();
 
@@ -210,16 +207,13 @@ public final class UserIdentitySchema {
             return this;
         }
 
-        /**
-         * <p>Unique identifier of the user user for this identity.</p>
-         */
         @JsonSetter(value = "user_id", nulls = Nulls.SKIP)
-        public Builder userId(Optional<String> userId) {
+        public Builder userId(Optional<UserId> userId) {
             this.userId = userId;
             return this;
         }
 
-        public Builder userId(String userId) {
+        public Builder userId(UserId userId) {
             this.userId = Optional.ofNullable(userId);
             return this;
         }

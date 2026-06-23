@@ -1774,6 +1774,14 @@ client.clients().create(
 <dl>
 <dd>
 
+**tokenVaultPrivilegedAccess:** `Optional<ClientTokenVaultPrivilegedAccessWithPublicKey>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **complianceLevel:** `Optional<ClientComplianceLevelEnum>` 
     
 </dd>
@@ -2495,7 +2503,7 @@ client.clients().update(
 <dl>
 <dd>
 
-**nativeSocialLogin:** `Optional<NativeSocialLogin>` 
+**nativeSocialLogin:** `Optional<NativeSocialLoginPatch>` 
     
 </dd>
 </dl>
@@ -2503,7 +2511,7 @@ client.clients().update(
 <dl>
 <dd>
 
-**fedcmLogin:** `Optional<FedCmLogin>` 
+**fedcmLogin:** `Optional<FedCmLoginPatch>` 
     
 </dd>
 </dl>
@@ -2576,6 +2584,14 @@ client.clients().update(
 <dd>
 
 **signedRequestObject:** `Optional<ClientSignedRequestObjectWithCredentialId>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tokenVaultPrivilegedAccess:** `Optional<ClientTokenVaultPrivilegedAccessWithCredentialId>` 
     
 </dd>
 </dl>
@@ -3468,6 +3484,14 @@ client.connections().create(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**crossAppAccessRequestingApp:** `Optional<CrossAppAccessRequestingApp>` 
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -3735,6 +3759,14 @@ client.connections().update(
 <dd>
 
 **connectedAccounts:** `Optional<ConnectionConnectedAccountsPurpose>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**crossAppAccessRequestingApp:** `Optional<CrossAppAccessRequestingApp>` 
     
 </dd>
 </dl>
@@ -4883,7 +4915,7 @@ client.emailTemplates().create(
 <dl>
 <dd>
 
-Retrieve an email template by pre-defined name. These names are `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, and `async_approval`. The names `change_password`, and `password_reset` are also supported for legacy scenarios.
+Retrieve an email template by pre-defined name. These names are `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, and `async_approval`. The names `change_password`, and `password_reset` are also supported for legacy scenarios.
 </dd>
 </dl>
 </dd>
@@ -4913,7 +4945,7 @@ client.emailTemplates().get(EmailTemplateNameEnum.VERIFY_EMAIL);
 <dl>
 <dd>
 
-**templateName:** `EmailTemplateNameEnum` — Template name. Can be `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
+**templateName:** `EmailTemplateNameEnum` — Template name. Can be `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
     
 </dd>
 </dl>
@@ -4973,7 +5005,7 @@ client.emailTemplates().set(
 <dl>
 <dd>
 
-**templateName:** `EmailTemplateNameEnum` — Template name. Can be `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
+**templateName:** `EmailTemplateNameEnum` — Template name. Can be `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
     
 </dd>
 </dl>
@@ -5104,7 +5136,7 @@ client.emailTemplates().update(
 <dl>
 <dd>
 
-**templateName:** `EmailTemplateNameEnum` — Template name. Can be `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
+**templateName:** `EmailTemplateNameEnum` — Template name. Can be `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
     
 </dd>
 </dl>
@@ -16580,6 +16612,105 @@ client.attackProtection().captcha().update(
 <dd>
 
 **simpleCaptcha:** `Optional<Map<String, Object>>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## AttackProtection PhoneProviderProtection
+<details><summary><code>client.attackProtection.phoneProviderProtection.get() -> GetPhoneProviderProtectionResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the phone provider protection configuration for a tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.attackProtection().phoneProviderProtection().get();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.attackProtection.phoneProviderProtection.patch(request) -> PatchPhoneProviderProtectionResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the phone provider protection configuration for a tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.attackProtection().phoneProviderProtection().patch(
+    PatchPhoneProviderProtectionRequestContent
+        .builder()
+        .type(PhoneProviderProtectionBackoffStrategyEnum.EXPONENTIAL)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**type:** `PhoneProviderProtectionBackoffStrategyEnum` 
     
 </dd>
 </dl>
@@ -31576,7 +31707,7 @@ client.users().identities().link(
 <dl>
 <dd>
 
-**userId:** `Optional<UserId>` 
+**userId:** `Optional<UserId>` — user_id of the secondary user account being linked.
     
 </dd>
 </dl>

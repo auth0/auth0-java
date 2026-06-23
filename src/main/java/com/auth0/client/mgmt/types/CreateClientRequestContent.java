@@ -111,6 +111,8 @@ public final class CreateClientRequestContent {
 
     private final Optional<ClientSignedRequestObjectWithPublicKey> signedRequestObject;
 
+    private final Optional<ClientTokenVaultPrivilegedAccessWithPublicKey> tokenVaultPrivilegedAccess;
+
     private final OptionalNullable<ClientComplianceLevelEnum> complianceLevel;
 
     private final Optional<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt;
@@ -179,6 +181,7 @@ public final class CreateClientRequestContent {
             Optional<Boolean> requirePushedAuthorizationRequests,
             Optional<Boolean> requireProofOfPossession,
             Optional<ClientSignedRequestObjectWithPublicKey> signedRequestObject,
+            Optional<ClientTokenVaultPrivilegedAccessWithPublicKey> tokenVaultPrivilegedAccess,
             OptionalNullable<ClientComplianceLevelEnum> complianceLevel,
             Optional<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt,
             Optional<ClientTokenExchangeConfiguration> tokenExchange,
@@ -234,6 +237,7 @@ public final class CreateClientRequestContent {
         this.requirePushedAuthorizationRequests = requirePushedAuthorizationRequests;
         this.requireProofOfPossession = requireProofOfPossession;
         this.signedRequestObject = signedRequestObject;
+        this.tokenVaultPrivilegedAccess = tokenVaultPrivilegedAccess;
         this.complianceLevel = complianceLevel;
         this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
         this.tokenExchange = tokenExchange;
@@ -557,6 +561,11 @@ public final class CreateClientRequestContent {
         return signedRequestObject;
     }
 
+    @JsonProperty("token_vault_privileged_access")
+    public Optional<ClientTokenVaultPrivilegedAccessWithPublicKey> getTokenVaultPrivilegedAccess() {
+        return tokenVaultPrivilegedAccess;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("compliance_level")
     public OptionalNullable<ClientComplianceLevelEnum> getComplianceLevel() {
@@ -722,6 +731,7 @@ public final class CreateClientRequestContent {
                 && requirePushedAuthorizationRequests.equals(other.requirePushedAuthorizationRequests)
                 && requireProofOfPossession.equals(other.requireProofOfPossession)
                 && signedRequestObject.equals(other.signedRequestObject)
+                && tokenVaultPrivilegedAccess.equals(other.tokenVaultPrivilegedAccess)
                 && complianceLevel.equals(other.complianceLevel)
                 && skipNonVerifiableCallbackUriConfirmationPrompt.equals(
                         other.skipNonVerifiableCallbackUriConfirmationPrompt)
@@ -782,6 +792,7 @@ public final class CreateClientRequestContent {
                 this.requirePushedAuthorizationRequests,
                 this.requireProofOfPossession,
                 this.signedRequestObject,
+                this.tokenVaultPrivilegedAccess,
                 this.complianceLevel,
                 this.skipNonVerifiableCallbackUriConfirmationPrompt,
                 this.tokenExchange,
@@ -1083,6 +1094,12 @@ public final class CreateClientRequestContent {
 
         _FinalStage signedRequestObject(ClientSignedRequestObjectWithPublicKey signedRequestObject);
 
+        _FinalStage tokenVaultPrivilegedAccess(
+                Optional<ClientTokenVaultPrivilegedAccessWithPublicKey> tokenVaultPrivilegedAccess);
+
+        _FinalStage tokenVaultPrivilegedAccess(
+                ClientTokenVaultPrivilegedAccessWithPublicKey tokenVaultPrivilegedAccess);
+
         _FinalStage complianceLevel(@Nullable OptionalNullable<ClientComplianceLevelEnum> complianceLevel);
 
         _FinalStage complianceLevel(ClientComplianceLevelEnum complianceLevel);
@@ -1178,6 +1195,8 @@ public final class CreateClientRequestContent {
         private Optional<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt = Optional.empty();
 
         private OptionalNullable<ClientComplianceLevelEnum> complianceLevel = OptionalNullable.absent();
+
+        private Optional<ClientTokenVaultPrivilegedAccessWithPublicKey> tokenVaultPrivilegedAccess = Optional.empty();
 
         private Optional<ClientSignedRequestObjectWithPublicKey> signedRequestObject = Optional.empty();
 
@@ -1313,6 +1332,7 @@ public final class CreateClientRequestContent {
             requirePushedAuthorizationRequests(other.getRequirePushedAuthorizationRequests());
             requireProofOfPossession(other.getRequireProofOfPossession());
             signedRequestObject(other.getSignedRequestObject());
+            tokenVaultPrivilegedAccess(other.getTokenVaultPrivilegedAccess());
             complianceLevel(other.getComplianceLevel());
             skipNonVerifiableCallbackUriConfirmationPrompt(other.getSkipNonVerifiableCallbackUriConfirmationPrompt());
             tokenExchange(other.getTokenExchange());
@@ -1564,6 +1584,21 @@ public final class CreateClientRequestContent {
         @JsonSetter(value = "compliance_level", nulls = Nulls.SKIP)
         public _FinalStage complianceLevel(@Nullable OptionalNullable<ClientComplianceLevelEnum> complianceLevel) {
             this.complianceLevel = complianceLevel;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage tokenVaultPrivilegedAccess(
+                ClientTokenVaultPrivilegedAccessWithPublicKey tokenVaultPrivilegedAccess) {
+            this.tokenVaultPrivilegedAccess = Optional.ofNullable(tokenVaultPrivilegedAccess);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "token_vault_privileged_access", nulls = Nulls.SKIP)
+        public _FinalStage tokenVaultPrivilegedAccess(
+                Optional<ClientTokenVaultPrivilegedAccessWithPublicKey> tokenVaultPrivilegedAccess) {
+            this.tokenVaultPrivilegedAccess = tokenVaultPrivilegedAccess;
             return this;
         }
 
@@ -2433,6 +2468,7 @@ public final class CreateClientRequestContent {
                     requirePushedAuthorizationRequests,
                     requireProofOfPossession,
                     signedRequestObject,
+                    tokenVaultPrivilegedAccess,
                     complianceLevel,
                     skipNonVerifiableCallbackUriConfirmationPrompt,
                     tokenExchange,

@@ -11,6 +11,7 @@ import com.auth0.client.mgmt.core.MediaTypes;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.errors.BadRequestError;
+import com.auth0.client.mgmt.errors.ConflictError;
 import com.auth0.client.mgmt.errors.ForbiddenError;
 import com.auth0.client.mgmt.errors.TooManyRequestsError;
 import com.auth0.client.mgmt.errors.UnauthorizedError;
@@ -110,6 +111,9 @@ public class RawSsoTicketClient {
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                     case 403:
                         throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 409:
+                        throw new ConflictError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                     case 429:
                         throw new TooManyRequestsError(

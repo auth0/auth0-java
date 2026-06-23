@@ -47,14 +47,14 @@ public class EmailTemplatesClient {
     }
 
     /**
-     * Retrieve an email template by pre-defined name. These names are <code>verify_email</code>, <code>verify_email_by_code</code>, <code>reset_email</code>, <code>reset_email_by_code</code>, <code>welcome_email</code>, <code>blocked_account</code>, <code>stolen_credentials</code>, <code>enrollment_email</code>, <code>mfa_oob_code</code>, <code>user_invitation</code>, and <code>async_approval</code>. The names <code>change_password</code>, and <code>password_reset</code> are also supported for legacy scenarios.
+     * Retrieve an email template by pre-defined name. These names are <code>verify_email</code>, <code>verify_email_by_code</code>, <code>auth_email_by_code</code>, <code>reset_email</code>, <code>reset_email_by_code</code>, <code>welcome_email</code>, <code>blocked_account</code>, <code>stolen_credentials</code>, <code>enrollment_email</code>, <code>mfa_oob_code</code>, <code>user_invitation</code>, and <code>async_approval</code>. The names <code>change_password</code>, and <code>password_reset</code> are also supported for legacy scenarios.
      */
     public GetEmailTemplateResponseContent get(EmailTemplateNameEnum templateName) {
         return this.rawClient.get(templateName).body();
     }
 
     /**
-     * Retrieve an email template by pre-defined name. These names are <code>verify_email</code>, <code>verify_email_by_code</code>, <code>reset_email</code>, <code>reset_email_by_code</code>, <code>welcome_email</code>, <code>blocked_account</code>, <code>stolen_credentials</code>, <code>enrollment_email</code>, <code>mfa_oob_code</code>, <code>user_invitation</code>, and <code>async_approval</code>. The names <code>change_password</code>, and <code>password_reset</code> are also supported for legacy scenarios.
+     * Retrieve an email template by pre-defined name. These names are <code>verify_email</code>, <code>verify_email_by_code</code>, <code>auth_email_by_code</code>, <code>reset_email</code>, <code>reset_email_by_code</code>, <code>welcome_email</code>, <code>blocked_account</code>, <code>stolen_credentials</code>, <code>enrollment_email</code>, <code>mfa_oob_code</code>, <code>user_invitation</code>, and <code>async_approval</code>. The names <code>change_password</code>, and <code>password_reset</code> are also supported for legacy scenarios.
      */
     public GetEmailTemplateResponseContent get(EmailTemplateNameEnum templateName, RequestOptions requestOptions) {
         return this.rawClient.get(templateName, requestOptions).body();
