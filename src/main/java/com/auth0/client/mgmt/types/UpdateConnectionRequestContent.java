@@ -42,6 +42,8 @@ public final class UpdateConnectionRequestContent {
 
     private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
 
+    private final Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateConnectionRequestContent(
@@ -54,6 +56,7 @@ public final class UpdateConnectionRequestContent {
             Optional<Map<String, OptionalNullable<String>>> metadata,
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
+            Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp,
             Map<String, Object> additionalProperties) {
         this.displayName = displayName;
         this.options = options;
@@ -64,6 +67,7 @@ public final class UpdateConnectionRequestContent {
         this.metadata = metadata;
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
+        this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
         this.additionalProperties = additionalProperties;
     }
 
@@ -135,6 +139,11 @@ public final class UpdateConnectionRequestContent {
         return connectedAccounts;
     }
 
+    @JsonProperty("cross_app_access_requesting_app")
+    public Optional<CrossAppAccessRequestingApp> getCrossAppAccessRequestingApp() {
+        return crossAppAccessRequestingApp;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("options")
     private OptionalNullable<UpdateConnectionOptions> _getOptions() {
@@ -167,7 +176,8 @@ public final class UpdateConnectionRequestContent {
                 && realms.equals(other.realms)
                 && metadata.equals(other.metadata)
                 && authentication.equals(other.authentication)
-                && connectedAccounts.equals(other.connectedAccounts);
+                && connectedAccounts.equals(other.connectedAccounts)
+                && crossAppAccessRequestingApp.equals(other.crossAppAccessRequestingApp);
     }
 
     @java.lang.Override
@@ -181,7 +191,8 @@ public final class UpdateConnectionRequestContent {
                 this.realms,
                 this.metadata,
                 this.authentication,
-                this.connectedAccounts);
+                this.connectedAccounts,
+                this.crossAppAccessRequestingApp);
     }
 
     @java.lang.Override
@@ -213,6 +224,8 @@ public final class UpdateConnectionRequestContent {
 
         private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
 
+        private Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -228,6 +241,7 @@ public final class UpdateConnectionRequestContent {
             metadata(other.getMetadata());
             authentication(other.getAuthentication());
             connectedAccounts(other.getConnectedAccounts());
+            crossAppAccessRequestingApp(other.getCrossAppAccessRequestingApp());
             return this;
         }
 
@@ -385,6 +399,17 @@ public final class UpdateConnectionRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "cross_app_access_requesting_app", nulls = Nulls.SKIP)
+        public Builder crossAppAccessRequestingApp(Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp) {
+            this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
+            return this;
+        }
+
+        public Builder crossAppAccessRequestingApp(CrossAppAccessRequestingApp crossAppAccessRequestingApp) {
+            this.crossAppAccessRequestingApp = Optional.ofNullable(crossAppAccessRequestingApp);
+            return this;
+        }
+
         public UpdateConnectionRequestContent build() {
             return new UpdateConnectionRequestContent(
                     displayName,
@@ -396,6 +421,7 @@ public final class UpdateConnectionRequestContent {
                     metadata,
                     authentication,
                     connectedAccounts,
+                    crossAppAccessRequestingApp,
                     additionalProperties);
         }
 

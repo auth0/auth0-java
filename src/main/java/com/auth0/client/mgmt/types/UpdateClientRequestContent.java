@@ -92,9 +92,9 @@ public final class UpdateClientRequestContent {
 
     private final Optional<String> initiateLoginUri;
 
-    private final Optional<NativeSocialLogin> nativeSocialLogin;
+    private final OptionalNullable<NativeSocialLoginPatch> nativeSocialLogin;
 
-    private final Optional<FedCmLogin> fedcmLogin;
+    private final OptionalNullable<FedCmLoginPatch> fedcmLogin;
 
     private final OptionalNullable<ClientRefreshTokenConfiguration> refreshToken;
 
@@ -113,6 +113,8 @@ public final class UpdateClientRequestContent {
     private final Optional<Boolean> requireProofOfPossession;
 
     private final Optional<ClientSignedRequestObjectWithCredentialId> signedRequestObject;
+
+    private final Optional<ClientTokenVaultPrivilegedAccessWithCredentialId> tokenVaultPrivilegedAccess;
 
     private final OptionalNullable<ClientComplianceLevelEnum> complianceLevel;
 
@@ -169,8 +171,8 @@ public final class UpdateClientRequestContent {
             Optional<Map<String, Object>> clientMetadata,
             Optional<ClientMobile> mobile,
             Optional<String> initiateLoginUri,
-            Optional<NativeSocialLogin> nativeSocialLogin,
-            Optional<FedCmLogin> fedcmLogin,
+            OptionalNullable<NativeSocialLoginPatch> nativeSocialLogin,
+            OptionalNullable<FedCmLoginPatch> fedcmLogin,
             OptionalNullable<ClientRefreshTokenConfiguration> refreshToken,
             OptionalNullable<ClientDefaultOrganization> defaultOrganization,
             OptionalNullable<ClientOrganizationUsagePatchEnum> organizationUsage,
@@ -180,6 +182,7 @@ public final class UpdateClientRequestContent {
             Optional<Boolean> requirePushedAuthorizationRequests,
             Optional<Boolean> requireProofOfPossession,
             Optional<ClientSignedRequestObjectWithCredentialId> signedRequestObject,
+            Optional<ClientTokenVaultPrivilegedAccessWithCredentialId> tokenVaultPrivilegedAccess,
             OptionalNullable<ClientComplianceLevelEnum> complianceLevel,
             OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt,
             OptionalNullable<ClientTokenExchangeConfigurationOrNull> tokenExchange,
@@ -235,6 +238,7 @@ public final class UpdateClientRequestContent {
         this.requirePushedAuthorizationRequests = requirePushedAuthorizationRequests;
         this.requireProofOfPossession = requireProofOfPossession;
         this.signedRequestObject = signedRequestObject;
+        this.tokenVaultPrivilegedAccess = tokenVaultPrivilegedAccess;
         this.complianceLevel = complianceLevel;
         this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
         this.tokenExchange = tokenExchange;
@@ -515,13 +519,21 @@ public final class UpdateClientRequestContent {
         return initiateLoginUri;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("native_social_login")
-    public Optional<NativeSocialLogin> getNativeSocialLogin() {
+    public OptionalNullable<NativeSocialLoginPatch> getNativeSocialLogin() {
+        if (nativeSocialLogin == null) {
+            return OptionalNullable.absent();
+        }
         return nativeSocialLogin;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("fedcm_login")
-    public Optional<FedCmLogin> getFedcmLogin() {
+    public OptionalNullable<FedCmLoginPatch> getFedcmLogin() {
+        if (fedcmLogin == null) {
+            return OptionalNullable.absent();
+        }
         return fedcmLogin;
     }
 
@@ -601,6 +613,11 @@ public final class UpdateClientRequestContent {
     @JsonProperty("signed_request_object")
     public Optional<ClientSignedRequestObjectWithCredentialId> getSignedRequestObject() {
         return signedRequestObject;
+    }
+
+    @JsonProperty("token_vault_privileged_access")
+    public Optional<ClientTokenVaultPrivilegedAccessWithCredentialId> getTokenVaultPrivilegedAccess() {
+        return tokenVaultPrivilegedAccess;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -712,6 +729,18 @@ public final class UpdateClientRequestContent {
     @JsonProperty("token_quota")
     private OptionalNullable<UpdateTokenQuota> _getTokenQuota() {
         return tokenQuota;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("native_social_login")
+    private OptionalNullable<NativeSocialLoginPatch> _getNativeSocialLogin() {
+        return nativeSocialLogin;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("fedcm_login")
+    private OptionalNullable<FedCmLoginPatch> _getFedcmLogin() {
+        return fedcmLogin;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -849,6 +878,7 @@ public final class UpdateClientRequestContent {
                 && requirePushedAuthorizationRequests.equals(other.requirePushedAuthorizationRequests)
                 && requireProofOfPossession.equals(other.requireProofOfPossession)
                 && signedRequestObject.equals(other.signedRequestObject)
+                && tokenVaultPrivilegedAccess.equals(other.tokenVaultPrivilegedAccess)
                 && complianceLevel.equals(other.complianceLevel)
                 && skipNonVerifiableCallbackUriConfirmationPrompt.equals(
                         other.skipNonVerifiableCallbackUriConfirmationPrompt)
@@ -909,6 +939,7 @@ public final class UpdateClientRequestContent {
                 this.requirePushedAuthorizationRequests,
                 this.requireProofOfPossession,
                 this.signedRequestObject,
+                this.tokenVaultPrivilegedAccess,
                 this.complianceLevel,
                 this.skipNonVerifiableCallbackUriConfirmationPrompt,
                 this.tokenExchange,
@@ -1000,9 +1031,9 @@ public final class UpdateClientRequestContent {
 
         private Optional<String> initiateLoginUri = Optional.empty();
 
-        private Optional<NativeSocialLogin> nativeSocialLogin = Optional.empty();
+        private OptionalNullable<NativeSocialLoginPatch> nativeSocialLogin = OptionalNullable.absent();
 
-        private Optional<FedCmLogin> fedcmLogin = Optional.empty();
+        private OptionalNullable<FedCmLoginPatch> fedcmLogin = OptionalNullable.absent();
 
         private OptionalNullable<ClientRefreshTokenConfiguration> refreshToken = OptionalNullable.absent();
 
@@ -1023,6 +1054,9 @@ public final class UpdateClientRequestContent {
         private Optional<Boolean> requireProofOfPossession = Optional.empty();
 
         private Optional<ClientSignedRequestObjectWithCredentialId> signedRequestObject = Optional.empty();
+
+        private Optional<ClientTokenVaultPrivilegedAccessWithCredentialId> tokenVaultPrivilegedAccess =
+                Optional.empty();
 
         private OptionalNullable<ClientComplianceLevelEnum> complianceLevel = OptionalNullable.absent();
 
@@ -1095,6 +1129,7 @@ public final class UpdateClientRequestContent {
             requirePushedAuthorizationRequests(other.getRequirePushedAuthorizationRequests());
             requireProofOfPossession(other.getRequireProofOfPossession());
             signedRequestObject(other.getSignedRequestObject());
+            tokenVaultPrivilegedAccess(other.getTokenVaultPrivilegedAccess());
             complianceLevel(other.getComplianceLevel());
             skipNonVerifiableCallbackUriConfirmationPrompt(other.getSkipNonVerifiableCallbackUriConfirmationPrompt());
             tokenExchange(other.getTokenExchange());
@@ -1664,24 +1699,65 @@ public final class UpdateClientRequestContent {
         }
 
         @JsonSetter(value = "native_social_login", nulls = Nulls.SKIP)
-        public Builder nativeSocialLogin(Optional<NativeSocialLogin> nativeSocialLogin) {
+        public Builder nativeSocialLogin(@Nullable OptionalNullable<NativeSocialLoginPatch> nativeSocialLogin) {
             this.nativeSocialLogin = nativeSocialLogin;
             return this;
         }
 
-        public Builder nativeSocialLogin(NativeSocialLogin nativeSocialLogin) {
-            this.nativeSocialLogin = Optional.ofNullable(nativeSocialLogin);
+        public Builder nativeSocialLogin(NativeSocialLoginPatch nativeSocialLogin) {
+            this.nativeSocialLogin = OptionalNullable.of(nativeSocialLogin);
+            return this;
+        }
+
+        public Builder nativeSocialLogin(Optional<NativeSocialLoginPatch> nativeSocialLogin) {
+            if (nativeSocialLogin.isPresent()) {
+                this.nativeSocialLogin = OptionalNullable.of(nativeSocialLogin.get());
+            } else {
+                this.nativeSocialLogin = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder nativeSocialLogin(
+                com.auth0.client.mgmt.core.Nullable<NativeSocialLoginPatch> nativeSocialLogin) {
+            if (nativeSocialLogin.isNull()) {
+                this.nativeSocialLogin = OptionalNullable.ofNull();
+            } else if (nativeSocialLogin.isEmpty()) {
+                this.nativeSocialLogin = OptionalNullable.absent();
+            } else {
+                this.nativeSocialLogin = OptionalNullable.of(nativeSocialLogin.get());
+            }
             return this;
         }
 
         @JsonSetter(value = "fedcm_login", nulls = Nulls.SKIP)
-        public Builder fedcmLogin(Optional<FedCmLogin> fedcmLogin) {
+        public Builder fedcmLogin(@Nullable OptionalNullable<FedCmLoginPatch> fedcmLogin) {
             this.fedcmLogin = fedcmLogin;
             return this;
         }
 
-        public Builder fedcmLogin(FedCmLogin fedcmLogin) {
-            this.fedcmLogin = Optional.ofNullable(fedcmLogin);
+        public Builder fedcmLogin(FedCmLoginPatch fedcmLogin) {
+            this.fedcmLogin = OptionalNullable.of(fedcmLogin);
+            return this;
+        }
+
+        public Builder fedcmLogin(Optional<FedCmLoginPatch> fedcmLogin) {
+            if (fedcmLogin.isPresent()) {
+                this.fedcmLogin = OptionalNullable.of(fedcmLogin.get());
+            } else {
+                this.fedcmLogin = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder fedcmLogin(com.auth0.client.mgmt.core.Nullable<FedCmLoginPatch> fedcmLogin) {
+            if (fedcmLogin.isNull()) {
+                this.fedcmLogin = OptionalNullable.ofNull();
+            } else if (fedcmLogin.isEmpty()) {
+                this.fedcmLogin = OptionalNullable.absent();
+            } else {
+                this.fedcmLogin = OptionalNullable.of(fedcmLogin.get());
+            }
             return this;
         }
 
@@ -1925,6 +2001,19 @@ public final class UpdateClientRequestContent {
 
         public Builder signedRequestObject(ClientSignedRequestObjectWithCredentialId signedRequestObject) {
             this.signedRequestObject = Optional.ofNullable(signedRequestObject);
+            return this;
+        }
+
+        @JsonSetter(value = "token_vault_privileged_access", nulls = Nulls.SKIP)
+        public Builder tokenVaultPrivilegedAccess(
+                Optional<ClientTokenVaultPrivilegedAccessWithCredentialId> tokenVaultPrivilegedAccess) {
+            this.tokenVaultPrivilegedAccess = tokenVaultPrivilegedAccess;
+            return this;
+        }
+
+        public Builder tokenVaultPrivilegedAccess(
+                ClientTokenVaultPrivilegedAccessWithCredentialId tokenVaultPrivilegedAccess) {
+            this.tokenVaultPrivilegedAccess = Optional.ofNullable(tokenVaultPrivilegedAccess);
             return this;
         }
 
@@ -2243,6 +2332,7 @@ public final class UpdateClientRequestContent {
                     requirePushedAuthorizationRequests,
                     requireProofOfPossession,
                     signedRequestObject,
+                    tokenVaultPrivilegedAccess,
                     complianceLevel,
                     skipNonVerifiableCallbackUriConfirmationPrompt,
                     tokenExchange,

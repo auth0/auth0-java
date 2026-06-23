@@ -40,6 +40,9 @@ public final class EmailTemplateNameEnum {
     public static final EmailTemplateNameEnum MFA_OOB_CODE =
             new EmailTemplateNameEnum(Value.MFA_OOB_CODE, "mfa_oob_code");
 
+    public static final EmailTemplateNameEnum AUTH_EMAIL_BY_CODE =
+            new EmailTemplateNameEnum(Value.AUTH_EMAIL_BY_CODE, "auth_email_by_code");
+
     public static final EmailTemplateNameEnum RESET_EMAIL = new EmailTemplateNameEnum(Value.RESET_EMAIL, "reset_email");
 
     public static final EmailTemplateNameEnum ASYNC_APPROVAL =
@@ -100,6 +103,8 @@ public final class EmailTemplateNameEnum {
                 return visitor.visitVerifyEmail();
             case MFA_OOB_CODE:
                 return visitor.visitMfaOobCode();
+            case AUTH_EMAIL_BY_CODE:
+                return visitor.visitAuthEmailByCode();
             case RESET_EMAIL:
                 return visitor.visitResetEmail();
             case ASYNC_APPROVAL:
@@ -135,6 +140,8 @@ public final class EmailTemplateNameEnum {
                 return VERIFY_EMAIL;
             case "mfa_oob_code":
                 return MFA_OOB_CODE;
+            case "auth_email_by_code":
+                return AUTH_EMAIL_BY_CODE;
             case "reset_email":
                 return RESET_EMAIL;
             case "async_approval":
@@ -148,6 +155,8 @@ public final class EmailTemplateNameEnum {
         VERIFY_EMAIL,
 
         VERIFY_EMAIL_BY_CODE,
+
+        AUTH_EMAIL_BY_CODE,
 
         RESET_EMAIL,
 
@@ -178,6 +187,8 @@ public final class EmailTemplateNameEnum {
         T visitVerifyEmail();
 
         T visitVerifyEmailByCode();
+
+        T visitAuthEmailByCode();
 
         T visitResetEmail();
 

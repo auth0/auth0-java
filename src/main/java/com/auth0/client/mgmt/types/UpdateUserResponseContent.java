@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +34,9 @@ public final class UpdateUserResponseContent {
 
     private final Optional<Boolean> phoneVerified;
 
-    private final Optional<UserDateSchema> createdAt;
+    private final Optional<OffsetDateTime> createdAt;
 
-    private final Optional<UserDateSchema> updatedAt;
+    private final Optional<OffsetDateTime> updatedAt;
 
     private final Optional<List<UserIdentitySchema>> identities;
 
@@ -51,13 +52,13 @@ public final class UpdateUserResponseContent {
 
     private final Optional<List<String>> multifactor;
 
-    private final Optional<UserDateSchema> multifactorLastModified;
+    private final Optional<OffsetDateTime> multifactorLastModified;
 
     private final Optional<String> lastIp;
 
-    private final Optional<UserDateSchema> lastLogin;
+    private final Optional<OffsetDateTime> lastLogin;
 
-    private final Optional<UserDateSchema> lastPasswordReset;
+    private final Optional<OffsetDateTime> lastPasswordReset;
 
     private final Optional<Integer> loginsCount;
 
@@ -76,8 +77,8 @@ public final class UpdateUserResponseContent {
             Optional<String> username,
             Optional<String> phoneNumber,
             Optional<Boolean> phoneVerified,
-            Optional<UserDateSchema> createdAt,
-            Optional<UserDateSchema> updatedAt,
+            Optional<OffsetDateTime> createdAt,
+            Optional<OffsetDateTime> updatedAt,
             Optional<List<UserIdentitySchema>> identities,
             Optional<Map<String, Object>> appMetadata,
             Optional<Map<String, Object>> userMetadata,
@@ -85,10 +86,10 @@ public final class UpdateUserResponseContent {
             Optional<String> name,
             Optional<String> nickname,
             Optional<List<String>> multifactor,
-            Optional<UserDateSchema> multifactorLastModified,
+            Optional<OffsetDateTime> multifactorLastModified,
             Optional<String> lastIp,
-            Optional<UserDateSchema> lastLogin,
-            Optional<UserDateSchema> lastPasswordReset,
+            Optional<OffsetDateTime> lastLogin,
+            Optional<OffsetDateTime> lastPasswordReset,
             Optional<Integer> loginsCount,
             Optional<Boolean> blocked,
             Optional<String> givenName,
@@ -168,13 +169,19 @@ public final class UpdateUserResponseContent {
         return phoneVerified;
     }
 
+    /**
+     * @return Date and time when this user was created.
+     */
     @JsonProperty("created_at")
-    public Optional<UserDateSchema> getCreatedAt() {
+    public Optional<OffsetDateTime> getCreatedAt() {
         return createdAt;
     }
 
+    /**
+     * @return Date and time when this user was last updated/modified.
+     */
     @JsonProperty("updated_at")
-    public Optional<UserDateSchema> getUpdatedAt() {
+    public Optional<OffsetDateTime> getUpdatedAt() {
         return updatedAt;
     }
 
@@ -228,8 +235,11 @@ public final class UpdateUserResponseContent {
         return multifactor;
     }
 
+    /**
+     * @return Last date and time this user's multi-factor authentication providers were updated.
+     */
     @JsonProperty("multifactor_last_modified")
-    public Optional<UserDateSchema> getMultifactorLastModified() {
+    public Optional<OffsetDateTime> getMultifactorLastModified() {
         return multifactorLastModified;
     }
 
@@ -241,13 +251,19 @@ public final class UpdateUserResponseContent {
         return lastIp;
     }
 
+    /**
+     * @return Last date and time this user logged in.
+     */
     @JsonProperty("last_login")
-    public Optional<UserDateSchema> getLastLogin() {
+    public Optional<OffsetDateTime> getLastLogin() {
         return lastLogin;
     }
 
+    /**
+     * @return Last date and time this user had their password reset.
+     */
     @JsonProperty("last_password_reset")
-    public Optional<UserDateSchema> getLastPasswordReset() {
+    public Optional<OffsetDateTime> getLastPasswordReset() {
         return lastPasswordReset;
     }
 
@@ -371,9 +387,9 @@ public final class UpdateUserResponseContent {
 
         private Optional<Boolean> phoneVerified = Optional.empty();
 
-        private Optional<UserDateSchema> createdAt = Optional.empty();
+        private Optional<OffsetDateTime> createdAt = Optional.empty();
 
-        private Optional<UserDateSchema> updatedAt = Optional.empty();
+        private Optional<OffsetDateTime> updatedAt = Optional.empty();
 
         private Optional<List<UserIdentitySchema>> identities = Optional.empty();
 
@@ -389,13 +405,13 @@ public final class UpdateUserResponseContent {
 
         private Optional<List<String>> multifactor = Optional.empty();
 
-        private Optional<UserDateSchema> multifactorLastModified = Optional.empty();
+        private Optional<OffsetDateTime> multifactorLastModified = Optional.empty();
 
         private Optional<String> lastIp = Optional.empty();
 
-        private Optional<UserDateSchema> lastLogin = Optional.empty();
+        private Optional<OffsetDateTime> lastLogin = Optional.empty();
 
-        private Optional<UserDateSchema> lastPasswordReset = Optional.empty();
+        private Optional<OffsetDateTime> lastPasswordReset = Optional.empty();
 
         private Optional<Integer> loginsCount = Optional.empty();
 
@@ -521,24 +537,30 @@ public final class UpdateUserResponseContent {
             return this;
         }
 
+        /**
+         * <p>Date and time when this user was created.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
-        public Builder createdAt(Optional<UserDateSchema> createdAt) {
+        public Builder createdAt(Optional<OffsetDateTime> createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
-        public Builder createdAt(UserDateSchema createdAt) {
+        public Builder createdAt(OffsetDateTime createdAt) {
             this.createdAt = Optional.ofNullable(createdAt);
             return this;
         }
 
+        /**
+         * <p>Date and time when this user was last updated/modified.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
-        public Builder updatedAt(Optional<UserDateSchema> updatedAt) {
+        public Builder updatedAt(Optional<OffsetDateTime> updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
 
-        public Builder updatedAt(UserDateSchema updatedAt) {
+        public Builder updatedAt(OffsetDateTime updatedAt) {
             this.updatedAt = Optional.ofNullable(updatedAt);
             return this;
         }
@@ -635,13 +657,16 @@ public final class UpdateUserResponseContent {
             return this;
         }
 
+        /**
+         * <p>Last date and time this user's multi-factor authentication providers were updated.</p>
+         */
         @JsonSetter(value = "multifactor_last_modified", nulls = Nulls.SKIP)
-        public Builder multifactorLastModified(Optional<UserDateSchema> multifactorLastModified) {
+        public Builder multifactorLastModified(Optional<OffsetDateTime> multifactorLastModified) {
             this.multifactorLastModified = multifactorLastModified;
             return this;
         }
 
-        public Builder multifactorLastModified(UserDateSchema multifactorLastModified) {
+        public Builder multifactorLastModified(OffsetDateTime multifactorLastModified) {
             this.multifactorLastModified = Optional.ofNullable(multifactorLastModified);
             return this;
         }
@@ -660,24 +685,30 @@ public final class UpdateUserResponseContent {
             return this;
         }
 
+        /**
+         * <p>Last date and time this user logged in.</p>
+         */
         @JsonSetter(value = "last_login", nulls = Nulls.SKIP)
-        public Builder lastLogin(Optional<UserDateSchema> lastLogin) {
+        public Builder lastLogin(Optional<OffsetDateTime> lastLogin) {
             this.lastLogin = lastLogin;
             return this;
         }
 
-        public Builder lastLogin(UserDateSchema lastLogin) {
+        public Builder lastLogin(OffsetDateTime lastLogin) {
             this.lastLogin = Optional.ofNullable(lastLogin);
             return this;
         }
 
+        /**
+         * <p>Last date and time this user had their password reset.</p>
+         */
         @JsonSetter(value = "last_password_reset", nulls = Nulls.SKIP)
-        public Builder lastPasswordReset(Optional<UserDateSchema> lastPasswordReset) {
+        public Builder lastPasswordReset(Optional<OffsetDateTime> lastPasswordReset) {
             this.lastPasswordReset = lastPasswordReset;
             return this;
         }
 
-        public Builder lastPasswordReset(UserDateSchema lastPasswordReset) {
+        public Builder lastPasswordReset(OffsetDateTime lastPasswordReset) {
             this.lastPasswordReset = Optional.ofNullable(lastPasswordReset);
             return this;
         }

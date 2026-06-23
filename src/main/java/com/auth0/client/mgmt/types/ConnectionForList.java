@@ -44,6 +44,8 @@ public final class ConnectionForList {
 
     private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
 
+    private final Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectionForList(
@@ -58,6 +60,7 @@ public final class ConnectionForList {
             Optional<Map<String, OptionalNullable<String>>> metadata,
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
+            Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.displayName = displayName;
@@ -70,6 +73,7 @@ public final class ConnectionForList {
         this.metadata = metadata;
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
+        this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
         this.additionalProperties = additionalProperties;
     }
 
@@ -149,6 +153,11 @@ public final class ConnectionForList {
         return connectedAccounts;
     }
 
+    @JsonProperty("cross_app_access_requesting_app")
+    public Optional<CrossAppAccessRequestingApp> getCrossAppAccessRequestingApp() {
+        return crossAppAccessRequestingApp;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -171,7 +180,8 @@ public final class ConnectionForList {
                 && showAsButton.equals(other.showAsButton)
                 && metadata.equals(other.metadata)
                 && authentication.equals(other.authentication)
-                && connectedAccounts.equals(other.connectedAccounts);
+                && connectedAccounts.equals(other.connectedAccounts)
+                && crossAppAccessRequestingApp.equals(other.crossAppAccessRequestingApp);
     }
 
     @java.lang.Override
@@ -187,7 +197,8 @@ public final class ConnectionForList {
                 this.showAsButton,
                 this.metadata,
                 this.authentication,
-                this.connectedAccounts);
+                this.connectedAccounts,
+                this.crossAppAccessRequestingApp);
     }
 
     @java.lang.Override
@@ -223,6 +234,8 @@ public final class ConnectionForList {
 
         private Optional<ConnectionConnectedAccountsPurpose> connectedAccounts = Optional.empty();
 
+        private Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -240,6 +253,7 @@ public final class ConnectionForList {
             metadata(other.getMetadata());
             authentication(other.getAuthentication());
             connectedAccounts(other.getConnectedAccounts());
+            crossAppAccessRequestingApp(other.getCrossAppAccessRequestingApp());
             return this;
         }
 
@@ -385,6 +399,17 @@ public final class ConnectionForList {
             return this;
         }
 
+        @JsonSetter(value = "cross_app_access_requesting_app", nulls = Nulls.SKIP)
+        public Builder crossAppAccessRequestingApp(Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp) {
+            this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
+            return this;
+        }
+
+        public Builder crossAppAccessRequestingApp(CrossAppAccessRequestingApp crossAppAccessRequestingApp) {
+            this.crossAppAccessRequestingApp = Optional.ofNullable(crossAppAccessRequestingApp);
+            return this;
+        }
+
         public ConnectionForList build() {
             return new ConnectionForList(
                     name,
@@ -398,6 +423,7 @@ public final class ConnectionForList {
                     metadata,
                     authentication,
                     connectedAccounts,
+                    crossAppAccessRequestingApp,
                     additionalProperties);
         }
 

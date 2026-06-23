@@ -39,6 +39,8 @@ public final class CreateConnectionRequestContentOidc implements ICreateConnecti
 
     private final Optional<ConnectionConnectedAccountsPurposeXaa> connectedAccounts;
 
+    private final Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp;
+
     private final Optional<ConnectionOptionsOidc> options;
 
     private final Optional<Boolean> showAsButton;
@@ -54,6 +56,7 @@ public final class CreateConnectionRequestContentOidc implements ICreateConnecti
             CreateConnectionRequestContentOidcStrategy strategy,
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurposeXaa> connectedAccounts,
+            Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp,
             Optional<ConnectionOptionsOidc> options,
             Optional<Boolean> showAsButton,
             Map<String, Object> additionalProperties) {
@@ -65,6 +68,7 @@ public final class CreateConnectionRequestContentOidc implements ICreateConnecti
         this.strategy = strategy;
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
+        this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
         this.options = options;
         this.showAsButton = showAsButton;
         this.additionalProperties = additionalProperties;
@@ -118,6 +122,11 @@ public final class CreateConnectionRequestContentOidc implements ICreateConnecti
         return connectedAccounts;
     }
 
+    @JsonProperty("cross_app_access_requesting_app")
+    public Optional<CrossAppAccessRequestingApp> getCrossAppAccessRequestingApp() {
+        return crossAppAccessRequestingApp;
+    }
+
     @JsonProperty("options")
     public Optional<ConnectionOptionsOidc> getOptions() {
         return options;
@@ -149,6 +158,7 @@ public final class CreateConnectionRequestContentOidc implements ICreateConnecti
                 && strategy.equals(other.strategy)
                 && authentication.equals(other.authentication)
                 && connectedAccounts.equals(other.connectedAccounts)
+                && crossAppAccessRequestingApp.equals(other.crossAppAccessRequestingApp)
                 && options.equals(other.options)
                 && showAsButton.equals(other.showAsButton);
     }
@@ -164,6 +174,7 @@ public final class CreateConnectionRequestContentOidc implements ICreateConnecti
                 this.strategy,
                 this.authentication,
                 this.connectedAccounts,
+                this.crossAppAccessRequestingApp,
                 this.options,
                 this.showAsButton);
     }
@@ -221,6 +232,10 @@ public final class CreateConnectionRequestContentOidc implements ICreateConnecti
 
         _FinalStage connectedAccounts(ConnectionConnectedAccountsPurposeXaa connectedAccounts);
 
+        _FinalStage crossAppAccessRequestingApp(Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp);
+
+        _FinalStage crossAppAccessRequestingApp(CrossAppAccessRequestingApp crossAppAccessRequestingApp);
+
         _FinalStage options(Optional<ConnectionOptionsOidc> options);
 
         _FinalStage options(ConnectionOptionsOidc options);
@@ -239,6 +254,8 @@ public final class CreateConnectionRequestContentOidc implements ICreateConnecti
         private Optional<Boolean> showAsButton = Optional.empty();
 
         private Optional<ConnectionOptionsOidc> options = Optional.empty();
+
+        private Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp = Optional.empty();
 
         private Optional<ConnectionConnectedAccountsPurposeXaa> connectedAccounts = Optional.empty();
 
@@ -267,6 +284,7 @@ public final class CreateConnectionRequestContentOidc implements ICreateConnecti
             strategy(other.getStrategy());
             authentication(other.getAuthentication());
             connectedAccounts(other.getConnectedAccounts());
+            crossAppAccessRequestingApp(other.getCrossAppAccessRequestingApp());
             options(other.getOptions());
             showAsButton(other.getShowAsButton());
             return this;
@@ -309,6 +327,20 @@ public final class CreateConnectionRequestContentOidc implements ICreateConnecti
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
         public _FinalStage options(Optional<ConnectionOptionsOidc> options) {
             this.options = options;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage crossAppAccessRequestingApp(CrossAppAccessRequestingApp crossAppAccessRequestingApp) {
+            this.crossAppAccessRequestingApp = Optional.ofNullable(crossAppAccessRequestingApp);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "cross_app_access_requesting_app", nulls = Nulls.SKIP)
+        public _FinalStage crossAppAccessRequestingApp(
+                Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp) {
+            this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
             return this;
         }
 
@@ -408,6 +440,7 @@ public final class CreateConnectionRequestContentOidc implements ICreateConnecti
                     strategy,
                     authentication,
                     connectedAccounts,
+                    crossAppAccessRequestingApp,
                     options,
                     showAsButton,
                     additionalProperties);
