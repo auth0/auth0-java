@@ -1,5 +1,11 @@
 # Change Log
 
+## [3.9.0](https://github.com/auth0/auth0-java/tree/3.9.0) (2026-06-24)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/3.8.0...3.9.0)
+
+**Added**
+- feat: FedCM, Native Social Login, Connection Options support [\#883](https://github.com/auth0/auth0-java/pull/883) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [3.8.0](https://github.com/auth0/auth0-java/tree/3.8.0) (2026-06-10)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/3.7.0...3.8.0)
 
