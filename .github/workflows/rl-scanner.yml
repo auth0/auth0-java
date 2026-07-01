@@ -28,8 +28,7 @@ on:
         required: true
 jobs:
   checkout-build-scan-only:
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.merged && startsWith(github.event.pull_request.head.ref, 'release/')) # TEMPORARY: 'push' added for RL scanner debugging
-
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.merged && startsWith(github.event.pull_request.head.ref, 'release/'))
     runs-on: ubuntu-latest
     outputs:
       scan-status: ${{ steps.rl-scan-conclusion.outputs.scan-status }}
