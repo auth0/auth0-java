@@ -1,0 +1,6 @@
+{
+  "name": "BadRequestError",
+  "code": "user_exists",
+  "description": "The user already exists.",
+  "statusCode": 400
+}

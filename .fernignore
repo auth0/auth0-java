@@ -32,14 +32,12 @@ src/main/java/com/auth0/client/LoggingOptions.java
 # TokenProvider interface (shared between Fern-generated Management API and auth0-provided Authentication API)
 src/main/java/com/auth0/client/mgmt/TokenProvider.java
 
-# Test infrastructure from auth0-real
-src/test/java/com/auth0/net/
-src/test/java/com/auth0/exception/
-src/test/java/com/auth0/utils/
-src/test/java/com/auth0/json/
+# Shared test infrastructure for the Authentication API tests (manually maintained from auth0-real)
+src/test/java/com/auth0/client/MockServer.java
+src/test/java/com/auth0/client/RecordedRequestMatcher.java
+src/test/java/com/auth0/client/UrlMatcher.java
+src/test/java/com/auth0/AssertsUtil.java
 src/test/resources/auth/
-src/test/resources/keys/
-src/test/resources/mgmt/
 src/test/resources/mockito-extensions/
 src/test/java/com/auth0/client/legacy/
 
