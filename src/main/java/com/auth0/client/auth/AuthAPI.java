@@ -57,6 +57,8 @@ public class AuthAPI {
     private static final String KEY_MFA_TOKEN = "mfa_token";
     private static final String KEY_CLIENT_ASSERTION = "client_assertion";
     private static final String KEY_CLIENT_ASSERTION_TYPE = "client_assertion_type";
+    private static final String KEY_SUBJECT_TOKEN = "subject_token";
+    private static final String KEY_SUBJECT_TOKEN_TYPE = "subject_token_type";
     private static final String PATH_OAUTH = "oauth";
     private static final String PATH_TOKEN = "token";
     private static final String PATH_DBCONNECTIONS = "dbconnections";
@@ -796,6 +798,44 @@ public class AuthAPI {
         if (org != null && !org.trim().isEmpty()) {
             request.addParameter(KEY_ORGANIZATION, org);
         }
+        addClientAuthentication(request, true);
+        return request;
+    }
+
+    /**
+     * Creates a request to exchange an external subject token for Auth0 tokens using the
+     * {@code urn:ietf:params:oauth:grant-type:token-exchange} grant (Custom Token Exchange).
+     * A Token Exchange Profile that maps the given {@code subjectTokenType} must be configured on the tenant, and
+     * client authentication (client secret or client assertion) is required.
+     * <pre>
+     * {@code
+     * try {
+     *      TokenHolder result = authAPI.exchangeToken("test-user123-john@example.com", "urn:mycompany:m2m-test-token")
+     *          .setAudience("https://myapi.me.auth0.com/users")
+     *          .setScope("openid profile email")
+     *          .execute()
+     *          .getBody();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @see <a href="https://auth0.com/docs/authenticate/custom-token-exchange">Custom Token Exchange documentation</a>
+     * @param subjectToken the external token representing the identity of the subject. Must not be null.
+     * @param subjectTokenType an identifier for the type of the {@code subjectToken}, matching a configured Token
+     *                         Exchange Profile (for example {@code urn:mycompany:m2m-test-token}). Must not be null.
+     * @return a Request to configure and execute.
+     */
+    public TokenRequest exchangeToken(String subjectToken, String subjectTokenType) {
+        Asserts.assertNotNull(subjectToken, "subject token");
+        Asserts.assertNotNull(subjectTokenType, "subject token type");
+
+        TokenRequest request = new TokenRequest(client, getTokenUrl());
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_GRANT_TYPE, "urn:ietf:params:oauth:grant-type:token-exchange");
+        request.addParameter(KEY_SUBJECT_TOKEN, subjectToken);
+        request.addParameter(KEY_SUBJECT_TOKEN_TYPE, subjectTokenType);
         addClientAuthentication(request, true);
         return request;
     }
