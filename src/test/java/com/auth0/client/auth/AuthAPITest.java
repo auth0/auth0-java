@@ -1010,8 +1010,7 @@ public class AuthAPITest {
         AuthAPI authAPI = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET)
                 .withClientAssertionSigner(new TestAssertionSigner("token"))
                 .build();
-        TokenRequest request = authAPI
-                .exchangeToken("test-user123-john@example.com", "urn:mycompany:m2m-test-token")
+        TokenRequest request = authAPI.exchangeToken("test-user123-john@example.com", "urn:mycompany:m2m-test-token")
                 .setAudience("https://myapi.auth0.com/users")
                 .setScope("openid profile email");
         assertThat(request, is(notNullValue()));
