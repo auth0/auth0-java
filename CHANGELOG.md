@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.10.0](https://github.com/auth0/auth0-java/tree/3.10.0) (2026-07-03)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/3.9.0...3.10.0)
+
+**Added**
+- chore: Add Auth Client tests [\#890](https://github.com/auth0/auth0-java/pull/890) ([tanya732](https://github.com/tanya732))
+- feat: Add Custom Token Exchange Support [\#889](https://github.com/auth0/auth0-java/pull/889) ([tanya732](https://github.com/tanya732))
+
 ## [3.9.0](https://github.com/auth0/auth0-java/tree/3.9.0) (2026-06-24)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/3.8.0...3.9.0)
 
