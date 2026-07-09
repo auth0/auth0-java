@@ -41,7 +41,7 @@ public class ClientGrantsOrganizationsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"next\":\"next\",\"organizations\":[{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"token_quota\":{\"client_credentials\":{}}}]}"));
+                                "{\"next\":\"next\",\"organizations\":[{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"token_quota\":{\"client_credentials\":{}},\"third_party_client_access\":\"block\"}]}"));
         SyncPagingIterable<Organization> response = client.clientGrants()
                 .organizations()
                 .list(

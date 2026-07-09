@@ -101,6 +101,10 @@ public final class UpdateConnectionOptions {
 
     private final Optional<Boolean> idTokenSessionExpirySupported;
 
+    private final OptionalNullable<String> discoveryUrl;
+
+    private final OptionalNullable<ConnectionsOidcMetadata> oidcMetadata;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateConnectionOptions(
@@ -142,6 +146,8 @@ public final class UpdateConnectionOptions {
             OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg,
             Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
             Optional<Boolean> idTokenSessionExpirySupported,
+            OptionalNullable<String> discoveryUrl,
+            OptionalNullable<ConnectionsOidcMetadata> oidcMetadata,
             Map<String, Object> additionalProperties) {
         this.validation = validation;
         this.nonPersistentAttrs = nonPersistentAttrs;
@@ -181,6 +187,8 @@ public final class UpdateConnectionOptions {
         this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
         this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
         this.idTokenSessionExpirySupported = idTokenSessionExpirySupported;
+        this.discoveryUrl = discoveryUrl;
+        this.oidcMetadata = oidcMetadata;
         this.additionalProperties = additionalProperties;
     }
 
@@ -457,6 +465,24 @@ public final class UpdateConnectionOptions {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("discovery_url")
+    public OptionalNullable<String> getDiscoveryUrl() {
+        if (discoveryUrl == null) {
+            return OptionalNullable.absent();
+        }
+        return discoveryUrl;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("oidc_metadata")
+    public OptionalNullable<ConnectionsOidcMetadata> getOidcMetadata() {
+        if (oidcMetadata == null) {
+            return OptionalNullable.absent();
+        }
+        return oidcMetadata;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("validation")
     private OptionalNullable<ConnectionValidationOptions> _getValidation() {
         return validation;
@@ -553,6 +579,18 @@ public final class UpdateConnectionOptions {
         return tokenEndpointAuthSigningAlg;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("discovery_url")
+    private OptionalNullable<String> _getDiscoveryUrl() {
+        return discoveryUrl;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("oidc_metadata")
+    private OptionalNullable<ConnectionsOidcMetadata> _getOidcMetadata() {
+        return oidcMetadata;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -602,7 +640,9 @@ public final class UpdateConnectionOptions {
                 && tokenEndpointAuthMethod.equals(other.tokenEndpointAuthMethod)
                 && tokenEndpointAuthSigningAlg.equals(other.tokenEndpointAuthSigningAlg)
                 && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat)
-                && idTokenSessionExpirySupported.equals(other.idTokenSessionExpirySupported);
+                && idTokenSessionExpirySupported.equals(other.idTokenSessionExpirySupported)
+                && discoveryUrl.equals(other.discoveryUrl)
+                && oidcMetadata.equals(other.oidcMetadata);
     }
 
     @java.lang.Override
@@ -645,7 +685,9 @@ public final class UpdateConnectionOptions {
                 this.tokenEndpointAuthMethod,
                 this.tokenEndpointAuthSigningAlg,
                 this.tokenEndpointJwtcaAudFormat,
-                this.idTokenSessionExpirySupported);
+                this.idTokenSessionExpirySupported,
+                this.discoveryUrl,
+                this.oidcMetadata);
     }
 
     @java.lang.Override
@@ -742,6 +784,10 @@ public final class UpdateConnectionOptions {
 
         private Optional<Boolean> idTokenSessionExpirySupported = Optional.empty();
 
+        private OptionalNullable<String> discoveryUrl = OptionalNullable.absent();
+
+        private OptionalNullable<ConnectionsOidcMetadata> oidcMetadata = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -786,6 +832,8 @@ public final class UpdateConnectionOptions {
             tokenEndpointAuthSigningAlg(other.getTokenEndpointAuthSigningAlg());
             tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
             idTokenSessionExpirySupported(other.getIdTokenSessionExpirySupported());
+            discoveryUrl(other.getDiscoveryUrl());
+            oidcMetadata(other.getOidcMetadata());
             return this;
         }
 
@@ -1590,6 +1638,68 @@ public final class UpdateConnectionOptions {
             return this;
         }
 
+        @JsonSetter(value = "discovery_url", nulls = Nulls.SKIP)
+        public Builder discoveryUrl(@Nullable OptionalNullable<String> discoveryUrl) {
+            this.discoveryUrl = discoveryUrl;
+            return this;
+        }
+
+        public Builder discoveryUrl(String discoveryUrl) {
+            this.discoveryUrl = OptionalNullable.of(discoveryUrl);
+            return this;
+        }
+
+        public Builder discoveryUrl(Optional<String> discoveryUrl) {
+            if (discoveryUrl.isPresent()) {
+                this.discoveryUrl = OptionalNullable.of(discoveryUrl.get());
+            } else {
+                this.discoveryUrl = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder discoveryUrl(com.auth0.client.mgmt.core.Nullable<String> discoveryUrl) {
+            if (discoveryUrl.isNull()) {
+                this.discoveryUrl = OptionalNullable.ofNull();
+            } else if (discoveryUrl.isEmpty()) {
+                this.discoveryUrl = OptionalNullable.absent();
+            } else {
+                this.discoveryUrl = OptionalNullable.of(discoveryUrl.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "oidc_metadata", nulls = Nulls.SKIP)
+        public Builder oidcMetadata(@Nullable OptionalNullable<ConnectionsOidcMetadata> oidcMetadata) {
+            this.oidcMetadata = oidcMetadata;
+            return this;
+        }
+
+        public Builder oidcMetadata(ConnectionsOidcMetadata oidcMetadata) {
+            this.oidcMetadata = OptionalNullable.of(oidcMetadata);
+            return this;
+        }
+
+        public Builder oidcMetadata(Optional<ConnectionsOidcMetadata> oidcMetadata) {
+            if (oidcMetadata.isPresent()) {
+                this.oidcMetadata = OptionalNullable.of(oidcMetadata.get());
+            } else {
+                this.oidcMetadata = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder oidcMetadata(com.auth0.client.mgmt.core.Nullable<ConnectionsOidcMetadata> oidcMetadata) {
+            if (oidcMetadata.isNull()) {
+                this.oidcMetadata = OptionalNullable.ofNull();
+            } else if (oidcMetadata.isEmpty()) {
+                this.oidcMetadata = OptionalNullable.absent();
+            } else {
+                this.oidcMetadata = OptionalNullable.of(oidcMetadata.get());
+            }
+            return this;
+        }
+
         public UpdateConnectionOptions build() {
             return new UpdateConnectionOptions(
                     validation,
@@ -1630,6 +1740,8 @@ public final class UpdateConnectionOptions {
                     tokenEndpointAuthSigningAlg,
                     tokenEndpointJwtcaAudFormat,
                     idTokenSessionExpirySupported,
+                    discoveryUrl,
+                    oidcMetadata,
                     additionalProperties);
         }
 

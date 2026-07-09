@@ -18,17 +18,17 @@ import java.util.Objects;
 import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = ConnectionAttributeIdentifier.Builder.class)
-public final class ConnectionAttributeIdentifier {
+@JsonDeserialize(builder = PhoneAttributeIdentifier.Builder.class)
+public final class PhoneAttributeIdentifier {
     private final Optional<Boolean> active;
 
-    private final Optional<DefaultMethodEmailIdentifierEnum> defaultMethod;
+    private final Optional<DefaultMethodPhoneNumberIdentifierEnum> defaultMethod;
 
     private final Map<String, Object> additionalProperties;
 
-    private ConnectionAttributeIdentifier(
+    private PhoneAttributeIdentifier(
             Optional<Boolean> active,
-            Optional<DefaultMethodEmailIdentifierEnum> defaultMethod,
+            Optional<DefaultMethodPhoneNumberIdentifierEnum> defaultMethod,
             Map<String, Object> additionalProperties) {
         this.active = active;
         this.defaultMethod = defaultMethod;
@@ -44,14 +44,14 @@ public final class ConnectionAttributeIdentifier {
     }
 
     @JsonProperty("default_method")
-    public Optional<DefaultMethodEmailIdentifierEnum> getDefaultMethod() {
+    public Optional<DefaultMethodPhoneNumberIdentifierEnum> getDefaultMethod() {
         return defaultMethod;
     }
 
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof ConnectionAttributeIdentifier && equalTo((ConnectionAttributeIdentifier) other);
+        return other instanceof PhoneAttributeIdentifier && equalTo((PhoneAttributeIdentifier) other);
     }
 
     @JsonAnyGetter
@@ -59,7 +59,7 @@ public final class ConnectionAttributeIdentifier {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(ConnectionAttributeIdentifier other) {
+    private boolean equalTo(PhoneAttributeIdentifier other) {
         return active.equals(other.active) && defaultMethod.equals(other.defaultMethod);
     }
 
@@ -81,14 +81,14 @@ public final class ConnectionAttributeIdentifier {
     public static final class Builder {
         private Optional<Boolean> active = Optional.empty();
 
-        private Optional<DefaultMethodEmailIdentifierEnum> defaultMethod = Optional.empty();
+        private Optional<DefaultMethodPhoneNumberIdentifierEnum> defaultMethod = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        public Builder from(ConnectionAttributeIdentifier other) {
+        public Builder from(PhoneAttributeIdentifier other) {
             active(other.getActive());
             defaultMethod(other.getDefaultMethod());
             return this;
@@ -109,18 +109,18 @@ public final class ConnectionAttributeIdentifier {
         }
 
         @JsonSetter(value = "default_method", nulls = Nulls.SKIP)
-        public Builder defaultMethod(Optional<DefaultMethodEmailIdentifierEnum> defaultMethod) {
+        public Builder defaultMethod(Optional<DefaultMethodPhoneNumberIdentifierEnum> defaultMethod) {
             this.defaultMethod = defaultMethod;
             return this;
         }
 
-        public Builder defaultMethod(DefaultMethodEmailIdentifierEnum defaultMethod) {
+        public Builder defaultMethod(DefaultMethodPhoneNumberIdentifierEnum defaultMethod) {
             this.defaultMethod = Optional.ofNullable(defaultMethod);
             return this;
         }
 
-        public ConnectionAttributeIdentifier build() {
-            return new ConnectionAttributeIdentifier(active, defaultMethod, additionalProperties);
+        public PhoneAttributeIdentifier build() {
+            return new PhoneAttributeIdentifier(active, defaultMethod, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

@@ -29,6 +29,8 @@ public final class PartialGroupsEnum {
 
     public static final PartialGroupsEnum PASSKEYS = new PartialGroupsEnum(Value.PASSKEYS, "passkeys");
 
+    public static final PartialGroupsEnum CONFIRMATION = new PartialGroupsEnum(Value.CONFIRMATION, "confirmation");
+
     private final Value value;
 
     private final String string;
@@ -79,6 +81,8 @@ public final class PartialGroupsEnum {
                 return visitor.visitLoginPasswordless();
             case PASSKEYS:
                 return visitor.visitPasskeys();
+            case CONFIRMATION:
+                return visitor.visitConfirmation();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -106,6 +110,8 @@ public final class PartialGroupsEnum {
                 return LOGIN_PASSWORDLESS;
             case "passkeys":
                 return PASSKEYS;
+            case "confirmation":
+                return CONFIRMATION;
             default:
                 return new PartialGroupsEnum(Value.UNKNOWN, value);
         }
@@ -130,6 +136,8 @@ public final class PartialGroupsEnum {
 
         PASSKEYS,
 
+        CONFIRMATION,
+
         UNKNOWN
     }
 
@@ -151,6 +159,8 @@ public final class PartialGroupsEnum {
         T visitCustomizedConsent();
 
         T visitPasskeys();
+
+        T visitConfirmation();
 
         T visitUnknown(String unknownType);
     }

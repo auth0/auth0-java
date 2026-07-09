@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class PhoneProviderProtectionBackoffStrategyEnum {
+    public static final PhoneProviderProtectionBackoffStrategyEnum DEFAULT =
+            new PhoneProviderProtectionBackoffStrategyEnum(Value.DEFAULT, "default");
+
     public static final PhoneProviderProtectionBackoffStrategyEnum EXPONENTIAL =
             new PhoneProviderProtectionBackoffStrategyEnum(Value.EXPONENTIAL, "exponential");
-
-    public static final PhoneProviderProtectionBackoffStrategyEnum NONE =
-            new PhoneProviderProtectionBackoffStrategyEnum(Value.NONE, "none");
 
     private final Value value;
 
@@ -46,10 +46,10 @@ public final class PhoneProviderProtectionBackoffStrategyEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case DEFAULT:
+                return visitor.visitDefault();
             case EXPONENTIAL:
                 return visitor.visitExponential();
-            case NONE:
-                return visitor.visitNone();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -59,10 +59,10 @@ public final class PhoneProviderProtectionBackoffStrategyEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static PhoneProviderProtectionBackoffStrategyEnum valueOf(String value) {
         switch (value) {
+            case "default":
+                return DEFAULT;
             case "exponential":
                 return EXPONENTIAL;
-            case "none":
-                return NONE;
             default:
                 return new PhoneProviderProtectionBackoffStrategyEnum(Value.UNKNOWN, value);
         }
@@ -71,7 +71,7 @@ public final class PhoneProviderProtectionBackoffStrategyEnum {
     public enum Value {
         EXPONENTIAL,
 
-        NONE,
+        DEFAULT,
 
         UNKNOWN
     }
@@ -79,7 +79,7 @@ public final class PhoneProviderProtectionBackoffStrategyEnum {
     public interface Visitor<T> {
         T visitExponential();
 
-        T visitNone();
+        T visitDefault();
 
         T visitUnknown(String unknownType);
     }

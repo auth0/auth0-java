@@ -34,6 +34,8 @@ public final class CreateOrganizationResponseContent {
 
     private final Optional<TokenQuota> tokenQuota;
 
+    private final Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess;
+
     private final Optional<List<OrganizationEnabledConnection>> enabledConnections;
 
     private final Map<String, Object> additionalProperties;
@@ -45,6 +47,7 @@ public final class CreateOrganizationResponseContent {
             Optional<OrganizationBranding> branding,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             Optional<TokenQuota> tokenQuota,
+            Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess,
             Optional<List<OrganizationEnabledConnection>> enabledConnections,
             Map<String, Object> additionalProperties) {
         this.id = id;
@@ -53,6 +56,7 @@ public final class CreateOrganizationResponseContent {
         this.branding = branding;
         this.metadata = metadata;
         this.tokenQuota = tokenQuota;
+        this.thirdPartyClientAccess = thirdPartyClientAccess;
         this.enabledConnections = enabledConnections;
         this.additionalProperties = additionalProperties;
     }
@@ -96,6 +100,11 @@ public final class CreateOrganizationResponseContent {
         return tokenQuota;
     }
 
+    @JsonProperty("third_party_client_access")
+    public Optional<OrganizationThirdPartyClientAccessEnum> getThirdPartyClientAccess() {
+        return thirdPartyClientAccess;
+    }
+
     @JsonProperty("enabled_connections")
     public Optional<List<OrganizationEnabledConnection>> getEnabledConnections() {
         return enabledConnections;
@@ -119,6 +128,7 @@ public final class CreateOrganizationResponseContent {
                 && branding.equals(other.branding)
                 && metadata.equals(other.metadata)
                 && tokenQuota.equals(other.tokenQuota)
+                && thirdPartyClientAccess.equals(other.thirdPartyClientAccess)
                 && enabledConnections.equals(other.enabledConnections);
     }
 
@@ -131,6 +141,7 @@ public final class CreateOrganizationResponseContent {
                 this.branding,
                 this.metadata,
                 this.tokenQuota,
+                this.thirdPartyClientAccess,
                 this.enabledConnections);
     }
 
@@ -157,6 +168,8 @@ public final class CreateOrganizationResponseContent {
 
         private Optional<TokenQuota> tokenQuota = Optional.empty();
 
+        private Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess = Optional.empty();
+
         private Optional<List<OrganizationEnabledConnection>> enabledConnections = Optional.empty();
 
         @JsonAnySetter
@@ -171,6 +184,7 @@ public final class CreateOrganizationResponseContent {
             branding(other.getBranding());
             metadata(other.getMetadata());
             tokenQuota(other.getTokenQuota());
+            thirdPartyClientAccess(other.getThirdPartyClientAccess());
             enabledConnections(other.getEnabledConnections());
             return this;
         }
@@ -250,6 +264,17 @@ public final class CreateOrganizationResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "third_party_client_access", nulls = Nulls.SKIP)
+        public Builder thirdPartyClientAccess(Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess) {
+            this.thirdPartyClientAccess = thirdPartyClientAccess;
+            return this;
+        }
+
+        public Builder thirdPartyClientAccess(OrganizationThirdPartyClientAccessEnum thirdPartyClientAccess) {
+            this.thirdPartyClientAccess = Optional.ofNullable(thirdPartyClientAccess);
+            return this;
+        }
+
         @JsonSetter(value = "enabled_connections", nulls = Nulls.SKIP)
         public Builder enabledConnections(Optional<List<OrganizationEnabledConnection>> enabledConnections) {
             this.enabledConnections = enabledConnections;
@@ -263,7 +288,15 @@ public final class CreateOrganizationResponseContent {
 
         public CreateOrganizationResponseContent build() {
             return new CreateOrganizationResponseContent(
-                    id, name, displayName, branding, metadata, tokenQuota, enabledConnections, additionalProperties);
+                    id,
+                    name,
+                    displayName,
+                    branding,
+                    metadata,
+                    tokenQuota,
+                    thirdPartyClientAccess,
+                    enabledConnections,
+                    additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

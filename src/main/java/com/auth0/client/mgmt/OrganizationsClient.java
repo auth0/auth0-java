@@ -14,6 +14,7 @@ import com.auth0.client.mgmt.organizations.EnabledConnectionsClient;
 import com.auth0.client.mgmt.organizations.GroupsClient;
 import com.auth0.client.mgmt.organizations.InvitationsClient;
 import com.auth0.client.mgmt.organizations.MembersClient;
+import com.auth0.client.mgmt.organizations.roles.RolesClient;
 import com.auth0.client.mgmt.types.CreateOrganizationRequestContent;
 import com.auth0.client.mgmt.types.CreateOrganizationResponseContent;
 import com.auth0.client.mgmt.types.GetOrganizationByNameResponseContent;
@@ -43,6 +44,8 @@ public class OrganizationsClient {
 
     protected final Supplier<GroupsClient> groupsClient;
 
+    protected final Supplier<RolesClient> rolesClient;
+
     public OrganizationsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.rawClient = new RawOrganizationsClient(clientOptions);
@@ -53,6 +56,7 @@ public class OrganizationsClient {
         this.invitationsClient = Suppliers.memoize(() -> new InvitationsClient(clientOptions));
         this.membersClient = Suppliers.memoize(() -> new MembersClient(clientOptions));
         this.groupsClient = Suppliers.memoize(() -> new GroupsClient(clientOptions));
+        this.rolesClient = Suppliers.memoize(() -> new RolesClient(clientOptions));
     }
 
     /**
@@ -257,5 +261,9 @@ public class OrganizationsClient {
 
     public GroupsClient groups() {
         return this.groupsClient.get();
+    }
+
+    public RolesClient roles() {
+        return this.rolesClient.get();
     }
 }

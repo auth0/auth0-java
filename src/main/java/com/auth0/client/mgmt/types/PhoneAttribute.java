@@ -20,7 +20,7 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = PhoneAttribute.Builder.class)
 public final class PhoneAttribute {
-    private final Optional<ConnectionAttributeIdentifier> identifier;
+    private final Optional<PhoneAttributeIdentifier> identifier;
 
     private final Optional<Boolean> profileRequired;
 
@@ -29,7 +29,7 @@ public final class PhoneAttribute {
     private final Map<String, Object> additionalProperties;
 
     private PhoneAttribute(
-            Optional<ConnectionAttributeIdentifier> identifier,
+            Optional<PhoneAttributeIdentifier> identifier,
             Optional<Boolean> profileRequired,
             Optional<SignupVerified> signup,
             Map<String, Object> additionalProperties) {
@@ -40,7 +40,7 @@ public final class PhoneAttribute {
     }
 
     @JsonProperty("identifier")
-    public Optional<ConnectionAttributeIdentifier> getIdentifier() {
+    public Optional<PhoneAttributeIdentifier> getIdentifier() {
         return identifier;
     }
 
@@ -90,7 +90,7 @@ public final class PhoneAttribute {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<ConnectionAttributeIdentifier> identifier = Optional.empty();
+        private Optional<PhoneAttributeIdentifier> identifier = Optional.empty();
 
         private Optional<Boolean> profileRequired = Optional.empty();
 
@@ -109,12 +109,12 @@ public final class PhoneAttribute {
         }
 
         @JsonSetter(value = "identifier", nulls = Nulls.SKIP)
-        public Builder identifier(Optional<ConnectionAttributeIdentifier> identifier) {
+        public Builder identifier(Optional<PhoneAttributeIdentifier> identifier) {
             this.identifier = identifier;
             return this;
         }
 
-        public Builder identifier(ConnectionAttributeIdentifier identifier) {
+        public Builder identifier(PhoneAttributeIdentifier identifier) {
             this.identifier = Optional.ofNullable(identifier);
             return this;
         }

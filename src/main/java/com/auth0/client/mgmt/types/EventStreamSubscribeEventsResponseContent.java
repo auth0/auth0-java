@@ -26,6 +26,21 @@ public final class EventStreamSubscribeEventsResponseContent {
         return value.visit(visitor);
     }
 
+    public static EventStreamSubscribeEventsResponseContent connectionCreated(
+            EventStreamCloudEventConnectionCreated value) {
+        return new EventStreamSubscribeEventsResponseContent(new ConnectionCreatedValue(value));
+    }
+
+    public static EventStreamSubscribeEventsResponseContent connectionDeleted(
+            EventStreamCloudEventConnectionDeleted value) {
+        return new EventStreamSubscribeEventsResponseContent(new ConnectionDeletedValue(value));
+    }
+
+    public static EventStreamSubscribeEventsResponseContent connectionUpdated(
+            EventStreamCloudEventConnectionUpdated value) {
+        return new EventStreamSubscribeEventsResponseContent(new ConnectionUpdatedValue(value));
+    }
+
     public static EventStreamSubscribeEventsResponseContent groupCreated(EventStreamCloudEventGroupCreated value) {
         return new EventStreamSubscribeEventsResponseContent(new GroupCreatedValue(value));
     }
@@ -135,6 +150,18 @@ public final class EventStreamSubscribeEventsResponseContent {
         return new EventStreamSubscribeEventsResponseContent(new OffsetOnlyValue(value));
     }
 
+    public boolean isConnectionCreated() {
+        return value instanceof ConnectionCreatedValue;
+    }
+
+    public boolean isConnectionDeleted() {
+        return value instanceof ConnectionDeletedValue;
+    }
+
+    public boolean isConnectionUpdated() {
+        return value instanceof ConnectionUpdatedValue;
+    }
+
     public boolean isGroupCreated() {
         return value instanceof GroupCreatedValue;
     }
@@ -233,6 +260,27 @@ public final class EventStreamSubscribeEventsResponseContent {
 
     public boolean _isUnknown() {
         return value instanceof _UnknownValue;
+    }
+
+    public Optional<EventStreamCloudEventConnectionCreated> getConnectionCreated() {
+        if (isConnectionCreated()) {
+            return Optional.of(((ConnectionCreatedValue) value).value);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<EventStreamCloudEventConnectionDeleted> getConnectionDeleted() {
+        if (isConnectionDeleted()) {
+            return Optional.of(((ConnectionDeletedValue) value).value);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<EventStreamCloudEventConnectionUpdated> getConnectionUpdated() {
+        if (isConnectionUpdated()) {
+            return Optional.of(((ConnectionUpdatedValue) value).value);
+        }
+        return Optional.empty();
     }
 
     public Optional<EventStreamCloudEventGroupCreated> getGroupCreated() {
@@ -433,6 +481,12 @@ public final class EventStreamSubscribeEventsResponseContent {
     }
 
     public interface Visitor<T> {
+        T visitConnectionCreated(EventStreamCloudEventConnectionCreated connectionCreated);
+
+        T visitConnectionDeleted(EventStreamCloudEventConnectionDeleted connectionDeleted);
+
+        T visitConnectionUpdated(EventStreamCloudEventConnectionUpdated connectionUpdated);
+
         T visitGroupCreated(EventStreamCloudEventGroupCreated groupCreated);
 
         T visitGroupDeleted(EventStreamCloudEventGroupDeleted groupDeleted);
@@ -487,6 +541,9 @@ public final class EventStreamSubscribeEventsResponseContent {
 
     @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type", visible = true, defaultImpl = _UnknownValue.class)
     @JsonSubTypes({
+        @JsonSubTypes.Type(ConnectionCreatedValue.class),
+        @JsonSubTypes.Type(ConnectionDeletedValue.class),
+        @JsonSubTypes.Type(ConnectionUpdatedValue.class),
         @JsonSubTypes.Type(GroupCreatedValue.class),
         @JsonSubTypes.Type(GroupDeletedValue.class),
         @JsonSubTypes.Type(GroupMemberAddedValue.class),
@@ -515,6 +572,126 @@ public final class EventStreamSubscribeEventsResponseContent {
     @JsonIgnoreProperties(ignoreUnknown = true)
     private interface Value {
         <T> T visit(Visitor<T> visitor);
+    }
+
+    @JsonTypeName("connection.created")
+    @JsonIgnoreProperties("type")
+    private static final class ConnectionCreatedValue implements Value {
+        @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
+        private EventStreamCloudEventConnectionCreated value;
+
+        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+        private ConnectionCreatedValue() {}
+
+        private ConnectionCreatedValue(EventStreamCloudEventConnectionCreated value) {
+            this.value = value;
+        }
+
+        @java.lang.Override
+        public <T> T visit(Visitor<T> visitor) {
+            return visitor.visitConnectionCreated(value);
+        }
+
+        @java.lang.Override
+        public boolean equals(Object other) {
+            if (this == other) return true;
+            return other instanceof ConnectionCreatedValue && equalTo((ConnectionCreatedValue) other);
+        }
+
+        private boolean equalTo(ConnectionCreatedValue other) {
+            return value.equals(other.value);
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            return Objects.hash(this.value);
+        }
+
+        @java.lang.Override
+        public String toString() {
+            return "EventStreamSubscribeEventsResponseContent{" + "value: " + value + "}";
+        }
+    }
+
+    @JsonTypeName("connection.deleted")
+    @JsonIgnoreProperties("type")
+    private static final class ConnectionDeletedValue implements Value {
+        @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
+        private EventStreamCloudEventConnectionDeleted value;
+
+        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+        private ConnectionDeletedValue() {}
+
+        private ConnectionDeletedValue(EventStreamCloudEventConnectionDeleted value) {
+            this.value = value;
+        }
+
+        @java.lang.Override
+        public <T> T visit(Visitor<T> visitor) {
+            return visitor.visitConnectionDeleted(value);
+        }
+
+        @java.lang.Override
+        public boolean equals(Object other) {
+            if (this == other) return true;
+            return other instanceof ConnectionDeletedValue && equalTo((ConnectionDeletedValue) other);
+        }
+
+        private boolean equalTo(ConnectionDeletedValue other) {
+            return value.equals(other.value);
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            return Objects.hash(this.value);
+        }
+
+        @java.lang.Override
+        public String toString() {
+            return "EventStreamSubscribeEventsResponseContent{" + "value: " + value + "}";
+        }
+    }
+
+    @JsonTypeName("connection.updated")
+    @JsonIgnoreProperties("type")
+    private static final class ConnectionUpdatedValue implements Value {
+        @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
+        private EventStreamCloudEventConnectionUpdated value;
+
+        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+        private ConnectionUpdatedValue() {}
+
+        private ConnectionUpdatedValue(EventStreamCloudEventConnectionUpdated value) {
+            this.value = value;
+        }
+
+        @java.lang.Override
+        public <T> T visit(Visitor<T> visitor) {
+            return visitor.visitConnectionUpdated(value);
+        }
+
+        @java.lang.Override
+        public boolean equals(Object other) {
+            if (this == other) return true;
+            return other instanceof ConnectionUpdatedValue && equalTo((ConnectionUpdatedValue) other);
+        }
+
+        private boolean equalTo(ConnectionUpdatedValue other) {
+            return value.equals(other.value);
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            return Objects.hash(this.value);
+        }
+
+        @java.lang.Override
+        public String toString() {
+            return "EventStreamSubscribeEventsResponseContent{" + "value: " + value + "}";
+        }
     }
 
     @JsonTypeName("group.created")

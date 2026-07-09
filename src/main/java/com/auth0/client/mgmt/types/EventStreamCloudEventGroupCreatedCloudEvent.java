@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = EventStreamCloudEventGroupCreatedCloudEvent.Builder.class)
 public final class EventStreamCloudEventGroupCreatedCloudEvent {
-    private final String specversion;
+    private final EventStreamCloudEventSpecVersionEnum specversion;
 
     private final EventStreamCloudEventGroupCreatedCloudEventTypeEnum type;
 
@@ -43,7 +43,7 @@ public final class EventStreamCloudEventGroupCreatedCloudEvent {
     private final Map<String, Object> additionalProperties;
 
     private EventStreamCloudEventGroupCreatedCloudEvent(
-            String specversion,
+            EventStreamCloudEventSpecVersionEnum specversion,
             EventStreamCloudEventGroupCreatedCloudEventTypeEnum type,
             String source,
             String id,
@@ -65,11 +65,8 @@ public final class EventStreamCloudEventGroupCreatedCloudEvent {
         this.additionalProperties = additionalProperties;
     }
 
-    /**
-     * @return The version of the CloudEvents specification which the event uses.
-     */
     @JsonProperty("specversion")
-    public String getSpecversion() {
+    public EventStreamCloudEventSpecVersionEnum getSpecversion() {
         return specversion;
     }
 
@@ -176,10 +173,7 @@ public final class EventStreamCloudEventGroupCreatedCloudEvent {
     }
 
     public interface SpecversionStage {
-        /**
-         * <p>The version of the CloudEvents specification which the event uses.</p>
-         */
-        TypeStage specversion(@NotNull String specversion);
+        TypeStage specversion(@NotNull EventStreamCloudEventSpecVersionEnum specversion);
 
         Builder from(EventStreamCloudEventGroupCreatedCloudEvent other);
     }
@@ -250,7 +244,7 @@ public final class EventStreamCloudEventGroupCreatedCloudEvent {
                     A0TenantStage,
                     A0StreamStage,
                     _FinalStage {
-        private String specversion;
+        private EventStreamCloudEventSpecVersionEnum specversion;
 
         private EventStreamCloudEventGroupCreatedCloudEventTypeEnum type;
 
@@ -287,14 +281,9 @@ public final class EventStreamCloudEventGroupCreatedCloudEvent {
             return this;
         }
 
-        /**
-         * <p>The version of the CloudEvents specification which the event uses.</p>
-         * <p>The version of the CloudEvents specification which the event uses.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
         @java.lang.Override
         @JsonSetter("specversion")
-        public TypeStage specversion(@NotNull String specversion) {
+        public TypeStage specversion(@NotNull EventStreamCloudEventSpecVersionEnum specversion) {
             this.specversion = Objects.requireNonNull(specversion, "specversion must not be null");
             return this;
         }
