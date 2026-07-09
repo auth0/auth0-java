@@ -61,11 +61,10 @@ public class AuthAPI {
     private static final String KEY_SUBJECT_TOKEN_TYPE = "subject_token_type";
     private static final String KEY_REQUESTED_TOKEN_TYPE = "requested_token_type";
     private static final String GRANT_TYPE_FEDERATED_CONNECTION_ACCESS_TOKEN =
-        "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token";
-    private static final String SUBJECT_TOKEN_TYPE_REFRESH_TOKEN =
-        "urn:ietf:params:oauth:token-type:refresh_token";
+            "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token";
+    private static final String SUBJECT_TOKEN_TYPE_REFRESH_TOKEN = "urn:ietf:params:oauth:token-type:refresh_token";
     private static final String REQUESTED_TOKEN_TYPE_FEDERATED_CONNECTION_ACCESS_TOKEN =
-        "http://auth0.com/oauth/token-type/federated-connection-access-token";
+            "http://auth0.com/oauth/token-type/federated-connection-access-token";
     private static final String PATH_OAUTH = "oauth";
     private static final String PATH_TOKEN = "token";
     private static final String PATH_DBCONNECTIONS = "dbconnections";

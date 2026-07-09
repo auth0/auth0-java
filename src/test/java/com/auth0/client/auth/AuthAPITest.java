@@ -1066,14 +1066,19 @@ public class AuthAPITest {
         assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
 
         Map<String, Object> body = bodyFromRequest(recordedRequest);
-        assertThat(body, hasEntry("grant_type",
-                "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token"));
+        assertThat(
+                body,
+                hasEntry(
+                        "grant_type",
+                        "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token"));
         assertThat(body, hasEntry("client_id", CLIENT_ID));
         assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
         assertThat(body, hasEntry("subject_token", "test-refresh-token"));
         assertThat(body, hasEntry("subject_token_type", "urn:ietf:params:oauth:token-type:refresh_token"));
-        assertThat(body, hasEntry("requested_token_type",
-                "http://auth0.com/oauth/token-type/federated-connection-access-token"));
+        assertThat(
+                body,
+                hasEntry(
+                        "requested_token_type", "http://auth0.com/oauth/token-type/federated-connection-access-token"));
         assertThat(body, hasEntry("connection", "google-oauth2"));
         assertThat(body, not(hasKey("login_hint")));
 
@@ -1083,8 +1088,8 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateGetTokenForConnectionRequestWithLoginHint() throws Exception {
-        TokenRequest request = api.getTokenForConnection("google-oauth2", "test-refresh-token")
-                .setLoginHint("google-user-id");
+        TokenRequest request =
+                api.getTokenForConnection("google-oauth2", "test-refresh-token").setLoginHint("google-user-id");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
