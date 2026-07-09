@@ -59,6 +59,13 @@ public class AuthAPI {
     private static final String KEY_CLIENT_ASSERTION_TYPE = "client_assertion_type";
     private static final String KEY_SUBJECT_TOKEN = "subject_token";
     private static final String KEY_SUBJECT_TOKEN_TYPE = "subject_token_type";
+    private static final String KEY_REQUESTED_TOKEN_TYPE = "requested_token_type";
+    private static final String GRANT_TYPE_FEDERATED_CONNECTION_ACCESS_TOKEN =
+        "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token";
+    private static final String SUBJECT_TOKEN_TYPE_REFRESH_TOKEN =
+        "urn:ietf:params:oauth:token-type:refresh_token";
+    private static final String REQUESTED_TOKEN_TYPE_FEDERATED_CONNECTION_ACCESS_TOKEN =
+        "http://auth0.com/oauth/token-type/federated-connection-access-token";
     private static final String PATH_OAUTH = "oauth";
     private static final String PATH_TOKEN = "token";
     private static final String PATH_DBCONNECTIONS = "dbconnections";
@@ -836,6 +843,47 @@ public class AuthAPI {
         request.addParameter(KEY_GRANT_TYPE, "urn:ietf:params:oauth:grant-type:token-exchange");
         request.addParameter(KEY_SUBJECT_TOKEN, subjectToken);
         request.addParameter(KEY_SUBJECT_TOKEN_TYPE, subjectTokenType);
+        addClientAuthentication(request, true);
+        return request;
+    }
+
+    /**
+     * Creates a request to exchange an Auth0 refresh token for a federated identity provider's access token
+     * using the Token Vault grant
+     * {@code urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token}.
+     * The connection must have the token vault enabled, and client authentication
+     * (client secret or client assertion) is required as this must be a private client.
+     * <pre>
+     * {@code
+     * try {
+     *      TokenHolder result = authAPI.getTokenForConnection("google-oauth2", refreshToken)
+     *          .setLoginHint("google-user-id")
+     *          .execute()
+     *          .getBody();
+     *      String federatedAccessToken = result.getAccessToken();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @see <a href="https://auth0.com/docs/secure/tokens/token-vault">Token Vault documentation</a>
+     * @param connection the name of the federated connection to obtain an access token for
+     *                   (for example {@code google-oauth2}). Must not be null.
+     * @param refreshToken a valid Auth0 refresh token to exchange. Must not be null.
+     * @return a Request to configure and execute.
+     */
+    public TokenRequest getTokenForConnection(String connection, String refreshToken) {
+        Asserts.assertNotNull(connection, "connection");
+        Asserts.assertNotNull(refreshToken, "refresh token");
+
+        TokenRequest request = new TokenRequest(client, getTokenUrl());
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(KEY_GRANT_TYPE, GRANT_TYPE_FEDERATED_CONNECTION_ACCESS_TOKEN);
+        request.addParameter(KEY_SUBJECT_TOKEN, refreshToken);
+        request.addParameter(KEY_SUBJECT_TOKEN_TYPE, SUBJECT_TOKEN_TYPE_REFRESH_TOKEN);
+        request.addParameter(KEY_REQUESTED_TOKEN_TYPE, REQUESTED_TOKEN_TYPE_FEDERATED_CONNECTION_ACCESS_TOKEN);
+        request.addParameter(KEY_CONNECTION, connection);
         addClientAuthentication(request, true);
         return request;
     }

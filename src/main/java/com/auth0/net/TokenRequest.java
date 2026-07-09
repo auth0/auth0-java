@@ -46,4 +46,17 @@ public class TokenRequest extends BaseRequest<TokenHolder> {
         super.addParameter("scope", scope);
         return this;
     }
+
+    /**
+     * Setter for the login hint value to request. For the Token Vault federated connection
+     * token exchange, this is the user's ID within the identity provider specified by the
+     * connection (for example, the Google user ID when the connection is {@code google-oauth2}).
+     *
+     * @param loginHint the login hint to request
+     * @return this request instance.
+     */
+    public TokenRequest setLoginHint(String loginHint) {
+        super.addParameter("login_hint", loginHint);
+        return this;
+    }
 }
