@@ -100,8 +100,10 @@ public class RawEventsClient {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
                 return new ManagementApiHttpResponse<>(
-                        Stream.fromSse(
-                                EventStreamSubscribeEventsResponseContent.class, new ResponseBodyReader(response)),
+                        Stream.fromSseWithEventDiscrimination(
+                                EventStreamSubscribeEventsResponseContent.class,
+                                new ResponseBodyReader(response),
+                                "type"),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";

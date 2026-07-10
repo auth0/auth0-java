@@ -109,9 +109,10 @@ public class AsyncRawEventsClient {
                     ResponseBody responseBody = response.body();
                     if (response.isSuccessful()) {
                         future.complete(new ManagementApiHttpResponse<>(
-                                Stream.fromSse(
+                                Stream.fromSseWithEventDiscrimination(
                                         EventStreamSubscribeEventsResponseContent.class,
-                                        new ResponseBodyReader(response)),
+                                        new ResponseBodyReader(response),
+                                        "type"),
                                 response));
                         return;
                     }
