@@ -60,11 +60,7 @@ public class AuthAPI {
     private static final String KEY_SUBJECT_TOKEN = "subject_token";
     private static final String KEY_SUBJECT_TOKEN_TYPE = "subject_token_type";
     private static final String KEY_REQUESTED_TOKEN_TYPE = "requested_token_type";
-    private static final String GRANT_TYPE_FEDERATED_CONNECTION_ACCESS_TOKEN =
-            "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token";
-    private static final String SUBJECT_TOKEN_TYPE_REFRESH_TOKEN = "urn:ietf:params:oauth:token-type:refresh_token";
-    private static final String REQUESTED_TOKEN_TYPE_FEDERATED_CONNECTION_ACCESS_TOKEN =
-            "http://auth0.com/oauth/token-type/federated-connection-access-token";
+    private static final String KEY_LOGIN_HINT = "login_hint";
     private static final String PATH_OAUTH = "oauth";
     private static final String PATH_TOKEN = "token";
     private static final String PATH_DBCONNECTIONS = "dbconnections";
@@ -855,8 +851,7 @@ public class AuthAPI {
      * <pre>
      * {@code
      * try {
-     *      TokenHolder result = authAPI.getTokenForConnection("google-oauth2", refreshToken)
-     *          .setLoginHint("google-user-id")
+     *      TokenHolder result = authAPI.getTokenForConnection("google-oauth2", refreshToken, "google-user-id")
      *          .execute()
      *          .getBody();
      *      String federatedAccessToken = result.getAccessToken();
@@ -870,19 +865,27 @@ public class AuthAPI {
      * @param connection the name of the federated connection to obtain an access token for
      *                   (for example {@code google-oauth2}). Must not be null.
      * @param refreshToken a valid Auth0 refresh token to exchange. Must not be null.
+     * @param loginHint the user's ID within the identity provider specified by the connection
+     *                  (for example, the Google user ID when the connection is {@code google-oauth2}).
+     *                  May be null, in which case no {@code login_hint} is sent.
      * @return a Request to configure and execute.
      */
-    public TokenRequest getTokenForConnection(String connection, String refreshToken) {
+    public TokenRequest getTokenForConnection(String connection, String refreshToken, String loginHint) {
         Asserts.assertNotNull(connection, "connection");
         Asserts.assertNotNull(refreshToken, "refresh token");
 
         TokenRequest request = new TokenRequest(client, getTokenUrl());
         request.addParameter(KEY_CLIENT_ID, clientId);
-        request.addParameter(KEY_GRANT_TYPE, GRANT_TYPE_FEDERATED_CONNECTION_ACCESS_TOKEN);
+        request.addParameter(
+                KEY_GRANT_TYPE, "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token");
         request.addParameter(KEY_SUBJECT_TOKEN, refreshToken);
-        request.addParameter(KEY_SUBJECT_TOKEN_TYPE, SUBJECT_TOKEN_TYPE_REFRESH_TOKEN);
-        request.addParameter(KEY_REQUESTED_TOKEN_TYPE, REQUESTED_TOKEN_TYPE_FEDERATED_CONNECTION_ACCESS_TOKEN);
+        request.addParameter(KEY_SUBJECT_TOKEN_TYPE, "urn:ietf:params:oauth:token-type:refresh_token");
+        request.addParameter(
+                KEY_REQUESTED_TOKEN_TYPE, "http://auth0.com/oauth/token-type/federated-connection-access-token");
         request.addParameter(KEY_CONNECTION, connection);
+        if (loginHint != null) {
+            request.addParameter(KEY_LOGIN_HINT, loginHint);
+        }
         addClientAuthentication(request, true);
         return request;
     }

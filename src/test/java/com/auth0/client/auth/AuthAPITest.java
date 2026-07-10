@@ -1041,7 +1041,7 @@ public class AuthAPITest {
     public void shouldThrowOnGetTokenForConnectionWithNullConnection() {
         verifyThrows(
                 IllegalArgumentException.class,
-                () -> api.getTokenForConnection(null, "test-refresh-token"),
+                () -> api.getTokenForConnection(null, "test-refresh-token", null),
                 "'connection' cannot be null!");
     }
 
@@ -1049,13 +1049,13 @@ public class AuthAPITest {
     public void shouldThrowOnGetTokenForConnectionWithNullRefreshToken() {
         verifyThrows(
                 IllegalArgumentException.class,
-                () -> api.getTokenForConnection("google-oauth2", null),
+                () -> api.getTokenForConnection("google-oauth2", null, null),
                 "'refresh token' cannot be null!");
     }
 
     @Test
     public void shouldCreateGetTokenForConnectionRequest() throws Exception {
-        TokenRequest request = api.getTokenForConnection("google-oauth2", "test-refresh-token");
+        TokenRequest request = api.getTokenForConnection("google-oauth2", "test-refresh-token", null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -1088,8 +1088,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateGetTokenForConnectionRequestWithLoginHint() throws Exception {
-        TokenRequest request =
-                api.getTokenForConnection("google-oauth2", "test-refresh-token").setLoginHint("google-user-id");
+        TokenRequest request = api.getTokenForConnection("google-oauth2", "test-refresh-token", "google-user-id");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -1108,7 +1107,7 @@ public class AuthAPITest {
     public void getTokenForConnectionRequiresClientAuthentication() {
         verifyThrows(
                 IllegalStateException.class,
-                () -> apiNoClientAuthentication.getTokenForConnection("google-oauth2", "test-refresh-token"),
+                () -> apiNoClientAuthentication.getTokenForConnection("google-oauth2", "test-refresh-token", null),
                 "A client secret or client assertion signing key is required for this operation");
     }
 
