@@ -31,6 +31,8 @@ public final class UserGrant {
 
     private final Optional<List<String>> scope;
 
+    private final Optional<String> organizationId;
+
     private final Map<String, Object> additionalProperties;
 
     private UserGrant(
@@ -39,12 +41,14 @@ public final class UserGrant {
             Optional<String> userId,
             Optional<String> audience,
             Optional<List<String>> scope,
+            Optional<String> organizationId,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.clientId = clientId;
         this.userId = userId;
         this.audience = audience;
         this.scope = scope;
+        this.organizationId = organizationId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -88,6 +92,14 @@ public final class UserGrant {
         return scope;
     }
 
+    /**
+     * @return ID of the organization associated with the grant.
+     */
+    @JsonProperty("organization_id")
+    public Optional<String> getOrganizationId() {
+        return organizationId;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -104,12 +116,13 @@ public final class UserGrant {
                 && clientId.equals(other.clientId)
                 && userId.equals(other.userId)
                 && audience.equals(other.audience)
-                && scope.equals(other.scope);
+                && scope.equals(other.scope)
+                && organizationId.equals(other.organizationId);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.id, this.clientId, this.userId, this.audience, this.scope);
+        return Objects.hash(this.id, this.clientId, this.userId, this.audience, this.scope, this.organizationId);
     }
 
     @java.lang.Override
@@ -133,6 +146,8 @@ public final class UserGrant {
 
         private Optional<List<String>> scope = Optional.empty();
 
+        private Optional<String> organizationId = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -144,6 +159,7 @@ public final class UserGrant {
             userId(other.getUserId());
             audience(other.getAudience());
             scope(other.getScope());
+            organizationId(other.getOrganizationId());
             return this;
         }
 
@@ -217,8 +233,22 @@ public final class UserGrant {
             return this;
         }
 
+        /**
+         * <p>ID of the organization associated with the grant.</p>
+         */
+        @JsonSetter(value = "organization_id", nulls = Nulls.SKIP)
+        public Builder organizationId(Optional<String> organizationId) {
+            this.organizationId = organizationId;
+            return this;
+        }
+
+        public Builder organizationId(String organizationId) {
+            this.organizationId = Optional.ofNullable(organizationId);
+            return this;
+        }
+
         public UserGrant build() {
-            return new UserGrant(id, clientId, userId, audience, scope, additionalProperties);
+            return new UserGrant(id, clientId, userId, audience, scope, organizationId, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

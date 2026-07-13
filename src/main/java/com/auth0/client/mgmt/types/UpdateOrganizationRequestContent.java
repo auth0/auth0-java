@@ -33,6 +33,8 @@ public final class UpdateOrganizationRequestContent {
 
     private final OptionalNullable<UpdateTokenQuota> tokenQuota;
 
+    private final Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateOrganizationRequestContent(
@@ -41,12 +43,14 @@ public final class UpdateOrganizationRequestContent {
             Optional<OrganizationBranding> branding,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             OptionalNullable<UpdateTokenQuota> tokenQuota,
+            Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess,
             Map<String, Object> additionalProperties) {
         this.displayName = displayName;
         this.name = name;
         this.branding = branding;
         this.metadata = metadata;
         this.tokenQuota = tokenQuota;
+        this.thirdPartyClientAccess = thirdPartyClientAccess;
         this.additionalProperties = additionalProperties;
     }
 
@@ -85,6 +89,11 @@ public final class UpdateOrganizationRequestContent {
         return tokenQuota;
     }
 
+    @JsonProperty("third_party_client_access")
+    public Optional<OrganizationThirdPartyClientAccessEnum> getThirdPartyClientAccess() {
+        return thirdPartyClientAccess;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_quota")
     private OptionalNullable<UpdateTokenQuota> _getTokenQuota() {
@@ -107,12 +116,19 @@ public final class UpdateOrganizationRequestContent {
                 && name.equals(other.name)
                 && branding.equals(other.branding)
                 && metadata.equals(other.metadata)
-                && tokenQuota.equals(other.tokenQuota);
+                && tokenQuota.equals(other.tokenQuota)
+                && thirdPartyClientAccess.equals(other.thirdPartyClientAccess);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.displayName, this.name, this.branding, this.metadata, this.tokenQuota);
+        return Objects.hash(
+                this.displayName,
+                this.name,
+                this.branding,
+                this.metadata,
+                this.tokenQuota,
+                this.thirdPartyClientAccess);
     }
 
     @java.lang.Override
@@ -136,6 +152,8 @@ public final class UpdateOrganizationRequestContent {
 
         private OptionalNullable<UpdateTokenQuota> tokenQuota = OptionalNullable.absent();
 
+        private Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -147,6 +165,7 @@ public final class UpdateOrganizationRequestContent {
             branding(other.getBranding());
             metadata(other.getMetadata());
             tokenQuota(other.getTokenQuota());
+            thirdPartyClientAccess(other.getThirdPartyClientAccess());
             return this;
         }
 
@@ -231,9 +250,20 @@ public final class UpdateOrganizationRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "third_party_client_access", nulls = Nulls.SKIP)
+        public Builder thirdPartyClientAccess(Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess) {
+            this.thirdPartyClientAccess = thirdPartyClientAccess;
+            return this;
+        }
+
+        public Builder thirdPartyClientAccess(OrganizationThirdPartyClientAccessEnum thirdPartyClientAccess) {
+            this.thirdPartyClientAccess = Optional.ofNullable(thirdPartyClientAccess);
+            return this;
+        }
+
         public UpdateOrganizationRequestContent build() {
             return new UpdateOrganizationRequestContent(
-                    displayName, name, branding, metadata, tokenQuota, additionalProperties);
+                    displayName, name, branding, metadata, tokenQuota, thirdPartyClientAccess, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

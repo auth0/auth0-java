@@ -20,7 +20,7 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = EmailAttribute.Builder.class)
 public final class EmailAttribute {
-    private final Optional<ConnectionAttributeIdentifier> identifier;
+    private final Optional<EmailAttributeIdentifier> identifier;
 
     private final Optional<Boolean> unique;
 
@@ -33,7 +33,7 @@ public final class EmailAttribute {
     private final Map<String, Object> additionalProperties;
 
     private EmailAttribute(
-            Optional<ConnectionAttributeIdentifier> identifier,
+            Optional<EmailAttributeIdentifier> identifier,
             Optional<Boolean> unique,
             Optional<Boolean> profileRequired,
             Optional<VerificationMethodEnum> verificationMethod,
@@ -48,7 +48,7 @@ public final class EmailAttribute {
     }
 
     @JsonProperty("identifier")
-    public Optional<ConnectionAttributeIdentifier> getIdentifier() {
+    public Optional<EmailAttributeIdentifier> getIdentifier() {
         return identifier;
     }
 
@@ -113,7 +113,7 @@ public final class EmailAttribute {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<ConnectionAttributeIdentifier> identifier = Optional.empty();
+        private Optional<EmailAttributeIdentifier> identifier = Optional.empty();
 
         private Optional<Boolean> unique = Optional.empty();
 
@@ -138,12 +138,12 @@ public final class EmailAttribute {
         }
 
         @JsonSetter(value = "identifier", nulls = Nulls.SKIP)
-        public Builder identifier(Optional<ConnectionAttributeIdentifier> identifier) {
+        public Builder identifier(Optional<EmailAttributeIdentifier> identifier) {
             this.identifier = identifier;
             return this;
         }
 
-        public Builder identifier(ConnectionAttributeIdentifier identifier) {
+        public Builder identifier(EmailAttributeIdentifier identifier) {
             this.identifier = Optional.ofNullable(identifier);
             return this;
         }

@@ -5520,7 +5520,7 @@ client.eventStreams().test(
     "id",
     CreateEventStreamTestEventRequestContent
         .builder()
-        .eventType(EventStreamTestEventTypeEnum.GROUP_CREATED)
+        .eventType(EventStreamTestEventTypeEnum.CONNECTION_CREATED)
         .build()
 );
 ```
@@ -5603,7 +5603,7 @@ client.events().subscribe(
             OptionalNullable.of("from_timestamp")
         )
         .eventType(
-            Arrays.asList(EventStreamSubscribeEventsEventTypeEnum.GROUP_CREATED)
+            Arrays.asList(EventStreamSubscribeEventsEventTypeEnum.CONNECTION_CREATED)
         )
         .build()
 );
@@ -8991,6 +8991,14 @@ client.organizations().create(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**thirdPartyClientAccess:** `Optional<OrganizationThirdPartyClientAccessEnum>` 
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -9251,6 +9259,14 @@ client.organizations().update(
 <dd>
 
 **tokenQuota:** `Optional<UpdateTokenQuota>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**thirdPartyClientAccess:** `Optional<OrganizationThirdPartyClientAccessEnum>` 
     
 </dd>
 </dl>
@@ -28121,6 +28137,119 @@ client.organizations().members().effectiveRoles().sources().groups().list(
 <dd>
 
 **roleId:** `String` — The role ID to get group sources for.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Organizations Roles Members
+<details><summary><code>client.organizations.roles.members.list(id, roleId) -> SyncPagingIterable&amp;lt;RoleMember&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List the organization members assigned a specific role within the context of an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().roles().members().list(
+    "id",
+    "role_id",
+    ListOrganizationRoleMembersRequestParameters
+        .builder()
+        .from(
+            OptionalNullable.of("from")
+        )
+        .take(
+            OptionalNullable.of(1)
+        )
+        .fields(
+            OptionalNullable.of("fields")
+        )
+        .includeFields(
+            OptionalNullable.of(true)
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**roleId:** `String` — ID of the role to retrieve the assigned members for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results per page. Defaults to 50. Values above the maximum permitted size are capped.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `Optional<String>` — Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeFields:** `Optional<Boolean>` — Whether specified fields are to be included (true) or excluded (false). Defaults to true.
     
 </dd>
 </dl>

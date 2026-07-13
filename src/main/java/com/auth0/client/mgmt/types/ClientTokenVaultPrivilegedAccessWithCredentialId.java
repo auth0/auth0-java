@@ -26,14 +26,18 @@ public final class ClientTokenVaultPrivilegedAccessWithCredentialId {
 
     private final Optional<List<String>> ipAllowlist;
 
+    private final Optional<List<TokenVaultPrivilegedAccessGrant>> grants;
+
     private final Map<String, Object> additionalProperties;
 
     private ClientTokenVaultPrivilegedAccessWithCredentialId(
             List<CredentialId> credentials,
             Optional<List<String>> ipAllowlist,
+            Optional<List<TokenVaultPrivilegedAccessGrant>> grants,
             Map<String, Object> additionalProperties) {
         this.credentials = credentials;
         this.ipAllowlist = ipAllowlist;
+        this.grants = grants;
         this.additionalProperties = additionalProperties;
     }
 
@@ -45,6 +49,11 @@ public final class ClientTokenVaultPrivilegedAccessWithCredentialId {
     @JsonProperty("ip_allowlist")
     public Optional<List<String>> getIpAllowlist() {
         return ipAllowlist;
+    }
+
+    @JsonProperty("grants")
+    public Optional<List<TokenVaultPrivilegedAccessGrant>> getGrants() {
+        return grants;
     }
 
     @java.lang.Override
@@ -60,12 +69,14 @@ public final class ClientTokenVaultPrivilegedAccessWithCredentialId {
     }
 
     private boolean equalTo(ClientTokenVaultPrivilegedAccessWithCredentialId other) {
-        return credentials.equals(other.credentials) && ipAllowlist.equals(other.ipAllowlist);
+        return credentials.equals(other.credentials)
+                && ipAllowlist.equals(other.ipAllowlist)
+                && grants.equals(other.grants);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.credentials, this.ipAllowlist);
+        return Objects.hash(this.credentials, this.ipAllowlist, this.grants);
     }
 
     @java.lang.Override
@@ -83,6 +94,8 @@ public final class ClientTokenVaultPrivilegedAccessWithCredentialId {
 
         private Optional<List<String>> ipAllowlist = Optional.empty();
 
+        private Optional<List<TokenVaultPrivilegedAccessGrant>> grants = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -91,6 +104,7 @@ public final class ClientTokenVaultPrivilegedAccessWithCredentialId {
         public Builder from(ClientTokenVaultPrivilegedAccessWithCredentialId other) {
             credentials(other.getCredentials());
             ipAllowlist(other.getIpAllowlist());
+            grants(other.getGrants());
             return this;
         }
 
@@ -126,8 +140,20 @@ public final class ClientTokenVaultPrivilegedAccessWithCredentialId {
             return this;
         }
 
+        @JsonSetter(value = "grants", nulls = Nulls.SKIP)
+        public Builder grants(Optional<List<TokenVaultPrivilegedAccessGrant>> grants) {
+            this.grants = grants;
+            return this;
+        }
+
+        public Builder grants(List<TokenVaultPrivilegedAccessGrant> grants) {
+            this.grants = Optional.ofNullable(grants);
+            return this;
+        }
+
         public ClientTokenVaultPrivilegedAccessWithCredentialId build() {
-            return new ClientTokenVaultPrivilegedAccessWithCredentialId(credentials, ipAllowlist, additionalProperties);
+            return new ClientTokenVaultPrivilegedAccessWithCredentialId(
+                    credentials, ipAllowlist, grants, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {
