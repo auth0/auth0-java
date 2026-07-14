@@ -196,7 +196,6 @@ public final class AttackProtectionUpdateCaptchaArkose {
 
         /**
          * <p>The site key for the Arkose captcha provider.</p>
-         * <p>The site key for the Arkose captcha provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -207,7 +206,6 @@ public final class AttackProtectionUpdateCaptchaArkose {
         }
 
         /**
-         * <p>The secret key for the Arkose captcha provider.</p>
          * <p>The secret key for the Arkose captcha provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -123,7 +123,6 @@ public final class UserAttributeProfileOidcMapping {
 
         /**
          * <p>OIDC mapping field</p>
-         * <p>OIDC mapping field</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -120,7 +120,6 @@ public final class RotateSigningKeysResponseContent {
 
         /**
          * <p>Next key certificate</p>
-         * <p>Next key certificate</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -131,7 +130,6 @@ public final class RotateSigningKeysResponseContent {
         }
 
         /**
-         * <p>Next key id</p>
          * <p>Next key id</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

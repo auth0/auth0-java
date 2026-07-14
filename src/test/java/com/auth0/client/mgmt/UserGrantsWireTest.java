@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.DeleteUserGrantByUserIdRequestParameters;
 import com.auth0.client.mgmt.types.ListUserGrantsRequestParameters;
@@ -45,12 +44,12 @@ public class UserGrantsWireTest {
                                 "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"grants\":[{\"id\":\"id\",\"clientID\":\"clientID\",\"user_id\":\"user_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_id\":\"organization_id\"}]}"));
         SyncPagingIterable<UserGrant> response = client.userGrants()
                 .list(ListUserGrantsRequestParameters.builder()
-                        .perPage(OptionalNullable.of(1))
-                        .page(OptionalNullable.of(1))
-                        .includeTotals(OptionalNullable.of(true))
-                        .userId(OptionalNullable.of("user_id"))
-                        .clientId(OptionalNullable.of("client_id"))
-                        .audience(OptionalNullable.of("audience"))
+                        .perPage(1)
+                        .page(1)
+                        .includeTotals(true)
+                        .userId("user_id")
+                        .clientId("client_id")
+                        .audience("audience")
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

@@ -122,7 +122,6 @@ public final class AttackProtectionUpdateCaptchaFriendlyCaptcha {
 
         /**
          * <p>The site key for the Friendly Captcha provider.</p>
-         * <p>The site key for the Friendly Captcha provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -133,7 +132,6 @@ public final class AttackProtectionUpdateCaptchaFriendlyCaptcha {
         }
 
         /**
-         * <p>The secret key for the Friendly Captcha provider.</p>
          * <p>The secret key for the Friendly Captcha provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -3,13 +3,14 @@
  */
 package com.auth0.client.mgmt.actions.triggers.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -40,7 +41,8 @@ public final class ListActionTriggerBindingsRequestParameters {
     /**
      * @return Use this field to request a specific page of the list results.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("page")
     public OptionalNullable<Integer> getPage() {
         if (page == null) {
             return OptionalNullable.absent();
@@ -51,11 +53,24 @@ public final class ListActionTriggerBindingsRequestParameters {
     /**
      * @return The maximum number of results to be returned in a single request. 20 by default
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("per_page")
     public OptionalNullable<Integer> getPerPage() {
         if (perPage == null) {
             return OptionalNullable.absent();
         }
+        return perPage;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("page")
+    private OptionalNullable<Integer> _getPage() {
+        return page;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("per_page")
+    private OptionalNullable<Integer> _getPerPage() {
         return perPage;
     }
 

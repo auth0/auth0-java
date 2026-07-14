@@ -99,7 +99,6 @@ public final class LogStreamSegmentSinkWriteKey {
 
         /**
          * <p>Segment write key</p>
-         * <p>Segment write key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

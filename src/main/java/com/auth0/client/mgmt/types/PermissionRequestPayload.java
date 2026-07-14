@@ -122,7 +122,6 @@ public final class PermissionRequestPayload {
 
         /**
          * <p>Resource server (API) identifier that this permission is for.</p>
-         * <p>Resource server (API) identifier that this permission is for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -134,7 +133,6 @@ public final class PermissionRequestPayload {
         }
 
         /**
-         * <p>Name of this permission.</p>
          * <p>Name of this permission.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

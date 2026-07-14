@@ -220,7 +220,6 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
 
         /**
          * <p>Organization discovery domain identifier.</p>
-         * <p>Organization discovery domain identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -231,7 +230,6 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
         }
 
         /**
-         * <p>The domain name to associate with the organization e.g. acme.com.</p>
          * <p>The domain name to associate with the organization e.g. acme.com.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -251,7 +249,6 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
 
         /**
          * <p>A unique token generated for the discovery domain. This must be placed in a DNS TXT record at the location specified by the verification_host field to prove domain ownership.</p>
-         * <p>A unique token generated for the discovery domain. This must be placed in a DNS TXT record at the location specified by the verification_host field to prove domain ownership.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -262,7 +259,6 @@ public final class CreateOrganizationDiscoveryDomainResponseContent {
         }
 
         /**
-         * <p>The full domain where the TXT record should be added.</p>
          * <p>The full domain where the TXT record should be added.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

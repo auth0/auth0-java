@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateRuleRequestContent;
 import com.auth0.client.mgmt.types.CreateRuleResponseContent;
@@ -50,12 +49,12 @@ public class RulesWireTest {
                                 "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"rules\":[{\"name\":\"name\",\"id\":\"id\",\"enabled\":true,\"script\":\"script\",\"order\":1.1,\"stage\":\"stage\"}]}"));
         SyncPagingIterable<Rule> response = client.rules()
                 .list(ListRulesRequestParameters.builder()
-                        .page(OptionalNullable.of(1))
-                        .perPage(OptionalNullable.of(1))
-                        .includeTotals(OptionalNullable.of(true))
-                        .enabled(OptionalNullable.of(true))
-                        .fields(OptionalNullable.of("fields"))
-                        .includeFields(OptionalNullable.of(true))
+                        .page(1)
+                        .perPage(1)
+                        .includeTotals(true)
+                        .enabled(true)
+                        .fields("fields")
+                        .includeFields(true)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -166,8 +165,8 @@ public class RulesWireTest {
                 .get(
                         "id",
                         GetRuleRequestParameters.builder()
-                                .fields(OptionalNullable.of("fields"))
-                                .includeFields(OptionalNullable.of(true))
+                                .fields("fields")
+                                .includeFields(true)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

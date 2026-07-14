@@ -5,7 +5,6 @@ import com.auth0.client.mgmt.branding.phone.types.CreatePhoneProviderSendTestReq
 import com.auth0.client.mgmt.branding.phone.types.ListBrandingPhoneProvidersRequestParameters;
 import com.auth0.client.mgmt.branding.phone.types.UpdateBrandingPhoneProviderRequestContent;
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.CreateBrandingPhoneProviderResponseContent;
 import com.auth0.client.mgmt.types.CreatePhoneProviderSendTestResponseContent;
 import com.auth0.client.mgmt.types.GetBrandingPhoneProviderResponseContent;
@@ -55,7 +54,7 @@ public class BrandingPhoneProvidersWireTest {
                 .phone()
                 .providers()
                 .list(ListBrandingPhoneProvidersRequestParameters.builder()
-                        .disabled(OptionalNullable.of(true))
+                        .disabled(true)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

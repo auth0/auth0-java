@@ -99,7 +99,6 @@ public final class ClientAddonSlack {
 
         /**
          * <p>Slack team name.</p>
-         * <p>Slack team name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

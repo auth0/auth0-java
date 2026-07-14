@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateNetworkAclRequestContent;
 import com.auth0.client.mgmt.types.GetNetworkAclsResponseContent;
@@ -53,9 +52,9 @@ public class NetworkAclsWireTest {
                                 "{\"network_acls\":[{\"id\":\"id\",\"description\":\"description\",\"active\":true,\"priority\":1.1,\"rule\":{\"action\":{},\"scope\":\"management\"},\"created_at\":\"created_at\",\"updated_at\":\"updated_at\"}],\"start\":1.1,\"limit\":1.1,\"total\":1.1}"));
         SyncPagingIterable<NetworkAclsResponseContent> response = client.networkAcls()
                 .list(ListNetworkAclsRequestParameters.builder()
-                        .page(OptionalNullable.of(1))
-                        .perPage(OptionalNullable.of(1))
-                        .includeTotals(OptionalNullable.of(true))
+                        .page(1)
+                        .perPage(1)
+                        .includeTotals(true)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

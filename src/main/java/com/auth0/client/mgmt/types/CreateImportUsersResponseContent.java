@@ -219,7 +219,6 @@ public final class CreateImportUsersResponseContent {
 
         /**
          * <p>Status of this job.</p>
-         * <p>Status of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -230,7 +229,6 @@ public final class CreateImportUsersResponseContent {
         }
 
         /**
-         * <p>Type of job this is.</p>
          * <p>Type of job this is.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -243,7 +241,6 @@ public final class CreateImportUsersResponseContent {
 
         /**
          * <p>When this job was created.</p>
-         * <p>When this job was created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -255,7 +252,6 @@ public final class CreateImportUsersResponseContent {
 
         /**
          * <p>ID of this job.</p>
-         * <p>ID of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -266,7 +262,6 @@ public final class CreateImportUsersResponseContent {
         }
 
         /**
-         * <p>connection_id of the connection to which users will be imported.</p>
          * <p>connection_id of the connection to which users will be imported.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -100,7 +100,6 @@ public final class UpdateRiskAssessmentsSettingsNewDeviceRequestContent {
 
         /**
          * <p>Length of time to remember devices for, in days.</p>
-         * <p>Length of time to remember devices for, in days.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

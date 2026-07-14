@@ -135,7 +135,6 @@ public final class RegisterCimdClientResponseContent {
 
         /**
          * <p>The Auth0 client_id of the created or updated client</p>
-         * <p>The Auth0 client_id of the created or updated client</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

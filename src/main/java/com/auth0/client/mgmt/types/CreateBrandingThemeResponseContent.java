@@ -239,7 +239,6 @@ public final class CreateBrandingThemeResponseContent {
 
         /**
          * <p>Display Name</p>
-         * <p>Display Name</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -264,7 +263,6 @@ public final class CreateBrandingThemeResponseContent {
         }
 
         /**
-         * <p>Theme Id</p>
          * <p>Theme Id</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

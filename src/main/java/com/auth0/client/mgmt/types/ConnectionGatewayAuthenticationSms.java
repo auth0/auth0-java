@@ -192,7 +192,6 @@ public final class ConnectionGatewayAuthenticationSms {
 
         /**
          * <p>The secret used to sign the JSON Web Token sent to the SMS gateway</p>
-         * <p>The secret used to sign the JSON Web Token sent to the SMS gateway</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

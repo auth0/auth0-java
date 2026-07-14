@@ -5,7 +5,6 @@ import com.auth0.client.mgmt.branding.phone.types.CreatePhoneTemplateTestNotific
 import com.auth0.client.mgmt.branding.phone.types.ListPhoneTemplatesRequestParameters;
 import com.auth0.client.mgmt.branding.phone.types.UpdatePhoneTemplateRequestContent;
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.CreatePhoneTemplateResponseContent;
 import com.auth0.client.mgmt.types.CreatePhoneTemplateTestNotificationResponseContent;
 import com.auth0.client.mgmt.types.GetPhoneTemplateResponseContent;
@@ -55,7 +54,7 @@ public class BrandingPhoneTemplatesWireTest {
                 .phone()
                 .templates()
                 .list(ListPhoneTemplatesRequestParameters.builder()
-                        .disabled(OptionalNullable.of(true))
+                        .disabled(true)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

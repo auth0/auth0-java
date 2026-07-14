@@ -142,7 +142,6 @@ public final class EventStreamCloudEventOrgGroupRoleDeletedObjectGroup2 {
 
         /**
          * <p>The unique identifier for the group.</p>
-         * <p>The unique identifier for the group.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

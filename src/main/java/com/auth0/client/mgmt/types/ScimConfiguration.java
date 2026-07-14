@@ -284,7 +284,6 @@ public final class ScimConfiguration {
 
         /**
          * <p>The connection's identifier</p>
-         * <p>The connection's identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -295,7 +294,6 @@ public final class ScimConfiguration {
         }
 
         /**
-         * <p>The connection's name</p>
          * <p>The connection's name</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -308,7 +306,6 @@ public final class ScimConfiguration {
 
         /**
          * <p>The connection's strategy</p>
-         * <p>The connection's strategy</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -319,7 +316,6 @@ public final class ScimConfiguration {
         }
 
         /**
-         * <p>The tenant's name</p>
          * <p>The tenant's name</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -332,7 +328,6 @@ public final class ScimConfiguration {
 
         /**
          * <p>User ID attribute for generating unique user ids</p>
-         * <p>User ID attribute for generating unique user ids</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -344,7 +339,6 @@ public final class ScimConfiguration {
 
         /**
          * <p>The ISO 8601 date and time the SCIM configuration was created at</p>
-         * <p>The ISO 8601 date and time the SCIM configuration was created at</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -355,7 +349,6 @@ public final class ScimConfiguration {
         }
 
         /**
-         * <p>The ISO 8601 date and time the SCIM configuration was last updated on</p>
          * <p>The ISO 8601 date and time the SCIM configuration was last updated on</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

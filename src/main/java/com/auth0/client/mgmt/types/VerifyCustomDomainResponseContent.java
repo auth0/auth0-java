@@ -356,7 +356,6 @@ public final class VerifyCustomDomainResponseContent {
 
         /**
          * <p>ID of the custom domain.</p>
-         * <p>ID of the custom domain.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -368,7 +367,6 @@ public final class VerifyCustomDomainResponseContent {
 
         /**
          * <p>Domain name.</p>
-         * <p>Domain name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -379,7 +377,6 @@ public final class VerifyCustomDomainResponseContent {
         }
 
         /**
-         * <p>Whether this is a primary domain (true) or not (false).</p>
          * <p>Whether this is a primary domain (true) or not (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

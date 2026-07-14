@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateFlowRequestContent;
 import com.auth0.client.mgmt.types.CreateFlowResponseContent;
@@ -53,10 +52,10 @@ public class FlowsWireTest {
                                 "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"flows\":[{\"id\":\"id\",\"name\":\"name\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"executed_at\":\"executed_at\"}]}"));
         SyncPagingIterable<FlowSummary> response = client.flows()
                 .list(ListFlowsRequestParameters.builder()
-                        .page(OptionalNullable.of(1))
-                        .perPage(OptionalNullable.of(1))
-                        .includeTotals(OptionalNullable.of(true))
-                        .synchronous(OptionalNullable.of(true))
+                        .page(1)
+                        .perPage(1)
+                        .includeTotals(true)
+                        .synchronous(true)
                         .hydrate(Arrays.asList(ListFlowsRequestParametersHydrateEnum.FORM_COUNT))
                         .build());
         RecordedRequest request = server.takeRequest();

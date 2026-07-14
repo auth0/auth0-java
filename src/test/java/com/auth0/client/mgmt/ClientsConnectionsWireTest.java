@@ -2,7 +2,6 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.clients.types.ConnectionsGetRequest;
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.ConnectionForList;
 import com.auth0.client.mgmt.types.ConnectionStrategyEnum;
@@ -49,10 +48,10 @@ public class ClientsConnectionsWireTest {
                 .get(
                         "id",
                         ConnectionsGetRequest.builder()
-                                .from(OptionalNullable.of("from"))
-                                .take(OptionalNullable.of(1))
-                                .fields(OptionalNullable.of("fields"))
-                                .includeFields(OptionalNullable.of(true))
+                                .from("from")
+                                .take(1)
+                                .fields("fields")
+                                .includeFields(true)
                                 .strategy(Arrays.asList(ConnectionStrategyEnum.AD))
                                 .build());
         RecordedRequest request = server.takeRequest();

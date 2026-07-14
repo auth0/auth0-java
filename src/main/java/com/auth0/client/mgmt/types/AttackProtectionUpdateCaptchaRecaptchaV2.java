@@ -122,7 +122,6 @@ public final class AttackProtectionUpdateCaptchaRecaptchaV2 {
 
         /**
          * <p>The site key for the reCAPTCHA v2 provider.</p>
-         * <p>The site key for the reCAPTCHA v2 provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -133,7 +132,6 @@ public final class AttackProtectionUpdateCaptchaRecaptchaV2 {
         }
 
         /**
-         * <p>The secret key for the reCAPTCHA v2 provider.</p>
          * <p>The secret key for the reCAPTCHA v2 provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

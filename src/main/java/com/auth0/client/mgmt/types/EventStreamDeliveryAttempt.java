@@ -151,7 +151,6 @@ public final class EventStreamDeliveryAttempt {
 
         /**
          * <p>Timestamp of delivery attempt</p>
-         * <p>Timestamp of delivery attempt</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

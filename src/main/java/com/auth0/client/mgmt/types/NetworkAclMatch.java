@@ -23,6 +23,8 @@ import java.util.Optional;
 public final class NetworkAclMatch {
     private final Optional<List<Integer>> asns;
 
+    private final Optional<List<String>> auth0Managed;
+
     private final Optional<List<String>> geoCountryCodes;
 
     private final Optional<List<String>> geoSubdivisionCodes;
@@ -47,6 +49,7 @@ public final class NetworkAclMatch {
 
     private NetworkAclMatch(
             Optional<List<Integer>> asns,
+            Optional<List<String>> auth0Managed,
             Optional<List<String>> geoCountryCodes,
             Optional<List<String>> geoSubdivisionCodes,
             Optional<List<String>> ipv4Cidrs,
@@ -59,6 +62,7 @@ public final class NetworkAclMatch {
             Optional<List<String>> connectingIpv6Cidrs,
             Map<String, Object> additionalProperties) {
         this.asns = asns;
+        this.auth0Managed = auth0Managed;
         this.geoCountryCodes = geoCountryCodes;
         this.geoSubdivisionCodes = geoSubdivisionCodes;
         this.ipv4Cidrs = ipv4Cidrs;
@@ -75,6 +79,11 @@ public final class NetworkAclMatch {
     @JsonProperty("asns")
     public Optional<List<Integer>> getAsns() {
         return asns;
+    }
+
+    @JsonProperty("auth0_managed")
+    public Optional<List<String>> getAuth0Managed() {
+        return auth0Managed;
     }
 
     @JsonProperty("geo_country_codes")
@@ -140,6 +149,7 @@ public final class NetworkAclMatch {
 
     private boolean equalTo(NetworkAclMatch other) {
         return asns.equals(other.asns)
+                && auth0Managed.equals(other.auth0Managed)
                 && geoCountryCodes.equals(other.geoCountryCodes)
                 && geoSubdivisionCodes.equals(other.geoSubdivisionCodes)
                 && ipv4Cidrs.equals(other.ipv4Cidrs)
@@ -156,6 +166,7 @@ public final class NetworkAclMatch {
     public int hashCode() {
         return Objects.hash(
                 this.asns,
+                this.auth0Managed,
                 this.geoCountryCodes,
                 this.geoSubdivisionCodes,
                 this.ipv4Cidrs,
@@ -180,6 +191,8 @@ public final class NetworkAclMatch {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
         private Optional<List<Integer>> asns = Optional.empty();
+
+        private Optional<List<String>> auth0Managed = Optional.empty();
 
         private Optional<List<String>> geoCountryCodes = Optional.empty();
 
@@ -208,6 +221,7 @@ public final class NetworkAclMatch {
 
         public Builder from(NetworkAclMatch other) {
             asns(other.getAsns());
+            auth0Managed(other.getAuth0Managed());
             geoCountryCodes(other.getGeoCountryCodes());
             geoSubdivisionCodes(other.getGeoSubdivisionCodes());
             ipv4Cidrs(other.getIpv4Cidrs());
@@ -229,6 +243,17 @@ public final class NetworkAclMatch {
 
         public Builder asns(List<Integer> asns) {
             this.asns = Optional.ofNullable(asns);
+            return this;
+        }
+
+        @JsonSetter(value = "auth0_managed", nulls = Nulls.SKIP)
+        public Builder auth0Managed(Optional<List<String>> auth0Managed) {
+            this.auth0Managed = auth0Managed;
+            return this;
+        }
+
+        public Builder auth0Managed(List<String> auth0Managed) {
+            this.auth0Managed = Optional.ofNullable(auth0Managed);
             return this;
         }
 
@@ -345,6 +370,7 @@ public final class NetworkAclMatch {
         public NetworkAclMatch build() {
             return new NetworkAclMatch(
                     asns,
+                    auth0Managed,
                     geoCountryCodes,
                     geoSubdivisionCodes,
                     ipv4Cidrs,

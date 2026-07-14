@@ -173,7 +173,6 @@ public final class EventStreamCloudEventGroupMemberAddedObjectMember1 {
 
         /**
          * <p>The connection member's unique identifier</p>
-         * <p>The connection member's unique identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -185,7 +184,6 @@ public final class EventStreamCloudEventGroupMemberAddedObjectMember1 {
 
         /**
          * <p>The type of the connection</p>
-         * <p>The type of the connection</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -196,7 +194,6 @@ public final class EventStreamCloudEventGroupMemberAddedObjectMember1 {
         }
 
         /**
-         * <p>Connection ID associated with the member</p>
          * <p>Connection ID associated with the member</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

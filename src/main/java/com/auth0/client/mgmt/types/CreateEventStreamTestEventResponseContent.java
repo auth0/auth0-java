@@ -205,7 +205,6 @@ public final class CreateEventStreamTestEventResponseContent {
 
         /**
          * <p>Unique identifier for the delivery</p>
-         * <p>Unique identifier for the delivery</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -216,7 +215,6 @@ public final class CreateEventStreamTestEventResponseContent {
         }
 
         /**
-         * <p>Unique identifier for the event stream.</p>
          * <p>Unique identifier for the event stream.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

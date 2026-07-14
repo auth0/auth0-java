@@ -100,7 +100,6 @@ public final class SelfServiceProfileSsoTicketGoogleWorkspaceConfig {
 
         /**
          * <p>Whether to enable Google Workspace Directory Sync for users during the self-service flow.</p>
-         * <p>Whether to enable Google Workspace Directory Sync for users during the self-service flow.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -717,7 +717,6 @@ public final class EventStreamCloudEventConnectionCreatedObject1Options {
 
         /**
          * <p>OAuth 2.0 client identifier issued by the identity provider during application registration. This value identifies your Auth0 connection to the identity provider.</p>
-         * <p>OAuth 2.0 client identifier issued by the identity provider during application registration. This value identifies your Auth0 connection to the identity provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

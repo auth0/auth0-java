@@ -1349,7 +1349,6 @@ public final class CreateClientRequestContent {
 
         /**
          * <p>Name of this client (min length: 1 character, does not allow <code>&lt;</code> or <code>&gt;</code>).</p>
-         * <p>Name of this client (min length: 1 character, does not allow <code>&lt;</code> or <code>&gt;</code>).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

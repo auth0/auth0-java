@@ -14,6 +14,7 @@ import com.auth0.client.mgmt.types.GetGuardianFactorsProviderSmsTwilioResponseCo
 import com.auth0.client.mgmt.types.SetGuardianFactorSmsTemplatesResponseContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderSmsResponseContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderSmsTwilioResponseContent;
+import java.util.Optional;
 
 public class SmsClient {
     protected final ClientOptions clientOptions;
@@ -131,7 +132,7 @@ public class SmsClient {
      * <pre><code><b>Previous function</b>: Retrieve details of SMS enrollment and verification templates configured for your tenant.
      * </code></pre>
      */
-    public GetGuardianFactorSmsTemplatesResponseContent getTemplates() {
+    public Optional<GetGuardianFactorSmsTemplatesResponseContent> getTemplates() {
         return this.rawClient.getTemplates().body();
     }
 
@@ -140,7 +141,7 @@ public class SmsClient {
      * <pre><code><b>Previous function</b>: Retrieve details of SMS enrollment and verification templates configured for your tenant.
      * </code></pre>
      */
-    public GetGuardianFactorSmsTemplatesResponseContent getTemplates(RequestOptions requestOptions) {
+    public Optional<GetGuardianFactorSmsTemplatesResponseContent> getTemplates(RequestOptions requestOptions) {
         return this.rawClient.getTemplates(requestOptions).body();
     }
 

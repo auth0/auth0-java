@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateEventStreamResponseContent;
 import com.auth0.client.mgmt.types.CreateEventStreamTestEventRequestContent;
@@ -59,8 +58,8 @@ public class EventStreamsWireTest {
                                 "{\"eventStreams\":[{\"id\":\"id\",\"name\":\"name\",\"subscriptions\":[{}],\"destination\":{\"type\":\"webhook\",\"configuration\":{\"webhook_endpoint\":\"webhook_endpoint\",\"webhook_authorization\":{\"method\":\"basic\",\"username\":\"username\"}}},\"status\":\"enabled\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\"}"));
         SyncPagingIterable<EventStreamResponseContent> response = client.eventStreams()
                 .list(ListEventStreamsRequestParameters.builder()
-                        .from(OptionalNullable.of("from"))
-                        .take(OptionalNullable.of(1))
+                        .from("from")
+                        .take(1)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

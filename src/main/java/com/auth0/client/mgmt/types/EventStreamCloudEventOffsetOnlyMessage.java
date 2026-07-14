@@ -100,7 +100,6 @@ public final class EventStreamCloudEventOffsetOnlyMessage {
 
         /**
          * <p>Opaque cursor representing the latest position in the stream. Pass as the <code>from</code> query parameter to resume.</p>
-         * <p>Opaque cursor representing the latest position in the stream. Pass as the <code>from</code> query parameter to resume.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

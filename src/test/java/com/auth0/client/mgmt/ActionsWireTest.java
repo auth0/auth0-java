@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.Action;
 import com.auth0.client.mgmt.types.ActionTrigger;
@@ -57,12 +56,12 @@ public class ActionsWireTest {
                                 "{\"total\":1.1,\"page\":1.1,\"per_page\":1.1,\"actions\":[{\"id\":\"id\",\"name\":\"name\",\"supported_triggers\":[{\"id\":\"post-login\"}],\"all_changes_deployed\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"code\":\"code\",\"dependencies\":[{}],\"runtime\":\"runtime\",\"secrets\":[{}],\"installed_integration_id\":\"installed_integration_id\",\"status\":\"pending\",\"built_at\":\"2024-01-15T09:30:00Z\",\"deploy\":true,\"modules\":[{}]}]}"));
         SyncPagingIterable<Action> response = client.actions()
                 .list(ListActionsRequestParameters.builder()
-                        .triggerId(OptionalNullable.of(ActionTriggerTypeEnum.POST_LOGIN))
-                        .actionName(OptionalNullable.of("actionName"))
-                        .deployed(OptionalNullable.of(true))
-                        .page(OptionalNullable.of(1))
-                        .perPage(OptionalNullable.of(1))
-                        .installed(OptionalNullable.of(true))
+                        .triggerId(ActionTriggerTypeEnum.POST_LOGIN)
+                        .actionName("actionName")
+                        .deployed(true)
+                        .page(1)
+                        .perPage(1)
+                        .installed(true)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -214,9 +213,7 @@ public class ActionsWireTest {
         client.actions()
                 .delete(
                         "id",
-                        DeleteActionRequestParameters.builder()
-                                .force(OptionalNullable.of(true))
-                                .build());
+                        DeleteActionRequestParameters.builder().force(true).build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("DELETE", request.getMethod());

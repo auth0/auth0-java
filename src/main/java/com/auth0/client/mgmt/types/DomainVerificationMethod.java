@@ -148,7 +148,6 @@ public final class DomainVerificationMethod {
 
         /**
          * <p>Value used to verify the domain.</p>
-         * <p>Value used to verify the domain.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

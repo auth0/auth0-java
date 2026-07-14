@@ -99,7 +99,6 @@ public final class EventStreamActionConfiguration {
 
         /**
          * <p>Action ID for the action destination.</p>
-         * <p>Action ID for the action destination.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

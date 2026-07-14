@@ -128,7 +128,6 @@ public final class UpdateScimConfigurationRequestContent {
 
         /**
          * <p>User ID attribute for generating unique user ids</p>
-         * <p>User ID attribute for generating unique user ids</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

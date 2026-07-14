@@ -98,7 +98,6 @@ public final class CrossAppAccessRequestingApp {
 
         /**
          * <p>Set to <code>true</code> to enable the connection as a Requesting Application for Cross App Access.</p>
-         * <p>Set to <code>true</code> to enable the connection as a Requesting Application for Cross App Access.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

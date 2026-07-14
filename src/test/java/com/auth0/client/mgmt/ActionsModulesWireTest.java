@@ -6,7 +6,6 @@ import com.auth0.client.mgmt.actions.types.GetActionModulesRequestParameters;
 import com.auth0.client.mgmt.actions.types.RollbackActionModuleRequestParameters;
 import com.auth0.client.mgmt.actions.types.UpdateActionModuleRequestContent;
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.ActionModuleAction;
 import com.auth0.client.mgmt.types.ActionModuleListItem;
@@ -54,8 +53,8 @@ public class ActionsModulesWireTest {
         SyncPagingIterable<ActionModuleListItem> response = client.actions()
                 .modules()
                 .list(GetActionModulesRequestParameters.builder()
-                        .page(OptionalNullable.of(1))
-                        .perPage(OptionalNullable.of(1))
+                        .page(1)
+                        .perPage(1)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -396,8 +395,8 @@ public class ActionsModulesWireTest {
                 .listActions(
                         "id",
                         GetActionModuleActionsRequestParameters.builder()
-                                .page(OptionalNullable.of(1))
-                                .perPage(OptionalNullable.of(1))
+                                .page(1)
+                                .perPage(1)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

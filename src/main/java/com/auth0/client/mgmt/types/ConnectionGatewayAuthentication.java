@@ -195,7 +195,6 @@ public final class ConnectionGatewayAuthentication {
 
         /**
          * <p>The Authorization header type.</p>
-         * <p>The Authorization header type.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -207,7 +206,6 @@ public final class ConnectionGatewayAuthentication {
 
         /**
          * <p>The audience to be added to the JWT payload.</p>
-         * <p>The audience to be added to the JWT payload.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -218,7 +216,6 @@ public final class ConnectionGatewayAuthentication {
         }
 
         /**
-         * <p>The secret to be used for signing tokens.</p>
          * <p>The secret to be used for signing tokens.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.GetGroupResponseContent;
 import com.auth0.client.mgmt.types.Group;
@@ -45,14 +44,14 @@ public class GroupsWireTest {
                                 "{\"groups\":[{\"id\":\"id\",\"name\":\"name\",\"external_id\":\"external_id\",\"connection_id\":\"connection_id\",\"tenant_name\":\"tenant_name\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\",\"start\":1.1,\"limit\":1.1,\"total\":1.1}"));
         SyncPagingIterable<Group> response = client.groups()
                 .list(ListGroupsRequestParameters.builder()
-                        .connectionId(OptionalNullable.of("connection_id"))
-                        .name(OptionalNullable.of("name"))
-                        .externalId(OptionalNullable.of("external_id"))
-                        .search(OptionalNullable.of("search"))
-                        .fields(OptionalNullable.of("fields"))
-                        .includeFields(OptionalNullable.of(true))
-                        .from(OptionalNullable.of("from"))
-                        .take(OptionalNullable.of(1))
+                        .connectionId("connection_id")
+                        .name("name")
+                        .externalId("external_id")
+                        .search("search")
+                        .fields("fields")
+                        .includeFields(true)
+                        .from("from")
+                        .take(1)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

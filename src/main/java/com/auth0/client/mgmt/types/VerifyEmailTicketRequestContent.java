@@ -242,7 +242,6 @@ public final class VerifyEmailTicketRequestContent {
 
         /**
          * <p>user_id of for whom the ticket should be created.</p>
-         * <p>user_id of for whom the ticket should be created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

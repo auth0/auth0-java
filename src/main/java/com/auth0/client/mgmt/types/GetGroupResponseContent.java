@@ -250,7 +250,6 @@ public final class GetGroupResponseContent {
 
         /**
          * <p>Unique identifier for the group (service-generated).</p>
-         * <p>Unique identifier for the group (service-generated).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -261,7 +260,6 @@ public final class GetGroupResponseContent {
         }
 
         /**
-         * <p>Name of the group. Must be unique within its connection. Must contain between 1 and 128 printable ASCII characters.</p>
          * <p>Name of the group. Must be unique within its connection. Must contain between 1 and 128 printable ASCII characters.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -274,7 +272,6 @@ public final class GetGroupResponseContent {
 
         /**
          * <p>Identifier for the tenant this group belongs to.</p>
-         * <p>Identifier for the tenant this group belongs to.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -286,7 +283,6 @@ public final class GetGroupResponseContent {
 
         /**
          * <p>Timestamp of when the group was created.</p>
-         * <p>Timestamp of when the group was created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -297,7 +293,6 @@ public final class GetGroupResponseContent {
         }
 
         /**
-         * <p>Timestamp of when the group was last updated.</p>
          * <p>Timestamp of when the group was last updated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

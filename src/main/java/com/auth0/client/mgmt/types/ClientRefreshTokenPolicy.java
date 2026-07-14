@@ -125,7 +125,6 @@ public final class ClientRefreshTokenPolicy {
 
         /**
          * <p>The identifier of the resource server to which the Multi Resource Refresh Token Policy applies</p>
-         * <p>The identifier of the resource server to which the Multi Resource Refresh Token Policy applies</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

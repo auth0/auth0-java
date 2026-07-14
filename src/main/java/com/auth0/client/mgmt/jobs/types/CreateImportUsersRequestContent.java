@@ -172,7 +172,6 @@ public final class CreateImportUsersRequestContent {
 
         /**
          * <p>connection_id of the connection to which users will be imported.</p>
-         * <p>connection_id of the connection to which users will be imported.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

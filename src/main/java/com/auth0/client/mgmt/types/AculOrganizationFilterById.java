@@ -99,7 +99,6 @@ public final class AculOrganizationFilterById {
 
         /**
          * <p>Organization ID</p>
-         * <p>Organization ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

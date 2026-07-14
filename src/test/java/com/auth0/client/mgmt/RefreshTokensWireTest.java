@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.GetRefreshTokenResponseContent;
 import com.auth0.client.mgmt.types.GetRefreshTokensRequestParameters;
@@ -49,11 +48,11 @@ public class RefreshTokensWireTest {
         SyncPagingIterable<RefreshTokenResponseContent> response = client.refreshTokens()
                 .list(GetRefreshTokensRequestParameters.builder()
                         .userId("user_id")
-                        .clientId(OptionalNullable.of("client_id"))
-                        .from(OptionalNullable.of("from"))
-                        .take(OptionalNullable.of(1))
-                        .fields(OptionalNullable.of("fields"))
-                        .includeFields(OptionalNullable.of(true))
+                        .clientId("client_id")
+                        .from("from")
+                        .take(1)
+                        .fields("fields")
+                        .includeFields(true)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

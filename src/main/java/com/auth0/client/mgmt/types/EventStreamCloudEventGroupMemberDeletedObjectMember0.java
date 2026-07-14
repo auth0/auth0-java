@@ -126,7 +126,6 @@ public final class EventStreamCloudEventGroupMemberDeletedObjectMember0 {
 
         /**
          * <p>The user's unique identifier</p>
-         * <p>The user's unique identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -232,7 +232,6 @@ public final class GetRateLimitPolicyResponseContent {
 
         /**
          * <p>Unique identifier for the Rate Limit Policy.</p>
-         * <p>Unique identifier for the Rate Limit Policy.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -257,7 +256,6 @@ public final class GetRateLimitPolicyResponseContent {
         }
 
         /**
-         * <p>Identifier or category within the consumer to which the policy applies. Supported values: <code>client_id:&lt;client_id&gt;</code> to target a specific client by ID, <code>client_id:&lt;cimd_uri&gt;</code> to target a CIMD client by URI, <code>cimd_clients</code> to target all CIMD clients, <code>third_party_clients</code> to target all third-party clients, or <code>default</code> to apply the policy to any consumer identifier not otherwise explicitly targeted.</p>
          * <p>Identifier or category within the consumer to which the policy applies. Supported values: <code>client_id:&lt;client_id&gt;</code> to target a specific client by ID, <code>client_id:&lt;cimd_uri&gt;</code> to target a CIMD client by URI, <code>cimd_clients</code> to target all CIMD clients, <code>third_party_clients</code> to target all third-party clients, or <code>default</code> to apply the policy to any consumer identifier not otherwise explicitly targeted.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

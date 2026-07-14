@@ -543,7 +543,6 @@ public final class CreateResourceServerRequestContent {
 
         /**
          * <p>Unique identifier for the API used as the audience parameter on authorization calls. Can not be changed once set.</p>
-         * <p>Unique identifier for the API used as the audience parameter on authorization calls. Can not be changed once set.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

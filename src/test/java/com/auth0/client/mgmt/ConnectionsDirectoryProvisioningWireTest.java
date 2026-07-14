@@ -6,11 +6,13 @@ import com.auth0.client.mgmt.connections.types.ReplaceSynchronizedGroupsRequestC
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
+import com.auth0.client.mgmt.types.CreateDirectoryProvisioningRequestContent;
 import com.auth0.client.mgmt.types.CreateDirectoryProvisioningResponseContent;
 import com.auth0.client.mgmt.types.DirectoryProvisioning;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningDefaultMappingResponseContent;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningResponseContent;
 import com.auth0.client.mgmt.types.SynchronizedGroupPayload;
+import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningRequestContent;
 import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,8 +55,8 @@ public class ConnectionsDirectoryProvisioningWireTest {
         SyncPagingIterable<DirectoryProvisioning> response = client.connections()
                 .directoryProvisioning()
                 .list(ListDirectoryProvisioningsRequestParameters.builder()
-                        .from(OptionalNullable.of("from"))
-                        .take(OptionalNullable.of(1))
+                        .from("from")
+                        .take(1)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -139,8 +141,12 @@ public class ConnectionsDirectoryProvisioningWireTest {
                         .setResponseCode(200)
                         .setBody(
                                 "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"all\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
-        CreateDirectoryProvisioningResponseContent response =
-                client.connections().directoryProvisioning().create("id", OptionalNullable.absent());
+        CreateDirectoryProvisioningResponseContent response = client.connections()
+                .directoryProvisioning()
+                .create(
+                        "id",
+                        OptionalNullable.of(CreateDirectoryProvisioningRequestContent.builder()
+                                .build()));
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("POST", request.getMethod());
@@ -214,8 +220,12 @@ public class ConnectionsDirectoryProvisioningWireTest {
                         .setResponseCode(200)
                         .setBody(
                                 "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"mapping\":[{\"auth0\":\"auth0\",\"idp\":\"idp\"}],\"synchronize_automatically\":true,\"synchronize_groups\":\"all\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_at\":\"2024-01-15T09:30:00Z\",\"last_synchronization_status\":\"last_synchronization_status\",\"last_synchronization_error\":\"last_synchronization_error\"}"));
-        UpdateDirectoryProvisioningResponseContent response =
-                client.connections().directoryProvisioning().update("id", OptionalNullable.absent());
+        UpdateDirectoryProvisioningResponseContent response = client.connections()
+                .directoryProvisioning()
+                .update(
+                        "id",
+                        OptionalNullable.of(UpdateDirectoryProvisioningRequestContent.builder()
+                                .build()));
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("PATCH", request.getMethod());
@@ -336,8 +346,8 @@ public class ConnectionsDirectoryProvisioningWireTest {
                 .listSynchronizedGroups(
                         "id",
                         ListSynchronizedGroupsRequestParameters.builder()
-                                .from(OptionalNullable.of("from"))
-                                .take(OptionalNullable.of(1))
+                                .from("from")
+                                .take(1)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
