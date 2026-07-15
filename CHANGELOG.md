@@ -1,5 +1,15 @@
 # Change Log
 
+## [4.0.0](https://github.com/auth0/auth0-java/tree/4.0.0) (2026-07-15)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/3.10.0...4.0.0)
+
+**Added**
+- feat: add MIGRATION_GUIDE [\#900](https://github.com/auth0/auth0-java/pull/900) ([tanya732](https://github.com/tanya732))
+- feat: remove Federated Connections Tokensets, add per-request retries [\#899](https://github.com/auth0/auth0-java/pull/899) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat:  add Organization Role Members, thirdPartyClientAccess, optional fields and contains breaking changes [\#893](https://github.com/auth0/auth0-java/pull/893) ([fern-api[bot]](https://github.com/apps/fern-api))
+- chore: update jackson version [\#898](https://github.com/auth0/auth0-java/pull/898) ([tanya732](https://github.com/tanya732))
+- feat: Add Token Vault support to the Authentication API [\#894](https://github.com/auth0/auth0-java/pull/894) ([kailash-b](https://github.com/kailash-b))
+
 ## [3.10.0](https://github.com/auth0/auth0-java/tree/3.10.0) (2026-07-03)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/3.9.0...3.10.0)
 
