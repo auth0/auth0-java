@@ -299,7 +299,6 @@ public final class ConnectedAccount {
 
         /**
          * <p>The unique identifier for the connected account.</p>
-         * <p>The unique identifier for the connected account.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -310,7 +309,6 @@ public final class ConnectedAccount {
         }
 
         /**
-         * <p>The name of the connection associated with the account.</p>
          * <p>The name of the connection associated with the account.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -323,7 +321,6 @@ public final class ConnectedAccount {
 
         /**
          * <p>The unique identifier of the connection associated with the account.</p>
-         * <p>The unique identifier of the connection associated with the account.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -334,7 +331,6 @@ public final class ConnectedAccount {
         }
 
         /**
-         * <p>The authentication strategy used by the connection.</p>
          * <p>The authentication strategy used by the connection.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -353,7 +349,6 @@ public final class ConnectedAccount {
         }
 
         /**
-         * <p>ISO 8601 timestamp when the connected account was created.</p>
          * <p>ISO 8601 timestamp when the connected account was created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

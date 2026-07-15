@@ -3,13 +3,14 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -60,7 +61,8 @@ public final class ListClientGrantsRequestParameters {
     /**
      * @return Optional Id from which to start selection.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("from")
     public OptionalNullable<String> getFrom() {
         if (from == null) {
             return OptionalNullable.absent();
@@ -71,7 +73,8 @@ public final class ListClientGrantsRequestParameters {
     /**
      * @return Number of results per page. Defaults to 50.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("take")
     public OptionalNullable<Integer> getTake() {
         if (take == null) {
             return OptionalNullable.absent();
@@ -82,7 +85,8 @@ public final class ListClientGrantsRequestParameters {
     /**
      * @return Optional filter on audience.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("audience")
     public OptionalNullable<String> getAudience() {
         if (audience == null) {
             return OptionalNullable.absent();
@@ -93,7 +97,8 @@ public final class ListClientGrantsRequestParameters {
     /**
      * @return Optional filter on client_id.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("client_id")
     public OptionalNullable<String> getClientId() {
         if (clientId == null) {
             return OptionalNullable.absent();
@@ -104,7 +109,8 @@ public final class ListClientGrantsRequestParameters {
     /**
      * @return Optional filter on allow_any_organization.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("allow_any_organization")
     public OptionalNullable<Boolean> getAllowAnyOrganization() {
         if (allowAnyOrganization == null) {
             return OptionalNullable.absent();
@@ -115,7 +121,8 @@ public final class ListClientGrantsRequestParameters {
     /**
      * @return The type of application access the client grant allows.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("subject_type")
     public OptionalNullable<ClientGrantSubjectTypeEnum> getSubjectType() {
         if (subjectType == null) {
             return OptionalNullable.absent();
@@ -126,11 +133,54 @@ public final class ListClientGrantsRequestParameters {
     /**
      * @return Applies this client grant as the default for all clients in the specified group. The only accepted value is <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants#default-permissions-for-third-party-applications"><code>third_party_clients</code></a>, which applies the grant to all third-party clients. Per-client grants for the same audience take precedence. Mutually exclusive with <code>client_id</code>.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("default_for")
     public OptionalNullable<ClientGrantDefaultForEnum> getDefaultFor() {
         if (defaultFor == null) {
             return OptionalNullable.absent();
         }
+        return defaultFor;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("from")
+    private OptionalNullable<String> _getFrom() {
+        return from;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("take")
+    private OptionalNullable<Integer> _getTake() {
+        return take;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("audience")
+    private OptionalNullable<String> _getAudience() {
+        return audience;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("client_id")
+    private OptionalNullable<String> _getClientId() {
+        return clientId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("allow_any_organization")
+    private OptionalNullable<Boolean> _getAllowAnyOrganization() {
+        return allowAnyOrganization;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("subject_type")
+    private OptionalNullable<ClientGrantSubjectTypeEnum> _getSubjectType() {
+        return subjectType;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("default_for")
+    private OptionalNullable<ClientGrantDefaultForEnum> _getDefaultFor() {
         return defaultFor;
     }
 

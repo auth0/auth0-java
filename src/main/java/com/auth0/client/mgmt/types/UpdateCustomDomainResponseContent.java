@@ -362,7 +362,6 @@ public final class UpdateCustomDomainResponseContent {
 
         /**
          * <p>ID of the custom domain.</p>
-         * <p>ID of the custom domain.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -374,7 +373,6 @@ public final class UpdateCustomDomainResponseContent {
 
         /**
          * <p>Domain name.</p>
-         * <p>Domain name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -385,7 +383,6 @@ public final class UpdateCustomDomainResponseContent {
         }
 
         /**
-         * <p>Whether this is a primary domain (true) or not (false).</p>
          * <p>Whether this is a primary domain (true) or not (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

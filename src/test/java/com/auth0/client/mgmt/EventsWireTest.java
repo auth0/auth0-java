@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.EventStreamSubscribeEventsEventTypeEnum;
 import com.auth0.client.mgmt.types.EventStreamSubscribeEventsResponseContent;
 import com.auth0.client.mgmt.types.SubscribeEventsRequestParameters;
@@ -41,8 +40,8 @@ public class EventsWireTest {
         server.enqueue(new MockResponse().setResponseCode(200).setBody("{}"));
         Iterable<EventStreamSubscribeEventsResponseContent> response = client.events()
                 .subscribe(SubscribeEventsRequestParameters.builder()
-                        .from(OptionalNullable.of("from"))
-                        .fromTimestamp(OptionalNullable.of("from_timestamp"))
+                        .from("from")
+                        .fromTimestamp("from_timestamp")
                         .eventType(Arrays.asList(EventStreamSubscribeEventsEventTypeEnum.CONNECTION_CREATED))
                         .build());
         RecordedRequest request = server.takeRequest();

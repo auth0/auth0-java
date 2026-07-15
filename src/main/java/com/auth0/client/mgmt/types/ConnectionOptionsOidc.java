@@ -37,8 +37,6 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
 
     private final Optional<ConnectionDpopSigningAlgEnum> dpopSigningAlg;
 
-    private final OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens;
-
     private final Optional<String> iconUrl;
 
     private final Optional<Boolean> idTokenSessionExpirySupported;
@@ -89,7 +87,6 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
             Optional<ConnectionConnectionSettings> connectionSettings,
             Optional<List<String>> domainAliases,
             Optional<ConnectionDpopSigningAlgEnum> dpopSigningAlg,
-            OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens,
             Optional<String> iconUrl,
             Optional<Boolean> idTokenSessionExpirySupported,
             OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs,
@@ -117,7 +114,6 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         this.connectionSettings = connectionSettings;
         this.domainAliases = domainAliases;
         this.dpopSigningAlg = dpopSigningAlg;
-        this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
         this.iconUrl = iconUrl;
         this.idTokenSessionExpirySupported = idTokenSessionExpirySupported;
         this.idTokenSignedResponseAlgs = idTokenSignedResponseAlgs;
@@ -175,16 +171,6 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
     @java.lang.Override
     public Optional<ConnectionDpopSigningAlgEnum> getDpopSigningAlg() {
         return dpopSigningAlg;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("federated_connections_access_tokens")
-    @java.lang.Override
-    public OptionalNullable<ConnectionFederatedConnectionsAccessTokens> getFederatedConnectionsAccessTokens() {
-        if (federatedConnectionsAccessTokens == null) {
-            return OptionalNullable.absent();
-        }
-        return federatedConnectionsAccessTokens;
     }
 
     @JsonProperty("icon_url")
@@ -321,12 +307,6 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("federated_connections_access_tokens")
-    private OptionalNullable<ConnectionFederatedConnectionsAccessTokens> _getFederatedConnectionsAccessTokens() {
-        return federatedConnectionsAccessTokens;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("id_token_signed_response_algs")
     private OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> _getIdTokenSignedResponseAlgs() {
         return idTokenSignedResponseAlgs;
@@ -369,7 +349,6 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                 && connectionSettings.equals(other.connectionSettings)
                 && domainAliases.equals(other.domainAliases)
                 && dpopSigningAlg.equals(other.dpopSigningAlg)
-                && federatedConnectionsAccessTokens.equals(other.federatedConnectionsAccessTokens)
                 && iconUrl.equals(other.iconUrl)
                 && idTokenSessionExpirySupported.equals(other.idTokenSessionExpirySupported)
                 && idTokenSignedResponseAlgs.equals(other.idTokenSignedResponseAlgs)
@@ -401,7 +380,6 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                 this.connectionSettings,
                 this.domainAliases,
                 this.dpopSigningAlg,
-                this.federatedConnectionsAccessTokens,
                 this.iconUrl,
                 this.idTokenSessionExpirySupported,
                 this.idTokenSignedResponseAlgs,
@@ -465,20 +443,6 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         _FinalStage dpopSigningAlg(Optional<ConnectionDpopSigningAlgEnum> dpopSigningAlg);
 
         _FinalStage dpopSigningAlg(ConnectionDpopSigningAlgEnum dpopSigningAlg);
-
-        _FinalStage federatedConnectionsAccessTokens(
-                @Nullable
-                        OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens);
-
-        _FinalStage federatedConnectionsAccessTokens(
-                ConnectionFederatedConnectionsAccessTokens federatedConnectionsAccessTokens);
-
-        _FinalStage federatedConnectionsAccessTokens(
-                Optional<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens);
-
-        _FinalStage federatedConnectionsAccessTokens(
-                com.auth0.client.mgmt.core.Nullable<ConnectionFederatedConnectionsAccessTokens>
-                        federatedConnectionsAccessTokens);
 
         _FinalStage iconUrl(Optional<String> iconUrl);
 
@@ -645,9 +609,6 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
 
         private Optional<String> iconUrl = Optional.empty();
 
-        private OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens =
-                OptionalNullable.absent();
-
         private Optional<ConnectionDpopSigningAlgEnum> dpopSigningAlg = Optional.empty();
 
         private Optional<List<String>> domainAliases = Optional.empty();
@@ -671,7 +632,6 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
             connectionSettings(other.getConnectionSettings());
             domainAliases(other.getDomainAliases());
             dpopSigningAlg(other.getDpopSigningAlg());
-            federatedConnectionsAccessTokens(other.getFederatedConnectionsAccessTokens());
             iconUrl(other.getIconUrl());
             idTokenSessionExpirySupported(other.getIdTokenSessionExpirySupported());
             idTokenSignedResponseAlgs(other.getIdTokenSignedResponseAlgs());
@@ -1074,47 +1034,6 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         }
 
         @java.lang.Override
-        public _FinalStage federatedConnectionsAccessTokens(
-                com.auth0.client.mgmt.core.Nullable<ConnectionFederatedConnectionsAccessTokens>
-                        federatedConnectionsAccessTokens) {
-            if (federatedConnectionsAccessTokens.isNull()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.ofNull();
-            } else if (federatedConnectionsAccessTokens.isEmpty()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.absent();
-            } else {
-                this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens.get());
-            }
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage federatedConnectionsAccessTokens(
-                Optional<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
-            if (federatedConnectionsAccessTokens.isPresent()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens.get());
-            } else {
-                this.federatedConnectionsAccessTokens = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage federatedConnectionsAccessTokens(
-                ConnectionFederatedConnectionsAccessTokens federatedConnectionsAccessTokens) {
-            this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "federated_connections_access_tokens", nulls = Nulls.SKIP)
-        public _FinalStage federatedConnectionsAccessTokens(
-                @Nullable
-                        OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
-            this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
-            return this;
-        }
-
-        @java.lang.Override
         public _FinalStage dpopSigningAlg(ConnectionDpopSigningAlgEnum dpopSigningAlg) {
             this.dpopSigningAlg = Optional.ofNullable(dpopSigningAlg);
             return this;
@@ -1188,7 +1107,6 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                     connectionSettings,
                     domainAliases,
                     dpopSigningAlg,
-                    federatedConnectionsAccessTokens,
                     iconUrl,
                     idTokenSessionExpirySupported,
                     idTokenSignedResponseAlgs,

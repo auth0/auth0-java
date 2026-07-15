@@ -266,7 +266,6 @@ public final class UserIdentity {
 
         /**
          * <p>Connection name of this identity.</p>
-         * <p>Connection name of this identity.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -278,7 +277,6 @@ public final class UserIdentity {
 
         /**
          * <p>user_id of this identity.</p>
-         * <p>user_id of this identity.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -289,7 +287,6 @@ public final class UserIdentity {
         }
 
         /**
-         * <p>Type of identity provider.</p>
          * <p>Type of identity provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

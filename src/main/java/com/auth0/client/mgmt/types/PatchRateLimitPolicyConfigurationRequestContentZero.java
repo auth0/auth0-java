@@ -102,7 +102,6 @@ public final class PatchRateLimitPolicyConfigurationRequestContentZero {
 
         /**
          * <p>Determines the action to take when the rate limit is exceeded.</p>
-         * <p>Determines the action to take when the rate limit is exceeded.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

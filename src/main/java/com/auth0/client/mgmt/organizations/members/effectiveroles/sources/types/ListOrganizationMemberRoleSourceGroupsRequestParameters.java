@@ -3,13 +3,14 @@
  */
 package com.auth0.client.mgmt.organizations.members.effectiveroles.sources.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -45,7 +46,8 @@ public final class ListOrganizationMemberRoleSourceGroupsRequestParameters {
     /**
      * @return Optional Id from which to start selection.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("from")
     public OptionalNullable<String> getFrom() {
         if (from == null) {
             return OptionalNullable.absent();
@@ -56,7 +58,8 @@ public final class ListOrganizationMemberRoleSourceGroupsRequestParameters {
     /**
      * @return Number of results per page. Defaults to 50.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("take")
     public OptionalNullable<Integer> getTake() {
         if (take == null) {
             return OptionalNullable.absent();
@@ -67,9 +70,21 @@ public final class ListOrganizationMemberRoleSourceGroupsRequestParameters {
     /**
      * @return The role ID to get group sources for.
      */
-    @JsonIgnore
+    @JsonProperty("role_id")
     public String getRoleId() {
         return roleId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("from")
+    private OptionalNullable<String> _getFrom() {
+        return from;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("take")
+    private OptionalNullable<Integer> _getTake() {
+        return take;
     }
 
     @java.lang.Override
@@ -163,7 +178,6 @@ public final class ListOrganizationMemberRoleSourceGroupsRequestParameters {
         }
 
         /**
-         * <p>The role ID to get group sources for.</p>
          * <p>The role ID to get group sources for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

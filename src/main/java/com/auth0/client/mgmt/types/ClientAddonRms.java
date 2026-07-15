@@ -99,7 +99,6 @@ public final class ClientAddonRms {
 
         /**
          * <p>URL of your Rights Management Server. It can be internal or external, but users will have to be able to reach it.</p>
-         * <p>URL of your Rights Management Server. It can be internal or external, but users will have to be able to reach it.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

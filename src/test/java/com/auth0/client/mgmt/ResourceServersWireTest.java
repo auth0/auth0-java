@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateResourceServerRequestContent;
 import com.auth0.client.mgmt.types.CreateResourceServerResponseContent;
@@ -51,10 +50,10 @@ public class ResourceServersWireTest {
                                 "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"resource_servers\":[{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"allow_online_access\":true,\"allow_online_access_with_ephemeral_sessions\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"alg\":\"RSA-OAEP-256\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true},\"authorization_policy\":{\"policy_id\":\"policy_id\"},\"client_id\":\"client_id\"}]}"));
         SyncPagingIterable<ResourceServer> response = client.resourceServers()
                 .list(ListResourceServerRequestParameters.builder()
-                        .page(OptionalNullable.of(1))
-                        .perPage(OptionalNullable.of(1))
-                        .includeTotals(OptionalNullable.of(true))
-                        .includeFields(OptionalNullable.of(true))
+                        .page(1)
+                        .perPage(1)
+                        .includeTotals(true)
+                        .includeFields(true)
                         .identifiers(Arrays.asList("identifiers"))
                         .build());
         RecordedRequest request = server.takeRequest();
@@ -154,7 +153,7 @@ public class ResourceServersWireTest {
                 .get(
                         "id",
                         GetResourceServerRequestParameters.builder()
-                                .includeFields(OptionalNullable.of(true))
+                                .includeFields(true)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

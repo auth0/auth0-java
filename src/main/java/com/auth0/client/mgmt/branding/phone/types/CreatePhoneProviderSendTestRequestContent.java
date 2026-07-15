@@ -121,7 +121,6 @@ public final class CreatePhoneProviderSendTestRequestContent {
 
         /**
          * <p>The recipient phone number to receive a given notification.</p>
-         * <p>The recipient phone number to receive a given notification.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

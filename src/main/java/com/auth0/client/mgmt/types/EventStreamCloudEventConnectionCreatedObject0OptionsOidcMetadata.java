@@ -977,7 +977,6 @@ public final class EventStreamCloudEventConnectionCreatedObject0OptionsOidcMetad
 
         /**
          * <p>URL of the identity provider's OAuth 2.0 authorization endpoint where users are redirected for authentication. Must be a valid HTTPS URL. This endpoint initiates the OAuth 2.0 authorization code flow.</p>
-         * <p>URL of the identity provider's OAuth 2.0 authorization endpoint where users are redirected for authentication. Must be a valid HTTPS URL. This endpoint initiates the OAuth 2.0 authorization code flow.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -990,7 +989,6 @@ public final class EventStreamCloudEventConnectionCreatedObject0OptionsOidcMetad
 
         /**
          * <p>The identity provider's unique issuer identifier URL (e.g., https://accounts.google.com). Must match the 'iss' claim in ID tokens from the identity provider.</p>
-         * <p>The identity provider's unique issuer identifier URL (e.g., https://accounts.google.com). Must match the 'iss' claim in ID tokens from the identity provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1001,7 +999,6 @@ public final class EventStreamCloudEventConnectionCreatedObject0OptionsOidcMetad
         }
 
         /**
-         * <p>URL of the identity provider's JSON Web Key Set (JWKS) endpoint containing public keys for signature verification. Auth0 retrieves these keys to validate ID token signatures.</p>
          * <p>URL of the identity provider's JSON Web Key Set (JWKS) endpoint containing public keys for signature verification. Auth0 retrieves these keys to validate ID token signatures.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

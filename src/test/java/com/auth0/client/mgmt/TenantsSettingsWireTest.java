@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.tenants.types.GetTenantSettingsRequestParameters;
 import com.auth0.client.mgmt.tenants.types.UpdateTenantSettingsRequestContent;
 import com.auth0.client.mgmt.types.GetTenantSettingsResponseContent;
@@ -44,8 +43,8 @@ public class TenantsSettingsWireTest {
         GetTenantSettingsResponseContent response = client.tenants()
                 .settings()
                 .get(GetTenantSettingsRequestParameters.builder()
-                        .fields(OptionalNullable.of("fields"))
-                        .includeFields(OptionalNullable.of(true))
+                        .fields("fields")
+                        .includeFields(true)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

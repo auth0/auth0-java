@@ -6,9 +6,9 @@ package com.auth0.client.mgmt.types;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.HashMap;
@@ -31,7 +31,7 @@ public final class DeleteUserGrantByUserIdRequestParameters {
     /**
      * @return user_id of the grant to delete.
      */
-    @JsonIgnore
+    @JsonProperty("user_id")
     public String getUserId() {
         return userId;
     }
@@ -99,7 +99,6 @@ public final class DeleteUserGrantByUserIdRequestParameters {
         }
 
         /**
-         * <p>user_id of the grant to delete.</p>
          * <p>user_id of the grant to delete.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

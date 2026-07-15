@@ -351,7 +351,6 @@ public final class UpdateDirectoryProvisioningResponseContent {
 
         /**
          * <p>The connection's identifier</p>
-         * <p>The connection's identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -362,7 +361,6 @@ public final class UpdateDirectoryProvisioningResponseContent {
         }
 
         /**
-         * <p>The connection's name</p>
          * <p>The connection's name</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -375,7 +373,6 @@ public final class UpdateDirectoryProvisioningResponseContent {
 
         /**
          * <p>The connection's strategy</p>
-         * <p>The connection's strategy</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -386,7 +383,6 @@ public final class UpdateDirectoryProvisioningResponseContent {
         }
 
         /**
-         * <p>Whether periodic automatic synchronization is enabled</p>
          * <p>Whether periodic automatic synchronization is enabled</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -399,7 +395,6 @@ public final class UpdateDirectoryProvisioningResponseContent {
 
         /**
          * <p>The timestamp at which the directory provisioning configuration was created</p>
-         * <p>The timestamp at which the directory provisioning configuration was created</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -410,7 +405,6 @@ public final class UpdateDirectoryProvisioningResponseContent {
         }
 
         /**
-         * <p>The timestamp at which the directory provisioning configuration was last updated</p>
          * <p>The timestamp at which the directory provisioning configuration was last updated</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -127,7 +127,6 @@ public final class ClearAssessorsRequestContent {
 
         /**
          * <p>The name of the connection containing the user whose assessors should be cleared.</p>
-         * <p>The name of the connection containing the user whose assessors should be cleared.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

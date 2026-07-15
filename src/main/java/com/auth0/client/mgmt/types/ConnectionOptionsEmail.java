@@ -228,7 +228,6 @@ public final class ConnectionOptionsEmail implements IConnectionOptionsCommon {
 
         /**
          * <p>Connection name</p>
-         * <p>Connection name</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

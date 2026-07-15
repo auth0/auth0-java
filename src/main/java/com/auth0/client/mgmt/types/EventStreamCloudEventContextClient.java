@@ -141,7 +141,6 @@ public final class EventStreamCloudEventContextClient {
 
         /**
          * <p>The client identifier.</p>
-         * <p>The client identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -152,7 +151,6 @@ public final class EventStreamCloudEventContextClient {
         }
 
         /**
-         * <p>The client name.</p>
          * <p>The client name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -122,7 +122,6 @@ public final class CreateExportUsersFields {
 
         /**
          * <p>Name of the field in the profile.</p>
-         * <p>Name of the field in the profile.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

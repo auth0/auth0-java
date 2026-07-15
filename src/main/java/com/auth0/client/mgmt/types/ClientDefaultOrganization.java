@@ -128,7 +128,6 @@ public final class ClientDefaultOrganization {
 
         /**
          * <p>The default Organization ID to be used</p>
-         * <p>The default Organization ID to be used</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

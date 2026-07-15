@@ -324,7 +324,6 @@ public final class GetFlowsVaultConnectionResponseContent {
 
         /**
          * <p>Flows Vault Connection identifier.</p>
-         * <p>Flows Vault Connection identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -335,7 +334,6 @@ public final class GetFlowsVaultConnectionResponseContent {
         }
 
         /**
-         * <p>Flows Vault Connection app identifier.</p>
          * <p>Flows Vault Connection app identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -348,7 +346,6 @@ public final class GetFlowsVaultConnectionResponseContent {
 
         /**
          * <p>Flows Vault Connection name.</p>
-         * <p>Flows Vault Connection name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -359,7 +356,6 @@ public final class GetFlowsVaultConnectionResponseContent {
         }
 
         /**
-         * <p>Whether the Flows Vault Connection is configured.</p>
          * <p>Whether the Flows Vault Connection is configured.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -372,7 +368,6 @@ public final class GetFlowsVaultConnectionResponseContent {
 
         /**
          * <p>The ISO 8601 formatted date when this Flows Vault Connection was created.</p>
-         * <p>The ISO 8601 formatted date when this Flows Vault Connection was created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -383,7 +378,6 @@ public final class GetFlowsVaultConnectionResponseContent {
         }
 
         /**
-         * <p>The ISO 8601 formatted date when this Flows Vault Connection was updated.</p>
          * <p>The ISO 8601 formatted date when this Flows Vault Connection was updated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

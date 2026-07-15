@@ -99,7 +99,6 @@ public final class ResourceServerAuthorizationPolicy {
 
         /**
          * <p>The ID of the authorization policy to apply.</p>
-         * <p>The ID of the authorization policy to apply.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

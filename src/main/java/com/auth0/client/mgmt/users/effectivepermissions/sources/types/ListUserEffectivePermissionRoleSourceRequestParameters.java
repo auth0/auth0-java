@@ -3,13 +3,14 @@
  */
 package com.auth0.client.mgmt.users.effectivepermissions.sources.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -49,7 +50,8 @@ public final class ListUserEffectivePermissionRoleSourceRequestParameters {
     /**
      * @return Optional Id from which to start selection.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("from")
     public OptionalNullable<String> getFrom() {
         if (from == null) {
             return OptionalNullable.absent();
@@ -60,7 +62,8 @@ public final class ListUserEffectivePermissionRoleSourceRequestParameters {
     /**
      * @return Number of results per page. Defaults to 50.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("take")
     public OptionalNullable<Integer> getTake() {
         if (take == null) {
             return OptionalNullable.absent();
@@ -71,7 +74,7 @@ public final class ListUserEffectivePermissionRoleSourceRequestParameters {
     /**
      * @return The identifier of the resource server for which to calculate user permissions.
      */
-    @JsonIgnore
+    @JsonProperty("resource_server_identifier")
     public String getResourceServerIdentifier() {
         return resourceServerIdentifier;
     }
@@ -79,9 +82,21 @@ public final class ListUserEffectivePermissionRoleSourceRequestParameters {
     /**
      * @return Name of this permission
      */
-    @JsonIgnore
+    @JsonProperty("permission_name")
     public String getPermissionName() {
         return permissionName;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("from")
+    private OptionalNullable<String> _getFrom() {
+        return from;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("take")
+    private OptionalNullable<Integer> _getTake() {
+        return take;
     }
 
     @java.lang.Override
@@ -189,7 +204,6 @@ public final class ListUserEffectivePermissionRoleSourceRequestParameters {
 
         /**
          * <p>The identifier of the resource server for which to calculate user permissions.</p>
-         * <p>The identifier of the resource server for which to calculate user permissions.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -201,7 +215,6 @@ public final class ListUserEffectivePermissionRoleSourceRequestParameters {
         }
 
         /**
-         * <p>Name of this permission</p>
          * <p>Name of this permission</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

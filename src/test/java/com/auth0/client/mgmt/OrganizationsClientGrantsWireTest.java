@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.organizations.types.AssociateOrganizationClientGrantRequestContent;
 import com.auth0.client.mgmt.organizations.types.ListOrganizationClientGrantsRequestParameters;
@@ -50,11 +49,11 @@ public class OrganizationsClientGrantsWireTest {
                 .list(
                         "id",
                         ListOrganizationClientGrantsRequestParameters.builder()
-                                .audience(OptionalNullable.of("audience"))
-                                .clientId(OptionalNullable.of("client_id"))
-                                .page(OptionalNullable.of(1))
-                                .perPage(OptionalNullable.of(1))
-                                .includeTotals(OptionalNullable.of(true))
+                                .audience("audience")
+                                .clientId("client_id")
+                                .page(1)
+                                .perPage(1)
+                                .includeTotals(true)
                                 .grantIds(Arrays.asList("grant_ids"))
                                 .build());
         RecordedRequest request = server.takeRequest();

@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateUserAttributeProfileRequestContent;
 import com.auth0.client.mgmt.types.CreateUserAttributeProfileResponseContent;
@@ -53,8 +52,8 @@ public class UserAttributeProfilesWireTest {
                                 "{\"next\":\"next\",\"user_attribute_profiles\":[{\"id\":\"id\",\"name\":\"name\",\"user_attributes\":{\"key\":{\"description\":\"description\",\"label\":\"label\",\"profile_required\":true,\"auth0_mapping\":\"auth0_mapping\"}}}]}"));
         SyncPagingIterable<UserAttributeProfile> response = client.userAttributeProfiles()
                 .list(ListUserAttributeProfileRequestParameters.builder()
-                        .from(OptionalNullable.of("from"))
-                        .take(OptionalNullable.of(1))
+                        .from("from")
+                        .take(1)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

@@ -263,7 +263,6 @@ public final class GetEncryptionKeyResponseContent {
 
         /**
          * <p>Key ID</p>
-         * <p>Key ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -289,7 +288,6 @@ public final class GetEncryptionKeyResponseContent {
 
         /**
          * <p>Key creation timestamp</p>
-         * <p>Key creation timestamp</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -300,7 +298,6 @@ public final class GetEncryptionKeyResponseContent {
         }
 
         /**
-         * <p>Key update timestamp</p>
          * <p>Key update timestamp</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

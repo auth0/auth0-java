@@ -176,7 +176,6 @@ public final class EventStreamCloudEventOrgGroupRoleAssignedObject {
 
         /**
          * <p>The time at which the role was assigned to the group in the organization.</p>
-         * <p>The time at which the role was assigned to the group in the organization.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

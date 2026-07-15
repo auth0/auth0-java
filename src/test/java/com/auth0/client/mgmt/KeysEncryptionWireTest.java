@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.keys.types.CreateEncryptionKeyRequestContent;
 import com.auth0.client.mgmt.keys.types.ImportEncryptionKeyRequestContent;
@@ -52,9 +51,9 @@ public class KeysEncryptionWireTest {
         SyncPagingIterable<EncryptionKey> response = client.keys()
                 .encryption()
                 .list(ListEncryptionKeysRequestParameters.builder()
-                        .page(OptionalNullable.of(1))
-                        .perPage(OptionalNullable.of(1))
-                        .includeTotals(OptionalNullable.of(true))
+                        .page(1)
+                        .perPage(1)
+                        .includeTotals(true)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

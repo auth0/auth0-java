@@ -122,7 +122,6 @@ public final class ResourceServerScope {
 
         /**
          * <p>Value of this scope.</p>
-         * <p>Value of this scope.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

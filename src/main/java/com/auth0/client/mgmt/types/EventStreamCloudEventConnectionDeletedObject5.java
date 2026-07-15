@@ -319,7 +319,6 @@ public final class EventStreamCloudEventConnectionDeletedObject5 {
 
         /**
          * <p>The connection's identifier</p>
-         * <p>The connection's identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -330,7 +329,6 @@ public final class EventStreamCloudEventConnectionDeletedObject5 {
         }
 
         /**
-         * <p>The name of the connection. Must start and end with an alphanumeric character and can only contain alphanumeric characters and '-'. Max length 128</p>
          * <p>The name of the connection. Must start and end with an alphanumeric character and can only contain alphanumeric characters and '-'. Max length 128</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -119,7 +119,6 @@ public final class BrandingThemeFontInputLabels {
 
         /**
          * <p>Input Labels bold</p>
-         * <p>Input Labels bold</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -130,7 +129,6 @@ public final class BrandingThemeFontInputLabels {
         }
 
         /**
-         * <p>Input Labels size</p>
          * <p>Input Labels size</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

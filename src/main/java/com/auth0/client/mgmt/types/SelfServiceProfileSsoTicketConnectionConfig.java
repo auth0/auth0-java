@@ -225,7 +225,6 @@ public final class SelfServiceProfileSsoTicketConnectionConfig {
 
         /**
          * <p>The name of the connection that will be created as a part of the Self-Service Enterprise Configuration flow.</p>
-         * <p>The name of the connection that will be created as a part of the Self-Service Enterprise Configuration flow.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

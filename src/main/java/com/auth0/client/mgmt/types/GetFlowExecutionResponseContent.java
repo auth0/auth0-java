@@ -292,7 +292,6 @@ public final class GetFlowExecutionResponseContent {
 
         /**
          * <p>Flow execution identifier</p>
-         * <p>Flow execution identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -303,7 +302,6 @@ public final class GetFlowExecutionResponseContent {
         }
 
         /**
-         * <p>Trace id</p>
          * <p>Trace id</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -316,7 +314,6 @@ public final class GetFlowExecutionResponseContent {
 
         /**
          * <p>Execution status</p>
-         * <p>Execution status</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -328,7 +325,6 @@ public final class GetFlowExecutionResponseContent {
 
         /**
          * <p>The ISO 8601 formatted date when this flow execution was created.</p>
-         * <p>The ISO 8601 formatted date when this flow execution was created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -339,7 +335,6 @@ public final class GetFlowExecutionResponseContent {
         }
 
         /**
-         * <p>The ISO 8601 formatted date when this flow execution was updated.</p>
          * <p>The ISO 8601 formatted date when this flow execution was updated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

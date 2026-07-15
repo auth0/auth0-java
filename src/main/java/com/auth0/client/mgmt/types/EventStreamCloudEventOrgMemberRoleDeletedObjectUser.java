@@ -101,7 +101,6 @@ public final class EventStreamCloudEventOrgMemberRoleDeletedObjectUser {
 
         /**
          * <p>ID of the user which can be used when interacting with other APIs.</p>
-         * <p>ID of the user which can be used when interacting with other APIs.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.UserEffectivePermissionRoleSourceResponseContent;
 import com.auth0.client.mgmt.users.effectivepermissions.sources.types.ListUserEffectivePermissionRoleSourceRequestParameters;
@@ -51,8 +50,8 @@ public class UsersEffectivePermissionsSourcesRolesWireTest {
                         ListUserEffectivePermissionRoleSourceRequestParameters.builder()
                                 .resourceServerIdentifier("resource_server_identifier")
                                 .permissionName("permission_name")
-                                .from(OptionalNullable.of("from"))
-                                .take(OptionalNullable.of(1))
+                                .from("from")
+                                .take(1)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

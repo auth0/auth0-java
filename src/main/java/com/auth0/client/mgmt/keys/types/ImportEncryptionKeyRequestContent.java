@@ -99,7 +99,6 @@ public final class ImportEncryptionKeyRequestContent {
 
         /**
          * <p>Base64 encoded ciphertext of key material wrapped by public wrapping key.</p>
-         * <p>Base64 encoded ciphertext of key material wrapped by public wrapping key.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

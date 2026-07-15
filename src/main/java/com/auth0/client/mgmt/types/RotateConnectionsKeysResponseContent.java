@@ -285,7 +285,6 @@ public final class RotateConnectionsKeysResponseContent {
 
         /**
          * <p>The key id of the signing key</p>
-         * <p>The key id of the signing key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -296,7 +295,6 @@ public final class RotateConnectionsKeysResponseContent {
         }
 
         /**
-         * <p>The public certificate of the signing key</p>
          * <p>The public certificate of the signing key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -309,7 +307,6 @@ public final class RotateConnectionsKeysResponseContent {
 
         /**
          * <p>The cert fingerprint</p>
-         * <p>The cert fingerprint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -320,7 +317,6 @@ public final class RotateConnectionsKeysResponseContent {
         }
 
         /**
-         * <p>The cert thumbprint</p>
          * <p>The cert thumbprint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

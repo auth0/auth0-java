@@ -170,7 +170,6 @@ public final class ResourceServerTokenEncryptionKey {
 
         /**
          * <p>PEM-formatted public key. Must be JSON escaped.</p>
-         * <p>PEM-formatted public key. Must be JSON escaped.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

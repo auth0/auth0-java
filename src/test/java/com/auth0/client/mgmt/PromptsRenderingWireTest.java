@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.prompts.types.BulkUpdateAculRequestContent;
 import com.auth0.client.mgmt.prompts.types.ListAculsRequestParameters;
@@ -55,14 +54,14 @@ public class PromptsRenderingWireTest {
         SyncPagingIterable<ListAculsResponseContentItem> response = client.prompts()
                 .rendering()
                 .list(ListAculsRequestParameters.builder()
-                        .fields(OptionalNullable.of("fields"))
-                        .includeFields(OptionalNullable.of(true))
-                        .page(OptionalNullable.of(1))
-                        .perPage(OptionalNullable.of(1))
-                        .includeTotals(OptionalNullable.of(true))
-                        .prompt(OptionalNullable.of("prompt"))
-                        .screen(OptionalNullable.of("screen"))
-                        .renderingMode(OptionalNullable.of(AculRenderingModeEnum.ADVANCED))
+                        .fields("fields")
+                        .includeFields(true)
+                        .page(1)
+                        .perPage(1)
+                        .includeTotals(true)
+                        .prompt("prompt")
+                        .screen("screen")
+                        .renderingMode(AculRenderingModeEnum.ADVANCED)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

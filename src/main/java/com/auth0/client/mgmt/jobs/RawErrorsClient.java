@@ -9,6 +9,7 @@ import com.auth0.client.mgmt.core.ManagementApiHttpResponse;
 import com.auth0.client.mgmt.core.ManagementException;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.core.RetryInterceptor;
 import com.auth0.client.mgmt.errors.BadRequestError;
 import com.auth0.client.mgmt.errors.ForbiddenError;
 import com.auth0.client.mgmt.errors.NotFoundError;
@@ -16,7 +17,9 @@ import com.auth0.client.mgmt.errors.TooManyRequestsError;
 import com.auth0.client.mgmt.errors.UnauthorizedError;
 import com.auth0.client.mgmt.jobs.types.ErrorsGetResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.IOException;
+import java.util.Optional;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -34,14 +37,14 @@ public class RawErrorsClient {
     /**
      * Retrieve error details of a failed job.
      */
-    public ManagementApiHttpResponse<ErrorsGetResponse> get(String id) {
+    public ManagementApiHttpResponse<Optional<ErrorsGetResponse>> get(String id) {
         return get(id, null);
     }
 
     /**
      * Retrieve error details of a failed job.
      */
-    public ManagementApiHttpResponse<ErrorsGetResponse> get(String id, RequestOptions requestOptions) {
+    public ManagementApiHttpResponse<Optional<ErrorsGetResponse>> get(String id, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("jobs")
@@ -62,12 +65,23 @@ public class RawErrorsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new ManagementApiHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ErrorsGetResponse.class), response);
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, new TypeReference<Optional<ErrorsGetResponse>>() {}),
+                        response);
             }
             try {
                 switch (response.code()) {
@@ -93,6 +107,8 @@ public class RawErrorsClient {
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ManagementApiException(
                     "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new ManagementException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new ManagementException("Network error executing HTTP request", e);
         }

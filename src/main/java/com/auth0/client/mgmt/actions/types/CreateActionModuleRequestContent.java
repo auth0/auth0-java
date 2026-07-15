@@ -221,7 +221,6 @@ public final class CreateActionModuleRequestContent {
 
         /**
          * <p>The name of the action module.</p>
-         * <p>The name of the action module.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -232,7 +231,6 @@ public final class CreateActionModuleRequestContent {
         }
 
         /**
-         * <p>The source code of the action module.</p>
          * <p>The source code of the action module.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

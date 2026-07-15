@@ -13,6 +13,7 @@ import com.auth0.client.mgmt.types.SetGuardianFactorsProviderSmsResponseContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderSmsTwilioResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Optional;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -309,7 +310,7 @@ public class GuardianFactorsSmsWireTest {
                         .setResponseCode(200)
                         .setBody(
                                 "{\"enrollment_message\":\"enrollment_message\",\"verification_message\":\"verification_message\"}"));
-        GetGuardianFactorSmsTemplatesResponseContent response =
+        Optional<GetGuardianFactorSmsTemplatesResponseContent> response =
                 client.guardian().factors().sms().getTemplates();
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

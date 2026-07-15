@@ -118,7 +118,6 @@ public final class CreateEncryptionKeyPublicWrappingResponseContent {
 
         /**
          * <p>Public wrapping key in PEM format</p>
-         * <p>Public wrapping key in PEM format</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

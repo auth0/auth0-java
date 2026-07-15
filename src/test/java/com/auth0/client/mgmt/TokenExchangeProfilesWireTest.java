@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateTokenExchangeProfileRequestContent;
 import com.auth0.client.mgmt.types.CreateTokenExchangeProfileResponseContent;
@@ -49,8 +48,8 @@ public class TokenExchangeProfilesWireTest {
                                 "{\"next\":\"next\",\"token_exchange_profiles\":[{\"id\":\"id\",\"name\":\"name\",\"subject_token_type\":\"subject_token_type\",\"action_id\":\"action_id\",\"type\":\"custom_authentication\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}]}"));
         SyncPagingIterable<TokenExchangeProfileResponseContent> response = client.tokenExchangeProfiles()
                 .list(TokenExchangeProfilesListRequest.builder()
-                        .from(OptionalNullable.of("from"))
-                        .take(OptionalNullable.of(1))
+                        .from("from")
+                        .take(1)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

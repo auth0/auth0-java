@@ -190,7 +190,6 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
 
         /**
          * <p>Name for this device easily recognized by owner.</p>
-         * <p>Name for this device easily recognized by owner.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -209,7 +208,6 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
 
         /**
          * <p>Base64 encoded string containing the credential.</p>
-         * <p>Base64 encoded string containing the credential.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -220,7 +218,6 @@ public final class CreatePublicKeyDeviceCredentialRequestContent {
         }
 
         /**
-         * <p>Unique identifier for the device. Recommend using <a href="http://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID">Android_ID</a> on Android and <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDevice_Class/index.html#//apple_ref/occ/instp/UIDevice/identifierForVendor">identifierForVendor</a>.</p>
          * <p>Unique identifier for the device. Recommend using <a href="http://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID">Android_ID</a> on Android and <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDevice_Class/index.html#//apple_ref/occ/instp/UIDevice/identifierForVendor">identifierForVendor</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

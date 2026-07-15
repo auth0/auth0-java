@@ -122,7 +122,6 @@ public final class UpdateEnabledClientConnectionsRequestContentItem {
 
         /**
          * <p>The client_id of the client whose status will be changed. Note that the limit per PATCH request is 50 clients.</p>
-         * <p>The client_id of the client whose status will be changed. Note that the limit per PATCH request is 50 clients.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -133,7 +132,6 @@ public final class UpdateEnabledClientConnectionsRequestContentItem {
         }
 
         /**
-         * <p>Whether the connection is enabled or not for this client_id</p>
          * <p>Whether the connection is enabled or not for this client_id</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

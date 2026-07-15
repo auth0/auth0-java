@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateUserRequestContent;
 import com.auth0.client.mgmt.types.CreateUserResponseContent;
@@ -55,16 +54,16 @@ public class UsersWireTest {
                                 "{\"start\":1.1,\"limit\":1.1,\"length\":1.1,\"total\":1.1,\"users\":[{\"user_id\":\"user_id\",\"email\":\"email\",\"email_verified\":true,\"username\":\"username\",\"phone_number\":\"phone_number\",\"phone_verified\":true,\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"identities\":[{}],\"app_metadata\":{\"key\":\"value\"},\"user_metadata\":{\"key\":\"value\"},\"picture\":\"picture\",\"name\":\"name\",\"nickname\":\"nickname\",\"multifactor\":[\"multifactor\"],\"multifactor_last_modified\":\"2024-01-15T09:30:00Z\",\"last_ip\":\"last_ip\",\"last_login\":\"2024-01-15T09:30:00Z\",\"last_password_reset\":\"2024-01-15T09:30:00Z\",\"logins_count\":1,\"blocked\":true,\"given_name\":\"given_name\",\"family_name\":\"family_name\"}]}"));
         SyncPagingIterable<UserResponseSchema> response = client.users()
                 .list(ListUsersRequestParameters.builder()
-                        .page(OptionalNullable.of(1))
-                        .perPage(OptionalNullable.of(1))
-                        .includeTotals(OptionalNullable.of(true))
-                        .sort(OptionalNullable.of("sort"))
-                        .connection(OptionalNullable.of("connection"))
-                        .fields(OptionalNullable.of("fields"))
-                        .includeFields(OptionalNullable.of(true))
-                        .q(OptionalNullable.of("q"))
-                        .searchEngine(OptionalNullable.of(SearchEngineVersionsEnum.V1))
-                        .primaryOrder(OptionalNullable.of(true))
+                        .page(1)
+                        .perPage(1)
+                        .includeTotals(true)
+                        .sort("sort")
+                        .connection("connection")
+                        .fields("fields")
+                        .includeFields(true)
+                        .q("q")
+                        .searchEngine(SearchEngineVersionsEnum.V1)
+                        .primaryOrder(true)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -206,8 +205,8 @@ public class UsersWireTest {
         List<UserResponseSchema> response = client.users()
                 .listUsersByEmail(ListUsersByEmailRequestParameters.builder()
                         .email("email")
-                        .fields(OptionalNullable.of("fields"))
-                        .includeFields(OptionalNullable.of(true))
+                        .fields("fields")
+                        .includeFields(true)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -294,8 +293,8 @@ public class UsersWireTest {
                 .get(
                         "id",
                         GetUserRequestParameters.builder()
-                                .fields(OptionalNullable.of("fields"))
-                                .includeFields(OptionalNullable.of(true))
+                                .fields("fields")
+                                .includeFields(true)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

@@ -176,7 +176,6 @@ public final class EventStreamCloudEventUserDeletedObjectIdentitiesItemCustom {
 
         /**
          * <p>Name of the connection containing this identity.</p>
-         * <p>Name of the connection containing this identity.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

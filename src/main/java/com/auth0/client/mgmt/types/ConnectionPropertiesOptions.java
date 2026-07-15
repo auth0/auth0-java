@@ -83,8 +83,6 @@ public final class ConnectionPropertiesOptions {
 
     private final OptionalNullable<ConnectionGatewayAuthentication> gatewayAuthentication;
 
-    private final OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens;
-
     private final Optional<ConnectionPasswordOptions> passwordOptions;
 
     private final Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings;
@@ -137,7 +135,6 @@ public final class ConnectionPropertiesOptions {
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
             OptionalNullable<ConnectionGatewayAuthentication> gatewayAuthentication,
-            OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens,
             Optional<ConnectionPasswordOptions> passwordOptions,
             Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings,
             OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs,
@@ -178,7 +175,6 @@ public final class ConnectionPropertiesOptions {
         this.upstreamParams = upstreamParams;
         this.setUserRootAttributes = setUserRootAttributes;
         this.gatewayAuthentication = gatewayAuthentication;
-        this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
         this.passwordOptions = passwordOptions;
         this.assertionDecryptionSettings = assertionDecryptionSettings;
         this.idTokenSignedResponseAlgs = idTokenSignedResponseAlgs;
@@ -403,15 +399,6 @@ public final class ConnectionPropertiesOptions {
         return gatewayAuthentication;
     }
 
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("federated_connections_access_tokens")
-    public OptionalNullable<ConnectionFederatedConnectionsAccessTokens> getFederatedConnectionsAccessTokens() {
-        if (federatedConnectionsAccessTokens == null) {
-            return OptionalNullable.absent();
-        }
-        return federatedConnectionsAccessTokens;
-    }
-
     @JsonProperty("password_options")
     public Optional<ConnectionPasswordOptions> getPasswordOptions() {
         return passwordOptions;
@@ -556,12 +543,6 @@ public final class ConnectionPropertiesOptions {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("federated_connections_access_tokens")
-    private OptionalNullable<ConnectionFederatedConnectionsAccessTokens> _getFederatedConnectionsAccessTokens() {
-        return federatedConnectionsAccessTokens;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("id_token_signed_response_algs")
     private OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> _getIdTokenSignedResponseAlgs() {
         return idTokenSignedResponseAlgs;
@@ -632,7 +613,6 @@ public final class ConnectionPropertiesOptions {
                 && upstreamParams.equals(other.upstreamParams)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
                 && gatewayAuthentication.equals(other.gatewayAuthentication)
-                && federatedConnectionsAccessTokens.equals(other.federatedConnectionsAccessTokens)
                 && passwordOptions.equals(other.passwordOptions)
                 && assertionDecryptionSettings.equals(other.assertionDecryptionSettings)
                 && idTokenSignedResponseAlgs.equals(other.idTokenSignedResponseAlgs)
@@ -677,7 +657,6 @@ public final class ConnectionPropertiesOptions {
                 this.upstreamParams,
                 this.setUserRootAttributes,
                 this.gatewayAuthentication,
-                this.federatedConnectionsAccessTokens,
                 this.passwordOptions,
                 this.assertionDecryptionSettings,
                 this.idTokenSignedResponseAlgs,
@@ -762,9 +741,6 @@ public final class ConnectionPropertiesOptions {
 
         private OptionalNullable<ConnectionGatewayAuthentication> gatewayAuthentication = OptionalNullable.absent();
 
-        private OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens =
-                OptionalNullable.absent();
-
         private Optional<ConnectionPasswordOptions> passwordOptions = Optional.empty();
 
         private Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings = Optional.empty();
@@ -823,7 +799,6 @@ public final class ConnectionPropertiesOptions {
             upstreamParams(other.getUpstreamParams());
             setUserRootAttributes(other.getSetUserRootAttributes());
             gatewayAuthentication(other.getGatewayAuthentication());
-            federatedConnectionsAccessTokens(other.getFederatedConnectionsAccessTokens());
             passwordOptions(other.getPasswordOptions());
             assertionDecryptionSettings(other.getAssertionDecryptionSettings());
             idTokenSignedResponseAlgs(other.getIdTokenSignedResponseAlgs());
@@ -1437,43 +1412,6 @@ public final class ConnectionPropertiesOptions {
             return this;
         }
 
-        @JsonSetter(value = "federated_connections_access_tokens", nulls = Nulls.SKIP)
-        public Builder federatedConnectionsAccessTokens(
-                @Nullable
-                        OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
-            this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
-            return this;
-        }
-
-        public Builder federatedConnectionsAccessTokens(
-                ConnectionFederatedConnectionsAccessTokens federatedConnectionsAccessTokens) {
-            this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens);
-            return this;
-        }
-
-        public Builder federatedConnectionsAccessTokens(
-                Optional<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
-            if (federatedConnectionsAccessTokens.isPresent()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens.get());
-            } else {
-                this.federatedConnectionsAccessTokens = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        public Builder federatedConnectionsAccessTokens(
-                com.auth0.client.mgmt.core.Nullable<ConnectionFederatedConnectionsAccessTokens>
-                        federatedConnectionsAccessTokens) {
-            if (federatedConnectionsAccessTokens.isNull()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.ofNull();
-            } else if (federatedConnectionsAccessTokens.isEmpty()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.absent();
-            } else {
-                this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens.get());
-            }
-            return this;
-        }
-
         @JsonSetter(value = "password_options", nulls = Nulls.SKIP)
         public Builder passwordOptions(Optional<ConnectionPasswordOptions> passwordOptions) {
             this.passwordOptions = passwordOptions;
@@ -1731,7 +1669,6 @@ public final class ConnectionPropertiesOptions {
                     upstreamParams,
                     setUserRootAttributes,
                     gatewayAuthentication,
-                    federatedConnectionsAccessTokens,
                     passwordOptions,
                     assertionDecryptionSettings,
                     idTokenSignedResponseAlgs,

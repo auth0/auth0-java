@@ -127,7 +127,6 @@ public final class CreatePhoneTemplateTestNotificationRequestContent {
 
         /**
          * <p>Destination of the testing phone notification</p>
-         * <p>Destination of the testing phone notification</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

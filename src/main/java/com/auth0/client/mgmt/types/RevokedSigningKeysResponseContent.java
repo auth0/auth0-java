@@ -120,7 +120,6 @@ public final class RevokedSigningKeysResponseContent {
 
         /**
          * <p>Revoked key certificate</p>
-         * <p>Revoked key certificate</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -131,7 +130,6 @@ public final class RevokedSigningKeysResponseContent {
         }
 
         /**
-         * <p>Revoked key id</p>
          * <p>Revoked key id</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

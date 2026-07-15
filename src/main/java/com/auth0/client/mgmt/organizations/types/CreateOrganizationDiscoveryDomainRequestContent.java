@@ -145,7 +145,6 @@ public final class CreateOrganizationDiscoveryDomainRequestContent {
 
         /**
          * <p>The domain name to associate with the organization e.g. acme.com.</p>
-         * <p>The domain name to associate with the organization e.g. acme.com.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

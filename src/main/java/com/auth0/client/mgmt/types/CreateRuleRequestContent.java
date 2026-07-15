@@ -172,7 +172,6 @@ public final class CreateRuleRequestContent {
 
         /**
          * <p>Name of this rule.</p>
-         * <p>Name of this rule.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -183,7 +182,6 @@ public final class CreateRuleRequestContent {
         }
 
         /**
-         * <p>Code to be executed when this rule runs.</p>
          * <p>Code to be executed when this rule runs.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

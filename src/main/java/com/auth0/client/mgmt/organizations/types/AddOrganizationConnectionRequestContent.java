@@ -173,7 +173,6 @@ public final class AddOrganizationConnectionRequestContent {
 
         /**
          * <p>Single connection ID to add to the organization.</p>
-         * <p>Single connection ID to add to the organization.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

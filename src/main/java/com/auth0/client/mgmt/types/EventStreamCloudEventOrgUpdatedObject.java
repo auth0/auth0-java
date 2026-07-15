@@ -184,7 +184,6 @@ public final class EventStreamCloudEventOrgUpdatedObject {
 
         /**
          * <p>ID of the organization.</p>
-         * <p>ID of the organization.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

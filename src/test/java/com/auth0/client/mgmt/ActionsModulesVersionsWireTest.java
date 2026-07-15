@@ -2,7 +2,6 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.actions.modules.types.GetActionModuleVersionsRequestParameters;
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.ActionModuleVersion;
 import com.auth0.client.mgmt.types.CreateActionModuleVersionResponseContent;
@@ -50,8 +49,8 @@ public class ActionsModulesVersionsWireTest {
                 .list(
                         "id",
                         GetActionModuleVersionsRequestParameters.builder()
-                                .page(OptionalNullable.of(1))
-                                .perPage(OptionalNullable.of(1))
+                                .page(1)
+                                .perPage(1)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreatePublicKeyDeviceCredentialRequestContent;
 import com.auth0.client.mgmt.types.CreatePublicKeyDeviceCredentialResponseContent;
@@ -48,14 +47,14 @@ public class DeviceCredentialsWireTest {
                                 "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"device_credentials\":[{\"id\":\"id\",\"device_name\":\"device_name\",\"device_id\":\"device_id\",\"type\":\"public_key\",\"user_id\":\"user_id\",\"client_id\":\"client_id\"}]}"));
         SyncPagingIterable<DeviceCredential> response = client.deviceCredentials()
                 .list(ListDeviceCredentialsRequestParameters.builder()
-                        .page(OptionalNullable.of(1))
-                        .perPage(OptionalNullable.of(1))
-                        .includeTotals(OptionalNullable.of(true))
-                        .fields(OptionalNullable.of("fields"))
-                        .includeFields(OptionalNullable.of(true))
-                        .userId(OptionalNullable.of("user_id"))
-                        .clientId(OptionalNullable.of("client_id"))
-                        .type(OptionalNullable.of(DeviceCredentialTypeEnum.PUBLIC_KEY))
+                        .page(1)
+                        .perPage(1)
+                        .includeTotals(true)
+                        .fields("fields")
+                        .includeFields(true)
+                        .userId("user_id")
+                        .clientId("client_id")
+                        .type(DeviceCredentialTypeEnum.PUBLIC_KEY)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

@@ -122,7 +122,6 @@ public final class EventStreamWebhookBasicAuth {
 
         /**
          * <p>Username</p>
-         * <p>Username</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
