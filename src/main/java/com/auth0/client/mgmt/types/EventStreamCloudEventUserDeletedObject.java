@@ -603,7 +603,6 @@ public final class EventStreamCloudEventUserDeletedObject {
 
         /**
          * <p>ID of the user which can be used when interacting with other APIs.</p>
-         * <p>ID of the user which can be used when interacting with other APIs.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -614,7 +613,6 @@ public final class EventStreamCloudEventUserDeletedObject {
         }
 
         /**
-         * <p>Date and time when this entity was created (ISO_8601 format).</p>
          * <p>Date and time when this entity was created (ISO_8601 format).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -627,7 +625,6 @@ public final class EventStreamCloudEventUserDeletedObject {
 
         /**
          * <p>Date and time when this entity was last updated/modified (ISO_8601 format).</p>
-         * <p>Date and time when this entity was last updated/modified (ISO_8601 format).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -638,7 +635,6 @@ public final class EventStreamCloudEventUserDeletedObject {
         }
 
         /**
-         * <p>Date and time when this entity was deleted (ISO_8601 format).</p>
          * <p>Date and time when this entity was deleted (ISO_8601 format).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -3,13 +3,14 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -56,7 +57,8 @@ public final class ListUserGrantsRequestParameters {
     /**
      * @return Number of results per page.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("per_page")
     public OptionalNullable<Integer> getPerPage() {
         if (perPage == null) {
             return OptionalNullable.absent();
@@ -67,7 +69,8 @@ public final class ListUserGrantsRequestParameters {
     /**
      * @return Page index of the results to return. First page is 0.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("page")
     public OptionalNullable<Integer> getPage() {
         if (page == null) {
             return OptionalNullable.absent();
@@ -78,7 +81,8 @@ public final class ListUserGrantsRequestParameters {
     /**
      * @return Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_totals")
     public OptionalNullable<Boolean> getIncludeTotals() {
         if (includeTotals == null) {
             return OptionalNullable.absent();
@@ -89,7 +93,8 @@ public final class ListUserGrantsRequestParameters {
     /**
      * @return user_id of the grants to retrieve.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("user_id")
     public OptionalNullable<String> getUserId() {
         if (userId == null) {
             return OptionalNullable.absent();
@@ -100,7 +105,8 @@ public final class ListUserGrantsRequestParameters {
     /**
      * @return client_id of the grants to retrieve.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("client_id")
     public OptionalNullable<String> getClientId() {
         if (clientId == null) {
             return OptionalNullable.absent();
@@ -111,11 +117,48 @@ public final class ListUserGrantsRequestParameters {
     /**
      * @return audience of the grants to retrieve.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("audience")
     public OptionalNullable<String> getAudience() {
         if (audience == null) {
             return OptionalNullable.absent();
         }
+        return audience;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("per_page")
+    private OptionalNullable<Integer> _getPerPage() {
+        return perPage;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("page")
+    private OptionalNullable<Integer> _getPage() {
+        return page;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_totals")
+    private OptionalNullable<Boolean> _getIncludeTotals() {
+        return includeTotals;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("user_id")
+    private OptionalNullable<String> _getUserId() {
+        return userId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("client_id")
+    private OptionalNullable<String> _getClientId() {
+        return clientId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("audience")
+    private OptionalNullable<String> _getAudience() {
         return audience;
     }
 

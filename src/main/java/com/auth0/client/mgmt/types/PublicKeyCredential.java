@@ -238,7 +238,6 @@ public final class PublicKeyCredential {
 
         /**
          * <p>PEM-formatted public key (SPKI and PKCS1) or X509 certificate. Must be JSON escaped.</p>
-         * <p>PEM-formatted public key (SPKI and PKCS1) or X509 certificate. Must be JSON escaped.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

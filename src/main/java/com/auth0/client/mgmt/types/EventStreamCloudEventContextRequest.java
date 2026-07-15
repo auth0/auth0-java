@@ -221,7 +221,6 @@ public final class EventStreamCloudEventContextRequest {
 
         /**
          * <p>The hostname the request is for.</p>
-         * <p>The hostname the request is for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -232,7 +231,6 @@ public final class EventStreamCloudEventContextRequest {
         }
 
         /**
-         * <p>The originating IP address of the request.</p>
          * <p>The originating IP address of the request.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -245,7 +243,6 @@ public final class EventStreamCloudEventContextRequest {
 
         /**
          * <p>The HTTP method used for the request.</p>
-         * <p>The HTTP method used for the request.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -256,7 +253,6 @@ public final class EventStreamCloudEventContextRequest {
         }
 
         /**
-         * <p>The value of the <code>User-Agent</code> header.</p>
          * <p>The value of the <code>User-Agent</code> header.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

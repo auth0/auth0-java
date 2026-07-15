@@ -6,6 +6,7 @@ package com.auth0.client.mgmt.jobs;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.jobs.types.ErrorsGetResponse;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncErrorsClient {
@@ -28,14 +29,14 @@ public class AsyncErrorsClient {
     /**
      * Retrieve error details of a failed job.
      */
-    public CompletableFuture<ErrorsGetResponse> get(String id) {
+    public CompletableFuture<Optional<ErrorsGetResponse>> get(String id) {
         return this.rawClient.get(id).thenApply(response -> response.body());
     }
 
     /**
      * Retrieve error details of a failed job.
      */
-    public CompletableFuture<ErrorsGetResponse> get(String id, RequestOptions requestOptions) {
+    public CompletableFuture<Optional<ErrorsGetResponse>> get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
     }
 }

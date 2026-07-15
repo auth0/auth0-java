@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.eventstreams.types.ListEventStreamDeliveriesRequestParameters;
 import com.auth0.client.mgmt.types.EventStreamDelivery;
 import com.auth0.client.mgmt.types.GetEventStreamDeliveryHistoryResponseContent;
@@ -48,12 +47,12 @@ public class EventStreamsDeliveriesWireTest {
                 .list(
                         "id",
                         ListEventStreamDeliveriesRequestParameters.builder()
-                                .statuses(OptionalNullable.of("statuses"))
-                                .eventTypes(OptionalNullable.of("event_types"))
-                                .dateFrom(OptionalNullable.of("date_from"))
-                                .dateTo(OptionalNullable.of("date_to"))
-                                .from(OptionalNullable.of("from"))
-                                .take(OptionalNullable.of(1))
+                                .statuses("statuses")
+                                .eventTypes("event_types")
+                                .dateFrom("date_from")
+                                .dateTo("date_to")
+                                .from("from")
+                                .take(1)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

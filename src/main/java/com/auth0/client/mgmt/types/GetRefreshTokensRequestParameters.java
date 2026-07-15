@@ -3,13 +3,14 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -57,7 +58,7 @@ public final class GetRefreshTokensRequestParameters {
     /**
      * @return ID of the user whose refresh tokens to retrieve. Required.
      */
-    @JsonIgnore
+    @JsonProperty("user_id")
     public String getUserId() {
         return userId;
     }
@@ -65,7 +66,8 @@ public final class GetRefreshTokensRequestParameters {
     /**
      * @return Filter results by client ID. Only valid when user_id is provided.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("client_id")
     public OptionalNullable<String> getClientId() {
         if (clientId == null) {
             return OptionalNullable.absent();
@@ -76,7 +78,8 @@ public final class GetRefreshTokensRequestParameters {
     /**
      * @return An opaque cursor from which to start the selection (exclusive). Expires after 24 hours. Obtained from the next property of a previous response.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("from")
     public OptionalNullable<String> getFrom() {
         if (from == null) {
             return OptionalNullable.absent();
@@ -87,7 +90,8 @@ public final class GetRefreshTokensRequestParameters {
     /**
      * @return Number of results per page. Defaults to 50.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("take")
     public OptionalNullable<Integer> getTake() {
         if (take == null) {
             return OptionalNullable.absent();
@@ -98,7 +102,8 @@ public final class GetRefreshTokensRequestParameters {
     /**
      * @return Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("fields")
     public OptionalNullable<String> getFields() {
         if (fields == null) {
             return OptionalNullable.absent();
@@ -109,11 +114,42 @@ public final class GetRefreshTokensRequestParameters {
     /**
      * @return Whether specified fields are to be included (true) or excluded (false).
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_fields")
     public OptionalNullable<Boolean> getIncludeFields() {
         if (includeFields == null) {
             return OptionalNullable.absent();
         }
+        return includeFields;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("client_id")
+    private OptionalNullable<String> _getClientId() {
+        return clientId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("from")
+    private OptionalNullable<String> _getFrom() {
+        return from;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("take")
+    private OptionalNullable<Integer> _getTake() {
+        return take;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("fields")
+    private OptionalNullable<String> _getFields() {
+        return fields;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_fields")
+    private OptionalNullable<Boolean> _getIncludeFields() {
         return includeFields;
     }
 
@@ -254,7 +290,6 @@ public final class GetRefreshTokensRequestParameters {
         }
 
         /**
-         * <p>ID of the user whose refresh tokens to retrieve. Required.</p>
          * <p>ID of the user whose refresh tokens to retrieve. Required.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

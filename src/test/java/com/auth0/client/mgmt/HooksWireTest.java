@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateHookRequestContent;
 import com.auth0.client.mgmt.types.CreateHookResponseContent;
@@ -51,12 +50,12 @@ public class HooksWireTest {
                                 "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"hooks\":[{\"triggerId\":\"triggerId\",\"id\":\"id\",\"name\":\"name\",\"enabled\":true,\"script\":\"script\",\"dependencies\":{\"key\":\"value\"}}]}"));
         SyncPagingIterable<Hook> response = client.hooks()
                 .list(ListHooksRequestParameters.builder()
-                        .page(OptionalNullable.of(1))
-                        .perPage(OptionalNullable.of(1))
-                        .includeTotals(OptionalNullable.of(true))
-                        .enabled(OptionalNullable.of(true))
-                        .fields(OptionalNullable.of("fields"))
-                        .triggerId(OptionalNullable.of(HookTriggerIdEnum.CREDENTIALS_EXCHANGE))
+                        .page(1)
+                        .perPage(1)
+                        .includeTotals(true)
+                        .enabled(true)
+                        .fields("fields")
+                        .triggerId(HookTriggerIdEnum.CREDENTIALS_EXCHANGE)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -172,11 +171,7 @@ public class HooksWireTest {
                         .setBody(
                                 "{\"triggerId\":\"triggerId\",\"id\":\"id\",\"name\":\"name\",\"enabled\":true,\"script\":\"script\",\"dependencies\":{\"key\":\"value\"}}"));
         GetHookResponseContent response = client.hooks()
-                .get(
-                        "id",
-                        GetHookRequestParameters.builder()
-                                .fields(OptionalNullable.of("fields"))
-                                .build());
+                .get("id", GetHookRequestParameters.builder().fields("fields").build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("GET", request.getMethod());

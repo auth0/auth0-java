@@ -99,7 +99,6 @@ public final class UpdateSupplementalSignalsRequestContent {
 
         /**
          * <p>Indicates if incoming Akamai Headers should be processed</p>
-         * <p>Indicates if incoming Akamai Headers should be processed</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

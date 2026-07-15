@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.organizations.roles.types.ListOrganizationRoleMembersRequestParameters;
 import com.auth0.client.mgmt.types.RoleMember;
@@ -49,10 +48,10 @@ public class OrganizationsRolesMembersWireTest {
                         "id",
                         "role_id",
                         ListOrganizationRoleMembersRequestParameters.builder()
-                                .from(OptionalNullable.of("from"))
-                                .take(OptionalNullable.of(1))
-                                .fields(OptionalNullable.of("fields"))
-                                .includeFields(OptionalNullable.of(true))
+                                .from("from")
+                                .take(1)
+                                .fields("fields")
+                                .includeFields(true)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

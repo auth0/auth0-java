@@ -3,13 +3,14 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -64,7 +65,8 @@ public final class ListGroupsRequestParameters {
     /**
      * @return Filter groups by connection ID.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("connection_id")
     public OptionalNullable<String> getConnectionId() {
         if (connectionId == null) {
             return OptionalNullable.absent();
@@ -75,7 +77,8 @@ public final class ListGroupsRequestParameters {
     /**
      * @return Filter groups by name.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("name")
     public OptionalNullable<String> getName() {
         if (name == null) {
             return OptionalNullable.absent();
@@ -86,7 +89,8 @@ public final class ListGroupsRequestParameters {
     /**
      * @return Filter groups by external ID.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("external_id")
     public OptionalNullable<String> getExternalId() {
         if (externalId == null) {
             return OptionalNullable.absent();
@@ -97,7 +101,8 @@ public final class ListGroupsRequestParameters {
     /**
      * @return Search for groups by name or external ID.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("search")
     public OptionalNullable<String> getSearch() {
         if (search == null) {
             return OptionalNullable.absent();
@@ -108,7 +113,8 @@ public final class ListGroupsRequestParameters {
     /**
      * @return A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("fields")
     public OptionalNullable<String> getFields() {
         if (fields == null) {
             return OptionalNullable.absent();
@@ -119,7 +125,8 @@ public final class ListGroupsRequestParameters {
     /**
      * @return Whether specified fields are to be included (true) or excluded (false).
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_fields")
     public OptionalNullable<Boolean> getIncludeFields() {
         if (includeFields == null) {
             return OptionalNullable.absent();
@@ -130,7 +137,8 @@ public final class ListGroupsRequestParameters {
     /**
      * @return Optional Id from which to start selection.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("from")
     public OptionalNullable<String> getFrom() {
         if (from == null) {
             return OptionalNullable.absent();
@@ -141,11 +149,60 @@ public final class ListGroupsRequestParameters {
     /**
      * @return Number of results per page. Defaults to 50.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("take")
     public OptionalNullable<Integer> getTake() {
         if (take == null) {
             return OptionalNullable.absent();
         }
+        return take;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("connection_id")
+    private OptionalNullable<String> _getConnectionId() {
+        return connectionId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("name")
+    private OptionalNullable<String> _getName() {
+        return name;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("external_id")
+    private OptionalNullable<String> _getExternalId() {
+        return externalId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("search")
+    private OptionalNullable<String> _getSearch() {
+        return search;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("fields")
+    private OptionalNullable<String> _getFields() {
+        return fields;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_fields")
+    private OptionalNullable<Boolean> _getIncludeFields() {
+        return includeFields;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("from")
+    private OptionalNullable<String> _getFrom() {
+        return from;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("take")
+    private OptionalNullable<Integer> _getTake() {
         return take;
     }
 

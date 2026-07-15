@@ -191,7 +191,6 @@ public final class BrandingThemeWidget {
 
         /**
          * <p>Logo height</p>
-         * <p>Logo height</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -209,7 +208,6 @@ public final class BrandingThemeWidget {
         }
 
         /**
-         * <p>Logo url</p>
          * <p>Logo url</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

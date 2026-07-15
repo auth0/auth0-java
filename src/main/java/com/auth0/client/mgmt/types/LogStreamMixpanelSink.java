@@ -181,7 +181,6 @@ public final class LogStreamMixpanelSink {
 
         /**
          * <p>Mixpanel Project Id</p>
-         * <p>Mixpanel Project Id</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -192,7 +191,6 @@ public final class LogStreamMixpanelSink {
         }
 
         /**
-         * <p>Mixpanel Service Account Username</p>
          * <p>Mixpanel Service Account Username</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -206,7 +204,6 @@ public final class LogStreamMixpanelSink {
         }
 
         /**
-         * <p>Mixpanel Service Account Password</p>
          * <p>Mixpanel Service Account Password</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -121,7 +121,6 @@ public final class OrganizationBrandingColors {
 
         /**
          * <p>HEX Color for primary elements.</p>
-         * <p>HEX Color for primary elements.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -132,7 +131,6 @@ public final class OrganizationBrandingColors {
         }
 
         /**
-         * <p>HEX Color for background.</p>
          * <p>HEX Color for background.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

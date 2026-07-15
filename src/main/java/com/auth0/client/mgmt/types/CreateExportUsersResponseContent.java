@@ -267,7 +267,6 @@ public final class CreateExportUsersResponseContent {
 
         /**
          * <p>Status of this job.</p>
-         * <p>Status of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -279,7 +278,6 @@ public final class CreateExportUsersResponseContent {
 
         /**
          * <p>Type of job this is.</p>
-         * <p>Type of job this is.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -290,7 +288,6 @@ public final class CreateExportUsersResponseContent {
         }
 
         /**
-         * <p>ID of this job.</p>
          * <p>ID of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

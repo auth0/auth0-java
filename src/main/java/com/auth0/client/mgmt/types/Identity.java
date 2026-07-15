@@ -143,7 +143,6 @@ public final class Identity {
 
         /**
          * <p>user_id of the identity to be verified.</p>
-         * <p>user_id of the identity to be verified.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

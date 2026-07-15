@@ -104,7 +104,6 @@ public final class EventStreamCloudEventConnectionUpdatedObject6OptionsFederated
 
         /**
          * <p>Enables refresh tokens and access tokens collection for federated connections</p>
-         * <p>Enables refresh tokens and access tokens collection for federated connections</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

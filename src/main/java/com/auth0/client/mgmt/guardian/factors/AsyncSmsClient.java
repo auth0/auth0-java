@@ -14,6 +14,7 @@ import com.auth0.client.mgmt.types.GetGuardianFactorsProviderSmsTwilioResponseCo
 import com.auth0.client.mgmt.types.SetGuardianFactorSmsTemplatesResponseContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderSmsResponseContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderSmsTwilioResponseContent;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncSmsClient {
@@ -135,7 +136,7 @@ public class AsyncSmsClient {
      * <pre><code><b>Previous function</b>: Retrieve details of SMS enrollment and verification templates configured for your tenant.
      * </code></pre>
      */
-    public CompletableFuture<GetGuardianFactorSmsTemplatesResponseContent> getTemplates() {
+    public CompletableFuture<Optional<GetGuardianFactorSmsTemplatesResponseContent>> getTemplates() {
         return this.rawClient.getTemplates().thenApply(response -> response.body());
     }
 
@@ -144,7 +145,8 @@ public class AsyncSmsClient {
      * <pre><code><b>Previous function</b>: Retrieve details of SMS enrollment and verification templates configured for your tenant.
      * </code></pre>
      */
-    public CompletableFuture<GetGuardianFactorSmsTemplatesResponseContent> getTemplates(RequestOptions requestOptions) {
+    public CompletableFuture<Optional<GetGuardianFactorSmsTemplatesResponseContent>> getTemplates(
+            RequestOptions requestOptions) {
         return this.rawClient.getTemplates(requestOptions).thenApply(response -> response.body());
     }
 

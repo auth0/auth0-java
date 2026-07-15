@@ -148,7 +148,6 @@ public final class EventStreamCloudEventErrorDetail {
 
         /**
          * <p>Human-readable error message.</p>
-         * <p>Human-readable error message.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.DeleteUserBlocksByIdentifierRequestParameters;
 import com.auth0.client.mgmt.types.ListUserBlocksByIdentifierRequestParameters;
 import com.auth0.client.mgmt.types.ListUserBlocksByIdentifierResponseContent;
@@ -47,7 +46,7 @@ public class UserBlocksWireTest {
         ListUserBlocksByIdentifierResponseContent response = client.userBlocks()
                 .listByIdentifier(ListUserBlocksByIdentifierRequestParameters.builder()
                         .identifier("identifier")
-                        .considerBruteForceEnablement(OptionalNullable.of(true))
+                        .considerBruteForceEnablement(true)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -120,7 +119,7 @@ public class UserBlocksWireTest {
                 .list(
                         "id",
                         ListUserBlocksRequestParameters.builder()
-                                .considerBruteForceEnablement(OptionalNullable.of(true))
+                                .considerBruteForceEnablement(true)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

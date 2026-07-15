@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.organizations.types.CreateOrganizationInvitationRequestContent;
 import com.auth0.client.mgmt.organizations.types.GetOrganizationInvitationRequestParameters;
@@ -53,12 +52,12 @@ public class OrganizationsInvitationsWireTest {
                 .list(
                         "id",
                         ListOrganizationInvitationsRequestParameters.builder()
-                                .page(OptionalNullable.of(1))
-                                .perPage(OptionalNullable.of(1))
-                                .includeTotals(OptionalNullable.of(true))
-                                .fields(OptionalNullable.of("fields"))
-                                .includeFields(OptionalNullable.of(true))
-                                .sort(OptionalNullable.of("sort"))
+                                .page(1)
+                                .perPage(1)
+                                .includeTotals(true)
+                                .fields("fields")
+                                .includeFields(true)
+                                .sort("sort")
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -205,8 +204,8 @@ public class OrganizationsInvitationsWireTest {
                         "id",
                         "invitation_id",
                         GetOrganizationInvitationRequestParameters.builder()
-                                .fields(OptionalNullable.of("fields"))
-                                .includeFields(OptionalNullable.of(true))
+                                .fields("fields")
+                                .includeFields(true)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

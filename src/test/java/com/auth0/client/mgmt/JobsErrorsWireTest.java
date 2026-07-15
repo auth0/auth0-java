@@ -4,6 +4,7 @@ import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.jobs.types.ErrorsGetResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Optional;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -36,7 +37,7 @@ public class JobsErrorsWireTest {
     public void testGet() throws Exception {
         server.enqueue(
                 new MockResponse().setResponseCode(200).setBody("[{\"user\":{\"key\":\"value\"},\"errors\":[{}]}]"));
-        ErrorsGetResponse response = client.jobs().errors().get("id");
+        Optional<ErrorsGetResponse> response = client.jobs().errors().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("GET", request.getMethod());

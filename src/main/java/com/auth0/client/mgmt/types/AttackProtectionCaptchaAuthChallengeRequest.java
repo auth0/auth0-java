@@ -99,7 +99,6 @@ public final class AttackProtectionCaptchaAuthChallengeRequest {
 
         /**
          * <p>Whether the auth challenge should fail open.</p>
-         * <p>Whether the auth challenge should fail open.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

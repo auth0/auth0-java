@@ -100,7 +100,6 @@ public final class SetDefaultCustomDomainRequestContent {
 
         /**
          * <p>The domain to set as the default custom domain. Must be a verified custom domain or the canonical domain.</p>
-         * <p>The domain to set as the default custom domain. Must be a verified custom domain or the canonical domain.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

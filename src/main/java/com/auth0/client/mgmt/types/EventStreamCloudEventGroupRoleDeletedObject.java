@@ -149,7 +149,6 @@ public final class EventStreamCloudEventGroupRoleDeletedObject {
 
         /**
          * <p>The time at which the role was removed from the group.</p>
-         * <p>The time at which the role was removed from the group.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

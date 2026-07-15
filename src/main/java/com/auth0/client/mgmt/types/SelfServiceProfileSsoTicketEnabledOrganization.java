@@ -150,7 +150,6 @@ public final class SelfServiceProfileSsoTicketEnabledOrganization {
 
         /**
          * <p>Organization identifier.</p>
-         * <p>Organization identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

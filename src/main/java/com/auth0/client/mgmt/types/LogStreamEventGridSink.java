@@ -168,7 +168,6 @@ public final class LogStreamEventGridSink {
 
         /**
          * <p>Subscription ID</p>
-         * <p>Subscription ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -187,7 +186,6 @@ public final class LogStreamEventGridSink {
         }
 
         /**
-         * <p>Resource Group</p>
          * <p>Resource Group</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

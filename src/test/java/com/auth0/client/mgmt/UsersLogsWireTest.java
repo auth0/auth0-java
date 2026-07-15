@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.Log;
 import com.auth0.client.mgmt.users.types.ListUserLogsRequestParameters;
@@ -47,10 +46,10 @@ public class UsersLogsWireTest {
                 .list(
                         "id",
                         ListUserLogsRequestParameters.builder()
-                                .page(OptionalNullable.of(1))
-                                .perPage(OptionalNullable.of(1))
-                                .sort(OptionalNullable.of("sort"))
-                                .includeTotals(OptionalNullable.of(true))
+                                .page(1)
+                                .perPage(1)
+                                .sort("sort")
+                                .includeTotals(true)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

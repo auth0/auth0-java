@@ -223,11 +223,6 @@ public final class UpdateFlowsVaultConnectionSetup {
                 } catch (RuntimeException e) {
                 }
             }
-            try {
-                return of(
-                        ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupBigqueryOauthJwt.class));
-            } catch (RuntimeException e) {
-            }
             if (value instanceof Map<?, ?>
                     && ((Map<?, ?>) value).containsKey("type")
                     && ((Map<?, ?>) value).containsKey("secret_key")) {
@@ -319,10 +314,6 @@ public final class UpdateFlowsVaultConnectionSetup {
                 } catch (RuntimeException e) {
                 }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupOauthCode.class));
-            } catch (RuntimeException e) {
-            }
             if (value instanceof Map<?, ?>
                     && ((Map<?, ?>) value).containsKey("type")
                     && ((Map<?, ?>) value).containsKey("account_id")
@@ -332,6 +323,15 @@ public final class UpdateFlowsVaultConnectionSetup {
                             ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupTwilioApiKey.class));
                 } catch (RuntimeException e) {
                 }
+            }
+            try {
+                return of(
+                        ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupBigqueryOauthJwt.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowsVaultConnectioSetupOauthCode.class));
+            } catch (RuntimeException e) {
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

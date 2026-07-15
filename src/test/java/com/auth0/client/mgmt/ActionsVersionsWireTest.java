@@ -5,6 +5,7 @@ import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.ActionVersion;
+import com.auth0.client.mgmt.types.DeployActionVersionRequestContent;
 import com.auth0.client.mgmt.types.DeployActionVersionResponseContent;
 import com.auth0.client.mgmt.types.GetActionVersionResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -49,8 +50,8 @@ public class ActionsVersionsWireTest {
                 .list(
                         "actionId",
                         ListActionVersionsRequestParameters.builder()
-                                .page(OptionalNullable.of(1))
-                                .perPage(OptionalNullable.of(1))
+                                .page(1)
+                                .perPage(1)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -113,8 +114,13 @@ public class ActionsVersionsWireTest {
         server.enqueue(new MockResponse()
                 .setResponseCode(200)
                 .setBody(TestResources.loadResource("/wire-tests/ActionsVersionsWireTest_testDeploy_response.json")));
-        DeployActionVersionResponseContent response =
-                client.actions().versions().deploy("actionId", "id", OptionalNullable.absent());
+        DeployActionVersionResponseContent response = client.actions()
+                .versions()
+                .deploy(
+                        "actionId",
+                        "id",
+                        OptionalNullable.of(
+                                DeployActionVersionRequestContent.builder().build()));
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("POST", request.getMethod());

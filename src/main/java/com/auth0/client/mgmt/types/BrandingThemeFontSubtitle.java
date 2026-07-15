@@ -119,7 +119,6 @@ public final class BrandingThemeFontSubtitle {
 
         /**
          * <p>Subtitle bold</p>
-         * <p>Subtitle bold</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -130,7 +129,6 @@ public final class BrandingThemeFontSubtitle {
         }
 
         /**
-         * <p>Subtitle size</p>
          * <p>Subtitle size</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

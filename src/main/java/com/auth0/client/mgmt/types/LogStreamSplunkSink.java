@@ -171,7 +171,6 @@ public final class LogStreamSplunkSink {
 
         /**
          * <p>Splunk URL Endpoint</p>
-         * <p>Splunk URL Endpoint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -182,7 +181,6 @@ public final class LogStreamSplunkSink {
         }
 
         /**
-         * <p>Port</p>
          * <p>Port</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -195,7 +193,6 @@ public final class LogStreamSplunkSink {
 
         /**
          * <p>Splunk token</p>
-         * <p>Splunk token</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -206,7 +203,6 @@ public final class LogStreamSplunkSink {
         }
 
         /**
-         * <p>Verify TLS certificate</p>
          * <p>Verify TLS certificate</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

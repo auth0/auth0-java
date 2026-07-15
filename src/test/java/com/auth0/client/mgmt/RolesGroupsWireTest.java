@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.roles.types.AssignRoleGroupsRequestContent;
 import com.auth0.client.mgmt.roles.types.DeleteRoleGroupsRequestContent;
@@ -49,10 +48,7 @@ public class RolesGroupsWireTest {
                 .groups()
                 .get(
                         "id",
-                        ListRoleGroupsParameters.builder()
-                                .from(OptionalNullable.of("from"))
-                                .take(OptionalNullable.of(1))
-                                .build());
+                        ListRoleGroupsParameters.builder().from("from").take(1).build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("GET", request.getMethod());

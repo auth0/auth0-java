@@ -267,7 +267,6 @@ public final class DeleteUserIdentityResponseContentItem {
 
         /**
          * <p>The name of the connection for the identity.</p>
-         * <p>The name of the connection for the identity.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -279,7 +278,6 @@ public final class DeleteUserIdentityResponseContentItem {
 
         /**
          * <p>The unique identifier for the user for the identity.</p>
-         * <p>The unique identifier for the user for the identity.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -290,7 +288,6 @@ public final class DeleteUserIdentityResponseContentItem {
         }
 
         /**
-         * <p>The type of identity provider.</p>
          * <p>The type of identity provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

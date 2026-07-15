@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.emails.types.CreateEmailProviderRequestContent;
 import com.auth0.client.mgmt.emails.types.GetEmailProviderRequestParameters;
 import com.auth0.client.mgmt.emails.types.UpdateEmailProviderRequestContent;
@@ -51,8 +50,8 @@ public class EmailsProviderWireTest {
         GetEmailProviderResponseContent response = client.emails()
                 .provider()
                 .get(GetEmailProviderRequestParameters.builder()
-                        .fields(OptionalNullable.of("fields"))
-                        .includeFields(OptionalNullable.of(true))
+                        .fields("fields")
+                        .includeFields(true)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

@@ -166,7 +166,6 @@ public final class CreateTokenExchangeProfileRequestContent {
 
         /**
          * <p>Friendly name of this profile.</p>
-         * <p>Friendly name of this profile.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -178,7 +177,6 @@ public final class CreateTokenExchangeProfileRequestContent {
 
         /**
          * <p>Subject token type for this profile. When receiving a token exchange request on the Authentication API, the corresponding token exchange profile with a matching subject_token_type will be executed. This must be a URI.</p>
-         * <p>Subject token type for this profile. When receiving a token exchange request on the Authentication API, the corresponding token exchange profile with a matching subject_token_type will be executed. This must be a URI.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -189,7 +187,6 @@ public final class CreateTokenExchangeProfileRequestContent {
         }
 
         /**
-         * <p>The ID of the Custom Token Exchange action to execute for this profile, in order to validate the subject_token. The action must use the custom-token-exchange trigger.</p>
          * <p>The ID of the Custom Token Exchange action to execute for this profile, in order to validate the subject_token. The action must use the custom-token-exchange trigger.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

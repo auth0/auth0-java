@@ -86,11 +86,6 @@ public final class ErrorsGetResponse {
         @java.lang.Override
         public ErrorsGetResponse deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(
-                        value, new TypeReference<List<GetJobErrorResponseContent>>() {}));
-            } catch (RuntimeException e) {
-            }
             if (value instanceof Map<?, ?>
                     && ((Map<?, ?>) value).containsKey("status")
                     && ((Map<?, ?>) value).containsKey("type")
@@ -99,6 +94,11 @@ public final class ErrorsGetResponse {
                     return of(ObjectMappers.JSON_MAPPER.convertValue(value, GetJobGenericErrorResponseContent.class));
                 } catch (RuntimeException e) {
                 }
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(
+                        value, new TypeReference<List<GetJobErrorResponseContent>>() {}));
+            } catch (RuntimeException e) {
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

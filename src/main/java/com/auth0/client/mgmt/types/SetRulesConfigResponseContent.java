@@ -120,7 +120,6 @@ public final class SetRulesConfigResponseContent {
 
         /**
          * <p>Key for a rules config variable.</p>
-         * <p>Key for a rules config variable.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -131,7 +130,6 @@ public final class SetRulesConfigResponseContent {
         }
 
         /**
-         * <p>Value for a rules config variable.</p>
          * <p>Value for a rules config variable.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

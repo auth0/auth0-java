@@ -3,13 +3,14 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -72,7 +73,8 @@ public final class ListUsersRequestParameters {
     /**
      * @return Page index of the results to return. First page is 0.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("page")
     public OptionalNullable<Integer> getPage() {
         if (page == null) {
             return OptionalNullable.absent();
@@ -83,7 +85,8 @@ public final class ListUsersRequestParameters {
     /**
      * @return Number of results per page.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("per_page")
     public OptionalNullable<Integer> getPerPage() {
         if (perPage == null) {
             return OptionalNullable.absent();
@@ -94,7 +97,8 @@ public final class ListUsersRequestParameters {
     /**
      * @return Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_totals")
     public OptionalNullable<Boolean> getIncludeTotals() {
         if (includeTotals == null) {
             return OptionalNullable.absent();
@@ -105,7 +109,8 @@ public final class ListUsersRequestParameters {
     /**
      * @return Field to sort by. Use <code>field:order</code> where order is <code>1</code> for ascending and <code>-1</code> for descending. e.g. <code>created_at:1</code>
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("sort")
     public OptionalNullable<String> getSort() {
         if (sort == null) {
             return OptionalNullable.absent();
@@ -116,7 +121,8 @@ public final class ListUsersRequestParameters {
     /**
      * @return Connection filter. Only applies when using <code>search_engine=v1</code>. To filter by connection with <code>search_engine=v2|v3</code>, use <code>q=identities.connection:&quot;connection_name&quot;</code>
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("connection")
     public OptionalNullable<String> getConnection() {
         if (connection == null) {
             return OptionalNullable.absent();
@@ -127,7 +133,8 @@ public final class ListUsersRequestParameters {
     /**
      * @return Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("fields")
     public OptionalNullable<String> getFields() {
         if (fields == null) {
             return OptionalNullable.absent();
@@ -138,7 +145,8 @@ public final class ListUsersRequestParameters {
     /**
      * @return Whether specified fields are to be included (true) or excluded (false).
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_fields")
     public OptionalNullable<Boolean> getIncludeFields() {
         if (includeFields == null) {
             return OptionalNullable.absent();
@@ -149,7 +157,8 @@ public final class ListUsersRequestParameters {
     /**
      * @return Query in <a target='_new' href ='https://lucene.apache.org/core/2_9_4/queryparsersyntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("q")
     public OptionalNullable<String> getQ() {
         if (q == null) {
             return OptionalNullable.absent();
@@ -160,7 +169,8 @@ public final class ListUsersRequestParameters {
     /**
      * @return The version of the search engine
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("search_engine")
     public OptionalNullable<SearchEngineVersionsEnum> getSearchEngine() {
         if (searchEngine == null) {
             return OptionalNullable.absent();
@@ -171,11 +181,72 @@ public final class ListUsersRequestParameters {
     /**
      * @return If true (default), results are returned in a deterministic order. If false, results may be returned in a non-deterministic order, which can enhance performance for complex queries targeting a small number of users. Set to false only when consistent ordering and pagination is not required.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("primary_order")
     public OptionalNullable<Boolean> getPrimaryOrder() {
         if (primaryOrder == null) {
             return OptionalNullable.absent();
         }
+        return primaryOrder;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("page")
+    private OptionalNullable<Integer> _getPage() {
+        return page;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("per_page")
+    private OptionalNullable<Integer> _getPerPage() {
+        return perPage;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_totals")
+    private OptionalNullable<Boolean> _getIncludeTotals() {
+        return includeTotals;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("sort")
+    private OptionalNullable<String> _getSort() {
+        return sort;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("connection")
+    private OptionalNullable<String> _getConnection() {
+        return connection;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("fields")
+    private OptionalNullable<String> _getFields() {
+        return fields;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_fields")
+    private OptionalNullable<Boolean> _getIncludeFields() {
+        return includeFields;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("q")
+    private OptionalNullable<String> _getQ() {
+        return q;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("search_engine")
+    private OptionalNullable<SearchEngineVersionsEnum> _getSearchEngine() {
+        return searchEngine;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("primary_order")
+    private OptionalNullable<Boolean> _getPrimaryOrder() {
         return primaryOrder;
     }
 

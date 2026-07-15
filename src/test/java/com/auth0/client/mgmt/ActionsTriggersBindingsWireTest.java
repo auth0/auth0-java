@@ -3,7 +3,6 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.actions.triggers.types.ListActionTriggerBindingsRequestParameters;
 import com.auth0.client.mgmt.actions.triggers.types.UpdateActionBindingsRequestContent;
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.ActionBinding;
 import com.auth0.client.mgmt.types.ActionTriggerTypeEnum;
@@ -51,8 +50,8 @@ public class ActionsTriggersBindingsWireTest {
                 .list(
                         ActionTriggerTypeEnum.POST_LOGIN,
                         ListActionTriggerBindingsRequestParameters.builder()
-                                .page(OptionalNullable.of(1))
-                                .perPage(OptionalNullable.of(1))
+                                .page(1)
+                                .perPage(1)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

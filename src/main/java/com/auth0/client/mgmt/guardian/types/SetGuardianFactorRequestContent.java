@@ -98,7 +98,6 @@ public final class SetGuardianFactorRequestContent {
 
         /**
          * <p>Whether this factor is enabled (true) or disabled (false).</p>
-         * <p>Whether this factor is enabled (true) or disabled (false).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

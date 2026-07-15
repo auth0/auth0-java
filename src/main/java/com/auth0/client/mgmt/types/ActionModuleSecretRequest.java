@@ -120,7 +120,6 @@ public final class ActionModuleSecretRequest {
 
         /**
          * <p>The name of the secret.</p>
-         * <p>The name of the secret.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -131,7 +130,6 @@ public final class ActionModuleSecretRequest {
         }
 
         /**
-         * <p>The value of the secret.</p>
          * <p>The value of the secret.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

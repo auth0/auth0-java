@@ -297,7 +297,6 @@ public final class EventStreamCloudEventGroupRoleDeletedCloudEvent {
 
         /**
          * <p>The source of the event. This will take the form 'urn:auth0:&lt;tenant&gt;.&lt;domain&gt;'.</p>
-         * <p>The source of the event. This will take the form 'urn:auth0:&lt;tenant&gt;.&lt;domain&gt;'.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -309,7 +308,6 @@ public final class EventStreamCloudEventGroupRoleDeletedCloudEvent {
 
         /**
          * <p>A unique identifier for the event.</p>
-         * <p>A unique identifier for the event.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -320,7 +318,6 @@ public final class EventStreamCloudEventGroupRoleDeletedCloudEvent {
         }
 
         /**
-         * <p>An ISO-8601 timestamp indicating when the event physically occurred.</p>
          * <p>An ISO-8601 timestamp indicating when the event physically occurred.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -340,7 +337,6 @@ public final class EventStreamCloudEventGroupRoleDeletedCloudEvent {
 
         /**
          * <p>The auth0 tenant ID to which the event is associated.</p>
-         * <p>The auth0 tenant ID to which the event is associated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -351,7 +347,6 @@ public final class EventStreamCloudEventGroupRoleDeletedCloudEvent {
         }
 
         /**
-         * <p>The auth0 event stream ID of the stream the event was delivered on.</p>
          * <p>The auth0 event stream ID of the stream the event was delivered on.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

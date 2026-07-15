@@ -101,7 +101,6 @@ public final class EventStreamCloudEventOrgConnectionRemovedObjectConnection {
 
         /**
          * <p>The ID of the connection.</p>
-         * <p>The ID of the connection.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

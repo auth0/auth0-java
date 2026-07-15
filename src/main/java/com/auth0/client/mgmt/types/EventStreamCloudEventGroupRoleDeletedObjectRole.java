@@ -100,7 +100,6 @@ public final class EventStreamCloudEventGroupRoleDeletedObjectRole {
 
         /**
          * <p>The ID of the role.</p>
-         * <p>The ID of the role.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

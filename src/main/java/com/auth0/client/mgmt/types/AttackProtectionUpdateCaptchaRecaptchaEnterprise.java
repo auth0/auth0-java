@@ -143,7 +143,6 @@ public final class AttackProtectionUpdateCaptchaRecaptchaEnterprise {
 
         /**
          * <p>The site key for the reCAPTCHA Enterprise provider.</p>
-         * <p>The site key for the reCAPTCHA Enterprise provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -155,7 +154,6 @@ public final class AttackProtectionUpdateCaptchaRecaptchaEnterprise {
 
         /**
          * <p>The API key for the reCAPTCHA Enterprise provider.</p>
-         * <p>The API key for the reCAPTCHA Enterprise provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -166,7 +164,6 @@ public final class AttackProtectionUpdateCaptchaRecaptchaEnterprise {
         }
 
         /**
-         * <p>The project ID for the reCAPTCHA Enterprise provider.</p>
          * <p>The project ID for the reCAPTCHA Enterprise provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

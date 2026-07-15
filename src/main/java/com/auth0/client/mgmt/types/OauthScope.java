@@ -92,9 +92,6 @@ public final class OauthScope {
 
     public static final OauthScope READ_ROLE_MEMBERS = new OauthScope(Value.READ_ROLE_MEMBERS, "read:role_members");
 
-    public static final OauthScope DELETE_FEDERATED_CONNECTIONS_TOKENS =
-            new OauthScope(Value.DELETE_FEDERATED_CONNECTIONS_TOKENS, "delete:federated_connections_tokens");
-
     public static final OauthScope READ_SELF_SERVICE_PROFILES =
             new OauthScope(Value.READ_SELF_SERVICE_PROFILES, "read:self_service_profiles");
 
@@ -379,9 +376,6 @@ public final class OauthScope {
     public static final OauthScope READ_CLIENT_KEYS = new OauthScope(Value.READ_CLIENT_KEYS, "read:client_keys");
 
     public static final OauthScope CREATE_LOG_STREAMS = new OauthScope(Value.CREATE_LOG_STREAMS, "create:log_streams");
-
-    public static final OauthScope READ_FEDERATED_CONNECTIONS_TOKENS =
-            new OauthScope(Value.READ_FEDERATED_CONNECTIONS_TOKENS, "read:federated_connections_tokens");
 
     public static final OauthScope DELETE_ORGANIZATION_MEMBERS =
             new OauthScope(Value.DELETE_ORGANIZATION_MEMBERS, "delete:organization_members");
@@ -738,8 +732,6 @@ public final class OauthScope {
                 return visitor.visitDeleteOrganizationConnections();
             case READ_ROLE_MEMBERS:
                 return visitor.visitReadRoleMembers();
-            case DELETE_FEDERATED_CONNECTIONS_TOKENS:
-                return visitor.visitDeleteFederatedConnectionsTokens();
             case READ_SELF_SERVICE_PROFILES:
                 return visitor.visitReadSelfServiceProfiles();
             case CREATE_ORGANIZATION_DISCOVERY_DOMAINS:
@@ -956,8 +948,6 @@ public final class OauthScope {
                 return visitor.visitReadClientKeys();
             case CREATE_LOG_STREAMS:
                 return visitor.visitCreateLogStreams();
-            case READ_FEDERATED_CONNECTIONS_TOKENS:
-                return visitor.visitReadFederatedConnectionsTokens();
             case DELETE_ORGANIZATION_MEMBERS:
                 return visitor.visitDeleteOrganizationMembers();
             case READ_ORGANIZATION_MEMBER_ROLES:
@@ -1223,8 +1213,6 @@ public final class OauthScope {
                 return DELETE_ORGANIZATION_CONNECTIONS;
             case "read:role_members":
                 return READ_ROLE_MEMBERS;
-            case "delete:federated_connections_tokens":
-                return DELETE_FEDERATED_CONNECTIONS_TOKENS;
             case "read:self_service_profiles":
                 return READ_SELF_SERVICE_PROFILES;
             case "create:organization_discovery_domains":
@@ -1441,8 +1429,6 @@ public final class OauthScope {
                 return READ_CLIENT_KEYS;
             case "create:log_streams":
                 return CREATE_LOG_STREAMS;
-            case "read:federated_connections_tokens":
-                return READ_FEDERATED_CONNECTIONS_TOKENS;
             case "delete:organization_members":
                 return DELETE_ORGANIZATION_MEMBERS;
             case "read:organization_member_roles":
@@ -1800,10 +1786,6 @@ public final class OauthScope {
         DELETE_EVENT_STREAMS,
 
         READ_EVENTS,
-
-        READ_FEDERATED_CONNECTIONS_TOKENS,
-
-        DELETE_FEDERATED_CONNECTIONS_TOKENS,
 
         CREATE_FLOWS,
 
@@ -2280,10 +2262,6 @@ public final class OauthScope {
         T visitDeleteEventStreams();
 
         T visitReadEvents();
-
-        T visitReadFederatedConnectionsTokens();
-
-        T visitDeleteFederatedConnectionsTokens();
 
         T visitCreateFlows();
 

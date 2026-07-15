@@ -123,7 +123,6 @@ public final class SetGuardianFactorSmsTemplatesRequestContent {
 
         /**
          * <p>Message sent to the user when they are invited to enroll with a phone number.</p>
-         * <p>Message sent to the user when they are invited to enroll with a phone number.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -134,7 +133,6 @@ public final class SetGuardianFactorSmsTemplatesRequestContent {
         }
 
         /**
-         * <p>Message sent to the user when they are prompted to verify their account.</p>
          * <p>Message sent to the user when they are prompted to verify their account.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

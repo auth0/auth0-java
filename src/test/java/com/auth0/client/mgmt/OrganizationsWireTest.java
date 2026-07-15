@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateOrganizationRequestContent;
 import com.auth0.client.mgmt.types.CreateOrganizationResponseContent;
@@ -50,9 +49,9 @@ public class OrganizationsWireTest {
                                 "{\"next\":\"next\",\"organizations\":[{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"token_quota\":{\"client_credentials\":{}},\"third_party_client_access\":\"block\"}]}"));
         SyncPagingIterable<Organization> response = client.organizations()
                 .list(ListOrganizationsRequestParameters.builder()
-                        .from(OptionalNullable.of("from"))
-                        .take(OptionalNullable.of(1))
-                        .sort(OptionalNullable.of("sort"))
+                        .from("from")
+                        .take(1)
+                        .sort("sort")
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

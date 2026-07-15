@@ -99,7 +99,6 @@ public final class PreviewCimdMetadataRequestContent {
 
         /**
          * <p>URL to the Client ID Metadata Document</p>
-         * <p>URL to the Client ID Metadata Document</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -175,7 +175,6 @@ public final class OrganizationMemberEffectiveRole {
 
         /**
          * <p>Role ID</p>
-         * <p>Role ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -187,7 +186,6 @@ public final class OrganizationMemberEffectiveRole {
 
         /**
          * <p>Role name</p>
-         * <p>Role name</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -198,7 +196,6 @@ public final class OrganizationMemberEffectiveRole {
         }
 
         /**
-         * <p>Role description</p>
          * <p>Role description</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

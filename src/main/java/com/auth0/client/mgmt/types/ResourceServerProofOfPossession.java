@@ -142,7 +142,6 @@ public final class ResourceServerProofOfPossession {
 
         /**
          * <p>Whether the use of Proof-of-Possession is required for the resource server</p>
-         * <p>Whether the use of Proof-of-Possession is required for the resource server</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

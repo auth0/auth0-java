@@ -276,7 +276,6 @@ public final class BrandingThemeFonts {
 
         /**
          * <p>Font URL</p>
-         * <p>Font URL</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -308,7 +307,6 @@ public final class BrandingThemeFonts {
         }
 
         /**
-         * <p>Reference text size</p>
          * <p>Reference text size</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

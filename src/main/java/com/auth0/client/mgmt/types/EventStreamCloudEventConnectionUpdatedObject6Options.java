@@ -632,7 +632,6 @@ public final class EventStreamCloudEventConnectionUpdatedObject6Options {
 
         /**
          * <p>Your Google OAuth 2.0 client ID. You can find this in your <a href="https://console.cloud.google.com/apis/credentials">Google Cloud Console</a> under the OAuth 2.0 Client IDs section.</p>
-         * <p>Your Google OAuth 2.0 client ID. You can find this in your <a href="https://console.cloud.google.com/apis/credentials">Google Cloud Console</a> under the OAuth 2.0 Client IDs section.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

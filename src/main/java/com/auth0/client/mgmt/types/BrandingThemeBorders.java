@@ -292,7 +292,6 @@ public final class BrandingThemeBorders {
 
         /**
          * <p>Button border radius</p>
-         * <p>Button border radius</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -303,7 +302,6 @@ public final class BrandingThemeBorders {
         }
 
         /**
-         * <p>Button border weight</p>
          * <p>Button border weight</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -323,7 +321,6 @@ public final class BrandingThemeBorders {
 
         /**
          * <p>Input border radius</p>
-         * <p>Input border radius</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -334,7 +331,6 @@ public final class BrandingThemeBorders {
         }
 
         /**
-         * <p>Input border weight</p>
          * <p>Input border weight</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -354,7 +350,6 @@ public final class BrandingThemeBorders {
 
         /**
          * <p>Show widget shadow</p>
-         * <p>Show widget shadow</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -366,7 +361,6 @@ public final class BrandingThemeBorders {
 
         /**
          * <p>Widget border weight</p>
-         * <p>Widget border weight</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -377,7 +371,6 @@ public final class BrandingThemeBorders {
         }
 
         /**
-         * <p>Widget corner radius</p>
          * <p>Widget corner radius</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

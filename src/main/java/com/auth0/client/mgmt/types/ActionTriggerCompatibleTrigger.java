@@ -122,7 +122,6 @@ public final class ActionTriggerCompatibleTrigger {
 
         /**
          * <p>The version of a trigger. v1, v2, etc.</p>
-         * <p>The version of a trigger. v1, v2, etc.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

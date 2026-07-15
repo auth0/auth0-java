@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateRateLimitPolicyRequestContent;
 import com.auth0.client.mgmt.types.CreateRateLimitPolicyResponseContent;
@@ -57,11 +56,11 @@ public class RateLimitPoliciesWireTest {
                                 "{\"rate_limit_policies\":[{\"id\":\"id\",\"resource\":\"oauth_authentication_api\",\"consumer\":\"client\",\"consumer_selector\":\"consumer_selector\",\"configuration\":{\"action\":\"allow\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\"}"));
         SyncPagingIterable<RateLimitPolicy> response = client.rateLimitPolicies()
                 .list(ListRateLimitPoliciesRequestParameters.builder()
-                        .resource(OptionalNullable.of(RateLimitPolicyResourceEnum.OAUTH_AUTHENTICATION_API))
-                        .consumer(OptionalNullable.of(RateLimitPolicyConsumerEnum.CLIENT))
-                        .consumerSelector(OptionalNullable.of("consumer_selector"))
-                        .take(OptionalNullable.of(1))
-                        .from(OptionalNullable.of("from"))
+                        .resource(RateLimitPolicyResourceEnum.OAUTH_AUTHENTICATION_API)
+                        .consumer(RateLimitPolicyConsumerEnum.CLIENT)
+                        .consumerSelector("consumer_selector")
+                        .take(1)
+                        .from("from")
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

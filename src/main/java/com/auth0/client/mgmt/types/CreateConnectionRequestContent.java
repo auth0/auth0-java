@@ -334,7 +334,6 @@ public final class CreateConnectionRequestContent {
 
         /**
          * <p>The name of the connection. Must start and end with an alphanumeric character and can only contain alphanumeric characters and '-'. Max length 128</p>
-         * <p>The name of the connection. Must start and end with an alphanumeric character and can only contain alphanumeric characters and '-'. Max length 128</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

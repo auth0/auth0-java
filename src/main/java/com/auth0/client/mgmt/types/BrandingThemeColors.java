@@ -571,7 +571,6 @@ public final class BrandingThemeColors {
 
         /**
          * <p>Body text</p>
-         * <p>Body text</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -582,7 +581,6 @@ public final class BrandingThemeColors {
         }
 
         /**
-         * <p>Error</p>
          * <p>Error</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -595,7 +593,6 @@ public final class BrandingThemeColors {
 
         /**
          * <p>Header</p>
-         * <p>Header</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -606,7 +603,6 @@ public final class BrandingThemeColors {
         }
 
         /**
-         * <p>Icons</p>
          * <p>Icons</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -619,7 +615,6 @@ public final class BrandingThemeColors {
 
         /**
          * <p>Input background</p>
-         * <p>Input background</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -630,7 +625,6 @@ public final class BrandingThemeColors {
         }
 
         /**
-         * <p>Input border</p>
          * <p>Input border</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -643,7 +637,6 @@ public final class BrandingThemeColors {
 
         /**
          * <p>Input filled text</p>
-         * <p>Input filled text</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -654,7 +647,6 @@ public final class BrandingThemeColors {
         }
 
         /**
-         * <p>Input labels &amp; placeholders</p>
          * <p>Input labels &amp; placeholders</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -668,7 +660,6 @@ public final class BrandingThemeColors {
 
         /**
          * <p>Links &amp; focused components</p>
-         * <p>Links &amp; focused components</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -681,7 +672,6 @@ public final class BrandingThemeColors {
 
         /**
          * <p>Primary button</p>
-         * <p>Primary button</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -693,7 +683,6 @@ public final class BrandingThemeColors {
 
         /**
          * <p>Primary button label</p>
-         * <p>Primary button label</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -704,7 +693,6 @@ public final class BrandingThemeColors {
         }
 
         /**
-         * <p>Secondary button border</p>
          * <p>Secondary button border</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -718,7 +706,6 @@ public final class BrandingThemeColors {
 
         /**
          * <p>Secondary button label</p>
-         * <p>Secondary button label</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -731,7 +718,6 @@ public final class BrandingThemeColors {
 
         /**
          * <p>Success</p>
-         * <p>Success</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -743,7 +729,6 @@ public final class BrandingThemeColors {
 
         /**
          * <p>Widget background</p>
-         * <p>Widget background</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -754,7 +739,6 @@ public final class BrandingThemeColors {
         }
 
         /**
-         * <p>Widget border</p>
          * <p>Widget border</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

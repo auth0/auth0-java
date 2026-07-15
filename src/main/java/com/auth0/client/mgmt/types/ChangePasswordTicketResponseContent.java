@@ -100,7 +100,6 @@ public final class ChangePasswordTicketResponseContent {
 
         /**
          * <p>URL representing the ticket.</p>
-         * <p>URL representing the ticket.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
