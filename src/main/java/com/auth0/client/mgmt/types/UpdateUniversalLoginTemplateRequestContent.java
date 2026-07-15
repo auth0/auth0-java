@@ -85,16 +85,16 @@ public final class UpdateUniversalLoginTemplateRequestContent {
         public UpdateUniversalLoginTemplateRequestContent deserialize(JsonParser p, DeserializationContext context)
                 throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, String.class));
-            } catch (RuntimeException e) {
-            }
             if (value instanceof Map<?, ?> && ((Map<?, ?>) value).containsKey("template")) {
                 try {
                     return of(ObjectMappers.JSON_MAPPER.convertValue(
                             value, UpdateUniversalLoginTemplateRequestContentTemplate.class));
                 } catch (RuntimeException e) {
                 }
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, String.class));
+            } catch (RuntimeException e) {
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

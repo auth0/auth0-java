@@ -332,7 +332,6 @@ public final class GetJobResponseContent {
 
         /**
          * <p>Status of this job.</p>
-         * <p>Status of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -344,7 +343,6 @@ public final class GetJobResponseContent {
 
         /**
          * <p>Type of job this is.</p>
-         * <p>Type of job this is.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -355,7 +353,6 @@ public final class GetJobResponseContent {
         }
 
         /**
-         * <p>ID of this job.</p>
          * <p>ID of this job.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

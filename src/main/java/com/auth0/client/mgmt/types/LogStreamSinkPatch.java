@@ -144,10 +144,6 @@ public final class LogStreamSinkPatch {
                 } catch (RuntimeException e) {
                 }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, LogStreamSegmentSink.class));
-            } catch (RuntimeException e) {
-            }
             if (value instanceof Map<?, ?>
                     && ((Map<?, ?>) value).containsKey("mixpanelRegion")
                     && ((Map<?, ?>) value).containsKey("mixpanelProjectId")
@@ -156,6 +152,10 @@ public final class LogStreamSinkPatch {
                     return of(ObjectMappers.JSON_MAPPER.convertValue(value, LogStreamMixpanelSinkPatch.class));
                 } catch (RuntimeException e) {
                 }
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, LogStreamSegmentSink.class));
+            } catch (RuntimeException e) {
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

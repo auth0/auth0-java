@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.DailyStats;
 import com.auth0.client.mgmt.types.GetDailyStatsRequestParameters;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -87,8 +86,8 @@ public class StatsWireTest {
                                 "[{\"date\":\"date\",\"logins\":1,\"signups\":1,\"leaked_passwords\":1,\"updated_at\":\"updated_at\",\"created_at\":\"created_at\"}]"));
         List<DailyStats> response = client.stats()
                 .getDaily(GetDailyStatsRequestParameters.builder()
-                        .from(OptionalNullable.of("from"))
-                        .to(OptionalNullable.of("to"))
+                        .from("from")
+                        .to("to")
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

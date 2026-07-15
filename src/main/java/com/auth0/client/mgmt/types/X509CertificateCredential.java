@@ -148,7 +148,6 @@ public final class X509CertificateCredential {
 
         /**
          * <p>PEM-formatted X509 certificate. Must be JSON escaped.</p>
-         * <p>PEM-formatted X509 certificate. Must be JSON escaped.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

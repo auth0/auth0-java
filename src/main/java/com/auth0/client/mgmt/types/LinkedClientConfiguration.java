@@ -99,7 +99,6 @@ public final class LinkedClientConfiguration {
 
         /**
          * <p>The ID of the linked client.</p>
-         * <p>The ID of the linked client.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -100,7 +100,6 @@ public final class RollbackActionModuleRequestParameters {
 
         /**
          * <p>The unique ID of the module version to roll back to.</p>
-         * <p>The unique ID of the module version to roll back to.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

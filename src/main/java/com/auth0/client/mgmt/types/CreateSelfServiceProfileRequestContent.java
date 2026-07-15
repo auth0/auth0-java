@@ -220,7 +220,6 @@ public final class CreateSelfServiceProfileRequestContent {
 
         /**
          * <p>The name of the self-service Profile.</p>
-         * <p>The name of the self-service Profile.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

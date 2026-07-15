@@ -21,8 +21,6 @@ public interface IConnectionOptionsCommonOidc {
 
     Optional<ConnectionDpopSigningAlgEnum> getDpopSigningAlg();
 
-    OptionalNullable<ConnectionFederatedConnectionsAccessTokens> getFederatedConnectionsAccessTokens();
-
     Optional<String> getIconUrl();
 
     Optional<Boolean> getIdTokenSessionExpirySupported();

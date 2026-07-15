@@ -195,7 +195,6 @@ public final class ClientAddonLayer {
 
         /**
          * <p>Provider ID of your Layer account</p>
-         * <p>Provider ID of your Layer account</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -207,7 +206,6 @@ public final class ClientAddonLayer {
 
         /**
          * <p>Authentication Key identifier used to sign the Layer token.</p>
-         * <p>Authentication Key identifier used to sign the Layer token.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -218,7 +216,6 @@ public final class ClientAddonLayer {
         }
 
         /**
-         * <p>Private key for signing the Layer token.</p>
          * <p>Private key for signing the Layer token.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

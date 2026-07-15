@@ -290,7 +290,6 @@ public final class CreateOrganizationInvitationRequestContent {
 
         /**
          * <p>Auth0 client ID. Used to resolve the application's login initiation endpoint.</p>
-         * <p>Auth0 client ID. Used to resolve the application's login initiation endpoint.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

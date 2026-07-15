@@ -99,7 +99,6 @@ public final class UpdateRiskAssessmentsSettingsResponseContent {
 
         /**
          * <p>Whether or not risk assessment is enabled.</p>
-         * <p>Whether or not risk assessment is enabled.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

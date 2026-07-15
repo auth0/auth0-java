@@ -263,7 +263,6 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
 
         /**
          * <p>Description of this attribute</p>
-         * <p>Description of this attribute</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -274,7 +273,6 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
         }
 
         /**
-         * <p>Display label for this attribute</p>
          * <p>Display label for this attribute</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -287,7 +285,6 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
 
         /**
          * <p>Whether this attribute is required in the profile</p>
-         * <p>Whether this attribute is required in the profile</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -298,7 +295,6 @@ public final class UserAttributeProfileUserAttributeAdditionalProperties {
         }
 
         /**
-         * <p>Auth0 mapping for this attribute</p>
          * <p>Auth0 mapping for this attribute</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

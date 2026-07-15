@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateRoleRequestContent;
 import com.auth0.client.mgmt.types.CreateRoleResponseContent;
@@ -49,10 +48,10 @@ public class RolesWireTest {
                                 "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"roles\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\"}]}"));
         SyncPagingIterable<Role> response = client.roles()
                 .list(ListRolesRequestParameters.builder()
-                        .perPage(OptionalNullable.of(1))
-                        .page(OptionalNullable.of(1))
-                        .includeTotals(OptionalNullable.of(true))
-                        .nameFilter(OptionalNullable.of("name_filter"))
+                        .perPage(1)
+                        .page(1)
+                        .includeTotals(true)
+                        .nameFilter("name_filter")
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

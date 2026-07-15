@@ -30,24 +30,12 @@ Retrieve all actions.
 client.actions().list(
     ListActionsRequestParameters
         .builder()
-        .triggerId(
-            OptionalNullable.of(ActionTriggerTypeEnum.POST_LOGIN)
-        )
-        .actionName(
-            OptionalNullable.of("actionName")
-        )
-        .deployed(
-            OptionalNullable.of(true)
-        )
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .installed(
-            OptionalNullable.of(true)
-        )
+        .triggerId(ActionTriggerTypeEnum.POST_LOGIN)
+        .actionName("actionName")
+        .deployed(true)
+        .page(1)
+        .perPage(1)
+        .installed(true)
         .build()
 );
 ```
@@ -324,9 +312,7 @@ client.actions().delete(
     "id",
     DeleteActionRequestParameters
         .builder()
-        .force(
-            OptionalNullable.of(true)
-        )
+        .force(true)
         .build()
 );
 ```
@@ -757,27 +743,13 @@ Retrieve a list of [client grants](https://auth0.com/docs/get-started/applicatio
 client.clientGrants().list(
     ListClientGrantsRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
-        .audience(
-            OptionalNullable.of("audience")
-        )
-        .clientId(
-            OptionalNullable.of("client_id")
-        )
-        .allowAnyOrganization(
-            OptionalNullable.of(true)
-        )
-        .subjectType(
-            OptionalNullable.of(ClientGrantSubjectTypeEnum.CLIENT)
-        )
-        .defaultFor(
-            OptionalNullable.of(ClientGrantDefaultForEnum.THIRD_PARTY_CLIENTS)
-        )
+        .from("from")
+        .take(1)
+        .audience("audience")
+        .clientId("client_id")
+        .allowAnyOrganization(true)
+        .subjectType(ClientGrantSubjectTypeEnum.CLIENT)
+        .defaultFor(ClientGrantDefaultForEnum.THIRD_PARTY_CLIENTS)
         .build()
 );
 ```
@@ -1240,36 +1212,16 @@ For more information, read [Applications in Auth0](https://www.auth0.com/docs/ge
 client.clients().list(
     ListClientsRequestParameters
         .builder()
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
-        .isGlobal(
-            OptionalNullable.of(true)
-        )
-        .isFirstParty(
-            OptionalNullable.of(true)
-        )
-        .appType(
-            OptionalNullable.of("app_type")
-        )
-        .externalClientId(
-            OptionalNullable.of("external_client_id")
-        )
-        .q(
-            OptionalNullable.of("q")
-        )
+        .fields("fields")
+        .includeFields(true)
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
+        .isGlobal(true)
+        .isFirstParty(true)
+        .appType("app_type")
+        .externalClientId("external_client_id")
+        .q("q")
         .build()
 );
 ```
@@ -2064,12 +2016,8 @@ client.clients().get(
     "id",
     GetClientRequestParameters
         .builder()
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .fields("fields")
+        .includeFields(true)
         .build()
 );
 ```
@@ -2768,12 +2716,8 @@ Retrieve a list of Connection Profiles. This endpoint supports Checkpoint pagina
 client.connectionProfiles().list(
     ListConnectionProfileRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -3264,21 +3208,11 @@ To search by checkpoint, use the following parameters:
 client.connections().list(
     ListConnectionsQueryParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
-        .name(
-            OptionalNullable.of("name")
-        )
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .from("from")
+        .take(1)
+        .name("name")
+        .fields("fields")
+        .includeFields(true)
         .strategy(
             Arrays.asList(ConnectionStrategyEnum.AD)
         )
@@ -3531,12 +3465,8 @@ client.connections().get(
     "id",
     GetConnectionRequestParameters
         .builder()
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .fields("fields")
+        .includeFields(true)
         .build()
 );
 ```
@@ -3863,18 +3793,10 @@ Retrieve details on [custom domains](https://auth0.com/docs/custom-domains).
 client.customDomains().list(
     ListCustomDomainsRequestParameters
         .builder()
-        .q(
-            OptionalNullable.of("q")
-        )
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
-        .sort(
-            OptionalNullable.of("sort")
-        )
+        .q("q")
+        .fields("fields")
+        .includeFields(true)
+        .sort("sort")
         .build()
 );
 ```
@@ -4521,30 +4443,14 @@ Retrieve device credential information (`public_key`, `refresh_token`, or `rotat
 client.deviceCredentials().list(
     ListDeviceCredentialsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
-        .userId(
-            OptionalNullable.of("user_id")
-        )
-        .clientId(
-            OptionalNullable.of("client_id")
-        )
-        .type(
-            OptionalNullable.of(DeviceCredentialTypeEnum.PUBLIC_KEY)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
+        .fields("fields")
+        .includeFields(true)
+        .userId("user_id")
+        .clientId("client_id")
+        .type(DeviceCredentialTypeEnum.PUBLIC_KEY)
         .build()
 );
 ```
@@ -5237,12 +5143,8 @@ client.emailTemplates().update(
 client.eventStreams().list(
     ListEventStreamsRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -5596,12 +5498,8 @@ Subscribe to events via Server-Sent Events (SSE)
 client.events().subscribe(
     SubscribeEventsRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .fromTimestamp(
-            OptionalNullable.of("from_timestamp")
-        )
+        .from("from")
+        .fromTimestamp("from_timestamp")
         .eventType(
             Arrays.asList(EventStreamSubscribeEventsEventTypeEnum.CONNECTION_CREATED)
         )
@@ -5666,18 +5564,10 @@ client.events().subscribe(
 client.flows().list(
     ListFlowsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
-        .synchronous(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
+        .synchronous(true)
         .hydrate(
             Arrays.asList(ListFlowsRequestParametersHydrateEnum.FORM_COUNT)
         )
@@ -5968,15 +5858,9 @@ client.flows().update(
 client.forms().list(
     ListFormsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
         .hydrate(
             Arrays.asList(FormsRequestParametersHydrateEnum.FLOW_COUNT)
         )
@@ -6369,24 +6253,12 @@ Retrieve the [grants](https://auth0.com/docs/api-auth/which-oauth-flow-to-use) a
 client.userGrants().list(
     ListUserGrantsRequestParameters
         .builder()
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .page(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
-        .userId(
-            OptionalNullable.of("user_id")
-        )
-        .clientId(
-            OptionalNullable.of("client_id")
-        )
-        .audience(
-            OptionalNullable.of("audience")
-        )
+        .perPage(1)
+        .page(1)
+        .includeTotals(true)
+        .userId("user_id")
+        .clientId("client_id")
+        .audience("audience")
         .build()
 );
 ```
@@ -6599,30 +6471,14 @@ List all groups in your tenant.
 client.groups().list(
     ListGroupsRequestParameters
         .builder()
-        .connectionId(
-            OptionalNullable.of("connection_id")
-        )
-        .name(
-            OptionalNullable.of("name")
-        )
-        .externalId(
-            OptionalNullable.of("external_id")
-        )
-        .search(
-            OptionalNullable.of("search")
-        )
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .connectionId("connection_id")
+        .name("name")
+        .externalId("external_id")
+        .search("search")
+        .fields("fields")
+        .includeFields(true)
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -6846,24 +6702,12 @@ Retrieve all [hooks](https://auth0.com/docs/hooks). Accepts a list of fields to 
 client.hooks().list(
     ListHooksRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
-        .enabled(
-            OptionalNullable.of(true)
-        )
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .triggerId(
-            OptionalNullable.of(HookTriggerIdEnum.CREDENTIALS_EXCHANGE)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
+        .enabled(true)
+        .fields("fields")
+        .triggerId(HookTriggerIdEnum.CREDENTIALS_EXCHANGE)
         .build()
 );
 ```
@@ -7056,9 +6900,7 @@ client.hooks().get(
     "id",
     GetHookRequestParameters
         .builder()
-        .fields(
-            OptionalNullable.of("fields")
-        )
+        .fields("fields")
         .build()
 );
 ```
@@ -8163,27 +8005,13 @@ Auth0 [limits the number of logs](https://auth0.com/docs/logs/retrieve-log-event
 client.logs().list(
     ListLogsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .sort(
-            OptionalNullable.of("sort")
-        )
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
-        .search(
-            OptionalNullable.of("search")
-        )
+        .page(1)
+        .perPage(1)
+        .sort("sort")
+        .fields("fields")
+        .includeFields(true)
+        .includeTotals(true)
+        .search("search")
         .build()
 );
 ```
@@ -8349,15 +8177,9 @@ Get all access control list entries for your client.
 client.networkAcls().list(
     ListNetworkAclsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
         .build()
 );
 ```
@@ -8847,15 +8669,9 @@ To search by checkpoint, use the following parameters:
 client.organizations().list(
     ListOrganizationsRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
-        .sort(
-            OptionalNullable.of("sort")
-        )
+        .from("from")
+        .take(1)
+        .sort("sort")
         .build()
 );
 ```
@@ -9409,21 +9225,11 @@ client.prompts().updateSettings(
 client.rateLimitPolicies().list(
     ListRateLimitPoliciesRequestParameters
         .builder()
-        .resource(
-            OptionalNullable.of(RateLimitPolicyResourceEnum.OAUTH_AUTHENTICATION_API)
-        )
-        .consumer(
-            OptionalNullable.of(RateLimitPolicyConsumerEnum.CLIENT)
-        )
-        .consumerSelector(
-            OptionalNullable.of("consumer_selector")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
-        .from(
-            OptionalNullable.of("from")
-        )
+        .resource(RateLimitPolicyResourceEnum.OAUTH_AUTHENTICATION_API)
+        .consumer(RateLimitPolicyConsumerEnum.CLIENT)
+        .consumerSelector("consumer_selector")
+        .take(1)
+        .from("from")
         .build()
 );
 ```
@@ -9736,21 +9542,11 @@ client.refreshTokens().list(
     GetRefreshTokensRequestParameters
         .builder()
         .userId("user_id")
-        .clientId(
-            OptionalNullable.of("client_id")
-        )
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .clientId("client_id")
+        .from("from")
+        .take(1)
+        .fields("fields")
+        .includeFields(true)
         .build()
 );
 ```
@@ -10107,18 +9903,10 @@ Retrieve details of all APIs associated with your tenant.
 client.resourceServers().list(
     ListResourceServerRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
+        .includeFields(true)
         .identifiers(
             Arrays.asList("identifiers")
         )
@@ -10408,9 +10196,7 @@ client.resourceServers().get(
     "id",
     GetResourceServerRequestParameters
         .builder()
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .includeFields(true)
         .build()
 );
 ```
@@ -10729,18 +10515,10 @@ Retrieve detailed list of user roles created in your tenant.
 client.roles().list(
     ListRolesRequestParameters
         .builder()
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .page(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
-        .nameFilter(
-            OptionalNullable.of("name_filter")
-        )
+        .perPage(1)
+        .page(1)
+        .includeTotals(true)
+        .nameFilter("name_filter")
         .build()
 );
 ```
@@ -11076,24 +10854,12 @@ Retrieve a filtered list of [rules](https://auth0.com/docs/rules). Accepts a lis
 client.rules().list(
     ListRulesRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
-        .enabled(
-            OptionalNullable.of(true)
-        )
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
+        .enabled(true)
+        .fields("fields")
+        .includeFields(true)
         .build()
 );
 ```
@@ -11279,12 +11045,8 @@ client.rules().get(
     "id",
     GetRuleRequestParameters
         .builder()
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .fields("fields")
+        .includeFields(true)
         .build()
 );
 ```
@@ -11669,15 +11431,9 @@ Retrieves self-service profiles.
 client.selfServiceProfiles().list(
     ListSelfServiceProfilesRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
         .build()
 );
 ```
@@ -12336,12 +12092,8 @@ Retrieve the number of logins, signups and breached-password detections (subscri
 client.stats().getDaily(
     GetDailyStatsRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .to(
-            OptionalNullable.of("to")
-        )
+        .from("from")
+        .to("to")
         .build()
 );
 ```
@@ -12757,12 +12509,8 @@ This endpoint supports Checkpoint pagination. To search by checkpoint, use the f
 client.tokenExchangeProfiles().list(
     TokenExchangeProfilesListRequest
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -13107,12 +12855,8 @@ Retrieve a list of User Attribute Profiles. This endpoint supports Checkpoint pa
 client.userAttributeProfiles().list(
     ListUserAttributeProfileRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -13551,9 +13295,7 @@ client.userBlocks().listByIdentifier(
     ListUserBlocksByIdentifierRequestParameters
         .builder()
         .identifier("identifier")
-        .considerBruteForceEnablement(
-            OptionalNullable.of(true)
-        )
+        .considerBruteForceEnablement(true)
         .build()
 );
 ```
@@ -13687,9 +13429,7 @@ client.userBlocks().list(
     "id",
     ListUserBlocksRequestParameters
         .builder()
-        .considerBruteForceEnablement(
-            OptionalNullable.of(true)
-        )
+        .considerBruteForceEnablement(true)
         .build()
 );
 ```
@@ -13835,36 +13575,16 @@ Auth0 limits the number of users you can return. If you exceed this threshold, p
 client.users().list(
     ListUsersRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
-        .sort(
-            OptionalNullable.of("sort")
-        )
-        .connection(
-            OptionalNullable.of("connection")
-        )
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
-        .q(
-            OptionalNullable.of("q")
-        )
-        .searchEngine(
-            OptionalNullable.of(SearchEngineVersionsEnum.V1)
-        )
-        .primaryOrder(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
+        .sort("sort")
+        .connection("connection")
+        .fields("fields")
+        .includeFields(true)
+        .q("q")
+        .searchEngine(SearchEngineVersionsEnum.V1)
+        .primaryOrder(true)
         .build()
 );
 ```
@@ -14189,12 +13909,8 @@ client.users().listUsersByEmail(
     ListUsersByEmailRequestParameters
         .builder()
         .email("email")
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .fields("fields")
+        .includeFields(true)
         .build()
 );
 ```
@@ -14270,12 +13986,8 @@ client.users().get(
     "id",
     GetUserRequestParameters
         .builder()
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .fields("fields")
+        .includeFields(true)
         .build()
 );
 ```
@@ -14828,12 +14540,8 @@ client.actions().versions().list(
     "actionId",
     ListActionVersionsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
+        .page(1)
+        .perPage(1)
         .build()
 );
 ```
@@ -14970,7 +14678,11 @@ Performs the equivalent of a roll-back of an action to an earlier, specified ver
 client.actions().versions().deploy(
     "actionId",
     "id",
-    OptionalNullable.absent()
+    OptionalNullable.of(
+        DeployActionVersionRequestContent
+            .builder()
+            .build()
+    )
 );
 ```
 </dd>
@@ -15100,12 +14812,8 @@ Retrieve a paginated list of all Actions Modules with optional filtering and tot
 client.actions().modules().list(
     GetActionModulesRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
+        .page(1)
+        .perPage(1)
         .build()
 );
 ```
@@ -15464,12 +15172,8 @@ client.actions().modules().listActions(
     "id",
     GetActionModuleActionsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
+        .page(1)
+        .perPage(1)
         .build()
 );
 ```
@@ -15654,12 +15358,8 @@ client.actions().modules().versions().list(
     "id",
     GetActionModuleVersionsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
+        .page(1)
+        .perPage(1)
         .build()
 );
 ```
@@ -15852,12 +15552,8 @@ client.actions().triggers().bindings().list(
     ActionTriggerTypeEnum.POST_LOGIN,
     ListActionTriggerBindingsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
+        .page(1)
+        .perPage(1)
         .build()
 );
 ```
@@ -17583,9 +17279,7 @@ Retrieve a list of [phone providers](https://auth0.com/docs/customize/phone-mess
 client.branding().phone().providers().list(
     ListBrandingPhoneProvidersRequestParameters
         .builder()
-        .disabled(
-            OptionalNullable.of(true)
-        )
+        .disabled(true)
         .build()
 );
 ```
@@ -17985,9 +17679,7 @@ client.branding().phone().providers().test(
 client.branding().phone().templates().list(
     ListPhoneTemplatesRequestParameters
         .builder()
-        .disabled(
-            OptionalNullable.of(true)
-        )
+        .disabled(true)
         .build()
 );
 ```
@@ -18350,12 +18042,8 @@ client.clientGrants().organizations().list(
     "id",
     ListClientGrantOrganizationsRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -18874,18 +18562,10 @@ client.clients().connections().get(
     "id",
     ConnectionsGetRequest
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .from("from")
+        .take(1)
+        .fields("fields")
+        .includeFields(true)
         .strategy(
             Arrays.asList(ConnectionStrategyEnum.AD)
         )
@@ -18988,12 +18668,8 @@ Retrieve a list of directory provisioning configurations of a tenant.
 client.connections().directoryProvisioning().list(
     ListDirectoryProvisioningsRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -19113,7 +18789,11 @@ Create a directory provisioning configuration for a connection.
 ```java
 client.connections().directoryProvisioning().create(
     "id",
-    OptionalNullable.absent()
+    OptionalNullable.of(
+        CreateDirectoryProvisioningRequestContent
+            .builder()
+            .build()
+    )
 );
 ```
 </dd>
@@ -19232,7 +18912,11 @@ Update the directory provisioning configuration of a connection.
 ```java
 client.connections().directoryProvisioning().update(
     "id",
-    OptionalNullable.absent()
+    OptionalNullable.of(
+        UpdateDirectoryProvisioningRequestContent
+            .builder()
+            .build()
+    )
 );
 ```
 </dd>
@@ -19353,12 +19037,8 @@ client.connections().directoryProvisioning().listSynchronizedGroups(
     "id",
     ListSynchronizedGroupsRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -19509,12 +19189,8 @@ Retrieve a list of SCIM configurations of a tenant.
 client.connections().scimConfiguration().list(
     ListScimConfigurationsRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -19634,7 +19310,11 @@ Create a scim configuration for a connection.
 ```java
 client.connections().scimConfiguration().create(
     "id",
-    OptionalNullable.absent()
+    OptionalNullable.of(
+        CreateScimConfigurationRequestContent
+            .builder()
+            .build()
+    )
 );
 ```
 </dd>
@@ -19895,12 +19575,8 @@ client.connections().clients().get(
     "id",
     GetConnectionEnabledClientsRequestParameters
         .builder()
-        .take(
-            OptionalNullable.of(1)
-        )
-        .from(
-            OptionalNullable.of("from")
-        )
+        .take(1)
+        .from("from")
         .build()
 );
 ```
@@ -20086,7 +19762,11 @@ Provision initial connection keys for Okta or OIDC connection strategies. This e
 ```java
 client.connections().keys().create(
     "id",
-    OptionalNullable.absent()
+    OptionalNullable.of(
+        PostConnectionKeysRequestContent
+            .builder()
+            .build()
+    )
 );
 ```
 </dd>
@@ -20151,7 +19831,11 @@ Rotates the connection keys for the Okta or OIDC connection strategies.
 ```java
 client.connections().keys().rotate(
     "id",
-    OptionalNullable.absent()
+    OptionalNullable.of(
+        RotateConnectionKeysRequestContent
+            .builder()
+            .build()
+    )
 );
 ```
 </dd>
@@ -20534,12 +20218,8 @@ Retrieve details of the [email provider configuration](https://auth0.com/docs/cu
 client.emails().provider().get(
     GetEmailProviderRequestParameters
         .builder()
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .fields("fields")
+        .includeFields(true)
         .build()
 );
 ```
@@ -20871,24 +20551,12 @@ client.eventStreams().deliveries().list(
     "id",
     ListEventStreamDeliveriesRequestParameters
         .builder()
-        .statuses(
-            OptionalNullable.of("statuses")
-        )
-        .eventTypes(
-            OptionalNullable.of("event_types")
-        )
-        .dateFrom(
-            OptionalNullable.of("date_from")
-        )
-        .dateTo(
-            OptionalNullable.of("date_to")
-        )
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .statuses("statuses")
+        .eventTypes("event_types")
+        .dateFrom("date_from")
+        .dateTo("date_to")
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -21157,12 +20825,8 @@ client.flows().executions().list(
     "flow_id",
     ListFlowExecutionsRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -21337,15 +21001,9 @@ client.flows().executions().delete("flow_id", "execution_id");
 client.flows().vault().connections().list(
     ListFlowsVaultConnectionsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
         .build()
 );
 ```
@@ -21621,18 +21279,10 @@ client.groups().members().get(
     "id",
     GetGroupMembersRequestParameters
         .builder()
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .fields("fields")
+        .includeFields(true)
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -21725,12 +21375,8 @@ client.groups().roles().list(
     "id",
     ListGroupRolesRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -23719,7 +23365,7 @@ client.guardian().factors().sms().setProvider(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.sms.getTemplates() -> GetGuardianFactorSmsTemplatesResponseContent</code></summary>
+<details><summary><code>client.guardian.factors.sms.getTemplates() -> Optional&amp;lt;GetGuardianFactorSmsTemplatesResponseContent&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -24370,6 +24016,7 @@ Import users from a <a href="https://auth0.com/docs/users/references/bulk-import
 
 ```java
 client.jobs().usersImports().create(
+    null,
     CreateImportUsersRequestContent
         .builder()
         .connectionId("connection_id")
@@ -24473,7 +24120,7 @@ client.jobs().verificationEmail().create(
 </details>
 
 ## Jobs Errors
-<details><summary><code>client.jobs.errors.get(id) -> ErrorsGetResponse</code></summary>
+<details><summary><code>client.jobs.errors.get(id) -> Optional&amp;lt;ErrorsGetResponse&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -24703,15 +24350,9 @@ Retrieve details of all the encryption keys associated with your tenant.
 client.keys().encryption().list(
     ListEncryptionKeysRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
         .build()
 );
 ```
@@ -25289,21 +24930,11 @@ client.organizations().clientGrants().list(
     "id",
     ListOrganizationClientGrantsRequestParameters
         .builder()
-        .audience(
-            OptionalNullable.of("audience")
-        )
-        .clientId(
-            OptionalNullable.of("client_id")
-        )
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
+        .audience("audience")
+        .clientId("client_id")
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
         .grantIds(
             Arrays.asList("grant_ids")
         )
@@ -25503,18 +25134,10 @@ client.organizations().connections().list(
     "id",
     ListOrganizationAllConnectionsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
-        .isEnabled(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
+        .isEnabled(true)
         .build()
 );
 ```
@@ -25908,12 +25531,8 @@ client.organizations().discoveryDomains().list(
     "id",
     ListOrganizationDiscoveryDomainsRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -26346,15 +25965,9 @@ client.organizations().enabledConnections().list(
     "id",
     ListOrganizationConnectionsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
         .build()
 );
 ```
@@ -26751,24 +26364,12 @@ client.organizations().invitations().list(
     "id",
     ListOrganizationInvitationsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
-        .sort(
-            OptionalNullable.of("sort")
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
+        .fields("fields")
+        .includeFields(true)
+        .sort("sort")
         .build()
 );
 ```
@@ -27007,12 +26608,8 @@ client.organizations().invitations().get(
     "invitation_id",
     GetOrganizationInvitationRequestParameters
         .builder()
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .fields("fields")
+        .includeFields(true)
         .build()
 );
 ```
@@ -27160,18 +26757,10 @@ client.organizations().members().list(
     "id",
     ListOrganizationMembersRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .from("from")
+        .take(1)
+        .fields("fields")
+        .includeFields(true)
         .build()
 );
 ```
@@ -27392,12 +26981,8 @@ client.organizations().groups().list(
     "organization_id",
     ListOrganizationGroupsRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -27475,12 +27060,8 @@ client.organizations().groups().roles().list(
     "group_id",
     ListOrganizationGroupRolesRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -27724,12 +27305,8 @@ client.organizations().members().effectiveRoles().list(
     "user_id",
     ListOrganizationMemberEffectiveRolesRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -27817,15 +27394,9 @@ client.organizations().members().roles().list(
     "user_id",
     ListOrganizationMemberRolesRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
         .build()
 );
 ```
@@ -28082,12 +27653,8 @@ client.organizations().members().effectiveRoles().sources().groups().list(
     ListOrganizationMemberRoleSourceGroupsRequestParameters
         .builder()
         .roleId("role_id")
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -28181,18 +27748,10 @@ client.organizations().roles().members().list(
     "role_id",
     ListOrganizationRoleMembersRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .from("from")
+        .take(1)
+        .fields("fields")
+        .includeFields(true)
         .build()
 );
 ```
@@ -28292,30 +27851,14 @@ Get render setting configurations for all screens.
 client.prompts().rendering().list(
     ListAculsRequestParameters
         .builder()
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
-        .prompt(
-            OptionalNullable.of("prompt")
-        )
-        .screen(
-            OptionalNullable.of("screen")
-        )
-        .renderingMode(
-            OptionalNullable.of(AculRenderingModeEnum.ADVANCED)
-        )
+        .fields("fields")
+        .includeFields(true)
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
+        .prompt("prompt")
+        .screen("screen")
+        .renderingMode(AculRenderingModeEnum.ADVANCED)
         .build()
 );
 ```
@@ -29136,12 +28679,8 @@ client.roles().groups().get(
     "id",
     ListRoleGroupsParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -29358,15 +28897,9 @@ client.roles().permissions().list(
     "id",
     ListRolePermissionsRequestParameters
         .builder()
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .page(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
+        .perPage(1)
+        .page(1)
+        .includeTotals(true)
         .build()
 );
 ```
@@ -29619,12 +29152,8 @@ client.roles().users().list(
     "id",
     ListRoleUsersRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -30123,12 +29652,8 @@ Retrieve tenant settings. A list of fields to include or exclude may also be spe
 client.tenants().settings().get(
     GetTenantSettingsRequestParameters
         .builder()
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
+        .fields("fields")
+        .includeFields(true)
         .build()
 );
 ```
@@ -30595,15 +30120,9 @@ client.users().authenticationMethods().list(
     "id",
     ListUserAuthenticationMethodsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
         .build()
 );
 ```
@@ -31251,12 +30770,8 @@ client.users().connectedAccounts().list(
     "id",
     GetUserConnectedAccountsRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -31334,12 +30849,8 @@ client.users().effectivePermissions().list(
     ListUserEffectivePermissionsRequestParameters
         .builder()
         .resourceServerIdentifier("resource_server_identifier")
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -31424,12 +30935,8 @@ client.users().effectiveRoles().list(
     "id",
     ListUserEffectiveRolesRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -31529,109 +31036,6 @@ client.users().enrollments().get("id");
 </dl>
 </details>
 
-## Users FederatedConnectionsTokensets
-<details><summary><code>client.users.federatedConnectionsTokensets.list(id) -> List&amp;lt;FederatedConnectionTokenSet&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List active federated connections tokensets for a provided user
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.users().federatedConnectionsTokensets().list("id");
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `String` — User identifier
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.users.federatedConnectionsTokensets.delete(id, tokensetId)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.users().federatedConnectionsTokensets().delete("id", "tokenset_id");
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `String` — Id of the user that owns the tokenset
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**tokensetId:** `String` — The tokenset id
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Users Groups
 <details><summary><code>client.users.groups.get(id) -> SyncPagingIterable&amp;lt;UserGroupsResponseSchema&amp;gt;</code></summary>
 <dl>
@@ -31664,18 +31068,10 @@ client.users().groups().get(
     "id",
     GetUserGroupsRequestParameters
         .builder()
-        .fields(
-            OptionalNullable.of("fields")
-        )
-        .includeFields(
-            OptionalNullable.of(true)
-        )
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .fields("fields")
+        .includeFields(true)
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -31966,18 +31362,10 @@ client.users().logs().list(
     "id",
     ListUserLogsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .sort(
-            OptionalNullable.of("sort")
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .sort("sort")
+        .includeTotals(true)
         .build()
 );
 ```
@@ -32187,15 +31575,9 @@ client.users().organizations().list(
     "id",
     ListUserOrganizationsRequestParameters
         .builder()
-        .page(
-            OptionalNullable.of(1)
-        )
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
+        .page(1)
+        .perPage(1)
+        .includeTotals(true)
         .build()
 );
 ```
@@ -32280,15 +31662,9 @@ client.users().permissions().list(
     "id",
     ListUserPermissionsRequestParameters
         .builder()
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .page(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
+        .perPage(1)
+        .page(1)
+        .includeTotals(true)
         .build()
 );
 ```
@@ -32607,15 +31983,9 @@ client.users().roles().list(
     "id",
     ListUserRolesRequestParameters
         .builder()
-        .perPage(
-            OptionalNullable.of(1)
-        )
-        .page(
-            OptionalNullable.of(1)
-        )
-        .includeTotals(
-            OptionalNullable.of(true)
-        )
+        .perPage(1)
+        .page(1)
+        .includeTotals(true)
         .build()
 );
 ```
@@ -32844,12 +32214,8 @@ client.users().refreshToken().list(
     "user_id",
     ListRefreshTokensRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -32980,12 +32346,8 @@ client.users().sessions().list(
     "user_id",
     ListUserSessionsRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -33118,12 +32480,8 @@ client.users().effectivePermissions().sources().roles().list(
         .builder()
         .resourceServerIdentifier("resource_server_identifier")
         .permissionName("permission_name")
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -33217,12 +32575,8 @@ client.users().effectiveRoles().sources().groups().list(
     ListUserRoleSourceGroupsRequestParameters
         .builder()
         .roleId("role_id")
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```
@@ -33306,12 +32660,8 @@ List verifiable credential templates.
 client.verifiableCredentials().verification().templates().list(
     ListVerifiableCredentialTemplatesRequestParameters
         .builder()
-        .from(
-            OptionalNullable.of("from")
-        )
-        .take(
-            OptionalNullable.of(1)
-        )
+        .from("from")
+        .take(1)
         .build()
 );
 ```

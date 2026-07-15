@@ -3,13 +3,14 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -52,7 +53,8 @@ public final class ListRateLimitPoliciesRequestParameters {
     /**
      * @return The API protected by the Rate Limit Policy.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("resource")
     public OptionalNullable<RateLimitPolicyResourceEnum> getResource() {
         if (resource == null) {
             return OptionalNullable.absent();
@@ -63,7 +65,8 @@ public final class ListRateLimitPoliciesRequestParameters {
     /**
      * @return The consumer to which the rate limit policy applies.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("consumer")
     public OptionalNullable<RateLimitPolicyConsumerEnum> getConsumer() {
         if (consumer == null) {
             return OptionalNullable.absent();
@@ -74,7 +77,8 @@ public final class ListRateLimitPoliciesRequestParameters {
     /**
      * @return Identifier or category within the consumer to which the policy applies. Supported values: <code>client_id:&lt;client_id&gt;</code> to target a specific client by ID, <code>client_id:&lt;cimd_uri&gt;</code> to target a CIMD client by URI, <code>cimd_clients</code> to target all CIMD clients, <code>third_party_clients</code> to target all third-party clients, or <code>default</code> to apply the policy to any consumer identifier not otherwise explicitly targeted.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("consumer_selector")
     public OptionalNullable<String> getConsumerSelector() {
         if (consumerSelector == null) {
             return OptionalNullable.absent();
@@ -85,7 +89,8 @@ public final class ListRateLimitPoliciesRequestParameters {
     /**
      * @return Number of results per page. Defaults to 50.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("take")
     public OptionalNullable<Integer> getTake() {
         if (take == null) {
             return OptionalNullable.absent();
@@ -96,11 +101,42 @@ public final class ListRateLimitPoliciesRequestParameters {
     /**
      * @return Cursor for pagination.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("from")
     public OptionalNullable<String> getFrom() {
         if (from == null) {
             return OptionalNullable.absent();
         }
+        return from;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("resource")
+    private OptionalNullable<RateLimitPolicyResourceEnum> _getResource() {
+        return resource;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("consumer")
+    private OptionalNullable<RateLimitPolicyConsumerEnum> _getConsumer() {
+        return consumer;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("consumer_selector")
+    private OptionalNullable<String> _getConsumerSelector() {
+        return consumerSelector;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("take")
+    private OptionalNullable<Integer> _getTake() {
+        return take;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("from")
+    private OptionalNullable<String> _getFrom() {
         return from;
     }
 

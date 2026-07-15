@@ -129,8 +129,6 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
 
     private final Optional<Boolean> extUserId;
 
-    private final OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens;
-
     private final Optional<Boolean> granted;
 
     private final Optional<String> iconUrl;
@@ -217,7 +215,6 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
             Optional<Boolean> extUpn,
             Optional<Boolean> extUsageLocation,
             Optional<Boolean> extUserId,
-            OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens,
             Optional<Boolean> granted,
             Optional<String> iconUrl,
             Optional<ConnectionIdentityApiEnumAzureAd> identityApi,
@@ -286,7 +283,6 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
         this.extUpn = extUpn;
         this.extUsageLocation = extUsageLocation;
         this.extUserId = extUserId;
-        this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
         this.granted = granted;
         this.iconUrl = iconUrl;
         this.identityApi = identityApi;
@@ -689,15 +685,6 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
         return extUserId;
     }
 
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("federated_connections_access_tokens")
-    public OptionalNullable<ConnectionFederatedConnectionsAccessTokens> getFederatedConnectionsAccessTokens() {
-        if (federatedConnectionsAccessTokens == null) {
-            return OptionalNullable.absent();
-        }
-        return federatedConnectionsAccessTokens;
-    }
-
     /**
      * @return Indicates whether admin consent has been granted for the required Azure AD permissions. Read-only status field managed by Auth0 during the OAuth authorization flow.
      */
@@ -784,12 +771,6 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("federated_connections_access_tokens")
-    private OptionalNullable<ConnectionFederatedConnectionsAccessTokens> _getFederatedConnectionsAccessTokens() {
-        return federatedConnectionsAccessTokens;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
     private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             _getUpstreamParams() {
@@ -860,7 +841,6 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
                 && extUpn.equals(other.extUpn)
                 && extUsageLocation.equals(other.extUsageLocation)
                 && extUserId.equals(other.extUserId)
-                && federatedConnectionsAccessTokens.equals(other.federatedConnectionsAccessTokens)
                 && granted.equals(other.granted)
                 && iconUrl.equals(other.iconUrl)
                 && identityApi.equals(other.identityApi)
@@ -933,7 +913,6 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
                 this.extUpn,
                 this.extUsageLocation,
                 this.extUserId,
-                this.federatedConnectionsAccessTokens,
                 this.granted,
                 this.iconUrl,
                 this.identityApi,
@@ -1300,20 +1279,6 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
 
         _FinalStage extUserId(Boolean extUserId);
 
-        _FinalStage federatedConnectionsAccessTokens(
-                @Nullable
-                        OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens);
-
-        _FinalStage federatedConnectionsAccessTokens(
-                ConnectionFederatedConnectionsAccessTokens federatedConnectionsAccessTokens);
-
-        _FinalStage federatedConnectionsAccessTokens(
-                Optional<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens);
-
-        _FinalStage federatedConnectionsAccessTokens(
-                com.auth0.client.mgmt.core.Nullable<ConnectionFederatedConnectionsAccessTokens>
-                        federatedConnectionsAccessTokens);
-
         /**
          * <p>Indicates whether admin consent has been granted for the required Azure AD permissions. Read-only status field managed by Auth0 during the OAuth authorization flow.</p>
          */
@@ -1430,9 +1395,6 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
         private Optional<String> iconUrl = Optional.empty();
 
         private Optional<Boolean> granted = Optional.empty();
-
-        private OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens =
-                OptionalNullable.absent();
 
         private Optional<Boolean> extUserId = Optional.empty();
 
@@ -1595,7 +1557,6 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
             extUpn(other.getExtUpn());
             extUsageLocation(other.getExtUsageLocation());
             extUserId(other.getExtUserId());
-            federatedConnectionsAccessTokens(other.getFederatedConnectionsAccessTokens());
             granted(other.getGranted());
             iconUrl(other.getIconUrl());
             identityApi(other.getIdentityApi());
@@ -1859,47 +1820,6 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
         @JsonSetter(value = "granted", nulls = Nulls.SKIP)
         public _FinalStage granted(Optional<Boolean> granted) {
             this.granted = granted;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage federatedConnectionsAccessTokens(
-                com.auth0.client.mgmt.core.Nullable<ConnectionFederatedConnectionsAccessTokens>
-                        federatedConnectionsAccessTokens) {
-            if (federatedConnectionsAccessTokens.isNull()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.ofNull();
-            } else if (federatedConnectionsAccessTokens.isEmpty()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.absent();
-            } else {
-                this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens.get());
-            }
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage federatedConnectionsAccessTokens(
-                Optional<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
-            if (federatedConnectionsAccessTokens.isPresent()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens.get());
-            } else {
-                this.federatedConnectionsAccessTokens = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage federatedConnectionsAccessTokens(
-                ConnectionFederatedConnectionsAccessTokens federatedConnectionsAccessTokens) {
-            this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "federated_connections_access_tokens", nulls = Nulls.SKIP)
-        public _FinalStage federatedConnectionsAccessTokens(
-                @Nullable
-                        OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
-            this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
             return this;
         }
 
@@ -2908,7 +2828,6 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
                     extUpn,
                     extUsageLocation,
                     extUserId,
-                    federatedConnectionsAccessTokens,
                     granted,
                     iconUrl,
                     identityApi,

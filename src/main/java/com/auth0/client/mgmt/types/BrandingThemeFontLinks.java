@@ -119,7 +119,6 @@ public final class BrandingThemeFontLinks {
 
         /**
          * <p>Links bold</p>
-         * <p>Links bold</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -130,7 +129,6 @@ public final class BrandingThemeFontLinks {
         }
 
         /**
-         * <p>Links size</p>
          * <p>Links size</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

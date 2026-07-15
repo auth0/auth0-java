@@ -60,8 +60,6 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
 
     private final Optional<Boolean> extIsSuspended;
 
-    private final OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens;
-
     private final Optional<Boolean> handleLoginFromSocial;
 
     private final Optional<String> iconUrl;
@@ -99,7 +97,6 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
             Optional<Boolean> extGroupsExtended,
             Optional<Boolean> extIsAdmin,
             Optional<Boolean> extIsSuspended,
-            OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens,
             Optional<Boolean> handleLoginFromSocial,
             Optional<String> iconUrl,
             Optional<Boolean> mapUserIdToId,
@@ -126,7 +123,6 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
         this.extGroupsExtended = extGroupsExtended;
         this.extIsAdmin = extIsAdmin;
         this.extIsSuspended = extIsSuspended;
-        this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
         this.handleLoginFromSocial = handleLoginFromSocial;
         this.iconUrl = iconUrl;
         this.mapUserIdToId = mapUserIdToId;
@@ -233,15 +229,6 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
         return extIsSuspended;
     }
 
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("federated_connections_access_tokens")
-    public OptionalNullable<ConnectionFederatedConnectionsAccessTokens> getFederatedConnectionsAccessTokens() {
-        if (federatedConnectionsAccessTokens == null) {
-            return OptionalNullable.absent();
-        }
-        return federatedConnectionsAccessTokens;
-    }
-
     @JsonProperty("handle_login_from_social")
     public Optional<Boolean> getHandleLoginFromSocial() {
         return handleLoginFromSocial;
@@ -293,12 +280,6 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("federated_connections_access_tokens")
-    private OptionalNullable<ConnectionFederatedConnectionsAccessTokens> _getFederatedConnectionsAccessTokens() {
-        return federatedConnectionsAccessTokens;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
     private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             _getUpstreamParams() {
@@ -334,7 +315,6 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
                 && extGroupsExtended.equals(other.extGroupsExtended)
                 && extIsAdmin.equals(other.extIsAdmin)
                 && extIsSuspended.equals(other.extIsSuspended)
-                && federatedConnectionsAccessTokens.equals(other.federatedConnectionsAccessTokens)
                 && handleLoginFromSocial.equals(other.handleLoginFromSocial)
                 && iconUrl.equals(other.iconUrl)
                 && mapUserIdToId.equals(other.mapUserIdToId)
@@ -365,7 +345,6 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
                 this.extGroupsExtended,
                 this.extIsAdmin,
                 this.extIsSuspended,
-                this.federatedConnectionsAccessTokens,
                 this.handleLoginFromSocial,
                 this.iconUrl,
                 this.mapUserIdToId,
@@ -471,20 +450,6 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
 
         _FinalStage extIsSuspended(Boolean extIsSuspended);
 
-        _FinalStage federatedConnectionsAccessTokens(
-                @Nullable
-                        OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens);
-
-        _FinalStage federatedConnectionsAccessTokens(
-                ConnectionFederatedConnectionsAccessTokens federatedConnectionsAccessTokens);
-
-        _FinalStage federatedConnectionsAccessTokens(
-                Optional<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens);
-
-        _FinalStage federatedConnectionsAccessTokens(
-                com.auth0.client.mgmt.core.Nullable<ConnectionFederatedConnectionsAccessTokens>
-                        federatedConnectionsAccessTokens);
-
         _FinalStage handleLoginFromSocial(Optional<Boolean> handleLoginFromSocial);
 
         _FinalStage handleLoginFromSocial(Boolean handleLoginFromSocial);
@@ -557,9 +522,6 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
 
         private Optional<Boolean> handleLoginFromSocial = Optional.empty();
 
-        private OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens =
-                OptionalNullable.absent();
-
         private Optional<Boolean> extIsSuspended = Optional.empty();
 
         private Optional<Boolean> extIsAdmin = Optional.empty();
@@ -616,7 +578,6 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
             extGroupsExtended(other.getExtGroupsExtended());
             extIsAdmin(other.getExtIsAdmin());
             extIsSuspended(other.getExtIsSuspended());
-            federatedConnectionsAccessTokens(other.getFederatedConnectionsAccessTokens());
             handleLoginFromSocial(other.getHandleLoginFromSocial());
             iconUrl(other.getIconUrl());
             mapUserIdToId(other.getMapUserIdToId());
@@ -780,47 +741,6 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
         @JsonSetter(value = "handle_login_from_social", nulls = Nulls.SKIP)
         public _FinalStage handleLoginFromSocial(Optional<Boolean> handleLoginFromSocial) {
             this.handleLoginFromSocial = handleLoginFromSocial;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage federatedConnectionsAccessTokens(
-                com.auth0.client.mgmt.core.Nullable<ConnectionFederatedConnectionsAccessTokens>
-                        federatedConnectionsAccessTokens) {
-            if (federatedConnectionsAccessTokens.isNull()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.ofNull();
-            } else if (federatedConnectionsAccessTokens.isEmpty()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.absent();
-            } else {
-                this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens.get());
-            }
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage federatedConnectionsAccessTokens(
-                Optional<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
-            if (federatedConnectionsAccessTokens.isPresent()) {
-                this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens.get());
-            } else {
-                this.federatedConnectionsAccessTokens = OptionalNullable.absent();
-            }
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage federatedConnectionsAccessTokens(
-                ConnectionFederatedConnectionsAccessTokens federatedConnectionsAccessTokens) {
-            this.federatedConnectionsAccessTokens = OptionalNullable.of(federatedConnectionsAccessTokens);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "federated_connections_access_tokens", nulls = Nulls.SKIP)
-        public _FinalStage federatedConnectionsAccessTokens(
-                @Nullable
-                        OptionalNullable<ConnectionFederatedConnectionsAccessTokens> federatedConnectionsAccessTokens) {
-            this.federatedConnectionsAccessTokens = federatedConnectionsAccessTokens;
             return this;
         }
 
@@ -1073,7 +993,6 @@ public final class ConnectionOptionsGoogleApps implements IConnectionOptionsComm
                     extGroupsExtended,
                     extIsAdmin,
                     extIsSuspended,
-                    federatedConnectionsAccessTokens,
                     handleLoginFromSocial,
                     iconUrl,
                     mapUserIdToId,

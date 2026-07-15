@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.ClientGrantDefaultForEnum;
 import com.auth0.client.mgmt.types.ClientGrantResponseContent;
@@ -51,13 +50,13 @@ public class ClientGrantsWireTest {
                                 "{\"next\":\"next\",\"client_grants\":[{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"default_for\":\"third_party_clients\",\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}]}"));
         SyncPagingIterable<ClientGrantResponseContent> response = client.clientGrants()
                 .list(ListClientGrantsRequestParameters.builder()
-                        .from(OptionalNullable.of("from"))
-                        .take(OptionalNullable.of(1))
-                        .audience(OptionalNullable.of("audience"))
-                        .clientId(OptionalNullable.of("client_id"))
-                        .allowAnyOrganization(OptionalNullable.of(true))
-                        .subjectType(OptionalNullable.of(ClientGrantSubjectTypeEnum.CLIENT))
-                        .defaultFor(OptionalNullable.of(ClientGrantDefaultForEnum.THIRD_PARTY_CLIENTS))
+                        .from("from")
+                        .take(1)
+                        .audience("audience")
+                        .clientId("client_id")
+                        .allowAnyOrganization(true)
+                        .subjectType(ClientGrantSubjectTypeEnum.CLIENT)
+                        .defaultFor(ClientGrantDefaultForEnum.THIRD_PARTY_CLIENTS)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

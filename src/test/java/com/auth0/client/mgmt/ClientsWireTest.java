@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.Client;
 import com.auth0.client.mgmt.types.CreateClientRequestContent;
@@ -53,16 +52,16 @@ public class ClientsWireTest {
                 .setBody(TestResources.loadResource("/wire-tests/ClientsWireTest_testList_response.json")));
         SyncPagingIterable<Client> response = client.clients()
                 .list(ListClientsRequestParameters.builder()
-                        .fields(OptionalNullable.of("fields"))
-                        .includeFields(OptionalNullable.of(true))
-                        .page(OptionalNullable.of(1))
-                        .perPage(OptionalNullable.of(1))
-                        .includeTotals(OptionalNullable.of(true))
-                        .isGlobal(OptionalNullable.of(true))
-                        .isFirstParty(OptionalNullable.of(true))
-                        .appType(OptionalNullable.of("app_type"))
-                        .externalClientId(OptionalNullable.of("external_client_id"))
-                        .q(OptionalNullable.of("q"))
+                        .fields("fields")
+                        .includeFields(true)
+                        .page(1)
+                        .perPage(1)
+                        .includeTotals(true)
+                        .isGlobal(true)
+                        .isFirstParty(true)
+                        .appType("app_type")
+                        .externalClientId("external_client_id")
+                        .q("q")
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -396,8 +395,8 @@ public class ClientsWireTest {
                 .get(
                         "id",
                         GetClientRequestParameters.builder()
-                                .fields(OptionalNullable.of("fields"))
-                                .includeFields(OptionalNullable.of(true))
+                                .fields("fields")
+                                .includeFields(true)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

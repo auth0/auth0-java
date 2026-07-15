@@ -143,7 +143,6 @@ public final class ChangePasswordTicketIdentity {
 
         /**
          * <p>user_id of the identity.</p>
-         * <p>user_id of the identity.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

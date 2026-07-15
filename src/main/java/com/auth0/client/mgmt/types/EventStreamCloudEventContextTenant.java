@@ -100,7 +100,6 @@ public final class EventStreamCloudEventContextTenant {
 
         /**
          * <p>Machine-generated unique tenant identifier.</p>
-         * <p>Machine-generated unique tenant identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

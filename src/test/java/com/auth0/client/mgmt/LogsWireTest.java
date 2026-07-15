@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.GetLogResponseContent;
 import com.auth0.client.mgmt.types.ListLogsRequestParameters;
@@ -45,13 +44,13 @@ public class LogsWireTest {
                                 "{\"start\":1.1,\"limit\":1.1,\"length\":1.1,\"total\":1.1,\"logs\":[{\"date\":\"date\",\"type\":\"type\",\"description\":\"description\",\"connection\":\"connection\",\"connection_id\":\"connection_id\",\"client_id\":\"client_id\",\"client_name\":\"client_name\",\"ip\":\"ip\",\"hostname\":\"hostname\",\"user_id\":\"user_id\",\"user_name\":\"user_name\",\"audience\":\"audience\",\"scope\":\"scope\",\"strategy\":\"strategy\",\"strategy_type\":\"strategy_type\",\"log_id\":\"log_id\",\"isMobile\":true,\"details\":{\"key\":\"value\"},\"user_agent\":\"user_agent\"}]}"));
         SyncPagingIterable<Log> response = client.logs()
                 .list(ListLogsRequestParameters.builder()
-                        .page(OptionalNullable.of(1))
-                        .perPage(OptionalNullable.of(1))
-                        .sort(OptionalNullable.of("sort"))
-                        .fields(OptionalNullable.of("fields"))
-                        .includeFields(OptionalNullable.of(true))
-                        .includeTotals(OptionalNullable.of(true))
-                        .search(OptionalNullable.of("search"))
+                        .page(1)
+                        .perPage(1)
+                        .sort("sort")
+                        .fields("fields")
+                        .includeFields(true)
+                        .includeTotals(true)
+                        .search("search")
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

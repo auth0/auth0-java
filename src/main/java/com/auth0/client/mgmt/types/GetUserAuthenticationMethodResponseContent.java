@@ -594,7 +594,6 @@ public final class GetUserAuthenticationMethodResponseContent {
 
         /**
          * <p>The ID of the authentication method (auto generated)</p>
-         * <p>The ID of the authentication method (auto generated)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -612,7 +611,6 @@ public final class GetUserAuthenticationMethodResponseContent {
         }
 
         /**
-         * <p>Authenticator creation date</p>
          * <p>Authenticator creation date</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

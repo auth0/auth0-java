@@ -305,7 +305,6 @@ public final class ExpressConfigurationOrNull {
 
         /**
          * <p>The URI users should bookmark to log in to this application. Variable substitution is permitted for the following properties: organization_name, organization_id, and connection_name.</p>
-         * <p>The URI users should bookmark to log in to this application. Variable substitution is permitted for the following properties: organization_name, organization_id, and connection_name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -317,7 +316,6 @@ public final class ExpressConfigurationOrNull {
         }
 
         /**
-         * <p>The ID of the user attribute profile to use for this application.</p>
          * <p>The ID of the user attribute profile to use for this application.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -331,7 +329,6 @@ public final class ExpressConfigurationOrNull {
 
         /**
          * <p>The ID of the connection profile to use for this application.</p>
-         * <p>The ID of the connection profile to use for this application.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -344,7 +341,6 @@ public final class ExpressConfigurationOrNull {
 
         /**
          * <p>When true, all connections made via express configuration will be enabled for this application.</p>
-         * <p>When true, all connections made via express configuration will be enabled for this application.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -355,7 +351,6 @@ public final class ExpressConfigurationOrNull {
         }
 
         /**
-         * <p>When true, all connections made via express configuration will have the associated organization enabled.</p>
          * <p>When true, all connections made via express configuration will have the associated organization enabled.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -368,7 +363,6 @@ public final class ExpressConfigurationOrNull {
 
         /**
          * <p>This is the unique identifier for the Okta OIN Express Configuration Client, which Okta will use for this application.</p>
-         * <p>This is the unique identifier for the Okta OIN Express Configuration Client, which Okta will use for this application.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -379,7 +373,6 @@ public final class ExpressConfigurationOrNull {
         }
 
         /**
-         * <p>This is the domain that admins are expected to log in via for authenticating for express configuration. It can be either the canonical domain or a registered custom domain.</p>
          * <p>This is the domain that admins are expected to log in via for authenticating for express configuration. It can be either the canonical domain or a registered custom domain.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -145,7 +145,6 @@ public final class CreateDirectorySynchronizationResponseContent {
 
         /**
          * <p>The connection's identifier</p>
-         * <p>The connection's identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -157,7 +156,6 @@ public final class CreateDirectorySynchronizationResponseContent {
 
         /**
          * <p>The synchronization's identifier</p>
-         * <p>The synchronization's identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -168,7 +166,6 @@ public final class CreateDirectorySynchronizationResponseContent {
         }
 
         /**
-         * <p>The synchronization status</p>
          * <p>The synchronization status</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -122,7 +122,6 @@ public final class EventStreamCloudEventGroupRoleAssignedObjectRole {
 
         /**
          * <p>The ID of the role.</p>
-         * <p>The ID of the role.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -133,7 +132,6 @@ public final class EventStreamCloudEventGroupRoleAssignedObjectRole {
         }
 
         /**
-         * <p>The name of the role.</p>
          * <p>The name of the role.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

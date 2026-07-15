@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.roles.types.AddRolePermissionsRequestContent;
 import com.auth0.client.mgmt.roles.types.DeleteRolePermissionsRequestContent;
@@ -51,9 +50,9 @@ public class RolesPermissionsWireTest {
                 .list(
                         "id",
                         ListRolePermissionsRequestParameters.builder()
-                                .perPage(OptionalNullable.of(1))
-                                .page(OptionalNullable.of(1))
-                                .includeTotals(OptionalNullable.of(true))
+                                .perPage(1)
+                                .page(1)
+                                .includeTotals(true)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

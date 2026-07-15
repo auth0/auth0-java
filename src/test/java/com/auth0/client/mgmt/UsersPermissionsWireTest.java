@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.PermissionRequestPayload;
 import com.auth0.client.mgmt.types.UserPermissionSchema;
@@ -51,9 +50,9 @@ public class UsersPermissionsWireTest {
                 .list(
                         "id",
                         ListUserPermissionsRequestParameters.builder()
-                                .perPage(OptionalNullable.of(1))
-                                .page(OptionalNullable.of(1))
-                                .includeTotals(OptionalNullable.of(true))
+                                .perPage(1)
+                                .page(1)
+                                .includeTotals(true)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

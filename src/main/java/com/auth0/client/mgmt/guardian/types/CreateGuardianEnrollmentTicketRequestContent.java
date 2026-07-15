@@ -215,7 +215,6 @@ public final class CreateGuardianEnrollmentTicketRequestContent {
 
         /**
          * <p>user_id for the enrollment ticket</p>
-         * <p>user_id for the enrollment ticket</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

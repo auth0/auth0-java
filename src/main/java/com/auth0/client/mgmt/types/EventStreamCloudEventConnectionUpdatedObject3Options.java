@@ -568,7 +568,6 @@ public final class EventStreamCloudEventConnectionUpdatedObject3Options {
 
         /**
          * <p>URL provided by PingFederate which returns information used for creating the connection</p>
-         * <p>URL provided by PingFederate which returns information used for creating the connection</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

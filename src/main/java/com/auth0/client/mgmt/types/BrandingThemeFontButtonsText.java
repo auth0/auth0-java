@@ -119,7 +119,6 @@ public final class BrandingThemeFontButtonsText {
 
         /**
          * <p>Buttons text bold</p>
-         * <p>Buttons text bold</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -130,7 +129,6 @@ public final class BrandingThemeFontButtonsText {
         }
 
         /**
-         * <p>Buttons text size</p>
          * <p>Buttons text size</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

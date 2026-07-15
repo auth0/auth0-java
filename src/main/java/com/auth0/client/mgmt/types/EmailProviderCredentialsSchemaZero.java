@@ -100,7 +100,6 @@ public final class EmailProviderCredentialsSchemaZero {
 
         /**
          * <p>API Key</p>
-         * <p>API Key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

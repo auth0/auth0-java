@@ -142,7 +142,6 @@ public final class CimdMappedPrivateKeyJwtCredential {
 
         /**
          * <p>Type of credential (e.g., public_key)</p>
-         * <p>Type of credential (e.g., public_key)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -154,7 +153,6 @@ public final class CimdMappedPrivateKeyJwtCredential {
 
         /**
          * <p>Key identifier from JWKS or calculated thumbprint</p>
-         * <p>Key identifier from JWKS or calculated thumbprint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -165,7 +163,6 @@ public final class CimdMappedPrivateKeyJwtCredential {
         }
 
         /**
-         * <p>Algorithm (e.g., RS256, RS384, PS256)</p>
          * <p>Algorithm (e.g., RS256, RS384, PS256)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -3,13 +3,14 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -56,7 +57,8 @@ public final class ListActionsRequestParameters {
     /**
      * @return An actions extensibility point.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("triggerId")
     public OptionalNullable<ActionTriggerTypeEnum> getTriggerId() {
         if (triggerId == null) {
             return OptionalNullable.absent();
@@ -67,7 +69,8 @@ public final class ListActionsRequestParameters {
     /**
      * @return The name of the action to retrieve.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("actionName")
     public OptionalNullable<String> getActionName() {
         if (actionName == null) {
             return OptionalNullable.absent();
@@ -78,7 +81,8 @@ public final class ListActionsRequestParameters {
     /**
      * @return Optional filter to only retrieve actions that are deployed.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("deployed")
     public OptionalNullable<Boolean> getDeployed() {
         if (deployed == null) {
             return OptionalNullable.absent();
@@ -89,7 +93,8 @@ public final class ListActionsRequestParameters {
     /**
      * @return Use this field to request a specific page of the list results.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("page")
     public OptionalNullable<Integer> getPage() {
         if (page == null) {
             return OptionalNullable.absent();
@@ -100,7 +105,8 @@ public final class ListActionsRequestParameters {
     /**
      * @return The maximum number of results to be returned by the server in single response. 20 by default
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("per_page")
     public OptionalNullable<Integer> getPerPage() {
         if (perPage == null) {
             return OptionalNullable.absent();
@@ -111,11 +117,48 @@ public final class ListActionsRequestParameters {
     /**
      * @return Optional. When true, return only installed actions. When false, return only custom actions. Returns all actions by default.
      */
-    @JsonIgnore
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("installed")
     public OptionalNullable<Boolean> getInstalled() {
         if (installed == null) {
             return OptionalNullable.absent();
         }
+        return installed;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("triggerId")
+    private OptionalNullable<ActionTriggerTypeEnum> _getTriggerId() {
+        return triggerId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("actionName")
+    private OptionalNullable<String> _getActionName() {
+        return actionName;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("deployed")
+    private OptionalNullable<Boolean> _getDeployed() {
+        return deployed;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("page")
+    private OptionalNullable<Integer> _getPage() {
+        return page;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("per_page")
+    private OptionalNullable<Integer> _getPerPage() {
+        return perPage;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("installed")
+    private OptionalNullable<Boolean> _getInstalled() {
         return installed;
     }
 

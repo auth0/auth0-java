@@ -168,7 +168,6 @@ public final class CreateVerificationEmailRequestContent {
 
         /**
          * <p>user_id of the user to send the verification email to.</p>
-         * <p>user_id of the user to send the verification email to.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

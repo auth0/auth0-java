@@ -239,7 +239,6 @@ public final class EventStreamCloudEventGroupUpdatedObject1 {
 
         /**
          * <p>The unique identifier for the group.</p>
-         * <p>The unique identifier for the group.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -251,7 +250,6 @@ public final class EventStreamCloudEventGroupUpdatedObject1 {
 
         /**
          * <p>The name of the group.</p>
-         * <p>The name of the group.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -262,7 +260,6 @@ public final class EventStreamCloudEventGroupUpdatedObject1 {
         }
 
         /**
-         * <p>Date and time when this entity was created (ISO_8601 format).</p>
          * <p>Date and time when this entity was created (ISO_8601 format).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -282,7 +279,6 @@ public final class EventStreamCloudEventGroupUpdatedObject1 {
 
         /**
          * <p>The organization ID associated with the group.</p>
-         * <p>The organization ID associated with the group.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -293,7 +289,6 @@ public final class EventStreamCloudEventGroupUpdatedObject1 {
         }
 
         /**
-         * <p>Date and time when this entity was last updated/modified (ISO_8601 format).</p>
          * <p>Date and time when this entity was last updated/modified (ISO_8601 format).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

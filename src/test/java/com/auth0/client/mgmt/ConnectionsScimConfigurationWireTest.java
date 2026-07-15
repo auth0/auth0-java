@@ -5,6 +5,7 @@ import com.auth0.client.mgmt.connections.types.UpdateScimConfigurationRequestCon
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
+import com.auth0.client.mgmt.types.CreateScimConfigurationRequestContent;
 import com.auth0.client.mgmt.types.CreateScimConfigurationResponseContent;
 import com.auth0.client.mgmt.types.GetScimConfigurationDefaultMappingResponseContent;
 import com.auth0.client.mgmt.types.GetScimConfigurationResponseContent;
@@ -52,8 +53,8 @@ public class ConnectionsScimConfigurationWireTest {
         SyncPagingIterable<ScimConfiguration> response = client.connections()
                 .scimConfiguration()
                 .list(ListScimConfigurationsRequestParameters.builder()
-                        .from(OptionalNullable.of("from"))
-                        .take(OptionalNullable.of(1))
+                        .from("from")
+                        .take(1)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -135,8 +136,12 @@ public class ConnectionsScimConfigurationWireTest {
                         .setResponseCode(200)
                         .setBody(
                                 "{\"connection_id\":\"connection_id\",\"connection_name\":\"connection_name\",\"strategy\":\"strategy\",\"tenant_name\":\"tenant_name\",\"user_id_attribute\":\"user_id_attribute\",\"mapping\":[{\"auth0\":\"auth0\",\"scim\":\"scim\"}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_on\":\"2024-01-15T09:30:00Z\"}"));
-        CreateScimConfigurationResponseContent response =
-                client.connections().scimConfiguration().create("id", OptionalNullable.absent());
+        CreateScimConfigurationResponseContent response = client.connections()
+                .scimConfiguration()
+                .create(
+                        "id",
+                        OptionalNullable.of(
+                                CreateScimConfigurationRequestContent.builder().build()));
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("POST", request.getMethod());

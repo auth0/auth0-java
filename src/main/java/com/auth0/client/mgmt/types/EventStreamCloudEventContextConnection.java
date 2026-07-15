@@ -143,7 +143,6 @@ public final class EventStreamCloudEventContextConnection {
 
         /**
          * <p>The ID of the connection.</p>
-         * <p>The ID of the connection.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -155,7 +154,6 @@ public final class EventStreamCloudEventContextConnection {
 
         /**
          * <p>The name of the connection.</p>
-         * <p>The name of the connection.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -166,7 +164,6 @@ public final class EventStreamCloudEventContextConnection {
         }
 
         /**
-         * <p>The auth strategy implemented by the connection.</p>
          * <p>The auth strategy implemented by the connection.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

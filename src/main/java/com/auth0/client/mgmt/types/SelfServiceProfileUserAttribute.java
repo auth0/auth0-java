@@ -142,7 +142,6 @@ public final class SelfServiceProfileUserAttribute {
 
         /**
          * <p>Identifier of this attribute.</p>
-         * <p>Identifier of this attribute.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -154,7 +153,6 @@ public final class SelfServiceProfileUserAttribute {
 
         /**
          * <p>Description of this attribute.</p>
-         * <p>Description of this attribute.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -165,7 +163,6 @@ public final class SelfServiceProfileUserAttribute {
         }
 
         /**
-         * <p>Determines if this attribute is required</p>
          * <p>Determines if this attribute is required</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

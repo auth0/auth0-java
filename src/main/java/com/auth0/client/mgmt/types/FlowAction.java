@@ -266,18 +266,6 @@ public final class FlowAction {
         @java.lang.Override
         public FlowAction deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionActivecampaign.class));
-            } catch (RuntimeException e) {
-            }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionAirtable.class));
-            } catch (RuntimeException e) {
-            }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionAuth0.class));
-            } catch (RuntimeException e) {
-            }
             if (value instanceof Map<?, ?>
                     && ((Map<?, ?>) value).containsKey("id")
                     && ((Map<?, ?>) value).containsKey("type")
@@ -288,10 +276,6 @@ public final class FlowAction {
                 } catch (RuntimeException e) {
                 }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionClearbit.class));
-            } catch (RuntimeException e) {
-            }
             if (value instanceof Map<?, ?>
                     && ((Map<?, ?>) value).containsKey("id")
                     && ((Map<?, ?>) value).containsKey("type")
@@ -301,10 +285,6 @@ public final class FlowAction {
                     return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionEmailVerifyEmail.class));
                 } catch (RuntimeException e) {
                 }
-            }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionFlow.class));
-            } catch (RuntimeException e) {
             }
             if (value instanceof Map<?, ?>
                     && ((Map<?, ?>) value).containsKey("id")
@@ -326,18 +306,6 @@ public final class FlowAction {
                 } catch (RuntimeException e) {
                 }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionHubspot.class));
-            } catch (RuntimeException e) {
-            }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionJson.class));
-            } catch (RuntimeException e) {
-            }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionJwt.class));
-            } catch (RuntimeException e) {
-            }
             if (value instanceof Map<?, ?>
                     && ((Map<?, ?>) value).containsKey("id")
                     && ((Map<?, ?>) value).containsKey("type")
@@ -357,18 +325,6 @@ public final class FlowAction {
                     return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionMailjetSendEmail.class));
                 } catch (RuntimeException e) {
                 }
-            }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionOtp.class));
-            } catch (RuntimeException e) {
-            }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionPipedrive.class));
-            } catch (RuntimeException e) {
-            }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionSalesforce.class));
-            } catch (RuntimeException e) {
             }
             if (value instanceof Map<?, ?>
                     && ((Map<?, ?>) value).containsKey("id")
@@ -390,10 +346,6 @@ public final class FlowAction {
                 } catch (RuntimeException e) {
                 }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripe.class));
-            } catch (RuntimeException e) {
-            }
             if (value instanceof Map<?, ?>
                     && ((Map<?, ?>) value).containsKey("id")
                     && ((Map<?, ?>) value).containsKey("type")
@@ -403,10 +355,6 @@ public final class FlowAction {
                     return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionTelegramSendMessage.class));
                 } catch (RuntimeException e) {
                 }
-            }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionTwilio.class));
-            } catch (RuntimeException e) {
             }
             if (value instanceof Map<?, ?>
                     && ((Map<?, ?>) value).containsKey("id")
@@ -418,10 +366,6 @@ public final class FlowAction {
                 } catch (RuntimeException e) {
                 }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionXml.class));
-            } catch (RuntimeException e) {
-            }
             if (value instanceof Map<?, ?>
                     && ((Map<?, ?>) value).containsKey("id")
                     && ((Map<?, ?>) value).containsKey("type")
@@ -431,6 +375,62 @@ public final class FlowAction {
                     return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionZapierTriggerWebhook.class));
                 } catch (RuntimeException e) {
                 }
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionActivecampaign.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionAirtable.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionAuth0.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionClearbit.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionFlow.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionHubspot.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionJson.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionJwt.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionOtp.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionPipedrive.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionSalesforce.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionStripe.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionTwilio.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, FlowActionXml.class));
+            } catch (RuntimeException e) {
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

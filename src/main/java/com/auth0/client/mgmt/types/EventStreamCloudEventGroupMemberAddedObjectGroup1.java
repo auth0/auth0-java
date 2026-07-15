@@ -167,7 +167,6 @@ public final class EventStreamCloudEventGroupMemberAddedObjectGroup1 {
 
         /**
          * <p>The unique identifier for the group.</p>
-         * <p>The unique identifier for the group.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -185,7 +184,6 @@ public final class EventStreamCloudEventGroupMemberAddedObjectGroup1 {
         }
 
         /**
-         * <p>The organization ID associated with the group.</p>
          * <p>The organization ID associated with the group.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

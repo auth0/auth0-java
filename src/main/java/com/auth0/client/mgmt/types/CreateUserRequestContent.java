@@ -476,7 +476,6 @@ public final class CreateUserRequestContent {
 
         /**
          * <p>Name of the connection this user should be created in.</p>
-         * <p>Name of the connection this user should be created in.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

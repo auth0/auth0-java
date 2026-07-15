@@ -167,7 +167,6 @@ public final class CreateNetworkAclRequestContent {
 
         /**
          * <p>Indicates whether or not this access control list is actively being used</p>
-         * <p>Indicates whether or not this access control list is actively being used</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

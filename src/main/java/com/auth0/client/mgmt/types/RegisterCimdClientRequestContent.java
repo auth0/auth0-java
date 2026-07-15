@@ -99,7 +99,6 @@ public final class RegisterCimdClientRequestContent {
 
         /**
          * <p>URL to the Client ID Metadata Document. Acts as the unique identifier for upsert operations.</p>
-         * <p>URL to the Client ID Metadata Document. Acts as the unique identifier for upsert operations.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

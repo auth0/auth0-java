@@ -189,7 +189,6 @@ public final class CreateHookRequestContent {
 
         /**
          * <p>Name of this hook.</p>
-         * <p>Name of this hook.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -201,7 +200,6 @@ public final class CreateHookRequestContent {
 
         /**
          * <p>Code to be executed when this hook runs.</p>
-         * <p>Code to be executed when this hook runs.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -212,7 +210,6 @@ public final class CreateHookRequestContent {
         }
 
         /**
-         * <p>Execution stage of this rule. Can be <code>credentials-exchange</code>, <code>pre-user-registration</code>, <code>post-user-registration</code>, <code>post-change-password</code>, or <code>send-phone-message</code>.</p>
          * <p>Execution stage of this rule. Can be <code>credentials-exchange</code>, <code>pre-user-registration</code>, <code>post-user-registration</code>, <code>post-change-password</code>, or <code>send-phone-message</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

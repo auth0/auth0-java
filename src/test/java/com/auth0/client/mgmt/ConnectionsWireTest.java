@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.ConnectionForList;
 import com.auth0.client.mgmt.types.ConnectionIdentityProviderEnum;
@@ -53,11 +52,11 @@ public class ConnectionsWireTest {
                                 "{\"next\":\"next\",\"connections\":[{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"is_domain_connection\":true,\"show_as_button\":true,\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true},\"cross_app_access_requesting_app\":{\"active\":true}}]}"));
         SyncPagingIterable<ConnectionForList> response = client.connections()
                 .list(ListConnectionsQueryParameters.builder()
-                        .from(OptionalNullable.of("from"))
-                        .take(OptionalNullable.of(1))
-                        .name(OptionalNullable.of("name"))
-                        .fields(OptionalNullable.of("fields"))
-                        .includeFields(OptionalNullable.of(true))
+                        .from("from")
+                        .take(1)
+                        .name("name")
+                        .fields("fields")
+                        .includeFields(true)
                         .strategy(Arrays.asList(ConnectionStrategyEnum.AD))
                         .build());
         RecordedRequest request = server.takeRequest();
@@ -191,8 +190,8 @@ public class ConnectionsWireTest {
                 .get(
                         "id",
                         GetConnectionRequestParameters.builder()
-                                .fields(OptionalNullable.of("fields"))
-                                .includeFields(OptionalNullable.of(true))
+                                .fields("fields")
+                                .includeFields(true)
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

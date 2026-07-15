@@ -142,7 +142,6 @@ public final class BrandingThemePageBackground {
 
         /**
          * <p>Background color</p>
-         * <p>Background color</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -153,7 +152,6 @@ public final class BrandingThemePageBackground {
         }
 
         /**
-         * <p>Background image url</p>
          * <p>Background image url</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

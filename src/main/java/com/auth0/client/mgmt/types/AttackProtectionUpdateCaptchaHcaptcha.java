@@ -122,7 +122,6 @@ public final class AttackProtectionUpdateCaptchaHcaptcha {
 
         /**
          * <p>The site key for the hCaptcha provider.</p>
-         * <p>The site key for the hCaptcha provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -133,7 +132,6 @@ public final class AttackProtectionUpdateCaptchaHcaptcha {
         }
 
         /**
-         * <p>The secret key for the hCaptcha provider.</p>
          * <p>The secret key for the hCaptcha provider.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

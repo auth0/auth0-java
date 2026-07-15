@@ -3,7 +3,9 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.ConnectionKey;
+import com.auth0.client.mgmt.types.PostConnectionKeysRequestContent;
 import com.auth0.client.mgmt.types.PostConnectionsKeysResponseContentItem;
+import com.auth0.client.mgmt.types.RotateConnectionKeysRequestContent;
 import com.auth0.client.mgmt.types.RotateConnectionsKeysResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -106,8 +108,12 @@ public class ConnectionsKeysWireTest {
                         .setResponseCode(200)
                         .setBody(
                                 "[{\"kid\":\"kid\",\"cert\":\"cert\",\"pkcs\":\"pkcs\",\"current\":true,\"next\":true,\"current_since\":\"current_since\",\"fingerprint\":\"fingerprint\",\"thumbprint\":\"thumbprint\",\"algorithm\":\"algorithm\",\"key_use\":\"encryption\",\"subject_dn\":\"subject_dn\"}]"));
-        List<PostConnectionsKeysResponseContentItem> response =
-                client.connections().keys().create("id", OptionalNullable.absent());
+        List<PostConnectionsKeysResponseContentItem> response = client.connections()
+                .keys()
+                .create(
+                        "id",
+                        OptionalNullable.of(
+                                PostConnectionKeysRequestContent.builder().build()));
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("POST", request.getMethod());
@@ -169,8 +175,12 @@ public class ConnectionsKeysWireTest {
                         .setResponseCode(200)
                         .setBody(
                                 "{\"kid\":\"kid\",\"cert\":\"cert\",\"pkcs\":\"pkcs\",\"next\":true,\"fingerprint\":\"fingerprint\",\"thumbprint\":\"thumbprint\",\"algorithm\":\"algorithm\",\"key_use\":\"encryption\",\"subject_dn\":\"subject_dn\"}"));
-        RotateConnectionsKeysResponseContent response =
-                client.connections().keys().rotate("id", OptionalNullable.absent());
+        RotateConnectionsKeysResponseContent response = client.connections()
+                .keys()
+                .rotate(
+                        "id",
+                        OptionalNullable.of(
+                                RotateConnectionKeysRequestContent.builder().build()));
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("POST", request.getMethod());

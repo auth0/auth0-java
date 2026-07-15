@@ -123,7 +123,6 @@ public final class CreateRoleRequestContent {
 
         /**
          * <p>Name of the role.</p>
-         * <p>Name of the role.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

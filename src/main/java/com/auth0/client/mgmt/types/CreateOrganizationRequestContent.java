@@ -226,7 +226,6 @@ public final class CreateOrganizationRequestContent {
 
         /**
          * <p>The name of this organization.</p>
-         * <p>The name of this organization.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

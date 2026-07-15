@@ -120,7 +120,6 @@ public final class ActionModuleDependencyRequest {
 
         /**
          * <p>The name of the npm dependency.</p>
-         * <p>The name of the npm dependency.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -131,7 +130,6 @@ public final class ActionModuleDependencyRequest {
         }
 
         /**
-         * <p>The version of the npm dependency.</p>
          * <p>The version of the npm dependency.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -99,7 +99,6 @@ public final class OrganizationInvitationInviter {
 
         /**
          * <p>The inviter's name.</p>
-         * <p>The inviter's name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

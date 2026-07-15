@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.CreateFormRequestContent;
 import com.auth0.client.mgmt.types.CreateFormResponseContent;
@@ -52,9 +51,9 @@ public class FormsWireTest {
                                 "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"forms\":[{\"id\":\"id\",\"name\":\"name\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"embedded_at\":\"embedded_at\",\"submitted_at\":\"submitted_at\"}]}"));
         SyncPagingIterable<FormSummary> response = client.forms()
                 .list(ListFormsRequestParameters.builder()
-                        .page(OptionalNullable.of(1))
-                        .perPage(OptionalNullable.of(1))
-                        .includeTotals(OptionalNullable.of(true))
+                        .page(1)
+                        .perPage(1)
+                        .includeTotals(true)
                         .hydrate(Arrays.asList(FormsRequestParametersHydrateEnum.FLOW_COUNT))
                         .build());
         RecordedRequest request = server.takeRequest();

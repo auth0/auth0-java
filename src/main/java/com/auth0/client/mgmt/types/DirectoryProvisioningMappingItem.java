@@ -120,7 +120,6 @@ public final class DirectoryProvisioningMappingItem {
 
         /**
          * <p>The field location in the Auth0 schema</p>
-         * <p>The field location in the Auth0 schema</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -131,7 +130,6 @@ public final class DirectoryProvisioningMappingItem {
         }
 
         /**
-         * <p>The field location in the IDP schema</p>
          * <p>The field location in the IDP schema</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

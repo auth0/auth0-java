@@ -24,7 +24,6 @@ import com.auth0.client.mgmt.users.AsyncConnectedAccountsClient;
 import com.auth0.client.mgmt.users.AsyncEffectivePermissionsClient;
 import com.auth0.client.mgmt.users.AsyncEffectiveRolesClient;
 import com.auth0.client.mgmt.users.AsyncEnrollmentsClient;
-import com.auth0.client.mgmt.users.AsyncFederatedConnectionsTokensetsClient;
 import com.auth0.client.mgmt.users.AsyncGroupsClient;
 import com.auth0.client.mgmt.users.AsyncIdentitiesClient;
 import com.auth0.client.mgmt.users.AsyncLogsClient;
@@ -56,8 +55,6 @@ public class AsyncUsersClient {
 
     protected final Supplier<AsyncEnrollmentsClient> enrollmentsClient;
 
-    protected final Supplier<AsyncFederatedConnectionsTokensetsClient> federatedConnectionsTokensetsClient;
-
     protected final Supplier<AsyncGroupsClient> groupsClient;
 
     protected final Supplier<AsyncIdentitiesClient> identitiesClient;
@@ -87,8 +84,6 @@ public class AsyncUsersClient {
         this.effectivePermissionsClient = Suppliers.memoize(() -> new AsyncEffectivePermissionsClient(clientOptions));
         this.effectiveRolesClient = Suppliers.memoize(() -> new AsyncEffectiveRolesClient(clientOptions));
         this.enrollmentsClient = Suppliers.memoize(() -> new AsyncEnrollmentsClient(clientOptions));
-        this.federatedConnectionsTokensetsClient =
-                Suppliers.memoize(() -> new AsyncFederatedConnectionsTokensetsClient(clientOptions));
         this.groupsClient = Suppliers.memoize(() -> new AsyncGroupsClient(clientOptions));
         this.identitiesClient = Suppliers.memoize(() -> new AsyncIdentitiesClient(clientOptions));
         this.logsClient = Suppliers.memoize(() -> new AsyncLogsClient(clientOptions));
@@ -627,10 +622,6 @@ public class AsyncUsersClient {
 
     public AsyncEnrollmentsClient enrollments() {
         return this.enrollmentsClient.get();
-    }
-
-    public AsyncFederatedConnectionsTokensetsClient federatedConnectionsTokensets() {
-        return this.federatedConnectionsTokensetsClient.get();
     }
 
     public AsyncGroupsClient groups() {

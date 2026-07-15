@@ -122,7 +122,6 @@ public final class TestCustomDomainResponseContent {
 
         /**
          * <p>Result of the operation.</p>
-         * <p>Result of the operation.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

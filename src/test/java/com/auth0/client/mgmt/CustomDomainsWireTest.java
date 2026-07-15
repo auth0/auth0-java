@@ -1,7 +1,6 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.CreateCustomDomainRequestContent;
 import com.auth0.client.mgmt.types.CreateCustomDomainResponseContent;
 import com.auth0.client.mgmt.types.CustomDomain;
@@ -55,10 +54,10 @@ public class CustomDomainsWireTest {
                                 "[{\"custom_domain_id\":\"custom_domain_id\",\"domain\":\"domain\",\"primary\":true,\"is_default\":true,\"status\":\"pending_verification\",\"type\":\"auth0_managed_certs\",\"origin_domain_name\":\"origin_domain_name\",\"verification\":{\"methods\":[{\"name\":\"cname\",\"record\":\"record\"}],\"status\":\"verified\",\"error_msg\":\"error_msg\",\"last_verified_at\":\"last_verified_at\"},\"custom_client_ip_header\":\"custom_client_ip_header\",\"tls_policy\":\"tls_policy\",\"domain_metadata\":{\"key\":\"value\"},\"certificate\":{\"status\":\"provisioning\",\"error_msg\":\"error_msg\",\"certificate_authority\":\"letsencrypt\",\"renews_before\":\"renews_before\"},\"relying_party_identifier\":\"relying_party_identifier\"}]"));
         List<CustomDomain> response = client.customDomains()
                 .list(ListCustomDomainsRequestParameters.builder()
-                        .q(OptionalNullable.of("q"))
-                        .fields(OptionalNullable.of("fields"))
-                        .includeFields(OptionalNullable.of(true))
-                        .sort(OptionalNullable.of("sort"))
+                        .q("q")
+                        .fields("fields")
+                        .includeFields(true)
+                        .sort("sort")
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);

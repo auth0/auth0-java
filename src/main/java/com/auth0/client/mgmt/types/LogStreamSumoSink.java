@@ -99,7 +99,6 @@ public final class LogStreamSumoSink {
 
         /**
          * <p>HTTP Source Address</p>
-         * <p>HTTP Source Address</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

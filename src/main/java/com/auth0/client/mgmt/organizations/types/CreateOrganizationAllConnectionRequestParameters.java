@@ -244,7 +244,6 @@ public final class CreateOrganizationAllConnectionRequestParameters {
 
         /**
          * <p>Connection identifier.</p>
-         * <p>Connection identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

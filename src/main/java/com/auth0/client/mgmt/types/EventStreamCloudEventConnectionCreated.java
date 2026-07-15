@@ -118,7 +118,6 @@ public final class EventStreamCloudEventConnectionCreated {
 
         /**
          * <p>Opaque cursor representing position in the stream. Pass as the <code>from</code> query parameter to resume.</p>
-         * <p>Opaque cursor representing position in the stream. Pass as the <code>from</code> query parameter to resume.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
