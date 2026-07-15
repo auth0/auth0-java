@@ -143,7 +143,7 @@ ManagementApi client = ManagementApi
 ```
 
 **Note**: The Authentication API remains supported, with deprecated APIs removed.
-A complete migration guide is available at [MIGRATION_GUIDE](MIGRATION_GUIDE.md).
+A complete migration guide is available at [MIGRATION_GUIDE](v3_MIGRATION_GUIDE).
 
 ## [3.0.0-beta.0](https://github.com/auth0/auth0-java/tree/3.0.0-beta.0) (2025-12-18)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/2.27.0...3.0.0-beta.0)
@@ -157,7 +157,7 @@ A complete migration guide is available at [MIGRATION_GUIDE](MIGRATION_GUIDE.md)
 - Nullability annotations to POJO classes
 - Fully compatible **Authentication API client** — no breaking changes
 
-- [Migration guide](MIGRATION_GUIDE) available for upgrading from v2.x
+- [Migration guide](v3_MIGRATION_GUIDE) available for upgrading from v2.x
 
 
 ## [2.27.0](https://github.com/auth0/auth0-java/tree/2.27.0) (2025-12-18)
