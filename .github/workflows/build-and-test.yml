@@ -6,6 +6,9 @@ on:
   push:
     branches: ["master", "main", "v3"]
 
+
+permissions:
+  contents: read
 jobs:
   gradle:
     runs-on:  ubuntu-latest
