@@ -1065,8 +1065,8 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateGetTokenForConnectionRequestWithCustomSubjectTokenType() throws Exception {
-        TokenRequest request = api.getTokenForConnection(
-                "google-oauth2", "test-token", "urn:example:token-type:custom", null);
+        TokenRequest request =
+                api.getTokenForConnection("google-oauth2", "test-token", "urn:example:token-type:custom", null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -1144,8 +1144,7 @@ public class AuthAPITest {
 
     @Test
     public void shouldCreateGetTokenForConnectionWithRefreshTokenRequest() throws Exception {
-        TokenRequest request =
-                api.getTokenForConnectionWithRefreshToken("google-oauth2", "test-refresh-token", null);
+        TokenRequest request = api.getTokenForConnectionWithRefreshToken("google-oauth2", "test-refresh-token", null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);

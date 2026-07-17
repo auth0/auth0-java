@@ -965,8 +965,7 @@ public class AuthAPI {
      *                  May be null, in which case no {@code login_hint} is sent.
      * @return a Request to configure and execute.
      */
-    public TokenRequest getTokenForConnectionWithAccessToken(
-            String connection, String accessToken, String loginHint) {
+    public TokenRequest getTokenForConnectionWithAccessToken(String connection, String accessToken, String loginHint) {
         Asserts.assertNotNull(accessToken, "access token");
         return getTokenForConnection(
                 connection, accessToken, "urn:ietf:params:oauth:token-type:access_token", loginHint);
