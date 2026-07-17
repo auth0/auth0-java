@@ -5,6 +5,7 @@
 - [Management API usage](#management-api-usage)
 - [Verifying an ID token](#verifying-an-id-token)
 - [Organizations](#organizations)
+- [Token Vault](#token-vault)
 - [Logging](#logging)
 - [Asynchronous operations](#asynchronous-operations)
 
@@ -323,6 +324,57 @@ String url = auth.authorizeUrl("https://me.auth0.com/callback")
     .withOrganization("{YOUR_ORGANIZATION_ID}")
     .withInvitation("{YOUR_INVITATION_ID}")
     .build();
+```
+
+## Token Vault
+
+[Token Vault](https://auth0.com/docs/secure/tokens/token-vault) lets you exchange an Auth0 token for a federated identity provider's access token, so your application can call the provider's APIs on the user's behalf. The connection must have Token Vault enabled, and because this exchange requires a private client, the `AuthAPI` instance must be configured with a client secret or client assertion.
+
+### Exchange a refresh token
+
+Use `getTokenForConnectionWithRefreshToken()` to exchange an Auth0 refresh token for the federated provider's access token:
+
+```java
+AuthAPI auth = AuthAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}").build();
+TokenHolder result = auth.getTokenForConnectionWithRefreshToken("google-oauth2", "{REFRESH_TOKEN}", null)
+    .execute()
+    .getBody();
+String federatedAccessToken = result.getAccessToken();
+```
+
+### Exchange an access token
+
+Use `getTokenForConnectionWithAccessToken()` to exchange an Auth0 access token instead:
+
+```java
+TokenHolder result = auth.getTokenForConnectionWithAccessToken("google-oauth2", "{ACCESS_TOKEN}", null)
+    .execute()
+    .getBody();
+String federatedAccessToken = result.getAccessToken();
+```
+
+### Specifying a login hint
+
+When a user has multiple accounts on the same connection, pass their ID within the identity provider as the `loginHint` (the final argument). Pass `null` to omit it:
+
+```java
+TokenHolder result = auth.getTokenForConnectionWithRefreshToken("google-oauth2", "{REFRESH_TOKEN}", "{GOOGLE_USER_ID}")
+    .execute()
+    .getBody();
+```
+
+### Exchanging other token types
+
+For full control over the subject token type, use the generic `getTokenForConnection()` and supply the `subject_token_type` URN yourself:
+
+```java
+TokenHolder result = auth.getTokenForConnection(
+        "google-oauth2",
+        "{SUBJECT_TOKEN}",
+        "urn:ietf:params:oauth:token-type:refresh_token",
+        "{GOOGLE_USER_ID}")
+    .execute()
+    .getBody();
 ```
 
 ## Logging

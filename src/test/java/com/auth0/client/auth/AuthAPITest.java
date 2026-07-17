@@ -1041,21 +1041,111 @@ public class AuthAPITest {
     public void shouldThrowOnGetTokenForConnectionWithNullConnection() {
         verifyThrows(
                 IllegalArgumentException.class,
-                () -> api.getTokenForConnection(null, "test-refresh-token", null),
+                () -> api.getTokenForConnection(
+                        null, "test-token", "urn:ietf:params:oauth:token-type:refresh_token", null),
                 "'connection' cannot be null!");
     }
 
     @Test
-    public void shouldThrowOnGetTokenForConnectionWithNullRefreshToken() {
+    public void shouldThrowOnGetTokenForConnectionWithNullSubjectToken() {
         verifyThrows(
                 IllegalArgumentException.class,
-                () -> api.getTokenForConnection("google-oauth2", null, null),
+                () -> api.getTokenForConnection(
+                        "google-oauth2", null, "urn:ietf:params:oauth:token-type:refresh_token", null),
+                "'subject token' cannot be null!");
+    }
+
+    @Test
+    public void shouldThrowOnGetTokenForConnectionWithNullSubjectTokenType() {
+        verifyThrows(
+                IllegalArgumentException.class,
+                () -> api.getTokenForConnection("google-oauth2", "test-token", null, null),
+                "'subject token type' cannot be null!");
+    }
+
+    @Test
+    public void shouldCreateGetTokenForConnectionRequestWithCustomSubjectTokenType() throws Exception {
+        TokenRequest request = api.getTokenForConnection(
+                "google-oauth2", "test-token", "urn:example:token-type:custom", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(
+                body,
+                hasEntry(
+                        "grant_type",
+                        "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("subject_token", "test-token"));
+        assertThat(body, hasEntry("subject_token_type", "urn:example:token-type:custom"));
+        assertThat(
+                body,
+                hasEntry(
+                        "requested_token_type", "http://auth0.com/oauth/token-type/federated-connection-access-token"));
+        assertThat(body, hasEntry("connection", "google-oauth2"));
+        assertThat(body, not(hasKey("login_hint")));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+    }
+
+    @Test
+    public void shouldCreateGetTokenForConnectionRequestWithLoginHint() throws Exception {
+        TokenRequest request = api.getTokenForConnection(
+                "google-oauth2", "test-token", "urn:example:token-type:custom", "google-user-id");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("subject_token", "test-token"));
+        assertThat(body, hasEntry("subject_token_type", "urn:example:token-type:custom"));
+        assertThat(body, hasEntry("connection", "google-oauth2"));
+        assertThat(body, hasEntry("login_hint", "google-user-id"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+    }
+
+    @Test
+    public void getTokenForConnectionRequiresClientAuthentication() {
+        verifyThrows(
+                IllegalStateException.class,
+                () -> apiNoClientAuthentication.getTokenForConnection(
+                        "google-oauth2", "test-token", "urn:ietf:params:oauth:token-type:refresh_token", null),
+                "A client secret or client assertion signing key is required for this operation");
+    }
+
+    @Test
+    public void shouldThrowOnGetTokenForConnectionWithRefreshTokenWithNullConnection() {
+        verifyThrows(
+                IllegalArgumentException.class,
+                () -> api.getTokenForConnectionWithRefreshToken(null, "test-refresh-token", null),
+                "'connection' cannot be null!");
+    }
+
+    @Test
+    public void shouldThrowOnGetTokenForConnectionWithRefreshTokenWithNullRefreshToken() {
+        verifyThrows(
+                IllegalArgumentException.class,
+                () -> api.getTokenForConnectionWithRefreshToken("google-oauth2", null, null),
                 "'refresh token' cannot be null!");
     }
 
     @Test
-    public void shouldCreateGetTokenForConnectionRequest() throws Exception {
-        TokenRequest request = api.getTokenForConnection("google-oauth2", "test-refresh-token", null);
+    public void shouldCreateGetTokenForConnectionWithRefreshTokenRequest() throws Exception {
+        TokenRequest request =
+                api.getTokenForConnectionWithRefreshToken("google-oauth2", "test-refresh-token", null);
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -1087,8 +1177,9 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldCreateGetTokenForConnectionRequestWithLoginHint() throws Exception {
-        TokenRequest request = api.getTokenForConnection("google-oauth2", "test-refresh-token", "google-user-id");
+    public void shouldCreateGetTokenForConnectionWithRefreshTokenRequestWithLoginHint() throws Exception {
+        TokenRequest request =
+                api.getTokenForConnectionWithRefreshToken("google-oauth2", "test-refresh-token", "google-user-id");
         assertThat(request, is(notNullValue()));
 
         server.jsonResponse(AUTH_TOKENS, 200);
@@ -1104,10 +1195,107 @@ public class AuthAPITest {
     }
 
     @Test
-    public void getTokenForConnectionRequiresClientAuthentication() {
+    public void getTokenForConnectionWithRefreshTokenRequiresClientAuthentication() {
         verifyThrows(
                 IllegalStateException.class,
-                () -> apiNoClientAuthentication.getTokenForConnection("google-oauth2", "test-refresh-token", null),
+                () -> apiNoClientAuthentication.getTokenForConnectionWithRefreshToken(
+                        "google-oauth2", "test-refresh-token", null),
+                "A client secret or client assertion signing key is required for this operation");
+    }
+
+    @Test
+    @SuppressWarnings("deprecation")
+    public void deprecatedGetTokenForConnectionExchangesRefreshToken() throws Exception {
+        TokenRequest request = api.getTokenForConnection("google-oauth2", "test-refresh-token", "google-user-id");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("subject_token", "test-refresh-token"));
+        assertThat(body, hasEntry("subject_token_type", "urn:ietf:params:oauth:token-type:refresh_token"));
+        assertThat(body, hasEntry("connection", "google-oauth2"));
+        assertThat(body, hasEntry("login_hint", "google-user-id"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+    }
+
+    @Test
+    public void shouldThrowOnGetTokenForConnectionWithAccessTokenWithNullConnection() {
+        verifyThrows(
+                IllegalArgumentException.class,
+                () -> api.getTokenForConnectionWithAccessToken(null, "test-access-token", null),
+                "'connection' cannot be null!");
+    }
+
+    @Test
+    public void shouldThrowOnGetTokenForConnectionWithAccessTokenWithNullAccessToken() {
+        verifyThrows(
+                IllegalArgumentException.class,
+                () -> api.getTokenForConnectionWithAccessToken("google-oauth2", null, null),
+                "'access token' cannot be null!");
+    }
+
+    @Test
+    public void shouldCreateGetTokenForConnectionWithAccessTokenRequest() throws Exception {
+        TokenRequest request = api.getTokenForConnectionWithAccessToken("google-oauth2", "test-access-token", null);
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        assertThat(recordedRequest, hasMethodAndPath(HttpMethod.POST, "/oauth/token"));
+        assertThat(recordedRequest, hasHeader("Content-Type", "application/json"));
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(
+                body,
+                hasEntry(
+                        "grant_type",
+                        "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token"));
+        assertThat(body, hasEntry("client_id", CLIENT_ID));
+        assertThat(body, hasEntry("client_secret", CLIENT_SECRET));
+        assertThat(body, hasEntry("subject_token", "test-access-token"));
+        assertThat(body, hasEntry("subject_token_type", "urn:ietf:params:oauth:token-type:access_token"));
+        assertThat(
+                body,
+                hasEntry(
+                        "requested_token_type", "http://auth0.com/oauth/token-type/federated-connection-access-token"));
+        assertThat(body, hasEntry("connection", "google-oauth2"));
+        assertThat(body, not(hasKey("login_hint")));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+    }
+
+    @Test
+    public void shouldCreateGetTokenForConnectionWithAccessTokenRequestWithLoginHint() throws Exception {
+        TokenRequest request =
+                api.getTokenForConnectionWithAccessToken("google-oauth2", "test-access-token", "google-user-id");
+        assertThat(request, is(notNullValue()));
+
+        server.jsonResponse(AUTH_TOKENS, 200);
+        TokenHolder response = request.execute().getBody();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        Map<String, Object> body = bodyFromRequest(recordedRequest);
+        assertThat(body, hasEntry("connection", "google-oauth2"));
+        assertThat(body, hasEntry("login_hint", "google-user-id"));
+
+        assertThat(response, is(notNullValue()));
+        assertThat(response.getAccessToken(), not(emptyOrNullString()));
+    }
+
+    @Test
+    public void getTokenForConnectionWithAccessTokenRequiresClientAuthentication() {
+        verifyThrows(
+                IllegalStateException.class,
+                () -> apiNoClientAuthentication.getTokenForConnectionWithAccessToken(
+                        "google-oauth2", "test-access-token", null),
                 "A client secret or client assertion signing key is required for this operation");
     }
 
