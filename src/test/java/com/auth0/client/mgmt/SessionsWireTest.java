@@ -40,7 +40,7 @@ public class SessionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"user_id\":\"user_id\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"authenticated_at\":\"2024-01-15T09:30:00Z\",\"idle_expires_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\",\"last_interacted_at\":\"2024-01-15T09:30:00Z\",\"device\":{\"initial_user_agent\":\"initial_user_agent\",\"initial_ip\":\"initial_ip\",\"initial_asn\":\"initial_asn\",\"last_user_agent\":\"last_user_agent\",\"last_ip\":\"last_ip\",\"last_asn\":\"last_asn\"},\"clients\":[{\"client_id\":\"client_id\"}],\"authentication\":{\"methods\":[{}]},\"cookie\":{\"mode\":\"non-persistent\"},\"session_metadata\":{\"key\":\"value\"}}"));
+                                "{\"id\":\"id\",\"user_id\":\"user_id\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"authenticated_at\":\"2024-01-15T09:30:00Z\",\"idle_expires_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\",\"last_interacted_at\":\"2024-01-15T09:30:00Z\",\"device\":{\"initial_user_agent\":\"initial_user_agent\",\"initial_ip\":\"initial_ip\",\"initial_asn\":\"initial_asn\",\"last_user_agent\":\"last_user_agent\",\"last_ip\":\"last_ip\",\"last_asn\":\"last_asn\"},\"clients\":[{\"client_id\":\"client_id\"}],\"authentication\":{\"methods\":[{}]},\"cookie\":{\"mode\":\"non-persistent\"},\"session_metadata\":{\"key\":\"value\"},\"actor\":{\"sub\":\"sub\"}}"));
         GetSessionResponseContent response = client.sessions().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -82,6 +82,9 @@ public class SessionsWireTest {
                 + "  },\n"
                 + "  \"session_metadata\": {\n"
                 + "    \"key\": \"value\"\n"
+                + "  },\n"
+                + "  \"actor\": {\n"
+                + "    \"sub\": \"sub\"\n"
                 + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
@@ -130,7 +133,7 @@ public class SessionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"user_id\":\"user_id\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"authenticated_at\":\"2024-01-15T09:30:00Z\",\"idle_expires_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\",\"last_interacted_at\":\"2024-01-15T09:30:00Z\",\"device\":{\"initial_user_agent\":\"initial_user_agent\",\"initial_ip\":\"initial_ip\",\"initial_asn\":\"initial_asn\",\"last_user_agent\":\"last_user_agent\",\"last_ip\":\"last_ip\",\"last_asn\":\"last_asn\"},\"clients\":[{\"client_id\":\"client_id\"}],\"authentication\":{\"methods\":[{}]},\"cookie\":{\"mode\":\"non-persistent\"},\"session_metadata\":{\"key\":\"value\"}}"));
+                                "{\"id\":\"id\",\"user_id\":\"user_id\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"authenticated_at\":\"2024-01-15T09:30:00Z\",\"idle_expires_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\",\"last_interacted_at\":\"2024-01-15T09:30:00Z\",\"device\":{\"initial_user_agent\":\"initial_user_agent\",\"initial_ip\":\"initial_ip\",\"initial_asn\":\"initial_asn\",\"last_user_agent\":\"last_user_agent\",\"last_ip\":\"last_ip\",\"last_asn\":\"last_asn\"},\"clients\":[{\"client_id\":\"client_id\"}],\"authentication\":{\"methods\":[{}]},\"cookie\":{\"mode\":\"non-persistent\"},\"session_metadata\":{\"key\":\"value\"},\"actor\":{\"sub\":\"sub\"}}"));
         UpdateSessionResponseContent response = client.sessions()
                 .update("id", UpdateSessionRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -202,6 +205,9 @@ public class SessionsWireTest {
                 + "  },\n"
                 + "  \"session_metadata\": {\n"
                 + "    \"key\": \"value\"\n"
+                + "  },\n"
+                + "  \"actor\": {\n"
+                + "    \"sub\": \"sub\"\n"
                 + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);

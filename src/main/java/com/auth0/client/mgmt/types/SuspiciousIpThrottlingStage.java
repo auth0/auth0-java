@@ -24,14 +24,18 @@ public final class SuspiciousIpThrottlingStage {
 
     private final Optional<SuspiciousIpThrottlingPreUserRegistrationStage> preUserRegistration;
 
+    private final Optional<SuspiciousIpThrottlingPreCustomTokenExchangeStage> preCustomTokenExchange;
+
     private final Map<String, Object> additionalProperties;
 
     private SuspiciousIpThrottlingStage(
             Optional<SuspiciousIpThrottlingPreLoginStage> preLogin,
             Optional<SuspiciousIpThrottlingPreUserRegistrationStage> preUserRegistration,
+            Optional<SuspiciousIpThrottlingPreCustomTokenExchangeStage> preCustomTokenExchange,
             Map<String, Object> additionalProperties) {
         this.preLogin = preLogin;
         this.preUserRegistration = preUserRegistration;
+        this.preCustomTokenExchange = preCustomTokenExchange;
         this.additionalProperties = additionalProperties;
     }
 
@@ -43,6 +47,11 @@ public final class SuspiciousIpThrottlingStage {
     @JsonProperty("pre-user-registration")
     public Optional<SuspiciousIpThrottlingPreUserRegistrationStage> getPreUserRegistration() {
         return preUserRegistration;
+    }
+
+    @JsonProperty("pre-custom-token-exchange")
+    public Optional<SuspiciousIpThrottlingPreCustomTokenExchangeStage> getPreCustomTokenExchange() {
+        return preCustomTokenExchange;
     }
 
     @java.lang.Override
@@ -57,12 +66,14 @@ public final class SuspiciousIpThrottlingStage {
     }
 
     private boolean equalTo(SuspiciousIpThrottlingStage other) {
-        return preLogin.equals(other.preLogin) && preUserRegistration.equals(other.preUserRegistration);
+        return preLogin.equals(other.preLogin)
+                && preUserRegistration.equals(other.preUserRegistration)
+                && preCustomTokenExchange.equals(other.preCustomTokenExchange);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.preLogin, this.preUserRegistration);
+        return Objects.hash(this.preLogin, this.preUserRegistration, this.preCustomTokenExchange);
     }
 
     @java.lang.Override
@@ -80,6 +91,8 @@ public final class SuspiciousIpThrottlingStage {
 
         private Optional<SuspiciousIpThrottlingPreUserRegistrationStage> preUserRegistration = Optional.empty();
 
+        private Optional<SuspiciousIpThrottlingPreCustomTokenExchangeStage> preCustomTokenExchange = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -88,6 +101,7 @@ public final class SuspiciousIpThrottlingStage {
         public Builder from(SuspiciousIpThrottlingStage other) {
             preLogin(other.getPreLogin());
             preUserRegistration(other.getPreUserRegistration());
+            preCustomTokenExchange(other.getPreCustomTokenExchange());
             return this;
         }
 
@@ -114,8 +128,22 @@ public final class SuspiciousIpThrottlingStage {
             return this;
         }
 
+        @JsonSetter(value = "pre-custom-token-exchange", nulls = Nulls.SKIP)
+        public Builder preCustomTokenExchange(
+                Optional<SuspiciousIpThrottlingPreCustomTokenExchangeStage> preCustomTokenExchange) {
+            this.preCustomTokenExchange = preCustomTokenExchange;
+            return this;
+        }
+
+        public Builder preCustomTokenExchange(
+                SuspiciousIpThrottlingPreCustomTokenExchangeStage preCustomTokenExchange) {
+            this.preCustomTokenExchange = Optional.ofNullable(preCustomTokenExchange);
+            return this;
+        }
+
         public SuspiciousIpThrottlingStage build() {
-            return new SuspiciousIpThrottlingStage(preLogin, preUserRegistration, additionalProperties);
+            return new SuspiciousIpThrottlingStage(
+                    preLogin, preUserRegistration, preCustomTokenExchange, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

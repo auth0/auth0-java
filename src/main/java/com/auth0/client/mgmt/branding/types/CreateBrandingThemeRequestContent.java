@@ -7,6 +7,7 @@ import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.types.BrandingThemeBorders;
 import com.auth0.client.mgmt.types.BrandingThemeColors;
 import com.auth0.client.mgmt.types.BrandingThemeFonts;
+import com.auth0.client.mgmt.types.BrandingThemeIdentifiers;
 import com.auth0.client.mgmt.types.BrandingThemePageBackground;
 import com.auth0.client.mgmt.types.BrandingThemeWidget;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -34,6 +35,8 @@ public final class CreateBrandingThemeRequestContent {
 
     private final BrandingThemeFonts fonts;
 
+    private final Optional<BrandingThemeIdentifiers> identifiers;
+
     private final BrandingThemePageBackground pageBackground;
 
     private final BrandingThemeWidget widget;
@@ -45,6 +48,7 @@ public final class CreateBrandingThemeRequestContent {
             BrandingThemeColors colors,
             Optional<String> displayName,
             BrandingThemeFonts fonts,
+            Optional<BrandingThemeIdentifiers> identifiers,
             BrandingThemePageBackground pageBackground,
             BrandingThemeWidget widget,
             Map<String, Object> additionalProperties) {
@@ -52,6 +56,7 @@ public final class CreateBrandingThemeRequestContent {
         this.colors = colors;
         this.displayName = displayName;
         this.fonts = fonts;
+        this.identifiers = identifiers;
         this.pageBackground = pageBackground;
         this.widget = widget;
         this.additionalProperties = additionalProperties;
@@ -80,6 +85,11 @@ public final class CreateBrandingThemeRequestContent {
         return fonts;
     }
 
+    @JsonProperty("identifiers")
+    public Optional<BrandingThemeIdentifiers> getIdentifiers() {
+        return identifiers;
+    }
+
     @JsonProperty("page_background")
     public BrandingThemePageBackground getPageBackground() {
         return pageBackground;
@@ -106,13 +116,21 @@ public final class CreateBrandingThemeRequestContent {
                 && colors.equals(other.colors)
                 && displayName.equals(other.displayName)
                 && fonts.equals(other.fonts)
+                && identifiers.equals(other.identifiers)
                 && pageBackground.equals(other.pageBackground)
                 && widget.equals(other.widget);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.borders, this.colors, this.displayName, this.fonts, this.pageBackground, this.widget);
+        return Objects.hash(
+                this.borders,
+                this.colors,
+                this.displayName,
+                this.fonts,
+                this.identifiers,
+                this.pageBackground,
+                this.widget);
     }
 
     @java.lang.Override
@@ -159,6 +177,10 @@ public final class CreateBrandingThemeRequestContent {
         _FinalStage displayName(Optional<String> displayName);
 
         _FinalStage displayName(String displayName);
+
+        _FinalStage identifiers(Optional<BrandingThemeIdentifiers> identifiers);
+
+        _FinalStage identifiers(BrandingThemeIdentifiers identifiers);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -174,6 +196,8 @@ public final class CreateBrandingThemeRequestContent {
 
         private BrandingThemeWidget widget;
 
+        private Optional<BrandingThemeIdentifiers> identifiers = Optional.empty();
+
         private Optional<String> displayName = Optional.empty();
 
         @JsonAnySetter
@@ -187,6 +211,7 @@ public final class CreateBrandingThemeRequestContent {
             colors(other.getColors());
             displayName(other.getDisplayName());
             fonts(other.getFonts());
+            identifiers(other.getIdentifiers());
             pageBackground(other.getPageBackground());
             widget(other.getWidget());
             return this;
@@ -227,6 +252,19 @@ public final class CreateBrandingThemeRequestContent {
             return this;
         }
 
+        @java.lang.Override
+        public _FinalStage identifiers(BrandingThemeIdentifiers identifiers) {
+            this.identifiers = Optional.ofNullable(identifiers);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "identifiers", nulls = Nulls.SKIP)
+        public _FinalStage identifiers(Optional<BrandingThemeIdentifiers> identifiers) {
+            this.identifiers = identifiers;
+            return this;
+        }
+
         /**
          * <p>Display Name</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -250,7 +288,7 @@ public final class CreateBrandingThemeRequestContent {
         @java.lang.Override
         public CreateBrandingThemeRequestContent build() {
             return new CreateBrandingThemeRequestContent(
-                    borders, colors, displayName, fonts, pageBackground, widget, additionalProperties);
+                    borders, colors, displayName, fonts, identifiers, pageBackground, widget, additionalProperties);
         }
 
         @java.lang.Override

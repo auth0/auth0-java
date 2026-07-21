@@ -42,7 +42,7 @@ public class ClientsConnectionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"connections\":[{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"is_domain_connection\":true,\"show_as_button\":true,\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true},\"cross_app_access_requesting_app\":{\"active\":true}}],\"next\":\"next\"}"));
+                                "{\"connections\":[{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"is_domain_connection\":true,\"show_as_button\":true,\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true},\"cross_app_access_requesting_app\":{\"active\":true},\"cross_app_access_resource_app\":{\"status\":\"enabled\"}}],\"next\":\"next\"}"));
         SyncPagingIterable<ConnectionForList> response = client.clients()
                 .connections()
                 .get(

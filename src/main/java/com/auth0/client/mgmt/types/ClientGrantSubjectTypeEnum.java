@@ -9,6 +9,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class ClientGrantSubjectTypeEnum {
     public static final ClientGrantSubjectTypeEnum USER = new ClientGrantSubjectTypeEnum(Value.USER, "user");
 
+    public static final ClientGrantSubjectTypeEnum ANONYMOUS_USER =
+            new ClientGrantSubjectTypeEnum(Value.ANONYMOUS_USER, "anonymous_user");
+
     public static final ClientGrantSubjectTypeEnum CLIENT = new ClientGrantSubjectTypeEnum(Value.CLIENT, "client");
 
     private final Value value;
@@ -46,6 +49,8 @@ public final class ClientGrantSubjectTypeEnum {
         switch (value) {
             case USER:
                 return visitor.visitUser();
+            case ANONYMOUS_USER:
+                return visitor.visitAnonymousUser();
             case CLIENT:
                 return visitor.visitClient();
             case UNKNOWN:
@@ -59,6 +64,8 @@ public final class ClientGrantSubjectTypeEnum {
         switch (value) {
             case "user":
                 return USER;
+            case "anonymous_user":
+                return ANONYMOUS_USER;
             case "client":
                 return CLIENT;
             default:
@@ -71,6 +78,8 @@ public final class ClientGrantSubjectTypeEnum {
 
         USER,
 
+        ANONYMOUS_USER,
+
         UNKNOWN
     }
 
@@ -78,6 +87,8 @@ public final class ClientGrantSubjectTypeEnum {
         T visitClient();
 
         T visitUser();
+
+        T visitAnonymousUser();
 
         T visitUnknown(String unknownType);
     }
