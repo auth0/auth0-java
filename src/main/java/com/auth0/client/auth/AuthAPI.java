@@ -843,15 +843,74 @@ public class AuthAPI {
     }
 
     /**
-     * Creates a request to exchange an Auth0 refresh token for a federated identity provider's access token
+     * Creates a request to exchange a subject token for a federated identity provider's access token
      * using the Token Vault grant
      * {@code urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token}.
+     * This is the generic entry point: the caller supplies both the {@code subjectToken} and its
+     * {@code subjectTokenType}, so no assumption is made about which kind of token is being exchanged.
+     * For the common cases, prefer {@link #getTokenForConnectionWithRefreshToken(String, String, String)}
+     * or {@link #getTokenForConnectionWithAccessToken(String, String, String)}.
      * The connection must have the token vault enabled, and client authentication
      * (client secret or client assertion) is required as this must be a private client.
      * <pre>
      * {@code
      * try {
-     *      TokenHolder result = authAPI.getTokenForConnection("google-oauth2", refreshToken, "google-user-id")
+     *      TokenHolder result = authAPI.getTokenForConnection(
+     *              "google-oauth2", subjectToken, "urn:ietf:params:oauth:token-type:refresh_token", "google-user-id")
+     *          .execute()
+     *          .getBody();
+     *      String federatedAccessToken = result.getAccessToken();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @see <a href="https://auth0.com/docs/secure/tokens/token-vault">Token Vault documentation</a>
+     * @param connection the name of the federated connection to obtain an access token for
+     *                   (for example {@code google-oauth2}). Must not be null.
+     * @param subjectToken the Auth0 token to exchange. Must not be null.
+     * @param subjectTokenType the identifier for the type of {@code subjectToken}, for example
+     *                         {@code urn:ietf:params:oauth:token-type:refresh_token} or
+     *                         {@code urn:ietf:params:oauth:token-type:access_token}. Must not be null.
+     * @param loginHint the user's ID within the identity provider specified by the connection
+     *                  (for example, the Google user ID when the connection is {@code google-oauth2}).
+     *                  May be null, in which case no {@code login_hint} is sent.
+     * @return a Request to configure and execute.
+     */
+    public TokenRequest getTokenForConnection(
+            String connection, String subjectToken, String subjectTokenType, String loginHint) {
+        Asserts.assertNotNull(connection, "connection");
+        Asserts.assertNotNull(subjectToken, "subject token");
+        Asserts.assertNotNull(subjectTokenType, "subject token type");
+
+        TokenRequest request = new TokenRequest(client, getTokenUrl());
+        request.addParameter(KEY_CLIENT_ID, clientId);
+        request.addParameter(
+                KEY_GRANT_TYPE, "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token");
+        request.addParameter(KEY_SUBJECT_TOKEN, subjectToken);
+        request.addParameter(KEY_SUBJECT_TOKEN_TYPE, subjectTokenType);
+        request.addParameter(
+                KEY_REQUESTED_TOKEN_TYPE, "http://auth0.com/oauth/token-type/federated-connection-access-token");
+        request.addParameter(KEY_CONNECTION, connection);
+        if (loginHint != null) {
+            request.addParameter(KEY_LOGIN_HINT, loginHint);
+        }
+        addClientAuthentication(request, true);
+        return request;
+    }
+
+    /**
+     * Convenience method to exchange an Auth0 refresh token for a federated identity provider's access token
+     * using the Token Vault grant. Delegates to
+     * {@link #getTokenForConnection(String, String, String, String)} with the subject token type
+     * {@code urn:ietf:params:oauth:token-type:refresh_token}.
+     * The connection must have the token vault enabled, and client authentication
+     * (client secret or client assertion) is required as this must be a private client.
+     * <pre>
+     * {@code
+     * try {
+     *      TokenHolder result = authAPI.getTokenForConnectionWithRefreshToken("google-oauth2", refreshToken, "google-user-id")
      *          .execute()
      *          .getBody();
      *      String federatedAccessToken = result.getAccessToken();
@@ -870,24 +929,66 @@ public class AuthAPI {
      *                  May be null, in which case no {@code login_hint} is sent.
      * @return a Request to configure and execute.
      */
-    public TokenRequest getTokenForConnection(String connection, String refreshToken, String loginHint) {
-        Asserts.assertNotNull(connection, "connection");
+    public TokenRequest getTokenForConnectionWithRefreshToken(
+            String connection, String refreshToken, String loginHint) {
         Asserts.assertNotNull(refreshToken, "refresh token");
+        return getTokenForConnection(
+                connection, refreshToken, "urn:ietf:params:oauth:token-type:refresh_token", loginHint);
+    }
 
-        TokenRequest request = new TokenRequest(client, getTokenUrl());
-        request.addParameter(KEY_CLIENT_ID, clientId);
-        request.addParameter(
-                KEY_GRANT_TYPE, "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token");
-        request.addParameter(KEY_SUBJECT_TOKEN, refreshToken);
-        request.addParameter(KEY_SUBJECT_TOKEN_TYPE, "urn:ietf:params:oauth:token-type:refresh_token");
-        request.addParameter(
-                KEY_REQUESTED_TOKEN_TYPE, "http://auth0.com/oauth/token-type/federated-connection-access-token");
-        request.addParameter(KEY_CONNECTION, connection);
-        if (loginHint != null) {
-            request.addParameter(KEY_LOGIN_HINT, loginHint);
-        }
-        addClientAuthentication(request, true);
-        return request;
+    /**
+     * Convenience method to exchange an Auth0 access token for a federated identity provider's access token
+     * using the Token Vault grant. Delegates to
+     * {@link #getTokenForConnection(String, String, String, String)} with the subject token type
+     * {@code urn:ietf:params:oauth:token-type:access_token}.
+     * The connection must have the token vault enabled, and client authentication
+     * (client secret or client assertion) is required as this must be a private client.
+     * <pre>
+     * {@code
+     * try {
+     *      TokenHolder result = authAPI.getTokenForConnectionWithAccessToken("google-oauth2", accessToken, "google-user-id")
+     *          .execute()
+     *          .getBody();
+     *      String federatedAccessToken = result.getAccessToken();
+     * } catch (Auth0Exception e) {
+     *      //Something happened
+     * }
+     * }
+     * </pre>
+     *
+     * @see <a href="https://auth0.com/docs/secure/tokens/token-vault">Token Vault documentation</a>
+     * @param connection the name of the federated connection to obtain an access token for
+     *                   (for example {@code google-oauth2}). Must not be null.
+     * @param accessToken a valid Auth0 access token to exchange. Must not be null.
+     * @param loginHint the user's ID within the identity provider specified by the connection
+     *                  (for example, the Google user ID when the connection is {@code google-oauth2}).
+     *                  May be null, in which case no {@code login_hint} is sent.
+     * @return a Request to configure and execute.
+     */
+    public TokenRequest getTokenForConnectionWithAccessToken(String connection, String accessToken, String loginHint) {
+        Asserts.assertNotNull(accessToken, "access token");
+        return getTokenForConnection(
+                connection, accessToken, "urn:ietf:params:oauth:token-type:access_token", loginHint);
+    }
+
+    /**
+     * Creates a request to exchange an Auth0 refresh token for a federated identity provider's access token
+     * using the Token Vault grant.
+     *
+     * @deprecated Use {@link #getTokenForConnectionWithRefreshToken(String, String, String)} to exchange a
+     *             refresh token, or {@link #getTokenForConnectionWithAccessToken(String, String, String)} to
+     *             exchange an access token. For full control over the subject token type, use
+     *             {@link #getTokenForConnection(String, String, String, String)}.
+     * @param connection the name of the federated connection to obtain an access token for
+     *                   (for example {@code google-oauth2}). Must not be null.
+     * @param refreshToken a valid Auth0 refresh token to exchange. Must not be null.
+     * @param loginHint the user's ID within the identity provider specified by the connection.
+     *                  May be null, in which case no {@code login_hint} is sent.
+     * @return a Request to configure and execute.
+     */
+    @Deprecated
+    public TokenRequest getTokenForConnection(String connection, String refreshToken, String loginHint) {
+        return getTokenForConnectionWithRefreshToken(connection, refreshToken, loginHint);
     }
 
     /**
