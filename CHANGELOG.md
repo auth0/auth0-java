@@ -1,5 +1,12 @@
 # Change Log
 
+## [4.1.0](https://github.com/auth0/auth0-java/tree/4.1.0) (2026-07-22)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/4.0.0...4.1.0)
+
+**Added**
+- feat: Branding Theme Identifiers, Self-Service Third-Party Client Access, Cross-App Access & Session Actor support [\#906](https://github.com/auth0/auth0-java/pull/906) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: add access token exchange and generic subject token type to Tok… [\#904](https://github.com/auth0/auth0-java/pull/904) ([kailash-b](https://github.com/kailash-b))
+
 ## [4.0.0](https://github.com/auth0/auth0-java/tree/4.0.0) (2026-07-15)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/3.10.0...4.0.0)
 
