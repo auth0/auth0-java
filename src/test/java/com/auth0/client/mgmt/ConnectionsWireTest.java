@@ -49,7 +49,7 @@ public class ConnectionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"next\":\"next\",\"connections\":[{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"is_domain_connection\":true,\"show_as_button\":true,\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true},\"cross_app_access_requesting_app\":{\"active\":true}}]}"));
+                                "{\"next\":\"next\",\"connections\":[{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"is_domain_connection\":true,\"show_as_button\":true,\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true},\"cross_app_access_requesting_app\":{\"active\":true},\"cross_app_access_resource_app\":{\"status\":\"enabled\"}}]}"));
         SyncPagingIterable<ConnectionForList> response = client.connections()
                 .list(ListConnectionsQueryParameters.builder()
                         .from("from")
@@ -75,7 +75,7 @@ public class ConnectionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"enabled_clients\":[\"enabled_clients\"],\"is_domain_connection\":true,\"show_as_button\":true,\"metadata\":{\"key\":\"value\"},\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true,\"cross_app_access\":true},\"cross_app_access_requesting_app\":{\"active\":true}}"));
+                                "{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"enabled_clients\":[\"enabled_clients\"],\"is_domain_connection\":true,\"show_as_button\":true,\"metadata\":{\"key\":\"value\"},\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true,\"cross_app_access\":true},\"cross_app_access_requesting_app\":{\"active\":true},\"cross_app_access_resource_app\":{\"status\":\"enabled\"}}"));
         CreateConnectionResponseContent response = client.connections()
                 .create(CreateConnectionRequestContent.builder()
                         .name("name")
@@ -146,6 +146,9 @@ public class ConnectionsWireTest {
                 + "  },\n"
                 + "  \"cross_app_access_requesting_app\": {\n"
                 + "    \"active\": true\n"
+                + "  },\n"
+                + "  \"cross_app_access_resource_app\": {\n"
+                + "    \"status\": \"enabled\"\n"
                 + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
@@ -185,7 +188,7 @@ public class ConnectionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"enabled_clients\":[\"enabled_clients\"],\"is_domain_connection\":true,\"show_as_button\":true,\"metadata\":{\"key\":\"value\"},\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true,\"cross_app_access\":true},\"cross_app_access_requesting_app\":{\"active\":true}}"));
+                                "{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"enabled_clients\":[\"enabled_clients\"],\"is_domain_connection\":true,\"show_as_button\":true,\"metadata\":{\"key\":\"value\"},\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true,\"cross_app_access\":true},\"cross_app_access_requesting_app\":{\"active\":true},\"cross_app_access_resource_app\":{\"status\":\"enabled\"}}"));
         GetConnectionResponseContent response = client.connections()
                 .get(
                         "id",
@@ -229,6 +232,9 @@ public class ConnectionsWireTest {
                 + "  },\n"
                 + "  \"cross_app_access_requesting_app\": {\n"
                 + "    \"active\": true\n"
+                + "  },\n"
+                + "  \"cross_app_access_resource_app\": {\n"
+                + "    \"status\": \"enabled\"\n"
                 + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
@@ -277,7 +283,7 @@ public class ConnectionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"enabled_clients\":[\"enabled_clients\"],\"is_domain_connection\":true,\"show_as_button\":true,\"metadata\":{\"key\":\"value\"},\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true,\"cross_app_access\":true},\"cross_app_access_requesting_app\":{\"active\":true}}"));
+                                "{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"enabled_clients\":[\"enabled_clients\"],\"is_domain_connection\":true,\"show_as_button\":true,\"metadata\":{\"key\":\"value\"},\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true,\"cross_app_access\":true},\"cross_app_access_requesting_app\":{\"active\":true},\"cross_app_access_resource_app\":{\"status\":\"enabled\"}}"));
         UpdateConnectionResponseContent response = client.connections()
                 .update("id", UpdateConnectionRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -345,6 +351,9 @@ public class ConnectionsWireTest {
                 + "  },\n"
                 + "  \"cross_app_access_requesting_app\": {\n"
                 + "    \"active\": true\n"
+                + "  },\n"
+                + "  \"cross_app_access_resource_app\": {\n"
+                + "    \"status\": \"enabled\"\n"
                 + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);

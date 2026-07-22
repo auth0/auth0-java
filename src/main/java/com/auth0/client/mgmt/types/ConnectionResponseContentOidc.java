@@ -3,6 +3,7 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionResponseContentOidc.Builder.class)
@@ -45,6 +47,8 @@ public final class ConnectionResponseContentOidc implements IConnectionResponseC
 
     private final Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp;
 
+    private final OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp;
+
     private final Optional<ConnectionOptionsOidc> options;
 
     private final Optional<Boolean> showAsButton;
@@ -63,6 +67,7 @@ public final class ConnectionResponseContentOidc implements IConnectionResponseC
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurposeXaa> connectedAccounts,
             Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp,
+            OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp,
             Optional<ConnectionOptionsOidc> options,
             Optional<Boolean> showAsButton,
             Map<String, Object> additionalProperties) {
@@ -77,6 +82,7 @@ public final class ConnectionResponseContentOidc implements IConnectionResponseC
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
         this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
+        this.crossAppAccessResourceApp = crossAppAccessResourceApp;
         this.options = options;
         this.showAsButton = showAsButton;
         this.additionalProperties = additionalProperties;
@@ -147,6 +153,15 @@ public final class ConnectionResponseContentOidc implements IConnectionResponseC
         return crossAppAccessRequestingApp;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("cross_app_access_resource_app")
+    public OptionalNullable<ConnectionCrossAppAccessResourceApp> getCrossAppAccessResourceApp() {
+        if (crossAppAccessResourceApp == null) {
+            return OptionalNullable.absent();
+        }
+        return crossAppAccessResourceApp;
+    }
+
     @JsonProperty("options")
     public Optional<ConnectionOptionsOidc> getOptions() {
         return options;
@@ -155,6 +170,12 @@ public final class ConnectionResponseContentOidc implements IConnectionResponseC
     @JsonProperty("show_as_button")
     public Optional<Boolean> getShowAsButton() {
         return showAsButton;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("cross_app_access_resource_app")
+    private OptionalNullable<ConnectionCrossAppAccessResourceApp> _getCrossAppAccessResourceApp() {
+        return crossAppAccessResourceApp;
     }
 
     @java.lang.Override
@@ -180,6 +201,7 @@ public final class ConnectionResponseContentOidc implements IConnectionResponseC
                 && authentication.equals(other.authentication)
                 && connectedAccounts.equals(other.connectedAccounts)
                 && crossAppAccessRequestingApp.equals(other.crossAppAccessRequestingApp)
+                && crossAppAccessResourceApp.equals(other.crossAppAccessResourceApp)
                 && options.equals(other.options)
                 && showAsButton.equals(other.showAsButton);
     }
@@ -198,6 +220,7 @@ public final class ConnectionResponseContentOidc implements IConnectionResponseC
                 this.authentication,
                 this.connectedAccounts,
                 this.crossAppAccessRequestingApp,
+                this.crossAppAccessResourceApp,
                 this.options,
                 this.showAsButton);
     }
@@ -267,6 +290,16 @@ public final class ConnectionResponseContentOidc implements IConnectionResponseC
 
         _FinalStage crossAppAccessRequestingApp(CrossAppAccessRequestingApp crossAppAccessRequestingApp);
 
+        _FinalStage crossAppAccessResourceApp(
+                @Nullable OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp);
+
+        _FinalStage crossAppAccessResourceApp(ConnectionCrossAppAccessResourceApp crossAppAccessResourceApp);
+
+        _FinalStage crossAppAccessResourceApp(Optional<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp);
+
+        _FinalStage crossAppAccessResourceApp(
+                com.auth0.client.mgmt.core.Nullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp);
+
         _FinalStage options(Optional<ConnectionOptionsOidc> options);
 
         _FinalStage options(ConnectionOptionsOidc options);
@@ -287,6 +320,9 @@ public final class ConnectionResponseContentOidc implements IConnectionResponseC
         private Optional<Boolean> showAsButton = Optional.empty();
 
         private Optional<ConnectionOptionsOidc> options = Optional.empty();
+
+        private OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp =
+                OptionalNullable.absent();
 
         private Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp = Optional.empty();
 
@@ -322,6 +358,7 @@ public final class ConnectionResponseContentOidc implements IConnectionResponseC
             authentication(other.getAuthentication());
             connectedAccounts(other.getConnectedAccounts());
             crossAppAccessRequestingApp(other.getCrossAppAccessRequestingApp());
+            crossAppAccessResourceApp(other.getCrossAppAccessResourceApp());
             options(other.getOptions());
             showAsButton(other.getShowAsButton());
             return this;
@@ -371,6 +408,44 @@ public final class ConnectionResponseContentOidc implements IConnectionResponseC
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
         public _FinalStage options(Optional<ConnectionOptionsOidc> options) {
             this.options = options;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage crossAppAccessResourceApp(
+                com.auth0.client.mgmt.core.Nullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            if (crossAppAccessResourceApp.isNull()) {
+                this.crossAppAccessResourceApp = OptionalNullable.ofNull();
+            } else if (crossAppAccessResourceApp.isEmpty()) {
+                this.crossAppAccessResourceApp = OptionalNullable.absent();
+            } else {
+                this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage crossAppAccessResourceApp(
+                Optional<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            if (crossAppAccessResourceApp.isPresent()) {
+                this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp.get());
+            } else {
+                this.crossAppAccessResourceApp = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage crossAppAccessResourceApp(ConnectionCrossAppAccessResourceApp crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "cross_app_access_resource_app", nulls = Nulls.SKIP)
+        public _FinalStage crossAppAccessResourceApp(
+                @Nullable OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = crossAppAccessResourceApp;
             return this;
         }
 
@@ -500,6 +575,7 @@ public final class ConnectionResponseContentOidc implements IConnectionResponseC
                     authentication,
                     connectedAccounts,
                     crossAppAccessRequestingApp,
+                    crossAppAccessResourceApp,
                     options,
                     showAsButton,
                     additionalProperties);

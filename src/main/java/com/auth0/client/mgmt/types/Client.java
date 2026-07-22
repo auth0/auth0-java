@@ -134,6 +134,8 @@ public final class Client {
 
     private final Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration;
 
+    private final Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant;
+
     private final Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode;
 
     private final Optional<ClientRedirectionPolicyEnum> redirectionPolicy;
@@ -208,6 +210,7 @@ public final class Client {
             Optional<TokenQuota> tokenQuota,
             Optional<ExpressConfiguration> expressConfiguration,
             Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration,
+            Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant,
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
             Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
             Optional<String> resourceServerIdentifier,
@@ -272,6 +275,7 @@ public final class Client {
         this.tokenQuota = tokenQuota;
         this.expressConfiguration = expressConfiguration;
         this.myOrganizationConfiguration = myOrganizationConfiguration;
+        this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
         this.thirdPartySecurityMode = thirdPartySecurityMode;
         this.redirectionPolicy = redirectionPolicy;
         this.resourceServerIdentifier = resourceServerIdentifier;
@@ -685,6 +689,11 @@ public final class Client {
         return myOrganizationConfiguration;
     }
 
+    @JsonProperty("identity_assertion_authorization_grant")
+    public Optional<IdentityAssertionAuthorizationGrant> getIdentityAssertionAuthorizationGrant() {
+        return identityAssertionAuthorizationGrant;
+    }
+
     @JsonProperty("third_party_security_mode")
     public Optional<ClientThirdPartySecurityModeEnum> getThirdPartySecurityMode() {
         return thirdPartySecurityMode;
@@ -850,6 +859,7 @@ public final class Client {
                 && tokenQuota.equals(other.tokenQuota)
                 && expressConfiguration.equals(other.expressConfiguration)
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
+                && identityAssertionAuthorizationGrant.equals(other.identityAssertionAuthorizationGrant)
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
                 && redirectionPolicy.equals(other.redirectionPolicy)
                 && resourceServerIdentifier.equals(other.resourceServerIdentifier)
@@ -918,6 +928,7 @@ public final class Client {
                 this.tokenQuota,
                 this.expressConfiguration,
                 this.myOrganizationConfiguration,
+                this.identityAssertionAuthorizationGrant,
                 this.thirdPartySecurityMode,
                 this.redirectionPolicy,
                 this.resourceServerIdentifier,
@@ -1050,6 +1061,8 @@ public final class Client {
 
         private Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration = Optional.empty();
 
+        private Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant = Optional.empty();
+
         private Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode = Optional.empty();
 
         private Optional<ClientRedirectionPolicyEnum> redirectionPolicy = Optional.empty();
@@ -1128,6 +1141,7 @@ public final class Client {
             tokenQuota(other.getTokenQuota());
             expressConfiguration(other.getExpressConfiguration());
             myOrganizationConfiguration(other.getMyOrganizationConfiguration());
+            identityAssertionAuthorizationGrant(other.getIdentityAssertionAuthorizationGrant());
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
             redirectionPolicy(other.getRedirectionPolicy());
             resourceServerIdentifier(other.getResourceServerIdentifier());
@@ -2013,6 +2027,19 @@ public final class Client {
             return this;
         }
 
+        @JsonSetter(value = "identity_assertion_authorization_grant", nulls = Nulls.SKIP)
+        public Builder identityAssertionAuthorizationGrant(
+                Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant) {
+            this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
+            return this;
+        }
+
+        public Builder identityAssertionAuthorizationGrant(
+                IdentityAssertionAuthorizationGrant identityAssertionAuthorizationGrant) {
+            this.identityAssertionAuthorizationGrant = Optional.ofNullable(identityAssertionAuthorizationGrant);
+            return this;
+        }
+
         @JsonSetter(value = "third_party_security_mode", nulls = Nulls.SKIP)
         public Builder thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode) {
             this.thirdPartySecurityMode = thirdPartySecurityMode;
@@ -2170,6 +2197,7 @@ public final class Client {
                     tokenQuota,
                     expressConfiguration,
                     myOrganizationConfiguration,
+                    identityAssertionAuthorizationGrant,
                     thirdPartySecurityMode,
                     redirectionPolicy,
                     resourceServerIdentifier,

@@ -1302,7 +1302,7 @@ client.clients().list(
 <dl>
 <dd>
 
-**externalClientId:** `Optional<String>` — Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+**externalClientId:** `Optional<String>` — Optional filter by the <a href="https://drafts.oauth.net/draft-ietf-oauth-client-id-metadata-document/draft-ietf-oauth-client-id-metadata-document.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
     
 </dd>
 </dl>
@@ -1779,6 +1779,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dd>
 
 **resourceServerIdentifier:** `Optional<String>` — The identifier of the resource server that this client is linked to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identityAssertionAuthorizationGrant:** `Optional<CreateIdentityAssertionAuthorizationGrant>` 
     
 </dd>
 </dl>
@@ -2404,6 +2412,14 @@ client.clients().update(
 <dd>
 
 **tokenQuota:** `Optional<UpdateTokenQuota>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identityAssertionAuthorizationGrant:** `Optional<UpdateIdentityAssertionAuthorizationGrant>` 
     
 </dd>
 </dl>
@@ -3426,6 +3442,14 @@ client.connections().create(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**crossAppAccessResourceApp:** `Optional<CreateCrossAppAccessResourceApp>` 
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -3697,6 +3721,14 @@ client.connections().update(
 <dd>
 
 **crossAppAccessRequestingApp:** `Optional<CrossAppAccessRequestingApp>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**crossAppAccessResourceApp:** `Optional<UpdateCrossAppAccessResourceApp>` 
     
 </dd>
 </dl>
@@ -16871,6 +16903,14 @@ client.branding().themes().create(
 <dl>
 <dd>
 
+**identifiers:** `Optional<BrandingThemeIdentifiers>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **pageBackground:** `BrandingThemePageBackground` 
     
 </dd>
@@ -17221,6 +17261,14 @@ client.branding().themes().update(
 <dd>
 
 **fonts:** `BrandingThemeFonts` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identifiers:** `Optional<BrandingThemeIdentifiers>` 
     
 </dd>
 </dl>
@@ -29539,6 +29587,14 @@ client.selfServiceProfiles().ssoTicket().create(
 <dd>
 
 **useForOrganizationDiscovery:** `Optional<Boolean>` — Indicates whether a verified domain should be used for organization discovery during authentication.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**thirdPartyClientAccessConfig:** `Optional<ThirdPartyClientAccessConfig>` 
     
 </dd>
 </dl>

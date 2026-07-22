@@ -9,6 +9,7 @@ import com.auth0.client.mgmt.types.SelfServiceProfileSsoTicketDomainAliasesConfi
 import com.auth0.client.mgmt.types.SelfServiceProfileSsoTicketEnabledFeatures;
 import com.auth0.client.mgmt.types.SelfServiceProfileSsoTicketEnabledOrganization;
 import com.auth0.client.mgmt.types.SelfServiceProfileSsoTicketProvisioningConfig;
+import com.auth0.client.mgmt.types.ThirdPartyClientAccessConfig;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -42,6 +43,8 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
 
     private final Optional<Boolean> useForOrganizationDiscovery;
 
+    private final Optional<ThirdPartyClientAccessConfig> thirdPartyClientAccessConfig;
+
     private final Optional<SelfServiceProfileSsoTicketEnabledFeatures> enabledFeatures;
 
     private final Map<String, Object> additionalProperties;
@@ -55,6 +58,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
             Optional<SelfServiceProfileSsoTicketDomainAliasesConfig> domainAliasesConfig,
             Optional<SelfServiceProfileSsoTicketProvisioningConfig> provisioningConfig,
             Optional<Boolean> useForOrganizationDiscovery,
+            Optional<ThirdPartyClientAccessConfig> thirdPartyClientAccessConfig,
             Optional<SelfServiceProfileSsoTicketEnabledFeatures> enabledFeatures,
             Map<String, Object> additionalProperties) {
         this.connectionId = connectionId;
@@ -65,6 +69,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
         this.domainAliasesConfig = domainAliasesConfig;
         this.provisioningConfig = provisioningConfig;
         this.useForOrganizationDiscovery = useForOrganizationDiscovery;
+        this.thirdPartyClientAccessConfig = thirdPartyClientAccessConfig;
         this.enabledFeatures = enabledFeatures;
         this.additionalProperties = additionalProperties;
     }
@@ -124,6 +129,11 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
         return useForOrganizationDiscovery;
     }
 
+    @JsonProperty("third_party_client_access_config")
+    public Optional<ThirdPartyClientAccessConfig> getThirdPartyClientAccessConfig() {
+        return thirdPartyClientAccessConfig;
+    }
+
     @JsonProperty("enabled_features")
     public Optional<SelfServiceProfileSsoTicketEnabledFeatures> getEnabledFeatures() {
         return enabledFeatures;
@@ -150,6 +160,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
                 && domainAliasesConfig.equals(other.domainAliasesConfig)
                 && provisioningConfig.equals(other.provisioningConfig)
                 && useForOrganizationDiscovery.equals(other.useForOrganizationDiscovery)
+                && thirdPartyClientAccessConfig.equals(other.thirdPartyClientAccessConfig)
                 && enabledFeatures.equals(other.enabledFeatures);
     }
 
@@ -164,6 +175,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
                 this.domainAliasesConfig,
                 this.provisioningConfig,
                 this.useForOrganizationDiscovery,
+                this.thirdPartyClientAccessConfig,
                 this.enabledFeatures);
     }
 
@@ -194,6 +206,8 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
 
         private Optional<Boolean> useForOrganizationDiscovery = Optional.empty();
 
+        private Optional<ThirdPartyClientAccessConfig> thirdPartyClientAccessConfig = Optional.empty();
+
         private Optional<SelfServiceProfileSsoTicketEnabledFeatures> enabledFeatures = Optional.empty();
 
         @JsonAnySetter
@@ -210,6 +224,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
             domainAliasesConfig(other.getDomainAliasesConfig());
             provisioningConfig(other.getProvisioningConfig());
             useForOrganizationDiscovery(other.getUseForOrganizationDiscovery());
+            thirdPartyClientAccessConfig(other.getThirdPartyClientAccessConfig());
             enabledFeatures(other.getEnabledFeatures());
             return this;
         }
@@ -319,6 +334,18 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "third_party_client_access_config", nulls = Nulls.SKIP)
+        public Builder thirdPartyClientAccessConfig(
+                Optional<ThirdPartyClientAccessConfig> thirdPartyClientAccessConfig) {
+            this.thirdPartyClientAccessConfig = thirdPartyClientAccessConfig;
+            return this;
+        }
+
+        public Builder thirdPartyClientAccessConfig(ThirdPartyClientAccessConfig thirdPartyClientAccessConfig) {
+            this.thirdPartyClientAccessConfig = Optional.ofNullable(thirdPartyClientAccessConfig);
+            return this;
+        }
+
         @JsonSetter(value = "enabled_features", nulls = Nulls.SKIP)
         public Builder enabledFeatures(Optional<SelfServiceProfileSsoTicketEnabledFeatures> enabledFeatures) {
             this.enabledFeatures = enabledFeatures;
@@ -340,6 +367,7 @@ public final class CreateSelfServiceProfileSsoTicketRequestContent {
                     domainAliasesConfig,
                     provisioningConfig,
                     useForOrganizationDiscovery,
+                    thirdPartyClientAccessConfig,
                     enabledFeatures,
                     additionalProperties);
         }

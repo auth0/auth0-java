@@ -40,7 +40,7 @@ public class UsersSessionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"sessions\":[{\"id\":\"id\",\"user_id\":\"user_id\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"authenticated_at\":\"2024-01-15T09:30:00Z\",\"idle_expires_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\",\"last_interacted_at\":\"2024-01-15T09:30:00Z\",\"clients\":[{}],\"session_metadata\":{\"key\":\"value\"}}],\"next\":\"next\"}"));
+                                "{\"sessions\":[{\"id\":\"id\",\"user_id\":\"user_id\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\",\"authenticated_at\":\"2024-01-15T09:30:00Z\",\"idle_expires_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\",\"last_interacted_at\":\"2024-01-15T09:30:00Z\",\"clients\":[{}],\"session_metadata\":{\"key\":\"value\"},\"actor\":{\"sub\":\"sub\"}}],\"next\":\"next\"}"));
         SyncPagingIterable<SessionResponseContent> response = client.users()
                 .sessions()
                 .list(

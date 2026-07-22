@@ -3,6 +3,7 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdateConnectionRequestContentOidc.Builder.class)
@@ -38,6 +40,8 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
 
     private final Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp;
 
+    private final OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp;
+
     private final Optional<Boolean> showAsButton;
 
     private final Map<String, Object> additionalProperties;
@@ -51,6 +55,7 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurposeXaa> connectedAccounts,
             Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp,
+            OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp,
             Optional<Boolean> showAsButton,
             Map<String, Object> additionalProperties) {
         this.displayName = displayName;
@@ -61,6 +66,7 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
         this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
+        this.crossAppAccessResourceApp = crossAppAccessResourceApp;
         this.showAsButton = showAsButton;
         this.additionalProperties = additionalProperties;
     }
@@ -109,9 +115,24 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
         return crossAppAccessRequestingApp;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("cross_app_access_resource_app")
+    public OptionalNullable<ConnectionCrossAppAccessResourceApp> getCrossAppAccessResourceApp() {
+        if (crossAppAccessResourceApp == null) {
+            return OptionalNullable.absent();
+        }
+        return crossAppAccessResourceApp;
+    }
+
     @JsonProperty("show_as_button")
     public Optional<Boolean> getShowAsButton() {
         return showAsButton;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("cross_app_access_resource_app")
+    private OptionalNullable<ConnectionCrossAppAccessResourceApp> _getCrossAppAccessResourceApp() {
+        return crossAppAccessResourceApp;
     }
 
     @java.lang.Override
@@ -135,6 +156,7 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
                 && authentication.equals(other.authentication)
                 && connectedAccounts.equals(other.connectedAccounts)
                 && crossAppAccessRequestingApp.equals(other.crossAppAccessRequestingApp)
+                && crossAppAccessResourceApp.equals(other.crossAppAccessResourceApp)
                 && showAsButton.equals(other.showAsButton);
     }
 
@@ -149,6 +171,7 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
                 this.authentication,
                 this.connectedAccounts,
                 this.crossAppAccessRequestingApp,
+                this.crossAppAccessResourceApp,
                 this.showAsButton);
     }
 
@@ -179,6 +202,9 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
 
         private Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp = Optional.empty();
 
+        private OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp =
+                OptionalNullable.absent();
+
         private Optional<Boolean> showAsButton = Optional.empty();
 
         @JsonAnySetter
@@ -195,6 +221,7 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
             authentication(other.getAuthentication());
             connectedAccounts(other.getConnectedAccounts());
             crossAppAccessRequestingApp(other.getCrossAppAccessRequestingApp());
+            crossAppAccessResourceApp(other.getCrossAppAccessResourceApp());
             showAsButton(other.getShowAsButton());
             return this;
         }
@@ -287,6 +314,40 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
             return this;
         }
 
+        @JsonSetter(value = "cross_app_access_resource_app", nulls = Nulls.SKIP)
+        public Builder crossAppAccessResourceApp(
+                @Nullable OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = crossAppAccessResourceApp;
+            return this;
+        }
+
+        public Builder crossAppAccessResourceApp(ConnectionCrossAppAccessResourceApp crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp);
+            return this;
+        }
+
+        public Builder crossAppAccessResourceApp(
+                Optional<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            if (crossAppAccessResourceApp.isPresent()) {
+                this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp.get());
+            } else {
+                this.crossAppAccessResourceApp = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder crossAppAccessResourceApp(
+                com.auth0.client.mgmt.core.Nullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            if (crossAppAccessResourceApp.isNull()) {
+                this.crossAppAccessResourceApp = OptionalNullable.ofNull();
+            } else if (crossAppAccessResourceApp.isEmpty()) {
+                this.crossAppAccessResourceApp = OptionalNullable.absent();
+            } else {
+                this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp.get());
+            }
+            return this;
+        }
+
         @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
         public Builder showAsButton(Optional<Boolean> showAsButton) {
             this.showAsButton = showAsButton;
@@ -308,6 +369,7 @@ public final class UpdateConnectionRequestContentOidc implements IConnectionComm
                     authentication,
                     connectedAccounts,
                     crossAppAccessRequestingApp,
+                    crossAppAccessResourceApp,
                     showAsButton,
                     additionalProperties);
         }

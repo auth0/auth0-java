@@ -50,6 +50,8 @@ public final class UpdateSessionResponseContent {
 
     private final OptionalNullable<Map<String, Object>> sessionMetadata;
 
+    private final Optional<SessionActorMetadata> actor;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateSessionResponseContent(
@@ -66,6 +68,7 @@ public final class UpdateSessionResponseContent {
             Optional<SessionAuthenticationSignals> authentication,
             Optional<SessionCookieMetadata> cookie,
             OptionalNullable<Map<String, Object>> sessionMetadata,
+            Optional<SessionActorMetadata> actor,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.userId = userId;
@@ -80,6 +83,7 @@ public final class UpdateSessionResponseContent {
         this.authentication = authentication;
         this.cookie = cookie;
         this.sessionMetadata = sessionMetadata;
+        this.actor = actor;
         this.additionalProperties = additionalProperties;
     }
 
@@ -161,6 +165,11 @@ public final class UpdateSessionResponseContent {
         return sessionMetadata;
     }
 
+    @JsonProperty("actor")
+    public Optional<SessionActorMetadata> getActor() {
+        return actor;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("session_metadata")
     private OptionalNullable<Map<String, Object>> _getSessionMetadata() {
@@ -191,7 +200,8 @@ public final class UpdateSessionResponseContent {
                 && clients.equals(other.clients)
                 && authentication.equals(other.authentication)
                 && cookie.equals(other.cookie)
-                && sessionMetadata.equals(other.sessionMetadata);
+                && sessionMetadata.equals(other.sessionMetadata)
+                && actor.equals(other.actor);
     }
 
     @java.lang.Override
@@ -209,7 +219,8 @@ public final class UpdateSessionResponseContent {
                 this.clients,
                 this.authentication,
                 this.cookie,
-                this.sessionMetadata);
+                this.sessionMetadata,
+                this.actor);
     }
 
     @java.lang.Override
@@ -249,6 +260,8 @@ public final class UpdateSessionResponseContent {
 
         private OptionalNullable<Map<String, Object>> sessionMetadata = OptionalNullable.absent();
 
+        private Optional<SessionActorMetadata> actor = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -268,6 +281,7 @@ public final class UpdateSessionResponseContent {
             authentication(other.getAuthentication());
             cookie(other.getCookie());
             sessionMetadata(other.getSessionMetadata());
+            actor(other.getActor());
             return this;
         }
 
@@ -443,6 +457,17 @@ public final class UpdateSessionResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "actor", nulls = Nulls.SKIP)
+        public Builder actor(Optional<SessionActorMetadata> actor) {
+            this.actor = actor;
+            return this;
+        }
+
+        public Builder actor(SessionActorMetadata actor) {
+            this.actor = Optional.ofNullable(actor);
+            return this;
+        }
+
         public UpdateSessionResponseContent build() {
             return new UpdateSessionResponseContent(
                     id,
@@ -458,6 +483,7 @@ public final class UpdateSessionResponseContent {
                     authentication,
                     cookie,
                     sessionMetadata,
+                    actor,
                     additionalProperties);
         }
 
