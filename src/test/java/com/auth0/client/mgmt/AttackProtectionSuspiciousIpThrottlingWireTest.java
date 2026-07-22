@@ -40,7 +40,7 @@ public class AttackProtectionSuspiciousIpThrottlingWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"enabled\":true,\"shields\":[\"block\"],\"allowlist\":[\"allowlist\"],\"stage\":{\"pre-login\":{\"max_attempts\":1,\"rate\":1},\"pre-user-registration\":{\"max_attempts\":1,\"rate\":1}}}"));
+                                "{\"enabled\":true,\"shields\":[\"block\"],\"allowlist\":[\"allowlist\"],\"stage\":{\"pre-login\":{\"max_attempts\":1,\"rate\":1},\"pre-user-registration\":{\"max_attempts\":1,\"rate\":1},\"pre-custom-token-exchange\":{\"max_attempts\":1,\"rate\":1}}}"));
         GetSuspiciousIpThrottlingSettingsResponseContent response =
                 client.attackProtection().suspiciousIpThrottling().get();
         RecordedRequest request = server.takeRequest();
@@ -65,6 +65,10 @@ public class AttackProtectionSuspiciousIpThrottlingWireTest {
                 + "      \"rate\": 1\n"
                 + "    },\n"
                 + "    \"pre-user-registration\": {\n"
+                + "      \"max_attempts\": 1,\n"
+                + "      \"rate\": 1\n"
+                + "    },\n"
+                + "    \"pre-custom-token-exchange\": {\n"
                 + "      \"max_attempts\": 1,\n"
                 + "      \"rate\": 1\n"
                 + "    }\n"
@@ -107,7 +111,7 @@ public class AttackProtectionSuspiciousIpThrottlingWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"enabled\":true,\"shields\":[\"block\"],\"allowlist\":[\"allowlist\"],\"stage\":{\"pre-login\":{\"max_attempts\":1,\"rate\":1},\"pre-user-registration\":{\"max_attempts\":1,\"rate\":1}}}"));
+                                "{\"enabled\":true,\"shields\":[\"block\"],\"allowlist\":[\"allowlist\"],\"stage\":{\"pre-login\":{\"max_attempts\":1,\"rate\":1},\"pre-user-registration\":{\"max_attempts\":1,\"rate\":1},\"pre-custom-token-exchange\":{\"max_attempts\":1,\"rate\":1}}}"));
         UpdateSuspiciousIpThrottlingSettingsResponseContent response = client.attackProtection()
                 .suspiciousIpThrottling()
                 .update(UpdateSuspiciousIpThrottlingSettingsRequestContent.builder()
@@ -163,6 +167,10 @@ public class AttackProtectionSuspiciousIpThrottlingWireTest {
                 + "      \"rate\": 1\n"
                 + "    },\n"
                 + "    \"pre-user-registration\": {\n"
+                + "      \"max_attempts\": 1,\n"
+                + "      \"rate\": 1\n"
+                + "    },\n"
+                + "    \"pre-custom-token-exchange\": {\n"
                 + "      \"max_attempts\": 1,\n"
                 + "      \"rate\": 1\n"
                 + "    }\n"

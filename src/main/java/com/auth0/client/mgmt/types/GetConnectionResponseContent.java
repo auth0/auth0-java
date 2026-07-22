@@ -48,6 +48,8 @@ public final class GetConnectionResponseContent {
 
     private final Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp;
 
+    private final Optional<CrossAppAccessResourceApp> crossAppAccessResourceApp;
+
     private final Map<String, Object> additionalProperties;
 
     private GetConnectionResponseContent(
@@ -64,6 +66,7 @@ public final class GetConnectionResponseContent {
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp,
+            Optional<CrossAppAccessResourceApp> crossAppAccessResourceApp,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.displayName = displayName;
@@ -78,6 +81,7 @@ public final class GetConnectionResponseContent {
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
         this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
+        this.crossAppAccessResourceApp = crossAppAccessResourceApp;
         this.additionalProperties = additionalProperties;
     }
 
@@ -170,6 +174,11 @@ public final class GetConnectionResponseContent {
         return crossAppAccessRequestingApp;
     }
 
+    @JsonProperty("cross_app_access_resource_app")
+    public Optional<CrossAppAccessResourceApp> getCrossAppAccessResourceApp() {
+        return crossAppAccessResourceApp;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -194,7 +203,8 @@ public final class GetConnectionResponseContent {
                 && metadata.equals(other.metadata)
                 && authentication.equals(other.authentication)
                 && connectedAccounts.equals(other.connectedAccounts)
-                && crossAppAccessRequestingApp.equals(other.crossAppAccessRequestingApp);
+                && crossAppAccessRequestingApp.equals(other.crossAppAccessRequestingApp)
+                && crossAppAccessResourceApp.equals(other.crossAppAccessResourceApp);
     }
 
     @java.lang.Override
@@ -212,7 +222,8 @@ public final class GetConnectionResponseContent {
                 this.metadata,
                 this.authentication,
                 this.connectedAccounts,
-                this.crossAppAccessRequestingApp);
+                this.crossAppAccessRequestingApp,
+                this.crossAppAccessResourceApp);
     }
 
     @java.lang.Override
@@ -252,6 +263,8 @@ public final class GetConnectionResponseContent {
 
         private Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp = Optional.empty();
 
+        private Optional<CrossAppAccessResourceApp> crossAppAccessResourceApp = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -271,6 +284,7 @@ public final class GetConnectionResponseContent {
             authentication(other.getAuthentication());
             connectedAccounts(other.getConnectedAccounts());
             crossAppAccessRequestingApp(other.getCrossAppAccessRequestingApp());
+            crossAppAccessResourceApp(other.getCrossAppAccessResourceApp());
             return this;
         }
 
@@ -441,6 +455,17 @@ public final class GetConnectionResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "cross_app_access_resource_app", nulls = Nulls.SKIP)
+        public Builder crossAppAccessResourceApp(Optional<CrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = crossAppAccessResourceApp;
+            return this;
+        }
+
+        public Builder crossAppAccessResourceApp(CrossAppAccessResourceApp crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = Optional.ofNullable(crossAppAccessResourceApp);
+            return this;
+        }
+
         public GetConnectionResponseContent build() {
             return new GetConnectionResponseContent(
                     name,
@@ -456,6 +481,7 @@ public final class GetConnectionResponseContent {
                     authentication,
                     connectedAccounts,
                     crossAppAccessRequestingApp,
+                    crossAppAccessResourceApp,
                     additionalProperties);
         }
 

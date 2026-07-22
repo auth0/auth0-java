@@ -47,6 +47,8 @@ public final class CreateConnectionRequestContent {
 
     private final Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp;
 
+    private final Optional<CreateCrossAppAccessResourceApp> crossAppAccessResourceApp;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateConnectionRequestContent(
@@ -62,6 +64,7 @@ public final class CreateConnectionRequestContent {
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp,
+            Optional<CreateCrossAppAccessResourceApp> crossAppAccessResourceApp,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.displayName = displayName;
@@ -75,6 +78,7 @@ public final class CreateConnectionRequestContent {
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
         this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
+        this.crossAppAccessResourceApp = crossAppAccessResourceApp;
         this.additionalProperties = additionalProperties;
     }
 
@@ -156,6 +160,11 @@ public final class CreateConnectionRequestContent {
         return crossAppAccessRequestingApp;
     }
 
+    @JsonProperty("cross_app_access_resource_app")
+    public Optional<CreateCrossAppAccessResourceApp> getCrossAppAccessResourceApp() {
+        return crossAppAccessResourceApp;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -179,7 +188,8 @@ public final class CreateConnectionRequestContent {
                 && metadata.equals(other.metadata)
                 && authentication.equals(other.authentication)
                 && connectedAccounts.equals(other.connectedAccounts)
-                && crossAppAccessRequestingApp.equals(other.crossAppAccessRequestingApp);
+                && crossAppAccessRequestingApp.equals(other.crossAppAccessRequestingApp)
+                && crossAppAccessResourceApp.equals(other.crossAppAccessResourceApp);
     }
 
     @java.lang.Override
@@ -196,7 +206,8 @@ public final class CreateConnectionRequestContent {
                 this.metadata,
                 this.authentication,
                 this.connectedAccounts,
-                this.crossAppAccessRequestingApp);
+                this.crossAppAccessRequestingApp,
+                this.crossAppAccessResourceApp);
     }
 
     @java.lang.Override
@@ -282,6 +293,10 @@ public final class CreateConnectionRequestContent {
         _FinalStage crossAppAccessRequestingApp(Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp);
 
         _FinalStage crossAppAccessRequestingApp(CrossAppAccessRequestingApp crossAppAccessRequestingApp);
+
+        _FinalStage crossAppAccessResourceApp(Optional<CreateCrossAppAccessResourceApp> crossAppAccessResourceApp);
+
+        _FinalStage crossAppAccessResourceApp(CreateCrossAppAccessResourceApp crossAppAccessResourceApp);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -289,6 +304,8 @@ public final class CreateConnectionRequestContent {
         private String name;
 
         private ConnectionIdentityProviderEnum strategy;
+
+        private Optional<CreateCrossAppAccessResourceApp> crossAppAccessResourceApp = Optional.empty();
 
         private Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp = Optional.empty();
 
@@ -329,6 +346,7 @@ public final class CreateConnectionRequestContent {
             authentication(other.getAuthentication());
             connectedAccounts(other.getConnectedAccounts());
             crossAppAccessRequestingApp(other.getCrossAppAccessRequestingApp());
+            crossAppAccessResourceApp(other.getCrossAppAccessResourceApp());
             return this;
         }
 
@@ -347,6 +365,20 @@ public final class CreateConnectionRequestContent {
         @JsonSetter("strategy")
         public _FinalStage strategy(@NotNull ConnectionIdentityProviderEnum strategy) {
             this.strategy = Objects.requireNonNull(strategy, "strategy must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage crossAppAccessResourceApp(CreateCrossAppAccessResourceApp crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = Optional.ofNullable(crossAppAccessResourceApp);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "cross_app_access_resource_app", nulls = Nulls.SKIP)
+        public _FinalStage crossAppAccessResourceApp(
+                Optional<CreateCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = crossAppAccessResourceApp;
             return this;
         }
 
@@ -531,6 +563,7 @@ public final class CreateConnectionRequestContent {
                     authentication,
                     connectedAccounts,
                     crossAppAccessRequestingApp,
+                    crossAppAccessResourceApp,
                     additionalProperties);
         }
 

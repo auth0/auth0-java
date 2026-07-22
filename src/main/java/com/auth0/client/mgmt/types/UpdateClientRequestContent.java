@@ -82,6 +82,8 @@ public final class UpdateClientRequestContent {
 
     private final OptionalNullable<UpdateTokenQuota> tokenQuota;
 
+    private final OptionalNullable<UpdateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant;
+
     private final Optional<String> formTemplate;
 
     private final Optional<ClientAddons> addons;
@@ -166,6 +168,7 @@ public final class UpdateClientRequestContent {
             Optional<String> customLoginPage,
             Optional<String> customLoginPagePreview,
             OptionalNullable<UpdateTokenQuota> tokenQuota,
+            OptionalNullable<UpdateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant,
             Optional<String> formTemplate,
             Optional<ClientAddons> addons,
             Optional<Map<String, Object>> clientMetadata,
@@ -222,6 +225,7 @@ public final class UpdateClientRequestContent {
         this.customLoginPage = customLoginPage;
         this.customLoginPagePreview = customLoginPagePreview;
         this.tokenQuota = tokenQuota;
+        this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
         this.formTemplate = formTemplate;
         this.addons = addons;
         this.clientMetadata = clientMetadata;
@@ -485,6 +489,15 @@ public final class UpdateClientRequestContent {
         return tokenQuota;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("identity_assertion_authorization_grant")
+    public OptionalNullable<UpdateIdentityAssertionAuthorizationGrant> getIdentityAssertionAuthorizationGrant() {
+        if (identityAssertionAuthorizationGrant == null) {
+            return OptionalNullable.absent();
+        }
+        return identityAssertionAuthorizationGrant;
+    }
+
     /**
      * @return Form template for WS-Federation protocol
      */
@@ -732,6 +745,12 @@ public final class UpdateClientRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("identity_assertion_authorization_grant")
+    private OptionalNullable<UpdateIdentityAssertionAuthorizationGrant> _getIdentityAssertionAuthorizationGrant() {
+        return identityAssertionAuthorizationGrant;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("native_social_login")
     private OptionalNullable<NativeSocialLoginPatch> _getNativeSocialLogin() {
         return nativeSocialLogin;
@@ -862,6 +881,7 @@ public final class UpdateClientRequestContent {
                 && customLoginPage.equals(other.customLoginPage)
                 && customLoginPagePreview.equals(other.customLoginPagePreview)
                 && tokenQuota.equals(other.tokenQuota)
+                && identityAssertionAuthorizationGrant.equals(other.identityAssertionAuthorizationGrant)
                 && formTemplate.equals(other.formTemplate)
                 && addons.equals(other.addons)
                 && clientMetadata.equals(other.clientMetadata)
@@ -923,6 +943,7 @@ public final class UpdateClientRequestContent {
                 this.customLoginPage,
                 this.customLoginPagePreview,
                 this.tokenQuota,
+                this.identityAssertionAuthorizationGrant,
                 this.formTemplate,
                 this.addons,
                 this.clientMetadata,
@@ -1021,6 +1042,9 @@ public final class UpdateClientRequestContent {
 
         private OptionalNullable<UpdateTokenQuota> tokenQuota = OptionalNullable.absent();
 
+        private OptionalNullable<UpdateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant =
+                OptionalNullable.absent();
+
         private Optional<String> formTemplate = Optional.empty();
 
         private Optional<ClientAddons> addons = Optional.empty();
@@ -1113,6 +1137,7 @@ public final class UpdateClientRequestContent {
             customLoginPage(other.getCustomLoginPage());
             customLoginPagePreview(other.getCustomLoginPagePreview());
             tokenQuota(other.getTokenQuota());
+            identityAssertionAuthorizationGrant(other.getIdentityAssertionAuthorizationGrant());
             formTemplate(other.getFormTemplate());
             addons(other.getAddons());
             clientMetadata(other.getClientMetadata());
@@ -1630,6 +1655,46 @@ public final class UpdateClientRequestContent {
                 this.tokenQuota = OptionalNullable.absent();
             } else {
                 this.tokenQuota = OptionalNullable.of(tokenQuota.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "identity_assertion_authorization_grant", nulls = Nulls.SKIP)
+        public Builder identityAssertionAuthorizationGrant(
+                @Nullable
+                        OptionalNullable<UpdateIdentityAssertionAuthorizationGrant>
+                                identityAssertionAuthorizationGrant) {
+            this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
+            return this;
+        }
+
+        public Builder identityAssertionAuthorizationGrant(
+                UpdateIdentityAssertionAuthorizationGrant identityAssertionAuthorizationGrant) {
+            this.identityAssertionAuthorizationGrant = OptionalNullable.of(identityAssertionAuthorizationGrant);
+            return this;
+        }
+
+        public Builder identityAssertionAuthorizationGrant(
+                Optional<UpdateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant) {
+            if (identityAssertionAuthorizationGrant.isPresent()) {
+                this.identityAssertionAuthorizationGrant =
+                        OptionalNullable.of(identityAssertionAuthorizationGrant.get());
+            } else {
+                this.identityAssertionAuthorizationGrant = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder identityAssertionAuthorizationGrant(
+                com.auth0.client.mgmt.core.Nullable<UpdateIdentityAssertionAuthorizationGrant>
+                        identityAssertionAuthorizationGrant) {
+            if (identityAssertionAuthorizationGrant.isNull()) {
+                this.identityAssertionAuthorizationGrant = OptionalNullable.ofNull();
+            } else if (identityAssertionAuthorizationGrant.isEmpty()) {
+                this.identityAssertionAuthorizationGrant = OptionalNullable.absent();
+            } else {
+                this.identityAssertionAuthorizationGrant =
+                        OptionalNullable.of(identityAssertionAuthorizationGrant.get());
             }
             return this;
         }
@@ -2316,6 +2381,7 @@ public final class UpdateClientRequestContent {
                     customLoginPage,
                     customLoginPagePreview,
                     tokenQuota,
+                    identityAssertionAuthorizationGrant,
                     formTemplate,
                     addons,
                     clientMetadata,

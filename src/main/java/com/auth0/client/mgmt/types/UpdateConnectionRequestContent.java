@@ -44,6 +44,8 @@ public final class UpdateConnectionRequestContent {
 
     private final Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp;
 
+    private final OptionalNullable<UpdateCrossAppAccessResourceApp> crossAppAccessResourceApp;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateConnectionRequestContent(
@@ -57,6 +59,7 @@ public final class UpdateConnectionRequestContent {
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
             Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp,
+            OptionalNullable<UpdateCrossAppAccessResourceApp> crossAppAccessResourceApp,
             Map<String, Object> additionalProperties) {
         this.displayName = displayName;
         this.options = options;
@@ -68,6 +71,7 @@ public final class UpdateConnectionRequestContent {
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
         this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
+        this.crossAppAccessResourceApp = crossAppAccessResourceApp;
         this.additionalProperties = additionalProperties;
     }
 
@@ -145,6 +149,15 @@ public final class UpdateConnectionRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("cross_app_access_resource_app")
+    public OptionalNullable<UpdateCrossAppAccessResourceApp> getCrossAppAccessResourceApp() {
+        if (crossAppAccessResourceApp == null) {
+            return OptionalNullable.absent();
+        }
+        return crossAppAccessResourceApp;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("options")
     private OptionalNullable<UpdateConnectionOptions> _getOptions() {
         return options;
@@ -154,6 +167,12 @@ public final class UpdateConnectionRequestContent {
     @JsonProperty("enabled_clients")
     private OptionalNullable<List<String>> _getEnabledClients() {
         return enabledClients;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("cross_app_access_resource_app")
+    private OptionalNullable<UpdateCrossAppAccessResourceApp> _getCrossAppAccessResourceApp() {
+        return crossAppAccessResourceApp;
     }
 
     @java.lang.Override
@@ -177,7 +196,8 @@ public final class UpdateConnectionRequestContent {
                 && metadata.equals(other.metadata)
                 && authentication.equals(other.authentication)
                 && connectedAccounts.equals(other.connectedAccounts)
-                && crossAppAccessRequestingApp.equals(other.crossAppAccessRequestingApp);
+                && crossAppAccessRequestingApp.equals(other.crossAppAccessRequestingApp)
+                && crossAppAccessResourceApp.equals(other.crossAppAccessResourceApp);
     }
 
     @java.lang.Override
@@ -192,7 +212,8 @@ public final class UpdateConnectionRequestContent {
                 this.metadata,
                 this.authentication,
                 this.connectedAccounts,
-                this.crossAppAccessRequestingApp);
+                this.crossAppAccessRequestingApp,
+                this.crossAppAccessResourceApp);
     }
 
     @java.lang.Override
@@ -226,6 +247,8 @@ public final class UpdateConnectionRequestContent {
 
         private Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp = Optional.empty();
 
+        private OptionalNullable<UpdateCrossAppAccessResourceApp> crossAppAccessResourceApp = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -242,6 +265,7 @@ public final class UpdateConnectionRequestContent {
             authentication(other.getAuthentication());
             connectedAccounts(other.getConnectedAccounts());
             crossAppAccessRequestingApp(other.getCrossAppAccessRequestingApp());
+            crossAppAccessResourceApp(other.getCrossAppAccessResourceApp());
             return this;
         }
 
@@ -410,6 +434,39 @@ public final class UpdateConnectionRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "cross_app_access_resource_app", nulls = Nulls.SKIP)
+        public Builder crossAppAccessResourceApp(
+                @Nullable OptionalNullable<UpdateCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = crossAppAccessResourceApp;
+            return this;
+        }
+
+        public Builder crossAppAccessResourceApp(UpdateCrossAppAccessResourceApp crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp);
+            return this;
+        }
+
+        public Builder crossAppAccessResourceApp(Optional<UpdateCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            if (crossAppAccessResourceApp.isPresent()) {
+                this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp.get());
+            } else {
+                this.crossAppAccessResourceApp = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder crossAppAccessResourceApp(
+                com.auth0.client.mgmt.core.Nullable<UpdateCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            if (crossAppAccessResourceApp.isNull()) {
+                this.crossAppAccessResourceApp = OptionalNullable.ofNull();
+            } else if (crossAppAccessResourceApp.isEmpty()) {
+                this.crossAppAccessResourceApp = OptionalNullable.absent();
+            } else {
+                this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp.get());
+            }
+            return this;
+        }
+
         public UpdateConnectionRequestContent build() {
             return new UpdateConnectionRequestContent(
                     displayName,
@@ -422,6 +479,7 @@ public final class UpdateConnectionRequestContent {
                     authentication,
                     connectedAccounts,
                     crossAppAccessRequestingApp,
+                    crossAppAccessResourceApp,
                     additionalProperties);
         }
 

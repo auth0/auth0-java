@@ -167,7 +167,7 @@ public final class ListClientsRequestParameters {
     }
 
     /**
-     * @return Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+     * @return Optional filter by the <a href="https://drafts.oauth.net/draft-ietf-oauth-client-id-metadata-document/draft-ietf-oauth-client-id-metadata-document.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("external_client_id")
@@ -612,7 +612,7 @@ public final class ListClientsRequestParameters {
         }
 
         /**
-         * <p>Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.</p>
+         * <p>Optional filter by the <a href="https://drafts.oauth.net/draft-ietf-oauth-client-id-metadata-document/draft-ietf-oauth-client-id-metadata-document.html">Client ID Metadata Document</a> URI for CIMD-registered clients.</p>
          */
         @JsonSetter(value = "external_client_id", nulls = Nulls.SKIP)
         public Builder externalClientId(@Nullable OptionalNullable<String> externalClientId) {

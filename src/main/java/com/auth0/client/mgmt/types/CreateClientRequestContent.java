@@ -125,6 +125,8 @@ public final class CreateClientRequestContent {
 
     private final Optional<String> resourceServerIdentifier;
 
+    private final Optional<CreateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant;
+
     private final Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode;
 
     private final Optional<ClientRedirectionPolicyEnum> redirectionPolicy;
@@ -188,6 +190,7 @@ public final class CreateClientRequestContent {
             OptionalNullable<Integer> parRequestExpiry,
             Optional<CreateTokenQuota> tokenQuota,
             Optional<String> resourceServerIdentifier,
+            Optional<CreateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant,
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
             Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
             Optional<ExpressConfiguration> expressConfiguration,
@@ -244,6 +247,7 @@ public final class CreateClientRequestContent {
         this.parRequestExpiry = parRequestExpiry;
         this.tokenQuota = tokenQuota;
         this.resourceServerIdentifier = resourceServerIdentifier;
+        this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
         this.thirdPartySecurityMode = thirdPartySecurityMode;
         this.redirectionPolicy = redirectionPolicy;
         this.expressConfiguration = expressConfiguration;
@@ -615,6 +619,11 @@ public final class CreateClientRequestContent {
         return resourceServerIdentifier;
     }
 
+    @JsonProperty("identity_assertion_authorization_grant")
+    public Optional<CreateIdentityAssertionAuthorizationGrant> getIdentityAssertionAuthorizationGrant() {
+        return identityAssertionAuthorizationGrant;
+    }
+
     @JsonProperty("third_party_security_mode")
     public Optional<ClientThirdPartySecurityModeEnum> getThirdPartySecurityMode() {
         return thirdPartySecurityMode;
@@ -739,6 +748,7 @@ public final class CreateClientRequestContent {
                 && parRequestExpiry.equals(other.parRequestExpiry)
                 && tokenQuota.equals(other.tokenQuota)
                 && resourceServerIdentifier.equals(other.resourceServerIdentifier)
+                && identityAssertionAuthorizationGrant.equals(other.identityAssertionAuthorizationGrant)
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
                 && redirectionPolicy.equals(other.redirectionPolicy)
                 && expressConfiguration.equals(other.expressConfiguration)
@@ -799,6 +809,7 @@ public final class CreateClientRequestContent {
                 this.parRequestExpiry,
                 this.tokenQuota,
                 this.resourceServerIdentifier,
+                this.identityAssertionAuthorizationGrant,
                 this.thirdPartySecurityMode,
                 this.redirectionPolicy,
                 this.expressConfiguration,
@@ -1145,6 +1156,12 @@ public final class CreateClientRequestContent {
 
         _FinalStage resourceServerIdentifier(String resourceServerIdentifier);
 
+        _FinalStage identityAssertionAuthorizationGrant(
+                Optional<CreateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant);
+
+        _FinalStage identityAssertionAuthorizationGrant(
+                CreateIdentityAssertionAuthorizationGrant identityAssertionAuthorizationGrant);
+
         _FinalStage thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode);
 
         _FinalStage thirdPartySecurityMode(ClientThirdPartySecurityModeEnum thirdPartySecurityMode);
@@ -1183,6 +1200,9 @@ public final class CreateClientRequestContent {
         private Optional<ClientRedirectionPolicyEnum> redirectionPolicy = Optional.empty();
 
         private Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode = Optional.empty();
+
+        private Optional<CreateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant =
+                Optional.empty();
 
         private Optional<String> resourceServerIdentifier = Optional.empty();
 
@@ -1339,6 +1359,7 @@ public final class CreateClientRequestContent {
             parRequestExpiry(other.getParRequestExpiry());
             tokenQuota(other.getTokenQuota());
             resourceServerIdentifier(other.getResourceServerIdentifier());
+            identityAssertionAuthorizationGrant(other.getIdentityAssertionAuthorizationGrant());
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
             redirectionPolicy(other.getRedirectionPolicy());
             expressConfiguration(other.getExpressConfiguration());
@@ -1424,6 +1445,21 @@ public final class CreateClientRequestContent {
         @JsonSetter(value = "third_party_security_mode", nulls = Nulls.SKIP)
         public _FinalStage thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode) {
             this.thirdPartySecurityMode = thirdPartySecurityMode;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage identityAssertionAuthorizationGrant(
+                CreateIdentityAssertionAuthorizationGrant identityAssertionAuthorizationGrant) {
+            this.identityAssertionAuthorizationGrant = Optional.ofNullable(identityAssertionAuthorizationGrant);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "identity_assertion_authorization_grant", nulls = Nulls.SKIP)
+        public _FinalStage identityAssertionAuthorizationGrant(
+                Optional<CreateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant) {
+            this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
             return this;
         }
 
@@ -2474,6 +2510,7 @@ public final class CreateClientRequestContent {
                     parRequestExpiry,
                     tokenQuota,
                     resourceServerIdentifier,
+                    identityAssertionAuthorizationGrant,
                     thirdPartySecurityMode,
                     redirectionPolicy,
                     expressConfiguration,

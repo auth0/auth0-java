@@ -10,10 +10,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -26,6 +28,8 @@ public final class GetBrandingThemeResponseContent {
     private final String displayName;
 
     private final BrandingThemeFonts fonts;
+
+    private final Optional<BrandingThemeIdentifiers> identifiers;
 
     private final BrandingThemePageBackground pageBackground;
 
@@ -40,6 +44,7 @@ public final class GetBrandingThemeResponseContent {
             BrandingThemeColors colors,
             String displayName,
             BrandingThemeFonts fonts,
+            Optional<BrandingThemeIdentifiers> identifiers,
             BrandingThemePageBackground pageBackground,
             String themeId,
             BrandingThemeWidget widget,
@@ -48,6 +53,7 @@ public final class GetBrandingThemeResponseContent {
         this.colors = colors;
         this.displayName = displayName;
         this.fonts = fonts;
+        this.identifiers = identifiers;
         this.pageBackground = pageBackground;
         this.themeId = themeId;
         this.widget = widget;
@@ -75,6 +81,11 @@ public final class GetBrandingThemeResponseContent {
     @JsonProperty("fonts")
     public BrandingThemeFonts getFonts() {
         return fonts;
+    }
+
+    @JsonProperty("identifiers")
+    public Optional<BrandingThemeIdentifiers> getIdentifiers() {
+        return identifiers;
     }
 
     @JsonProperty("page_background")
@@ -111,6 +122,7 @@ public final class GetBrandingThemeResponseContent {
                 && colors.equals(other.colors)
                 && displayName.equals(other.displayName)
                 && fonts.equals(other.fonts)
+                && identifiers.equals(other.identifiers)
                 && pageBackground.equals(other.pageBackground)
                 && themeId.equals(other.themeId)
                 && widget.equals(other.widget);
@@ -123,6 +135,7 @@ public final class GetBrandingThemeResponseContent {
                 this.colors,
                 this.displayName,
                 this.fonts,
+                this.identifiers,
                 this.pageBackground,
                 this.themeId,
                 this.widget);
@@ -179,6 +192,10 @@ public final class GetBrandingThemeResponseContent {
         _FinalStage additionalProperty(String key, Object value);
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        _FinalStage identifiers(Optional<BrandingThemeIdentifiers> identifiers);
+
+        _FinalStage identifiers(BrandingThemeIdentifiers identifiers);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -205,6 +222,8 @@ public final class GetBrandingThemeResponseContent {
 
         private BrandingThemeWidget widget;
 
+        private Optional<BrandingThemeIdentifiers> identifiers = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -216,6 +235,7 @@ public final class GetBrandingThemeResponseContent {
             colors(other.getColors());
             displayName(other.getDisplayName());
             fonts(other.getFonts());
+            identifiers(other.getIdentifiers());
             pageBackground(other.getPageBackground());
             themeId(other.getThemeId());
             widget(other.getWidget());
@@ -280,9 +300,30 @@ public final class GetBrandingThemeResponseContent {
         }
 
         @java.lang.Override
+        public _FinalStage identifiers(BrandingThemeIdentifiers identifiers) {
+            this.identifiers = Optional.ofNullable(identifiers);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "identifiers", nulls = Nulls.SKIP)
+        public _FinalStage identifiers(Optional<BrandingThemeIdentifiers> identifiers) {
+            this.identifiers = identifiers;
+            return this;
+        }
+
+        @java.lang.Override
         public GetBrandingThemeResponseContent build() {
             return new GetBrandingThemeResponseContent(
-                    borders, colors, displayName, fonts, pageBackground, themeId, widget, additionalProperties);
+                    borders,
+                    colors,
+                    displayName,
+                    fonts,
+                    identifiers,
+                    pageBackground,
+                    themeId,
+                    widget,
+                    additionalProperties);
         }
 
         @java.lang.Override
