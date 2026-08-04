@@ -78,6 +78,8 @@ public class AsyncRawSessionsClient {
                 .addPathSegments("users")
                 .addPathSegment(userId)
                 .addPathSegments("sessions");
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
         if (!request.getFrom().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "from", request.getFrom().orElse(null), false);

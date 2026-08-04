@@ -28,6 +28,11 @@ public class MembersClient {
 
     /**
      * List the organization members assigned a specific role within the context of an organization.
+     * <p><ul>
+     *   <li>
+     *     <b>Note</b>: Returns only members with direct role assignments. For groups assigned to this role within the organization, use <code>GET /api/v2/organizations/{organization_id}/roles/{role_id}/groups</code>.
+     *   </li>
+     * </ul></p>
      */
     public SyncPagingIterable<RoleMember> list(String id, String roleId) {
         return this.rawClient.list(id, roleId).body();
@@ -35,6 +40,11 @@ public class MembersClient {
 
     /**
      * List the organization members assigned a specific role within the context of an organization.
+     * <p><ul>
+     *   <li>
+     *     <b>Note</b>: Returns only members with direct role assignments. For groups assigned to this role within the organization, use <code>GET /api/v2/organizations/{organization_id}/roles/{role_id}/groups</code>.
+     *   </li>
+     * </ul></p>
      */
     public SyncPagingIterable<RoleMember> list(String id, String roleId, RequestOptions requestOptions) {
         return this.rawClient.list(id, roleId, requestOptions).body();
@@ -42,6 +52,11 @@ public class MembersClient {
 
     /**
      * List the organization members assigned a specific role within the context of an organization.
+     * <p><ul>
+     *   <li>
+     *     <b>Note</b>: Returns only members with direct role assignments. For groups assigned to this role within the organization, use <code>GET /api/v2/organizations/{organization_id}/roles/{role_id}/groups</code>.
+     *   </li>
+     * </ul></p>
      */
     public SyncPagingIterable<RoleMember> list(
             String id, String roleId, ListOrganizationRoleMembersRequestParameters request) {
@@ -50,6 +65,11 @@ public class MembersClient {
 
     /**
      * List the organization members assigned a specific role within the context of an organization.
+     * <p><ul>
+     *   <li>
+     *     <b>Note</b>: Returns only members with direct role assignments. For groups assigned to this role within the organization, use <code>GET /api/v2/organizations/{organization_id}/roles/{role_id}/groups</code>.
+     *   </li>
+     * </ul></p>
      */
     public SyncPagingIterable<RoleMember> list(
             String id,

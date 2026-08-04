@@ -10,10 +10,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -21,10 +23,24 @@ import org.jetbrains.annotations.NotNull;
 public final class SynchronizedGroupPayload {
     private final String id;
 
+    private final Optional<String> name;
+
+    private final Optional<String> email;
+
+    private final Optional<Integer> directMembersCount;
+
     private final Map<String, Object> additionalProperties;
 
-    private SynchronizedGroupPayload(String id, Map<String, Object> additionalProperties) {
+    private SynchronizedGroupPayload(
+            String id,
+            Optional<String> name,
+            Optional<String> email,
+            Optional<Integer> directMembersCount,
+            Map<String, Object> additionalProperties) {
         this.id = id;
+        this.name = name;
+        this.email = email;
+        this.directMembersCount = directMembersCount;
         this.additionalProperties = additionalProperties;
     }
 
@@ -34,6 +50,30 @@ public final class SynchronizedGroupPayload {
     @JsonProperty("id")
     public String getId() {
         return id;
+    }
+
+    /**
+     * @return Google Workspace Directory group name.
+     */
+    @JsonProperty("name")
+    public Optional<String> getName() {
+        return name;
+    }
+
+    /**
+     * @return Google Workspace Directory group email.
+     */
+    @JsonProperty("email")
+    public Optional<String> getEmail() {
+        return email;
+    }
+
+    /**
+     * @return Number of direct members in the Google Workspace Directory group.
+     */
+    @JsonProperty("direct_members_count")
+    public Optional<Integer> getDirectMembersCount() {
+        return directMembersCount;
     }
 
     @java.lang.Override
@@ -48,12 +88,15 @@ public final class SynchronizedGroupPayload {
     }
 
     private boolean equalTo(SynchronizedGroupPayload other) {
-        return id.equals(other.id);
+        return id.equals(other.id)
+                && name.equals(other.name)
+                && email.equals(other.email)
+                && directMembersCount.equals(other.directMembersCount);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.id);
+        return Objects.hash(this.id, this.name, this.email, this.directMembersCount);
     }
 
     @java.lang.Override
@@ -80,11 +123,38 @@ public final class SynchronizedGroupPayload {
         _FinalStage additionalProperty(String key, Object value);
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>Google Workspace Directory group name.</p>
+         */
+        _FinalStage name(Optional<String> name);
+
+        _FinalStage name(String name);
+
+        /**
+         * <p>Google Workspace Directory group email.</p>
+         */
+        _FinalStage email(Optional<String> email);
+
+        _FinalStage email(String email);
+
+        /**
+         * <p>Number of direct members in the Google Workspace Directory group.</p>
+         */
+        _FinalStage directMembersCount(Optional<Integer> directMembersCount);
+
+        _FinalStage directMembersCount(Integer directMembersCount);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements IdStage, _FinalStage {
         private String id;
+
+        private Optional<Integer> directMembersCount = Optional.empty();
+
+        private Optional<String> email = Optional.empty();
+
+        private Optional<String> name = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -94,6 +164,9 @@ public final class SynchronizedGroupPayload {
         @java.lang.Override
         public Builder from(SynchronizedGroupPayload other) {
             id(other.getId());
+            name(other.getName());
+            email(other.getEmail());
+            directMembersCount(other.getDirectMembersCount());
             return this;
         }
 
@@ -108,9 +181,69 @@ public final class SynchronizedGroupPayload {
             return this;
         }
 
+        /**
+         * <p>Number of direct members in the Google Workspace Directory group.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage directMembersCount(Integer directMembersCount) {
+            this.directMembersCount = Optional.ofNullable(directMembersCount);
+            return this;
+        }
+
+        /**
+         * <p>Number of direct members in the Google Workspace Directory group.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "direct_members_count", nulls = Nulls.SKIP)
+        public _FinalStage directMembersCount(Optional<Integer> directMembersCount) {
+            this.directMembersCount = directMembersCount;
+            return this;
+        }
+
+        /**
+         * <p>Google Workspace Directory group email.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage email(String email) {
+            this.email = Optional.ofNullable(email);
+            return this;
+        }
+
+        /**
+         * <p>Google Workspace Directory group email.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "email", nulls = Nulls.SKIP)
+        public _FinalStage email(Optional<String> email) {
+            this.email = email;
+            return this;
+        }
+
+        /**
+         * <p>Google Workspace Directory group name.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage name(String name) {
+            this.name = Optional.ofNullable(name);
+            return this;
+        }
+
+        /**
+         * <p>Google Workspace Directory group name.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "name", nulls = Nulls.SKIP)
+        public _FinalStage name(Optional<String> name) {
+            this.name = name;
+            return this;
+        }
+
         @java.lang.Override
         public SynchronizedGroupPayload build() {
-            return new SynchronizedGroupPayload(id, additionalProperties);
+            return new SynchronizedGroupPayload(id, name, email, directMembersCount, additionalProperties);
         }
 
         @java.lang.Override

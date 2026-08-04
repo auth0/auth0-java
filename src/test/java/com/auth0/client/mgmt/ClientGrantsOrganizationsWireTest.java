@@ -40,12 +40,13 @@ public class ClientGrantsOrganizationsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"next\":\"next\",\"organizations\":[{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"token_quota\":{\"client_credentials\":{}},\"third_party_client_access\":\"block\"}]}"));
+                                "{\"next\":\"next\",\"organizations\":[{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"token_quota\":{\"client_credentials\":{}},\"third_party_client_access\":\"block\",\"is_app_entitlement_active\":true}]}"));
         SyncPagingIterable<Organization> response = client.clientGrants()
                 .organizations()
                 .list(
                         "id",
                         ListClientGrantOrganizationsRequestParameters.builder()
+                                .includeTotals(true)
                                 .from("from")
                                 .take(1)
                                 .build());

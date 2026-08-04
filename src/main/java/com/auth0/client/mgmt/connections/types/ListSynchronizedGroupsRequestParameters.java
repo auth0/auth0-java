@@ -27,12 +27,18 @@ public final class ListSynchronizedGroupsRequestParameters {
 
     private final OptionalNullable<Integer> take;
 
+    private final OptionalNullable<String> q;
+
     private final Map<String, Object> additionalProperties;
 
     private ListSynchronizedGroupsRequestParameters(
-            OptionalNullable<String> from, OptionalNullable<Integer> take, Map<String, Object> additionalProperties) {
+            OptionalNullable<String> from,
+            OptionalNullable<Integer> take,
+            OptionalNullable<String> q,
+            Map<String, Object> additionalProperties) {
         this.from = from;
         this.take = take;
+        this.q = q;
         this.additionalProperties = additionalProperties;
     }
 
@@ -60,6 +66,18 @@ public final class ListSynchronizedGroupsRequestParameters {
         return take;
     }
 
+    /**
+     * @return Query in <a target='_new' href ='https://lucene.apache.org/core/2_9_4/queryparsersyntax.html'>Lucene query string syntax</a>. Only prefix search on &quot;name&quot; or &quot;email&quot; fields are allowed, with a single wildcard suffix. Operators, modifiers, and groupings are not allowed. Terms are treated as case-insensitive. Example query: &quot;name:engineering*&quot;.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("q")
+    public OptionalNullable<String> getQ() {
+        if (q == null) {
+            return OptionalNullable.absent();
+        }
+        return q;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("from")
     private OptionalNullable<String> _getFrom() {
@@ -70,6 +88,12 @@ public final class ListSynchronizedGroupsRequestParameters {
     @JsonProperty("take")
     private OptionalNullable<Integer> _getTake() {
         return take;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("q")
+    private OptionalNullable<String> _getQ() {
+        return q;
     }
 
     @java.lang.Override
@@ -85,12 +109,12 @@ public final class ListSynchronizedGroupsRequestParameters {
     }
 
     private boolean equalTo(ListSynchronizedGroupsRequestParameters other) {
-        return from.equals(other.from) && take.equals(other.take);
+        return from.equals(other.from) && take.equals(other.take) && q.equals(other.q);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.from, this.take);
+        return Objects.hash(this.from, this.take, this.q);
     }
 
     @java.lang.Override
@@ -108,6 +132,8 @@ public final class ListSynchronizedGroupsRequestParameters {
 
         private OptionalNullable<Integer> take = OptionalNullable.absent();
 
+        private OptionalNullable<String> q = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -116,6 +142,7 @@ public final class ListSynchronizedGroupsRequestParameters {
         public Builder from(ListSynchronizedGroupsRequestParameters other) {
             from(other.getFrom());
             take(other.getTake());
+            q(other.getQ());
             return this;
         }
 
@@ -187,8 +214,42 @@ public final class ListSynchronizedGroupsRequestParameters {
             return this;
         }
 
+        /**
+         * <p>Query in <a target='_new' href ='https://lucene.apache.org/core/2_9_4/queryparsersyntax.html'>Lucene query string syntax</a>. Only prefix search on &quot;name&quot; or &quot;email&quot; fields are allowed, with a single wildcard suffix. Operators, modifiers, and groupings are not allowed. Terms are treated as case-insensitive. Example query: &quot;name:engineering*&quot;.</p>
+         */
+        @JsonSetter(value = "q", nulls = Nulls.SKIP)
+        public Builder q(@Nullable OptionalNullable<String> q) {
+            this.q = q;
+            return this;
+        }
+
+        public Builder q(String q) {
+            this.q = OptionalNullable.of(q);
+            return this;
+        }
+
+        public Builder q(Optional<String> q) {
+            if (q.isPresent()) {
+                this.q = OptionalNullable.of(q.get());
+            } else {
+                this.q = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder q(com.auth0.client.mgmt.core.Nullable<String> q) {
+            if (q.isNull()) {
+                this.q = OptionalNullable.ofNull();
+            } else if (q.isEmpty()) {
+                this.q = OptionalNullable.absent();
+            } else {
+                this.q = OptionalNullable.of(q.get());
+            }
+            return this;
+        }
+
         public ListSynchronizedGroupsRequestParameters build() {
-            return new ListSynchronizedGroupsRequestParameters(from, take, additionalProperties);
+            return new ListSynchronizedGroupsRequestParameters(from, take, q, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

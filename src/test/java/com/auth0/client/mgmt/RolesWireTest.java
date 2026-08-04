@@ -7,6 +7,7 @@ import com.auth0.client.mgmt.types.CreateRoleResponseContent;
 import com.auth0.client.mgmt.types.GetRoleResponseContent;
 import com.auth0.client.mgmt.types.ListRolesRequestParameters;
 import com.auth0.client.mgmt.types.Role;
+import com.auth0.client.mgmt.types.RoleTypeEnum;
 import com.auth0.client.mgmt.types.UpdateRoleRequestContent;
 import com.auth0.client.mgmt.types.UpdateRoleResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -45,13 +46,15 @@ public class RolesWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"roles\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\"}]}"));
+                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"roles\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"tenant\",\"owner_id\":\"owner_id\"}]}"));
         SyncPagingIterable<Role> response = client.roles()
                 .list(ListRolesRequestParameters.builder()
                         .perPage(1)
                         .page(1)
                         .includeTotals(true)
                         .nameFilter("name_filter")
+                        .type(RoleTypeEnum.TENANT)
+                        .ownerId("owner_id")
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -65,9 +68,11 @@ public class RolesWireTest {
 
     @Test
     public void testCreate() throws Exception {
-        server.enqueue(new MockResponse()
-                .setResponseCode(200)
-                .setBody("{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\"}"));
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"tenant\",\"owner_id\":\"owner_id\"}"));
         CreateRoleResponseContent response = client.roles()
                 .create(CreateRoleRequestContent.builder().name("name").build());
         RecordedRequest request = server.takeRequest();
@@ -110,7 +115,9 @@ public class RolesWireTest {
                 + "{\n"
                 + "  \"id\": \"id\",\n"
                 + "  \"name\": \"name\",\n"
-                + "  \"description\": \"description\"\n"
+                + "  \"description\": \"description\",\n"
+                + "  \"type\": \"tenant\",\n"
+                + "  \"owner_id\": \"owner_id\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -145,9 +152,11 @@ public class RolesWireTest {
 
     @Test
     public void testGet() throws Exception {
-        server.enqueue(new MockResponse()
-                .setResponseCode(200)
-                .setBody("{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\"}"));
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"tenant\",\"owner_id\":\"owner_id\"}"));
         GetRoleResponseContent response = client.roles().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -160,7 +169,9 @@ public class RolesWireTest {
                 + "{\n"
                 + "  \"id\": \"id\",\n"
                 + "  \"name\": \"name\",\n"
-                + "  \"description\": \"description\"\n"
+                + "  \"description\": \"description\",\n"
+                + "  \"type\": \"tenant\",\n"
+                + "  \"owner_id\": \"owner_id\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -204,9 +215,11 @@ public class RolesWireTest {
 
     @Test
     public void testUpdate() throws Exception {
-        server.enqueue(new MockResponse()
-                .setResponseCode(200)
-                .setBody("{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\"}"));
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"tenant\",\"owner_id\":\"owner_id\"}"));
         UpdateRoleResponseContent response =
                 client.roles().update("id", UpdateRoleRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -249,7 +262,9 @@ public class RolesWireTest {
                 + "{\n"
                 + "  \"id\": \"id\",\n"
                 + "  \"name\": \"name\",\n"
-                + "  \"description\": \"description\"\n"
+                + "  \"description\": \"description\",\n"
+                + "  \"type\": \"tenant\",\n"
+                + "  \"owner_id\": \"owner_id\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);

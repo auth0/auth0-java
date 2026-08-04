@@ -46,12 +46,14 @@ public class OrganizationsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"next\":\"next\",\"organizations\":[{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"token_quota\":{\"client_credentials\":{}},\"third_party_client_access\":\"block\"}]}"));
+                                "{\"next\":\"next\",\"organizations\":[{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"token_quota\":{\"client_credentials\":{}},\"third_party_client_access\":\"block\",\"is_app_entitlement_active\":true}]}"));
         SyncPagingIterable<Organization> response = client.organizations()
                 .list(ListOrganizationsRequestParameters.builder()
+                        .includeTotals(true)
                         .from("from")
                         .take(1)
                         .sort("sort")
+                        .includeClientAssociationFor("include_client_association_for")
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -69,7 +71,7 @@ public class OrganizationsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"branding\":{\"logo_url\":\"logo_url\",\"colors\":{\"primary\":\"primary\",\"page_background\":\"page_background\"}},\"metadata\":{\"key\":\"value\"},\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}},\"third_party_client_access\":\"block\",\"enabled_connections\":[{\"connection_id\":\"connection_id\",\"assign_membership_on_login\":true,\"show_as_button\":true,\"is_signup_enabled\":true}]}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"branding\":{\"logo_url\":\"logo_url\",\"colors\":{\"primary\":\"primary\",\"page_background\":\"page_background\"}},\"metadata\":{\"key\":\"value\"},\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}},\"third_party_client_access\":\"block\",\"is_app_entitlement_active\":true,\"client\":{\"use_for_member_access\":true},\"enabled_connections\":[{\"connection_id\":\"connection_id\",\"assign_membership_on_login\":true,\"show_as_button\":true,\"is_signup_enabled\":true}]}"));
         CreateOrganizationResponseContent response = client.organizations()
                 .create(CreateOrganizationRequestContent.builder().name("name").build());
         RecordedRequest request = server.takeRequest();
@@ -131,6 +133,10 @@ public class OrganizationsWireTest {
                 + "    }\n"
                 + "  },\n"
                 + "  \"third_party_client_access\": \"block\",\n"
+                + "  \"is_app_entitlement_active\": true,\n"
+                + "  \"client\": {\n"
+                + "    \"use_for_member_access\": true\n"
+                + "  },\n"
                 + "  \"enabled_connections\": [\n"
                 + "    {\n"
                 + "      \"connection_id\": \"connection_id\",\n"
@@ -177,7 +183,7 @@ public class OrganizationsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"branding\":{\"logo_url\":\"logo_url\",\"colors\":{\"primary\":\"primary\",\"page_background\":\"page_background\"}},\"metadata\":{\"key\":\"value\"},\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}},\"third_party_client_access\":\"block\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"branding\":{\"logo_url\":\"logo_url\",\"colors\":{\"primary\":\"primary\",\"page_background\":\"page_background\"}},\"metadata\":{\"key\":\"value\"},\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}},\"third_party_client_access\":\"block\",\"is_app_entitlement_active\":true,\"client\":{\"use_for_member_access\":true}}"));
         GetOrganizationByNameResponseContent response = client.organizations().getByName("name");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -208,7 +214,11 @@ public class OrganizationsWireTest {
                 + "      \"per_hour\": 1\n"
                 + "    }\n"
                 + "  },\n"
-                + "  \"third_party_client_access\": \"block\"\n"
+                + "  \"third_party_client_access\": \"block\",\n"
+                + "  \"is_app_entitlement_active\": true,\n"
+                + "  \"client\": {\n"
+                + "    \"use_for_member_access\": true\n"
+                + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -247,7 +257,7 @@ public class OrganizationsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"branding\":{\"logo_url\":\"logo_url\",\"colors\":{\"primary\":\"primary\",\"page_background\":\"page_background\"}},\"metadata\":{\"key\":\"value\"},\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}},\"third_party_client_access\":\"block\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"branding\":{\"logo_url\":\"logo_url\",\"colors\":{\"primary\":\"primary\",\"page_background\":\"page_background\"}},\"metadata\":{\"key\":\"value\"},\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}},\"third_party_client_access\":\"block\",\"is_app_entitlement_active\":true,\"client\":{\"use_for_member_access\":true}}"));
         GetOrganizationResponseContent response = client.organizations().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -278,7 +288,11 @@ public class OrganizationsWireTest {
                 + "      \"per_hour\": 1\n"
                 + "    }\n"
                 + "  },\n"
-                + "  \"third_party_client_access\": \"block\"\n"
+                + "  \"third_party_client_access\": \"block\",\n"
+                + "  \"is_app_entitlement_active\": true,\n"
+                + "  \"client\": {\n"
+                + "    \"use_for_member_access\": true\n"
+                + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -326,7 +340,7 @@ public class OrganizationsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"branding\":{\"logo_url\":\"logo_url\",\"colors\":{\"primary\":\"primary\",\"page_background\":\"page_background\"}},\"metadata\":{\"key\":\"value\"},\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}},\"third_party_client_access\":\"block\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"branding\":{\"logo_url\":\"logo_url\",\"colors\":{\"primary\":\"primary\",\"page_background\":\"page_background\"}},\"metadata\":{\"key\":\"value\"},\"token_quota\":{\"client_credentials\":{\"enforce\":true,\"per_day\":1,\"per_hour\":1}},\"third_party_client_access\":\"block\",\"is_app_entitlement_active\":true,\"client\":{\"use_for_member_access\":true}}"));
         UpdateOrganizationResponseContent response = client.organizations()
                 .update("id", UpdateOrganizationRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -387,7 +401,11 @@ public class OrganizationsWireTest {
                 + "      \"per_hour\": 1\n"
                 + "    }\n"
                 + "  },\n"
-                + "  \"third_party_client_access\": \"block\"\n"
+                + "  \"third_party_client_access\": \"block\",\n"
+                + "  \"is_app_entitlement_active\": true,\n"
+                + "  \"client\": {\n"
+                + "    \"use_for_member_access\": true\n"
+                + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);

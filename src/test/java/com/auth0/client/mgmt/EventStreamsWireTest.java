@@ -377,7 +377,7 @@ public class EventStreamsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"event_stream_id\":\"event_stream_id\",\"status\":\"failed\",\"event_type\":\"connection.created\",\"attempts\":[{\"status\":\"failed\",\"timestamp\":\"2024-01-15T09:30:00Z\",\"error_message\":\"error_message\"}],\"event\":{\"id\":\"id\",\"source\":\"source\",\"specversion\":\"specversion\",\"type\":\"type\",\"time\":\"2024-01-15T09:30:00Z\",\"data\":\"data\"}}"));
+                                "{\"id\":\"id\",\"event_stream_id\":\"event_stream_id\",\"status\":\"failed\",\"event_type\":\"connection.created\",\"attempts\":[{\"status\":\"failed\",\"timestamp\":\"2024-01-15T09:30:00Z\",\"error_message\":\"error_message\",\"duration\":1.1}],\"event\":{\"id\":\"id\",\"source\":\"source\",\"specversion\":\"specversion\",\"type\":\"type\",\"time\":\"2024-01-15T09:30:00Z\",\"data\":{\"key\":\"value\"}}}"));
         CreateEventStreamTestEventResponseContent response = client.eventStreams()
                 .test(
                         "id",
@@ -430,7 +430,8 @@ public class EventStreamsWireTest {
                 + "    {\n"
                 + "      \"status\": \"failed\",\n"
                 + "      \"timestamp\": \"2024-01-15T09:30:00Z\",\n"
-                + "      \"error_message\": \"error_message\"\n"
+                + "      \"error_message\": \"error_message\",\n"
+                + "      \"duration\": 1.1\n"
                 + "    }\n"
                 + "  ],\n"
                 + "  \"event\": {\n"
@@ -439,7 +440,9 @@ public class EventStreamsWireTest {
                 + "    \"specversion\": \"specversion\",\n"
                 + "    \"type\": \"type\",\n"
                 + "    \"time\": \"2024-01-15T09:30:00Z\",\n"
-                + "    \"data\": \"data\"\n"
+                + "    \"data\": {\n"
+                + "      \"key\": \"value\"\n"
+                + "    }\n"
                 + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);

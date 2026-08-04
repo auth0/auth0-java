@@ -44,7 +44,7 @@ public class AsyncMembersClient {
      * This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
      * <ul>
      * <li>Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.</li>
-     * <li>Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.</li>
+     * <li>Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token. Only directly assigned roles are returned. To also include group-based role assignments, use <code>GET /api/v2/organizations/{id}/members/{user_id}/effective-roles</code>.</li>
      * </ul>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>
@@ -64,7 +64,7 @@ public class AsyncMembersClient {
      * This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
      * <ul>
      * <li>Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.</li>
-     * <li>Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.</li>
+     * <li>Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token. Only directly assigned roles are returned. To also include group-based role assignments, use <code>GET /api/v2/organizations/{id}/members/{user_id}/effective-roles</code>.</li>
      * </ul>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>
@@ -84,7 +84,7 @@ public class AsyncMembersClient {
      * This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
      * <ul>
      * <li>Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.</li>
-     * <li>Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.</li>
+     * <li>Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token. Only directly assigned roles are returned. To also include group-based role assignments, use <code>GET /api/v2/organizations/{id}/members/{user_id}/effective-roles</code>.</li>
      * </ul>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>
@@ -105,7 +105,7 @@ public class AsyncMembersClient {
      * This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
      * <ul>
      * <li>Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.</li>
-     * <li>Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.</li>
+     * <li>Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token. Only directly assigned roles are returned. To also include group-based role assignments, use <code>GET /api/v2/organizations/{id}/members/{user_id}/effective-roles</code>.</li>
      * </ul>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>

@@ -5,10 +5,10 @@ package com.auth0.client.mgmt.eventstreams;
 
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.eventstreams.types.ListEventStreamDeliveriesRequestParameters;
 import com.auth0.client.mgmt.types.EventStreamDelivery;
 import com.auth0.client.mgmt.types.GetEventStreamDeliveryHistoryResponseContent;
-import java.util.List;
 
 public class DeliveriesClient {
     protected final ClientOptions clientOptions;
@@ -27,19 +27,19 @@ public class DeliveriesClient {
         return this.rawClient;
     }
 
-    public List<EventStreamDelivery> list(String id) {
+    public SyncPagingIterable<EventStreamDelivery> list(String id) {
         return this.rawClient.list(id).body();
     }
 
-    public List<EventStreamDelivery> list(String id, RequestOptions requestOptions) {
+    public SyncPagingIterable<EventStreamDelivery> list(String id, RequestOptions requestOptions) {
         return this.rawClient.list(id, requestOptions).body();
     }
 
-    public List<EventStreamDelivery> list(String id, ListEventStreamDeliveriesRequestParameters request) {
+    public SyncPagingIterable<EventStreamDelivery> list(String id, ListEventStreamDeliveriesRequestParameters request) {
         return this.rawClient.list(id, request).body();
     }
 
-    public List<EventStreamDelivery> list(
+    public SyncPagingIterable<EventStreamDelivery> list(
             String id, ListEventStreamDeliveriesRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(id, request, requestOptions).body();
     }

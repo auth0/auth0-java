@@ -49,6 +49,7 @@ public class OrganizationsMembersWireTest {
                 .list(
                         "id",
                         ListOrganizationMembersRequestParameters.builder()
+                                .includeTotals(true)
                                 .from("from")
                                 .take(1)
                                 .fields("fields")

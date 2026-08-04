@@ -4,6 +4,8 @@
 package com.auth0.client.mgmt.connections;
 
 import com.auth0.client.mgmt.connections.directoryprovisioning.SynchronizationsClient;
+import com.auth0.client.mgmt.connections.types.AddSynchronizedGroupsRequestContent;
+import com.auth0.client.mgmt.connections.types.DeleteSynchronizedGroupsRequestContent;
 import com.auth0.client.mgmt.connections.types.ListDirectoryProvisioningsRequestParameters;
 import com.auth0.client.mgmt.connections.types.ListSynchronizedGroupsRequestParameters;
 import com.auth0.client.mgmt.connections.types.ReplaceSynchronizedGroupsRequestContent;
@@ -212,6 +214,23 @@ public class DirectoryProvisioningClient {
     }
 
     /**
+     * Add synchronized group selections to a directory provisioning configuration.
+     */
+    public void addSynchronizedGroupSelections(String id, AddSynchronizedGroupsRequestContent request) {
+        this.rawClient.addSynchronizedGroupSelections(id, request).body();
+    }
+
+    /**
+     * Add synchronized group selections to a directory provisioning configuration.
+     */
+    public void addSynchronizedGroupSelections(
+            String id, AddSynchronizedGroupsRequestContent request, RequestOptions requestOptions) {
+        this.rawClient
+                .addSynchronizedGroupSelections(id, request, requestOptions)
+                .body();
+    }
+
+    /**
      * Create or replace the selected groups for a connection directory provisioning configuration.
      */
     public void set(String id, ReplaceSynchronizedGroupsRequestContent request) {
@@ -223,6 +242,23 @@ public class DirectoryProvisioningClient {
      */
     public void set(String id, ReplaceSynchronizedGroupsRequestContent request, RequestOptions requestOptions) {
         this.rawClient.set(id, request, requestOptions).body();
+    }
+
+    /**
+     * Delete synchronized group selections for a directory provisioning configuration
+     */
+    public void deleteSynchronizedGroupSelections(String id, DeleteSynchronizedGroupsRequestContent request) {
+        this.rawClient.deleteSynchronizedGroupSelections(id, request).body();
+    }
+
+    /**
+     * Delete synchronized group selections for a directory provisioning configuration
+     */
+    public void deleteSynchronizedGroupSelections(
+            String id, DeleteSynchronizedGroupsRequestContent request, RequestOptions requestOptions) {
+        this.rawClient
+                .deleteSynchronizedGroupSelections(id, request, requestOptions)
+                .body();
     }
 
     public SynchronizationsClient synchronizations() {

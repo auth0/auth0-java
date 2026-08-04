@@ -40,7 +40,7 @@ public class UsersOrganizationsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"organizations\":[{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"token_quota\":{\"client_credentials\":{}},\"third_party_client_access\":\"block\"}]}"));
+                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"organizations\":[{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"token_quota\":{\"client_credentials\":{}},\"third_party_client_access\":\"block\",\"is_app_entitlement_active\":true}]}"));
         SyncPagingIterable<Organization> response = client.users()
                 .organizations()
                 .list(

@@ -24,12 +24,18 @@ public final class ConnectionConnectedAccountsPurposeXaa {
 
     private final boolean active;
 
+    private final Optional<Boolean> allowMissingUserId;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectionConnectedAccountsPurposeXaa(
-            Optional<Boolean> crossAppAccess, boolean active, Map<String, Object> additionalProperties) {
+            Optional<Boolean> crossAppAccess,
+            boolean active,
+            Optional<Boolean> allowMissingUserId,
+            Map<String, Object> additionalProperties) {
         this.crossAppAccess = crossAppAccess;
         this.active = active;
+        this.allowMissingUserId = allowMissingUserId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -41,6 +47,14 @@ public final class ConnectionConnectedAccountsPurposeXaa {
     @JsonProperty("active")
     public boolean getActive() {
         return active;
+    }
+
+    /**
+     * @return When true, allows storing a connected account without an upstream identity provider user id. At most one such connected account is allowed per user per connection. Default false preserves the strict behaviour (an upstream user id is required).
+     */
+    @JsonProperty("allow_missing_user_id")
+    public Optional<Boolean> getAllowMissingUserId() {
+        return allowMissingUserId;
     }
 
     @java.lang.Override
@@ -56,12 +70,14 @@ public final class ConnectionConnectedAccountsPurposeXaa {
     }
 
     private boolean equalTo(ConnectionConnectedAccountsPurposeXaa other) {
-        return crossAppAccess.equals(other.crossAppAccess) && active == other.active;
+        return crossAppAccess.equals(other.crossAppAccess)
+                && active == other.active
+                && allowMissingUserId.equals(other.allowMissingUserId);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.crossAppAccess, this.active);
+        return Objects.hash(this.crossAppAccess, this.active, this.allowMissingUserId);
     }
 
     @java.lang.Override
@@ -89,11 +105,20 @@ public final class ConnectionConnectedAccountsPurposeXaa {
         _FinalStage crossAppAccess(Optional<Boolean> crossAppAccess);
 
         _FinalStage crossAppAccess(Boolean crossAppAccess);
+
+        /**
+         * <p>When true, allows storing a connected account without an upstream identity provider user id. At most one such connected account is allowed per user per connection. Default false preserves the strict behaviour (an upstream user id is required).</p>
+         */
+        _FinalStage allowMissingUserId(Optional<Boolean> allowMissingUserId);
+
+        _FinalStage allowMissingUserId(Boolean allowMissingUserId);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements ActiveStage, _FinalStage {
         private boolean active;
+
+        private Optional<Boolean> allowMissingUserId = Optional.empty();
 
         private Optional<Boolean> crossAppAccess = Optional.empty();
 
@@ -106,6 +131,7 @@ public final class ConnectionConnectedAccountsPurposeXaa {
         public Builder from(ConnectionConnectedAccountsPurposeXaa other) {
             crossAppAccess(other.getCrossAppAccess());
             active(other.getActive());
+            allowMissingUserId(other.getAllowMissingUserId());
             return this;
         }
 
@@ -113,6 +139,26 @@ public final class ConnectionConnectedAccountsPurposeXaa {
         @JsonSetter("active")
         public _FinalStage active(boolean active) {
             this.active = active;
+            return this;
+        }
+
+        /**
+         * <p>When true, allows storing a connected account without an upstream identity provider user id. At most one such connected account is allowed per user per connection. Default false preserves the strict behaviour (an upstream user id is required).</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage allowMissingUserId(Boolean allowMissingUserId) {
+            this.allowMissingUserId = Optional.ofNullable(allowMissingUserId);
+            return this;
+        }
+
+        /**
+         * <p>When true, allows storing a connected account without an upstream identity provider user id. At most one such connected account is allowed per user per connection. Default false preserves the strict behaviour (an upstream user id is required).</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "allow_missing_user_id", nulls = Nulls.SKIP)
+        public _FinalStage allowMissingUserId(Optional<Boolean> allowMissingUserId) {
+            this.allowMissingUserId = allowMissingUserId;
             return this;
         }
 
@@ -131,7 +177,8 @@ public final class ConnectionConnectedAccountsPurposeXaa {
 
         @java.lang.Override
         public ConnectionConnectedAccountsPurposeXaa build() {
-            return new ConnectionConnectedAccountsPurposeXaa(crossAppAccess, active, additionalProperties);
+            return new ConnectionConnectedAccountsPurposeXaa(
+                    crossAppAccess, active, allowMissingUserId, additionalProperties);
         }
 
         @java.lang.Override

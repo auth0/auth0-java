@@ -5,10 +5,10 @@ package com.auth0.client.mgmt.eventstreams;
 
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.eventstreams.types.ListEventStreamDeliveriesRequestParameters;
 import com.auth0.client.mgmt.types.EventStreamDelivery;
 import com.auth0.client.mgmt.types.GetEventStreamDeliveryHistoryResponseContent;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncDeliveriesClient {
@@ -28,20 +28,20 @@ public class AsyncDeliveriesClient {
         return this.rawClient;
     }
 
-    public CompletableFuture<List<EventStreamDelivery>> list(String id) {
+    public CompletableFuture<SyncPagingIterable<EventStreamDelivery>> list(String id) {
         return this.rawClient.list(id).thenApply(response -> response.body());
     }
 
-    public CompletableFuture<List<EventStreamDelivery>> list(String id, RequestOptions requestOptions) {
+    public CompletableFuture<SyncPagingIterable<EventStreamDelivery>> list(String id, RequestOptions requestOptions) {
         return this.rawClient.list(id, requestOptions).thenApply(response -> response.body());
     }
 
-    public CompletableFuture<List<EventStreamDelivery>> list(
+    public CompletableFuture<SyncPagingIterable<EventStreamDelivery>> list(
             String id, ListEventStreamDeliveriesRequestParameters request) {
         return this.rawClient.list(id, request).thenApply(response -> response.body());
     }
 
-    public CompletableFuture<List<EventStreamDelivery>> list(
+    public CompletableFuture<SyncPagingIterable<EventStreamDelivery>> list(
             String id, ListEventStreamDeliveriesRequestParameters request, RequestOptions requestOptions) {
         return this.rawClient.list(id, request, requestOptions).thenApply(response -> response.body());
     }

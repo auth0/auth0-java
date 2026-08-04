@@ -31,6 +31,7 @@ public class AsyncPermissionsClient {
 
     /**
      * Retrieve all permissions associated with the user.
+     * <p><strong>Note</strong>: Returns only permissions from direct assignments and directly assigned roles. For permissions a user has via group-based role assignments, use <code>GET /api/v2/users/{id}/effective-permissions</code>.</p>
      */
     public CompletableFuture<SyncPagingIterable<UserPermissionSchema>> list(String id) {
         return this.rawClient.list(id).thenApply(response -> response.body());
@@ -38,6 +39,7 @@ public class AsyncPermissionsClient {
 
     /**
      * Retrieve all permissions associated with the user.
+     * <p><strong>Note</strong>: Returns only permissions from direct assignments and directly assigned roles. For permissions a user has via group-based role assignments, use <code>GET /api/v2/users/{id}/effective-permissions</code>.</p>
      */
     public CompletableFuture<SyncPagingIterable<UserPermissionSchema>> list(String id, RequestOptions requestOptions) {
         return this.rawClient.list(id, requestOptions).thenApply(response -> response.body());
@@ -45,6 +47,7 @@ public class AsyncPermissionsClient {
 
     /**
      * Retrieve all permissions associated with the user.
+     * <p><strong>Note</strong>: Returns only permissions from direct assignments and directly assigned roles. For permissions a user has via group-based role assignments, use <code>GET /api/v2/users/{id}/effective-permissions</code>.</p>
      */
     public CompletableFuture<SyncPagingIterable<UserPermissionSchema>> list(
             String id, ListUserPermissionsRequestParameters request) {
@@ -53,6 +56,7 @@ public class AsyncPermissionsClient {
 
     /**
      * Retrieve all permissions associated with the user.
+     * <p><strong>Note</strong>: Returns only permissions from direct assignments and directly assigned roles. For permissions a user has via group-based role assignments, use <code>GET /api/v2/users/{id}/effective-permissions</code>.</p>
      */
     public CompletableFuture<SyncPagingIterable<UserPermissionSchema>> list(
             String id, ListUserPermissionsRequestParameters request, RequestOptions requestOptions) {

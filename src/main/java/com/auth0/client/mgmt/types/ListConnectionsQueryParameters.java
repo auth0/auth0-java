@@ -28,6 +28,8 @@ import org.jetbrains.annotations.Nullable;
 public final class ListConnectionsQueryParameters {
     private final Optional<List<ConnectionStrategyEnum>> strategy;
 
+    private final OptionalNullable<Boolean> includeTotals;
+
     private final OptionalNullable<String> from;
 
     private final OptionalNullable<Integer> take;
@@ -42,6 +44,7 @@ public final class ListConnectionsQueryParameters {
 
     private ListConnectionsQueryParameters(
             Optional<List<ConnectionStrategyEnum>> strategy,
+            OptionalNullable<Boolean> includeTotals,
             OptionalNullable<String> from,
             OptionalNullable<Integer> take,
             OptionalNullable<String> name,
@@ -49,6 +52,7 @@ public final class ListConnectionsQueryParameters {
             OptionalNullable<Boolean> includeFields,
             Map<String, Object> additionalProperties) {
         this.strategy = strategy;
+        this.includeTotals = includeTotals;
         this.from = from;
         this.take = take;
         this.name = name;
@@ -66,6 +70,18 @@ public final class ListConnectionsQueryParameters {
             return Optional.empty();
         }
         return strategy;
+    }
+
+    /**
+     * @return true if a query summary must be included in the result, false otherwise. Not returned when using checkpoint pagination. Default <code>false</code>.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_totals")
+    public OptionalNullable<Boolean> getIncludeTotals() {
+        if (includeTotals == null) {
+            return OptionalNullable.absent();
+        }
+        return includeTotals;
     }
 
     /**
@@ -135,6 +151,12 @@ public final class ListConnectionsQueryParameters {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_totals")
+    private OptionalNullable<Boolean> _getIncludeTotals() {
+        return includeTotals;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("from")
     private OptionalNullable<String> _getFrom() {
         return from;
@@ -177,6 +199,7 @@ public final class ListConnectionsQueryParameters {
 
     private boolean equalTo(ListConnectionsQueryParameters other) {
         return strategy.equals(other.strategy)
+                && includeTotals.equals(other.includeTotals)
                 && from.equals(other.from)
                 && take.equals(other.take)
                 && name.equals(other.name)
@@ -186,7 +209,8 @@ public final class ListConnectionsQueryParameters {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.strategy, this.from, this.take, this.name, this.fields, this.includeFields);
+        return Objects.hash(
+                this.strategy, this.includeTotals, this.from, this.take, this.name, this.fields, this.includeFields);
     }
 
     @java.lang.Override
@@ -201,6 +225,8 @@ public final class ListConnectionsQueryParameters {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
         private Optional<List<ConnectionStrategyEnum>> strategy = Optional.empty();
+
+        private OptionalNullable<Boolean> includeTotals = OptionalNullable.absent();
 
         private OptionalNullable<String> from = OptionalNullable.absent();
 
@@ -219,6 +245,7 @@ public final class ListConnectionsQueryParameters {
 
         public Builder from(ListConnectionsQueryParameters other) {
             strategy(other.getStrategy());
+            includeTotals(other.getIncludeTotals());
             from(other.getFrom());
             take(other.getTake());
             name(other.getName());
@@ -254,6 +281,40 @@ public final class ListConnectionsQueryParameters {
 
         public Builder strategy(ConnectionStrategyEnum strategy) {
             this.strategy = Optional.of(Collections.singletonList(strategy));
+            return this;
+        }
+
+        /**
+         * <p>true if a query summary must be included in the result, false otherwise. Not returned when using checkpoint pagination. Default <code>false</code>.</p>
+         */
+        @JsonSetter(value = "include_totals", nulls = Nulls.SKIP)
+        public Builder includeTotals(@Nullable OptionalNullable<Boolean> includeTotals) {
+            this.includeTotals = includeTotals;
+            return this;
+        }
+
+        public Builder includeTotals(Boolean includeTotals) {
+            this.includeTotals = OptionalNullable.of(includeTotals);
+            return this;
+        }
+
+        public Builder includeTotals(Optional<Boolean> includeTotals) {
+            if (includeTotals.isPresent()) {
+                this.includeTotals = OptionalNullable.of(includeTotals.get());
+            } else {
+                this.includeTotals = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder includeTotals(com.auth0.client.mgmt.core.Nullable<Boolean> includeTotals) {
+            if (includeTotals.isNull()) {
+                this.includeTotals = OptionalNullable.ofNull();
+            } else if (includeTotals.isEmpty()) {
+                this.includeTotals = OptionalNullable.absent();
+            } else {
+                this.includeTotals = OptionalNullable.of(includeTotals.get());
+            }
             return this;
         }
 
@@ -429,7 +490,7 @@ public final class ListConnectionsQueryParameters {
 
         public ListConnectionsQueryParameters build() {
             return new ListConnectionsQueryParameters(
-                    strategy, from, take, name, fields, includeFields, additionalProperties);
+                    strategy, includeTotals, from, take, name, fields, includeFields, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

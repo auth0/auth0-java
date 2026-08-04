@@ -8,6 +8,7 @@ import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.organizations.ClientGrantsClient;
+import com.auth0.client.mgmt.organizations.ClientsClient;
 import com.auth0.client.mgmt.organizations.ConnectionsClient;
 import com.auth0.client.mgmt.organizations.DiscoveryDomainsClient;
 import com.auth0.client.mgmt.organizations.EnabledConnectionsClient;
@@ -32,6 +33,8 @@ public class OrganizationsClient {
 
     protected final Supplier<ClientGrantsClient> clientGrantsClient;
 
+    protected final Supplier<ClientsClient> clientsClient;
+
     protected final Supplier<ConnectionsClient> connectionsClient;
 
     protected final Supplier<DiscoveryDomainsClient> discoveryDomainsClient;
@@ -50,6 +53,7 @@ public class OrganizationsClient {
         this.clientOptions = clientOptions;
         this.rawClient = new RawOrganizationsClient(clientOptions);
         this.clientGrantsClient = Suppliers.memoize(() -> new ClientGrantsClient(clientOptions));
+        this.clientsClient = Suppliers.memoize(() -> new ClientsClient(clientOptions));
         this.connectionsClient = Suppliers.memoize(() -> new ConnectionsClient(clientOptions));
         this.discoveryDomainsClient = Suppliers.memoize(() -> new DiscoveryDomainsClient(clientOptions));
         this.enabledConnectionsClient = Suppliers.memoize(() -> new EnabledConnectionsClient(clientOptions));
@@ -237,6 +241,10 @@ public class OrganizationsClient {
 
     public ClientGrantsClient clientGrants() {
         return this.clientGrantsClient.get();
+    }
+
+    public ClientsClient clients() {
+        return this.clientsClient.get();
     }
 
     public ConnectionsClient connections() {

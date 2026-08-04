@@ -94,6 +94,14 @@ public class AsyncRawRolesClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "name_filter", request.getNameFilter().orElse(null), false);
         }
+        if (!request.getType().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "type", request.getType().orElse(null), false);
+        }
+        if (!request.getOwnerId().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "owner_id", request.getOwnerId().orElse(null), false);
+        }
         if (requestOptions != null) {
             requestOptions.getQueryParameters().forEach((_key, _value) -> {
                 httpUrl.addQueryParameter(_key, _value);

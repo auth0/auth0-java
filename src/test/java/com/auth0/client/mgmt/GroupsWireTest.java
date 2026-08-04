@@ -50,6 +50,7 @@ public class GroupsWireTest {
                         .search("search")
                         .fields("fields")
                         .includeFields(true)
+                        .includeTotals(true)
                         .from("from")
                         .take(1)
                         .build());

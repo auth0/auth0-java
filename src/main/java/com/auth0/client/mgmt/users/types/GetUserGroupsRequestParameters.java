@@ -27,6 +27,8 @@ public final class GetUserGroupsRequestParameters {
 
     private final OptionalNullable<Boolean> includeFields;
 
+    private final OptionalNullable<Boolean> includeTotals;
+
     private final OptionalNullable<String> from;
 
     private final OptionalNullable<Integer> take;
@@ -36,11 +38,13 @@ public final class GetUserGroupsRequestParameters {
     private GetUserGroupsRequestParameters(
             OptionalNullable<String> fields,
             OptionalNullable<Boolean> includeFields,
+            OptionalNullable<Boolean> includeTotals,
             OptionalNullable<String> from,
             OptionalNullable<Integer> take,
             Map<String, Object> additionalProperties) {
         this.fields = fields;
         this.includeFields = includeFields;
+        this.includeTotals = includeTotals;
         this.from = from;
         this.take = take;
         this.additionalProperties = additionalProperties;
@@ -68,6 +72,18 @@ public final class GetUserGroupsRequestParameters {
             return OptionalNullable.absent();
         }
         return includeFields;
+    }
+
+    /**
+     * @return Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_totals")
+    public OptionalNullable<Boolean> getIncludeTotals() {
+        if (includeTotals == null) {
+            return OptionalNullable.absent();
+        }
+        return includeTotals;
     }
 
     /**
@@ -107,6 +123,12 @@ public final class GetUserGroupsRequestParameters {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_totals")
+    private OptionalNullable<Boolean> _getIncludeTotals() {
+        return includeTotals;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("from")
     private OptionalNullable<String> _getFrom() {
         return from;
@@ -132,13 +154,14 @@ public final class GetUserGroupsRequestParameters {
     private boolean equalTo(GetUserGroupsRequestParameters other) {
         return fields.equals(other.fields)
                 && includeFields.equals(other.includeFields)
+                && includeTotals.equals(other.includeTotals)
                 && from.equals(other.from)
                 && take.equals(other.take);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.fields, this.includeFields, this.from, this.take);
+        return Objects.hash(this.fields, this.includeFields, this.includeTotals, this.from, this.take);
     }
 
     @java.lang.Override
@@ -156,6 +179,8 @@ public final class GetUserGroupsRequestParameters {
 
         private OptionalNullable<Boolean> includeFields = OptionalNullable.absent();
 
+        private OptionalNullable<Boolean> includeTotals = OptionalNullable.absent();
+
         private OptionalNullable<String> from = OptionalNullable.absent();
 
         private OptionalNullable<Integer> take = OptionalNullable.absent();
@@ -168,6 +193,7 @@ public final class GetUserGroupsRequestParameters {
         public Builder from(GetUserGroupsRequestParameters other) {
             fields(other.getFields());
             includeFields(other.getIncludeFields());
+            includeTotals(other.getIncludeTotals());
             from(other.getFrom());
             take(other.getTake());
             return this;
@@ -242,6 +268,40 @@ public final class GetUserGroupsRequestParameters {
         }
 
         /**
+         * <p>Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).</p>
+         */
+        @JsonSetter(value = "include_totals", nulls = Nulls.SKIP)
+        public Builder includeTotals(@Nullable OptionalNullable<Boolean> includeTotals) {
+            this.includeTotals = includeTotals;
+            return this;
+        }
+
+        public Builder includeTotals(Boolean includeTotals) {
+            this.includeTotals = OptionalNullable.of(includeTotals);
+            return this;
+        }
+
+        public Builder includeTotals(Optional<Boolean> includeTotals) {
+            if (includeTotals.isPresent()) {
+                this.includeTotals = OptionalNullable.of(includeTotals.get());
+            } else {
+                this.includeTotals = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder includeTotals(com.auth0.client.mgmt.core.Nullable<Boolean> includeTotals) {
+            if (includeTotals.isNull()) {
+                this.includeTotals = OptionalNullable.ofNull();
+            } else if (includeTotals.isEmpty()) {
+                this.includeTotals = OptionalNullable.absent();
+            } else {
+                this.includeTotals = OptionalNullable.of(includeTotals.get());
+            }
+            return this;
+        }
+
+        /**
          * <p>Optional Id from which to start selection.</p>
          */
         @JsonSetter(value = "from", nulls = Nulls.SKIP)
@@ -310,7 +370,8 @@ public final class GetUserGroupsRequestParameters {
         }
 
         public GetUserGroupsRequestParameters build() {
-            return new GetUserGroupsRequestParameters(fields, includeFields, from, take, additionalProperties);
+            return new GetUserGroupsRequestParameters(
+                    fields, includeFields, includeTotals, from, take, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

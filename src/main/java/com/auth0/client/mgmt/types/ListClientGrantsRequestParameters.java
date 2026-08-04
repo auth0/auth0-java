@@ -23,6 +23,8 @@ import org.jetbrains.annotations.Nullable;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListClientGrantsRequestParameters.Builder.class)
 public final class ListClientGrantsRequestParameters {
+    private final OptionalNullable<Boolean> includeTotals;
+
     private final OptionalNullable<String> from;
 
     private final OptionalNullable<Integer> take;
@@ -40,6 +42,7 @@ public final class ListClientGrantsRequestParameters {
     private final Map<String, Object> additionalProperties;
 
     private ListClientGrantsRequestParameters(
+            OptionalNullable<Boolean> includeTotals,
             OptionalNullable<String> from,
             OptionalNullable<Integer> take,
             OptionalNullable<String> audience,
@@ -48,6 +51,7 @@ public final class ListClientGrantsRequestParameters {
             OptionalNullable<ClientGrantSubjectTypeEnum> subjectType,
             OptionalNullable<ClientGrantDefaultForEnum> defaultFor,
             Map<String, Object> additionalProperties) {
+        this.includeTotals = includeTotals;
         this.from = from;
         this.take = take;
         this.audience = audience;
@@ -56,6 +60,18 @@ public final class ListClientGrantsRequestParameters {
         this.subjectType = subjectType;
         this.defaultFor = defaultFor;
         this.additionalProperties = additionalProperties;
+    }
+
+    /**
+     * @return Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_totals")
+    public OptionalNullable<Boolean> getIncludeTotals() {
+        if (includeTotals == null) {
+            return OptionalNullable.absent();
+        }
+        return includeTotals;
     }
 
     /**
@@ -143,6 +159,12 @@ public final class ListClientGrantsRequestParameters {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_totals")
+    private OptionalNullable<Boolean> _getIncludeTotals() {
+        return includeTotals;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("from")
     private OptionalNullable<String> _getFrom() {
         return from;
@@ -196,7 +218,8 @@ public final class ListClientGrantsRequestParameters {
     }
 
     private boolean equalTo(ListClientGrantsRequestParameters other) {
-        return from.equals(other.from)
+        return includeTotals.equals(other.includeTotals)
+                && from.equals(other.from)
                 && take.equals(other.take)
                 && audience.equals(other.audience)
                 && clientId.equals(other.clientId)
@@ -208,6 +231,7 @@ public final class ListClientGrantsRequestParameters {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.includeTotals,
                 this.from,
                 this.take,
                 this.audience,
@@ -228,6 +252,8 @@ public final class ListClientGrantsRequestParameters {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private OptionalNullable<Boolean> includeTotals = OptionalNullable.absent();
+
         private OptionalNullable<String> from = OptionalNullable.absent();
 
         private OptionalNullable<Integer> take = OptionalNullable.absent();
@@ -248,6 +274,7 @@ public final class ListClientGrantsRequestParameters {
         private Builder() {}
 
         public Builder from(ListClientGrantsRequestParameters other) {
+            includeTotals(other.getIncludeTotals());
             from(other.getFrom());
             take(other.getTake());
             audience(other.getAudience());
@@ -255,6 +282,40 @@ public final class ListClientGrantsRequestParameters {
             allowAnyOrganization(other.getAllowAnyOrganization());
             subjectType(other.getSubjectType());
             defaultFor(other.getDefaultFor());
+            return this;
+        }
+
+        /**
+         * <p>Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).</p>
+         */
+        @JsonSetter(value = "include_totals", nulls = Nulls.SKIP)
+        public Builder includeTotals(@Nullable OptionalNullable<Boolean> includeTotals) {
+            this.includeTotals = includeTotals;
+            return this;
+        }
+
+        public Builder includeTotals(Boolean includeTotals) {
+            this.includeTotals = OptionalNullable.of(includeTotals);
+            return this;
+        }
+
+        public Builder includeTotals(Optional<Boolean> includeTotals) {
+            if (includeTotals.isPresent()) {
+                this.includeTotals = OptionalNullable.of(includeTotals.get());
+            } else {
+                this.includeTotals = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder includeTotals(com.auth0.client.mgmt.core.Nullable<Boolean> includeTotals) {
+            if (includeTotals.isNull()) {
+                this.includeTotals = OptionalNullable.ofNull();
+            } else if (includeTotals.isEmpty()) {
+                this.includeTotals = OptionalNullable.absent();
+            } else {
+                this.includeTotals = OptionalNullable.of(includeTotals.get());
+            }
             return this;
         }
 
@@ -498,6 +559,7 @@ public final class ListClientGrantsRequestParameters {
 
         public ListClientGrantsRequestParameters build() {
             return new ListClientGrantsRequestParameters(
+                    includeTotals,
                     from,
                     take,
                     audience,

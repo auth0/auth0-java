@@ -35,6 +35,10 @@ public final class UpdateOrganizationResponseContent {
 
     private final Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess;
 
+    private final Optional<Boolean> isAppEntitlementActive;
+
+    private final Optional<OrganizationClientAssociation> client;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateOrganizationResponseContent(
@@ -45,6 +49,8 @@ public final class UpdateOrganizationResponseContent {
             Optional<Map<String, OptionalNullable<String>>> metadata,
             Optional<TokenQuota> tokenQuota,
             Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess,
+            Optional<Boolean> isAppEntitlementActive,
+            Optional<OrganizationClientAssociation> client,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.name = name;
@@ -53,6 +59,8 @@ public final class UpdateOrganizationResponseContent {
         this.metadata = metadata;
         this.tokenQuota = tokenQuota;
         this.thirdPartyClientAccess = thirdPartyClientAccess;
+        this.isAppEntitlementActive = isAppEntitlementActive;
+        this.client = client;
         this.additionalProperties = additionalProperties;
     }
 
@@ -100,6 +108,19 @@ public final class UpdateOrganizationResponseContent {
         return thirdPartyClientAccess;
     }
 
+    /**
+     * @return Whether app entitlement is active for this organization.
+     */
+    @JsonProperty("is_app_entitlement_active")
+    public Optional<Boolean> getIsAppEntitlementActive() {
+        return isAppEntitlementActive;
+    }
+
+    @JsonProperty("client")
+    public Optional<OrganizationClientAssociation> getClient() {
+        return client;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -118,7 +139,9 @@ public final class UpdateOrganizationResponseContent {
                 && branding.equals(other.branding)
                 && metadata.equals(other.metadata)
                 && tokenQuota.equals(other.tokenQuota)
-                && thirdPartyClientAccess.equals(other.thirdPartyClientAccess);
+                && thirdPartyClientAccess.equals(other.thirdPartyClientAccess)
+                && isAppEntitlementActive.equals(other.isAppEntitlementActive)
+                && client.equals(other.client);
     }
 
     @java.lang.Override
@@ -130,7 +153,9 @@ public final class UpdateOrganizationResponseContent {
                 this.branding,
                 this.metadata,
                 this.tokenQuota,
-                this.thirdPartyClientAccess);
+                this.thirdPartyClientAccess,
+                this.isAppEntitlementActive,
+                this.client);
     }
 
     @java.lang.Override
@@ -158,6 +183,10 @@ public final class UpdateOrganizationResponseContent {
 
         private Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess = Optional.empty();
 
+        private Optional<Boolean> isAppEntitlementActive = Optional.empty();
+
+        private Optional<OrganizationClientAssociation> client = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -171,6 +200,8 @@ public final class UpdateOrganizationResponseContent {
             metadata(other.getMetadata());
             tokenQuota(other.getTokenQuota());
             thirdPartyClientAccess(other.getThirdPartyClientAccess());
+            isAppEntitlementActive(other.getIsAppEntitlementActive());
+            client(other.getClient());
             return this;
         }
 
@@ -260,6 +291,31 @@ public final class UpdateOrganizationResponseContent {
             return this;
         }
 
+        /**
+         * <p>Whether app entitlement is active for this organization.</p>
+         */
+        @JsonSetter(value = "is_app_entitlement_active", nulls = Nulls.SKIP)
+        public Builder isAppEntitlementActive(Optional<Boolean> isAppEntitlementActive) {
+            this.isAppEntitlementActive = isAppEntitlementActive;
+            return this;
+        }
+
+        public Builder isAppEntitlementActive(Boolean isAppEntitlementActive) {
+            this.isAppEntitlementActive = Optional.ofNullable(isAppEntitlementActive);
+            return this;
+        }
+
+        @JsonSetter(value = "client", nulls = Nulls.SKIP)
+        public Builder client(Optional<OrganizationClientAssociation> client) {
+            this.client = client;
+            return this;
+        }
+
+        public Builder client(OrganizationClientAssociation client) {
+            this.client = Optional.ofNullable(client);
+            return this;
+        }
+
         public UpdateOrganizationResponseContent build() {
             return new UpdateOrganizationResponseContent(
                     id,
@@ -269,6 +325,8 @@ public final class UpdateOrganizationResponseContent {
                     metadata,
                     tokenQuota,
                     thirdPartyClientAccess,
+                    isAppEntitlementActive,
+                    client,
                     additionalProperties);
         }
 
