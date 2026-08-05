@@ -20,6 +20,8 @@ public class AsyncManagementApi {
 
     protected final Supplier<AsyncActionsClient> actionsClient;
 
+    protected final Supplier<AsyncAgentsClient> agentsClient;
+
     protected final Supplier<AsyncBrandingClient> brandingClient;
 
     protected final Supplier<AsyncClientGrantsClient> clientGrantsClient;
@@ -111,6 +113,7 @@ public class AsyncManagementApi {
     public AsyncManagementApi(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.actionsClient = Suppliers.memoize(() -> new AsyncActionsClient(clientOptions));
+        this.agentsClient = Suppliers.memoize(() -> new AsyncAgentsClient(clientOptions));
         this.brandingClient = Suppliers.memoize(() -> new AsyncBrandingClient(clientOptions));
         this.clientGrantsClient = Suppliers.memoize(() -> new AsyncClientGrantsClient(clientOptions));
         this.clientsClient = Suppliers.memoize(() -> new AsyncClientsClient(clientOptions));
@@ -159,6 +162,10 @@ public class AsyncManagementApi {
 
     public AsyncActionsClient actions() {
         return this.actionsClient.get();
+    }
+
+    public AsyncAgentsClient agents() {
+        return this.agentsClient.get();
     }
 
     public AsyncBrandingClient branding() {

@@ -35,6 +35,8 @@ public final class UpdateOrganizationRequestContent {
 
     private final Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess;
 
+    private final Optional<Boolean> isAppEntitlementActive;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateOrganizationRequestContent(
@@ -44,6 +46,7 @@ public final class UpdateOrganizationRequestContent {
             Optional<Map<String, OptionalNullable<String>>> metadata,
             OptionalNullable<UpdateTokenQuota> tokenQuota,
             Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess,
+            Optional<Boolean> isAppEntitlementActive,
             Map<String, Object> additionalProperties) {
         this.displayName = displayName;
         this.name = name;
@@ -51,6 +54,7 @@ public final class UpdateOrganizationRequestContent {
         this.metadata = metadata;
         this.tokenQuota = tokenQuota;
         this.thirdPartyClientAccess = thirdPartyClientAccess;
+        this.isAppEntitlementActive = isAppEntitlementActive;
         this.additionalProperties = additionalProperties;
     }
 
@@ -94,6 +98,14 @@ public final class UpdateOrganizationRequestContent {
         return thirdPartyClientAccess;
     }
 
+    /**
+     * @return Whether app entitlement is active for this organization.
+     */
+    @JsonProperty("is_app_entitlement_active")
+    public Optional<Boolean> getIsAppEntitlementActive() {
+        return isAppEntitlementActive;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_quota")
     private OptionalNullable<UpdateTokenQuota> _getTokenQuota() {
@@ -117,7 +129,8 @@ public final class UpdateOrganizationRequestContent {
                 && branding.equals(other.branding)
                 && metadata.equals(other.metadata)
                 && tokenQuota.equals(other.tokenQuota)
-                && thirdPartyClientAccess.equals(other.thirdPartyClientAccess);
+                && thirdPartyClientAccess.equals(other.thirdPartyClientAccess)
+                && isAppEntitlementActive.equals(other.isAppEntitlementActive);
     }
 
     @java.lang.Override
@@ -128,7 +141,8 @@ public final class UpdateOrganizationRequestContent {
                 this.branding,
                 this.metadata,
                 this.tokenQuota,
-                this.thirdPartyClientAccess);
+                this.thirdPartyClientAccess,
+                this.isAppEntitlementActive);
     }
 
     @java.lang.Override
@@ -154,6 +168,8 @@ public final class UpdateOrganizationRequestContent {
 
         private Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess = Optional.empty();
 
+        private Optional<Boolean> isAppEntitlementActive = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -166,6 +182,7 @@ public final class UpdateOrganizationRequestContent {
             metadata(other.getMetadata());
             tokenQuota(other.getTokenQuota());
             thirdPartyClientAccess(other.getThirdPartyClientAccess());
+            isAppEntitlementActive(other.getIsAppEntitlementActive());
             return this;
         }
 
@@ -261,9 +278,30 @@ public final class UpdateOrganizationRequestContent {
             return this;
         }
 
+        /**
+         * <p>Whether app entitlement is active for this organization.</p>
+         */
+        @JsonSetter(value = "is_app_entitlement_active", nulls = Nulls.SKIP)
+        public Builder isAppEntitlementActive(Optional<Boolean> isAppEntitlementActive) {
+            this.isAppEntitlementActive = isAppEntitlementActive;
+            return this;
+        }
+
+        public Builder isAppEntitlementActive(Boolean isAppEntitlementActive) {
+            this.isAppEntitlementActive = Optional.ofNullable(isAppEntitlementActive);
+            return this;
+        }
+
         public UpdateOrganizationRequestContent build() {
             return new UpdateOrganizationRequestContent(
-                    displayName, name, branding, metadata, tokenQuota, thirdPartyClientAccess, additionalProperties);
+                    displayName,
+                    name,
+                    branding,
+                    metadata,
+                    tokenQuota,
+                    thirdPartyClientAccess,
+                    isAppEntitlementActive,
+                    additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

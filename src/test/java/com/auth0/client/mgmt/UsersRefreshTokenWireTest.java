@@ -46,6 +46,7 @@ public class UsersRefreshTokenWireTest {
                 .list(
                         "user_id",
                         ListRefreshTokensRequestParameters.builder()
+                                .includeTotals(true)
                                 .from("from")
                                 .take(1)
                                 .build());

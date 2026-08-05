@@ -44,6 +44,7 @@ public class RawUsersClient {
 
     /**
      * Retrieve list of users associated with a specific role. For Dashboard instructions, review <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles">View Users Assigned to Roles</a>.
+     * <p><strong>Note</strong>: Returns only users with direct role assignments. For groups assigned to this role, use <code>GET /api/v2/roles/{id}/groups</code>.</p>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>
      * <li>Offset pagination</li>
@@ -64,6 +65,7 @@ public class RawUsersClient {
 
     /**
      * Retrieve list of users associated with a specific role. For Dashboard instructions, review <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles">View Users Assigned to Roles</a>.
+     * <p><strong>Note</strong>: Returns only users with direct role assignments. For groups assigned to this role, use <code>GET /api/v2/roles/{id}/groups</code>.</p>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>
      * <li>Offset pagination</li>
@@ -84,6 +86,7 @@ public class RawUsersClient {
 
     /**
      * Retrieve list of users associated with a specific role. For Dashboard instructions, review <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles">View Users Assigned to Roles</a>.
+     * <p><strong>Note</strong>: Returns only users with direct role assignments. For groups assigned to this role, use <code>GET /api/v2/roles/{id}/groups</code>.</p>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>
      * <li>Offset pagination</li>
@@ -105,6 +108,7 @@ public class RawUsersClient {
 
     /**
      * Retrieve list of users associated with a specific role. For Dashboard instructions, review <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles">View Users Assigned to Roles</a>.
+     * <p><strong>Note</strong>: Returns only users with direct role assignments. For groups assigned to this role, use <code>GET /api/v2/roles/{id}/groups</code>.</p>
      * <p>This endpoint supports two types of pagination:</p>
      * <ul>
      * <li>Offset pagination</li>
@@ -126,6 +130,8 @@ public class RawUsersClient {
                 .addPathSegments("roles")
                 .addPathSegment(id)
                 .addPathSegments("users");
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
         if (!request.getFrom().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "from", request.getFrom().orElse(null), false);

@@ -84,6 +84,8 @@ public class AsyncRawGroupsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
         }
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
         if (!request.getFrom().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "from", request.getFrom().orElse(null), false);

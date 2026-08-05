@@ -28,16 +28,20 @@ public final class EventStreamDeliveryAttempt {
 
     private final Optional<String> errorMessage;
 
+    private final Optional<Double> duration;
+
     private final Map<String, Object> additionalProperties;
 
     private EventStreamDeliveryAttempt(
             EventStreamDeliveryStatusEnum status,
             OffsetDateTime timestamp,
             Optional<String> errorMessage,
+            Optional<Double> duration,
             Map<String, Object> additionalProperties) {
         this.status = status;
         this.timestamp = timestamp;
         this.errorMessage = errorMessage;
+        this.duration = duration;
         this.additionalProperties = additionalProperties;
     }
 
@@ -62,6 +66,14 @@ public final class EventStreamDeliveryAttempt {
         return errorMessage;
     }
 
+    /**
+     * @return Duration of the delivery attempt in milliseconds
+     */
+    @JsonProperty("duration")
+    public Optional<Double> getDuration() {
+        return duration;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -76,12 +88,13 @@ public final class EventStreamDeliveryAttempt {
     private boolean equalTo(EventStreamDeliveryAttempt other) {
         return status.equals(other.status)
                 && timestamp.equals(other.timestamp)
-                && errorMessage.equals(other.errorMessage);
+                && errorMessage.equals(other.errorMessage)
+                && duration.equals(other.duration);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.status, this.timestamp, this.errorMessage);
+        return Objects.hash(this.status, this.timestamp, this.errorMessage, this.duration);
     }
 
     @java.lang.Override
@@ -119,6 +132,13 @@ public final class EventStreamDeliveryAttempt {
         _FinalStage errorMessage(Optional<String> errorMessage);
 
         _FinalStage errorMessage(String errorMessage);
+
+        /**
+         * <p>Duration of the delivery attempt in milliseconds</p>
+         */
+        _FinalStage duration(Optional<Double> duration);
+
+        _FinalStage duration(Double duration);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -126,6 +146,8 @@ public final class EventStreamDeliveryAttempt {
         private EventStreamDeliveryStatusEnum status;
 
         private OffsetDateTime timestamp;
+
+        private Optional<Double> duration = Optional.empty();
 
         private Optional<String> errorMessage = Optional.empty();
 
@@ -139,6 +161,7 @@ public final class EventStreamDeliveryAttempt {
             status(other.getStatus());
             timestamp(other.getTimestamp());
             errorMessage(other.getErrorMessage());
+            duration(other.getDuration());
             return this;
         }
 
@@ -157,6 +180,26 @@ public final class EventStreamDeliveryAttempt {
         @JsonSetter("timestamp")
         public _FinalStage timestamp(@NotNull OffsetDateTime timestamp) {
             this.timestamp = Objects.requireNonNull(timestamp, "timestamp must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Duration of the delivery attempt in milliseconds</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage duration(Double duration) {
+            this.duration = Optional.ofNullable(duration);
+            return this;
+        }
+
+        /**
+         * <p>Duration of the delivery attempt in milliseconds</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "duration", nulls = Nulls.SKIP)
+        public _FinalStage duration(Optional<Double> duration) {
+            this.duration = duration;
             return this;
         }
 
@@ -182,7 +225,7 @@ public final class EventStreamDeliveryAttempt {
 
         @java.lang.Override
         public EventStreamDeliveryAttempt build() {
-            return new EventStreamDeliveryAttempt(status, timestamp, errorMessage, additionalProperties);
+            return new EventStreamDeliveryAttempt(status, timestamp, errorMessage, duration, additionalProperties);
         }
 
         @java.lang.Override

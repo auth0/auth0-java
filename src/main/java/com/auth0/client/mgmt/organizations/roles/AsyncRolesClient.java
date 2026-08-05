@@ -12,12 +12,19 @@ public class AsyncRolesClient {
 
     protected final Supplier<AsyncMembersClient> membersClient;
 
+    protected final Supplier<AsyncGroupsClient> groupsClient;
+
     public AsyncRolesClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.membersClient = Suppliers.memoize(() -> new AsyncMembersClient(clientOptions));
+        this.groupsClient = Suppliers.memoize(() -> new AsyncGroupsClient(clientOptions));
     }
 
     public AsyncMembersClient members() {
         return this.membersClient.get();
+    }
+
+    public AsyncGroupsClient groups() {
+        return this.groupsClient.get();
     }
 }

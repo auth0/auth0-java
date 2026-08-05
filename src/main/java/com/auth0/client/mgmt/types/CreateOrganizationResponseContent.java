@@ -36,6 +36,10 @@ public final class CreateOrganizationResponseContent {
 
     private final Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess;
 
+    private final Optional<Boolean> isAppEntitlementActive;
+
+    private final Optional<OrganizationClientAssociation> client;
+
     private final Optional<List<OrganizationEnabledConnection>> enabledConnections;
 
     private final Map<String, Object> additionalProperties;
@@ -48,6 +52,8 @@ public final class CreateOrganizationResponseContent {
             Optional<Map<String, OptionalNullable<String>>> metadata,
             Optional<TokenQuota> tokenQuota,
             Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess,
+            Optional<Boolean> isAppEntitlementActive,
+            Optional<OrganizationClientAssociation> client,
             Optional<List<OrganizationEnabledConnection>> enabledConnections,
             Map<String, Object> additionalProperties) {
         this.id = id;
@@ -57,6 +63,8 @@ public final class CreateOrganizationResponseContent {
         this.metadata = metadata;
         this.tokenQuota = tokenQuota;
         this.thirdPartyClientAccess = thirdPartyClientAccess;
+        this.isAppEntitlementActive = isAppEntitlementActive;
+        this.client = client;
         this.enabledConnections = enabledConnections;
         this.additionalProperties = additionalProperties;
     }
@@ -105,6 +113,19 @@ public final class CreateOrganizationResponseContent {
         return thirdPartyClientAccess;
     }
 
+    /**
+     * @return Whether app entitlement is active for this organization.
+     */
+    @JsonProperty("is_app_entitlement_active")
+    public Optional<Boolean> getIsAppEntitlementActive() {
+        return isAppEntitlementActive;
+    }
+
+    @JsonProperty("client")
+    public Optional<OrganizationClientAssociation> getClient() {
+        return client;
+    }
+
     @JsonProperty("enabled_connections")
     public Optional<List<OrganizationEnabledConnection>> getEnabledConnections() {
         return enabledConnections;
@@ -129,6 +150,8 @@ public final class CreateOrganizationResponseContent {
                 && metadata.equals(other.metadata)
                 && tokenQuota.equals(other.tokenQuota)
                 && thirdPartyClientAccess.equals(other.thirdPartyClientAccess)
+                && isAppEntitlementActive.equals(other.isAppEntitlementActive)
+                && client.equals(other.client)
                 && enabledConnections.equals(other.enabledConnections);
     }
 
@@ -142,6 +165,8 @@ public final class CreateOrganizationResponseContent {
                 this.metadata,
                 this.tokenQuota,
                 this.thirdPartyClientAccess,
+                this.isAppEntitlementActive,
+                this.client,
                 this.enabledConnections);
     }
 
@@ -170,6 +195,10 @@ public final class CreateOrganizationResponseContent {
 
         private Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess = Optional.empty();
 
+        private Optional<Boolean> isAppEntitlementActive = Optional.empty();
+
+        private Optional<OrganizationClientAssociation> client = Optional.empty();
+
         private Optional<List<OrganizationEnabledConnection>> enabledConnections = Optional.empty();
 
         @JsonAnySetter
@@ -185,6 +214,8 @@ public final class CreateOrganizationResponseContent {
             metadata(other.getMetadata());
             tokenQuota(other.getTokenQuota());
             thirdPartyClientAccess(other.getThirdPartyClientAccess());
+            isAppEntitlementActive(other.getIsAppEntitlementActive());
+            client(other.getClient());
             enabledConnections(other.getEnabledConnections());
             return this;
         }
@@ -275,6 +306,31 @@ public final class CreateOrganizationResponseContent {
             return this;
         }
 
+        /**
+         * <p>Whether app entitlement is active for this organization.</p>
+         */
+        @JsonSetter(value = "is_app_entitlement_active", nulls = Nulls.SKIP)
+        public Builder isAppEntitlementActive(Optional<Boolean> isAppEntitlementActive) {
+            this.isAppEntitlementActive = isAppEntitlementActive;
+            return this;
+        }
+
+        public Builder isAppEntitlementActive(Boolean isAppEntitlementActive) {
+            this.isAppEntitlementActive = Optional.ofNullable(isAppEntitlementActive);
+            return this;
+        }
+
+        @JsonSetter(value = "client", nulls = Nulls.SKIP)
+        public Builder client(Optional<OrganizationClientAssociation> client) {
+            this.client = client;
+            return this;
+        }
+
+        public Builder client(OrganizationClientAssociation client) {
+            this.client = Optional.ofNullable(client);
+            return this;
+        }
+
         @JsonSetter(value = "enabled_connections", nulls = Nulls.SKIP)
         public Builder enabledConnections(Optional<List<OrganizationEnabledConnection>> enabledConnections) {
             this.enabledConnections = enabledConnections;
@@ -295,6 +351,8 @@ public final class CreateOrganizationResponseContent {
                     metadata,
                     tokenQuota,
                     thirdPartyClientAccess,
+                    isAppEntitlementActive,
+                    client,
                     enabledConnections,
                     additionalProperties);
         }

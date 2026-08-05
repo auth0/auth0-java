@@ -31,7 +31,7 @@ public final class EventStreamCloudEvent {
 
     private final Optional<OffsetDateTime> time;
 
-    private final Optional<String> data;
+    private final Optional<Map<String, Object>> data;
 
     private final Map<String, Object> additionalProperties;
 
@@ -41,7 +41,7 @@ public final class EventStreamCloudEvent {
             Optional<String> specversion,
             Optional<String> type,
             Optional<OffsetDateTime> time,
-            Optional<String> data,
+            Optional<Map<String, Object>> data,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.source = source;
@@ -92,11 +92,8 @@ public final class EventStreamCloudEvent {
         return time;
     }
 
-    /**
-     * @return Event contents encoded as a string.
-     */
     @JsonProperty("data")
-    public Optional<String> getData() {
+    public Optional<Map<String, Object>> getData() {
         return data;
     }
 
@@ -146,7 +143,7 @@ public final class EventStreamCloudEvent {
 
         private Optional<OffsetDateTime> time = Optional.empty();
 
-        private Optional<String> data = Optional.empty();
+        private Optional<Map<String, Object>> data = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -233,16 +230,13 @@ public final class EventStreamCloudEvent {
             return this;
         }
 
-        /**
-         * <p>Event contents encoded as a string.</p>
-         */
         @JsonSetter(value = "data", nulls = Nulls.SKIP)
-        public Builder data(Optional<String> data) {
+        public Builder data(Optional<Map<String, Object>> data) {
             this.data = data;
             return this;
         }
 
-        public Builder data(String data) {
+        public Builder data(Map<String, Object> data) {
             this.data = Optional.ofNullable(data);
             return this;
         }

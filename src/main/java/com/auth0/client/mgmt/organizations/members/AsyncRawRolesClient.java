@@ -51,6 +51,7 @@ public class AsyncRawRolesClient {
     /**
      * Retrieve detailed list of roles assigned to a given user within the context of a specific Organization.
      * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action only returns the roles associated with the specified Organization; any roles assigned to the user within other Organizations are not included.</p>
+     * <p><strong>Note</strong>: Returns only direct role assignments for this member. To also include group-based role assignments, use <code>GET /api/v2/organizations/{id}/members/{user_id}/effective-roles</code>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Role>>> list(String id, String userId) {
         return list(
@@ -62,6 +63,7 @@ public class AsyncRawRolesClient {
     /**
      * Retrieve detailed list of roles assigned to a given user within the context of a specific Organization.
      * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action only returns the roles associated with the specified Organization; any roles assigned to the user within other Organizations are not included.</p>
+     * <p><strong>Note</strong>: Returns only direct role assignments for this member. To also include group-based role assignments, use <code>GET /api/v2/organizations/{id}/members/{user_id}/effective-roles</code>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Role>>> list(
             String id, String userId, RequestOptions requestOptions) {
@@ -75,6 +77,7 @@ public class AsyncRawRolesClient {
     /**
      * Retrieve detailed list of roles assigned to a given user within the context of a specific Organization.
      * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action only returns the roles associated with the specified Organization; any roles assigned to the user within other Organizations are not included.</p>
+     * <p><strong>Note</strong>: Returns only direct role assignments for this member. To also include group-based role assignments, use <code>GET /api/v2/organizations/{id}/members/{user_id}/effective-roles</code>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Role>>> list(
             String id, String userId, ListOrganizationMemberRolesRequestParameters request) {
@@ -84,6 +87,7 @@ public class AsyncRawRolesClient {
     /**
      * Retrieve detailed list of roles assigned to a given user within the context of a specific Organization.
      * <p>Users can be members of multiple Organizations with unique roles assigned for each membership. This action only returns the roles associated with the specified Organization; any roles assigned to the user within other Organizations are not included.</p>
+     * <p><strong>Note</strong>: Returns only direct role assignments for this member. To also include group-based role assignments, use <code>GET /api/v2/organizations/{id}/members/{user_id}/effective-roles</code>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Role>>> list(
             String id,

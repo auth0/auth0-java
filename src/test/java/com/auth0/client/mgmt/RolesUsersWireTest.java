@@ -48,6 +48,7 @@ public class RolesUsersWireTest {
                 .list(
                         "id",
                         ListRoleUsersRequestParameters.builder()
+                                .includeTotals(true)
                                 .from("from")
                                 .take(1)
                                 .build());

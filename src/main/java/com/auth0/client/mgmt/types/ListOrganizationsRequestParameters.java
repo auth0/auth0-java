@@ -23,23 +23,43 @@ import org.jetbrains.annotations.Nullable;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListOrganizationsRequestParameters.Builder.class)
 public final class ListOrganizationsRequestParameters {
+    private final OptionalNullable<Boolean> includeTotals;
+
     private final OptionalNullable<String> from;
 
     private final OptionalNullable<Integer> take;
 
     private final OptionalNullable<String> sort;
 
+    private final OptionalNullable<String> includeClientAssociationFor;
+
     private final Map<String, Object> additionalProperties;
 
     private ListOrganizationsRequestParameters(
+            OptionalNullable<Boolean> includeTotals,
             OptionalNullable<String> from,
             OptionalNullable<Integer> take,
             OptionalNullable<String> sort,
+            OptionalNullable<String> includeClientAssociationFor,
             Map<String, Object> additionalProperties) {
+        this.includeTotals = includeTotals;
         this.from = from;
         this.take = take;
         this.sort = sort;
+        this.includeClientAssociationFor = includeClientAssociationFor;
         this.additionalProperties = additionalProperties;
+    }
+
+    /**
+     * @return Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_totals")
+    public OptionalNullable<Boolean> getIncludeTotals() {
+        if (includeTotals == null) {
+            return OptionalNullable.absent();
+        }
+        return includeTotals;
     }
 
     /**
@@ -78,6 +98,24 @@ public final class ListOrganizationsRequestParameters {
         return sort;
     }
 
+    /**
+     * @return Client ID. When set, each returned organization that has an association with this client gains a <code>client</code> object describing it; organizations without one omit the field.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_client_association_for")
+    public OptionalNullable<String> getIncludeClientAssociationFor() {
+        if (includeClientAssociationFor == null) {
+            return OptionalNullable.absent();
+        }
+        return includeClientAssociationFor;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_totals")
+    private OptionalNullable<Boolean> _getIncludeTotals() {
+        return includeTotals;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("from")
     private OptionalNullable<String> _getFrom() {
@@ -96,6 +134,12 @@ public final class ListOrganizationsRequestParameters {
         return sort;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_client_association_for")
+    private OptionalNullable<String> _getIncludeClientAssociationFor() {
+        return includeClientAssociationFor;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -109,12 +153,16 @@ public final class ListOrganizationsRequestParameters {
     }
 
     private boolean equalTo(ListOrganizationsRequestParameters other) {
-        return from.equals(other.from) && take.equals(other.take) && sort.equals(other.sort);
+        return includeTotals.equals(other.includeTotals)
+                && from.equals(other.from)
+                && take.equals(other.take)
+                && sort.equals(other.sort)
+                && includeClientAssociationFor.equals(other.includeClientAssociationFor);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.from, this.take, this.sort);
+        return Objects.hash(this.includeTotals, this.from, this.take, this.sort, this.includeClientAssociationFor);
     }
 
     @java.lang.Override
@@ -128,11 +176,15 @@ public final class ListOrganizationsRequestParameters {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private OptionalNullable<Boolean> includeTotals = OptionalNullable.absent();
+
         private OptionalNullable<String> from = OptionalNullable.absent();
 
         private OptionalNullable<Integer> take = OptionalNullable.absent();
 
         private OptionalNullable<String> sort = OptionalNullable.absent();
+
+        private OptionalNullable<String> includeClientAssociationFor = OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -140,9 +192,45 @@ public final class ListOrganizationsRequestParameters {
         private Builder() {}
 
         public Builder from(ListOrganizationsRequestParameters other) {
+            includeTotals(other.getIncludeTotals());
             from(other.getFrom());
             take(other.getTake());
             sort(other.getSort());
+            includeClientAssociationFor(other.getIncludeClientAssociationFor());
+            return this;
+        }
+
+        /**
+         * <p>Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).</p>
+         */
+        @JsonSetter(value = "include_totals", nulls = Nulls.SKIP)
+        public Builder includeTotals(@Nullable OptionalNullable<Boolean> includeTotals) {
+            this.includeTotals = includeTotals;
+            return this;
+        }
+
+        public Builder includeTotals(Boolean includeTotals) {
+            this.includeTotals = OptionalNullable.of(includeTotals);
+            return this;
+        }
+
+        public Builder includeTotals(Optional<Boolean> includeTotals) {
+            if (includeTotals.isPresent()) {
+                this.includeTotals = OptionalNullable.of(includeTotals.get());
+            } else {
+                this.includeTotals = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder includeTotals(com.auth0.client.mgmt.core.Nullable<Boolean> includeTotals) {
+            if (includeTotals.isNull()) {
+                this.includeTotals = OptionalNullable.ofNull();
+            } else if (includeTotals.isEmpty()) {
+                this.includeTotals = OptionalNullable.absent();
+            } else {
+                this.includeTotals = OptionalNullable.of(includeTotals.get());
+            }
             return this;
         }
 
@@ -248,8 +336,44 @@ public final class ListOrganizationsRequestParameters {
             return this;
         }
 
+        /**
+         * <p>Client ID. When set, each returned organization that has an association with this client gains a <code>client</code> object describing it; organizations without one omit the field.</p>
+         */
+        @JsonSetter(value = "include_client_association_for", nulls = Nulls.SKIP)
+        public Builder includeClientAssociationFor(@Nullable OptionalNullable<String> includeClientAssociationFor) {
+            this.includeClientAssociationFor = includeClientAssociationFor;
+            return this;
+        }
+
+        public Builder includeClientAssociationFor(String includeClientAssociationFor) {
+            this.includeClientAssociationFor = OptionalNullable.of(includeClientAssociationFor);
+            return this;
+        }
+
+        public Builder includeClientAssociationFor(Optional<String> includeClientAssociationFor) {
+            if (includeClientAssociationFor.isPresent()) {
+                this.includeClientAssociationFor = OptionalNullable.of(includeClientAssociationFor.get());
+            } else {
+                this.includeClientAssociationFor = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder includeClientAssociationFor(
+                com.auth0.client.mgmt.core.Nullable<String> includeClientAssociationFor) {
+            if (includeClientAssociationFor.isNull()) {
+                this.includeClientAssociationFor = OptionalNullable.ofNull();
+            } else if (includeClientAssociationFor.isEmpty()) {
+                this.includeClientAssociationFor = OptionalNullable.absent();
+            } else {
+                this.includeClientAssociationFor = OptionalNullable.of(includeClientAssociationFor.get());
+            }
+            return this;
+        }
+
         public ListOrganizationsRequestParameters build() {
-            return new ListOrganizationsRequestParameters(from, take, sort, additionalProperties);
+            return new ListOrganizationsRequestParameters(
+                    includeTotals, from, take, sort, includeClientAssociationFor, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

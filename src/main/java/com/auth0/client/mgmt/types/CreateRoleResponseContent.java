@@ -26,16 +26,24 @@ public final class CreateRoleResponseContent {
 
     private final Optional<String> description;
 
+    private final Optional<RoleTypeEnum> type;
+
+    private final Optional<String> ownerId;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateRoleResponseContent(
             Optional<String> id,
             Optional<String> name,
             Optional<String> description,
+            Optional<RoleTypeEnum> type,
+            Optional<String> ownerId,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.type = type;
+        this.ownerId = ownerId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -63,6 +71,19 @@ public final class CreateRoleResponseContent {
         return description;
     }
 
+    @JsonProperty("type")
+    public Optional<RoleTypeEnum> getType() {
+        return type;
+    }
+
+    /**
+     * @return The id of the entity that owns this role, such as an organization id.
+     */
+    @JsonProperty("owner_id")
+    public Optional<String> getOwnerId() {
+        return ownerId;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -75,12 +96,16 @@ public final class CreateRoleResponseContent {
     }
 
     private boolean equalTo(CreateRoleResponseContent other) {
-        return id.equals(other.id) && name.equals(other.name) && description.equals(other.description);
+        return id.equals(other.id)
+                && name.equals(other.name)
+                && description.equals(other.description)
+                && type.equals(other.type)
+                && ownerId.equals(other.ownerId);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.id, this.name, this.description);
+        return Objects.hash(this.id, this.name, this.description, this.type, this.ownerId);
     }
 
     @java.lang.Override
@@ -100,6 +125,10 @@ public final class CreateRoleResponseContent {
 
         private Optional<String> description = Optional.empty();
 
+        private Optional<RoleTypeEnum> type = Optional.empty();
+
+        private Optional<String> ownerId = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -109,6 +138,8 @@ public final class CreateRoleResponseContent {
             id(other.getId());
             name(other.getName());
             description(other.getDescription());
+            type(other.getType());
+            ownerId(other.getOwnerId());
             return this;
         }
 
@@ -154,8 +185,33 @@ public final class CreateRoleResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "type", nulls = Nulls.SKIP)
+        public Builder type(Optional<RoleTypeEnum> type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder type(RoleTypeEnum type) {
+            this.type = Optional.ofNullable(type);
+            return this;
+        }
+
+        /**
+         * <p>The id of the entity that owns this role, such as an organization id.</p>
+         */
+        @JsonSetter(value = "owner_id", nulls = Nulls.SKIP)
+        public Builder ownerId(Optional<String> ownerId) {
+            this.ownerId = ownerId;
+            return this;
+        }
+
+        public Builder ownerId(String ownerId) {
+            this.ownerId = Optional.ofNullable(ownerId);
+            return this;
+        }
+
         public CreateRoleResponseContent build() {
-            return new CreateRoleResponseContent(id, name, description, additionalProperties);
+            return new CreateRoleResponseContent(id, name, description, type, ownerId, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

@@ -50,6 +50,7 @@ public class FlowsExecutionsWireTest {
                 .list(
                         "flow_id",
                         ListFlowExecutionsRequestParameters.builder()
+                                .includeTotals(true)
                                 .from("from")
                                 .take(1)
                                 .build());

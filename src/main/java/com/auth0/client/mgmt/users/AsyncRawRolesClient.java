@@ -50,6 +50,7 @@ public class AsyncRawRolesClient {
     /**
      * Retrieve detailed list of all user roles currently assigned to a user.
      * <p><strong>Note</strong>: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles">Get user roles assigned to an Organization member</a>.</p>
+     * <p><strong>Note</strong>: Returns only direct role assignments. To also include group-based role assignments, use <code>GET /api/v2/users/{id}/effective-roles</code>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Role>>> list(String id) {
         return list(id, ListUserRolesRequestParameters.builder().build());
@@ -58,6 +59,7 @@ public class AsyncRawRolesClient {
     /**
      * Retrieve detailed list of all user roles currently assigned to a user.
      * <p><strong>Note</strong>: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles">Get user roles assigned to an Organization member</a>.</p>
+     * <p><strong>Note</strong>: Returns only direct role assignments. To also include group-based role assignments, use <code>GET /api/v2/users/{id}/effective-roles</code>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Role>>> list(
             String id, RequestOptions requestOptions) {
@@ -67,6 +69,7 @@ public class AsyncRawRolesClient {
     /**
      * Retrieve detailed list of all user roles currently assigned to a user.
      * <p><strong>Note</strong>: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles">Get user roles assigned to an Organization member</a>.</p>
+     * <p><strong>Note</strong>: Returns only direct role assignments. To also include group-based role assignments, use <code>GET /api/v2/users/{id}/effective-roles</code>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Role>>> list(
             String id, ListUserRolesRequestParameters request) {
@@ -76,6 +79,7 @@ public class AsyncRawRolesClient {
     /**
      * Retrieve detailed list of all user roles currently assigned to a user.
      * <p><strong>Note</strong>: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: <a href="https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles">Get user roles assigned to an Organization member</a>.</p>
+     * <p><strong>Note</strong>: Returns only direct role assignments. To also include group-based role assignments, use <code>GET /api/v2/users/{id}/effective-roles</code>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Role>>> list(
             String id, ListUserRolesRequestParameters request, RequestOptions requestOptions) {

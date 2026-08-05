@@ -25,12 +25,22 @@ public final class CreateRoleRequestContent {
 
     private final Optional<String> description;
 
+    private final Optional<RoleTypeEnum> type;
+
+    private final Optional<String> ownerId;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateRoleRequestContent(
-            String name, Optional<String> description, Map<String, Object> additionalProperties) {
+            String name,
+            Optional<String> description,
+            Optional<RoleTypeEnum> type,
+            Optional<String> ownerId,
+            Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
+        this.type = type;
+        this.ownerId = ownerId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -50,6 +60,22 @@ public final class CreateRoleRequestContent {
         return description;
     }
 
+    /**
+     * @return The type of the role. Defaults to tenant.
+     */
+    @JsonProperty("type")
+    public Optional<RoleTypeEnum> getType() {
+        return type;
+    }
+
+    /**
+     * @return The ID of the organization that owns this role. Required when type is &quot;organization&quot;.
+     */
+    @JsonProperty("owner_id")
+    public Optional<String> getOwnerId() {
+        return ownerId;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -62,12 +88,15 @@ public final class CreateRoleRequestContent {
     }
 
     private boolean equalTo(CreateRoleRequestContent other) {
-        return name.equals(other.name) && description.equals(other.description);
+        return name.equals(other.name)
+                && description.equals(other.description)
+                && type.equals(other.type)
+                && ownerId.equals(other.ownerId);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.name, this.description);
+        return Objects.hash(this.name, this.description, this.type, this.ownerId);
     }
 
     @java.lang.Override
@@ -101,11 +130,29 @@ public final class CreateRoleRequestContent {
         _FinalStage description(Optional<String> description);
 
         _FinalStage description(String description);
+
+        /**
+         * <p>The type of the role. Defaults to tenant.</p>
+         */
+        _FinalStage type(Optional<RoleTypeEnum> type);
+
+        _FinalStage type(RoleTypeEnum type);
+
+        /**
+         * <p>The ID of the organization that owns this role. Required when type is &quot;organization&quot;.</p>
+         */
+        _FinalStage ownerId(Optional<String> ownerId);
+
+        _FinalStage ownerId(String ownerId);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements NameStage, _FinalStage {
         private String name;
+
+        private Optional<String> ownerId = Optional.empty();
+
+        private Optional<RoleTypeEnum> type = Optional.empty();
 
         private Optional<String> description = Optional.empty();
 
@@ -118,6 +165,8 @@ public final class CreateRoleRequestContent {
         public Builder from(CreateRoleRequestContent other) {
             name(other.getName());
             description(other.getDescription());
+            type(other.getType());
+            ownerId(other.getOwnerId());
             return this;
         }
 
@@ -129,6 +178,46 @@ public final class CreateRoleRequestContent {
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
+            return this;
+        }
+
+        /**
+         * <p>The ID of the organization that owns this role. Required when type is &quot;organization&quot;.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage ownerId(String ownerId) {
+            this.ownerId = Optional.ofNullable(ownerId);
+            return this;
+        }
+
+        /**
+         * <p>The ID of the organization that owns this role. Required when type is &quot;organization&quot;.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "owner_id", nulls = Nulls.SKIP)
+        public _FinalStage ownerId(Optional<String> ownerId) {
+            this.ownerId = ownerId;
+            return this;
+        }
+
+        /**
+         * <p>The type of the role. Defaults to tenant.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage type(RoleTypeEnum type) {
+            this.type = Optional.ofNullable(type);
+            return this;
+        }
+
+        /**
+         * <p>The type of the role. Defaults to tenant.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "type", nulls = Nulls.SKIP)
+        public _FinalStage type(Optional<RoleTypeEnum> type) {
+            this.type = type;
             return this;
         }
 
@@ -154,7 +243,7 @@ public final class CreateRoleRequestContent {
 
         @java.lang.Override
         public CreateRoleRequestContent build() {
-            return new CreateRoleRequestContent(name, description, additionalProperties);
+            return new CreateRoleRequestContent(name, description, type, ownerId, additionalProperties);
         }
 
         @java.lang.Override

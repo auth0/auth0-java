@@ -50,6 +50,7 @@ public class ClientGrantsWireTest {
                                 "{\"next\":\"next\",\"client_grants\":[{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"default_for\":\"third_party_clients\",\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}]}"));
         SyncPagingIterable<ClientGrantResponseContent> response = client.clientGrants()
                 .list(ListClientGrantsRequestParameters.builder()
+                        .includeTotals(true)
                         .from("from")
                         .take(1)
                         .audience("audience")

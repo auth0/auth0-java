@@ -52,6 +52,7 @@ public class ConnectionsWireTest {
                                 "{\"next\":\"next\",\"connections\":[{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"is_domain_connection\":true,\"show_as_button\":true,\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true},\"cross_app_access_requesting_app\":{\"active\":true},\"cross_app_access_resource_app\":{\"status\":\"enabled\"}}]}"));
         SyncPagingIterable<ConnectionForList> response = client.connections()
                 .list(ListConnectionsQueryParameters.builder()
+                        .includeTotals(true)
                         .from("from")
                         .take(1)
                         .name("name")
@@ -75,7 +76,7 @@ public class ConnectionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"enabled_clients\":[\"enabled_clients\"],\"is_domain_connection\":true,\"show_as_button\":true,\"metadata\":{\"key\":\"value\"},\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true,\"cross_app_access\":true},\"cross_app_access_requesting_app\":{\"active\":true},\"cross_app_access_resource_app\":{\"status\":\"enabled\"}}"));
+                                "{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"enabled_clients\":[\"enabled_clients\"],\"is_domain_connection\":true,\"show_as_button\":true,\"metadata\":{\"key\":\"value\"},\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true,\"cross_app_access\":true,\"allow_missing_user_id\":true},\"cross_app_access_requesting_app\":{\"active\":true},\"cross_app_access_resource_app\":{\"status\":\"enabled\"}}"));
         CreateConnectionResponseContent response = client.connections()
                 .create(CreateConnectionRequestContent.builder()
                         .name("name")
@@ -142,7 +143,8 @@ public class ConnectionsWireTest {
                 + "  },\n"
                 + "  \"connected_accounts\": {\n"
                 + "    \"active\": true,\n"
-                + "    \"cross_app_access\": true\n"
+                + "    \"cross_app_access\": true,\n"
+                + "    \"allow_missing_user_id\": true\n"
                 + "  },\n"
                 + "  \"cross_app_access_requesting_app\": {\n"
                 + "    \"active\": true\n"
@@ -188,7 +190,7 @@ public class ConnectionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"enabled_clients\":[\"enabled_clients\"],\"is_domain_connection\":true,\"show_as_button\":true,\"metadata\":{\"key\":\"value\"},\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true,\"cross_app_access\":true},\"cross_app_access_requesting_app\":{\"active\":true},\"cross_app_access_resource_app\":{\"status\":\"enabled\"}}"));
+                                "{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"enabled_clients\":[\"enabled_clients\"],\"is_domain_connection\":true,\"show_as_button\":true,\"metadata\":{\"key\":\"value\"},\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true,\"cross_app_access\":true,\"allow_missing_user_id\":true},\"cross_app_access_requesting_app\":{\"active\":true},\"cross_app_access_resource_app\":{\"status\":\"enabled\"}}"));
         GetConnectionResponseContent response = client.connections()
                 .get(
                         "id",
@@ -228,7 +230,8 @@ public class ConnectionsWireTest {
                 + "  },\n"
                 + "  \"connected_accounts\": {\n"
                 + "    \"active\": true,\n"
-                + "    \"cross_app_access\": true\n"
+                + "    \"cross_app_access\": true,\n"
+                + "    \"allow_missing_user_id\": true\n"
                 + "  },\n"
                 + "  \"cross_app_access_requesting_app\": {\n"
                 + "    \"active\": true\n"
@@ -283,7 +286,7 @@ public class ConnectionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"enabled_clients\":[\"enabled_clients\"],\"is_domain_connection\":true,\"show_as_button\":true,\"metadata\":{\"key\":\"value\"},\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true,\"cross_app_access\":true},\"cross_app_access_requesting_app\":{\"active\":true},\"cross_app_access_resource_app\":{\"status\":\"enabled\"}}"));
+                                "{\"name\":\"name\",\"display_name\":\"display_name\",\"options\":{\"key\":\"value\"},\"id\":\"id\",\"strategy\":\"strategy\",\"realms\":[\"realms\"],\"enabled_clients\":[\"enabled_clients\"],\"is_domain_connection\":true,\"show_as_button\":true,\"metadata\":{\"key\":\"value\"},\"authentication\":{\"active\":true},\"connected_accounts\":{\"active\":true,\"cross_app_access\":true,\"allow_missing_user_id\":true},\"cross_app_access_requesting_app\":{\"active\":true},\"cross_app_access_resource_app\":{\"status\":\"enabled\"}}"));
         UpdateConnectionResponseContent response = client.connections()
                 .update("id", UpdateConnectionRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -347,7 +350,8 @@ public class ConnectionsWireTest {
                 + "  },\n"
                 + "  \"connected_accounts\": {\n"
                 + "    \"active\": true,\n"
-                + "    \"cross_app_access\": true\n"
+                + "    \"cross_app_access\": true,\n"
+                + "    \"allow_missing_user_id\": true\n"
                 + "  },\n"
                 + "  \"cross_app_access_requesting_app\": {\n"
                 + "    \"active\": true\n"
