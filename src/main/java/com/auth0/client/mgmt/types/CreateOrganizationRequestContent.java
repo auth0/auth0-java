@@ -37,6 +37,8 @@ public final class CreateOrganizationRequestContent {
 
     private final Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess;
 
+    private final Optional<Boolean> isAppEntitlementActive;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateOrganizationRequestContent(
@@ -47,6 +49,7 @@ public final class CreateOrganizationRequestContent {
             Optional<List<ConnectionForOrganization>> enabledConnections,
             Optional<CreateTokenQuota> tokenQuota,
             Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess,
+            Optional<Boolean> isAppEntitlementActive,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.displayName = displayName;
@@ -55,6 +58,7 @@ public final class CreateOrganizationRequestContent {
         this.enabledConnections = enabledConnections;
         this.tokenQuota = tokenQuota;
         this.thirdPartyClientAccess = thirdPartyClientAccess;
+        this.isAppEntitlementActive = isAppEntitlementActive;
         this.additionalProperties = additionalProperties;
     }
 
@@ -102,6 +106,14 @@ public final class CreateOrganizationRequestContent {
         return thirdPartyClientAccess;
     }
 
+    /**
+     * @return Whether app entitlement is active for this organization.
+     */
+    @JsonProperty("is_app_entitlement_active")
+    public Optional<Boolean> getIsAppEntitlementActive() {
+        return isAppEntitlementActive;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -120,7 +132,8 @@ public final class CreateOrganizationRequestContent {
                 && metadata.equals(other.metadata)
                 && enabledConnections.equals(other.enabledConnections)
                 && tokenQuota.equals(other.tokenQuota)
-                && thirdPartyClientAccess.equals(other.thirdPartyClientAccess);
+                && thirdPartyClientAccess.equals(other.thirdPartyClientAccess)
+                && isAppEntitlementActive.equals(other.isAppEntitlementActive);
     }
 
     @java.lang.Override
@@ -132,7 +145,8 @@ public final class CreateOrganizationRequestContent {
                 this.metadata,
                 this.enabledConnections,
                 this.tokenQuota,
-                this.thirdPartyClientAccess);
+                this.thirdPartyClientAccess,
+                this.isAppEntitlementActive);
     }
 
     @java.lang.Override
@@ -189,11 +203,20 @@ public final class CreateOrganizationRequestContent {
         _FinalStage thirdPartyClientAccess(Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess);
 
         _FinalStage thirdPartyClientAccess(OrganizationThirdPartyClientAccessEnum thirdPartyClientAccess);
+
+        /**
+         * <p>Whether app entitlement is active for this organization.</p>
+         */
+        _FinalStage isAppEntitlementActive(Optional<Boolean> isAppEntitlementActive);
+
+        _FinalStage isAppEntitlementActive(Boolean isAppEntitlementActive);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements NameStage, _FinalStage {
         private String name;
+
+        private Optional<Boolean> isAppEntitlementActive = Optional.empty();
 
         private Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess = Optional.empty();
 
@@ -221,6 +244,7 @@ public final class CreateOrganizationRequestContent {
             enabledConnections(other.getEnabledConnections());
             tokenQuota(other.getTokenQuota());
             thirdPartyClientAccess(other.getThirdPartyClientAccess());
+            isAppEntitlementActive(other.getIsAppEntitlementActive());
             return this;
         }
 
@@ -232,6 +256,26 @@ public final class CreateOrganizationRequestContent {
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Whether app entitlement is active for this organization.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage isAppEntitlementActive(Boolean isAppEntitlementActive) {
+            this.isAppEntitlementActive = Optional.ofNullable(isAppEntitlementActive);
+            return this;
+        }
+
+        /**
+         * <p>Whether app entitlement is active for this organization.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "is_app_entitlement_active", nulls = Nulls.SKIP)
+        public _FinalStage isAppEntitlementActive(Optional<Boolean> isAppEntitlementActive) {
+            this.isAppEntitlementActive = isAppEntitlementActive;
             return this;
         }
 
@@ -338,6 +382,7 @@ public final class CreateOrganizationRequestContent {
                     enabledConnections,
                     tokenQuota,
                     thirdPartyClientAccess,
+                    isAppEntitlementActive,
                     additionalProperties);
         }
 

@@ -65,6 +65,8 @@ public class AsyncRawOrganizationsClient {
                 .addPathSegments("client-grants")
                 .addPathSegment(id)
                 .addPathSegments("organizations");
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
         if (!request.getFrom().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "from", request.getFrom().orElse(null), false);

@@ -1,5 +1,7 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.connections.types.AddSynchronizedGroupsRequestContent;
+import com.auth0.client.mgmt.connections.types.DeleteSynchronizedGroupsRequestContent;
 import com.auth0.client.mgmt.connections.types.ListDirectoryProvisioningsRequestParameters;
 import com.auth0.client.mgmt.connections.types.ListSynchronizedGroupsRequestParameters;
 import com.auth0.client.mgmt.connections.types.ReplaceSynchronizedGroupsRequestContent;
@@ -12,6 +14,7 @@ import com.auth0.client.mgmt.types.DirectoryProvisioning;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningDefaultMappingResponseContent;
 import com.auth0.client.mgmt.types.GetDirectoryProvisioningResponseContent;
 import com.auth0.client.mgmt.types.SynchronizedGroupPayload;
+import com.auth0.client.mgmt.types.SynchronizedGroupSelectionId;
 import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningRequestContent;
 import com.auth0.client.mgmt.types.UpdateDirectoryProvisioningResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -340,7 +343,10 @@ public class ConnectionsDirectoryProvisioningWireTest {
     @Test
     public void testListSynchronizedGroups() throws Exception {
         server.enqueue(
-                new MockResponse().setResponseCode(200).setBody("{\"groups\":[{\"id\":\"id\"}],\"next\":\"next\"}"));
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"groups\":[{\"id\":\"id\",\"name\":\"name\",\"email\":\"email\",\"direct_members_count\":1}],\"next\":\"next\"}"));
         SyncPagingIterable<SynchronizedGroupPayload> response = client.connections()
                 .directoryProvisioning()
                 .listSynchronizedGroups(
@@ -348,6 +354,7 @@ public class ConnectionsDirectoryProvisioningWireTest {
                         ListSynchronizedGroupsRequestParameters.builder()
                                 .from("from")
                                 .take(1)
+                                .q("q")
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -357,6 +364,53 @@ public class ConnectionsDirectoryProvisioningWireTest {
         Assertions.assertNotNull(response, "Response should not be null");
         // Pagination response validated via MockWebServer
         // The SDK correctly parses the response into a SyncPagingIterable
+    }
+
+    @Test
+    public void testAddSynchronizedGroupSelections() throws Exception {
+        server.enqueue(new MockResponse().setResponseCode(200).setBody("{}"));
+        client.connections()
+                .directoryProvisioning()
+                .addSynchronizedGroupSelections(
+                        "id",
+                        AddSynchronizedGroupsRequestContent.builder()
+                                .groups(Arrays.asList(SynchronizedGroupPayload.builder()
+                                        .id("id")
+                                        .build()))
+                                .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("POST", request.getMethod());
+        // Validate request body
+        String actualRequestBody = request.getBody().readUtf8();
+        String expectedRequestBody =
+                "" + "{\n" + "  \"groups\": [\n" + "    {\n" + "      \"id\": \"id\"\n" + "    }\n" + "  ]\n" + "}";
+        JsonNode actualJson = objectMapper.readTree(actualRequestBody);
+        JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
+        Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
+        if (actualJson.has("type") || actualJson.has("_type") || actualJson.has("kind")) {
+            String discriminator = null;
+            if (actualJson.has("type")) discriminator = actualJson.get("type").asText();
+            else if (actualJson.has("_type"))
+                discriminator = actualJson.get("_type").asText();
+            else if (actualJson.has("kind"))
+                discriminator = actualJson.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualJson.isNull()) {
+            Assertions.assertTrue(
+                    actualJson.isObject() || actualJson.isArray() || actualJson.isValueNode(),
+                    "request should be a valid JSON value");
+        }
+
+        if (actualJson.isArray()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Array should have valid size");
+        }
+        if (actualJson.isObject()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Object should have valid field count");
+        }
     }
 
     @Test
@@ -374,6 +428,53 @@ public class ConnectionsDirectoryProvisioningWireTest {
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("PUT", request.getMethod());
+        // Validate request body
+        String actualRequestBody = request.getBody().readUtf8();
+        String expectedRequestBody =
+                "" + "{\n" + "  \"groups\": [\n" + "    {\n" + "      \"id\": \"id\"\n" + "    }\n" + "  ]\n" + "}";
+        JsonNode actualJson = objectMapper.readTree(actualRequestBody);
+        JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
+        Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
+        if (actualJson.has("type") || actualJson.has("_type") || actualJson.has("kind")) {
+            String discriminator = null;
+            if (actualJson.has("type")) discriminator = actualJson.get("type").asText();
+            else if (actualJson.has("_type"))
+                discriminator = actualJson.get("_type").asText();
+            else if (actualJson.has("kind"))
+                discriminator = actualJson.get("kind").asText();
+            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
+            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
+        }
+
+        if (!actualJson.isNull()) {
+            Assertions.assertTrue(
+                    actualJson.isObject() || actualJson.isArray() || actualJson.isValueNode(),
+                    "request should be a valid JSON value");
+        }
+
+        if (actualJson.isArray()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Array should have valid size");
+        }
+        if (actualJson.isObject()) {
+            Assertions.assertTrue(actualJson.size() >= 0, "Object should have valid field count");
+        }
+    }
+
+    @Test
+    public void testDeleteSynchronizedGroupSelections() throws Exception {
+        server.enqueue(new MockResponse().setResponseCode(200).setBody("{}"));
+        client.connections()
+                .directoryProvisioning()
+                .deleteSynchronizedGroupSelections(
+                        "id",
+                        DeleteSynchronizedGroupsRequestContent.builder()
+                                .groups(Arrays.asList(SynchronizedGroupSelectionId.builder()
+                                        .id("id")
+                                        .build()))
+                                .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("DELETE", request.getMethod());
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
         String expectedRequestBody =

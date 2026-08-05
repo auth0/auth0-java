@@ -10,21 +10,26 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = SelfServiceProfileSsoTicketGoogleWorkspaceConfig.Builder.class)
 public final class SelfServiceProfileSsoTicketGoogleWorkspaceConfig {
     private final boolean syncUsers;
 
+    private final Optional<Boolean> syncGroups;
+
     private final Map<String, Object> additionalProperties;
 
     private SelfServiceProfileSsoTicketGoogleWorkspaceConfig(
-            boolean syncUsers, Map<String, Object> additionalProperties) {
+            boolean syncUsers, Optional<Boolean> syncGroups, Map<String, Object> additionalProperties) {
         this.syncUsers = syncUsers;
+        this.syncGroups = syncGroups;
         this.additionalProperties = additionalProperties;
     }
 
@@ -34,6 +39,14 @@ public final class SelfServiceProfileSsoTicketGoogleWorkspaceConfig {
     @JsonProperty("sync_users")
     public boolean getSyncUsers() {
         return syncUsers;
+    }
+
+    /**
+     * @return Whether to enable Google Workspace Directory Sync for groups during the self-service flow.
+     */
+    @JsonProperty("sync_groups")
+    public Optional<Boolean> getSyncGroups() {
+        return syncGroups;
     }
 
     @java.lang.Override
@@ -49,12 +62,12 @@ public final class SelfServiceProfileSsoTicketGoogleWorkspaceConfig {
     }
 
     private boolean equalTo(SelfServiceProfileSsoTicketGoogleWorkspaceConfig other) {
-        return syncUsers == other.syncUsers;
+        return syncUsers == other.syncUsers && syncGroups.equals(other.syncGroups);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.syncUsers);
+        return Objects.hash(this.syncUsers, this.syncGroups);
     }
 
     @java.lang.Override
@@ -81,11 +94,20 @@ public final class SelfServiceProfileSsoTicketGoogleWorkspaceConfig {
         _FinalStage additionalProperty(String key, Object value);
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>Whether to enable Google Workspace Directory Sync for groups during the self-service flow.</p>
+         */
+        _FinalStage syncGroups(Optional<Boolean> syncGroups);
+
+        _FinalStage syncGroups(Boolean syncGroups);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements SyncUsersStage, _FinalStage {
         private boolean syncUsers;
+
+        private Optional<Boolean> syncGroups = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -95,6 +117,7 @@ public final class SelfServiceProfileSsoTicketGoogleWorkspaceConfig {
         @java.lang.Override
         public Builder from(SelfServiceProfileSsoTicketGoogleWorkspaceConfig other) {
             syncUsers(other.getSyncUsers());
+            syncGroups(other.getSyncGroups());
             return this;
         }
 
@@ -109,9 +132,29 @@ public final class SelfServiceProfileSsoTicketGoogleWorkspaceConfig {
             return this;
         }
 
+        /**
+         * <p>Whether to enable Google Workspace Directory Sync for groups during the self-service flow.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage syncGroups(Boolean syncGroups) {
+            this.syncGroups = Optional.ofNullable(syncGroups);
+            return this;
+        }
+
+        /**
+         * <p>Whether to enable Google Workspace Directory Sync for groups during the self-service flow.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "sync_groups", nulls = Nulls.SKIP)
+        public _FinalStage syncGroups(Optional<Boolean> syncGroups) {
+            this.syncGroups = syncGroups;
+            return this;
+        }
+
         @java.lang.Override
         public SelfServiceProfileSsoTicketGoogleWorkspaceConfig build() {
-            return new SelfServiceProfileSsoTicketGoogleWorkspaceConfig(syncUsers, additionalProperties);
+            return new SelfServiceProfileSsoTicketGoogleWorkspaceConfig(syncUsers, syncGroups, additionalProperties);
         }
 
         @java.lang.Override

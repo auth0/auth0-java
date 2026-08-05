@@ -26,16 +26,20 @@ public final class GuardianFactor {
 
     private final Optional<GuardianFactorNameEnum> name;
 
+    private final Optional<GuardianFactorSettings> settings;
+
     private final Map<String, Object> additionalProperties;
 
     private GuardianFactor(
             boolean enabled,
             Optional<Boolean> trialExpired,
             Optional<GuardianFactorNameEnum> name,
+            Optional<GuardianFactorSettings> settings,
             Map<String, Object> additionalProperties) {
         this.enabled = enabled;
         this.trialExpired = trialExpired;
         this.name = name;
+        this.settings = settings;
         this.additionalProperties = additionalProperties;
     }
 
@@ -60,6 +64,11 @@ public final class GuardianFactor {
         return name;
     }
 
+    @JsonProperty("settings")
+    public Optional<GuardianFactorSettings> getSettings() {
+        return settings;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -72,12 +81,15 @@ public final class GuardianFactor {
     }
 
     private boolean equalTo(GuardianFactor other) {
-        return enabled == other.enabled && trialExpired.equals(other.trialExpired) && name.equals(other.name);
+        return enabled == other.enabled
+                && trialExpired.equals(other.trialExpired)
+                && name.equals(other.name)
+                && settings.equals(other.settings);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.enabled, this.trialExpired, this.name);
+        return Objects.hash(this.enabled, this.trialExpired, this.name, this.settings);
     }
 
     @java.lang.Override
@@ -115,11 +127,17 @@ public final class GuardianFactor {
         _FinalStage name(Optional<GuardianFactorNameEnum> name);
 
         _FinalStage name(GuardianFactorNameEnum name);
+
+        _FinalStage settings(Optional<GuardianFactorSettings> settings);
+
+        _FinalStage settings(GuardianFactorSettings settings);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements EnabledStage, _FinalStage {
         private boolean enabled;
+
+        private Optional<GuardianFactorSettings> settings = Optional.empty();
 
         private Optional<GuardianFactorNameEnum> name = Optional.empty();
 
@@ -135,6 +153,7 @@ public final class GuardianFactor {
             enabled(other.getEnabled());
             trialExpired(other.getTrialExpired());
             name(other.getName());
+            settings(other.getSettings());
             return this;
         }
 
@@ -146,6 +165,19 @@ public final class GuardianFactor {
         @JsonSetter("enabled")
         public _FinalStage enabled(boolean enabled) {
             this.enabled = enabled;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage settings(GuardianFactorSettings settings) {
+            this.settings = Optional.ofNullable(settings);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "settings", nulls = Nulls.SKIP)
+        public _FinalStage settings(Optional<GuardianFactorSettings> settings) {
+            this.settings = settings;
             return this;
         }
 
@@ -184,7 +216,7 @@ public final class GuardianFactor {
 
         @java.lang.Override
         public GuardianFactor build() {
-            return new GuardianFactor(enabled, trialExpired, name, additionalProperties);
+            return new GuardianFactor(enabled, trialExpired, name, settings, additionalProperties);
         }
 
         @java.lang.Override

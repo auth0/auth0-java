@@ -12,12 +12,19 @@ public class RolesClient {
 
     protected final Supplier<MembersClient> membersClient;
 
+    protected final Supplier<GroupsClient> groupsClient;
+
     public RolesClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.membersClient = Suppliers.memoize(() -> new MembersClient(clientOptions));
+        this.groupsClient = Suppliers.memoize(() -> new GroupsClient(clientOptions));
     }
 
     public MembersClient members() {
         return this.membersClient.get();
+    }
+
+    public GroupsClient groups() {
+        return this.groupsClient.get();
     }
 }

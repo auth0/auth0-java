@@ -40,7 +40,7 @@ public class UsersEffectivePermissionsSourcesRolesWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"roles\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"sources\":[\"direct\"]}],\"next\":\"next\"}"));
+                                "{\"roles\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"tenant\",\"owner_id\":\"owner_id\",\"sources\":[\"direct\"]}],\"next\":\"next\"}"));
         SyncPagingIterable<UserEffectivePermissionRoleSourceResponseContent> response = client.users()
                 .effectivePermissions()
                 .sources()

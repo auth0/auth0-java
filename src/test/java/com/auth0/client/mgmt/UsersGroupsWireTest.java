@@ -48,6 +48,7 @@ public class UsersGroupsWireTest {
                         GetUserGroupsRequestParameters.builder()
                                 .fields("fields")
                                 .includeFields(true)
+                                .includeTotals(true)
                                 .from("from")
                                 .take(1)
                                 .build());

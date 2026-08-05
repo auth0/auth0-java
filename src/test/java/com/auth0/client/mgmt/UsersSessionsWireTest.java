@@ -46,6 +46,7 @@ public class UsersSessionsWireTest {
                 .list(
                         "user_id",
                         ListUserSessionsRequestParameters.builder()
+                                .includeTotals(true)
                                 .from("from")
                                 .take(1)
                                 .build());

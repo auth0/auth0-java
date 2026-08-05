@@ -23,6 +23,8 @@ import org.jetbrains.annotations.Nullable;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListOrganizationMembersRequestParameters.Builder.class)
 public final class ListOrganizationMembersRequestParameters {
+    private final OptionalNullable<Boolean> includeTotals;
+
     private final OptionalNullable<String> from;
 
     private final OptionalNullable<Integer> take;
@@ -34,16 +36,30 @@ public final class ListOrganizationMembersRequestParameters {
     private final Map<String, Object> additionalProperties;
 
     private ListOrganizationMembersRequestParameters(
+            OptionalNullable<Boolean> includeTotals,
             OptionalNullable<String> from,
             OptionalNullable<Integer> take,
             OptionalNullable<String> fields,
             OptionalNullable<Boolean> includeFields,
             Map<String, Object> additionalProperties) {
+        this.includeTotals = includeTotals;
         this.from = from;
         this.take = take;
         this.fields = fields;
         this.includeFields = includeFields;
         this.additionalProperties = additionalProperties;
+    }
+
+    /**
+     * @return Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_totals")
+    public OptionalNullable<Boolean> getIncludeTotals() {
+        if (includeTotals == null) {
+            return OptionalNullable.absent();
+        }
+        return includeTotals;
     }
 
     /**
@@ -95,6 +111,12 @@ public final class ListOrganizationMembersRequestParameters {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_totals")
+    private OptionalNullable<Boolean> _getIncludeTotals() {
+        return includeTotals;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("from")
     private OptionalNullable<String> _getFrom() {
         return from;
@@ -131,7 +153,8 @@ public final class ListOrganizationMembersRequestParameters {
     }
 
     private boolean equalTo(ListOrganizationMembersRequestParameters other) {
-        return from.equals(other.from)
+        return includeTotals.equals(other.includeTotals)
+                && from.equals(other.from)
                 && take.equals(other.take)
                 && fields.equals(other.fields)
                 && includeFields.equals(other.includeFields);
@@ -139,7 +162,7 @@ public final class ListOrganizationMembersRequestParameters {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.from, this.take, this.fields, this.includeFields);
+        return Objects.hash(this.includeTotals, this.from, this.take, this.fields, this.includeFields);
     }
 
     @java.lang.Override
@@ -153,6 +176,8 @@ public final class ListOrganizationMembersRequestParameters {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private OptionalNullable<Boolean> includeTotals = OptionalNullable.absent();
+
         private OptionalNullable<String> from = OptionalNullable.absent();
 
         private OptionalNullable<Integer> take = OptionalNullable.absent();
@@ -167,10 +192,45 @@ public final class ListOrganizationMembersRequestParameters {
         private Builder() {}
 
         public Builder from(ListOrganizationMembersRequestParameters other) {
+            includeTotals(other.getIncludeTotals());
             from(other.getFrom());
             take(other.getTake());
             fields(other.getFields());
             includeFields(other.getIncludeFields());
+            return this;
+        }
+
+        /**
+         * <p>Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).</p>
+         */
+        @JsonSetter(value = "include_totals", nulls = Nulls.SKIP)
+        public Builder includeTotals(@Nullable OptionalNullable<Boolean> includeTotals) {
+            this.includeTotals = includeTotals;
+            return this;
+        }
+
+        public Builder includeTotals(Boolean includeTotals) {
+            this.includeTotals = OptionalNullable.of(includeTotals);
+            return this;
+        }
+
+        public Builder includeTotals(Optional<Boolean> includeTotals) {
+            if (includeTotals.isPresent()) {
+                this.includeTotals = OptionalNullable.of(includeTotals.get());
+            } else {
+                this.includeTotals = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder includeTotals(com.auth0.client.mgmt.core.Nullable<Boolean> includeTotals) {
+            if (includeTotals.isNull()) {
+                this.includeTotals = OptionalNullable.ofNull();
+            } else if (includeTotals.isEmpty()) {
+                this.includeTotals = OptionalNullable.absent();
+            } else {
+                this.includeTotals = OptionalNullable.of(includeTotals.get());
+            }
             return this;
         }
 
@@ -312,7 +372,7 @@ public final class ListOrganizationMembersRequestParameters {
 
         public ListOrganizationMembersRequestParameters build() {
             return new ListOrganizationMembersRequestParameters(
-                    from, take, fields, includeFields, additionalProperties);
+                    includeTotals, from, take, fields, includeFields, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

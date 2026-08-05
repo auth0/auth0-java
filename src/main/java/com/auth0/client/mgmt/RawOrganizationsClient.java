@@ -130,6 +130,8 @@ public class RawOrganizationsClient {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations");
+        QueryStringMapper.addQueryParameter(
+                httpUrl, "include_totals", request.getIncludeTotals().orElse(true), false);
         if (!request.getFrom().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "from", request.getFrom().orElse(null), false);
@@ -138,6 +140,13 @@ public class RawOrganizationsClient {
         if (!request.getSort().isAbsent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "sort", request.getSort().orElse(null), false);
+        }
+        if (!request.getIncludeClientAssociationFor().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "include_client_association_for",
+                    request.getIncludeClientAssociationFor().orElse(null),
+                    false);
         }
         if (requestOptions != null) {
             requestOptions.getQueryParameters().forEach((_key, _value) -> {

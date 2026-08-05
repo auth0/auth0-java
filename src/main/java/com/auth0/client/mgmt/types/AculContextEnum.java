@@ -10,6 +10,8 @@ public final class AculContextEnum {
     public static final AculContextEnum UNTRUSTED_DATA_AUTHORIZATION_PARAMS_UI_LOCALES = new AculContextEnum(
             Value.UNTRUSTED_DATA_AUTHORIZATION_PARAMS_UI_LOCALES, "untrusted_data.authorization_params.ui_locales");
 
+    public static final AculContextEnum COUNTRY_CODES = new AculContextEnum(Value.COUNTRY_CODES, "country_codes");
+
     public static final AculContextEnum UNTRUSTED_DATA_AUTHORIZATION_PARAMS_SCREEN_HINT = new AculContextEnum(
             Value.UNTRUSTED_DATA_AUTHORIZATION_PARAMS_SCREEN_HINT, "untrusted_data.authorization_params.screen_hint");
 
@@ -90,6 +92,8 @@ public final class AculContextEnum {
         switch (value) {
             case UNTRUSTED_DATA_AUTHORIZATION_PARAMS_UI_LOCALES:
                 return visitor.visitUntrustedDataAuthorizationParamsUiLocales();
+            case COUNTRY_CODES:
+                return visitor.visitCountryCodes();
             case UNTRUSTED_DATA_AUTHORIZATION_PARAMS_SCREEN_HINT:
                 return visitor.visitUntrustedDataAuthorizationParamsScreenHint();
             case TENANT_FRIENDLY_NAME:
@@ -135,6 +139,8 @@ public final class AculContextEnum {
         switch (value) {
             case "untrusted_data.authorization_params.ui_locales":
                 return UNTRUSTED_DATA_AUTHORIZATION_PARAMS_UI_LOCALES;
+            case "country_codes":
+                return COUNTRY_CODES;
             case "untrusted_data.authorization_params.screen_hint":
                 return UNTRUSTED_DATA_AUTHORIZATION_PARAMS_SCREEN_HINT;
             case "tenant.friendly_name":
@@ -179,6 +185,8 @@ public final class AculContextEnum {
 
         BRANDING_THEMES_DEFAULT,
 
+        COUNTRY_CODES,
+
         CLIENT_LOGO_URI,
 
         CLIENT_DESCRIPTION,
@@ -218,6 +226,8 @@ public final class AculContextEnum {
         T visitBrandingSettings();
 
         T visitBrandingThemesDefault();
+
+        T visitCountryCodes();
 
         T visitClientLogoUri();
 

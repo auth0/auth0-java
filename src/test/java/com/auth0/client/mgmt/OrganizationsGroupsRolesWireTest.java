@@ -43,7 +43,7 @@ public class OrganizationsGroupsRolesWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"roles\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\"}],\"next\":\"next\"}"));
+                                "{\"roles\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"tenant\",\"owner_id\":\"owner_id\"}],\"next\":\"next\"}"));
         SyncPagingIterable<Role> response = client.organizations()
                 .groups()
                 .roles()

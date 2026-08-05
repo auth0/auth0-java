@@ -1,5 +1,28 @@
 # Change Log
 
+## [4.2.0](https://github.com/auth0/auth0-java/tree/4.2.0) (2026-08-05)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/4.1.0...4.2.0)
+
+**Added**
+- feat: Agents client, Organization Clients & Role Groups, Directory Provisioning sync groups, Guardian factor settings & paginated Event Stream Deliveries
+  [\#909](https://github.com/auth0/auth0-java/pull/909) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - **Agents** — new top-level `agents()` client with full CRUD (`list`, `create`, `read`, `update`, `delete`) and `create:agents` / `read:agents` / `update:agents` / `delete:agents` scopes.
+    - **Organization Clients** — new `organizations().clients()` sub-client to associate, list, get, update, and remove org-to-client associations (checkpoint pagination); adds
+      `is_app_entitlement_active` on organizations and an `include_client_association_for` list filter.
+    - **Organization Role Groups** — new `organizations().roles().groups()` sub-client to list groups assigned to a role within an organization.
+    - **Organization-Level Roles** — `Role` and role list/filter now support `type` (`tenant` / `organization`) and `owner_id`.
+    - **Directory Provisioning sync groups** — `connections().directoryProvisioning()` gains `addSynchronizedGroupSelections` / `deleteSynchronizedGroupSelections`; Self-Service SSO tickets add
+      `sync_groups` on the Google Workspace config.
+    - **Guardian factor settings** — `GuardianFactor` now exposes an optional `settings` object (`otp_length`, `otp_expiration_time`).
+    - Misc: `country_codes` added to `AculContextEnum`; new shared `NotFound` / `Conflict` error schemas.
+
+**Fixes**
+- feat: Agents client, Organization Clients & Role Groups, Directory Provisioning sync groups, Guardian factor settings & paginated Event Stream Deliveries
+  [\#909](https://github.com/auth0/auth0-java/pull/909) ([fern-api[bot]](https://github.com/apps/fern-api))
+  - **Event Stream Deliveries pagination** — `deliveries().list(...)` now returns a `SyncPagingIterable<EventStreamDelivery>` with checkpoint pagination (**breaking**: previously
+        `List<EventStreamDelivery>`).
+
+
 ## [4.1.0](https://github.com/auth0/auth0-java/tree/4.1.0) (2026-07-22)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/4.0.0...4.1.0)
 

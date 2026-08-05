@@ -31,6 +31,10 @@ public final class ListRolesRequestParameters {
 
     private final OptionalNullable<String> nameFilter;
 
+    private final OptionalNullable<RoleTypeEnum> type;
+
+    private final OptionalNullable<String> ownerId;
+
     private final Map<String, Object> additionalProperties;
 
     private ListRolesRequestParameters(
@@ -38,11 +42,15 @@ public final class ListRolesRequestParameters {
             OptionalNullable<Integer> page,
             OptionalNullable<Boolean> includeTotals,
             OptionalNullable<String> nameFilter,
+            OptionalNullable<RoleTypeEnum> type,
+            OptionalNullable<String> ownerId,
             Map<String, Object> additionalProperties) {
         this.perPage = perPage;
         this.page = page;
         this.includeTotals = includeTotals;
         this.nameFilter = nameFilter;
+        this.type = type;
+        this.ownerId = ownerId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -94,6 +102,30 @@ public final class ListRolesRequestParameters {
         return nameFilter;
     }
 
+    /**
+     * @return Optional filter on the type of the role
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("type")
+    public OptionalNullable<RoleTypeEnum> getType() {
+        if (type == null) {
+            return OptionalNullable.absent();
+        }
+        return type;
+    }
+
+    /**
+     * @return Filter organization-level roles by owner ID. Required when type is &quot;organization&quot;.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("owner_id")
+    public OptionalNullable<String> getOwnerId() {
+        if (ownerId == null) {
+            return OptionalNullable.absent();
+        }
+        return ownerId;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("per_page")
     private OptionalNullable<Integer> _getPerPage() {
@@ -118,6 +150,18 @@ public final class ListRolesRequestParameters {
         return nameFilter;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("type")
+    private OptionalNullable<RoleTypeEnum> _getType() {
+        return type;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("owner_id")
+    private OptionalNullable<String> _getOwnerId() {
+        return ownerId;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -133,12 +177,14 @@ public final class ListRolesRequestParameters {
         return perPage.equals(other.perPage)
                 && page.equals(other.page)
                 && includeTotals.equals(other.includeTotals)
-                && nameFilter.equals(other.nameFilter);
+                && nameFilter.equals(other.nameFilter)
+                && type.equals(other.type)
+                && ownerId.equals(other.ownerId);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.perPage, this.page, this.includeTotals, this.nameFilter);
+        return Objects.hash(this.perPage, this.page, this.includeTotals, this.nameFilter, this.type, this.ownerId);
     }
 
     @java.lang.Override
@@ -160,6 +206,10 @@ public final class ListRolesRequestParameters {
 
         private OptionalNullable<String> nameFilter = OptionalNullable.absent();
 
+        private OptionalNullable<RoleTypeEnum> type = OptionalNullable.absent();
+
+        private OptionalNullable<String> ownerId = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -170,6 +220,8 @@ public final class ListRolesRequestParameters {
             page(other.getPage());
             includeTotals(other.getIncludeTotals());
             nameFilter(other.getNameFilter());
+            type(other.getType());
+            ownerId(other.getOwnerId());
             return this;
         }
 
@@ -309,8 +361,77 @@ public final class ListRolesRequestParameters {
             return this;
         }
 
+        /**
+         * <p>Optional filter on the type of the role</p>
+         */
+        @JsonSetter(value = "type", nulls = Nulls.SKIP)
+        public Builder type(@Nullable OptionalNullable<RoleTypeEnum> type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder type(RoleTypeEnum type) {
+            this.type = OptionalNullable.of(type);
+            return this;
+        }
+
+        public Builder type(Optional<RoleTypeEnum> type) {
+            if (type.isPresent()) {
+                this.type = OptionalNullable.of(type.get());
+            } else {
+                this.type = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder type(com.auth0.client.mgmt.core.Nullable<RoleTypeEnum> type) {
+            if (type.isNull()) {
+                this.type = OptionalNullable.ofNull();
+            } else if (type.isEmpty()) {
+                this.type = OptionalNullable.absent();
+            } else {
+                this.type = OptionalNullable.of(type.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>Filter organization-level roles by owner ID. Required when type is &quot;organization&quot;.</p>
+         */
+        @JsonSetter(value = "owner_id", nulls = Nulls.SKIP)
+        public Builder ownerId(@Nullable OptionalNullable<String> ownerId) {
+            this.ownerId = ownerId;
+            return this;
+        }
+
+        public Builder ownerId(String ownerId) {
+            this.ownerId = OptionalNullable.of(ownerId);
+            return this;
+        }
+
+        public Builder ownerId(Optional<String> ownerId) {
+            if (ownerId.isPresent()) {
+                this.ownerId = OptionalNullable.of(ownerId.get());
+            } else {
+                this.ownerId = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder ownerId(com.auth0.client.mgmt.core.Nullable<String> ownerId) {
+            if (ownerId.isNull()) {
+                this.ownerId = OptionalNullable.ofNull();
+            } else if (ownerId.isEmpty()) {
+                this.ownerId = OptionalNullable.absent();
+            } else {
+                this.ownerId = OptionalNullable.of(ownerId.get());
+            }
+            return this;
+        }
+
         public ListRolesRequestParameters build() {
-            return new ListRolesRequestParameters(perPage, page, includeTotals, nameFilter, additionalProperties);
+            return new ListRolesRequestParameters(
+                    perPage, page, includeTotals, nameFilter, type, ownerId, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

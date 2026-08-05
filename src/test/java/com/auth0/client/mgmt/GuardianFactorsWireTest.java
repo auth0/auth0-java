@@ -38,9 +38,11 @@ public class GuardianFactorsWireTest {
 
     @Test
     public void testList() throws Exception {
-        server.enqueue(new MockResponse()
-                .setResponseCode(200)
-                .setBody("[{\"enabled\":true,\"trial_expired\":true,\"name\":\"push-notification\"}]"));
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "[{\"enabled\":true,\"trial_expired\":true,\"name\":\"push-notification\",\"settings\":{\"otp_length\":1,\"otp_expiration_time\":1}}]"));
         List<GuardianFactor> response = client.guardian().factors().list();
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -54,7 +56,11 @@ public class GuardianFactorsWireTest {
                 + "  {\n"
                 + "    \"enabled\": true,\n"
                 + "    \"trial_expired\": true,\n"
-                + "    \"name\": \"push-notification\"\n"
+                + "    \"name\": \"push-notification\",\n"
+                + "    \"settings\": {\n"
+                + "      \"otp_length\": 1,\n"
+                + "      \"otp_expiration_time\": 1\n"
+                + "    }\n"
                 + "  }\n"
                 + "]";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
