@@ -7,7 +7,7 @@ This is a **library/SDK** repo (public surface = exported classes/methods under 
 | When this changes | Update these docs |
 |-------------------|-------------------|
 | Hand-maintained public API — Authentication API (`AuthAPI`, `AuthorizeUrlBuilder`, `LogoutUrlBuilder`, passwordless, token vault) | `README.md` (Getting Started), `EXAMPLES.md` (relevant scenario section) |
-| Client construction / options (`ManagementApiBuilder`, `Auth0ClientBuilder`, `ClientOptions`, `ProxyOptions`, `LoggingOptions`, token providers) | `README.md` (Configure the SDK), `EXAMPLES.md` (HTTP Client configuration / Management API usage) |
+| Client construction / options (`ManagementApiBuilder`, `TokenProvider`, `ClientOptions`, `ProxyOptions`, `LoggingOptions`) | `README.md` (Configure the SDK), `EXAMPLES.md` (HTTP Client configuration / Management API usage) |
 | New usage pattern or scenario (pagination, error handling, async, org login, ID-token verification) | `EXAMPLES.md` (add/adjust the matching section) |
 | Minimum Java version, install coordinates, or dependency changes | `README.md` (Requirements / Installation) |
 | A source- or binary-breaking change (approval required) | `v4_MIGRATION_GUIDE.md` (current major), plus `README.md`/`EXAMPLES.md` for affected samples |

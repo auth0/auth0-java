@@ -43,13 +43,10 @@ auth0-java/
 │   │   ├── mgmt/                  # Management API (FERN-GENERATED) — ManagementApi / AsyncManagementApi
 │   │   │   ├── <resource>/        # per-resource clients (users, roles, organizations, ...)
 │   │   │   ├── <resource>/types/  # generated request/response types
-│   │   │   ├── core/              # ClientOptions, RequestOptions, OAuth token supplier (HAND-MAINTAINED, in .fernignore)
-│   │   │   ├── ManagementApiBuilder.java, TokenProvider.java, CustomDomainHeader.java  # HAND-MAINTAINED
-│   │   │   └── legacy/            # legacy Management API from auth0-real (HAND-MAINTAINED)
-│   │   ├── Auth0ClientBuilder.java, ClientCredentialsTokenProvider.java  # HAND-MAINTAINED
+│   │   │   ├── core/              # ClientOptions, RequestOptions, OAuthTokenSupplier, interceptors (some HAND-MAINTAINED via .fernignore)
+│   │   │   └── ManagementApiBuilder.java, TokenProvider.java, CustomDomainHeader.java  # HAND-MAINTAINED
 │   │   ├── ProxyOptions.java, LoggingOptions.java                        # HAND-MAINTAINED
-│   │   └── interceptors/          # HAND-MAINTAINED
-│   ├── net/                       # HTTP client abstraction over OkHttp (HAND-MAINTAINED)
+│   ├── net/                       # HTTP client abstraction over OkHttp + interceptors (HAND-MAINTAINED)
 │   ├── json/auth/                 # Auth API JSON models (HAND-MAINTAINED); json/mgmt is generated
 │   ├── exception/, utils/         # HAND-MAINTAINED supporting packages
 │   └── ...
@@ -95,7 +92,7 @@ auth0-java/
 - **Changing generated Management API behavior.** A durable fix to generated code needs a change to the **Fern API spec or the `java-v2` generator**, not a local edit — see [About Generated Code](CONTRIBUTING.md). Flag this rather than patching a generated file (which `.fernignore` does not protect).
 - Adding or upgrading dependencies in `build.gradle`.
 - Changing `.github/workflows/`, `.github/actions/`, release/versioning config, or `gradle/` files.
-- Modifying token/credential or ID-token verification code (`utils/tokens/`, `ClientCredentialsTokenProvider`, `OAuthTokenSupplier`).
+- Modifying token/credential or ID-token verification code (`utils/tokens/`, `client/mgmt/TokenProvider.java`, `client/mgmt/core/OAuthTokenSupplier.java`).
 
 ### 🚫 Never Do
 
@@ -109,7 +106,7 @@ auth0-java/
 
 ## Security Considerations
 
-- **Token management:** Management API tokens are supplied statically or via client-credentials through `TokenProvider` / `ClientCredentialsTokenProvider` / `OAuthTokenSupplier`. Never log tokens or client secrets; never hardcode a tenant secret in code, tests, or the sample app.
+- **Token management:** Management API tokens are supplied statically or via client-credentials through `client/mgmt/TokenProvider.java` and `client/mgmt/core/OAuthTokenSupplier.java`. Never log tokens or client secrets; never hardcode a tenant secret in code, tests, or the sample app.
 - **ID token verification:** ID-token signature/claims verification lives in `com/auth0/utils/tokens/` (RS256 via JWKS, HS256 via shared secret). Do not weaken verification or add a bypass path.
 - **Client assertions:** `client/auth/RSAClientAssertionSigner.java` and `ClientAssertionSigner.java` implement private-key-JWT client auth — treat as security-sensitive.
 - **Secrets in CI:** signing keys and OSSR credentials are injected as GitHub Actions secrets in the release workflows, never committed.
