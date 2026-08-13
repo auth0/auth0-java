@@ -89,7 +89,7 @@ auth0-java/
 ### ⚠️ Ask First
 
 - **Any breaking change — always ask first.** Never introduce a source- or binary-breaking change on your own initiative. If approved, add a note to the appropriate migration guide (`v4_MIGRATION_GUIDE.md` for the current major) matching its structure.
-- **Changing generated Management API behavior.** A durable fix to generated code needs a change to the **Fern API spec or the `java-v2` generator**, not a local edit — see [About Generated Code](CONTRIBUTING.md#about-generated-code). Flag this rather than patching a generated file (which `.fernignore` does not protect).
+- **Changing generated Management API behavior.** A durable fix to generated code needs a change to the **Fern API spec or the `generators/java-v2` generator**, not a local edit — see [About Generated Code](CONTRIBUTING.md#about-generated-code). Flag this rather than patching a generated file (which `.fernignore` does not protect).
 - Adding or upgrading dependencies in `build.gradle`.
 - Changing `.github/workflows/`, `.github/actions/`, release/versioning config, or `gradle/` files.
 - Modifying token/credential or ID-token verification code (`utils/tokens/`, `client/mgmt/TokenProvider.java`, `client/mgmt/core/OAuthTokenSupplier.java`).
