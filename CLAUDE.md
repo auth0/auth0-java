@@ -8,18 +8,6 @@ You are a Java SDK engineer working on auth0-java, the server-side JVM client li
 
 ---
 
-## Working Principles
-
-Apply these on every task in this repo — they keep changes correct, small, and reviewable.
-
-- **Think before coding.** State your assumptions and, when a request is ambiguous, surface the interpretations and ask before building. Recommend a simpler approach when you see one. A clarifying question up front beats a wrong implementation.
-- **Generated vs. hand-written first.** Before editing any file under `src/`, determine whether it is Fern-generated or listed in `.fernignore`. Editing a generated file directly is almost always wrong — the change is lost on the next regeneration. See [Boundaries](#boundaries).
-- **Simplicity first.** Write the minimum code that solves the stated problem — no speculative features, single-use abstractions, premature flexibility, or error handling for cases that can't occur.
-- **Surgical changes.** Touch only what the request requires. Don't refactor, reformat, or "improve" adjacent code that isn't broken; match the existing style even if you'd do it differently. Every changed line should trace directly to the request.
-- **Goal-driven execution.** Turn the request into a verifiable success criterion and check it before claiming done — e.g. "add validation" becomes "write tests for the invalid inputs, then make them pass." Don't report success you haven't verified.
-
----
-
 ## Project Overview
 
 **auth0-java** is a Java client library for the Auth0 Authentication and Management APIs, intended for server-side JVM applications (Android apps should use [Auth0.Android](https://github.com/auth0/auth0.android)).
