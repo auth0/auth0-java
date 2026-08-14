@@ -261,6 +261,44 @@ public class AuthAPITest {
         assertThat(identities.get(0), hasEntry("isSocial", false));
     }
 
+    // Telemetry
+
+    @Test
+    public void shouldSendDefaultTelemetry() throws Exception {
+        Request<UserInfo> request = api.userInfo("accessToken");
+        server.jsonResponse(AUTH_USER_INFO, 200);
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        String header = recordedRequest.getHeader("Auth0-Client");
+        assertThat(header, is(notNullValue()));
+        com.fasterxml.jackson.databind.JsonNode telemetry = ObjectMapperProvider.getMapper()
+                .readTree(java.util.Base64.getUrlDecoder().decode(header));
+        assertThat(telemetry.get("name").asText(), is("auth0-java"));
+    }
+
+    @Test
+    public void shouldSendCustomTelemetryWhenConfigured() throws Exception {
+        AuthAPI customApi = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET)
+                .withHttpClient(com.auth0.net.client.DefaultHttpClient.newBuilder()
+                        .withTelemetry("my-wrapper-sdk", "1.2.3")
+                        .build())
+                .build();
+
+        Request<UserInfo> request = customApi.userInfo("accessToken");
+        server.jsonResponse(AUTH_USER_INFO, 200);
+        request.execute();
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        String header = recordedRequest.getHeader("Auth0-Client");
+        assertThat(header, is(notNullValue()));
+        com.fasterxml.jackson.databind.JsonNode telemetry = ObjectMapperProvider.getMapper()
+                .readTree(java.util.Base64.getUrlDecoder().decode(header));
+        assertThat(telemetry.get("name").asText(), is("my-wrapper-sdk"));
+        assertThat(telemetry.get("version").asText(), is("1.2.3"));
+        assertThat(telemetry.get("env"), is(notNullValue()));
+    }
+
     // Reset Password
 
     @Test

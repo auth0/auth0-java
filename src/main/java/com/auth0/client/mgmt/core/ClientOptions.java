@@ -33,15 +33,17 @@ public final class ClientOptions {
             Map<String, Supplier<String>> headerSuppliers,
             OkHttpClient httpClient,
             int timeout,
-            int maxRetries) {
+            int maxRetries,
+            Telemetry telemetry) {
         this.environment = environment;
         this.headers = new HashMap<>();
         this.headers.putAll(headers);
 
-        Telemetry telemetry =
-                new Telemetry("auth0-java", Telemetry.class.getPackage().getImplementationVersion());
-        if (telemetry.getValue() != null) {
-            this.headers.put("Auth0-Client", telemetry.getValue());
+        Telemetry resolvedTelemetry = telemetry != null
+                ? telemetry
+                : new Telemetry("auth0-java", Telemetry.class.getPackage().getImplementationVersion());
+        if (resolvedTelemetry.getValue() != null) {
+            this.headers.put("Auth0-Client", resolvedTelemetry.getValue());
         }
         this.headerSuppliers = headerSuppliers;
         this.httpClient = httpClient;
@@ -113,6 +115,8 @@ public final class ClientOptions {
 
         private LogConfig logging = null;
 
+        private Telemetry telemetry = null;
+
         public Builder environment(Environment environment) {
             this.environment = environment;
             return this;
@@ -173,6 +177,16 @@ public final class ClientOptions {
             return this;
         }
 
+        /**
+         * Configure the telemetry sent to Auth0 on every request. Used when building an SDK on top of
+         * auth0-java so requests are attributed to the wrapping library. If not set, telemetry defaults
+         * to identifying this library as {@code auth0-java}.
+         */
+        public Builder telemetry(Telemetry telemetry) {
+            this.telemetry = telemetry;
+            return this;
+        }
+
         public ClientOptions build() {
             OkHttpClient.Builder httpClientBuilder =
                     this.httpClient != null ? this.httpClient.newBuilder() : new OkHttpClient.Builder();
@@ -205,7 +219,13 @@ public final class ClientOptions {
             this.timeout = Optional.of(httpClient.callTimeoutMillis() / 1000);
 
             return new ClientOptions(
-                    environment, headers, headerSuppliers, httpClient, this.timeout.get(), this.maxRetries);
+                    environment,
+                    headers,
+                    headerSuppliers,
+                    httpClient,
+                    this.timeout.get(),
+                    this.maxRetries,
+                    this.telemetry);
         }
 
         /**
