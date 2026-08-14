@@ -5,6 +5,7 @@ package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.*;
 import com.auth0.net.Telemetry;
+import com.auth0.utils.Asserts;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -203,7 +204,9 @@ public class ManagementApiBuilder {
      * @return This builder for method chaining
      */
     public ManagementApiBuilder withTelemetry(String name, String version) {
-        this.telemetry = new Telemetry(name, version, Telemetry.class.getPackage().getImplementationVersion());
+        Asserts.assertNotNull(name, "name");
+        this.telemetry =
+                new Telemetry(name, version, Telemetry.class.getPackage().getImplementationVersion());
         return this;
     }
 

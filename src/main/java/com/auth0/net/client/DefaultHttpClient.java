@@ -5,6 +5,7 @@ import com.auth0.client.ProxyOptions;
 import com.auth0.net.RateLimitInterceptor;
 import com.auth0.net.Telemetry;
 import com.auth0.net.TelemetryInterceptor;
+import com.auth0.utils.Asserts;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -354,6 +355,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
          * @return this builder instance.
          */
         public Builder withTelemetry(String name, String version) {
+            Asserts.assertNotNull(name, "name");
             this.telemetry =
                     new Telemetry(name, version, Telemetry.class.getPackage().getImplementationVersion());
             return this;
