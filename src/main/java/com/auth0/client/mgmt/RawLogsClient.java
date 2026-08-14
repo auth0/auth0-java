@@ -21,8 +21,10 @@ import com.auth0.client.mgmt.types.GetLogResponseContent;
 import com.auth0.client.mgmt.types.ListLogOffsetPaginatedResponseContent;
 import com.auth0.client.mgmt.types.ListLogsRequestParameters;
 import com.auth0.client.mgmt.types.Log;
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import okhttp3.Headers;
@@ -197,8 +199,19 @@ public class RawLogsClient {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
-                ListLogOffsetPaginatedResponseContent parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                        responseBodyString, ListLogOffsetPaginatedResponseContent.class);
+                ListLogOffsetPaginatedResponseContent parsedResponse;
+                try {
+                    parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(
+                            responseBodyString, ListLogOffsetPaginatedResponseContent.class);
+                } catch (JacksonException e) {
+                    if (requestOptions == null || !requestOptions.getQueryParameters().containsKey("from")) {
+                        throw e;
+                    }
+                    List<Log> logs =
+                        Arrays.asList(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Log[].class));
+                    parsedResponse = ListLogOffsetPaginatedResponseContent.builder().logs(logs).build();
+                }
                 int newPageNumber =
                         request.getPage().map((Integer page) -> page + 1).orElse(1);
                 ListLogsRequestParameters nextRequest = ListLogsRequestParameters.builder()
