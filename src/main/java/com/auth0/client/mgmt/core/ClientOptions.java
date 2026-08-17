@@ -178,9 +178,10 @@ public final class ClientOptions {
         }
 
         /**
-         * Configure the telemetry sent to Auth0 on every request. Used when building an SDK on top of
-         * auth0-java so requests are attributed to the wrapping library. If not set, telemetry defaults
-         * to identifying this library as {@code auth0-java}.
+         * Internal plumbing. Sets the pre-built {@link Telemetry} used for the {@code Auth0-Client}
+         * header. Prefer {@link com.auth0.client.mgmt.ManagementApiBuilder#withTelemetry(String, String)},
+         * which constructs the telemetry with the correct auth0-java version. Passing a hand-built
+         * {@link Telemetry} here bypasses that and is not a supported way to identify a wrapping SDK.
          */
         public Builder telemetry(Telemetry telemetry) {
             this.telemetry = telemetry;
