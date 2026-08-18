@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
@@ -20,6 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CreateCustomDomainRequestContent.Builder.class)
@@ -85,6 +85,9 @@ public final class CreateCustomDomainRequestContent {
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("custom_client_ip_header")
     public OptionalNullable<CustomDomainCustomClientIpHeaderEnum> getCustomClientIpHeader() {
+        if (customClientIpHeader == null) {
+            return OptionalNullable.absent();
+        }
         return customClientIpHeader;
     }
 
@@ -99,6 +102,12 @@ public final class CreateCustomDomainRequestContent {
     @JsonProperty("relying_party_identifier")
     public Optional<String> getRelyingPartyIdentifier() {
         return relyingPartyIdentifier;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("custom_client_ip_header")
+    private OptionalNullable<CustomDomainCustomClientIpHeaderEnum> _getCustomClientIpHeader() {
+        return customClientIpHeader;
     }
 
     @java.lang.Override
@@ -171,13 +180,15 @@ public final class CreateCustomDomainRequestContent {
 
         _FinalStage tlsPolicy(CustomDomainTlsPolicyEnum tlsPolicy);
 
-        _FinalStage customClientIpHeader(OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader);
+        _FinalStage customClientIpHeader(
+                @Nullable OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader);
 
         _FinalStage customClientIpHeader(CustomDomainCustomClientIpHeaderEnum customClientIpHeader);
 
         _FinalStage customClientIpHeader(Optional<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader);
 
-        _FinalStage customClientIpHeader(Nullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader);
+        _FinalStage customClientIpHeader(
+                com.auth0.client.mgmt.core.Nullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader);
 
         _FinalStage domainMetadata(Optional<Map<String, OptionalNullable<String>>> domainMetadata);
 
@@ -276,7 +287,8 @@ public final class CreateCustomDomainRequestContent {
         }
 
         @java.lang.Override
-        public _FinalStage customClientIpHeader(Nullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader) {
+        public _FinalStage customClientIpHeader(
+                com.auth0.client.mgmt.core.Nullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader) {
             if (customClientIpHeader.isNull()) {
                 this.customClientIpHeader = OptionalNullable.ofNull();
             } else if (customClientIpHeader.isEmpty()) {
@@ -306,7 +318,7 @@ public final class CreateCustomDomainRequestContent {
         @java.lang.Override
         @JsonSetter(value = "custom_client_ip_header", nulls = Nulls.SKIP)
         public _FinalStage customClientIpHeader(
-                OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader) {
+                @Nullable OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader) {
             this.customClientIpHeader = customClientIpHeader;
             return this;
         }

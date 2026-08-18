@@ -603,7 +603,7 @@ public class AsyncRawConnectionsClient {
 
     /**
      * Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
-     * <p><strong>Note</strong>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
+     * <p><strong>Note</strong>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option. If any options are unspecified, the default will be used, even if it differs from the existing value.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateConnectionResponseContent>> update(String id) {
         return update(id, UpdateConnectionRequestContent.builder().build());
@@ -611,7 +611,7 @@ public class AsyncRawConnectionsClient {
 
     /**
      * Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
-     * <p><strong>Note</strong>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
+     * <p><strong>Note</strong>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option. If any options are unspecified, the default will be used, even if it differs from the existing value.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateConnectionResponseContent>> update(
             String id, RequestOptions requestOptions) {
@@ -620,7 +620,7 @@ public class AsyncRawConnectionsClient {
 
     /**
      * Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
-     * <p><strong>Note</strong>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
+     * <p><strong>Note</strong>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option. If any options are unspecified, the default will be used, even if it differs from the existing value.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateConnectionResponseContent>> update(
             String id, UpdateConnectionRequestContent request) {
@@ -629,7 +629,7 @@ public class AsyncRawConnectionsClient {
 
     /**
      * Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
-     * <p><strong>Note</strong>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option.</p>
+     * <p><strong>Note</strong>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option. If any options are unspecified, the default will be used, even if it differs from the existing value.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<UpdateConnectionResponseContent>> update(
             String id, UpdateConnectionRequestContent request, RequestOptions requestOptions) {

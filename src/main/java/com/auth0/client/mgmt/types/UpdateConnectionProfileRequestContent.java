@@ -33,6 +33,8 @@ public final class UpdateConnectionProfileRequestContent {
 
     private final Optional<ConnectionProfileStrategyOverrides> strategyOverrides;
 
+    private final Optional<ConnectionProfileCrossAppAccessResourceApp> crossAppAccessResourceApp;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateConnectionProfileRequestContent(
@@ -42,6 +44,7 @@ public final class UpdateConnectionProfileRequestContent {
             Optional<List<EnabledFeaturesEnum>> enabledFeatures,
             Optional<ConnectionProfileConfig> connectionConfig,
             Optional<ConnectionProfileStrategyOverrides> strategyOverrides,
+            Optional<ConnectionProfileCrossAppAccessResourceApp> crossAppAccessResourceApp,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.organization = organization;
@@ -49,6 +52,7 @@ public final class UpdateConnectionProfileRequestContent {
         this.enabledFeatures = enabledFeatures;
         this.connectionConfig = connectionConfig;
         this.strategyOverrides = strategyOverrides;
+        this.crossAppAccessResourceApp = crossAppAccessResourceApp;
         this.additionalProperties = additionalProperties;
     }
 
@@ -82,6 +86,11 @@ public final class UpdateConnectionProfileRequestContent {
         return strategyOverrides;
     }
 
+    @JsonProperty("cross_app_access_resource_app")
+    public Optional<ConnectionProfileCrossAppAccessResourceApp> getCrossAppAccessResourceApp() {
+        return crossAppAccessResourceApp;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -100,7 +109,8 @@ public final class UpdateConnectionProfileRequestContent {
                 && connectionNamePrefixTemplate.equals(other.connectionNamePrefixTemplate)
                 && enabledFeatures.equals(other.enabledFeatures)
                 && connectionConfig.equals(other.connectionConfig)
-                && strategyOverrides.equals(other.strategyOverrides);
+                && strategyOverrides.equals(other.strategyOverrides)
+                && crossAppAccessResourceApp.equals(other.crossAppAccessResourceApp);
     }
 
     @java.lang.Override
@@ -111,7 +121,8 @@ public final class UpdateConnectionProfileRequestContent {
                 this.connectionNamePrefixTemplate,
                 this.enabledFeatures,
                 this.connectionConfig,
-                this.strategyOverrides);
+                this.strategyOverrides,
+                this.crossAppAccessResourceApp);
     }
 
     @java.lang.Override
@@ -137,6 +148,8 @@ public final class UpdateConnectionProfileRequestContent {
 
         private Optional<ConnectionProfileStrategyOverrides> strategyOverrides = Optional.empty();
 
+        private Optional<ConnectionProfileCrossAppAccessResourceApp> crossAppAccessResourceApp = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -149,6 +162,7 @@ public final class UpdateConnectionProfileRequestContent {
             enabledFeatures(other.getEnabledFeatures());
             connectionConfig(other.getConnectionConfig());
             strategyOverrides(other.getStrategyOverrides());
+            crossAppAccessResourceApp(other.getCrossAppAccessResourceApp());
             return this;
         }
 
@@ -218,6 +232,18 @@ public final class UpdateConnectionProfileRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "cross_app_access_resource_app", nulls = Nulls.SKIP)
+        public Builder crossAppAccessResourceApp(
+                Optional<ConnectionProfileCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = crossAppAccessResourceApp;
+            return this;
+        }
+
+        public Builder crossAppAccessResourceApp(ConnectionProfileCrossAppAccessResourceApp crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = Optional.ofNullable(crossAppAccessResourceApp);
+            return this;
+        }
+
         public UpdateConnectionProfileRequestContent build() {
             return new UpdateConnectionProfileRequestContent(
                     name,
@@ -226,6 +252,7 @@ public final class UpdateConnectionProfileRequestContent {
                     enabledFeatures,
                     connectionConfig,
                     strategyOverrides,
+                    crossAppAccessResourceApp,
                     additionalProperties);
         }
 

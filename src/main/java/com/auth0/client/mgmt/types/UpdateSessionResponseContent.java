@@ -28,17 +28,17 @@ public final class UpdateSessionResponseContent {
 
     private final Optional<String> userId;
 
-    private final Optional<SessionDate> createdAt;
+    private final OptionalNullable<SessionDate> createdAt;
 
-    private final Optional<SessionDate> updatedAt;
+    private final OptionalNullable<SessionDate> updatedAt;
 
-    private final Optional<SessionDate> authenticatedAt;
+    private final OptionalNullable<SessionDate> authenticatedAt;
 
-    private final Optional<SessionDate> idleExpiresAt;
+    private final OptionalNullable<SessionDate> idleExpiresAt;
 
-    private final Optional<SessionDate> expiresAt;
+    private final OptionalNullable<SessionDate> expiresAt;
 
-    private final Optional<SessionDate> lastInteractedAt;
+    private final OptionalNullable<SessionDate> lastInteractedAt;
 
     private final Optional<SessionDeviceMetadata> device;
 
@@ -57,12 +57,12 @@ public final class UpdateSessionResponseContent {
     private UpdateSessionResponseContent(
             Optional<String> id,
             Optional<String> userId,
-            Optional<SessionDate> createdAt,
-            Optional<SessionDate> updatedAt,
-            Optional<SessionDate> authenticatedAt,
-            Optional<SessionDate> idleExpiresAt,
-            Optional<SessionDate> expiresAt,
-            Optional<SessionDate> lastInteractedAt,
+            OptionalNullable<SessionDate> createdAt,
+            OptionalNullable<SessionDate> updatedAt,
+            OptionalNullable<SessionDate> authenticatedAt,
+            OptionalNullable<SessionDate> idleExpiresAt,
+            OptionalNullable<SessionDate> expiresAt,
+            OptionalNullable<SessionDate> lastInteractedAt,
             Optional<SessionDeviceMetadata> device,
             Optional<List<SessionClientMetadata>> clients,
             Optional<SessionAuthenticationSignals> authentication,
@@ -103,33 +103,57 @@ public final class UpdateSessionResponseContent {
         return userId;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("created_at")
-    public Optional<SessionDate> getCreatedAt() {
+    public OptionalNullable<SessionDate> getCreatedAt() {
+        if (createdAt == null) {
+            return OptionalNullable.absent();
+        }
         return createdAt;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("updated_at")
-    public Optional<SessionDate> getUpdatedAt() {
+    public OptionalNullable<SessionDate> getUpdatedAt() {
+        if (updatedAt == null) {
+            return OptionalNullable.absent();
+        }
         return updatedAt;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("authenticated_at")
-    public Optional<SessionDate> getAuthenticatedAt() {
+    public OptionalNullable<SessionDate> getAuthenticatedAt() {
+        if (authenticatedAt == null) {
+            return OptionalNullable.absent();
+        }
         return authenticatedAt;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("idle_expires_at")
-    public Optional<SessionDate> getIdleExpiresAt() {
+    public OptionalNullable<SessionDate> getIdleExpiresAt() {
+        if (idleExpiresAt == null) {
+            return OptionalNullable.absent();
+        }
         return idleExpiresAt;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("expires_at")
-    public Optional<SessionDate> getExpiresAt() {
+    public OptionalNullable<SessionDate> getExpiresAt() {
+        if (expiresAt == null) {
+            return OptionalNullable.absent();
+        }
         return expiresAt;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("last_interacted_at")
-    public Optional<SessionDate> getLastInteractedAt() {
+    public OptionalNullable<SessionDate> getLastInteractedAt() {
+        if (lastInteractedAt == null) {
+            return OptionalNullable.absent();
+        }
         return lastInteractedAt;
     }
 
@@ -168,6 +192,42 @@ public final class UpdateSessionResponseContent {
     @JsonProperty("actor")
     public Optional<SessionActorMetadata> getActor() {
         return actor;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("created_at")
+    private OptionalNullable<SessionDate> _getCreatedAt() {
+        return createdAt;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("updated_at")
+    private OptionalNullable<SessionDate> _getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("authenticated_at")
+    private OptionalNullable<SessionDate> _getAuthenticatedAt() {
+        return authenticatedAt;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("idle_expires_at")
+    private OptionalNullable<SessionDate> _getIdleExpiresAt() {
+        return idleExpiresAt;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("expires_at")
+    private OptionalNullable<SessionDate> _getExpiresAt() {
+        return expiresAt;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("last_interacted_at")
+    private OptionalNullable<SessionDate> _getLastInteractedAt() {
+        return lastInteractedAt;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -238,17 +298,17 @@ public final class UpdateSessionResponseContent {
 
         private Optional<String> userId = Optional.empty();
 
-        private Optional<SessionDate> createdAt = Optional.empty();
+        private OptionalNullable<SessionDate> createdAt = OptionalNullable.absent();
 
-        private Optional<SessionDate> updatedAt = Optional.empty();
+        private OptionalNullable<SessionDate> updatedAt = OptionalNullable.absent();
 
-        private Optional<SessionDate> authenticatedAt = Optional.empty();
+        private OptionalNullable<SessionDate> authenticatedAt = OptionalNullable.absent();
 
-        private Optional<SessionDate> idleExpiresAt = Optional.empty();
+        private OptionalNullable<SessionDate> idleExpiresAt = OptionalNullable.absent();
 
-        private Optional<SessionDate> expiresAt = Optional.empty();
+        private OptionalNullable<SessionDate> expiresAt = OptionalNullable.absent();
 
-        private Optional<SessionDate> lastInteractedAt = Optional.empty();
+        private OptionalNullable<SessionDate> lastInteractedAt = OptionalNullable.absent();
 
         private Optional<SessionDeviceMetadata> device = Optional.empty();
 
@@ -314,68 +374,188 @@ public final class UpdateSessionResponseContent {
         }
 
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
-        public Builder createdAt(Optional<SessionDate> createdAt) {
+        public Builder createdAt(@Nullable OptionalNullable<SessionDate> createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         public Builder createdAt(SessionDate createdAt) {
-            this.createdAt = Optional.ofNullable(createdAt);
+            this.createdAt = OptionalNullable.of(createdAt);
+            return this;
+        }
+
+        public Builder createdAt(Optional<SessionDate> createdAt) {
+            if (createdAt.isPresent()) {
+                this.createdAt = OptionalNullable.of(createdAt.get());
+            } else {
+                this.createdAt = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder createdAt(com.auth0.client.mgmt.core.Nullable<SessionDate> createdAt) {
+            if (createdAt.isNull()) {
+                this.createdAt = OptionalNullable.ofNull();
+            } else if (createdAt.isEmpty()) {
+                this.createdAt = OptionalNullable.absent();
+            } else {
+                this.createdAt = OptionalNullable.of(createdAt.get());
+            }
             return this;
         }
 
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
-        public Builder updatedAt(Optional<SessionDate> updatedAt) {
+        public Builder updatedAt(@Nullable OptionalNullable<SessionDate> updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
 
         public Builder updatedAt(SessionDate updatedAt) {
-            this.updatedAt = Optional.ofNullable(updatedAt);
+            this.updatedAt = OptionalNullable.of(updatedAt);
+            return this;
+        }
+
+        public Builder updatedAt(Optional<SessionDate> updatedAt) {
+            if (updatedAt.isPresent()) {
+                this.updatedAt = OptionalNullable.of(updatedAt.get());
+            } else {
+                this.updatedAt = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder updatedAt(com.auth0.client.mgmt.core.Nullable<SessionDate> updatedAt) {
+            if (updatedAt.isNull()) {
+                this.updatedAt = OptionalNullable.ofNull();
+            } else if (updatedAt.isEmpty()) {
+                this.updatedAt = OptionalNullable.absent();
+            } else {
+                this.updatedAt = OptionalNullable.of(updatedAt.get());
+            }
             return this;
         }
 
         @JsonSetter(value = "authenticated_at", nulls = Nulls.SKIP)
-        public Builder authenticatedAt(Optional<SessionDate> authenticatedAt) {
+        public Builder authenticatedAt(@Nullable OptionalNullable<SessionDate> authenticatedAt) {
             this.authenticatedAt = authenticatedAt;
             return this;
         }
 
         public Builder authenticatedAt(SessionDate authenticatedAt) {
-            this.authenticatedAt = Optional.ofNullable(authenticatedAt);
+            this.authenticatedAt = OptionalNullable.of(authenticatedAt);
+            return this;
+        }
+
+        public Builder authenticatedAt(Optional<SessionDate> authenticatedAt) {
+            if (authenticatedAt.isPresent()) {
+                this.authenticatedAt = OptionalNullable.of(authenticatedAt.get());
+            } else {
+                this.authenticatedAt = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder authenticatedAt(com.auth0.client.mgmt.core.Nullable<SessionDate> authenticatedAt) {
+            if (authenticatedAt.isNull()) {
+                this.authenticatedAt = OptionalNullable.ofNull();
+            } else if (authenticatedAt.isEmpty()) {
+                this.authenticatedAt = OptionalNullable.absent();
+            } else {
+                this.authenticatedAt = OptionalNullable.of(authenticatedAt.get());
+            }
             return this;
         }
 
         @JsonSetter(value = "idle_expires_at", nulls = Nulls.SKIP)
-        public Builder idleExpiresAt(Optional<SessionDate> idleExpiresAt) {
+        public Builder idleExpiresAt(@Nullable OptionalNullable<SessionDate> idleExpiresAt) {
             this.idleExpiresAt = idleExpiresAt;
             return this;
         }
 
         public Builder idleExpiresAt(SessionDate idleExpiresAt) {
-            this.idleExpiresAt = Optional.ofNullable(idleExpiresAt);
+            this.idleExpiresAt = OptionalNullable.of(idleExpiresAt);
+            return this;
+        }
+
+        public Builder idleExpiresAt(Optional<SessionDate> idleExpiresAt) {
+            if (idleExpiresAt.isPresent()) {
+                this.idleExpiresAt = OptionalNullable.of(idleExpiresAt.get());
+            } else {
+                this.idleExpiresAt = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder idleExpiresAt(com.auth0.client.mgmt.core.Nullable<SessionDate> idleExpiresAt) {
+            if (idleExpiresAt.isNull()) {
+                this.idleExpiresAt = OptionalNullable.ofNull();
+            } else if (idleExpiresAt.isEmpty()) {
+                this.idleExpiresAt = OptionalNullable.absent();
+            } else {
+                this.idleExpiresAt = OptionalNullable.of(idleExpiresAt.get());
+            }
             return this;
         }
 
         @JsonSetter(value = "expires_at", nulls = Nulls.SKIP)
-        public Builder expiresAt(Optional<SessionDate> expiresAt) {
+        public Builder expiresAt(@Nullable OptionalNullable<SessionDate> expiresAt) {
             this.expiresAt = expiresAt;
             return this;
         }
 
         public Builder expiresAt(SessionDate expiresAt) {
-            this.expiresAt = Optional.ofNullable(expiresAt);
+            this.expiresAt = OptionalNullable.of(expiresAt);
+            return this;
+        }
+
+        public Builder expiresAt(Optional<SessionDate> expiresAt) {
+            if (expiresAt.isPresent()) {
+                this.expiresAt = OptionalNullable.of(expiresAt.get());
+            } else {
+                this.expiresAt = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder expiresAt(com.auth0.client.mgmt.core.Nullable<SessionDate> expiresAt) {
+            if (expiresAt.isNull()) {
+                this.expiresAt = OptionalNullable.ofNull();
+            } else if (expiresAt.isEmpty()) {
+                this.expiresAt = OptionalNullable.absent();
+            } else {
+                this.expiresAt = OptionalNullable.of(expiresAt.get());
+            }
             return this;
         }
 
         @JsonSetter(value = "last_interacted_at", nulls = Nulls.SKIP)
-        public Builder lastInteractedAt(Optional<SessionDate> lastInteractedAt) {
+        public Builder lastInteractedAt(@Nullable OptionalNullable<SessionDate> lastInteractedAt) {
             this.lastInteractedAt = lastInteractedAt;
             return this;
         }
 
         public Builder lastInteractedAt(SessionDate lastInteractedAt) {
-            this.lastInteractedAt = Optional.ofNullable(lastInteractedAt);
+            this.lastInteractedAt = OptionalNullable.of(lastInteractedAt);
+            return this;
+        }
+
+        public Builder lastInteractedAt(Optional<SessionDate> lastInteractedAt) {
+            if (lastInteractedAt.isPresent()) {
+                this.lastInteractedAt = OptionalNullable.of(lastInteractedAt.get());
+            } else {
+                this.lastInteractedAt = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder lastInteractedAt(com.auth0.client.mgmt.core.Nullable<SessionDate> lastInteractedAt) {
+            if (lastInteractedAt.isNull()) {
+                this.lastInteractedAt = OptionalNullable.ofNull();
+            } else if (lastInteractedAt.isEmpty()) {
+                this.lastInteractedAt = OptionalNullable.absent();
+            } else {
+                this.lastInteractedAt = OptionalNullable.of(lastInteractedAt.get());
+            }
             return this;
         }
 

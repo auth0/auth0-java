@@ -75,6 +75,9 @@ public final class UpdateSelfServiceProfileRequestContent {
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("branding")
     public OptionalNullable<SelfServiceProfileBrandingProperties> getBranding() {
+        if (branding == null) {
+            return OptionalNullable.absent();
+        }
         return branding;
     }
 
@@ -111,6 +114,12 @@ public final class UpdateSelfServiceProfileRequestContent {
     @JsonProperty("description")
     private OptionalNullable<String> _getDescription() {
         return description;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("branding")
+    private OptionalNullable<SelfServiceProfileBrandingProperties> _getBranding() {
+        return branding;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -241,7 +250,7 @@ public final class UpdateSelfServiceProfileRequestContent {
         }
 
         @JsonSetter(value = "branding", nulls = Nulls.SKIP)
-        public Builder branding(OptionalNullable<SelfServiceProfileBrandingProperties> branding) {
+        public Builder branding(@Nullable OptionalNullable<SelfServiceProfileBrandingProperties> branding) {
             this.branding = branding;
             return this;
         }

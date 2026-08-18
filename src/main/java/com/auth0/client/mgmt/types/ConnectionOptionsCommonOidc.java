@@ -70,6 +70,8 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
 
     private final Optional<String> userinfoEndpoint;
 
+    private final Optional<Boolean> useOauthSpecScope;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectionOptionsCommonOidc(
@@ -95,6 +97,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<String> userinfoEndpoint,
+            Optional<Boolean> useOauthSpecScope,
             Map<String, Object> additionalProperties) {
         this.authorizationEndpoint = authorizationEndpoint;
         this.clientId = clientId;
@@ -118,6 +121,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
         this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
         this.upstreamParams = upstreamParams;
         this.userinfoEndpoint = userinfoEndpoint;
+        this.useOauthSpecScope = useOauthSpecScope;
         this.additionalProperties = additionalProperties;
     }
 
@@ -269,6 +273,12 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
         return userinfoEndpoint;
     }
 
+    @JsonProperty("useOauthSpecScope")
+    @java.lang.Override
+    public Optional<Boolean> getUseOauthSpecScope() {
+        return useOauthSpecScope;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("id_token_signed_response_algs")
     private OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> _getIdTokenSignedResponseAlgs() {
@@ -327,7 +337,8 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
                 && tokenEndpointAuthSigningAlg.equals(other.tokenEndpointAuthSigningAlg)
                 && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat)
                 && upstreamParams.equals(other.upstreamParams)
-                && userinfoEndpoint.equals(other.userinfoEndpoint);
+                && userinfoEndpoint.equals(other.userinfoEndpoint)
+                && useOauthSpecScope.equals(other.useOauthSpecScope);
     }
 
     @java.lang.Override
@@ -354,7 +365,8 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
                 this.tokenEndpointAuthSigningAlg,
                 this.tokenEndpointJwtcaAudFormat,
                 this.upstreamParams,
-                this.userinfoEndpoint);
+                this.userinfoEndpoint,
+                this.useOauthSpecScope);
     }
 
     @java.lang.Override
@@ -498,11 +510,17 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
         _FinalStage userinfoEndpoint(Optional<String> userinfoEndpoint);
 
         _FinalStage userinfoEndpoint(String userinfoEndpoint);
+
+        _FinalStage useOauthSpecScope(Optional<Boolean> useOauthSpecScope);
+
+        _FinalStage useOauthSpecScope(Boolean useOauthSpecScope);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements ClientIdStage, _FinalStage {
         private String clientId;
+
+        private Optional<Boolean> useOauthSpecScope = Optional.empty();
 
         private Optional<String> userinfoEndpoint = Optional.empty();
 
@@ -579,6 +597,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
             tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
             upstreamParams(other.getUpstreamParams());
             userinfoEndpoint(other.getUserinfoEndpoint());
+            useOauthSpecScope(other.getUseOauthSpecScope());
             return this;
         }
 
@@ -586,6 +605,19 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
         @JsonSetter("client_id")
         public _FinalStage clientId(@NotNull String clientId) {
             this.clientId = Objects.requireNonNull(clientId, "clientId must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage useOauthSpecScope(Boolean useOauthSpecScope) {
+            this.useOauthSpecScope = Optional.ofNullable(useOauthSpecScope);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "useOauthSpecScope", nulls = Nulls.SKIP)
+        public _FinalStage useOauthSpecScope(Optional<Boolean> useOauthSpecScope) {
+            this.useOauthSpecScope = useOauthSpecScope;
             return this;
         }
 
@@ -998,6 +1030,7 @@ public final class ConnectionOptionsCommonOidc implements IConnectionOptionsComm
                     tokenEndpointJwtcaAudFormat,
                     upstreamParams,
                     userinfoEndpoint,
+                    useOauthSpecScope,
                     additionalProperties);
         }
 

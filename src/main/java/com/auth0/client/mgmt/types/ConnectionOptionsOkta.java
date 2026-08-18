@@ -72,6 +72,8 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
 
     private final Optional<String> userinfoEndpoint;
 
+    private final Optional<Boolean> useOauthSpecScope;
+
     private final Optional<ConnectionAttributeMapOkta> attributeMap;
 
     private final Optional<String> domain;
@@ -104,6 +106,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
             Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<String> userinfoEndpoint,
+            Optional<Boolean> useOauthSpecScope,
             Optional<ConnectionAttributeMapOkta> attributeMap,
             Optional<String> domain,
             Optional<ConnectionTypeEnumOkta> type,
@@ -131,6 +134,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
         this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
         this.upstreamParams = upstreamParams;
         this.userinfoEndpoint = userinfoEndpoint;
+        this.useOauthSpecScope = useOauthSpecScope;
         this.attributeMap = attributeMap;
         this.domain = domain;
         this.type = type;
@@ -291,6 +295,12 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
         return userinfoEndpoint;
     }
 
+    @JsonProperty("useOauthSpecScope")
+    @java.lang.Override
+    public Optional<Boolean> getUseOauthSpecScope() {
+        return useOauthSpecScope;
+    }
+
     @JsonProperty("attribute_map")
     public Optional<ConnectionAttributeMapOkta> getAttributeMap() {
         return attributeMap;
@@ -366,6 +376,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
                 && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat)
                 && upstreamParams.equals(other.upstreamParams)
                 && userinfoEndpoint.equals(other.userinfoEndpoint)
+                && useOauthSpecScope.equals(other.useOauthSpecScope)
                 && attributeMap.equals(other.attributeMap)
                 && domain.equals(other.domain)
                 && type.equals(other.type);
@@ -397,6 +408,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
                 this.tokenEndpointJwtcaAudFormat,
                 this.upstreamParams,
                 this.userinfoEndpoint,
+                this.useOauthSpecScope,
                 this.attributeMap,
                 this.domain,
                 this.type);
@@ -548,6 +560,10 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
 
         _FinalStage userinfoEndpoint(String userinfoEndpoint);
 
+        _FinalStage useOauthSpecScope(Optional<Boolean> useOauthSpecScope);
+
+        _FinalStage useOauthSpecScope(Boolean useOauthSpecScope);
+
         _FinalStage attributeMap(Optional<ConnectionAttributeMapOkta> attributeMap);
 
         _FinalStage attributeMap(ConnectionAttributeMapOkta attributeMap);
@@ -570,6 +586,8 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
         private Optional<String> domain = Optional.empty();
 
         private Optional<ConnectionAttributeMapOkta> attributeMap = Optional.empty();
+
+        private Optional<Boolean> useOauthSpecScope = Optional.empty();
 
         private Optional<String> userinfoEndpoint = Optional.empty();
 
@@ -649,6 +667,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
             tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
             upstreamParams(other.getUpstreamParams());
             userinfoEndpoint(other.getUserinfoEndpoint());
+            useOauthSpecScope(other.getUseOauthSpecScope());
             attributeMap(other.getAttributeMap());
             domain(other.getDomain());
             type(other.getType());
@@ -698,6 +717,19 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
         @JsonSetter(value = "attribute_map", nulls = Nulls.SKIP)
         public _FinalStage attributeMap(Optional<ConnectionAttributeMapOkta> attributeMap) {
             this.attributeMap = attributeMap;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage useOauthSpecScope(Boolean useOauthSpecScope) {
+            this.useOauthSpecScope = Optional.ofNullable(useOauthSpecScope);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "useOauthSpecScope", nulls = Nulls.SKIP)
+        public _FinalStage useOauthSpecScope(Optional<Boolean> useOauthSpecScope) {
+            this.useOauthSpecScope = useOauthSpecScope;
             return this;
         }
 
@@ -1124,6 +1156,7 @@ public final class ConnectionOptionsOkta implements IConnectionOptionsCommon, IC
                     tokenEndpointJwtcaAudFormat,
                     upstreamParams,
                     userinfoEndpoint,
+                    useOauthSpecScope,
                     attributeMap,
                     domain,
                     type,

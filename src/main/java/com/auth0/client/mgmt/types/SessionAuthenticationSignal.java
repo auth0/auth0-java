@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -16,13 +18,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = SessionAuthenticationSignal.Builder.class)
 public final class SessionAuthenticationSignal {
     private final Optional<String> name;
 
-    private final Optional<SessionDate> timestamp;
+    private final OptionalNullable<SessionDate> timestamp;
 
     private final Optional<String> type;
 
@@ -30,7 +33,7 @@ public final class SessionAuthenticationSignal {
 
     private SessionAuthenticationSignal(
             Optional<String> name,
-            Optional<SessionDate> timestamp,
+            OptionalNullable<SessionDate> timestamp,
             Optional<String> type,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -47,8 +50,12 @@ public final class SessionAuthenticationSignal {
         return name;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("timestamp")
-    public Optional<SessionDate> getTimestamp() {
+    public OptionalNullable<SessionDate> getTimestamp() {
+        if (timestamp == null) {
+            return OptionalNullable.absent();
+        }
         return timestamp;
     }
 
@@ -58,6 +65,12 @@ public final class SessionAuthenticationSignal {
     @JsonProperty("type")
     public Optional<String> getType() {
         return type;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("timestamp")
+    private OptionalNullable<SessionDate> _getTimestamp() {
+        return timestamp;
     }
 
     @java.lang.Override
@@ -93,7 +106,7 @@ public final class SessionAuthenticationSignal {
     public static final class Builder {
         private Optional<String> name = Optional.empty();
 
-        private Optional<SessionDate> timestamp = Optional.empty();
+        private OptionalNullable<SessionDate> timestamp = OptionalNullable.absent();
 
         private Optional<String> type = Optional.empty();
 
@@ -124,13 +137,33 @@ public final class SessionAuthenticationSignal {
         }
 
         @JsonSetter(value = "timestamp", nulls = Nulls.SKIP)
-        public Builder timestamp(Optional<SessionDate> timestamp) {
+        public Builder timestamp(@Nullable OptionalNullable<SessionDate> timestamp) {
             this.timestamp = timestamp;
             return this;
         }
 
         public Builder timestamp(SessionDate timestamp) {
-            this.timestamp = Optional.ofNullable(timestamp);
+            this.timestamp = OptionalNullable.of(timestamp);
+            return this;
+        }
+
+        public Builder timestamp(Optional<SessionDate> timestamp) {
+            if (timestamp.isPresent()) {
+                this.timestamp = OptionalNullable.of(timestamp.get());
+            } else {
+                this.timestamp = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder timestamp(com.auth0.client.mgmt.core.Nullable<SessionDate> timestamp) {
+            if (timestamp.isNull()) {
+                this.timestamp = OptionalNullable.ofNull();
+            } else if (timestamp.isEmpty()) {
+                this.timestamp = OptionalNullable.absent();
+            } else {
+                this.timestamp = OptionalNullable.of(timestamp.get());
+            }
             return this;
         }
 

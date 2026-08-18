@@ -29,6 +29,8 @@ public final class ClientMyOrganizationPatchConfiguration {
 
     private final List<ClientMyOrganizationConfigurationAllowedStrategiesEnum> allowedStrategies;
 
+    private final Optional<ClientMyOrganizationThirdPartyClientAccessConfiguration> thirdPartyClientAccess;
+
     private final ClientMyOrganizationDeletionBehaviorEnum connectionDeletionBehavior;
 
     private final Optional<String> invitationLandingClientId;
@@ -39,12 +41,14 @@ public final class ClientMyOrganizationPatchConfiguration {
             Optional<String> connectionProfileId,
             Optional<String> userAttributeProfileId,
             List<ClientMyOrganizationConfigurationAllowedStrategiesEnum> allowedStrategies,
+            Optional<ClientMyOrganizationThirdPartyClientAccessConfiguration> thirdPartyClientAccess,
             ClientMyOrganizationDeletionBehaviorEnum connectionDeletionBehavior,
             Optional<String> invitationLandingClientId,
             Map<String, Object> additionalProperties) {
         this.connectionProfileId = connectionProfileId;
         this.userAttributeProfileId = userAttributeProfileId;
         this.allowedStrategies = allowedStrategies;
+        this.thirdPartyClientAccess = thirdPartyClientAccess;
         this.connectionDeletionBehavior = connectionDeletionBehavior;
         this.invitationLandingClientId = invitationLandingClientId;
         this.additionalProperties = additionalProperties;
@@ -72,6 +76,11 @@ public final class ClientMyOrganizationPatchConfiguration {
     @JsonProperty("allowed_strategies")
     public List<ClientMyOrganizationConfigurationAllowedStrategiesEnum> getAllowedStrategies() {
         return allowedStrategies;
+    }
+
+    @JsonProperty("third_party_client_access")
+    public Optional<ClientMyOrganizationThirdPartyClientAccessConfiguration> getThirdPartyClientAccess() {
+        return thirdPartyClientAccess;
     }
 
     @JsonProperty("connection_deletion_behavior")
@@ -103,6 +112,7 @@ public final class ClientMyOrganizationPatchConfiguration {
         return connectionProfileId.equals(other.connectionProfileId)
                 && userAttributeProfileId.equals(other.userAttributeProfileId)
                 && allowedStrategies.equals(other.allowedStrategies)
+                && thirdPartyClientAccess.equals(other.thirdPartyClientAccess)
                 && connectionDeletionBehavior.equals(other.connectionDeletionBehavior)
                 && invitationLandingClientId.equals(other.invitationLandingClientId);
     }
@@ -113,6 +123,7 @@ public final class ClientMyOrganizationPatchConfiguration {
                 this.connectionProfileId,
                 this.userAttributeProfileId,
                 this.allowedStrategies,
+                this.thirdPartyClientAccess,
                 this.connectionDeletionBehavior,
                 this.invitationLandingClientId);
     }
@@ -164,6 +175,12 @@ public final class ClientMyOrganizationPatchConfiguration {
         _FinalStage addAllAllowedStrategies(
                 List<ClientMyOrganizationConfigurationAllowedStrategiesEnum> allowedStrategies);
 
+        _FinalStage thirdPartyClientAccess(
+                Optional<ClientMyOrganizationThirdPartyClientAccessConfiguration> thirdPartyClientAccess);
+
+        _FinalStage thirdPartyClientAccess(
+                ClientMyOrganizationThirdPartyClientAccessConfiguration thirdPartyClientAccess);
+
         /**
          * <p>The client ID this client uses while creating invitations through My Organization API.</p>
          */
@@ -177,6 +194,9 @@ public final class ClientMyOrganizationPatchConfiguration {
         private ClientMyOrganizationDeletionBehaviorEnum connectionDeletionBehavior;
 
         private Optional<String> invitationLandingClientId = Optional.empty();
+
+        private Optional<ClientMyOrganizationThirdPartyClientAccessConfiguration> thirdPartyClientAccess =
+                Optional.empty();
 
         private List<ClientMyOrganizationConfigurationAllowedStrategiesEnum> allowedStrategies = new ArrayList<>();
 
@@ -194,6 +214,7 @@ public final class ClientMyOrganizationPatchConfiguration {
             connectionProfileId(other.getConnectionProfileId());
             userAttributeProfileId(other.getUserAttributeProfileId());
             allowedStrategies(other.getAllowedStrategies());
+            thirdPartyClientAccess(other.getThirdPartyClientAccess());
             connectionDeletionBehavior(other.getConnectionDeletionBehavior());
             invitationLandingClientId(other.getInvitationLandingClientId());
             return this;
@@ -225,6 +246,21 @@ public final class ClientMyOrganizationPatchConfiguration {
         @JsonSetter(value = "invitation_landing_client_id", nulls = Nulls.SKIP)
         public _FinalStage invitationLandingClientId(Optional<String> invitationLandingClientId) {
             this.invitationLandingClientId = invitationLandingClientId;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage thirdPartyClientAccess(
+                ClientMyOrganizationThirdPartyClientAccessConfiguration thirdPartyClientAccess) {
+            this.thirdPartyClientAccess = Optional.ofNullable(thirdPartyClientAccess);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "third_party_client_access", nulls = Nulls.SKIP)
+        public _FinalStage thirdPartyClientAccess(
+                Optional<ClientMyOrganizationThirdPartyClientAccessConfiguration> thirdPartyClientAccess) {
+            this.thirdPartyClientAccess = thirdPartyClientAccess;
             return this;
         }
 
@@ -312,6 +348,7 @@ public final class ClientMyOrganizationPatchConfiguration {
                     connectionProfileId,
                     userAttributeProfileId,
                     allowedStrategies,
+                    thirdPartyClientAccess,
                     connectionDeletionBehavior,
                     invitationLandingClientId,
                     additionalProperties);
