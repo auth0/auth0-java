@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
@@ -19,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdateCustomDomainRequestContent.Builder.class)
@@ -57,6 +57,9 @@ public final class UpdateCustomDomainRequestContent {
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("custom_client_ip_header")
     public OptionalNullable<CustomDomainCustomClientIpHeaderEnum> getCustomClientIpHeader() {
+        if (customClientIpHeader == null) {
+            return OptionalNullable.absent();
+        }
         return customClientIpHeader;
     }
 
@@ -75,6 +78,12 @@ public final class UpdateCustomDomainRequestContent {
             return OptionalNullable.absent();
         }
         return relyingPartyIdentifier;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("custom_client_ip_header")
+    private OptionalNullable<CustomDomainCustomClientIpHeaderEnum> _getCustomClientIpHeader() {
+        return customClientIpHeader;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -155,7 +164,7 @@ public final class UpdateCustomDomainRequestContent {
 
         @JsonSetter(value = "custom_client_ip_header", nulls = Nulls.SKIP)
         public Builder customClientIpHeader(
-                OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader) {
+                @Nullable OptionalNullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader) {
             this.customClientIpHeader = customClientIpHeader;
             return this;
         }
@@ -174,7 +183,8 @@ public final class UpdateCustomDomainRequestContent {
             return this;
         }
 
-        public Builder customClientIpHeader(Nullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader) {
+        public Builder customClientIpHeader(
+                com.auth0.client.mgmt.core.Nullable<CustomDomainCustomClientIpHeaderEnum> customClientIpHeader) {
             if (customClientIpHeader.isNull()) {
                 this.customClientIpHeader = OptionalNullable.ofNull();
             } else if (customClientIpHeader.isEmpty()) {
@@ -200,8 +210,7 @@ public final class UpdateCustomDomainRequestContent {
          * <p>Relying Party ID (rpId) to be used for Passkeys on this custom domain. Set to null to remove the rpId and fall back to using the full domain.</p>
          */
         @JsonSetter(value = "relying_party_identifier", nulls = Nulls.SKIP)
-        public Builder relyingPartyIdentifier(
-                @org.jetbrains.annotations.Nullable OptionalNullable<String> relyingPartyIdentifier) {
+        public Builder relyingPartyIdentifier(@Nullable OptionalNullable<String> relyingPartyIdentifier) {
             this.relyingPartyIdentifier = relyingPartyIdentifier;
             return this;
         }
@@ -220,7 +229,7 @@ public final class UpdateCustomDomainRequestContent {
             return this;
         }
 
-        public Builder relyingPartyIdentifier(Nullable<String> relyingPartyIdentifier) {
+        public Builder relyingPartyIdentifier(com.auth0.client.mgmt.core.Nullable<String> relyingPartyIdentifier) {
             if (relyingPartyIdentifier.isNull()) {
                 this.relyingPartyIdentifier = OptionalNullable.ofNull();
             } else if (relyingPartyIdentifier.isEmpty()) {

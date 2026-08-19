@@ -27,6 +27,8 @@ public final class NetworkAclRule {
 
     private final Optional<NetworkAclMatch> notMatch;
 
+    private final Optional<Boolean> matchAll;
+
     private final NetworkAclRuleScopeEnum scope;
 
     private final Map<String, Object> additionalProperties;
@@ -35,11 +37,13 @@ public final class NetworkAclRule {
             NetworkAclAction action,
             Optional<NetworkAclMatch> match,
             Optional<NetworkAclMatch> notMatch,
+            Optional<Boolean> matchAll,
             NetworkAclRuleScopeEnum scope,
             Map<String, Object> additionalProperties) {
         this.action = action;
         this.match = match;
         this.notMatch = notMatch;
+        this.matchAll = matchAll;
         this.scope = scope;
         this.additionalProperties = additionalProperties;
     }
@@ -57,6 +61,11 @@ public final class NetworkAclRule {
     @JsonProperty("not_match")
     public Optional<NetworkAclMatch> getNotMatch() {
         return notMatch;
+    }
+
+    @JsonProperty("match_all")
+    public Optional<Boolean> getMatchAll() {
+        return matchAll;
     }
 
     @JsonProperty("scope")
@@ -79,12 +88,13 @@ public final class NetworkAclRule {
         return action.equals(other.action)
                 && match.equals(other.match)
                 && notMatch.equals(other.notMatch)
+                && matchAll.equals(other.matchAll)
                 && scope.equals(other.scope);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.action, this.match, this.notMatch, this.scope);
+        return Objects.hash(this.action, this.match, this.notMatch, this.matchAll, this.scope);
     }
 
     @java.lang.Override
@@ -120,6 +130,10 @@ public final class NetworkAclRule {
         _FinalStage notMatch(Optional<NetworkAclMatch> notMatch);
 
         _FinalStage notMatch(NetworkAclMatch notMatch);
+
+        _FinalStage matchAll(Optional<Boolean> matchAll);
+
+        _FinalStage matchAll(Boolean matchAll);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -127,6 +141,8 @@ public final class NetworkAclRule {
         private NetworkAclAction action;
 
         private NetworkAclRuleScopeEnum scope;
+
+        private Optional<Boolean> matchAll = Optional.empty();
 
         private Optional<NetworkAclMatch> notMatch = Optional.empty();
 
@@ -142,6 +158,7 @@ public final class NetworkAclRule {
             action(other.getAction());
             match(other.getMatch());
             notMatch(other.getNotMatch());
+            matchAll(other.getMatchAll());
             scope(other.getScope());
             return this;
         }
@@ -157,6 +174,19 @@ public final class NetworkAclRule {
         @JsonSetter("scope")
         public _FinalStage scope(@NotNull NetworkAclRuleScopeEnum scope) {
             this.scope = Objects.requireNonNull(scope, "scope must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage matchAll(Boolean matchAll) {
+            this.matchAll = Optional.ofNullable(matchAll);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "match_all", nulls = Nulls.SKIP)
+        public _FinalStage matchAll(Optional<Boolean> matchAll) {
+            this.matchAll = matchAll;
             return this;
         }
 
@@ -188,7 +218,7 @@ public final class NetworkAclRule {
 
         @java.lang.Override
         public NetworkAclRule build() {
-            return new NetworkAclRule(action, match, notMatch, scope, additionalProperties);
+            return new NetworkAclRule(action, match, notMatch, matchAll, scope, additionalProperties);
         }
 
         @java.lang.Override

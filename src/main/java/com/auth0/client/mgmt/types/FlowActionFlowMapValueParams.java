@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,6 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = FlowActionFlowMapValueParams.Builder.class)
@@ -25,14 +28,14 @@ public final class FlowActionFlowMapValueParams {
 
     private final Optional<Map<String, Object>> cases;
 
-    private final Optional<FlowActionFlowMapValueParamsFallback> fallback;
+    private final OptionalNullable<FlowActionFlowMapValueParamsFallback> fallback;
 
     private final Map<String, Object> additionalProperties;
 
     private FlowActionFlowMapValueParams(
             FlowActionFlowMapValueParamsInput input,
             Optional<Map<String, Object>> cases,
-            Optional<FlowActionFlowMapValueParamsFallback> fallback,
+            OptionalNullable<FlowActionFlowMapValueParamsFallback> fallback,
             Map<String, Object> additionalProperties) {
         this.input = input;
         this.cases = cases;
@@ -50,8 +53,18 @@ public final class FlowActionFlowMapValueParams {
         return cases;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("fallback")
-    public Optional<FlowActionFlowMapValueParamsFallback> getFallback() {
+    public OptionalNullable<FlowActionFlowMapValueParamsFallback> getFallback() {
+        if (fallback == null) {
+            return OptionalNullable.absent();
+        }
+        return fallback;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("fallback")
+    private OptionalNullable<FlowActionFlowMapValueParamsFallback> _getFallback() {
         return fallback;
     }
 
@@ -101,16 +114,20 @@ public final class FlowActionFlowMapValueParams {
 
         _FinalStage cases(Map<String, Object> cases);
 
-        _FinalStage fallback(Optional<FlowActionFlowMapValueParamsFallback> fallback);
+        _FinalStage fallback(@Nullable OptionalNullable<FlowActionFlowMapValueParamsFallback> fallback);
 
         _FinalStage fallback(FlowActionFlowMapValueParamsFallback fallback);
+
+        _FinalStage fallback(Optional<FlowActionFlowMapValueParamsFallback> fallback);
+
+        _FinalStage fallback(com.auth0.client.mgmt.core.Nullable<FlowActionFlowMapValueParamsFallback> fallback);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements InputStage, _FinalStage {
         private FlowActionFlowMapValueParamsInput input;
 
-        private Optional<FlowActionFlowMapValueParamsFallback> fallback = Optional.empty();
+        private OptionalNullable<FlowActionFlowMapValueParamsFallback> fallback = OptionalNullable.absent();
 
         private Optional<Map<String, Object>> cases = Optional.empty();
 
@@ -135,14 +152,37 @@ public final class FlowActionFlowMapValueParams {
         }
 
         @java.lang.Override
+        public _FinalStage fallback(
+                com.auth0.client.mgmt.core.Nullable<FlowActionFlowMapValueParamsFallback> fallback) {
+            if (fallback.isNull()) {
+                this.fallback = OptionalNullable.ofNull();
+            } else if (fallback.isEmpty()) {
+                this.fallback = OptionalNullable.absent();
+            } else {
+                this.fallback = OptionalNullable.of(fallback.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage fallback(Optional<FlowActionFlowMapValueParamsFallback> fallback) {
+            if (fallback.isPresent()) {
+                this.fallback = OptionalNullable.of(fallback.get());
+            } else {
+                this.fallback = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage fallback(FlowActionFlowMapValueParamsFallback fallback) {
-            this.fallback = Optional.ofNullable(fallback);
+            this.fallback = OptionalNullable.of(fallback);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "fallback", nulls = Nulls.SKIP)
-        public _FinalStage fallback(Optional<FlowActionFlowMapValueParamsFallback> fallback) {
+        public _FinalStage fallback(@Nullable OptionalNullable<FlowActionFlowMapValueParamsFallback> fallback) {
             this.fallback = fallback;
             return this;
         }

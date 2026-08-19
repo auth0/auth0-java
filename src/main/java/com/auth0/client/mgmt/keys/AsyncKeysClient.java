@@ -14,12 +14,15 @@ public class AsyncKeysClient {
 
     protected final Supplier<AsyncEncryptionClient> encryptionClient;
 
+    protected final Supplier<AsyncNetworkAclsClient> networkAclsClient;
+
     protected final Supplier<AsyncSigningClient> signingClient;
 
     public AsyncKeysClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.customSigningClient = Suppliers.memoize(() -> new AsyncCustomSigningClient(clientOptions));
         this.encryptionClient = Suppliers.memoize(() -> new AsyncEncryptionClient(clientOptions));
+        this.networkAclsClient = Suppliers.memoize(() -> new AsyncNetworkAclsClient(clientOptions));
         this.signingClient = Suppliers.memoize(() -> new AsyncSigningClient(clientOptions));
     }
 
@@ -29,6 +32,10 @@ public class AsyncKeysClient {
 
     public AsyncEncryptionClient encryption() {
         return this.encryptionClient.get();
+    }
+
+    public AsyncNetworkAclsClient networkAcls() {
+        return this.networkAclsClient.get();
     }
 
     public AsyncSigningClient signing() {

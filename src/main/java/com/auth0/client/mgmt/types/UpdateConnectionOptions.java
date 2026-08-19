@@ -99,6 +99,8 @@ public final class UpdateConnectionOptions {
 
     private final Optional<Boolean> idTokenSessionExpirySupported;
 
+    private final Optional<Boolean> useOauthSpecScope;
+
     private final OptionalNullable<String> discoveryUrl;
 
     private final OptionalNullable<ConnectionsOidcMetadata> oidcMetadata;
@@ -143,6 +145,7 @@ public final class UpdateConnectionOptions {
             OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg,
             Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
             Optional<Boolean> idTokenSessionExpirySupported,
+            Optional<Boolean> useOauthSpecScope,
             OptionalNullable<String> discoveryUrl,
             OptionalNullable<ConnectionsOidcMetadata> oidcMetadata,
             Map<String, Object> additionalProperties) {
@@ -183,6 +186,7 @@ public final class UpdateConnectionOptions {
         this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
         this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
         this.idTokenSessionExpirySupported = idTokenSessionExpirySupported;
+        this.useOauthSpecScope = useOauthSpecScope;
         this.discoveryUrl = discoveryUrl;
         this.oidcMetadata = oidcMetadata;
         this.additionalProperties = additionalProperties;
@@ -451,6 +455,11 @@ public final class UpdateConnectionOptions {
         return idTokenSessionExpirySupported;
     }
 
+    @JsonProperty("useOauthSpecScope")
+    public Optional<Boolean> getUseOauthSpecScope() {
+        return useOauthSpecScope;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("discovery_url")
     public OptionalNullable<String> getDiscoveryUrl() {
@@ -621,6 +630,7 @@ public final class UpdateConnectionOptions {
                 && tokenEndpointAuthSigningAlg.equals(other.tokenEndpointAuthSigningAlg)
                 && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat)
                 && idTokenSessionExpirySupported.equals(other.idTokenSessionExpirySupported)
+                && useOauthSpecScope.equals(other.useOauthSpecScope)
                 && discoveryUrl.equals(other.discoveryUrl)
                 && oidcMetadata.equals(other.oidcMetadata);
     }
@@ -665,6 +675,7 @@ public final class UpdateConnectionOptions {
                 this.tokenEndpointAuthSigningAlg,
                 this.tokenEndpointJwtcaAudFormat,
                 this.idTokenSessionExpirySupported,
+                this.useOauthSpecScope,
                 this.discoveryUrl,
                 this.oidcMetadata);
     }
@@ -760,6 +771,8 @@ public final class UpdateConnectionOptions {
 
         private Optional<Boolean> idTokenSessionExpirySupported = Optional.empty();
 
+        private Optional<Boolean> useOauthSpecScope = Optional.empty();
+
         private OptionalNullable<String> discoveryUrl = OptionalNullable.absent();
 
         private OptionalNullable<ConnectionsOidcMetadata> oidcMetadata = OptionalNullable.absent();
@@ -807,6 +820,7 @@ public final class UpdateConnectionOptions {
             tokenEndpointAuthSigningAlg(other.getTokenEndpointAuthSigningAlg());
             tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
             idTokenSessionExpirySupported(other.getIdTokenSessionExpirySupported());
+            useOauthSpecScope(other.getUseOauthSpecScope());
             discoveryUrl(other.getDiscoveryUrl());
             oidcMetadata(other.getOidcMetadata());
             return this;
@@ -1576,6 +1590,17 @@ public final class UpdateConnectionOptions {
             return this;
         }
 
+        @JsonSetter(value = "useOauthSpecScope", nulls = Nulls.SKIP)
+        public Builder useOauthSpecScope(Optional<Boolean> useOauthSpecScope) {
+            this.useOauthSpecScope = useOauthSpecScope;
+            return this;
+        }
+
+        public Builder useOauthSpecScope(Boolean useOauthSpecScope) {
+            this.useOauthSpecScope = Optional.ofNullable(useOauthSpecScope);
+            return this;
+        }
+
         @JsonSetter(value = "discovery_url", nulls = Nulls.SKIP)
         public Builder discoveryUrl(@Nullable OptionalNullable<String> discoveryUrl) {
             this.discoveryUrl = discoveryUrl;
@@ -1677,6 +1702,7 @@ public final class UpdateConnectionOptions {
                     tokenEndpointAuthSigningAlg,
                     tokenEndpointJwtcaAudFormat,
                     idTokenSessionExpirySupported,
+                    useOauthSpecScope,
                     discoveryUrl,
                     oidcMetadata,
                     additionalProperties);

@@ -28,11 +28,11 @@ public final class UpdateRefreshTokenResponseContent {
 
     private final Optional<String> userId;
 
-    private final Optional<RefreshTokenDate> createdAt;
+    private final OptionalNullable<RefreshTokenDate> createdAt;
 
-    private final Optional<RefreshTokenDate> idleExpiresAt;
+    private final OptionalNullable<RefreshTokenDate> idleExpiresAt;
 
-    private final Optional<RefreshTokenDate> expiresAt;
+    private final OptionalNullable<RefreshTokenDate> expiresAt;
 
     private final Optional<RefreshTokenDevice> device;
 
@@ -46,23 +46,23 @@ public final class UpdateRefreshTokenResponseContent {
 
     private final OptionalNullable<Map<String, Object>> refreshTokenMetadata;
 
-    private final Optional<RefreshTokenDate> lastExchangedAt;
+    private final OptionalNullable<RefreshTokenDate> lastExchangedAt;
 
     private final Map<String, Object> additionalProperties;
 
     private UpdateRefreshTokenResponseContent(
             Optional<String> id,
             Optional<String> userId,
-            Optional<RefreshTokenDate> createdAt,
-            Optional<RefreshTokenDate> idleExpiresAt,
-            Optional<RefreshTokenDate> expiresAt,
+            OptionalNullable<RefreshTokenDate> createdAt,
+            OptionalNullable<RefreshTokenDate> idleExpiresAt,
+            OptionalNullable<RefreshTokenDate> expiresAt,
             Optional<RefreshTokenDevice> device,
             Optional<String> clientId,
             OptionalNullable<String> sessionId,
             Optional<Boolean> rotating,
             Optional<List<RefreshTokenResourceServer>> resourceServers,
             OptionalNullable<Map<String, Object>> refreshTokenMetadata,
-            Optional<RefreshTokenDate> lastExchangedAt,
+            OptionalNullable<RefreshTokenDate> lastExchangedAt,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.userId = userId;
@@ -95,18 +95,30 @@ public final class UpdateRefreshTokenResponseContent {
         return userId;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("created_at")
-    public Optional<RefreshTokenDate> getCreatedAt() {
+    public OptionalNullable<RefreshTokenDate> getCreatedAt() {
+        if (createdAt == null) {
+            return OptionalNullable.absent();
+        }
         return createdAt;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("idle_expires_at")
-    public Optional<RefreshTokenDate> getIdleExpiresAt() {
+    public OptionalNullable<RefreshTokenDate> getIdleExpiresAt() {
+        if (idleExpiresAt == null) {
+            return OptionalNullable.absent();
+        }
         return idleExpiresAt;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("expires_at")
-    public Optional<RefreshTokenDate> getExpiresAt() {
+    public OptionalNullable<RefreshTokenDate> getExpiresAt() {
+        if (expiresAt == null) {
+            return OptionalNullable.absent();
+        }
         return expiresAt;
     }
 
@@ -157,9 +169,31 @@ public final class UpdateRefreshTokenResponseContent {
         return refreshTokenMetadata;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("last_exchanged_at")
-    public Optional<RefreshTokenDate> getLastExchangedAt() {
+    public OptionalNullable<RefreshTokenDate> getLastExchangedAt() {
+        if (lastExchangedAt == null) {
+            return OptionalNullable.absent();
+        }
         return lastExchangedAt;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("created_at")
+    private OptionalNullable<RefreshTokenDate> _getCreatedAt() {
+        return createdAt;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("idle_expires_at")
+    private OptionalNullable<RefreshTokenDate> _getIdleExpiresAt() {
+        return idleExpiresAt;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("expires_at")
+    private OptionalNullable<RefreshTokenDate> _getExpiresAt() {
+        return expiresAt;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -172,6 +206,12 @@ public final class UpdateRefreshTokenResponseContent {
     @JsonProperty("refresh_token_metadata")
     private OptionalNullable<Map<String, Object>> _getRefreshTokenMetadata() {
         return refreshTokenMetadata;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("last_exchanged_at")
+    private OptionalNullable<RefreshTokenDate> _getLastExchangedAt() {
+        return lastExchangedAt;
     }
 
     @java.lang.Override
@@ -232,11 +272,11 @@ public final class UpdateRefreshTokenResponseContent {
 
         private Optional<String> userId = Optional.empty();
 
-        private Optional<RefreshTokenDate> createdAt = Optional.empty();
+        private OptionalNullable<RefreshTokenDate> createdAt = OptionalNullable.absent();
 
-        private Optional<RefreshTokenDate> idleExpiresAt = Optional.empty();
+        private OptionalNullable<RefreshTokenDate> idleExpiresAt = OptionalNullable.absent();
 
-        private Optional<RefreshTokenDate> expiresAt = Optional.empty();
+        private OptionalNullable<RefreshTokenDate> expiresAt = OptionalNullable.absent();
 
         private Optional<RefreshTokenDevice> device = Optional.empty();
 
@@ -250,7 +290,7 @@ public final class UpdateRefreshTokenResponseContent {
 
         private OptionalNullable<Map<String, Object>> refreshTokenMetadata = OptionalNullable.absent();
 
-        private Optional<RefreshTokenDate> lastExchangedAt = Optional.empty();
+        private OptionalNullable<RefreshTokenDate> lastExchangedAt = OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -302,35 +342,95 @@ public final class UpdateRefreshTokenResponseContent {
         }
 
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
-        public Builder createdAt(Optional<RefreshTokenDate> createdAt) {
+        public Builder createdAt(@Nullable OptionalNullable<RefreshTokenDate> createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         public Builder createdAt(RefreshTokenDate createdAt) {
-            this.createdAt = Optional.ofNullable(createdAt);
+            this.createdAt = OptionalNullable.of(createdAt);
+            return this;
+        }
+
+        public Builder createdAt(Optional<RefreshTokenDate> createdAt) {
+            if (createdAt.isPresent()) {
+                this.createdAt = OptionalNullable.of(createdAt.get());
+            } else {
+                this.createdAt = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder createdAt(com.auth0.client.mgmt.core.Nullable<RefreshTokenDate> createdAt) {
+            if (createdAt.isNull()) {
+                this.createdAt = OptionalNullable.ofNull();
+            } else if (createdAt.isEmpty()) {
+                this.createdAt = OptionalNullable.absent();
+            } else {
+                this.createdAt = OptionalNullable.of(createdAt.get());
+            }
             return this;
         }
 
         @JsonSetter(value = "idle_expires_at", nulls = Nulls.SKIP)
-        public Builder idleExpiresAt(Optional<RefreshTokenDate> idleExpiresAt) {
+        public Builder idleExpiresAt(@Nullable OptionalNullable<RefreshTokenDate> idleExpiresAt) {
             this.idleExpiresAt = idleExpiresAt;
             return this;
         }
 
         public Builder idleExpiresAt(RefreshTokenDate idleExpiresAt) {
-            this.idleExpiresAt = Optional.ofNullable(idleExpiresAt);
+            this.idleExpiresAt = OptionalNullable.of(idleExpiresAt);
+            return this;
+        }
+
+        public Builder idleExpiresAt(Optional<RefreshTokenDate> idleExpiresAt) {
+            if (idleExpiresAt.isPresent()) {
+                this.idleExpiresAt = OptionalNullable.of(idleExpiresAt.get());
+            } else {
+                this.idleExpiresAt = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder idleExpiresAt(com.auth0.client.mgmt.core.Nullable<RefreshTokenDate> idleExpiresAt) {
+            if (idleExpiresAt.isNull()) {
+                this.idleExpiresAt = OptionalNullable.ofNull();
+            } else if (idleExpiresAt.isEmpty()) {
+                this.idleExpiresAt = OptionalNullable.absent();
+            } else {
+                this.idleExpiresAt = OptionalNullable.of(idleExpiresAt.get());
+            }
             return this;
         }
 
         @JsonSetter(value = "expires_at", nulls = Nulls.SKIP)
-        public Builder expiresAt(Optional<RefreshTokenDate> expiresAt) {
+        public Builder expiresAt(@Nullable OptionalNullable<RefreshTokenDate> expiresAt) {
             this.expiresAt = expiresAt;
             return this;
         }
 
         public Builder expiresAt(RefreshTokenDate expiresAt) {
-            this.expiresAt = Optional.ofNullable(expiresAt);
+            this.expiresAt = OptionalNullable.of(expiresAt);
+            return this;
+        }
+
+        public Builder expiresAt(Optional<RefreshTokenDate> expiresAt) {
+            if (expiresAt.isPresent()) {
+                this.expiresAt = OptionalNullable.of(expiresAt.get());
+            } else {
+                this.expiresAt = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder expiresAt(com.auth0.client.mgmt.core.Nullable<RefreshTokenDate> expiresAt) {
+            if (expiresAt.isNull()) {
+                this.expiresAt = OptionalNullable.ofNull();
+            } else if (expiresAt.isEmpty()) {
+                this.expiresAt = OptionalNullable.absent();
+            } else {
+                this.expiresAt = OptionalNullable.of(expiresAt.get());
+            }
             return this;
         }
 
@@ -451,13 +551,33 @@ public final class UpdateRefreshTokenResponseContent {
         }
 
         @JsonSetter(value = "last_exchanged_at", nulls = Nulls.SKIP)
-        public Builder lastExchangedAt(Optional<RefreshTokenDate> lastExchangedAt) {
+        public Builder lastExchangedAt(@Nullable OptionalNullable<RefreshTokenDate> lastExchangedAt) {
             this.lastExchangedAt = lastExchangedAt;
             return this;
         }
 
         public Builder lastExchangedAt(RefreshTokenDate lastExchangedAt) {
-            this.lastExchangedAt = Optional.ofNullable(lastExchangedAt);
+            this.lastExchangedAt = OptionalNullable.of(lastExchangedAt);
+            return this;
+        }
+
+        public Builder lastExchangedAt(Optional<RefreshTokenDate> lastExchangedAt) {
+            if (lastExchangedAt.isPresent()) {
+                this.lastExchangedAt = OptionalNullable.of(lastExchangedAt.get());
+            } else {
+                this.lastExchangedAt = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder lastExchangedAt(com.auth0.client.mgmt.core.Nullable<RefreshTokenDate> lastExchangedAt) {
+            if (lastExchangedAt.isNull()) {
+                this.lastExchangedAt = OptionalNullable.ofNull();
+            } else if (lastExchangedAt.isEmpty()) {
+                this.lastExchangedAt = OptionalNullable.absent();
+            } else {
+                this.lastExchangedAt = OptionalNullable.of(lastExchangedAt.get());
+            }
             return this;
         }
 

@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
@@ -19,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdateUserAttributeProfileRequestContent.Builder.class)
@@ -50,12 +50,21 @@ public final class UpdateUserAttributeProfileRequestContent {
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("user_id")
     public OptionalNullable<UserAttributeProfileUserId> getUserId() {
+        if (userId == null) {
+            return OptionalNullable.absent();
+        }
         return userId;
     }
 
     @JsonProperty("user_attributes")
     public Optional<Map<String, UserAttributeProfileUserAttributeAdditionalProperties>> getUserAttributes() {
         return userAttributes;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("user_id")
+    private OptionalNullable<UserAttributeProfileUserId> _getUserId() {
+        return userId;
     }
 
     @java.lang.Override
@@ -121,7 +130,7 @@ public final class UpdateUserAttributeProfileRequestContent {
         }
 
         @JsonSetter(value = "user_id", nulls = Nulls.SKIP)
-        public Builder userId(OptionalNullable<UserAttributeProfileUserId> userId) {
+        public Builder userId(@Nullable OptionalNullable<UserAttributeProfileUserId> userId) {
             this.userId = userId;
             return this;
         }
@@ -140,7 +149,7 @@ public final class UpdateUserAttributeProfileRequestContent {
             return this;
         }
 
-        public Builder userId(Nullable<UserAttributeProfileUserId> userId) {
+        public Builder userId(com.auth0.client.mgmt.core.Nullable<UserAttributeProfileUserId> userId) {
             if (userId.isNull()) {
                 this.userId = OptionalNullable.ofNull();
             } else if (userId.isEmpty()) {
