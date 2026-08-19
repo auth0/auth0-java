@@ -63,6 +63,28 @@ public class ManagementApiTelemetryTest {
     }
 
     @Test
+    public void shouldPreserveTelemetryAndHeadersWhenCopyingOptions() throws Exception {
+        ClientOptions original = ClientOptions.builder()
+                .environment(com.auth0.client.mgmt.core.Environment.DEFAULT)
+                .telemetry(new Telemetry("my-wrapper-sdk", "1.2.3"))
+                .addHeader("Authorization", "Bearer test-token")
+                .addHeader("X-Dynamic", () -> "dynamic-value")
+                .maxRetries(5)
+                .build();
+
+        ClientOptions copy = ClientOptions.Builder.from(original).build();
+
+        Map<String, String> headers = copy.headers(null);
+        JsonNode telemetry =
+                ObjectMapperProvider.getMapper().readTree(Base64.getUrlDecoder().decode(headers.get("Auth0-Client")));
+        assertThat(telemetry.get("name").asText(), is("my-wrapper-sdk"));
+        assertThat(telemetry.get("version").asText(), is("1.2.3"));
+        assertThat(headers.get("Authorization"), is("Bearer test-token"));
+        assertThat(headers.get("X-Dynamic"), is("dynamic-value"));
+        assertThat(copy.maxRetries(), is(5));
+    }
+
+    @Test
     public void shouldReturnBuilderFromWithTelemetry() {
         ManagementApiBuilder builder = ManagementApi.builder();
         ManagementApiBuilder result = builder.withTelemetry("my-wrapper-sdk", "1.2.3");

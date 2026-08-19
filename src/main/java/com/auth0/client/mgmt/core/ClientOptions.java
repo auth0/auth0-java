@@ -27,6 +27,8 @@ public final class ClientOptions {
 
     private final int maxRetries;
 
+    private final Telemetry telemetry;
+
     private ClientOptions(
             Environment environment,
             Map<String, String> headers,
@@ -49,6 +51,7 @@ public final class ClientOptions {
         this.httpClient = httpClient;
         this.timeout = timeout;
         this.maxRetries = maxRetries;
+        this.telemetry = telemetry;
     }
 
     public Environment environment() {
@@ -92,6 +95,32 @@ public final class ClientOptions {
 
     public int maxRetries() {
         return this.maxRetries;
+    }
+
+    /**
+     * The telemetry explicitly configured on this instance, or {@code null} if it was left to
+     * default to {@code auth0-java}. Package-private so {@link Builder#from(ClientOptions)} can
+     * carry it over; not part of the public API.
+     */
+    Telemetry telemetry() {
+        return this.telemetry;
+    }
+
+    /**
+     * The static headers configured on this instance, including the resolved {@code Auth0-Client}
+     * header. Package-private so {@link Builder#from(ClientOptions)} can carry them over; not part
+     * of the public API.
+     */
+    Map<String, String> headers() {
+        return this.headers;
+    }
+
+    /**
+     * The dynamic header suppliers configured on this instance. Package-private so
+     * {@link Builder#from(ClientOptions)} can carry them over; not part of the public API.
+     */
+    Map<String, Supplier<String>> headerSuppliers() {
+        return this.headerSuppliers;
     }
 
     public static Builder builder() {
@@ -230,13 +259,22 @@ public final class ClientOptions {
         }
 
         /**
-         * Create a new Builder initialized with values from an existing ClientOptions
+         * Create a new Builder initialized with values from an existing ClientOptions.
+         *
+         * <p>Interceptors and logging are not copied explicitly: they are already baked into the
+         * {@link OkHttpClient} carried over here, and {@link #build()} preserves them via
+         * {@code newBuilder()}. Copying them would attach them a second time. The same applies to
+         * the retry interceptor, hence {@code maxRetries} is carried over for reporting only.
          */
         public static Builder from(ClientOptions clientOptions) {
             Builder builder = new Builder();
             builder.environment = clientOptions.environment();
             builder.timeout = Optional.of(clientOptions.timeout(null));
             builder.httpClient = clientOptions.httpClient();
+            builder.maxRetries = clientOptions.maxRetries();
+            builder.telemetry = clientOptions.telemetry();
+            builder.headers.putAll(clientOptions.headers());
+            builder.headerSuppliers.putAll(clientOptions.headerSuppliers());
             return builder;
         }
     }
