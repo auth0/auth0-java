@@ -10,8 +10,8 @@ references/
 
 # Examples and Migration Guide from auth0-real
 EXAMPLES.md
-v3_MIGRATION_GUIDE.md
 v4_MIGRATION_GUIDE.md
+v5_MIGRATION_GUIDE.md
 LICENSE
 CHANGELOG.md
 

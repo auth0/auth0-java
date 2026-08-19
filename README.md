@@ -3,7 +3,7 @@
 >
 > While this change won't affect most developers, if you have implemented a dependency signature validation step in your build process, you may notice a warning that past releases can't be verified. This is expected, and a result of the key rotation process. Updating to the latest version will resolve this for you.
 > 
-> We are improving our API specs which introduces minor breaking changes.
+> We are improving our API specs which introduces minor breaking changes. Expect major releases more frequently than usual while this work continues. Each one ships with a migration guide, and breaking changes are kept small and mechanical.
 
 ![A Java client library for the Auth0 Authentication and Management APIs.](https://cdn.auth0.com/website/sdks/banners/auth0-java-banner.png)
 
@@ -20,8 +20,8 @@
 ## Documentation
 - [Reference](./reference.md) - code samples for Management APIs.
 - [Examples](./EXAMPLES.md) - code samples for common auth0-java scenarios.
+- [v5 Migration Guide](./v5_MIGRATION_GUIDE.md) - guidance for updating your application from version 4 to version 5 of auth0-java.
 - [v4 Migration Guide](./v4_MIGRATION_GUIDE.md) - guidance for updating your application from version 3 to version 4 of auth0-java.
-- [v3 Migration Guide](./v3_MIGRATION_GUIDE.md) - guidance for updating your application from version 2 to version 3 of auth0-java.
 - [Docs site](https://www.auth0.com/docs) - explore our docs site and learn more about Auth0.
 
 ## Getting Started

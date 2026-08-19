@@ -182,7 +182,7 @@ See [references/pitfalls.md](references/pitfalls.md) for the full list. Highligh
 | `README.md` | Overview, install, getting started (Auth + Management) | yes (hand-maintained) |
 | `EXAMPLES.md` | Scenario code samples | yes (hand-maintained) |
 | `reference.md` | Management API code samples | no — **generated**, do not hand-edit |
-| `v4_MIGRATION_GUIDE.md` / `v3_MIGRATION_GUIDE.md` | Major-version migration | yes (hand-maintained) |
+| `v5_MIGRATION_GUIDE.md` / `v4_MIGRATION_GUIDE.md` | Major-version migration | yes (hand-maintained) |
 | `CHANGELOG.md` | Release history | yes — release-flow artifact, not edited per-PR |
 
 See [references/docs-update.md](references/docs-update.md) for the full code-to-docs mapping.
