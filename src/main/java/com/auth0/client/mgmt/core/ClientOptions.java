@@ -27,26 +27,31 @@ public final class ClientOptions {
 
     private final int maxRetries;
 
+    private final Telemetry telemetry;
+
     private ClientOptions(
             Environment environment,
             Map<String, String> headers,
             Map<String, Supplier<String>> headerSuppliers,
             OkHttpClient httpClient,
             int timeout,
-            int maxRetries) {
+            int maxRetries,
+            Telemetry telemetry) {
         this.environment = environment;
         this.headers = new HashMap<>();
         this.headers.putAll(headers);
 
-        Telemetry telemetry =
-                new Telemetry("auth0-java", Telemetry.class.getPackage().getImplementationVersion());
-        if (telemetry.getValue() != null) {
-            this.headers.put("Auth0-Client", telemetry.getValue());
+        Telemetry resolvedTelemetry = telemetry != null
+                ? telemetry
+                : new Telemetry("auth0-java", Telemetry.class.getPackage().getImplementationVersion());
+        if (resolvedTelemetry.getValue() != null) {
+            this.headers.put("Auth0-Client", resolvedTelemetry.getValue());
         }
         this.headerSuppliers = headerSuppliers;
         this.httpClient = httpClient;
         this.timeout = timeout;
         this.maxRetries = maxRetries;
+        this.telemetry = telemetry;
     }
 
     public Environment environment() {
@@ -92,6 +97,32 @@ public final class ClientOptions {
         return this.maxRetries;
     }
 
+    /**
+     * The telemetry explicitly configured on this instance, or {@code null} if it was left to
+     * default to {@code auth0-java}. Package-private so {@link Builder#from(ClientOptions)} can
+     * carry it over; not part of the public API.
+     */
+    Telemetry telemetry() {
+        return this.telemetry;
+    }
+
+    /**
+     * The static headers configured on this instance, including the resolved {@code Auth0-Client}
+     * header. Package-private so {@link Builder#from(ClientOptions)} can carry them over; not part
+     * of the public API.
+     */
+    Map<String, String> headers() {
+        return this.headers;
+    }
+
+    /**
+     * The dynamic header suppliers configured on this instance. Package-private so
+     * {@link Builder#from(ClientOptions)} can carry them over; not part of the public API.
+     */
+    Map<String, Supplier<String>> headerSuppliers() {
+        return this.headerSuppliers;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -112,6 +143,8 @@ public final class ClientOptions {
         private OkHttpClient httpClient = null;
 
         private LogConfig logging = null;
+
+        private Telemetry telemetry = null;
 
         public Builder environment(Environment environment) {
             this.environment = environment;
@@ -173,6 +206,17 @@ public final class ClientOptions {
             return this;
         }
 
+        /**
+         * Internal plumbing. Sets the pre-built {@link Telemetry} used for the {@code Auth0-Client}
+         * header. Prefer {@link com.auth0.client.mgmt.ManagementApiBuilder#withTelemetry(String, String)},
+         * which constructs the telemetry with the correct auth0-java version. Passing a hand-built
+         * {@link Telemetry} here bypasses that and is not a supported way to identify a wrapping SDK.
+         */
+        public Builder telemetry(Telemetry telemetry) {
+            this.telemetry = telemetry;
+            return this;
+        }
+
         public ClientOptions build() {
             OkHttpClient.Builder httpClientBuilder =
                     this.httpClient != null ? this.httpClient.newBuilder() : new OkHttpClient.Builder();
@@ -205,17 +249,32 @@ public final class ClientOptions {
             this.timeout = Optional.of(httpClient.callTimeoutMillis() / 1000);
 
             return new ClientOptions(
-                    environment, headers, headerSuppliers, httpClient, this.timeout.get(), this.maxRetries);
+                    environment,
+                    headers,
+                    headerSuppliers,
+                    httpClient,
+                    this.timeout.get(),
+                    this.maxRetries,
+                    this.telemetry);
         }
 
         /**
-         * Create a new Builder initialized with values from an existing ClientOptions
+         * Create a new Builder initialized with values from an existing ClientOptions.
+         *
+         * <p>Interceptors and logging are not copied explicitly: they are already baked into the
+         * {@link OkHttpClient} carried over here, and {@link #build()} preserves them via
+         * {@code newBuilder()}. Copying them would attach them a second time. The same applies to
+         * the retry interceptor, hence {@code maxRetries} is carried over for reporting only.
          */
         public static Builder from(ClientOptions clientOptions) {
             Builder builder = new Builder();
             builder.environment = clientOptions.environment();
             builder.timeout = Optional.of(clientOptions.timeout(null));
             builder.httpClient = clientOptions.httpClient();
+            builder.maxRetries = clientOptions.maxRetries();
+            builder.telemetry = clientOptions.telemetry();
+            builder.headers.putAll(clientOptions.headers());
+            builder.headerSuppliers.putAll(clientOptions.headerSuppliers());
             return builder;
         }
     }

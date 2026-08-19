@@ -4,6 +4,8 @@
 package com.auth0.client.mgmt;
 
 import com.auth0.client.mgmt.core.*;
+import com.auth0.net.Telemetry;
+import com.auth0.utils.Asserts;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -26,6 +28,8 @@ public class ManagementApiBuilder {
     private Optional<LogConfig> logging = Optional.empty();
 
     private String customDomain = null;
+
+    private Telemetry telemetry = null;
 
     // Domain-based initialization fields
     private String domain = null;
@@ -188,6 +192,24 @@ public class ManagementApiBuilder {
         return this;
     }
 
+    /**
+     * Configure the telemetry sent to Auth0 on every request. Use this when building an SDK on top of
+     * auth0-java so that requests are attributed to the wrapping library, with auth0-java reported as the
+     * underlying library in the telemetry environment.
+     *
+     * <p>If not set, telemetry defaults to identifying this library as {@code auth0-java}.
+     *
+     * @param name The name of the library sending the requests (e.g. the wrapping SDK's name)
+     * @param version The version of the library sending the requests
+     * @return This builder for method chaining
+     */
+    public ManagementApiBuilder withTelemetry(String name, String version) {
+        Asserts.assertNotNull(name, "name");
+        this.telemetry =
+                new Telemetry(name, version, Telemetry.class.getPackage().getImplementationVersion());
+        return this;
+    }
+
     protected ClientOptions buildClientOptions() {
         ClientOptions.Builder builder = ClientOptions.builder();
         setEnvironment(builder);
@@ -202,6 +224,9 @@ public class ManagementApiBuilder {
         if (this.customDomain != null) {
             builder.addHeader(CustomDomainInterceptor.HEADER_NAME, this.customDomain);
             builder.addInterceptor(new CustomDomainInterceptor());
+        }
+        if (this.telemetry != null) {
+            builder.telemetry(this.telemetry);
         }
         setAdditional(builder);
         return builder.build();
