@@ -3,7 +3,9 @@ package com.auth0.net.client;
 import com.auth0.client.LoggingOptions;
 import com.auth0.client.ProxyOptions;
 import com.auth0.net.RateLimitInterceptor;
+import com.auth0.net.Telemetry;
 import com.auth0.net.TelemetryInterceptor;
+import com.auth0.utils.Asserts;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,7 +59,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
         clientBuilder.readTimeout(sanitizeTimeout(builder.readTimeout), TimeUnit.SECONDS);
         clientBuilder.connectTimeout(sanitizeTimeout(builder.connectTimeout), TimeUnit.SECONDS);
         clientBuilder.addInterceptor(getLoggingInterceptor(builder.loggingOptions));
-        clientBuilder.addInterceptor(getTelemetryInterceptor(builder.telemetryEnabled));
+        clientBuilder.addInterceptor(getTelemetryInterceptor(builder.telemetryEnabled, builder.telemetry));
         clientBuilder.addInterceptor(getRateLimitInterceptor(builder.maxRetries));
         clientBuilder.dispatcher(getDispatcher(builder.maxRequests, builder.maxRequestsPerHost));
 
@@ -243,8 +245,11 @@ public class DefaultHttpClient implements Auth0HttpClient {
         }
     }
 
-    private TelemetryInterceptor getTelemetryInterceptor(boolean telemetryEnabled) {
+    private TelemetryInterceptor getTelemetryInterceptor(boolean telemetryEnabled, Telemetry telemetry) {
         TelemetryInterceptor interceptor = new TelemetryInterceptor();
+        if (telemetry != null) {
+            interceptor.setTelemetry(telemetry);
+        }
         interceptor.setEnabled(telemetryEnabled);
         return interceptor;
     }
@@ -279,6 +284,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
         private ProxyOptions proxyOptions;
         private LoggingOptions loggingOptions;
         private boolean telemetryEnabled = true;
+        private Telemetry telemetry;
         private int maxRetries = 3;
         private int maxRequests = 64;
         private int maxRequestsPerHost = 5;
@@ -334,6 +340,24 @@ public class DefaultHttpClient implements Auth0HttpClient {
          */
         public Builder telemetryEnabled(boolean telemetryEnabled) {
             this.telemetryEnabled = telemetryEnabled;
+            return this;
+        }
+
+        /**
+         * Configure the telemetry sent to Auth0 on every request. Use this when building an SDK on top of
+         * auth0-java so that requests are attributed to the wrapping library, with auth0-java reported as the
+         * underlying library in the telemetry environment.
+         * <p>
+         * If not set, telemetry defaults to identifying this library as {@code auth0-java}.
+         *
+         * @param name    the name of the library sending the requests (e.g. the wrapping SDK's name).
+         * @param version the version of the library sending the requests.
+         * @return this builder instance.
+         */
+        public Builder withTelemetry(String name, String version) {
+            Asserts.assertNotNull(name, "name");
+            this.telemetry =
+                    new Telemetry(name, version, Telemetry.class.getPackage().getImplementationVersion());
             return this;
         }
 

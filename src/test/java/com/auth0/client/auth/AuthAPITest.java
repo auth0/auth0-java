@@ -20,13 +20,16 @@ import com.auth0.json.auth.*;
 import com.auth0.net.BaseRequest;
 import com.auth0.net.Request;
 import com.auth0.net.SignUpRequest;
+import com.auth0.net.Telemetry;
 import com.auth0.net.TokenRequest;
 import com.auth0.net.client.Auth0HttpClient;
 import com.auth0.net.client.Auth0HttpRequest;
 import com.auth0.net.client.Auth0HttpResponse;
+import com.auth0.net.client.DefaultHttpClient;
 import com.auth0.net.client.HttpMethod;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.FileReader;
 import java.net.URLDecoder;
@@ -259,6 +262,60 @@ public class AuthAPITest {
         assertThat(identities.get(0), hasEntry("provider", "auth0"));
         assertThat(identities.get(0), hasEntry("connection", "Username-Password-Authentication"));
         assertThat(identities.get(0), hasEntry("isSocial", false));
+    }
+
+    // Telemetry
+
+    private JsonNode decodeTelemetryHeader(RecordedRequest request) throws Exception {
+        String header = request.getHeader("Auth0-Client");
+        assertThat(header, is(notNullValue()));
+        return ObjectMapperProvider.getMapper().readTree(Base64.getUrlDecoder().decode(header));
+    }
+
+    @Test
+    public void shouldSendDefaultTelemetry() throws Exception {
+        Request<UserInfo> request = api.userInfo("accessToken");
+        server.jsonResponse(AUTH_USER_INFO, 200);
+        request.execute();
+
+        JsonNode telemetry = decodeTelemetryHeader(server.takeRequest());
+        assertThat(telemetry.get("name").asText(), is("auth0-java"));
+    }
+
+    @Test
+    public void shouldSendCustomTelemetryWhenConfigured() throws Exception {
+        AuthAPI customApi = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET)
+                .withHttpClient(DefaultHttpClient.newBuilder()
+                        .withTelemetry("my-wrapper-sdk", "1.2.3")
+                        .build())
+                .build();
+
+        Request<UserInfo> request = customApi.userInfo("accessToken");
+        server.jsonResponse(AUTH_USER_INFO, 200);
+        request.execute();
+
+        JsonNode telemetry = decodeTelemetryHeader(server.takeRequest());
+        assertThat(telemetry.get("name").asText(), is("my-wrapper-sdk"));
+        assertThat(telemetry.get("version").asText(), is("1.2.3"));
+    }
+
+    @Test
+    public void shouldNestAuth0JavaInTelemetryEnv() throws Exception {
+        String value = new Telemetry("my-wrapper-sdk", "1.2.3", "auth0-java-9.9.9").getValue();
+
+        JsonNode telemetry =
+                ObjectMapperProvider.getMapper().readTree(Base64.getUrlDecoder().decode(value));
+        assertThat(telemetry.get("name").asText(), is("my-wrapper-sdk"));
+        assertThat(telemetry.get("version").asText(), is("1.2.3"));
+        assertThat(telemetry.get("env").get("auth0-java").asText(), is("auth0-java-9.9.9"));
+    }
+
+    @Test
+    public void shouldThrowWhenTelemetryNameIsNull() {
+        verifyThrows(
+                IllegalArgumentException.class,
+                () -> DefaultHttpClient.newBuilder().withTelemetry(null, "1.2.3"),
+                "'name' cannot be null!");
     }
 
     // Reset Password
