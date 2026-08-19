@@ -40,14 +40,14 @@ Add the dependency via Maven:
 <dependency>
   <groupId>com.auth0</groupId>
   <artifactId>auth0</artifactId>
-  <version>4.2.0</version>
+  <version>5.0.0</version>
 </dependency>
 ```
 
 or Gradle:
 
 ```gradle
-implementation 'com.auth0:auth0:4.2.0'
+implementation 'com.auth0:auth0:5.0.0'
 ```
 
 ### Configure the SDK
@@ -64,7 +64,7 @@ AuthAPI auth = AuthAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CL
 
 #### Management API Client
 
-The Management API client is based on the [Management API Docs](https://auth0.com/docs/api/management/v2). In v3, the Management API is Fern-generated and uses `ManagementApi` as the entry point.
+The Management API client is based on the [Management API Docs](https://auth0.com/docs/api/management/v2). The Management API is Fern-generated and uses `ManagementApi` as the entry point.
 
 Create a `ManagementApi` instance with a static token:
 

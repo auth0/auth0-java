@@ -1,5 +1,28 @@
 # Change Log
 
+## [5.0.0](https://github.com/auth0/auth0-java/tree/5.0.0) (2026-08-19)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/4.2.0...5.0.0)
+
+A complete migration guide is available at [v5_MIGRATION_GUIDE](v5_MIGRATION_GUIDE.md).
+
+**Breaking**
+- feat: add support for Keys Network ACLs, 3P client access, XAA connection profiles and nullable response fields
+  [\#918](https://github.com/auth0/auth0-java/pull/918) ([fern-api[bot]](https://github.com/apps/fern-api))
+  - **Nullable response fields** — 32 getters across 8 response types change from `Optional<T>` to `OptionalNullable<T>`, so the SDK preserves the nullability declared in the API definition. 
+**Added**
+- feat: add support for Keys Network ACLs, 3P client access, XAA connection profiles and nullable response fields
+  [\#918](https://github.com/auth0/auth0-java/pull/918) ([fern-api[bot]](https://github.com/apps/fern-api))
+  - **Keys Network ACLs** — new `keys().networkAcls()` sub-client with `list`, `create`, and `get` against `/api/v2/keys/network-acls`, plus the `read:network_acl_keys` and `create:network_acl_keys` scopes. 
+  - **Third-party (3P) client access** — `third_party_client_access` on the client `my_organization_configuration` object across `POST`/`GET`/`GET {id}`/`PATCH {id}` on `/clients`
+  - **Cross-App Access (XAA)** — `cross_app_access_resource_app` on the connection-profile request/response types and `ConnectionProfile`
+  - Misc: `useOauthSpecScope` on the OIDC/Okta connection options types; `matchAll` on `NetworkAclRule`.
+  - New typed error branches: `409 Conflict` and `400 Bad Request` on Flows; `400 Bad Request` and `404 Not Found` on Forms.
+- feat: allow custom telemetry for SDKs built on auth0-java [\#916](https://github.com/auth0/auth0-java/pull/916) ([tanya732](https://github.com/tanya732))
+
+**Changed**
+- feat: add Migration Guide V5 [\#919](https://github.com/auth0/auth0-java/pull/919) ([tanya732](https://github.com/tanya732))
+  - Adds `v5_MIGRATION_GUIDE.md` and removes `v3_MIGRATION_GUIDE.md`, now that v2 is well past end of support. Migration guides are retained for the two most recent majors.
+
 ## [4.2.0](https://github.com/auth0/auth0-java/tree/4.2.0) (2026-08-05)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/4.1.0...4.2.0)
 
