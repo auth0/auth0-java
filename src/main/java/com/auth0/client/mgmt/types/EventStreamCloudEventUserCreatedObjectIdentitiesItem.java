@@ -113,58 +113,56 @@ public final class EventStreamCloudEventUserCreatedObjectIdentitiesItem {
         public EventStreamCloudEventUserCreatedObjectIdentitiesItem deserialize(
                 JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
-            if (value instanceof Map<?, ?>
-                    && ((Map<?, ?>) value).containsKey("connection")
-                    && ((Map<?, ?>) value).containsKey("user_id")
-                    && ((Map<?, ?>) value).containsKey("provider")
-                    && ((Map<?, ?>) value).containsKey("isSocial")) {
+            if (value instanceof Map<?, ?>) {
+                Map<?, ?> map = (Map<?, ?>) value;
+                Object providerValue = map.get("provider");
+                String provider = providerValue == null ? null : providerValue.toString();
+                boolean isSocial = Boolean.TRUE.equals(map.get("isSocial"));
+
+                if (isSocial) {
+                    try {
+                        return of(ObjectMappers.JSON_MAPPER.convertValue(
+                                value, EventStreamCloudEventUserCreatedObjectIdentitiesItemSocial.class));
+                    } catch (RuntimeException e) {
+                    }
+                }
+                if (provider != null
+                        && EventStreamCloudEventUserCreatedObjectIdentitiesItemDatabaseProviderEnum.valueOf(provider)
+                                        .getEnumValue()
+                                != EventStreamCloudEventUserCreatedObjectIdentitiesItemDatabaseProviderEnum.Value
+                                        .UNKNOWN) {
+                    try {
+                        return of(ObjectMappers.JSON_MAPPER.convertValue(
+                                value, EventStreamCloudEventUserCreatedObjectIdentitiesItemDatabase.class));
+                    } catch (RuntimeException e) {
+                    }
+                }
+                if (provider != null
+                        && EventStreamCloudEventUserCreatedObjectIdentitiesItemPasswordlessProviderEnum.valueOf(
+                                                provider)
+                                        .getEnumValue()
+                                != EventStreamCloudEventUserCreatedObjectIdentitiesItemPasswordlessProviderEnum.Value
+                                        .UNKNOWN) {
+                    try {
+                        return of(ObjectMappers.JSON_MAPPER.convertValue(
+                                value, EventStreamCloudEventUserCreatedObjectIdentitiesItemPasswordless.class));
+                    } catch (RuntimeException e) {
+                    }
+                }
+                if (provider != null
+                        && EventStreamCloudEventUserCreatedObjectIdentitiesItemEnterpriseProviderEnum.valueOf(provider)
+                                        .getEnumValue()
+                                != EventStreamCloudEventUserCreatedObjectIdentitiesItemEnterpriseProviderEnum.Value
+                                        .UNKNOWN) {
+                    try {
+                        return of(ObjectMappers.JSON_MAPPER.convertValue(
+                                value, EventStreamCloudEventUserCreatedObjectIdentitiesItemEnterprise.class));
+                    } catch (RuntimeException e) {
+                    }
+                }
                 try {
                     return of(ObjectMappers.JSON_MAPPER.convertValue(
                             value, EventStreamCloudEventUserCreatedObjectIdentitiesItemCustom.class));
-                } catch (RuntimeException e) {
-                }
-            }
-            if (value instanceof Map<?, ?>
-                    && ((Map<?, ?>) value).containsKey("connection")
-                    && ((Map<?, ?>) value).containsKey("user_id")
-                    && ((Map<?, ?>) value).containsKey("provider")
-                    && ((Map<?, ?>) value).containsKey("isSocial")) {
-                try {
-                    return of(ObjectMappers.JSON_MAPPER.convertValue(
-                            value, EventStreamCloudEventUserCreatedObjectIdentitiesItemDatabase.class));
-                } catch (RuntimeException e) {
-                }
-            }
-            if (value instanceof Map<?, ?>
-                    && ((Map<?, ?>) value).containsKey("connection")
-                    && ((Map<?, ?>) value).containsKey("user_id")
-                    && ((Map<?, ?>) value).containsKey("provider")
-                    && ((Map<?, ?>) value).containsKey("isSocial")) {
-                try {
-                    return of(ObjectMappers.JSON_MAPPER.convertValue(
-                            value, EventStreamCloudEventUserCreatedObjectIdentitiesItemEnterprise.class));
-                } catch (RuntimeException e) {
-                }
-            }
-            if (value instanceof Map<?, ?>
-                    && ((Map<?, ?>) value).containsKey("connection")
-                    && ((Map<?, ?>) value).containsKey("user_id")
-                    && ((Map<?, ?>) value).containsKey("provider")
-                    && ((Map<?, ?>) value).containsKey("isSocial")) {
-                try {
-                    return of(ObjectMappers.JSON_MAPPER.convertValue(
-                            value, EventStreamCloudEventUserCreatedObjectIdentitiesItemPasswordless.class));
-                } catch (RuntimeException e) {
-                }
-            }
-            if (value instanceof Map<?, ?>
-                    && ((Map<?, ?>) value).containsKey("connection")
-                    && ((Map<?, ?>) value).containsKey("user_id")
-                    && ((Map<?, ?>) value).containsKey("provider")
-                    && ((Map<?, ?>) value).containsKey("isSocial")) {
-                try {
-                    return of(ObjectMappers.JSON_MAPPER.convertValue(
-                            value, EventStreamCloudEventUserCreatedObjectIdentitiesItemSocial.class));
                 } catch (RuntimeException e) {
                 }
             }
