@@ -152,6 +152,9 @@ public final class OauthScope {
     public static final OauthScope DELETE_ORGANIZATION_INVITATIONS =
             new OauthScope(Value.DELETE_ORGANIZATION_INVITATIONS, "delete:organization_invitations");
 
+    public static final OauthScope READ_NETWORK_ACL_KEYS =
+            new OauthScope(Value.READ_NETWORK_ACL_KEYS, "read:network_acl_keys");
+
     public static final OauthScope CREATE_ORGANIZATION_CLIENT_GRANTS =
             new OauthScope(Value.CREATE_ORGANIZATION_CLIENT_GRANTS, "create:organization_client_grants");
 
@@ -432,6 +435,9 @@ public final class OauthScope {
 
     public static final OauthScope UPDATE_EMAIL_PROVIDER =
             new OauthScope(Value.UPDATE_EMAIL_PROVIDER, "update:email_provider");
+
+    public static final OauthScope CREATE_NETWORK_ACL_KEYS =
+            new OauthScope(Value.CREATE_NETWORK_ACL_KEYS, "create:network_acl_keys");
 
     public static final OauthScope CREATE_ORGANIZATION_CONNECTIONS =
             new OauthScope(Value.CREATE_ORGANIZATION_CONNECTIONS, "create:organization_connections");
@@ -798,6 +804,8 @@ public final class OauthScope {
                 return visitor.visitDeleteClientCredentials();
             case DELETE_ORGANIZATION_INVITATIONS:
                 return visitor.visitDeleteOrganizationInvitations();
+            case READ_NETWORK_ACL_KEYS:
+                return visitor.visitReadNetworkAclKeys();
             case CREATE_ORGANIZATION_CLIENT_GRANTS:
                 return visitor.visitCreateOrganizationClientGrants();
             case READ_USER_IDP_TOKENS:
@@ -1012,6 +1020,8 @@ public final class OauthScope {
                 return visitor.visitDeleteTokenExchangeProfiles();
             case UPDATE_EMAIL_PROVIDER:
                 return visitor.visitUpdateEmailProvider();
+            case CREATE_NETWORK_ACL_KEYS:
+                return visitor.visitCreateNetworkAclKeys();
             case CREATE_ORGANIZATION_CONNECTIONS:
                 return visitor.visitCreateOrganizationConnections();
             case DELETE_RULES_CONFIGS:
@@ -1295,6 +1305,8 @@ public final class OauthScope {
                 return DELETE_CLIENT_CREDENTIALS;
             case "delete:organization_invitations":
                 return DELETE_ORGANIZATION_INVITATIONS;
+            case "read:network_acl_keys":
+                return READ_NETWORK_ACL_KEYS;
             case "create:organization_client_grants":
                 return CREATE_ORGANIZATION_CLIENT_GRANTS;
             case "read:user_idp_tokens":
@@ -1509,6 +1521,8 @@ public final class OauthScope {
                 return DELETE_TOKEN_EXCHANGE_PROFILES;
             case "update:email_provider":
                 return UPDATE_EMAIL_PROVIDER;
+            case "create:network_acl_keys":
+                return CREATE_NETWORK_ACL_KEYS;
             case "create:organization_connections":
                 return CREATE_ORGANIZATION_CONNECTIONS;
             case "delete:rules_configs":
@@ -2167,6 +2181,10 @@ public final class OauthScope {
 
         DELETE_ORGANIZATION_CLIENTS,
 
+        CREATE_NETWORK_ACL_KEYS,
+
+        READ_NETWORK_ACL_KEYS,
+
         UNKNOWN
     }
 
@@ -2658,6 +2676,10 @@ public final class OauthScope {
         T visitUpdateOrganizationClients();
 
         T visitDeleteOrganizationClients();
+
+        T visitCreateNetworkAclKeys();
+
+        T visitReadNetworkAclKeys();
 
         T visitUnknown(String unknownType);
     }

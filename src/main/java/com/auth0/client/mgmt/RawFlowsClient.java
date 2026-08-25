@@ -14,6 +14,7 @@ import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.RetryInterceptor;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.errors.BadRequestError;
+import com.auth0.client.mgmt.errors.ConflictError;
 import com.auth0.client.mgmt.errors.ForbiddenError;
 import com.auth0.client.mgmt.errors.NotFoundError;
 import com.auth0.client.mgmt.errors.TooManyRequestsError;
@@ -362,6 +363,9 @@ public class RawFlowsClient {
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 409:
+                        throw new ConflictError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                     case 429:
                         throw new TooManyRequestsError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -439,6 +443,9 @@ public class RawFlowsClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);

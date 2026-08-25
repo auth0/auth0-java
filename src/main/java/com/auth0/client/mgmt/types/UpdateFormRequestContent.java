@@ -3,7 +3,6 @@
  */
 package com.auth0.client.mgmt.types;
 
-import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
@@ -20,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdateFormRequestContent.Builder.class)
@@ -71,42 +71,105 @@ public final class UpdateFormRequestContent {
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("messages")
     public OptionalNullable<FormMessages> getMessages() {
+        if (messages == null) {
+            return OptionalNullable.absent();
+        }
         return messages;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("languages")
     public OptionalNullable<FormLanguages> getLanguages() {
+        if (languages == null) {
+            return OptionalNullable.absent();
+        }
         return languages;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("translations")
     public OptionalNullable<Map<String, Map<String, Object>>> getTranslations() {
+        if (translations == null) {
+            return OptionalNullable.absent();
+        }
         return translations;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("nodes")
     public OptionalNullable<List<FormNode>> getNodes() {
+        if (nodes == null) {
+            return OptionalNullable.absent();
+        }
         return nodes;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("start")
     public OptionalNullable<FormStartNode> getStart() {
+        if (start == null) {
+            return OptionalNullable.absent();
+        }
         return start;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("ending")
     public OptionalNullable<FormEndingNode> getEnding() {
+        if (ending == null) {
+            return OptionalNullable.absent();
+        }
         return ending;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("style")
     public OptionalNullable<FormStyle> getStyle() {
+        if (style == null) {
+            return OptionalNullable.absent();
+        }
+        return style;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("messages")
+    private OptionalNullable<FormMessages> _getMessages() {
+        return messages;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("languages")
+    private OptionalNullable<FormLanguages> _getLanguages() {
+        return languages;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("translations")
+    private OptionalNullable<Map<String, Map<String, Object>>> _getTranslations() {
+        return translations;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("nodes")
+    private OptionalNullable<List<FormNode>> _getNodes() {
+        return nodes;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("start")
+    private OptionalNullable<FormStartNode> _getStart() {
+        return start;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("ending")
+    private OptionalNullable<FormEndingNode> _getEnding() {
+        return ending;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("style")
+    private OptionalNullable<FormStyle> _getStyle() {
         return style;
     }
 
@@ -201,7 +264,7 @@ public final class UpdateFormRequestContent {
         }
 
         @JsonSetter(value = "messages", nulls = Nulls.SKIP)
-        public Builder messages(OptionalNullable<FormMessages> messages) {
+        public Builder messages(@Nullable OptionalNullable<FormMessages> messages) {
             this.messages = messages;
             return this;
         }
@@ -220,7 +283,7 @@ public final class UpdateFormRequestContent {
             return this;
         }
 
-        public Builder messages(Nullable<FormMessages> messages) {
+        public Builder messages(com.auth0.client.mgmt.core.Nullable<FormMessages> messages) {
             if (messages.isNull()) {
                 this.messages = OptionalNullable.ofNull();
             } else if (messages.isEmpty()) {
@@ -232,7 +295,7 @@ public final class UpdateFormRequestContent {
         }
 
         @JsonSetter(value = "languages", nulls = Nulls.SKIP)
-        public Builder languages(OptionalNullable<FormLanguages> languages) {
+        public Builder languages(@Nullable OptionalNullable<FormLanguages> languages) {
             this.languages = languages;
             return this;
         }
@@ -251,7 +314,7 @@ public final class UpdateFormRequestContent {
             return this;
         }
 
-        public Builder languages(Nullable<FormLanguages> languages) {
+        public Builder languages(com.auth0.client.mgmt.core.Nullable<FormLanguages> languages) {
             if (languages.isNull()) {
                 this.languages = OptionalNullable.ofNull();
             } else if (languages.isEmpty()) {
@@ -263,7 +326,7 @@ public final class UpdateFormRequestContent {
         }
 
         @JsonSetter(value = "translations", nulls = Nulls.SKIP)
-        public Builder translations(OptionalNullable<Map<String, Map<String, Object>>> translations) {
+        public Builder translations(@Nullable OptionalNullable<Map<String, Map<String, Object>>> translations) {
             this.translations = translations;
             return this;
         }
@@ -282,7 +345,8 @@ public final class UpdateFormRequestContent {
             return this;
         }
 
-        public Builder translations(Nullable<Map<String, Map<String, Object>>> translations) {
+        public Builder translations(
+                com.auth0.client.mgmt.core.Nullable<Map<String, Map<String, Object>>> translations) {
             if (translations.isNull()) {
                 this.translations = OptionalNullable.ofNull();
             } else if (translations.isEmpty()) {
@@ -294,7 +358,7 @@ public final class UpdateFormRequestContent {
         }
 
         @JsonSetter(value = "nodes", nulls = Nulls.SKIP)
-        public Builder nodes(OptionalNullable<List<FormNode>> nodes) {
+        public Builder nodes(@Nullable OptionalNullable<List<FormNode>> nodes) {
             this.nodes = nodes;
             return this;
         }
@@ -313,7 +377,7 @@ public final class UpdateFormRequestContent {
             return this;
         }
 
-        public Builder nodes(Nullable<List<FormNode>> nodes) {
+        public Builder nodes(com.auth0.client.mgmt.core.Nullable<List<FormNode>> nodes) {
             if (nodes.isNull()) {
                 this.nodes = OptionalNullable.ofNull();
             } else if (nodes.isEmpty()) {
@@ -325,7 +389,7 @@ public final class UpdateFormRequestContent {
         }
 
         @JsonSetter(value = "start", nulls = Nulls.SKIP)
-        public Builder start(OptionalNullable<FormStartNode> start) {
+        public Builder start(@Nullable OptionalNullable<FormStartNode> start) {
             this.start = start;
             return this;
         }
@@ -344,7 +408,7 @@ public final class UpdateFormRequestContent {
             return this;
         }
 
-        public Builder start(Nullable<FormStartNode> start) {
+        public Builder start(com.auth0.client.mgmt.core.Nullable<FormStartNode> start) {
             if (start.isNull()) {
                 this.start = OptionalNullable.ofNull();
             } else if (start.isEmpty()) {
@@ -356,7 +420,7 @@ public final class UpdateFormRequestContent {
         }
 
         @JsonSetter(value = "ending", nulls = Nulls.SKIP)
-        public Builder ending(OptionalNullable<FormEndingNode> ending) {
+        public Builder ending(@Nullable OptionalNullable<FormEndingNode> ending) {
             this.ending = ending;
             return this;
         }
@@ -375,7 +439,7 @@ public final class UpdateFormRequestContent {
             return this;
         }
 
-        public Builder ending(Nullable<FormEndingNode> ending) {
+        public Builder ending(com.auth0.client.mgmt.core.Nullable<FormEndingNode> ending) {
             if (ending.isNull()) {
                 this.ending = OptionalNullable.ofNull();
             } else if (ending.isEmpty()) {
@@ -387,7 +451,7 @@ public final class UpdateFormRequestContent {
         }
 
         @JsonSetter(value = "style", nulls = Nulls.SKIP)
-        public Builder style(OptionalNullable<FormStyle> style) {
+        public Builder style(@Nullable OptionalNullable<FormStyle> style) {
             this.style = style;
             return this;
         }
@@ -406,7 +470,7 @@ public final class UpdateFormRequestContent {
             return this;
         }
 
-        public Builder style(Nullable<FormStyle> style) {
+        public Builder style(com.auth0.client.mgmt.core.Nullable<FormStyle> style) {
             if (style.isNull()) {
                 this.style = OptionalNullable.ofNull();
             } else if (style.isEmpty()) {

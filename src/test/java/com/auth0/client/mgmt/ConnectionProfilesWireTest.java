@@ -47,7 +47,7 @@ public class ConnectionProfilesWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"next\":\"next\",\"connection_profiles\":[{\"id\":\"id\",\"name\":\"name\",\"connection_name_prefix_template\":\"connection_name_prefix_template\",\"enabled_features\":[\"scim\"]}]}"));
+                                "{\"next\":\"next\",\"connection_profiles\":[{\"id\":\"id\",\"name\":\"name\",\"connection_name_prefix_template\":\"connection_name_prefix_template\",\"enabled_features\":[\"scim\"],\"cross_app_access_resource_app\":{\"status\":{\"default_value\":\"enabled\"}}}]}"));
         SyncPagingIterable<ConnectionProfile> response = client.connectionProfiles()
                 .list(ListConnectionProfileRequestParameters.builder()
                         .from("from")

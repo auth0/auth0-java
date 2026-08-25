@@ -14,6 +14,7 @@ import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.RetryInterceptor;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.errors.BadRequestError;
+import com.auth0.client.mgmt.errors.ConflictError;
 import com.auth0.client.mgmt.errors.ForbiddenError;
 import com.auth0.client.mgmt.errors.NotFoundError;
 import com.auth0.client.mgmt.errors.TooManyRequestsError;
@@ -461,6 +462,11 @@ public class AsyncRawFlowsClient {
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
                                         response));
                                 return;
+                            case 409:
+                                future.completeExceptionally(new ConflictError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
                             case 429:
                                 future.completeExceptionally(new TooManyRequestsError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
@@ -557,6 +563,11 @@ public class AsyncRawFlowsClient {
                     }
                     try {
                         switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
                             case 401:
                                 future.completeExceptionally(new UnauthorizedError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),

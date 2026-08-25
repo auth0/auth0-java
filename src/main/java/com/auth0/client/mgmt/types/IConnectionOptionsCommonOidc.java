@@ -52,4 +52,6 @@ public interface IConnectionOptionsCommonOidc {
     OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams();
 
     Optional<String> getUserinfoEndpoint();
+
+    Optional<Boolean> getUseOauthSpecScope();
 }

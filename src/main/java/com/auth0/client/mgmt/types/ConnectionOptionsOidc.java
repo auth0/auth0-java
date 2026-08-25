@@ -70,6 +70,8 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
 
     private final Optional<String> userinfoEndpoint;
 
+    private final Optional<Boolean> useOauthSpecScope;
+
     private final Optional<List<String>> nonPersistentAttrs;
 
     private final Optional<ConnectionAttributeMapOidc> attributeMap;
@@ -103,6 +105,7 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
             Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<String> userinfoEndpoint,
+            Optional<Boolean> useOauthSpecScope,
             Optional<List<String>> nonPersistentAttrs,
             Optional<ConnectionAttributeMapOidc> attributeMap,
             Optional<String> discoveryUrl,
@@ -130,6 +133,7 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
         this.upstreamParams = upstreamParams;
         this.userinfoEndpoint = userinfoEndpoint;
+        this.useOauthSpecScope = useOauthSpecScope;
         this.nonPersistentAttrs = nonPersistentAttrs;
         this.attributeMap = attributeMap;
         this.discoveryUrl = discoveryUrl;
@@ -285,6 +289,12 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         return userinfoEndpoint;
     }
 
+    @JsonProperty("useOauthSpecScope")
+    @java.lang.Override
+    public Optional<Boolean> getUseOauthSpecScope() {
+        return useOauthSpecScope;
+    }
+
     @JsonProperty("non_persistent_attrs")
     @java.lang.Override
     public Optional<List<String>> getNonPersistentAttrs() {
@@ -365,6 +375,7 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                 && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat)
                 && upstreamParams.equals(other.upstreamParams)
                 && userinfoEndpoint.equals(other.userinfoEndpoint)
+                && useOauthSpecScope.equals(other.useOauthSpecScope)
                 && nonPersistentAttrs.equals(other.nonPersistentAttrs)
                 && attributeMap.equals(other.attributeMap)
                 && discoveryUrl.equals(other.discoveryUrl)
@@ -396,6 +407,7 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                 this.tokenEndpointJwtcaAudFormat,
                 this.upstreamParams,
                 this.userinfoEndpoint,
+                this.useOauthSpecScope,
                 this.nonPersistentAttrs,
                 this.attributeMap,
                 this.discoveryUrl,
@@ -544,6 +556,10 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
 
         _FinalStage userinfoEndpoint(String userinfoEndpoint);
 
+        _FinalStage useOauthSpecScope(Optional<Boolean> useOauthSpecScope);
+
+        _FinalStage useOauthSpecScope(Boolean useOauthSpecScope);
+
         _FinalStage nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs);
 
         _FinalStage nonPersistentAttrs(List<String> nonPersistentAttrs);
@@ -572,6 +588,8 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         private Optional<ConnectionAttributeMapOidc> attributeMap = Optional.empty();
 
         private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+
+        private Optional<Boolean> useOauthSpecScope = Optional.empty();
 
         private Optional<String> userinfoEndpoint = Optional.empty();
 
@@ -648,6 +666,7 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
             tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
             upstreamParams(other.getUpstreamParams());
             userinfoEndpoint(other.getUserinfoEndpoint());
+            useOauthSpecScope(other.getUseOauthSpecScope());
             nonPersistentAttrs(other.getNonPersistentAttrs());
             attributeMap(other.getAttributeMap());
             discoveryUrl(other.getDiscoveryUrl());
@@ -711,6 +730,19 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
         public _FinalStage nonPersistentAttrs(Optional<List<String>> nonPersistentAttrs) {
             this.nonPersistentAttrs = nonPersistentAttrs;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage useOauthSpecScope(Boolean useOauthSpecScope) {
+            this.useOauthSpecScope = Optional.ofNullable(useOauthSpecScope);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "useOauthSpecScope", nulls = Nulls.SKIP)
+        public _FinalStage useOauthSpecScope(Optional<Boolean> useOauthSpecScope) {
+            this.useOauthSpecScope = useOauthSpecScope;
             return this;
         }
 
@@ -1123,6 +1155,7 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                     tokenEndpointJwtcaAudFormat,
                     upstreamParams,
                     userinfoEndpoint,
+                    useOauthSpecScope,
                     nonPersistentAttrs,
                     attributeMap,
                     discoveryUrl,
