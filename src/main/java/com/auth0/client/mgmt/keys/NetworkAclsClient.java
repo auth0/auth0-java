@@ -69,4 +69,18 @@ public class NetworkAclsClient {
     public NetworkAclKey get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).body();
     }
+
+    /**
+     * Delete a key used to verify HTTP Message Signatures on Network ACL rules
+     */
+    public void delete(String id) {
+        this.rawClient.delete(id).body();
+    }
+
+    /**
+     * Delete a key used to verify HTTP Message Signatures on Network ACL rules
+     */
+    public void delete(String id, RequestOptions requestOptions) {
+        this.rawClient.delete(id, requestOptions).body();
+    }
 }

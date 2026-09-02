@@ -25,14 +25,18 @@ public final class ConnectionProfileStrategyOverride {
 
     private final Optional<ConnectionProfileStrategyOverridesConnectionConfig> connectionConfig;
 
+    private final Optional<ConnectionProfileStrategyOverridesProvisioning> provisioning;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectionProfileStrategyOverride(
             Optional<List<EnabledFeaturesEnum>> enabledFeatures,
             Optional<ConnectionProfileStrategyOverridesConnectionConfig> connectionConfig,
+            Optional<ConnectionProfileStrategyOverridesProvisioning> provisioning,
             Map<String, Object> additionalProperties) {
         this.enabledFeatures = enabledFeatures;
         this.connectionConfig = connectionConfig;
+        this.provisioning = provisioning;
         this.additionalProperties = additionalProperties;
     }
 
@@ -44,6 +48,11 @@ public final class ConnectionProfileStrategyOverride {
     @JsonProperty("connection_config")
     public Optional<ConnectionProfileStrategyOverridesConnectionConfig> getConnectionConfig() {
         return connectionConfig;
+    }
+
+    @JsonProperty("provisioning")
+    public Optional<ConnectionProfileStrategyOverridesProvisioning> getProvisioning() {
+        return provisioning;
     }
 
     @java.lang.Override
@@ -58,12 +67,14 @@ public final class ConnectionProfileStrategyOverride {
     }
 
     private boolean equalTo(ConnectionProfileStrategyOverride other) {
-        return enabledFeatures.equals(other.enabledFeatures) && connectionConfig.equals(other.connectionConfig);
+        return enabledFeatures.equals(other.enabledFeatures)
+                && connectionConfig.equals(other.connectionConfig)
+                && provisioning.equals(other.provisioning);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.enabledFeatures, this.connectionConfig);
+        return Objects.hash(this.enabledFeatures, this.connectionConfig, this.provisioning);
     }
 
     @java.lang.Override
@@ -81,6 +92,8 @@ public final class ConnectionProfileStrategyOverride {
 
         private Optional<ConnectionProfileStrategyOverridesConnectionConfig> connectionConfig = Optional.empty();
 
+        private Optional<ConnectionProfileStrategyOverridesProvisioning> provisioning = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -89,6 +102,7 @@ public final class ConnectionProfileStrategyOverride {
         public Builder from(ConnectionProfileStrategyOverride other) {
             enabledFeatures(other.getEnabledFeatures());
             connectionConfig(other.getConnectionConfig());
+            provisioning(other.getProvisioning());
             return this;
         }
 
@@ -114,8 +128,20 @@ public final class ConnectionProfileStrategyOverride {
             return this;
         }
 
+        @JsonSetter(value = "provisioning", nulls = Nulls.SKIP)
+        public Builder provisioning(Optional<ConnectionProfileStrategyOverridesProvisioning> provisioning) {
+            this.provisioning = provisioning;
+            return this;
+        }
+
+        public Builder provisioning(ConnectionProfileStrategyOverridesProvisioning provisioning) {
+            this.provisioning = Optional.ofNullable(provisioning);
+            return this;
+        }
+
         public ConnectionProfileStrategyOverride build() {
-            return new ConnectionProfileStrategyOverride(enabledFeatures, connectionConfig, additionalProperties);
+            return new ConnectionProfileStrategyOverride(
+                    enabledFeatures, connectionConfig, provisioning, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

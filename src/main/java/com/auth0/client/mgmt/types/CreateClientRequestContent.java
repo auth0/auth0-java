@@ -133,6 +133,8 @@ public final class CreateClientRequestContent {
 
     private final Optional<ExpressConfiguration> expressConfiguration;
 
+    private final Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration;
+
     private final Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration;
 
     private final Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
@@ -194,6 +196,7 @@ public final class CreateClientRequestContent {
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
             Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
             Optional<ExpressConfiguration> expressConfiguration,
+            Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration,
             Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration,
             Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             Map<String, Object> additionalProperties) {
@@ -251,6 +254,7 @@ public final class CreateClientRequestContent {
         this.thirdPartySecurityMode = thirdPartySecurityMode;
         this.redirectionPolicy = redirectionPolicy;
         this.expressConfiguration = expressConfiguration;
+        this.b2BIntegrationConfiguration = b2BIntegrationConfiguration;
         this.myOrganizationConfiguration = myOrganizationConfiguration;
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
         this.additionalProperties = additionalProperties;
@@ -639,6 +643,11 @@ public final class CreateClientRequestContent {
         return expressConfiguration;
     }
 
+    @JsonProperty("b2b_integration_configuration")
+    public Optional<B2BIntegrationConfiguration> getB2BIntegrationConfiguration() {
+        return b2BIntegrationConfiguration;
+    }
+
     @JsonProperty("my_organization_configuration")
     public Optional<ClientMyOrganizationPostConfiguration> getMyOrganizationConfiguration() {
         return myOrganizationConfiguration;
@@ -752,6 +761,7 @@ public final class CreateClientRequestContent {
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
                 && redirectionPolicy.equals(other.redirectionPolicy)
                 && expressConfiguration.equals(other.expressConfiguration)
+                && b2BIntegrationConfiguration.equals(other.b2BIntegrationConfiguration)
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels);
     }
@@ -813,6 +823,7 @@ public final class CreateClientRequestContent {
                 this.thirdPartySecurityMode,
                 this.redirectionPolicy,
                 this.expressConfiguration,
+                this.b2BIntegrationConfiguration,
                 this.myOrganizationConfiguration,
                 this.asyncApprovalNotificationChannels);
     }
@@ -1174,6 +1185,10 @@ public final class CreateClientRequestContent {
 
         _FinalStage expressConfiguration(ExpressConfiguration expressConfiguration);
 
+        _FinalStage b2BIntegrationConfiguration(Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration);
+
+        _FinalStage b2BIntegrationConfiguration(B2BIntegrationConfiguration b2BIntegrationConfiguration);
+
         _FinalStage myOrganizationConfiguration(
                 Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration);
 
@@ -1194,6 +1209,8 @@ public final class CreateClientRequestContent {
                 Optional.empty();
 
         private Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration = Optional.empty();
+
+        private Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration = Optional.empty();
 
         private Optional<ExpressConfiguration> expressConfiguration = Optional.empty();
 
@@ -1363,6 +1380,7 @@ public final class CreateClientRequestContent {
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
             redirectionPolicy(other.getRedirectionPolicy());
             expressConfiguration(other.getExpressConfiguration());
+            b2BIntegrationConfiguration(other.getB2BIntegrationConfiguration());
             myOrganizationConfiguration(other.getMyOrganizationConfiguration());
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
             return this;
@@ -1406,6 +1424,20 @@ public final class CreateClientRequestContent {
         public _FinalStage myOrganizationConfiguration(
                 Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration) {
             this.myOrganizationConfiguration = myOrganizationConfiguration;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage b2BIntegrationConfiguration(B2BIntegrationConfiguration b2BIntegrationConfiguration) {
+            this.b2BIntegrationConfiguration = Optional.ofNullable(b2BIntegrationConfiguration);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "b2b_integration_configuration", nulls = Nulls.SKIP)
+        public _FinalStage b2BIntegrationConfiguration(
+                Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration) {
+            this.b2BIntegrationConfiguration = b2BIntegrationConfiguration;
             return this;
         }
 
@@ -2514,6 +2546,7 @@ public final class CreateClientRequestContent {
                     thirdPartySecurityMode,
                     redirectionPolicy,
                     expressConfiguration,
+                    b2BIntegrationConfiguration,
                     myOrganizationConfiguration,
                     asyncApprovalNotificationChannels,
                     additionalProperties);

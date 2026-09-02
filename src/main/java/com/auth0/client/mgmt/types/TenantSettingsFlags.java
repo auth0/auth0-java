@@ -70,6 +70,8 @@ public final class TenantSettingsFlags {
 
     private final Optional<Boolean> genaiTrial;
 
+    private final Optional<Boolean> localResourceDiscovery;
+
     private final Optional<Boolean> enableDynamicClientRegistration;
 
     private final Optional<Boolean> disableManagementApiSmsObfuscation;
@@ -106,6 +108,7 @@ public final class TenantSettingsFlags {
             Optional<Boolean> removeAlgFromJwks,
             Optional<Boolean> improvedSignupBotDetectionInClassic,
             Optional<Boolean> genaiTrial,
+            Optional<Boolean> localResourceDiscovery,
             Optional<Boolean> enableDynamicClientRegistration,
             Optional<Boolean> disableManagementApiSmsObfuscation,
             Optional<Boolean> trustAzureAdfsEmailVerifiedConnectionProperty,
@@ -136,6 +139,7 @@ public final class TenantSettingsFlags {
         this.removeAlgFromJwks = removeAlgFromJwks;
         this.improvedSignupBotDetectionInClassic = improvedSignupBotDetectionInClassic;
         this.genaiTrial = genaiTrial;
+        this.localResourceDiscovery = localResourceDiscovery;
         this.enableDynamicClientRegistration = enableDynamicClientRegistration;
         this.disableManagementApiSmsObfuscation = disableManagementApiSmsObfuscation;
         this.trustAzureAdfsEmailVerifiedConnectionProperty = trustAzureAdfsEmailVerifiedConnectionProperty;
@@ -344,6 +348,14 @@ public final class TenantSettingsFlags {
     }
 
     /**
+     * @return Whether the Local Resource Discovery endpoint is enabled (true) or disabled (false).
+     */
+    @JsonProperty("local_resource_discovery")
+    public Optional<Boolean> getLocalResourceDiscovery() {
+        return localResourceDiscovery;
+    }
+
+    /**
      * @return Whether third-party developers can <a href="https://auth0.com/docs/api-auth/dynamic-client-registration">dynamically register</a> applications for your APIs (true) or not (false). This flag enables dynamic client registration.
      */
     @JsonProperty("enable_dynamic_client_registration")
@@ -413,6 +425,7 @@ public final class TenantSettingsFlags {
                 && removeAlgFromJwks.equals(other.removeAlgFromJwks)
                 && improvedSignupBotDetectionInClassic.equals(other.improvedSignupBotDetectionInClassic)
                 && genaiTrial.equals(other.genaiTrial)
+                && localResourceDiscovery.equals(other.localResourceDiscovery)
                 && enableDynamicClientRegistration.equals(other.enableDynamicClientRegistration)
                 && disableManagementApiSmsObfuscation.equals(other.disableManagementApiSmsObfuscation)
                 && trustAzureAdfsEmailVerifiedConnectionProperty.equals(
@@ -448,6 +461,7 @@ public final class TenantSettingsFlags {
                 this.removeAlgFromJwks,
                 this.improvedSignupBotDetectionInClassic,
                 this.genaiTrial,
+                this.localResourceDiscovery,
                 this.enableDynamicClientRegistration,
                 this.disableManagementApiSmsObfuscation,
                 this.trustAzureAdfsEmailVerifiedConnectionProperty,
@@ -515,6 +529,8 @@ public final class TenantSettingsFlags {
 
         private Optional<Boolean> genaiTrial = Optional.empty();
 
+        private Optional<Boolean> localResourceDiscovery = Optional.empty();
+
         private Optional<Boolean> enableDynamicClientRegistration = Optional.empty();
 
         private Optional<Boolean> disableManagementApiSmsObfuscation = Optional.empty();
@@ -554,6 +570,7 @@ public final class TenantSettingsFlags {
             removeAlgFromJwks(other.getRemoveAlgFromJwks());
             improvedSignupBotDetectionInClassic(other.getImprovedSignupBotDetectionInClassic());
             genaiTrial(other.getGenaiTrial());
+            localResourceDiscovery(other.getLocalResourceDiscovery());
             enableDynamicClientRegistration(other.getEnableDynamicClientRegistration());
             disableManagementApiSmsObfuscation(other.getDisableManagementApiSmsObfuscation());
             trustAzureAdfsEmailVerifiedConnectionProperty(other.getTrustAzureAdfsEmailVerifiedConnectionProperty());
@@ -915,6 +932,20 @@ public final class TenantSettingsFlags {
         }
 
         /**
+         * <p>Whether the Local Resource Discovery endpoint is enabled (true) or disabled (false).</p>
+         */
+        @JsonSetter(value = "local_resource_discovery", nulls = Nulls.SKIP)
+        public Builder localResourceDiscovery(Optional<Boolean> localResourceDiscovery) {
+            this.localResourceDiscovery = localResourceDiscovery;
+            return this;
+        }
+
+        public Builder localResourceDiscovery(Boolean localResourceDiscovery) {
+            this.localResourceDiscovery = Optional.ofNullable(localResourceDiscovery);
+            return this;
+        }
+
+        /**
          * <p>Whether third-party developers can <a href="https://auth0.com/docs/api-auth/dynamic-client-registration">dynamically register</a> applications for your APIs (true) or not (false). This flag enables dynamic client registration.</p>
          */
         @JsonSetter(value = "enable_dynamic_client_registration", nulls = Nulls.SKIP)
@@ -1000,6 +1031,7 @@ public final class TenantSettingsFlags {
                     removeAlgFromJwks,
                     improvedSignupBotDetectionInClassic,
                     genaiTrial,
+                    localResourceDiscovery,
                     enableDynamicClientRegistration,
                     disableManagementApiSmsObfuscation,
                     trustAzureAdfsEmailVerifiedConnectionProperty,

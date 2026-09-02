@@ -96,6 +96,10 @@ public final class ConnectionsOidcMetadata {
 
     private final Optional<String> endSessionEndpoint;
 
+    private final Optional<String> pushedAuthorizationRequestEndpoint;
+
+    private final Optional<Boolean> requirePushedAuthorizationRequests;
+
     private final Optional<List<String>> dpopSigningAlgValuesSupported;
 
     private final Map<String, Object> additionalProperties;
@@ -137,6 +141,8 @@ public final class ConnectionsOidcMetadata {
             Optional<String> opPolicyUri,
             Optional<String> opTosUri,
             Optional<String> endSessionEndpoint,
+            Optional<String> pushedAuthorizationRequestEndpoint,
+            Optional<Boolean> requirePushedAuthorizationRequests,
             Optional<List<String>> dpopSigningAlgValuesSupported,
             Map<String, Object> additionalProperties) {
         this.issuer = issuer;
@@ -175,6 +181,8 @@ public final class ConnectionsOidcMetadata {
         this.opPolicyUri = opPolicyUri;
         this.opTosUri = opTosUri;
         this.endSessionEndpoint = endSessionEndpoint;
+        this.pushedAuthorizationRequestEndpoint = pushedAuthorizationRequestEndpoint;
+        this.requirePushedAuthorizationRequests = requirePushedAuthorizationRequests;
         this.dpopSigningAlgValuesSupported = dpopSigningAlgValuesSupported;
         this.additionalProperties = additionalProperties;
     }
@@ -476,6 +484,22 @@ public final class ConnectionsOidcMetadata {
     }
 
     /**
+     * @return URL of the identity provider's Pushed Authorization Request (PAR) endpoint, as per https://datatracker.ietf.org/doc/html/rfc9126. Must use HTTPS scheme.
+     */
+    @JsonProperty("pushed_authorization_request_endpoint")
+    public Optional<String> getPushedAuthorizationRequestEndpoint() {
+        return pushedAuthorizationRequestEndpoint;
+    }
+
+    /**
+     * @return Boolean parameter indicating whether the identity provider requires Pushed Authorization Requests (PAR), as per https://datatracker.ietf.org/doc/html/rfc9126. Discovered from the identity provider's metadata; not used to decide whether the server performs PAR.
+     */
+    @JsonProperty("require_pushed_authorization_requests")
+    public Optional<Boolean> getRequirePushedAuthorizationRequests() {
+        return requirePushedAuthorizationRequests;
+    }
+
+    /**
      * @return JSON array containing a list of the JWS signing algorithms (alg values) supported for DPoP proof JWT signing.
      */
     @JsonProperty("dpop_signing_alg_values_supported")
@@ -543,6 +567,8 @@ public final class ConnectionsOidcMetadata {
                 && opPolicyUri.equals(other.opPolicyUri)
                 && opTosUri.equals(other.opTosUri)
                 && endSessionEndpoint.equals(other.endSessionEndpoint)
+                && pushedAuthorizationRequestEndpoint.equals(other.pushedAuthorizationRequestEndpoint)
+                && requirePushedAuthorizationRequests.equals(other.requirePushedAuthorizationRequests)
                 && dpopSigningAlgValuesSupported.equals(other.dpopSigningAlgValuesSupported);
     }
 
@@ -585,6 +611,8 @@ public final class ConnectionsOidcMetadata {
                 this.opPolicyUri,
                 this.opTosUri,
                 this.endSessionEndpoint,
+                this.pushedAuthorizationRequestEndpoint,
+                this.requirePushedAuthorizationRequests,
                 this.dpopSigningAlgValuesSupported);
     }
 
@@ -671,6 +699,10 @@ public final class ConnectionsOidcMetadata {
 
         private Optional<String> endSessionEndpoint = Optional.empty();
 
+        private Optional<String> pushedAuthorizationRequestEndpoint = Optional.empty();
+
+        private Optional<Boolean> requirePushedAuthorizationRequests = Optional.empty();
+
         private Optional<List<String>> dpopSigningAlgValuesSupported = Optional.empty();
 
         @JsonAnySetter
@@ -715,6 +747,8 @@ public final class ConnectionsOidcMetadata {
             opPolicyUri(other.getOpPolicyUri());
             opTosUri(other.getOpTosUri());
             endSessionEndpoint(other.getEndSessionEndpoint());
+            pushedAuthorizationRequestEndpoint(other.getPushedAuthorizationRequestEndpoint());
+            requirePushedAuthorizationRequests(other.getRequirePushedAuthorizationRequests());
             dpopSigningAlgValuesSupported(other.getDpopSigningAlgValuesSupported());
             return this;
         }
@@ -1276,6 +1310,34 @@ public final class ConnectionsOidcMetadata {
         }
 
         /**
+         * <p>URL of the identity provider's Pushed Authorization Request (PAR) endpoint, as per https://datatracker.ietf.org/doc/html/rfc9126. Must use HTTPS scheme.</p>
+         */
+        @JsonSetter(value = "pushed_authorization_request_endpoint", nulls = Nulls.SKIP)
+        public Builder pushedAuthorizationRequestEndpoint(Optional<String> pushedAuthorizationRequestEndpoint) {
+            this.pushedAuthorizationRequestEndpoint = pushedAuthorizationRequestEndpoint;
+            return this;
+        }
+
+        public Builder pushedAuthorizationRequestEndpoint(String pushedAuthorizationRequestEndpoint) {
+            this.pushedAuthorizationRequestEndpoint = Optional.ofNullable(pushedAuthorizationRequestEndpoint);
+            return this;
+        }
+
+        /**
+         * <p>Boolean parameter indicating whether the identity provider requires Pushed Authorization Requests (PAR), as per https://datatracker.ietf.org/doc/html/rfc9126. Discovered from the identity provider's metadata; not used to decide whether the server performs PAR.</p>
+         */
+        @JsonSetter(value = "require_pushed_authorization_requests", nulls = Nulls.SKIP)
+        public Builder requirePushedAuthorizationRequests(Optional<Boolean> requirePushedAuthorizationRequests) {
+            this.requirePushedAuthorizationRequests = requirePushedAuthorizationRequests;
+            return this;
+        }
+
+        public Builder requirePushedAuthorizationRequests(Boolean requirePushedAuthorizationRequests) {
+            this.requirePushedAuthorizationRequests = Optional.ofNullable(requirePushedAuthorizationRequests);
+            return this;
+        }
+
+        /**
          * <p>JSON array containing a list of the JWS signing algorithms (alg values) supported for DPoP proof JWT signing.</p>
          */
         @JsonSetter(value = "dpop_signing_alg_values_supported", nulls = Nulls.SKIP)
@@ -1327,6 +1389,8 @@ public final class ConnectionsOidcMetadata {
                     opPolicyUri,
                     opTosUri,
                     endSessionEndpoint,
+                    pushedAuthorizationRequestEndpoint,
+                    requirePushedAuthorizationRequests,
                     dpopSigningAlgValuesSupported,
                     additionalProperties);
         }

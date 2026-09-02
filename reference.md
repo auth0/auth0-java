@@ -2162,6 +2162,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dl>
 <dd>
 
+**b2BIntegrationConfiguration:** `Optional<B2BIntegrationConfiguration>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **myOrganizationConfiguration:** `Optional<ClientMyOrganizationPostConfiguration>` 
     
 </dd>
@@ -2951,6 +2959,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dl>
 <dd>
 
+**b2BIntegrationConfiguration:** `Optional<B2BIntegrationConfiguration>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **myOrganizationConfiguration:** `Optional<ClientMyOrganizationPatchConfiguration>` 
     
 </dd>
@@ -3202,6 +3218,14 @@ client.connectionProfiles().create(
 <dd>
 
 **strategyOverrides:** `Optional<ConnectionProfileStrategyOverrides>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provisioning:** `Optional<ConnectionProfileProvisioning>` 
     
 </dd>
 </dl>
@@ -3518,6 +3542,14 @@ client.connectionProfiles().update(
 <dd>
 
 **strategyOverrides:** `Optional<ConnectionProfileStrategyOverrides>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provisioning:** `Optional<ConnectionProfileProvisioning>` 
     
 </dd>
 </dl>
@@ -9021,6 +9053,527 @@ client.networkAcls().update(
 <dd>
 
 **rule:** `Optional<NetworkAclRule>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## OrganizationTemplates
+<details><summary><code>client.organizationTemplates.list() -> SyncPagingIterable&amp;lt;OrganizationTemplate&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of Organization Templates. This endpoint supports Checkpoint pagination. Results are returned in a stable order, sorted by their identifier (`id`) in ascending order.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizationTemplates().list(
+    ListOrganizationTemplatesRequestParameters
+        .builder()
+        .from("from")
+        .take(1)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results per page. Defaults to 5. Values greater than 10 are capped at 10.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizationTemplates.create(request) -> OrganizationTemplate</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create an Organization Template.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizationTemplates().create(
+    CreateOrganizationTemplateRequestContent
+        .builder()
+        .name("name")
+        .organizationDeletionBehavior(OrganizationDeletionBehaviorEnum.ALLOW)
+        .enforcePermissionCeiling(true)
+        .enforceSelfAssignmentRestriction(true)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `String` — The name of the organization template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**isDefault:** `Optional<Boolean>` — Whether this is the default template applied to new organizations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organizationDeletionBehavior:** `OrganizationDeletionBehaviorEnum` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connectionDeletionBehavior:** `Optional<ConnectionDeletionBehaviorEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enforcePermissionCeiling:** `Boolean` — Whether to enforce permission ceiling for organizations using this template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enforceSelfAssignmentRestriction:** `Boolean` — Whether to enforce self-assignment restrictions for organizations using this template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connectionProfileId:** `Optional<String>` — The connection profile to apply to new connections.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userAttributeProfileId:** `Optional<String>` — The user attribute profile to apply to organizations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allowedStrategies:** `Optional<List<OrganizationTemplateAllowedStrategyEnum>>` — List of allowed connection strategies for this template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**invitationLandingClientId:** `Optional<String>` — The client ID for the invitation landing page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**adminRolesAssignment:** `Optional<List<String>>` — Default admin roles to assign to organization creators.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**useForOrganizationDiscovery:** `Optional<OrganizationTemplateUseForOrganizationDiscovery>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**roleVisibilityPolicy:** `Optional<OrganizationTemplateRoleVisibilityPolicy>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizationTemplates.get(id) -> OrganizationTemplate</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details about a single Organization Template specified by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizationTemplates().get("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — Organization Template identifier.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizationTemplates.update(id, request) -> OrganizationTemplate</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the details of a specific Organization Template.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizationTemplates().update(
+    "id",
+    UpdateOrganizationTemplateRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — Organization Template identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `Optional<String>` — The name of the organization template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**isDefault:** `Optional<Boolean>` — Whether this is the default template applied to new organizations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organizationDeletionBehavior:** `Optional<OrganizationDeletionBehaviorEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connectionDeletionBehavior:** `Optional<ConnectionDeletionBehaviorEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enforcePermissionCeiling:** `Optional<Boolean>` — Whether to enforce permission ceiling for organizations using this template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enforceSelfAssignmentRestriction:** `Optional<Boolean>` — Whether to enforce self-assignment restrictions for organizations using this template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connectionProfileId:** `Optional<String>` — The connection profile to apply to new connections.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userAttributeProfileId:** `Optional<String>` — The user attribute profile to apply to organizations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allowedStrategies:** `Optional<List<OrganizationTemplateAllowedStrategyEnum>>` — List of allowed connection strategies for this template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**invitationLandingClientId:** `Optional<String>` — The client ID for the invitation landing page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**adminRolesAssignment:** `Optional<List<String>>` — Default admin roles to assign to organization creators.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**useForOrganizationDiscovery:** `Optional<OrganizationTemplateUseForOrganizationDiscovery>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**roleVisibilityPolicy:** `Optional<OrganizationTemplateRoleVisibilityPolicy>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizationTemplates.listOrganizations(id) -> SyncPagingIterable&amp;lt;OrganizationTemplateAssignedOrganization&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of organizations assigned to an Organization Template. This endpoint supports Checkpoint pagination. Results are returned in a stable order, sorted by their identifier (`id`) in ascending order.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizationTemplates().listOrganizations(
+    "id",
+    ListTemplateOrganizationsRequestParameters
+        .builder()
+        .from("from")
+        .take(1)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of the organization template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results per page. Defaults to 5. Values greater than 10 are capped at 10.
     
 </dd>
 </dl>
@@ -25567,6 +26120,60 @@ client.keys().networkAcls().get("id");
 </dl>
 </details>
 
+<details><summary><code>client.keys.networkAcls.delete(id)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a key used to verify HTTP Message Signatures on Network ACL rules
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.keys().networkAcls().delete("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the Network ACL Key to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Keys Signing
 <details><summary><code>client.keys.signing.list() -> List&amp;lt;SigningKeys&amp;gt;</code></summary>
 <dl>
@@ -28156,6 +28763,185 @@ client.organizations().members().delete(
 <dd>
 
 **members:** `List<String>` — List of user IDs to remove from the organization.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Organizations OrganizationTemplate
+<details><summary><code>client.organizations.organizationTemplate.get(id) -> OrganizationTemplate</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the organization template assigned to a specific organization. Returns the template object if one is explicitly assigned, or a 404 if no template is assigned.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().organizationTemplate().get("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the organization.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.organizationTemplate.assignOrganizationTemplate(id, templateId)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Assign an Organization Template to an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().organizationTemplate().assignOrganizationTemplate("id", "template_id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateId:** `String` — The ID of the organization template to assign.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.organizationTemplate.unassignOrganizationTemplate(id, templateId)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove an Organization Template assignment from an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().organizationTemplate().unassignOrganizationTemplate("id", "template_id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateId:** `String` — The ID of the organization template to unassign.
     
 </dd>
 </dl>
@@ -32897,6 +33683,22 @@ client.users().multifactor().deleteProvider("id", UserMultifactorProviderEnum.DU
 <dd>
 
 Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review [Auth0 Organizations](https://auth0.com/docs/manage-users/organizations).
+
+This endpoint supports two types of pagination:
+
+- Offset pagination
+- Checkpoint pagination
+
+Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.
+
+**Checkpoint Pagination**
+
+To search by checkpoint, use the following parameters:
+
+- `from`: Optional id from which to start selection.
+- `take`: The total number of entries to retrieve when using the `from` parameter. Defaults to 50.
+
+**Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 </dd>
 </dl>
 </dd>

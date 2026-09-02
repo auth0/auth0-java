@@ -15,6 +15,7 @@ import com.auth0.client.mgmt.organizations.EnabledConnectionsClient;
 import com.auth0.client.mgmt.organizations.GroupsClient;
 import com.auth0.client.mgmt.organizations.InvitationsClient;
 import com.auth0.client.mgmt.organizations.MembersClient;
+import com.auth0.client.mgmt.organizations.OrganizationTemplateClient;
 import com.auth0.client.mgmt.organizations.roles.RolesClient;
 import com.auth0.client.mgmt.types.CreateOrganizationRequestContent;
 import com.auth0.client.mgmt.types.CreateOrganizationResponseContent;
@@ -45,6 +46,8 @@ public class OrganizationsClient {
 
     protected final Supplier<MembersClient> membersClient;
 
+    protected final Supplier<OrganizationTemplateClient> organizationTemplateClient;
+
     protected final Supplier<GroupsClient> groupsClient;
 
     protected final Supplier<RolesClient> rolesClient;
@@ -59,6 +62,7 @@ public class OrganizationsClient {
         this.enabledConnectionsClient = Suppliers.memoize(() -> new EnabledConnectionsClient(clientOptions));
         this.invitationsClient = Suppliers.memoize(() -> new InvitationsClient(clientOptions));
         this.membersClient = Suppliers.memoize(() -> new MembersClient(clientOptions));
+        this.organizationTemplateClient = Suppliers.memoize(() -> new OrganizationTemplateClient(clientOptions));
         this.groupsClient = Suppliers.memoize(() -> new GroupsClient(clientOptions));
         this.rolesClient = Suppliers.memoize(() -> new RolesClient(clientOptions));
     }
@@ -265,6 +269,10 @@ public class OrganizationsClient {
 
     public MembersClient members() {
         return this.membersClient.get();
+    }
+
+    public OrganizationTemplateClient organizationTemplate() {
+        return this.organizationTemplateClient.get();
     }
 
     public GroupsClient groups() {

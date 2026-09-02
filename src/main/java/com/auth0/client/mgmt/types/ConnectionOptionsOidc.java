@@ -37,6 +37,8 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
 
     private final Optional<ConnectionDpopSigningAlgEnum> dpopSigningAlg;
 
+    private final Optional<Boolean> enablePushedAuthorizationRequests;
+
     private final Optional<String> iconUrl;
 
     private final Optional<Boolean> idTokenSessionExpirySupported;
@@ -48,6 +50,8 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
     private final Optional<String> jwksUri;
 
     private final Optional<ConnectionOptionsOidcMetadata> oidcMetadata;
+
+    private final Optional<String> pushedAuthorizationRequestEndpoint;
 
     private final Optional<String> scope;
 
@@ -89,12 +93,14 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
             Optional<ConnectionConnectionSettings> connectionSettings,
             Optional<List<String>> domainAliases,
             Optional<ConnectionDpopSigningAlgEnum> dpopSigningAlg,
+            Optional<Boolean> enablePushedAuthorizationRequests,
             Optional<String> iconUrl,
             Optional<Boolean> idTokenSessionExpirySupported,
             OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs,
             Optional<String> issuer,
             Optional<String> jwksUri,
             Optional<ConnectionOptionsOidcMetadata> oidcMetadata,
+            Optional<String> pushedAuthorizationRequestEndpoint,
             Optional<String> scope,
             Optional<Boolean> sendBackChannelNonce,
             Optional<ConnectionSetUserRootAttributesEnum> setUserRootAttributes,
@@ -117,12 +123,14 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         this.connectionSettings = connectionSettings;
         this.domainAliases = domainAliases;
         this.dpopSigningAlg = dpopSigningAlg;
+        this.enablePushedAuthorizationRequests = enablePushedAuthorizationRequests;
         this.iconUrl = iconUrl;
         this.idTokenSessionExpirySupported = idTokenSessionExpirySupported;
         this.idTokenSignedResponseAlgs = idTokenSignedResponseAlgs;
         this.issuer = issuer;
         this.jwksUri = jwksUri;
         this.oidcMetadata = oidcMetadata;
+        this.pushedAuthorizationRequestEndpoint = pushedAuthorizationRequestEndpoint;
         this.scope = scope;
         this.sendBackChannelNonce = sendBackChannelNonce;
         this.setUserRootAttributes = setUserRootAttributes;
@@ -177,6 +185,12 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         return dpopSigningAlg;
     }
 
+    @JsonProperty("enable_pushed_authorization_requests")
+    @java.lang.Override
+    public Optional<Boolean> getEnablePushedAuthorizationRequests() {
+        return enablePushedAuthorizationRequests;
+    }
+
     @JsonProperty("icon_url")
     @java.lang.Override
     public Optional<String> getIconUrl() {
@@ -215,6 +229,12 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
     @java.lang.Override
     public Optional<ConnectionOptionsOidcMetadata> getOidcMetadata() {
         return oidcMetadata;
+    }
+
+    @JsonProperty("pushed_authorization_request_endpoint")
+    @java.lang.Override
+    public Optional<String> getPushedAuthorizationRequestEndpoint() {
+        return pushedAuthorizationRequestEndpoint;
     }
 
     @JsonProperty("scope")
@@ -359,12 +379,14 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                 && connectionSettings.equals(other.connectionSettings)
                 && domainAliases.equals(other.domainAliases)
                 && dpopSigningAlg.equals(other.dpopSigningAlg)
+                && enablePushedAuthorizationRequests.equals(other.enablePushedAuthorizationRequests)
                 && iconUrl.equals(other.iconUrl)
                 && idTokenSessionExpirySupported.equals(other.idTokenSessionExpirySupported)
                 && idTokenSignedResponseAlgs.equals(other.idTokenSignedResponseAlgs)
                 && issuer.equals(other.issuer)
                 && jwksUri.equals(other.jwksUri)
                 && oidcMetadata.equals(other.oidcMetadata)
+                && pushedAuthorizationRequestEndpoint.equals(other.pushedAuthorizationRequestEndpoint)
                 && scope.equals(other.scope)
                 && sendBackChannelNonce.equals(other.sendBackChannelNonce)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
@@ -391,12 +413,14 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                 this.connectionSettings,
                 this.domainAliases,
                 this.dpopSigningAlg,
+                this.enablePushedAuthorizationRequests,
                 this.iconUrl,
                 this.idTokenSessionExpirySupported,
                 this.idTokenSignedResponseAlgs,
                 this.issuer,
                 this.jwksUri,
                 this.oidcMetadata,
+                this.pushedAuthorizationRequestEndpoint,
                 this.scope,
                 this.sendBackChannelNonce,
                 this.setUserRootAttributes,
@@ -456,6 +480,10 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
 
         _FinalStage dpopSigningAlg(ConnectionDpopSigningAlgEnum dpopSigningAlg);
 
+        _FinalStage enablePushedAuthorizationRequests(Optional<Boolean> enablePushedAuthorizationRequests);
+
+        _FinalStage enablePushedAuthorizationRequests(Boolean enablePushedAuthorizationRequests);
+
         _FinalStage iconUrl(Optional<String> iconUrl);
 
         _FinalStage iconUrl(String iconUrl);
@@ -487,6 +515,10 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         _FinalStage oidcMetadata(Optional<ConnectionOptionsOidcMetadata> oidcMetadata);
 
         _FinalStage oidcMetadata(ConnectionOptionsOidcMetadata oidcMetadata);
+
+        _FinalStage pushedAuthorizationRequestEndpoint(Optional<String> pushedAuthorizationRequestEndpoint);
+
+        _FinalStage pushedAuthorizationRequestEndpoint(String pushedAuthorizationRequestEndpoint);
 
         _FinalStage scope(Optional<String> scope);
 
@@ -614,6 +646,8 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
 
         private Optional<String> scope = Optional.empty();
 
+        private Optional<String> pushedAuthorizationRequestEndpoint = Optional.empty();
+
         private Optional<ConnectionOptionsOidcMetadata> oidcMetadata = Optional.empty();
 
         private Optional<String> jwksUri = Optional.empty();
@@ -626,6 +660,8 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         private Optional<Boolean> idTokenSessionExpirySupported = Optional.empty();
 
         private Optional<String> iconUrl = Optional.empty();
+
+        private Optional<Boolean> enablePushedAuthorizationRequests = Optional.empty();
 
         private Optional<ConnectionDpopSigningAlgEnum> dpopSigningAlg = Optional.empty();
 
@@ -650,12 +686,14 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
             connectionSettings(other.getConnectionSettings());
             domainAliases(other.getDomainAliases());
             dpopSigningAlg(other.getDpopSigningAlg());
+            enablePushedAuthorizationRequests(other.getEnablePushedAuthorizationRequests());
             iconUrl(other.getIconUrl());
             idTokenSessionExpirySupported(other.getIdTokenSessionExpirySupported());
             idTokenSignedResponseAlgs(other.getIdTokenSignedResponseAlgs());
             issuer(other.getIssuer());
             jwksUri(other.getJwksUri());
             oidcMetadata(other.getOidcMetadata());
+            pushedAuthorizationRequestEndpoint(other.getPushedAuthorizationRequestEndpoint());
             scope(other.getScope());
             sendBackChannelNonce(other.getSendBackChannelNonce());
             setUserRootAttributes(other.getSetUserRootAttributes());
@@ -961,6 +999,19 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         }
 
         @java.lang.Override
+        public _FinalStage pushedAuthorizationRequestEndpoint(String pushedAuthorizationRequestEndpoint) {
+            this.pushedAuthorizationRequestEndpoint = Optional.ofNullable(pushedAuthorizationRequestEndpoint);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "pushed_authorization_request_endpoint", nulls = Nulls.SKIP)
+        public _FinalStage pushedAuthorizationRequestEndpoint(Optional<String> pushedAuthorizationRequestEndpoint) {
+            this.pushedAuthorizationRequestEndpoint = pushedAuthorizationRequestEndpoint;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage oidcMetadata(ConnectionOptionsOidcMetadata oidcMetadata) {
             this.oidcMetadata = Optional.ofNullable(oidcMetadata);
             return this;
@@ -1066,6 +1117,19 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
         }
 
         @java.lang.Override
+        public _FinalStage enablePushedAuthorizationRequests(Boolean enablePushedAuthorizationRequests) {
+            this.enablePushedAuthorizationRequests = Optional.ofNullable(enablePushedAuthorizationRequests);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "enable_pushed_authorization_requests", nulls = Nulls.SKIP)
+        public _FinalStage enablePushedAuthorizationRequests(Optional<Boolean> enablePushedAuthorizationRequests) {
+            this.enablePushedAuthorizationRequests = enablePushedAuthorizationRequests;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage dpopSigningAlg(ConnectionDpopSigningAlgEnum dpopSigningAlg) {
             this.dpopSigningAlg = Optional.ofNullable(dpopSigningAlg);
             return this;
@@ -1139,12 +1203,14 @@ public final class ConnectionOptionsOidc implements IConnectionOptionsCommonOidc
                     connectionSettings,
                     domainAliases,
                     dpopSigningAlg,
+                    enablePushedAuthorizationRequests,
                     iconUrl,
                     idTokenSessionExpirySupported,
                     idTokenSignedResponseAlgs,
                     issuer,
                     jwksUri,
                     oidcMetadata,
+                    pushedAuthorizationRequestEndpoint,
                     scope,
                     sendBackChannelNonce,
                     setUserRootAttributes,

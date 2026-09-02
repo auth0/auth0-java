@@ -60,6 +60,8 @@ public final class ConnectionOptionsOidcMetadata {
 
     private final Optional<String> opTosUri;
 
+    private final Optional<String> pushedAuthorizationRequestEndpoint;
+
     private final Optional<String> registrationEndpoint;
 
     private final Optional<List<String>> requestObjectEncryptionAlgValuesSupported;
@@ -71,6 +73,8 @@ public final class ConnectionOptionsOidcMetadata {
     private final Optional<Boolean> requestParameterSupported;
 
     private final Optional<Boolean> requestUriParameterSupported;
+
+    private final Optional<Boolean> requirePushedAuthorizationRequests;
 
     private final Optional<Boolean> requireRequestUriRegistration;
 
@@ -120,12 +124,14 @@ public final class ConnectionOptionsOidcMetadata {
             String jwksUri,
             Optional<String> opPolicyUri,
             Optional<String> opTosUri,
+            Optional<String> pushedAuthorizationRequestEndpoint,
             Optional<String> registrationEndpoint,
             Optional<List<String>> requestObjectEncryptionAlgValuesSupported,
             Optional<List<String>> requestObjectEncryptionEncValuesSupported,
             Optional<List<String>> requestObjectSigningAlgValuesSupported,
             Optional<Boolean> requestParameterSupported,
             Optional<Boolean> requestUriParameterSupported,
+            Optional<Boolean> requirePushedAuthorizationRequests,
             Optional<Boolean> requireRequestUriRegistration,
             Optional<List<String>> responseModesSupported,
             Optional<List<String>> responseTypesSupported,
@@ -158,12 +164,14 @@ public final class ConnectionOptionsOidcMetadata {
         this.jwksUri = jwksUri;
         this.opPolicyUri = opPolicyUri;
         this.opTosUri = opTosUri;
+        this.pushedAuthorizationRequestEndpoint = pushedAuthorizationRequestEndpoint;
         this.registrationEndpoint = registrationEndpoint;
         this.requestObjectEncryptionAlgValuesSupported = requestObjectEncryptionAlgValuesSupported;
         this.requestObjectEncryptionEncValuesSupported = requestObjectEncryptionEncValuesSupported;
         this.requestObjectSigningAlgValuesSupported = requestObjectSigningAlgValuesSupported;
         this.requestParameterSupported = requestParameterSupported;
         this.requestUriParameterSupported = requestUriParameterSupported;
+        this.requirePushedAuthorizationRequests = requirePushedAuthorizationRequests;
         this.requireRequestUriRegistration = requireRequestUriRegistration;
         this.responseModesSupported = responseModesSupported;
         this.responseTypesSupported = responseTypesSupported;
@@ -266,6 +274,11 @@ public final class ConnectionOptionsOidcMetadata {
         return opTosUri;
     }
 
+    @JsonProperty("pushed_authorization_request_endpoint")
+    public Optional<String> getPushedAuthorizationRequestEndpoint() {
+        return pushedAuthorizationRequestEndpoint;
+    }
+
     @JsonProperty("registration_endpoint")
     public Optional<String> getRegistrationEndpoint() {
         return registrationEndpoint;
@@ -294,6 +307,11 @@ public final class ConnectionOptionsOidcMetadata {
     @JsonProperty("request_uri_parameter_supported")
     public Optional<Boolean> getRequestUriParameterSupported() {
         return requestUriParameterSupported;
+    }
+
+    @JsonProperty("require_pushed_authorization_requests")
+    public Optional<Boolean> getRequirePushedAuthorizationRequests() {
+        return requirePushedAuthorizationRequests;
     }
 
     @JsonProperty("require_request_uri_registration")
@@ -405,12 +423,14 @@ public final class ConnectionOptionsOidcMetadata {
                 && jwksUri.equals(other.jwksUri)
                 && opPolicyUri.equals(other.opPolicyUri)
                 && opTosUri.equals(other.opTosUri)
+                && pushedAuthorizationRequestEndpoint.equals(other.pushedAuthorizationRequestEndpoint)
                 && registrationEndpoint.equals(other.registrationEndpoint)
                 && requestObjectEncryptionAlgValuesSupported.equals(other.requestObjectEncryptionAlgValuesSupported)
                 && requestObjectEncryptionEncValuesSupported.equals(other.requestObjectEncryptionEncValuesSupported)
                 && requestObjectSigningAlgValuesSupported.equals(other.requestObjectSigningAlgValuesSupported)
                 && requestParameterSupported.equals(other.requestParameterSupported)
                 && requestUriParameterSupported.equals(other.requestUriParameterSupported)
+                && requirePushedAuthorizationRequests.equals(other.requirePushedAuthorizationRequests)
                 && requireRequestUriRegistration.equals(other.requireRequestUriRegistration)
                 && responseModesSupported.equals(other.responseModesSupported)
                 && responseTypesSupported.equals(other.responseTypesSupported)
@@ -447,12 +467,14 @@ public final class ConnectionOptionsOidcMetadata {
                 this.jwksUri,
                 this.opPolicyUri,
                 this.opTosUri,
+                this.pushedAuthorizationRequestEndpoint,
                 this.registrationEndpoint,
                 this.requestObjectEncryptionAlgValuesSupported,
                 this.requestObjectEncryptionEncValuesSupported,
                 this.requestObjectSigningAlgValuesSupported,
                 this.requestParameterSupported,
                 this.requestUriParameterSupported,
+                this.requirePushedAuthorizationRequests,
                 this.requireRequestUriRegistration,
                 this.responseModesSupported,
                 this.responseTypesSupported,
@@ -557,6 +579,10 @@ public final class ConnectionOptionsOidcMetadata {
 
         _FinalStage opTosUri(String opTosUri);
 
+        _FinalStage pushedAuthorizationRequestEndpoint(Optional<String> pushedAuthorizationRequestEndpoint);
+
+        _FinalStage pushedAuthorizationRequestEndpoint(String pushedAuthorizationRequestEndpoint);
+
         _FinalStage registrationEndpoint(Optional<String> registrationEndpoint);
 
         _FinalStage registrationEndpoint(String registrationEndpoint);
@@ -583,6 +609,10 @@ public final class ConnectionOptionsOidcMetadata {
         _FinalStage requestUriParameterSupported(Optional<Boolean> requestUriParameterSupported);
 
         _FinalStage requestUriParameterSupported(Boolean requestUriParameterSupported);
+
+        _FinalStage requirePushedAuthorizationRequests(Optional<Boolean> requirePushedAuthorizationRequests);
+
+        _FinalStage requirePushedAuthorizationRequests(Boolean requirePushedAuthorizationRequests);
 
         _FinalStage requireRequestUriRegistration(Optional<Boolean> requireRequestUriRegistration);
 
@@ -682,6 +712,8 @@ public final class ConnectionOptionsOidcMetadata {
 
         private Optional<Boolean> requireRequestUriRegistration = Optional.empty();
 
+        private Optional<Boolean> requirePushedAuthorizationRequests = Optional.empty();
+
         private Optional<Boolean> requestUriParameterSupported = Optional.empty();
 
         private Optional<Boolean> requestParameterSupported = Optional.empty();
@@ -693,6 +725,8 @@ public final class ConnectionOptionsOidcMetadata {
         private Optional<List<String>> requestObjectEncryptionAlgValuesSupported = Optional.empty();
 
         private Optional<String> registrationEndpoint = Optional.empty();
+
+        private Optional<String> pushedAuthorizationRequestEndpoint = Optional.empty();
 
         private Optional<String> opTosUri = Optional.empty();
 
@@ -746,12 +780,14 @@ public final class ConnectionOptionsOidcMetadata {
             jwksUri(other.getJwksUri());
             opPolicyUri(other.getOpPolicyUri());
             opTosUri(other.getOpTosUri());
+            pushedAuthorizationRequestEndpoint(other.getPushedAuthorizationRequestEndpoint());
             registrationEndpoint(other.getRegistrationEndpoint());
             requestObjectEncryptionAlgValuesSupported(other.getRequestObjectEncryptionAlgValuesSupported());
             requestObjectEncryptionEncValuesSupported(other.getRequestObjectEncryptionEncValuesSupported());
             requestObjectSigningAlgValuesSupported(other.getRequestObjectSigningAlgValuesSupported());
             requestParameterSupported(other.getRequestParameterSupported());
             requestUriParameterSupported(other.getRequestUriParameterSupported());
+            requirePushedAuthorizationRequests(other.getRequirePushedAuthorizationRequests());
             requireRequestUriRegistration(other.getRequireRequestUriRegistration());
             responseModesSupported(other.getResponseModesSupported());
             responseTypesSupported(other.getResponseTypesSupported());
@@ -1001,6 +1037,19 @@ public final class ConnectionOptionsOidcMetadata {
         }
 
         @java.lang.Override
+        public _FinalStage requirePushedAuthorizationRequests(Boolean requirePushedAuthorizationRequests) {
+            this.requirePushedAuthorizationRequests = Optional.ofNullable(requirePushedAuthorizationRequests);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "require_pushed_authorization_requests", nulls = Nulls.SKIP)
+        public _FinalStage requirePushedAuthorizationRequests(Optional<Boolean> requirePushedAuthorizationRequests) {
+            this.requirePushedAuthorizationRequests = requirePushedAuthorizationRequests;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage requestUriParameterSupported(Boolean requestUriParameterSupported) {
             this.requestUriParameterSupported = Optional.ofNullable(requestUriParameterSupported);
             return this;
@@ -1082,6 +1131,19 @@ public final class ConnectionOptionsOidcMetadata {
         @JsonSetter(value = "registration_endpoint", nulls = Nulls.SKIP)
         public _FinalStage registrationEndpoint(Optional<String> registrationEndpoint) {
             this.registrationEndpoint = registrationEndpoint;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage pushedAuthorizationRequestEndpoint(String pushedAuthorizationRequestEndpoint) {
+            this.pushedAuthorizationRequestEndpoint = Optional.ofNullable(pushedAuthorizationRequestEndpoint);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "pushed_authorization_request_endpoint", nulls = Nulls.SKIP)
+        public _FinalStage pushedAuthorizationRequestEndpoint(Optional<String> pushedAuthorizationRequestEndpoint) {
+            this.pushedAuthorizationRequestEndpoint = pushedAuthorizationRequestEndpoint;
             return this;
         }
 
@@ -1300,12 +1362,14 @@ public final class ConnectionOptionsOidcMetadata {
                     jwksUri,
                     opPolicyUri,
                     opTosUri,
+                    pushedAuthorizationRequestEndpoint,
                     registrationEndpoint,
                     requestObjectEncryptionAlgValuesSupported,
                     requestObjectEncryptionEncValuesSupported,
                     requestObjectSigningAlgValuesSupported,
                     requestParameterSupported,
                     requestUriParameterSupported,
+                    requirePushedAuthorizationRequests,
                     requireRequestUriRegistration,
                     responseModesSupported,
                     responseTypesSupported,

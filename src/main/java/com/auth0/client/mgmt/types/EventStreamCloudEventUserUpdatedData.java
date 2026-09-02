@@ -23,15 +23,19 @@ import org.jetbrains.annotations.NotNull;
 public final class EventStreamCloudEventUserUpdatedData {
     private final EventStreamCloudEventUserUpdatedObject object;
 
+    private final Optional<EventStreamCloudEventUserUpdatedPreviousObject> previousObject;
+
     private final Optional<EventStreamCloudEventContext> context;
 
     private final Map<String, Object> additionalProperties;
 
     private EventStreamCloudEventUserUpdatedData(
             EventStreamCloudEventUserUpdatedObject object,
+            Optional<EventStreamCloudEventUserUpdatedPreviousObject> previousObject,
             Optional<EventStreamCloudEventContext> context,
             Map<String, Object> additionalProperties) {
         this.object = object;
+        this.previousObject = previousObject;
         this.context = context;
         this.additionalProperties = additionalProperties;
     }
@@ -39,6 +43,11 @@ public final class EventStreamCloudEventUserUpdatedData {
     @JsonProperty("object")
     public EventStreamCloudEventUserUpdatedObject getObject() {
         return object;
+    }
+
+    @JsonProperty("previous_object")
+    public Optional<EventStreamCloudEventUserUpdatedPreviousObject> getPreviousObject() {
+        return previousObject;
     }
 
     @JsonProperty("context")
@@ -59,12 +68,14 @@ public final class EventStreamCloudEventUserUpdatedData {
     }
 
     private boolean equalTo(EventStreamCloudEventUserUpdatedData other) {
-        return object.equals(other.object) && context.equals(other.context);
+        return object.equals(other.object)
+                && previousObject.equals(other.previousObject)
+                && context.equals(other.context);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.object, this.context);
+        return Objects.hash(this.object, this.previousObject, this.context);
     }
 
     @java.lang.Override
@@ -89,6 +100,10 @@ public final class EventStreamCloudEventUserUpdatedData {
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
+        _FinalStage previousObject(Optional<EventStreamCloudEventUserUpdatedPreviousObject> previousObject);
+
+        _FinalStage previousObject(EventStreamCloudEventUserUpdatedPreviousObject previousObject);
+
         _FinalStage context(Optional<EventStreamCloudEventContext> context);
 
         _FinalStage context(EventStreamCloudEventContext context);
@@ -100,6 +115,8 @@ public final class EventStreamCloudEventUserUpdatedData {
 
         private Optional<EventStreamCloudEventContext> context = Optional.empty();
 
+        private Optional<EventStreamCloudEventUserUpdatedPreviousObject> previousObject = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -108,6 +125,7 @@ public final class EventStreamCloudEventUserUpdatedData {
         @java.lang.Override
         public Builder from(EventStreamCloudEventUserUpdatedData other) {
             object(other.getObject());
+            previousObject(other.getPreviousObject());
             context(other.getContext());
             return this;
         }
@@ -133,8 +151,21 @@ public final class EventStreamCloudEventUserUpdatedData {
         }
 
         @java.lang.Override
+        public _FinalStage previousObject(EventStreamCloudEventUserUpdatedPreviousObject previousObject) {
+            this.previousObject = Optional.ofNullable(previousObject);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "previous_object", nulls = Nulls.SKIP)
+        public _FinalStage previousObject(Optional<EventStreamCloudEventUserUpdatedPreviousObject> previousObject) {
+            this.previousObject = previousObject;
+            return this;
+        }
+
+        @java.lang.Override
         public EventStreamCloudEventUserUpdatedData build() {
-            return new EventStreamCloudEventUserUpdatedData(object, context, additionalProperties);
+            return new EventStreamCloudEventUserUpdatedData(object, previousObject, context, additionalProperties);
         }
 
         @java.lang.Override

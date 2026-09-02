@@ -28,7 +28,7 @@ public final class CrossAppAccessRequestingApp {
     }
 
     /**
-     * @return Set to <code>true</code> to enable the connection as a Requesting Application for Cross App Access.
+     * @return Set to <code>true</code> to enable the connection as a Requesting Application for Cross App Access. On <code>oidc</code> connections this requires <code>options.type</code> to be <code>back_channel</code>. Setting <code>false</code> is always accepted, so the role can be turned off even if the tenant or connection no longer supports it.
      */
     @JsonProperty("active")
     public boolean getActive() {
@@ -66,7 +66,7 @@ public final class CrossAppAccessRequestingApp {
 
     public interface ActiveStage {
         /**
-         * <p>Set to <code>true</code> to enable the connection as a Requesting Application for Cross App Access.</p>
+         * <p>Set to <code>true</code> to enable the connection as a Requesting Application for Cross App Access. On <code>oidc</code> connections this requires <code>options.type</code> to be <code>back_channel</code>. Setting <code>false</code> is always accepted, so the role can be turned off even if the tenant or connection no longer supports it.</p>
          */
         _FinalStage active(boolean active);
 
@@ -97,7 +97,7 @@ public final class CrossAppAccessRequestingApp {
         }
 
         /**
-         * <p>Set to <code>true</code> to enable the connection as a Requesting Application for Cross App Access.</p>
+         * <p>Set to <code>true</code> to enable the connection as a Requesting Application for Cross App Access. On <code>oidc</code> connections this requires <code>options.type</code> to be <code>back_channel</code>. Setting <code>false</code> is always accepted, so the role can be turned off even if the tenant or connection no longer supports it.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
