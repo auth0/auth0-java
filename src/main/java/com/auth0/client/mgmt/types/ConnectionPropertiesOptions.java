@@ -91,6 +91,10 @@ public final class ConnectionPropertiesOptions {
 
     private final Optional<ConnectionDpopSigningAlgEnum> dpopSigningAlg;
 
+    private final Optional<Boolean> enablePushedAuthorizationRequests;
+
+    private final Optional<String> pushedAuthorizationRequestEndpoint;
+
     private final OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod;
 
     private final OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg;
@@ -141,6 +145,8 @@ public final class ConnectionPropertiesOptions {
             Optional<ConnectionAssertionDecryptionSettings> assertionDecryptionSettings,
             OptionalNullable<List<ConnectionIdTokenSignedResponseAlgEnum>> idTokenSignedResponseAlgs,
             Optional<ConnectionDpopSigningAlgEnum> dpopSigningAlg,
+            Optional<Boolean> enablePushedAuthorizationRequests,
+            Optional<String> pushedAuthorizationRequestEndpoint,
             OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod,
             OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg,
             Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
@@ -182,6 +188,8 @@ public final class ConnectionPropertiesOptions {
         this.assertionDecryptionSettings = assertionDecryptionSettings;
         this.idTokenSignedResponseAlgs = idTokenSignedResponseAlgs;
         this.dpopSigningAlg = dpopSigningAlg;
+        this.enablePushedAuthorizationRequests = enablePushedAuthorizationRequests;
+        this.pushedAuthorizationRequestEndpoint = pushedAuthorizationRequestEndpoint;
         this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
         this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
         this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
@@ -427,6 +435,16 @@ public final class ConnectionPropertiesOptions {
         return dpopSigningAlg;
     }
 
+    @JsonProperty("enable_pushed_authorization_requests")
+    public Optional<Boolean> getEnablePushedAuthorizationRequests() {
+        return enablePushedAuthorizationRequests;
+    }
+
+    @JsonProperty("pushed_authorization_request_endpoint")
+    public Optional<String> getPushedAuthorizationRequestEndpoint() {
+        return pushedAuthorizationRequestEndpoint;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_endpoint_auth_method")
     public OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> getTokenEndpointAuthMethod() {
@@ -626,6 +644,8 @@ public final class ConnectionPropertiesOptions {
                 && assertionDecryptionSettings.equals(other.assertionDecryptionSettings)
                 && idTokenSignedResponseAlgs.equals(other.idTokenSignedResponseAlgs)
                 && dpopSigningAlg.equals(other.dpopSigningAlg)
+                && enablePushedAuthorizationRequests.equals(other.enablePushedAuthorizationRequests)
+                && pushedAuthorizationRequestEndpoint.equals(other.pushedAuthorizationRequestEndpoint)
                 && tokenEndpointAuthMethod.equals(other.tokenEndpointAuthMethod)
                 && tokenEndpointAuthSigningAlg.equals(other.tokenEndpointAuthSigningAlg)
                 && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat)
@@ -671,6 +691,8 @@ public final class ConnectionPropertiesOptions {
                 this.assertionDecryptionSettings,
                 this.idTokenSignedResponseAlgs,
                 this.dpopSigningAlg,
+                this.enablePushedAuthorizationRequests,
+                this.pushedAuthorizationRequestEndpoint,
                 this.tokenEndpointAuthMethod,
                 this.tokenEndpointAuthSigningAlg,
                 this.tokenEndpointJwtcaAudFormat,
@@ -761,6 +783,10 @@ public final class ConnectionPropertiesOptions {
 
         private Optional<ConnectionDpopSigningAlgEnum> dpopSigningAlg = Optional.empty();
 
+        private Optional<Boolean> enablePushedAuthorizationRequests = Optional.empty();
+
+        private Optional<String> pushedAuthorizationRequestEndpoint = Optional.empty();
+
         private OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod =
                 OptionalNullable.absent();
 
@@ -816,6 +842,8 @@ public final class ConnectionPropertiesOptions {
             assertionDecryptionSettings(other.getAssertionDecryptionSettings());
             idTokenSignedResponseAlgs(other.getIdTokenSignedResponseAlgs());
             dpopSigningAlg(other.getDpopSigningAlg());
+            enablePushedAuthorizationRequests(other.getEnablePushedAuthorizationRequests());
+            pushedAuthorizationRequestEndpoint(other.getPushedAuthorizationRequestEndpoint());
             tokenEndpointAuthMethod(other.getTokenEndpointAuthMethod());
             tokenEndpointAuthSigningAlg(other.getTokenEndpointAuthSigningAlg());
             tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
@@ -1496,6 +1524,28 @@ public final class ConnectionPropertiesOptions {
             return this;
         }
 
+        @JsonSetter(value = "enable_pushed_authorization_requests", nulls = Nulls.SKIP)
+        public Builder enablePushedAuthorizationRequests(Optional<Boolean> enablePushedAuthorizationRequests) {
+            this.enablePushedAuthorizationRequests = enablePushedAuthorizationRequests;
+            return this;
+        }
+
+        public Builder enablePushedAuthorizationRequests(Boolean enablePushedAuthorizationRequests) {
+            this.enablePushedAuthorizationRequests = Optional.ofNullable(enablePushedAuthorizationRequests);
+            return this;
+        }
+
+        @JsonSetter(value = "pushed_authorization_request_endpoint", nulls = Nulls.SKIP)
+        public Builder pushedAuthorizationRequestEndpoint(Optional<String> pushedAuthorizationRequestEndpoint) {
+            this.pushedAuthorizationRequestEndpoint = pushedAuthorizationRequestEndpoint;
+            return this;
+        }
+
+        public Builder pushedAuthorizationRequestEndpoint(String pushedAuthorizationRequestEndpoint) {
+            this.pushedAuthorizationRequestEndpoint = Optional.ofNullable(pushedAuthorizationRequestEndpoint);
+            return this;
+        }
+
         @JsonSetter(value = "token_endpoint_auth_method", nulls = Nulls.SKIP)
         public Builder tokenEndpointAuthMethod(
                 @Nullable OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
@@ -1698,6 +1748,8 @@ public final class ConnectionPropertiesOptions {
                     assertionDecryptionSettings,
                     idTokenSignedResponseAlgs,
                     dpopSigningAlg,
+                    enablePushedAuthorizationRequests,
+                    pushedAuthorizationRequestEndpoint,
                     tokenEndpointAuthMethod,
                     tokenEndpointAuthSigningAlg,
                     tokenEndpointJwtcaAudFormat,

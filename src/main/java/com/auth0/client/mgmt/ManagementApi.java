@@ -60,6 +60,8 @@ public class ManagementApi {
 
     protected final Supplier<NetworkAclsClient> networkAclsClient;
 
+    protected final Supplier<OrganizationTemplatesClient> organizationTemplatesClient;
+
     protected final Supplier<OrganizationsClient> organizationsClient;
 
     protected final Supplier<PromptsClient> promptsClient;
@@ -133,6 +135,7 @@ public class ManagementApi {
         this.logStreamsClient = Suppliers.memoize(() -> new LogStreamsClient(clientOptions));
         this.logsClient = Suppliers.memoize(() -> new LogsClient(clientOptions));
         this.networkAclsClient = Suppliers.memoize(() -> new NetworkAclsClient(clientOptions));
+        this.organizationTemplatesClient = Suppliers.memoize(() -> new OrganizationTemplatesClient(clientOptions));
         this.organizationsClient = Suppliers.memoize(() -> new OrganizationsClient(clientOptions));
         this.promptsClient = Suppliers.memoize(() -> new PromptsClient(clientOptions));
         this.rateLimitPoliciesClient = Suppliers.memoize(() -> new RateLimitPoliciesClient(clientOptions));
@@ -242,6 +245,10 @@ public class ManagementApi {
 
     public NetworkAclsClient networkAcls() {
         return this.networkAclsClient.get();
+    }
+
+    public OrganizationTemplatesClient organizationTemplates() {
+        return this.organizationTemplatesClient.get();
     }
 
     public OrganizationsClient organizations() {

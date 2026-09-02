@@ -11,12 +11,19 @@ public final class ConnectionStrategyEnum {
 
     public static final ConnectionStrategyEnum BAIDU = new ConnectionStrategyEnum(Value.BAIDU, "baidu");
 
+    public static final ConnectionStrategyEnum SUPABASE_MCP =
+            new ConnectionStrategyEnum(Value.SUPABASE_MCP, "supabase-mcp");
+
     public static final ConnectionStrategyEnum BITLY = new ConnectionStrategyEnum(Value.BITLY, "bitly");
 
     public static final ConnectionStrategyEnum PAYPAL_SANDBOX =
             new ConnectionStrategyEnum(Value.PAYPAL_SANDBOX, "paypal-sandbox");
 
     public static final ConnectionStrategyEnum SAMLP = new ConnectionStrategyEnum(Value.SAMLP, "samlp");
+
+    public static final ConnectionStrategyEnum GUSTO_MCP = new ConnectionStrategyEnum(Value.GUSTO_MCP, "gusto-mcp");
+
+    public static final ConnectionStrategyEnum GITLAB_MCP = new ConnectionStrategyEnum(Value.GITLAB_MCP, "gitlab-mcp");
 
     public static final ConnectionStrategyEnum DROPBOX = new ConnectionStrategyEnum(Value.DROPBOX, "dropbox");
 
@@ -30,12 +37,16 @@ public final class ConnectionStrategyEnum {
     public static final ConnectionStrategyEnum PINGFEDERATE =
             new ConnectionStrategyEnum(Value.PINGFEDERATE, "pingfederate");
 
+    public static final ConnectionStrategyEnum XERO_MCP = new ConnectionStrategyEnum(Value.XERO_MCP, "xero-mcp");
+
     public static final ConnectionStrategyEnum THIRTYSEVENSIGNALS =
             new ConnectionStrategyEnum(Value.THIRTYSEVENSIGNALS, "thirtysevensignals");
 
     public static final ConnectionStrategyEnum WAAD = new ConnectionStrategyEnum(Value.WAAD, "waad");
 
     public static final ConnectionStrategyEnum OIDC = new ConnectionStrategyEnum(Value.OIDC, "oidc");
+
+    public static final ConnectionStrategyEnum FIGMA_MCP = new ConnectionStrategyEnum(Value.FIGMA_MCP, "figma-mcp");
 
     public static final ConnectionStrategyEnum SALESFORCE_COMMUNITY =
             new ConnectionStrategyEnum(Value.SALESFORCE_COMMUNITY, "salesforce-community");
@@ -65,14 +76,27 @@ public final class ConnectionStrategyEnum {
 
     public static final ConnectionStrategyEnum PAYPAL = new ConnectionStrategyEnum(Value.PAYPAL, "paypal");
 
+    public static final ConnectionStrategyEnum HUBSPOT_MCP =
+            new ConnectionStrategyEnum(Value.HUBSPOT_MCP, "hubspot-mcp");
+
+    public static final ConnectionStrategyEnum LINEAR_MCP = new ConnectionStrategyEnum(Value.LINEAR_MCP, "linear-mcp");
+
     public static final ConnectionStrategyEnum LINKEDIN = new ConnectionStrategyEnum(Value.LINKEDIN, "linkedin");
+
+    public static final ConnectionStrategyEnum ATLASSIAN_MCP =
+            new ConnectionStrategyEnum(Value.ATLASSIAN_MCP, "atlassian-mcp");
 
     public static final ConnectionStrategyEnum GOOGLE_APPS =
             new ConnectionStrategyEnum(Value.GOOGLE_APPS, "google-apps");
 
     public static final ConnectionStrategyEnum DWOLLA = new ConnectionStrategyEnum(Value.DWOLLA, "dwolla");
 
+    public static final ConnectionStrategyEnum NOTION_MCP = new ConnectionStrategyEnum(Value.NOTION_MCP, "notion-mcp");
+
     public static final ConnectionStrategyEnum SHOP = new ConnectionStrategyEnum(Value.SHOP, "shop");
+
+    public static final ConnectionStrategyEnum CLOUDFLARE_MCP =
+            new ConnectionStrategyEnum(Value.CLOUDFLARE_MCP, "cloudflare-mcp");
 
     public static final ConnectionStrategyEnum AUTH0OIDC = new ConnectionStrategyEnum(Value.AUTH0OIDC, "auth0-oidc");
 
@@ -83,10 +107,14 @@ public final class ConnectionStrategyEnum {
 
     public static final ConnectionStrategyEnum AUTH0 = new ConnectionStrategyEnum(Value.AUTH0, "auth0");
 
+    public static final ConnectionStrategyEnum HEROKU_MCP = new ConnectionStrategyEnum(Value.HEROKU_MCP, "heroku-mcp");
+
     public static final ConnectionStrategyEnum GOOGLE_OAUTH2 =
             new ConnectionStrategyEnum(Value.GOOGLE_OAUTH2, "google-oauth2");
 
     public static final ConnectionStrategyEnum WORDPRESS = new ConnectionStrategyEnum(Value.WORDPRESS, "wordpress");
+
+    public static final ConnectionStrategyEnum ASANA_MCP = new ConnectionStrategyEnum(Value.ASANA_MCP, "asana-mcp");
 
     public static final ConnectionStrategyEnum EXACT = new ConnectionStrategyEnum(Value.EXACT, "exact");
 
@@ -94,12 +122,21 @@ public final class ConnectionStrategyEnum {
 
     public static final ConnectionStrategyEnum EVERNOTE = new ConnectionStrategyEnum(Value.EVERNOTE, "evernote");
 
+    public static final ConnectionStrategyEnum SLACK_MCP = new ConnectionStrategyEnum(Value.SLACK_MCP, "slack-mcp");
+
     public static final ConnectionStrategyEnum SHAREPOINT = new ConnectionStrategyEnum(Value.SHAREPOINT, "sharepoint");
 
     public static final ConnectionStrategyEnum SHOPIFY = new ConnectionStrategyEnum(Value.SHOPIFY, "shopify");
 
+    public static final ConnectionStrategyEnum VERCEL_MCP = new ConnectionStrategyEnum(Value.VERCEL_MCP, "vercel-mcp");
+
     public static final ConnectionStrategyEnum SALESFORCE_SANDBOX =
             new ConnectionStrategyEnum(Value.SALESFORCE_SANDBOX, "salesforce-sandbox");
+
+    public static final ConnectionStrategyEnum INTERCOM_MCP =
+            new ConnectionStrategyEnum(Value.INTERCOM_MCP, "intercom-mcp");
+
+    public static final ConnectionStrategyEnum SENTRY_MCP = new ConnectionStrategyEnum(Value.SENTRY_MCP, "sentry-mcp");
 
     public static final ConnectionStrategyEnum FACEBOOK = new ConnectionStrategyEnum(Value.FACEBOOK, "facebook");
 
@@ -111,11 +148,17 @@ public final class ConnectionStrategyEnum {
 
     public static final ConnectionStrategyEnum LINE = new ConnectionStrategyEnum(Value.LINE, "line");
 
+    public static final ConnectionStrategyEnum DOCUSIGN_MCP =
+            new ConnectionStrategyEnum(Value.DOCUSIGN_MCP, "docusign-mcp");
+
     public static final ConnectionStrategyEnum UNTAPPD = new ConnectionStrategyEnum(Value.UNTAPPD, "untappd");
 
     public static final ConnectionStrategyEnum GITHUB = new ConnectionStrategyEnum(Value.GITHUB, "github");
 
     public static final ConnectionStrategyEnum SALESFORCE = new ConnectionStrategyEnum(Value.SALESFORCE, "salesforce");
+
+    public static final ConnectionStrategyEnum PAGERDUTY_MCP =
+            new ConnectionStrategyEnum(Value.PAGERDUTY_MCP, "pagerduty-mcp");
 
     public static final ConnectionStrategyEnum BITBUCKET = new ConnectionStrategyEnum(Value.BITBUCKET, "bitbucket");
 
@@ -167,12 +210,18 @@ public final class ConnectionStrategyEnum {
                 return visitor.visitAd();
             case BAIDU:
                 return visitor.visitBaidu();
+            case SUPABASE_MCP:
+                return visitor.visitSupabaseMcp();
             case BITLY:
                 return visitor.visitBitly();
             case PAYPAL_SANDBOX:
                 return visitor.visitPaypalSandbox();
             case SAMLP:
                 return visitor.visitSamlp();
+            case GUSTO_MCP:
+                return visitor.visitGustoMcp();
+            case GITLAB_MCP:
+                return visitor.visitGitlabMcp();
             case DROPBOX:
                 return visitor.visitDropbox();
             case VKONTAKTE:
@@ -183,12 +232,16 @@ public final class ConnectionStrategyEnum {
                 return visitor.visitAuth0Adldap();
             case PINGFEDERATE:
                 return visitor.visitPingfederate();
+            case XERO_MCP:
+                return visitor.visitXeroMcp();
             case THIRTYSEVENSIGNALS:
                 return visitor.visitThirtysevensignals();
             case WAAD:
                 return visitor.visitWaad();
             case OIDC:
                 return visitor.visitOidc();
+            case FIGMA_MCP:
+                return visitor.visitFigmaMcp();
             case SALESFORCE_COMMUNITY:
                 return visitor.visitSalesforceCommunity();
             case DACCOUNT:
@@ -215,14 +268,24 @@ public final class ConnectionStrategyEnum {
                 return visitor.visitCustom();
             case PAYPAL:
                 return visitor.visitPaypal();
+            case HUBSPOT_MCP:
+                return visitor.visitHubspotMcp();
+            case LINEAR_MCP:
+                return visitor.visitLinearMcp();
             case LINKEDIN:
                 return visitor.visitLinkedin();
+            case ATLASSIAN_MCP:
+                return visitor.visitAtlassianMcp();
             case GOOGLE_APPS:
                 return visitor.visitGoogleApps();
             case DWOLLA:
                 return visitor.visitDwolla();
+            case NOTION_MCP:
+                return visitor.visitNotionMcp();
             case SHOP:
                 return visitor.visitShop();
+            case CLOUDFLARE_MCP:
+                return visitor.visitCloudflareMcp();
             case AUTH0OIDC:
                 return visitor.visitAuth0Oidc();
             case PLANNINGCENTER:
@@ -231,22 +294,34 @@ public final class ConnectionStrategyEnum {
                 return visitor.visitOkta();
             case AUTH0:
                 return visitor.visitAuth0();
+            case HEROKU_MCP:
+                return visitor.visitHerokuMcp();
             case GOOGLE_OAUTH2:
                 return visitor.visitGoogleOauth2();
             case WORDPRESS:
                 return visitor.visitWordpress();
+            case ASANA_MCP:
+                return visitor.visitAsanaMcp();
             case EXACT:
                 return visitor.visitExact();
             case FITBIT:
                 return visitor.visitFitbit();
             case EVERNOTE:
                 return visitor.visitEvernote();
+            case SLACK_MCP:
+                return visitor.visitSlackMcp();
             case SHAREPOINT:
                 return visitor.visitSharepoint();
             case SHOPIFY:
                 return visitor.visitShopify();
+            case VERCEL_MCP:
+                return visitor.visitVercelMcp();
             case SALESFORCE_SANDBOX:
                 return visitor.visitSalesforceSandbox();
+            case INTERCOM_MCP:
+                return visitor.visitIntercomMcp();
+            case SENTRY_MCP:
+                return visitor.visitSentryMcp();
             case FACEBOOK:
                 return visitor.visitFacebook();
             case APPLE:
@@ -257,12 +332,16 @@ public final class ConnectionStrategyEnum {
                 return visitor.visitAmazon();
             case LINE:
                 return visitor.visitLine();
+            case DOCUSIGN_MCP:
+                return visitor.visitDocusignMcp();
             case UNTAPPD:
                 return visitor.visitUntappd();
             case GITHUB:
                 return visitor.visitGithub();
             case SALESFORCE:
                 return visitor.visitSalesforce();
+            case PAGERDUTY_MCP:
+                return visitor.visitPagerdutyMcp();
             case BITBUCKET:
                 return visitor.visitBitbucket();
             case OFFICE365:
@@ -288,12 +367,18 @@ public final class ConnectionStrategyEnum {
                 return AD;
             case "baidu":
                 return BAIDU;
+            case "supabase-mcp":
+                return SUPABASE_MCP;
             case "bitly":
                 return BITLY;
             case "paypal-sandbox":
                 return PAYPAL_SANDBOX;
             case "samlp":
                 return SAMLP;
+            case "gusto-mcp":
+                return GUSTO_MCP;
+            case "gitlab-mcp":
+                return GITLAB_MCP;
             case "dropbox":
                 return DROPBOX;
             case "vkontakte":
@@ -304,12 +389,16 @@ public final class ConnectionStrategyEnum {
                 return AUTH0ADLDAP;
             case "pingfederate":
                 return PINGFEDERATE;
+            case "xero-mcp":
+                return XERO_MCP;
             case "thirtysevensignals":
                 return THIRTYSEVENSIGNALS;
             case "waad":
                 return WAAD;
             case "oidc":
                 return OIDC;
+            case "figma-mcp":
+                return FIGMA_MCP;
             case "salesforce-community":
                 return SALESFORCE_COMMUNITY;
             case "daccount":
@@ -336,14 +425,24 @@ public final class ConnectionStrategyEnum {
                 return CUSTOM;
             case "paypal":
                 return PAYPAL;
+            case "hubspot-mcp":
+                return HUBSPOT_MCP;
+            case "linear-mcp":
+                return LINEAR_MCP;
             case "linkedin":
                 return LINKEDIN;
+            case "atlassian-mcp":
+                return ATLASSIAN_MCP;
             case "google-apps":
                 return GOOGLE_APPS;
             case "dwolla":
                 return DWOLLA;
+            case "notion-mcp":
+                return NOTION_MCP;
             case "shop":
                 return SHOP;
+            case "cloudflare-mcp":
+                return CLOUDFLARE_MCP;
             case "auth0-oidc":
                 return AUTH0OIDC;
             case "planningcenter":
@@ -352,22 +451,34 @@ public final class ConnectionStrategyEnum {
                 return OKTA;
             case "auth0":
                 return AUTH0;
+            case "heroku-mcp":
+                return HEROKU_MCP;
             case "google-oauth2":
                 return GOOGLE_OAUTH2;
             case "wordpress":
                 return WORDPRESS;
+            case "asana-mcp":
+                return ASANA_MCP;
             case "exact":
                 return EXACT;
             case "fitbit":
                 return FITBIT;
             case "evernote":
                 return EVERNOTE;
+            case "slack-mcp":
+                return SLACK_MCP;
             case "sharepoint":
                 return SHAREPOINT;
             case "shopify":
                 return SHOPIFY;
+            case "vercel-mcp":
+                return VERCEL_MCP;
             case "salesforce-sandbox":
                 return SALESFORCE_SANDBOX;
+            case "intercom-mcp":
+                return INTERCOM_MCP;
+            case "sentry-mcp":
+                return SENTRY_MCP;
             case "facebook":
                 return FACEBOOK;
             case "apple":
@@ -378,12 +489,16 @@ public final class ConnectionStrategyEnum {
                 return AMAZON;
             case "line":
                 return LINE;
+            case "docusign-mcp":
+                return DOCUSIGN_MCP;
             case "untappd":
                 return UNTAPPD;
             case "github":
                 return GITHUB;
             case "salesforce":
                 return SALESFORCE;
+            case "pagerduty-mcp":
+                return PAGERDUTY_MCP;
             case "bitbucket":
                 return BITBUCKET;
             case "office365":
@@ -512,6 +627,42 @@ public final class ConnectionStrategyEnum {
 
         YANDEX,
 
+        NOTION_MCP,
+
+        ASANA_MCP,
+
+        ATLASSIAN_MCP,
+
+        CLOUDFLARE_MCP,
+
+        DOCUSIGN_MCP,
+
+        FIGMA_MCP,
+
+        GITLAB_MCP,
+
+        GUSTO_MCP,
+
+        HEROKU_MCP,
+
+        HUBSPOT_MCP,
+
+        INTERCOM_MCP,
+
+        LINEAR_MCP,
+
+        PAGERDUTY_MCP,
+
+        SENTRY_MCP,
+
+        SLACK_MCP,
+
+        SUPABASE_MCP,
+
+        VERCEL_MCP,
+
+        XERO_MCP,
+
         AUTH0ADLDAP,
 
         UNKNOWN
@@ -627,6 +778,42 @@ public final class ConnectionStrategyEnum {
         T visitYahoo();
 
         T visitYandex();
+
+        T visitNotionMcp();
+
+        T visitAsanaMcp();
+
+        T visitAtlassianMcp();
+
+        T visitCloudflareMcp();
+
+        T visitDocusignMcp();
+
+        T visitFigmaMcp();
+
+        T visitGitlabMcp();
+
+        T visitGustoMcp();
+
+        T visitHerokuMcp();
+
+        T visitHubspotMcp();
+
+        T visitIntercomMcp();
+
+        T visitLinearMcp();
+
+        T visitPagerdutyMcp();
+
+        T visitSentryMcp();
+
+        T visitSlackMcp();
+
+        T visitSupabaseMcp();
+
+        T visitVercelMcp();
+
+        T visitXeroMcp();
 
         T visitAuth0Adldap();
 

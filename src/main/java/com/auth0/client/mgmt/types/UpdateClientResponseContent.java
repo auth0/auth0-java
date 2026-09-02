@@ -132,6 +132,8 @@ public final class UpdateClientResponseContent {
 
     private final Optional<ExpressConfiguration> expressConfiguration;
 
+    private final Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration;
+
     private final Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration;
 
     private final Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant;
@@ -209,6 +211,7 @@ public final class UpdateClientResponseContent {
             OptionalNullable<Integer> parRequestExpiry,
             Optional<TokenQuota> tokenQuota,
             Optional<ExpressConfiguration> expressConfiguration,
+            Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration,
             Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration,
             Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant,
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
@@ -274,6 +277,7 @@ public final class UpdateClientResponseContent {
         this.parRequestExpiry = parRequestExpiry;
         this.tokenQuota = tokenQuota;
         this.expressConfiguration = expressConfiguration;
+        this.b2BIntegrationConfiguration = b2BIntegrationConfiguration;
         this.myOrganizationConfiguration = myOrganizationConfiguration;
         this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
         this.thirdPartySecurityMode = thirdPartySecurityMode;
@@ -684,6 +688,11 @@ public final class UpdateClientResponseContent {
         return expressConfiguration;
     }
 
+    @JsonProperty("b2b_integration_configuration")
+    public Optional<B2BIntegrationConfiguration> getB2BIntegrationConfiguration() {
+        return b2BIntegrationConfiguration;
+    }
+
     @JsonProperty("my_organization_configuration")
     public Optional<ClientMyOrganizationResponseConfiguration> getMyOrganizationConfiguration() {
         return myOrganizationConfiguration;
@@ -858,6 +867,7 @@ public final class UpdateClientResponseContent {
                 && parRequestExpiry.equals(other.parRequestExpiry)
                 && tokenQuota.equals(other.tokenQuota)
                 && expressConfiguration.equals(other.expressConfiguration)
+                && b2BIntegrationConfiguration.equals(other.b2BIntegrationConfiguration)
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
                 && identityAssertionAuthorizationGrant.equals(other.identityAssertionAuthorizationGrant)
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
@@ -927,6 +937,7 @@ public final class UpdateClientResponseContent {
                 this.parRequestExpiry,
                 this.tokenQuota,
                 this.expressConfiguration,
+                this.b2BIntegrationConfiguration,
                 this.myOrganizationConfiguration,
                 this.identityAssertionAuthorizationGrant,
                 this.thirdPartySecurityMode,
@@ -1059,6 +1070,8 @@ public final class UpdateClientResponseContent {
 
         private Optional<ExpressConfiguration> expressConfiguration = Optional.empty();
 
+        private Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration = Optional.empty();
+
         private Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration = Optional.empty();
 
         private Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant = Optional.empty();
@@ -1140,6 +1153,7 @@ public final class UpdateClientResponseContent {
             parRequestExpiry(other.getParRequestExpiry());
             tokenQuota(other.getTokenQuota());
             expressConfiguration(other.getExpressConfiguration());
+            b2BIntegrationConfiguration(other.getB2BIntegrationConfiguration());
             myOrganizationConfiguration(other.getMyOrganizationConfiguration());
             identityAssertionAuthorizationGrant(other.getIdentityAssertionAuthorizationGrant());
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
@@ -2014,6 +2028,17 @@ public final class UpdateClientResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "b2b_integration_configuration", nulls = Nulls.SKIP)
+        public Builder b2BIntegrationConfiguration(Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration) {
+            this.b2BIntegrationConfiguration = b2BIntegrationConfiguration;
+            return this;
+        }
+
+        public Builder b2BIntegrationConfiguration(B2BIntegrationConfiguration b2BIntegrationConfiguration) {
+            this.b2BIntegrationConfiguration = Optional.ofNullable(b2BIntegrationConfiguration);
+            return this;
+        }
+
         @JsonSetter(value = "my_organization_configuration", nulls = Nulls.SKIP)
         public Builder myOrganizationConfiguration(
                 Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration) {
@@ -2196,6 +2221,7 @@ public final class UpdateClientResponseContent {
                     parRequestExpiry,
                     tokenQuota,
                     expressConfiguration,
+                    b2BIntegrationConfiguration,
                     myOrganizationConfiguration,
                     identityAssertionAuthorizationGrant,
                     thirdPartySecurityMode,

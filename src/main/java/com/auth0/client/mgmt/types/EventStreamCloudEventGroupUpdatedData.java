@@ -23,15 +23,19 @@ import org.jetbrains.annotations.NotNull;
 public final class EventStreamCloudEventGroupUpdatedData {
     private final EventStreamCloudEventGroupUpdatedObject object;
 
+    private final Optional<EventStreamCloudEventGroupUpdatedPreviousObject> previousObject;
+
     private final Optional<EventStreamCloudEventContext> context;
 
     private final Map<String, Object> additionalProperties;
 
     private EventStreamCloudEventGroupUpdatedData(
             EventStreamCloudEventGroupUpdatedObject object,
+            Optional<EventStreamCloudEventGroupUpdatedPreviousObject> previousObject,
             Optional<EventStreamCloudEventContext> context,
             Map<String, Object> additionalProperties) {
         this.object = object;
+        this.previousObject = previousObject;
         this.context = context;
         this.additionalProperties = additionalProperties;
     }
@@ -39,6 +43,11 @@ public final class EventStreamCloudEventGroupUpdatedData {
     @JsonProperty("object")
     public EventStreamCloudEventGroupUpdatedObject getObject() {
         return object;
+    }
+
+    @JsonProperty("previous_object")
+    public Optional<EventStreamCloudEventGroupUpdatedPreviousObject> getPreviousObject() {
+        return previousObject;
     }
 
     @JsonProperty("context")
@@ -59,12 +68,14 @@ public final class EventStreamCloudEventGroupUpdatedData {
     }
 
     private boolean equalTo(EventStreamCloudEventGroupUpdatedData other) {
-        return object.equals(other.object) && context.equals(other.context);
+        return object.equals(other.object)
+                && previousObject.equals(other.previousObject)
+                && context.equals(other.context);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.object, this.context);
+        return Objects.hash(this.object, this.previousObject, this.context);
     }
 
     @java.lang.Override
@@ -89,6 +100,10 @@ public final class EventStreamCloudEventGroupUpdatedData {
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
+        _FinalStage previousObject(Optional<EventStreamCloudEventGroupUpdatedPreviousObject> previousObject);
+
+        _FinalStage previousObject(EventStreamCloudEventGroupUpdatedPreviousObject previousObject);
+
         _FinalStage context(Optional<EventStreamCloudEventContext> context);
 
         _FinalStage context(EventStreamCloudEventContext context);
@@ -100,6 +115,8 @@ public final class EventStreamCloudEventGroupUpdatedData {
 
         private Optional<EventStreamCloudEventContext> context = Optional.empty();
 
+        private Optional<EventStreamCloudEventGroupUpdatedPreviousObject> previousObject = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -108,6 +125,7 @@ public final class EventStreamCloudEventGroupUpdatedData {
         @java.lang.Override
         public Builder from(EventStreamCloudEventGroupUpdatedData other) {
             object(other.getObject());
+            previousObject(other.getPreviousObject());
             context(other.getContext());
             return this;
         }
@@ -133,8 +151,21 @@ public final class EventStreamCloudEventGroupUpdatedData {
         }
 
         @java.lang.Override
+        public _FinalStage previousObject(EventStreamCloudEventGroupUpdatedPreviousObject previousObject) {
+            this.previousObject = Optional.ofNullable(previousObject);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "previous_object", nulls = Nulls.SKIP)
+        public _FinalStage previousObject(Optional<EventStreamCloudEventGroupUpdatedPreviousObject> previousObject) {
+            this.previousObject = previousObject;
+            return this;
+        }
+
+        @java.lang.Override
         public EventStreamCloudEventGroupUpdatedData build() {
-            return new EventStreamCloudEventGroupUpdatedData(object, context, additionalProperties);
+            return new EventStreamCloudEventGroupUpdatedData(object, previousObject, context, additionalProperties);
         }
 
         @java.lang.Override

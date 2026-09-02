@@ -35,6 +35,8 @@ public final class EventStreamCloudEventConnectionDeletedObject0OptionsOidcMetad
 
     private final Optional<List<String>> claimsSupported;
 
+    private final Optional<List<String>> codeChallengeMethodsSupported;
+
     private final Optional<List<String>> displayValuesSupported;
 
     private final Optional<List<String>> dpopSigningAlgValuesSupported;
@@ -106,6 +108,7 @@ public final class EventStreamCloudEventConnectionDeletedObject0OptionsOidcMetad
             Optional<List<String>> claimsLocalesSupported,
             Optional<Boolean> claimsParameterSupported,
             Optional<List<String>> claimsSupported,
+            Optional<List<String>> codeChallengeMethodsSupported,
             Optional<List<String>> displayValuesSupported,
             Optional<List<String>> dpopSigningAlgValuesSupported,
             Optional<String> endSessionEndpoint,
@@ -144,6 +147,7 @@ public final class EventStreamCloudEventConnectionDeletedObject0OptionsOidcMetad
         this.claimsLocalesSupported = claimsLocalesSupported;
         this.claimsParameterSupported = claimsParameterSupported;
         this.claimsSupported = claimsSupported;
+        this.codeChallengeMethodsSupported = codeChallengeMethodsSupported;
         this.displayValuesSupported = displayValuesSupported;
         this.dpopSigningAlgValuesSupported = dpopSigningAlgValuesSupported;
         this.endSessionEndpoint = endSessionEndpoint;
@@ -224,6 +228,14 @@ public final class EventStreamCloudEventConnectionDeletedObject0OptionsOidcMetad
     @JsonProperty("claims_supported")
     public Optional<List<String>> getClaimsSupported() {
         return claimsSupported;
+    }
+
+    /**
+     * @return JSON array containing a list of Proof Key for Code Exchange (PKCE) code challenge methods supported by this OP (e.g., S256, plain), as defined in RFC 7636.
+     */
+    @JsonProperty("code_challenge_methods_supported")
+    public Optional<List<String>> getCodeChallengeMethodsSupported() {
+        return codeChallengeMethodsSupported;
     }
 
     /**
@@ -493,6 +505,7 @@ public final class EventStreamCloudEventConnectionDeletedObject0OptionsOidcMetad
                 && claimsLocalesSupported.equals(other.claimsLocalesSupported)
                 && claimsParameterSupported.equals(other.claimsParameterSupported)
                 && claimsSupported.equals(other.claimsSupported)
+                && codeChallengeMethodsSupported.equals(other.codeChallengeMethodsSupported)
                 && displayValuesSupported.equals(other.displayValuesSupported)
                 && dpopSigningAlgValuesSupported.equals(other.dpopSigningAlgValuesSupported)
                 && endSessionEndpoint.equals(other.endSessionEndpoint)
@@ -535,6 +548,7 @@ public final class EventStreamCloudEventConnectionDeletedObject0OptionsOidcMetad
                 this.claimsLocalesSupported,
                 this.claimsParameterSupported,
                 this.claimsSupported,
+                this.codeChallengeMethodsSupported,
                 this.displayValuesSupported,
                 this.dpopSigningAlgValuesSupported,
                 this.endSessionEndpoint,
@@ -641,6 +655,13 @@ public final class EventStreamCloudEventConnectionDeletedObject0OptionsOidcMetad
         _FinalStage claimsSupported(Optional<List<String>> claimsSupported);
 
         _FinalStage claimsSupported(List<String> claimsSupported);
+
+        /**
+         * <p>JSON array containing a list of Proof Key for Code Exchange (PKCE) code challenge methods supported by this OP (e.g., S256, plain), as defined in RFC 7636.</p>
+         */
+        _FinalStage codeChallengeMethodsSupported(Optional<List<String>> codeChallengeMethodsSupported);
+
+        _FinalStage codeChallengeMethodsSupported(List<String> codeChallengeMethodsSupported);
 
         /**
          * <p>JSON array containing a list of the JWS signing algorithms (alg values) supported by the Token Endpoint for the signature on the JWT [JWT] used to authenticate the Client at the Token Endpoint for the private_key_jwt and client_secret_jwt authentication methods. Servers SHOULD support RS256. The value none MUST NOT be used.</p>
@@ -918,6 +939,8 @@ public final class EventStreamCloudEventConnectionDeletedObject0OptionsOidcMetad
 
         private Optional<List<String>> displayValuesSupported = Optional.empty();
 
+        private Optional<List<String>> codeChallengeMethodsSupported = Optional.empty();
+
         private Optional<List<String>> claimsSupported = Optional.empty();
 
         private Optional<Boolean> claimsParameterSupported = Optional.empty();
@@ -941,6 +964,7 @@ public final class EventStreamCloudEventConnectionDeletedObject0OptionsOidcMetad
             claimsLocalesSupported(other.getClaimsLocalesSupported());
             claimsParameterSupported(other.getClaimsParameterSupported());
             claimsSupported(other.getClaimsSupported());
+            codeChallengeMethodsSupported(other.getCodeChallengeMethodsSupported());
             displayValuesSupported(other.getDisplayValuesSupported());
             dpopSigningAlgValuesSupported(other.getDpopSigningAlgValuesSupported());
             endSessionEndpoint(other.getEndSessionEndpoint());
@@ -1619,6 +1643,26 @@ public final class EventStreamCloudEventConnectionDeletedObject0OptionsOidcMetad
         }
 
         /**
+         * <p>JSON array containing a list of Proof Key for Code Exchange (PKCE) code challenge methods supported by this OP (e.g., S256, plain), as defined in RFC 7636.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage codeChallengeMethodsSupported(List<String> codeChallengeMethodsSupported) {
+            this.codeChallengeMethodsSupported = Optional.ofNullable(codeChallengeMethodsSupported);
+            return this;
+        }
+
+        /**
+         * <p>JSON array containing a list of Proof Key for Code Exchange (PKCE) code challenge methods supported by this OP (e.g., S256, plain), as defined in RFC 7636.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "code_challenge_methods_supported", nulls = Nulls.SKIP)
+        public _FinalStage codeChallengeMethodsSupported(Optional<List<String>> codeChallengeMethodsSupported) {
+            this.codeChallengeMethodsSupported = codeChallengeMethodsSupported;
+            return this;
+        }
+
+        /**
          * <p>JSON array containing a list of the Claim Names of the Claims that the OpenID Provider MAY be able to supply values for. Note that for privacy or other reasons, this might not be an exhaustive list.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -1727,6 +1771,7 @@ public final class EventStreamCloudEventConnectionDeletedObject0OptionsOidcMetad
                     claimsLocalesSupported,
                     claimsParameterSupported,
                     claimsSupported,
+                    codeChallengeMethodsSupported,
                     displayValuesSupported,
                     dpopSigningAlgValuesSupported,
                     endSessionEndpoint,

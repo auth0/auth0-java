@@ -21,6 +21,8 @@ public interface IConnectionOptionsCommonOidc {
 
     Optional<ConnectionDpopSigningAlgEnum> getDpopSigningAlg();
 
+    Optional<Boolean> getEnablePushedAuthorizationRequests();
+
     Optional<String> getIconUrl();
 
     Optional<Boolean> getIdTokenSessionExpirySupported();
@@ -32,6 +34,8 @@ public interface IConnectionOptionsCommonOidc {
     Optional<String> getJwksUri();
 
     Optional<ConnectionOptionsOidcMetadata> getOidcMetadata();
+
+    Optional<String> getPushedAuthorizationRequestEndpoint();
 
     Optional<String> getScope();
 

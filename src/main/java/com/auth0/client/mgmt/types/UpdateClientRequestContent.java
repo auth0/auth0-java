@@ -128,6 +128,8 @@ public final class UpdateClientRequestContent {
 
     private final OptionalNullable<ExpressConfigurationOrNull> expressConfiguration;
 
+    private final Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration;
+
     private final OptionalNullable<ClientMyOrganizationPatchConfiguration> myOrganizationConfiguration;
 
     private final OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
@@ -191,6 +193,7 @@ public final class UpdateClientRequestContent {
             OptionalNullable<ClientTokenExchangeConfigurationOrNull> tokenExchange,
             OptionalNullable<Integer> parRequestExpiry,
             OptionalNullable<ExpressConfigurationOrNull> expressConfiguration,
+            Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration,
             OptionalNullable<ClientMyOrganizationPatchConfiguration> myOrganizationConfiguration,
             OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
@@ -248,6 +251,7 @@ public final class UpdateClientRequestContent {
         this.tokenExchange = tokenExchange;
         this.parRequestExpiry = parRequestExpiry;
         this.expressConfiguration = expressConfiguration;
+        this.b2BIntegrationConfiguration = b2BIntegrationConfiguration;
         this.myOrganizationConfiguration = myOrganizationConfiguration;
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
         this.thirdPartySecurityMode = thirdPartySecurityMode;
@@ -686,6 +690,11 @@ public final class UpdateClientRequestContent {
         return expressConfiguration;
     }
 
+    @JsonProperty("b2b_integration_configuration")
+    public Optional<B2BIntegrationConfiguration> getB2BIntegrationConfiguration() {
+        return b2BIntegrationConfiguration;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("my_organization_configuration")
     public OptionalNullable<ClientMyOrganizationPatchConfiguration> getMyOrganizationConfiguration() {
@@ -905,6 +914,7 @@ public final class UpdateClientRequestContent {
                 && tokenExchange.equals(other.tokenExchange)
                 && parRequestExpiry.equals(other.parRequestExpiry)
                 && expressConfiguration.equals(other.expressConfiguration)
+                && b2BIntegrationConfiguration.equals(other.b2BIntegrationConfiguration)
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels)
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
@@ -966,6 +976,7 @@ public final class UpdateClientRequestContent {
                 this.tokenExchange,
                 this.parRequestExpiry,
                 this.expressConfiguration,
+                this.b2BIntegrationConfiguration,
                 this.myOrganizationConfiguration,
                 this.asyncApprovalNotificationChannels,
                 this.thirdPartySecurityMode,
@@ -1092,6 +1103,8 @@ public final class UpdateClientRequestContent {
 
         private OptionalNullable<ExpressConfigurationOrNull> expressConfiguration = OptionalNullable.absent();
 
+        private Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration = Optional.empty();
+
         private OptionalNullable<ClientMyOrganizationPatchConfiguration> myOrganizationConfiguration =
                 OptionalNullable.absent();
 
@@ -1160,6 +1173,7 @@ public final class UpdateClientRequestContent {
             tokenExchange(other.getTokenExchange());
             parRequestExpiry(other.getParRequestExpiry());
             expressConfiguration(other.getExpressConfiguration());
+            b2BIntegrationConfiguration(other.getB2BIntegrationConfiguration());
             myOrganizationConfiguration(other.getMyOrganizationConfiguration());
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
@@ -2255,6 +2269,17 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "b2b_integration_configuration", nulls = Nulls.SKIP)
+        public Builder b2BIntegrationConfiguration(Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration) {
+            this.b2BIntegrationConfiguration = b2BIntegrationConfiguration;
+            return this;
+        }
+
+        public Builder b2BIntegrationConfiguration(B2BIntegrationConfiguration b2BIntegrationConfiguration) {
+            this.b2BIntegrationConfiguration = Optional.ofNullable(b2BIntegrationConfiguration);
+            return this;
+        }
+
         @JsonSetter(value = "my_organization_configuration", nulls = Nulls.SKIP)
         public Builder myOrganizationConfiguration(
                 @Nullable OptionalNullable<ClientMyOrganizationPatchConfiguration> myOrganizationConfiguration) {
@@ -2404,6 +2429,7 @@ public final class UpdateClientRequestContent {
                     tokenExchange,
                     parRequestExpiry,
                     expressConfiguration,
+                    b2BIntegrationConfiguration,
                     myOrganizationConfiguration,
                     asyncApprovalNotificationChannels,
                     thirdPartySecurityMode,

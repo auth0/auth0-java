@@ -202,7 +202,7 @@ public class ConnectionProfilesWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"display_name\":\"display_name\",\"template\":{\"name\":\"name\",\"organization\":{\"show_as_button\":\"none\",\"assign_membership_on_login\":\"none\"},\"connection_name_prefix_template\":\"connection_name_prefix_template\",\"enabled_features\":[\"scim\"]}}"));
+                                "{\"id\":\"id\",\"display_name\":\"display_name\",\"template\":{\"name\":\"name\",\"organization\":{\"show_as_button\":\"none\",\"assign_membership_on_login\":\"none\"},\"connection_name_prefix_template\":\"connection_name_prefix_template\",\"enabled_features\":[\"scim\"],\"provisioning\":{\"scim\":{\"tokens\":{\"scopes\":[\"get:users\"]}}}}}"));
         GetConnectionProfileTemplateResponseContent response =
                 client.connectionProfiles().getTemplate("id");
         RecordedRequest request = server.takeRequest();
@@ -225,7 +225,16 @@ public class ConnectionProfilesWireTest {
                 + "    \"connection_name_prefix_template\": \"connection_name_prefix_template\",\n"
                 + "    \"enabled_features\": [\n"
                 + "      \"scim\"\n"
-                + "    ]\n"
+                + "    ],\n"
+                + "    \"provisioning\": {\n"
+                + "      \"scim\": {\n"
+                + "        \"tokens\": {\n"
+                + "          \"scopes\": [\n"
+                + "            \"get:users\"\n"
+                + "          ]\n"
+                + "        }\n"
+                + "      }\n"
+                + "    }\n"
                 + "  }\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
