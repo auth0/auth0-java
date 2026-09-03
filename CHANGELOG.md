@@ -1,5 +1,17 @@
 # Change Log
 
+## [5.1.0](https://github.com/auth0/auth0-java/tree/5.1.0) (2026-09-03)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/5.0.0...5.1.0)
+
+**Added**
+- feat: add Organization Templates, B2B integration config, network ACL signatures & key deletion [\#922](https://github.com/auth0/auth0-java/pull/922) ([fern-api[bot]](https://github.com/apps/fern-api))
+  - **Organization Templates** - new `OrganizationTemplatesClient` (and its async/raw variants) plus a per-organization `OrganizationTemplateClient`, letting you create and manage reusable organization
+      configuration templates.
+  - **B2B integration configuration** - new `B2BIntegrationConfiguration` type and integration-type enum, exposed on connection profiles for configuring partner/B2B integrations, including SCIM
+    provisioning (`ConnectionProfileProvisioningScim`, token scopes and tokens).
+  - **Network ACL signatures & key deletion** - additions to the Keys `NetworkAclsClient` (and async/raw variants) for network ACL signature operations and key deletion.
+
+
 ## [5.0.0](https://github.com/auth0/auth0-java/tree/5.0.0) (2026-08-19)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/4.2.0...5.0.0)
 
