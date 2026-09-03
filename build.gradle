@@ -49,6 +49,16 @@ java {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+// The Management API client is Fern-generated (~4000 types). javac's type
+// inference over that tree exhausts the compiler's default heap. Because the
+// Java 8 toolchain differs from the JDK running Gradle, javac is forked into a
+// separate process, so org.gradle.jvmargs (the daemon heap) does not apply —
+// the heap must be set on the forked compiler here.
+tasks.withType(JavaCompile).configureEach {
+  options.fork = true
+  options.forkOptions.memoryMaximumSize = '2g'
+}
+
 jar {
   manifest {
     attributes 'Automatic-Module-Name': 'com.auth0.java'
