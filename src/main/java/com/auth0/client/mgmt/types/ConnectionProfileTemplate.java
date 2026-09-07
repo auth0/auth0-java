@@ -33,6 +33,8 @@ public final class ConnectionProfileTemplate {
 
     private final Optional<ConnectionProfileStrategyOverrides> strategyOverrides;
 
+    private final Optional<ConnectionProfileProvisioning> provisioning;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectionProfileTemplate(
@@ -42,6 +44,7 @@ public final class ConnectionProfileTemplate {
             Optional<List<EnabledFeaturesEnum>> enabledFeatures,
             Optional<ConnectionProfileConfig> connectionConfig,
             Optional<ConnectionProfileStrategyOverrides> strategyOverrides,
+            Optional<ConnectionProfileProvisioning> provisioning,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.organization = organization;
@@ -49,6 +52,7 @@ public final class ConnectionProfileTemplate {
         this.enabledFeatures = enabledFeatures;
         this.connectionConfig = connectionConfig;
         this.strategyOverrides = strategyOverrides;
+        this.provisioning = provisioning;
         this.additionalProperties = additionalProperties;
     }
 
@@ -82,6 +86,11 @@ public final class ConnectionProfileTemplate {
         return strategyOverrides;
     }
 
+    @JsonProperty("provisioning")
+    public Optional<ConnectionProfileProvisioning> getProvisioning() {
+        return provisioning;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -99,7 +108,8 @@ public final class ConnectionProfileTemplate {
                 && connectionNamePrefixTemplate.equals(other.connectionNamePrefixTemplate)
                 && enabledFeatures.equals(other.enabledFeatures)
                 && connectionConfig.equals(other.connectionConfig)
-                && strategyOverrides.equals(other.strategyOverrides);
+                && strategyOverrides.equals(other.strategyOverrides)
+                && provisioning.equals(other.provisioning);
     }
 
     @java.lang.Override
@@ -110,7 +120,8 @@ public final class ConnectionProfileTemplate {
                 this.connectionNamePrefixTemplate,
                 this.enabledFeatures,
                 this.connectionConfig,
-                this.strategyOverrides);
+                this.strategyOverrides,
+                this.provisioning);
     }
 
     @java.lang.Override
@@ -136,6 +147,8 @@ public final class ConnectionProfileTemplate {
 
         private Optional<ConnectionProfileStrategyOverrides> strategyOverrides = Optional.empty();
 
+        private Optional<ConnectionProfileProvisioning> provisioning = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -148,6 +161,7 @@ public final class ConnectionProfileTemplate {
             enabledFeatures(other.getEnabledFeatures());
             connectionConfig(other.getConnectionConfig());
             strategyOverrides(other.getStrategyOverrides());
+            provisioning(other.getProvisioning());
             return this;
         }
 
@@ -217,6 +231,17 @@ public final class ConnectionProfileTemplate {
             return this;
         }
 
+        @JsonSetter(value = "provisioning", nulls = Nulls.SKIP)
+        public Builder provisioning(Optional<ConnectionProfileProvisioning> provisioning) {
+            this.provisioning = provisioning;
+            return this;
+        }
+
+        public Builder provisioning(ConnectionProfileProvisioning provisioning) {
+            this.provisioning = Optional.ofNullable(provisioning);
+            return this;
+        }
+
         public ConnectionProfileTemplate build() {
             return new ConnectionProfileTemplate(
                     name,
@@ -225,6 +250,7 @@ public final class ConnectionProfileTemplate {
                     enabledFeatures,
                     connectionConfig,
                     strategyOverrides,
+                    provisioning,
                     additionalProperties);
         }
 

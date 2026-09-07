@@ -15,6 +15,7 @@ import com.auth0.client.mgmt.organizations.AsyncEnabledConnectionsClient;
 import com.auth0.client.mgmt.organizations.AsyncGroupsClient;
 import com.auth0.client.mgmt.organizations.AsyncInvitationsClient;
 import com.auth0.client.mgmt.organizations.AsyncMembersClient;
+import com.auth0.client.mgmt.organizations.AsyncOrganizationTemplateClient;
 import com.auth0.client.mgmt.organizations.roles.AsyncRolesClient;
 import com.auth0.client.mgmt.types.CreateOrganizationRequestContent;
 import com.auth0.client.mgmt.types.CreateOrganizationResponseContent;
@@ -46,6 +47,8 @@ public class AsyncOrganizationsClient {
 
     protected final Supplier<AsyncMembersClient> membersClient;
 
+    protected final Supplier<AsyncOrganizationTemplateClient> organizationTemplateClient;
+
     protected final Supplier<AsyncGroupsClient> groupsClient;
 
     protected final Supplier<AsyncRolesClient> rolesClient;
@@ -60,6 +63,7 @@ public class AsyncOrganizationsClient {
         this.enabledConnectionsClient = Suppliers.memoize(() -> new AsyncEnabledConnectionsClient(clientOptions));
         this.invitationsClient = Suppliers.memoize(() -> new AsyncInvitationsClient(clientOptions));
         this.membersClient = Suppliers.memoize(() -> new AsyncMembersClient(clientOptions));
+        this.organizationTemplateClient = Suppliers.memoize(() -> new AsyncOrganizationTemplateClient(clientOptions));
         this.groupsClient = Suppliers.memoize(() -> new AsyncGroupsClient(clientOptions));
         this.rolesClient = Suppliers.memoize(() -> new AsyncRolesClient(clientOptions));
     }
@@ -268,6 +272,10 @@ public class AsyncOrganizationsClient {
 
     public AsyncMembersClient members() {
         return this.membersClient.get();
+    }
+
+    public AsyncOrganizationTemplateClient organizationTemplate() {
+        return this.organizationTemplateClient.get();
     }
 
     public AsyncGroupsClient groups() {

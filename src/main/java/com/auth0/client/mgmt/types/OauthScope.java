@@ -50,6 +50,9 @@ public final class OauthScope {
     public static final OauthScope DELETE_ORGANIZATIONS =
             new OauthScope(Value.DELETE_ORGANIZATIONS, "delete:organizations");
 
+    public static final OauthScope DELETE_NETWORK_ACL_KEYS =
+            new OauthScope(Value.DELETE_NETWORK_ACL_KEYS, "delete:network_acl_keys");
+
     public static final OauthScope READ_USER_EFFECTIVE_ROLES =
             new OauthScope(Value.READ_USER_EFFECTIVE_ROLES, "read:user_effective_roles");
 
@@ -363,6 +366,9 @@ public final class OauthScope {
     public static final OauthScope DELETE_EMAIL_PROVIDER =
             new OauthScope(Value.DELETE_EMAIL_PROVIDER, "delete:email_provider");
 
+    public static final OauthScope UPDATE_ORGANIZATION_TEMPLATES =
+            new OauthScope(Value.UPDATE_ORGANIZATION_TEMPLATES, "update:organization_templates");
+
     public static final OauthScope DELETE_CUSTOM_DOMAINS =
             new OauthScope(Value.DELETE_CUSTOM_DOMAINS, "delete:custom_domains");
 
@@ -444,6 +450,9 @@ public final class OauthScope {
 
     public static final OauthScope DELETE_RULES_CONFIGS =
             new OauthScope(Value.DELETE_RULES_CONFIGS, "delete:rules_configs");
+
+    public static final OauthScope READ_ORGANIZATION_TEMPLATES =
+            new OauthScope(Value.READ_ORGANIZATION_TEMPLATES, "read:organization_templates");
 
     public static final OauthScope READ_USER_ATTRIBUTE_PROFILES =
             new OauthScope(Value.READ_USER_ATTRIBUTE_PROFILES, "read:user_attribute_profiles");
@@ -576,6 +585,9 @@ public final class OauthScope {
             new OauthScope(Value.UPDATE_CONNECTION_PROFILES, "update:connection_profiles");
 
     public static final OauthScope READ_PROMPTS = new OauthScope(Value.READ_PROMPTS, "read:prompts");
+
+    public static final OauthScope CREATE_ORGANIZATION_TEMPLATES =
+            new OauthScope(Value.CREATE_ORGANIZATION_TEMPLATES, "create:organization_templates");
 
     public static final OauthScope UPDATE_USERS_APP_METADATA =
             new OauthScope(Value.UPDATE_USERS_APP_METADATA, "update:users_app_metadata");
@@ -728,6 +740,8 @@ public final class OauthScope {
                 return visitor.visitDeleteOrganizationGroupRoles();
             case DELETE_ORGANIZATIONS:
                 return visitor.visitDeleteOrganizations();
+            case DELETE_NETWORK_ACL_KEYS:
+                return visitor.visitDeleteNetworkAclKeys();
             case READ_USER_EFFECTIVE_ROLES:
                 return visitor.visitReadUserEffectiveRoles();
             case CREATE_ORGANIZATION_MEMBER_ROLES:
@@ -962,6 +976,8 @@ public final class OauthScope {
                 return visitor.visitCreateGuardianEnrollmentTickets();
             case DELETE_EMAIL_PROVIDER:
                 return visitor.visitDeleteEmailProvider();
+            case UPDATE_ORGANIZATION_TEMPLATES:
+                return visitor.visitUpdateOrganizationTemplates();
             case DELETE_CUSTOM_DOMAINS:
                 return visitor.visitDeleteCustomDomains();
             case CREATE_NETWORK_ACLS:
@@ -1026,6 +1042,8 @@ public final class OauthScope {
                 return visitor.visitCreateOrganizationConnections();
             case DELETE_RULES_CONFIGS:
                 return visitor.visitDeleteRulesConfigs();
+            case READ_ORGANIZATION_TEMPLATES:
+                return visitor.visitReadOrganizationTemplates();
             case READ_USER_ATTRIBUTE_PROFILES:
                 return visitor.visitReadUserAttributeProfiles();
             case READ_EMAIL_PROVIDER:
@@ -1124,6 +1142,8 @@ public final class OauthScope {
                 return visitor.visitUpdateConnectionProfiles();
             case READ_PROMPTS:
                 return visitor.visitReadPrompts();
+            case CREATE_ORGANIZATION_TEMPLATES:
+                return visitor.visitCreateOrganizationTemplates();
             case UPDATE_USERS_APP_METADATA:
                 return visitor.visitUpdateUsersAppMetadata();
             case DELETE_NETWORK_ACLS:
@@ -1229,6 +1249,8 @@ public final class OauthScope {
                 return DELETE_ORGANIZATION_GROUP_ROLES;
             case "delete:organizations":
                 return DELETE_ORGANIZATIONS;
+            case "delete:network_acl_keys":
+                return DELETE_NETWORK_ACL_KEYS;
             case "read:user_effective_roles":
                 return READ_USER_EFFECTIVE_ROLES;
             case "create:organization_member_roles":
@@ -1463,6 +1485,8 @@ public final class OauthScope {
                 return CREATE_GUARDIAN_ENROLLMENT_TICKETS;
             case "delete:email_provider":
                 return DELETE_EMAIL_PROVIDER;
+            case "update:organization_templates":
+                return UPDATE_ORGANIZATION_TEMPLATES;
             case "delete:custom_domains":
                 return DELETE_CUSTOM_DOMAINS;
             case "create:network_acls":
@@ -1527,6 +1551,8 @@ public final class OauthScope {
                 return CREATE_ORGANIZATION_CONNECTIONS;
             case "delete:rules_configs":
                 return DELETE_RULES_CONFIGS;
+            case "read:organization_templates":
+                return READ_ORGANIZATION_TEMPLATES;
             case "read:user_attribute_profiles":
                 return READ_USER_ATTRIBUTE_PROFILES;
             case "read:email_provider":
@@ -1625,6 +1651,8 @@ public final class OauthScope {
                 return UPDATE_CONNECTION_PROFILES;
             case "read:prompts":
                 return READ_PROMPTS;
+            case "create:organization_templates":
+                return CREATE_ORGANIZATION_TEMPLATES;
             case "update:users_app_metadata":
                 return UPDATE_USERS_APP_METADATA;
             case "delete:network_acls":
@@ -2181,9 +2209,17 @@ public final class OauthScope {
 
         DELETE_ORGANIZATION_CLIENTS,
 
+        CREATE_ORGANIZATION_TEMPLATES,
+
+        READ_ORGANIZATION_TEMPLATES,
+
+        UPDATE_ORGANIZATION_TEMPLATES,
+
         CREATE_NETWORK_ACL_KEYS,
 
         READ_NETWORK_ACL_KEYS,
+
+        DELETE_NETWORK_ACL_KEYS,
 
         UNKNOWN
     }
@@ -2677,9 +2713,17 @@ public final class OauthScope {
 
         T visitDeleteOrganizationClients();
 
+        T visitCreateOrganizationTemplates();
+
+        T visitReadOrganizationTemplates();
+
+        T visitUpdateOrganizationTemplates();
+
         T visitCreateNetworkAclKeys();
 
         T visitReadNetworkAclKeys();
+
+        T visitDeleteNetworkAclKeys();
 
         T visitUnknown(String unknownType);
     }

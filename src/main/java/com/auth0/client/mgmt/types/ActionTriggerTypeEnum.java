@@ -43,6 +43,9 @@ public final class ActionTriggerTypeEnum {
     public static final ActionTriggerTypeEnum SEND_PHONE_MESSAGE =
             new ActionTriggerTypeEnum(Value.SEND_PHONE_MESSAGE, "send-phone-message");
 
+    public static final ActionTriggerTypeEnum POST_CREDENTIAL_VALIDATION =
+            new ActionTriggerTypeEnum(Value.POST_CREDENTIAL_VALIDATION, "post-credential-validation");
+
     public static final ActionTriggerTypeEnum EVENT_STREAM =
             new ActionTriggerTypeEnum(Value.EVENT_STREAM, "event-stream");
 
@@ -105,6 +108,8 @@ public final class ActionTriggerTypeEnum {
                 return visitor.visitPostChangePassword();
             case SEND_PHONE_MESSAGE:
                 return visitor.visitSendPhoneMessage();
+            case POST_CREDENTIAL_VALIDATION:
+                return visitor.visitPostCredentialValidation();
             case EVENT_STREAM:
                 return visitor.visitEventStream();
             case POST_LOGIN:
@@ -142,6 +147,8 @@ public final class ActionTriggerTypeEnum {
                 return POST_CHANGE_PASSWORD;
             case "send-phone-message":
                 return SEND_PHONE_MESSAGE;
+            case "post-credential-validation":
+                return POST_CREDENTIAL_VALIDATION;
             case "event-stream":
                 return EVENT_STREAM;
             case "post-login":
@@ -180,6 +187,8 @@ public final class ActionTriggerTypeEnum {
 
         SIGNUP_POST_IDENTIFIER,
 
+        POST_CREDENTIAL_VALIDATION,
+
         UNKNOWN
     }
 
@@ -211,6 +220,8 @@ public final class ActionTriggerTypeEnum {
         T visitLoginPostIdentifier();
 
         T visitSignupPostIdentifier();
+
+        T visitPostCredentialValidation();
 
         T visitUnknown(String unknownType);
     }

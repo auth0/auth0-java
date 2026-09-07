@@ -74,6 +74,8 @@ public final class EventStreamCloudEventConnectionDeletedObject1Options {
 
     private final Optional<Map<String, Object>> upstreamParams;
 
+    private final Optional<Boolean> useOauthSpecScope;
+
     private final Optional<String> userinfoEndpoint;
 
     private final Optional<EventStreamCloudEventConnectionDeletedObject1OptionsAttributeMap> attributeMap;
@@ -114,6 +116,7 @@ public final class EventStreamCloudEventConnectionDeletedObject1Options {
             Optional<EventStreamCloudEventConnectionDeletedObject1OptionsTokenEndpointJwtcaAudFormatEnum>
                     tokenEndpointJwtcaAudFormat,
             Optional<Map<String, Object>> upstreamParams,
+            Optional<Boolean> useOauthSpecScope,
             Optional<String> userinfoEndpoint,
             Optional<EventStreamCloudEventConnectionDeletedObject1OptionsAttributeMap> attributeMap,
             Optional<String> domain,
@@ -142,6 +145,7 @@ public final class EventStreamCloudEventConnectionDeletedObject1Options {
         this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
         this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
         this.upstreamParams = upstreamParams;
+        this.useOauthSpecScope = useOauthSpecScope;
         this.userinfoEndpoint = userinfoEndpoint;
         this.attributeMap = attributeMap;
         this.domain = domain;
@@ -310,6 +314,14 @@ public final class EventStreamCloudEventConnectionDeletedObject1Options {
     }
 
     /**
+     * @return When true, uses space-delimited scopes (per OAuth 2.0 spec) instead of comma-delimited when calling the identity provider's authorization endpoint. Only relevant when using the connection_scope parameter. See https://auth0.com/docs/authenticate/identity-providers/adding-scopes-for-an-external-idp#pass-scopes-to-authorize-endpoint
+     */
+    @JsonProperty("useOauthSpecScope")
+    public Optional<Boolean> getUseOauthSpecScope() {
+        return useOauthSpecScope;
+    }
+
+    /**
      * @return Optional URL of the identity provider's UserInfo endpoint. When configured with attribute mapping, Auth0 calls this endpoint to retrieve additional user profile claims using the access token.
      */
     @JsonProperty("userinfo_endpoint")
@@ -371,6 +383,7 @@ public final class EventStreamCloudEventConnectionDeletedObject1Options {
                 && tokenEndpointAuthSigningAlg.equals(other.tokenEndpointAuthSigningAlg)
                 && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat)
                 && upstreamParams.equals(other.upstreamParams)
+                && useOauthSpecScope.equals(other.useOauthSpecScope)
                 && userinfoEndpoint.equals(other.userinfoEndpoint)
                 && attributeMap.equals(other.attributeMap)
                 && domain.equals(other.domain)
@@ -403,6 +416,7 @@ public final class EventStreamCloudEventConnectionDeletedObject1Options {
                 this.tokenEndpointAuthSigningAlg,
                 this.tokenEndpointJwtcaAudFormat,
                 this.upstreamParams,
+                this.useOauthSpecScope,
                 this.userinfoEndpoint,
                 this.attributeMap,
                 this.domain,
@@ -588,6 +602,13 @@ public final class EventStreamCloudEventConnectionDeletedObject1Options {
         _FinalStage upstreamParams(Map<String, Object> upstreamParams);
 
         /**
+         * <p>When true, uses space-delimited scopes (per OAuth 2.0 spec) instead of comma-delimited when calling the identity provider's authorization endpoint. Only relevant when using the connection_scope parameter. See https://auth0.com/docs/authenticate/identity-providers/adding-scopes-for-an-external-idp#pass-scopes-to-authorize-endpoint</p>
+         */
+        _FinalStage useOauthSpecScope(Optional<Boolean> useOauthSpecScope);
+
+        _FinalStage useOauthSpecScope(Boolean useOauthSpecScope);
+
+        /**
          * <p>Optional URL of the identity provider's UserInfo endpoint. When configured with attribute mapping, Auth0 calls this endpoint to retrieve additional user profile claims using the access token.</p>
          */
         _FinalStage userinfoEndpoint(Optional<String> userinfoEndpoint);
@@ -623,6 +644,8 @@ public final class EventStreamCloudEventConnectionDeletedObject1Options {
                 Optional.empty();
 
         private Optional<String> userinfoEndpoint = Optional.empty();
+
+        private Optional<Boolean> useOauthSpecScope = Optional.empty();
 
         private Optional<Map<String, Object>> upstreamParams = Optional.empty();
 
@@ -708,6 +731,7 @@ public final class EventStreamCloudEventConnectionDeletedObject1Options {
             tokenEndpointAuthSigningAlg(other.getTokenEndpointAuthSigningAlg());
             tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
             upstreamParams(other.getUpstreamParams());
+            useOauthSpecScope(other.getUseOauthSpecScope());
             userinfoEndpoint(other.getUserinfoEndpoint());
             attributeMap(other.getAttributeMap());
             domain(other.getDomain());
@@ -790,6 +814,26 @@ public final class EventStreamCloudEventConnectionDeletedObject1Options {
         @JsonSetter(value = "userinfo_endpoint", nulls = Nulls.SKIP)
         public _FinalStage userinfoEndpoint(Optional<String> userinfoEndpoint) {
             this.userinfoEndpoint = userinfoEndpoint;
+            return this;
+        }
+
+        /**
+         * <p>When true, uses space-delimited scopes (per OAuth 2.0 spec) instead of comma-delimited when calling the identity provider's authorization endpoint. Only relevant when using the connection_scope parameter. See https://auth0.com/docs/authenticate/identity-providers/adding-scopes-for-an-external-idp#pass-scopes-to-authorize-endpoint</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage useOauthSpecScope(Boolean useOauthSpecScope) {
+            this.useOauthSpecScope = Optional.ofNullable(useOauthSpecScope);
+            return this;
+        }
+
+        /**
+         * <p>When true, uses space-delimited scopes (per OAuth 2.0 spec) instead of comma-delimited when calling the identity provider's authorization endpoint. Only relevant when using the connection_scope parameter. See https://auth0.com/docs/authenticate/identity-providers/adding-scopes-for-an-external-idp#pass-scopes-to-authorize-endpoint</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "useOauthSpecScope", nulls = Nulls.SKIP)
+        public _FinalStage useOauthSpecScope(Optional<Boolean> useOauthSpecScope) {
+            this.useOauthSpecScope = useOauthSpecScope;
             return this;
         }
 
@@ -1219,6 +1263,7 @@ public final class EventStreamCloudEventConnectionDeletedObject1Options {
                     tokenEndpointAuthSigningAlg,
                     tokenEndpointJwtcaAudFormat,
                     upstreamParams,
+                    useOauthSpecScope,
                     userinfoEndpoint,
                     attributeMap,
                     domain,

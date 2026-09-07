@@ -19,21 +19,21 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = EventStreamCloudEventContextTenant.Builder.class)
 public final class EventStreamCloudEventContextTenant {
-    private final String tenantId;
+    private final String id;
 
     private final Map<String, Object> additionalProperties;
 
-    private EventStreamCloudEventContextTenant(String tenantId, Map<String, Object> additionalProperties) {
-        this.tenantId = tenantId;
+    private EventStreamCloudEventContextTenant(String id, Map<String, Object> additionalProperties) {
+        this.id = id;
         this.additionalProperties = additionalProperties;
     }
 
     /**
-     * @return Machine-generated unique tenant identifier.
+     * @return User-provided tenant identifier.
      */
-    @JsonProperty("tenant_id")
-    public String getTenantId() {
-        return tenantId;
+    @JsonProperty("id")
+    public String getId() {
+        return id;
     }
 
     @java.lang.Override
@@ -49,12 +49,12 @@ public final class EventStreamCloudEventContextTenant {
     }
 
     private boolean equalTo(EventStreamCloudEventContextTenant other) {
-        return tenantId.equals(other.tenantId);
+        return id.equals(other.id);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.tenantId);
+        return Objects.hash(this.id);
     }
 
     @java.lang.Override
@@ -62,15 +62,15 @@ public final class EventStreamCloudEventContextTenant {
         return ObjectMappers.stringify(this);
     }
 
-    public static TenantIdStage builder() {
+    public static IdStage builder() {
         return new Builder();
     }
 
-    public interface TenantIdStage {
+    public interface IdStage {
         /**
-         * <p>Machine-generated unique tenant identifier.</p>
+         * <p>User-provided tenant identifier.</p>
          */
-        _FinalStage tenantId(@NotNull String tenantId);
+        _FinalStage id(@NotNull String id);
 
         Builder from(EventStreamCloudEventContextTenant other);
     }
@@ -84,8 +84,8 @@ public final class EventStreamCloudEventContextTenant {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements TenantIdStage, _FinalStage {
-        private String tenantId;
+    public static final class Builder implements IdStage, _FinalStage {
+        private String id;
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -94,24 +94,24 @@ public final class EventStreamCloudEventContextTenant {
 
         @java.lang.Override
         public Builder from(EventStreamCloudEventContextTenant other) {
-            tenantId(other.getTenantId());
+            id(other.getId());
             return this;
         }
 
         /**
-         * <p>Machine-generated unique tenant identifier.</p>
+         * <p>User-provided tenant identifier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        @JsonSetter("tenant_id")
-        public _FinalStage tenantId(@NotNull String tenantId) {
-            this.tenantId = Objects.requireNonNull(tenantId, "tenantId must not be null");
+        @JsonSetter("id")
+        public _FinalStage id(@NotNull String id) {
+            this.id = Objects.requireNonNull(id, "id must not be null");
             return this;
         }
 
         @java.lang.Override
         public EventStreamCloudEventContextTenant build() {
-            return new EventStreamCloudEventContextTenant(tenantId, additionalProperties);
+            return new EventStreamCloudEventContextTenant(id, additionalProperties);
         }
 
         @java.lang.Override

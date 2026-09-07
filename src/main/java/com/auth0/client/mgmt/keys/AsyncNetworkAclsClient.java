@@ -70,4 +70,18 @@ public class AsyncNetworkAclsClient {
     public CompletableFuture<NetworkAclKey> get(String id, RequestOptions requestOptions) {
         return this.rawClient.get(id, requestOptions).thenApply(response -> response.body());
     }
+
+    /**
+     * Delete a key used to verify HTTP Message Signatures on Network ACL rules
+     */
+    public CompletableFuture<Void> delete(String id) {
+        return this.rawClient.delete(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Delete a key used to verify HTTP Message Signatures on Network ACL rules
+     */
+    public CompletableFuture<Void> delete(String id, RequestOptions requestOptions) {
+        return this.rawClient.delete(id, requestOptions).thenApply(response -> response.body());
+    }
 }

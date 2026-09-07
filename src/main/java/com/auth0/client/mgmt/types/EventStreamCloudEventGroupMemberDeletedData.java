@@ -23,15 +23,19 @@ import org.jetbrains.annotations.NotNull;
 public final class EventStreamCloudEventGroupMemberDeletedData {
     private final EventStreamCloudEventGroupMemberDeletedObject object;
 
+    private final Optional<EventStreamCloudEventGroupMemberDeletedPreviousObject> previousObject;
+
     private final Optional<EventStreamCloudEventContext> context;
 
     private final Map<String, Object> additionalProperties;
 
     private EventStreamCloudEventGroupMemberDeletedData(
             EventStreamCloudEventGroupMemberDeletedObject object,
+            Optional<EventStreamCloudEventGroupMemberDeletedPreviousObject> previousObject,
             Optional<EventStreamCloudEventContext> context,
             Map<String, Object> additionalProperties) {
         this.object = object;
+        this.previousObject = previousObject;
         this.context = context;
         this.additionalProperties = additionalProperties;
     }
@@ -39,6 +43,11 @@ public final class EventStreamCloudEventGroupMemberDeletedData {
     @JsonProperty("object")
     public EventStreamCloudEventGroupMemberDeletedObject getObject() {
         return object;
+    }
+
+    @JsonProperty("previous_object")
+    public Optional<EventStreamCloudEventGroupMemberDeletedPreviousObject> getPreviousObject() {
+        return previousObject;
     }
 
     @JsonProperty("context")
@@ -59,12 +68,14 @@ public final class EventStreamCloudEventGroupMemberDeletedData {
     }
 
     private boolean equalTo(EventStreamCloudEventGroupMemberDeletedData other) {
-        return object.equals(other.object) && context.equals(other.context);
+        return object.equals(other.object)
+                && previousObject.equals(other.previousObject)
+                && context.equals(other.context);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.object, this.context);
+        return Objects.hash(this.object, this.previousObject, this.context);
     }
 
     @java.lang.Override
@@ -89,6 +100,10 @@ public final class EventStreamCloudEventGroupMemberDeletedData {
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
+        _FinalStage previousObject(Optional<EventStreamCloudEventGroupMemberDeletedPreviousObject> previousObject);
+
+        _FinalStage previousObject(EventStreamCloudEventGroupMemberDeletedPreviousObject previousObject);
+
         _FinalStage context(Optional<EventStreamCloudEventContext> context);
 
         _FinalStage context(EventStreamCloudEventContext context);
@@ -100,6 +115,8 @@ public final class EventStreamCloudEventGroupMemberDeletedData {
 
         private Optional<EventStreamCloudEventContext> context = Optional.empty();
 
+        private Optional<EventStreamCloudEventGroupMemberDeletedPreviousObject> previousObject = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -108,6 +125,7 @@ public final class EventStreamCloudEventGroupMemberDeletedData {
         @java.lang.Override
         public Builder from(EventStreamCloudEventGroupMemberDeletedData other) {
             object(other.getObject());
+            previousObject(other.getPreviousObject());
             context(other.getContext());
             return this;
         }
@@ -133,8 +151,23 @@ public final class EventStreamCloudEventGroupMemberDeletedData {
         }
 
         @java.lang.Override
+        public _FinalStage previousObject(EventStreamCloudEventGroupMemberDeletedPreviousObject previousObject) {
+            this.previousObject = Optional.ofNullable(previousObject);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "previous_object", nulls = Nulls.SKIP)
+        public _FinalStage previousObject(
+                Optional<EventStreamCloudEventGroupMemberDeletedPreviousObject> previousObject) {
+            this.previousObject = previousObject;
+            return this;
+        }
+
+        @java.lang.Override
         public EventStreamCloudEventGroupMemberDeletedData build() {
-            return new EventStreamCloudEventGroupMemberDeletedData(object, context, additionalProperties);
+            return new EventStreamCloudEventGroupMemberDeletedData(
+                    object, previousObject, context, additionalProperties);
         }
 
         @java.lang.Override

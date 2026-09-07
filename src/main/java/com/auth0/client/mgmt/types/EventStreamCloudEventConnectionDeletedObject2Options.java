@@ -71,15 +71,23 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
 
     private final Optional<String> destinationUrl;
 
+    private final Optional<Boolean> disableFieldsMapFix;
+
     private final Optional<Boolean> disableSignout;
 
+    private final Optional<String> discoveryUrl;
+
     private final Optional<Map<String, Object>> fieldsMap;
+
+    private final Optional<String> fieldsMapJsonRaw;
 
     private final Optional<String> globalTokenRevocationJwtIss;
 
     private final Optional<String> globalTokenRevocationJwtSub;
 
     private final Optional<String> metadataUrl;
+
+    private final Optional<EventStreamCloudEventConnectionDeletedObject2OptionsOidcMetadata> oidcMetadata;
 
     private final Optional<String> recipientUrl;
 
@@ -117,11 +125,15 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
             Optional<Boolean> debug,
             Optional<Boolean> deflate,
             Optional<String> destinationUrl,
+            Optional<Boolean> disableFieldsMapFix,
             Optional<Boolean> disableSignout,
+            Optional<String> discoveryUrl,
             Optional<Map<String, Object>> fieldsMap,
+            Optional<String> fieldsMapJsonRaw,
             Optional<String> globalTokenRevocationJwtIss,
             Optional<String> globalTokenRevocationJwtSub,
             Optional<String> metadataUrl,
+            Optional<EventStreamCloudEventConnectionDeletedObject2OptionsOidcMetadata> oidcMetadata,
             Optional<String> recipientUrl,
             Optional<String> requestTemplate,
             Optional<String> signOutEndpoint,
@@ -150,11 +162,15 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
         this.debug = debug;
         this.deflate = deflate;
         this.destinationUrl = destinationUrl;
+        this.disableFieldsMapFix = disableFieldsMapFix;
         this.disableSignout = disableSignout;
+        this.discoveryUrl = discoveryUrl;
         this.fieldsMap = fieldsMap;
+        this.fieldsMapJsonRaw = fieldsMapJsonRaw;
         this.globalTokenRevocationJwtIss = globalTokenRevocationJwtIss;
         this.globalTokenRevocationJwtSub = globalTokenRevocationJwtSub;
         this.metadataUrl = metadataUrl;
+        this.oidcMetadata = oidcMetadata;
         this.recipientUrl = recipientUrl;
         this.requestTemplate = requestTemplate;
         this.signOutEndpoint = signOutEndpoint;
@@ -326,6 +342,14 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
     }
 
     /**
+     * @return When true, disables the automatic correction of the fieldsMap configuration to ensure proper mapping of SAML attributes to user profile fields. Defaults to false (fieldsMap fix enabled).
+     */
+    @JsonProperty("disableFieldsMapFix")
+    public Optional<Boolean> getDisableFieldsMapFix() {
+        return disableFieldsMapFix;
+    }
+
+    /**
      * @return When true, disables sending SAML logout requests (SingleLogoutService) to the identity provider during user sign-out. The user will be logged out of Auth0 but will remain logged into the identity provider. Defaults to false (federated logout enabled).
      */
     @JsonProperty("disableSignout")
@@ -333,9 +357,25 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
         return disableSignout;
     }
 
+    /**
+     * @return URL of the identity provider's OIDC Discovery endpoint (/.well-known/openid-configuration). When provided and oidc_metadata is empty, Auth0 automatically retrieves the provider's configuration including endpoints and supported features. Used with Cross App Access.
+     */
+    @JsonProperty("discovery_url")
+    public Optional<String> getDiscoveryUrl() {
+        return discoveryUrl;
+    }
+
     @JsonProperty("fieldsMap")
     public Optional<Map<String, Object>> getFieldsMap() {
         return fieldsMap;
+    }
+
+    /**
+     * @return Raw JSON string representation of the fieldsMap configuration. Used internally for storage and retrieval of the fieldsMap object.
+     */
+    @JsonProperty("fieldsMapJsonRaw")
+    public Optional<String> getFieldsMapJsonRaw() {
+        return fieldsMapJsonRaw;
     }
 
     /**
@@ -360,6 +400,11 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
     @JsonProperty("metadataUrl")
     public Optional<String> getMetadataUrl() {
         return metadataUrl;
+    }
+
+    @JsonProperty("oidc_metadata")
+    public Optional<EventStreamCloudEventConnectionDeletedObject2OptionsOidcMetadata> getOidcMetadata() {
+        return oidcMetadata;
     }
 
     /**
@@ -430,11 +475,15 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
                 && debug.equals(other.debug)
                 && deflate.equals(other.deflate)
                 && destinationUrl.equals(other.destinationUrl)
+                && disableFieldsMapFix.equals(other.disableFieldsMapFix)
                 && disableSignout.equals(other.disableSignout)
+                && discoveryUrl.equals(other.discoveryUrl)
                 && fieldsMap.equals(other.fieldsMap)
+                && fieldsMapJsonRaw.equals(other.fieldsMapJsonRaw)
                 && globalTokenRevocationJwtIss.equals(other.globalTokenRevocationJwtIss)
                 && globalTokenRevocationJwtSub.equals(other.globalTokenRevocationJwtSub)
                 && metadataUrl.equals(other.metadataUrl)
+                && oidcMetadata.equals(other.oidcMetadata)
                 && recipientUrl.equals(other.recipientUrl)
                 && requestTemplate.equals(other.requestTemplate)
                 && signOutEndpoint.equals(other.signOutEndpoint)
@@ -467,11 +516,15 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
                 this.debug,
                 this.deflate,
                 this.destinationUrl,
+                this.disableFieldsMapFix,
                 this.disableSignout,
+                this.discoveryUrl,
                 this.fieldsMap,
+                this.fieldsMapJsonRaw,
                 this.globalTokenRevocationJwtIss,
                 this.globalTokenRevocationJwtSub,
                 this.metadataUrl,
+                this.oidcMetadata,
                 this.recipientUrl,
                 this.requestTemplate,
                 this.signOutEndpoint,
@@ -541,15 +594,24 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
 
         private Optional<String> destinationUrl = Optional.empty();
 
+        private Optional<Boolean> disableFieldsMapFix = Optional.empty();
+
         private Optional<Boolean> disableSignout = Optional.empty();
 
+        private Optional<String> discoveryUrl = Optional.empty();
+
         private Optional<Map<String, Object>> fieldsMap = Optional.empty();
+
+        private Optional<String> fieldsMapJsonRaw = Optional.empty();
 
         private Optional<String> globalTokenRevocationJwtIss = Optional.empty();
 
         private Optional<String> globalTokenRevocationJwtSub = Optional.empty();
 
         private Optional<String> metadataUrl = Optional.empty();
+
+        private Optional<EventStreamCloudEventConnectionDeletedObject2OptionsOidcMetadata> oidcMetadata =
+                Optional.empty();
 
         private Optional<String> recipientUrl = Optional.empty();
 
@@ -588,11 +650,15 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
             debug(other.getDebug());
             deflate(other.getDeflate());
             destinationUrl(other.getDestinationUrl());
+            disableFieldsMapFix(other.getDisableFieldsMapFix());
             disableSignout(other.getDisableSignout());
+            discoveryUrl(other.getDiscoveryUrl());
             fieldsMap(other.getFieldsMap());
+            fieldsMapJsonRaw(other.getFieldsMapJsonRaw());
             globalTokenRevocationJwtIss(other.getGlobalTokenRevocationJwtIss());
             globalTokenRevocationJwtSub(other.getGlobalTokenRevocationJwtSub());
             metadataUrl(other.getMetadataUrl());
+            oidcMetadata(other.getOidcMetadata());
             recipientUrl(other.getRecipientUrl());
             requestTemplate(other.getRequestTemplate());
             signOutEndpoint(other.getSignOutEndpoint());
@@ -914,6 +980,20 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
         }
 
         /**
+         * <p>When true, disables the automatic correction of the fieldsMap configuration to ensure proper mapping of SAML attributes to user profile fields. Defaults to false (fieldsMap fix enabled).</p>
+         */
+        @JsonSetter(value = "disableFieldsMapFix", nulls = Nulls.SKIP)
+        public Builder disableFieldsMapFix(Optional<Boolean> disableFieldsMapFix) {
+            this.disableFieldsMapFix = disableFieldsMapFix;
+            return this;
+        }
+
+        public Builder disableFieldsMapFix(Boolean disableFieldsMapFix) {
+            this.disableFieldsMapFix = Optional.ofNullable(disableFieldsMapFix);
+            return this;
+        }
+
+        /**
          * <p>When true, disables sending SAML logout requests (SingleLogoutService) to the identity provider during user sign-out. The user will be logged out of Auth0 but will remain logged into the identity provider. Defaults to false (federated logout enabled).</p>
          */
         @JsonSetter(value = "disableSignout", nulls = Nulls.SKIP)
@@ -927,6 +1007,20 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
             return this;
         }
 
+        /**
+         * <p>URL of the identity provider's OIDC Discovery endpoint (/.well-known/openid-configuration). When provided and oidc_metadata is empty, Auth0 automatically retrieves the provider's configuration including endpoints and supported features. Used with Cross App Access.</p>
+         */
+        @JsonSetter(value = "discovery_url", nulls = Nulls.SKIP)
+        public Builder discoveryUrl(Optional<String> discoveryUrl) {
+            this.discoveryUrl = discoveryUrl;
+            return this;
+        }
+
+        public Builder discoveryUrl(String discoveryUrl) {
+            this.discoveryUrl = Optional.ofNullable(discoveryUrl);
+            return this;
+        }
+
         @JsonSetter(value = "fieldsMap", nulls = Nulls.SKIP)
         public Builder fieldsMap(Optional<Map<String, Object>> fieldsMap) {
             this.fieldsMap = fieldsMap;
@@ -935,6 +1029,20 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
 
         public Builder fieldsMap(Map<String, Object> fieldsMap) {
             this.fieldsMap = Optional.ofNullable(fieldsMap);
+            return this;
+        }
+
+        /**
+         * <p>Raw JSON string representation of the fieldsMap configuration. Used internally for storage and retrieval of the fieldsMap object.</p>
+         */
+        @JsonSetter(value = "fieldsMapJsonRaw", nulls = Nulls.SKIP)
+        public Builder fieldsMapJsonRaw(Optional<String> fieldsMapJsonRaw) {
+            this.fieldsMapJsonRaw = fieldsMapJsonRaw;
+            return this;
+        }
+
+        public Builder fieldsMapJsonRaw(String fieldsMapJsonRaw) {
+            this.fieldsMapJsonRaw = Optional.ofNullable(fieldsMapJsonRaw);
             return this;
         }
 
@@ -977,6 +1085,18 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
 
         public Builder metadataUrl(String metadataUrl) {
             this.metadataUrl = Optional.ofNullable(metadataUrl);
+            return this;
+        }
+
+        @JsonSetter(value = "oidc_metadata", nulls = Nulls.SKIP)
+        public Builder oidcMetadata(
+                Optional<EventStreamCloudEventConnectionDeletedObject2OptionsOidcMetadata> oidcMetadata) {
+            this.oidcMetadata = oidcMetadata;
+            return this;
+        }
+
+        public Builder oidcMetadata(EventStreamCloudEventConnectionDeletedObject2OptionsOidcMetadata oidcMetadata) {
+            this.oidcMetadata = Optional.ofNullable(oidcMetadata);
             return this;
         }
 
@@ -1061,11 +1181,15 @@ public final class EventStreamCloudEventConnectionDeletedObject2Options {
                     debug,
                     deflate,
                     destinationUrl,
+                    disableFieldsMapFix,
                     disableSignout,
+                    discoveryUrl,
                     fieldsMap,
+                    fieldsMapJsonRaw,
                     globalTokenRevocationJwtIss,
                     globalTokenRevocationJwtSub,
                     metadataUrl,
+                    oidcMetadata,
                     recipientUrl,
                     requestTemplate,
                     signOutEndpoint,

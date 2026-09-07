@@ -44,9 +44,6 @@ public final class ClientAppTypeEnum {
 
     public static final ClientAppTypeEnum RMS = new ClientAppTypeEnum(Value.RMS, "rms");
 
-    public static final ClientAppTypeEnum B2B_INTEGRATION =
-            new ClientAppTypeEnum(Value.B2B_INTEGRATION, "b2b_integration");
-
     public static final ClientAppTypeEnum CLOUDBEES = new ClientAppTypeEnum(Value.CLOUDBEES, "cloudbees");
 
     public static final ClientAppTypeEnum SALESFORCE = new ClientAppTypeEnum(Value.SALESFORCE, "salesforce");
@@ -130,8 +127,6 @@ public final class ClientAppTypeEnum {
                 return visitor.visitEchosign();
             case RMS:
                 return visitor.visitRms();
-            case B2B_INTEGRATION:
-                return visitor.visitB2BIntegration();
             case CLOUDBEES:
                 return visitor.visitCloudbees();
             case SALESFORCE:
@@ -191,8 +186,6 @@ public final class ClientAppTypeEnum {
                 return ECHOSIGN;
             case "rms":
                 return RMS;
-            case "b2b_integration":
-                return B2B_INTEGRATION;
             case "cloudbees":
                 return CLOUDBEES;
             case "salesforce":
@@ -226,8 +219,6 @@ public final class ClientAppTypeEnum {
         RESOURCE_SERVER,
 
         EXPRESS_CONFIGURATION,
-
-        B2B_INTEGRATION,
 
         RMS,
 
@@ -282,8 +273,6 @@ public final class ClientAppTypeEnum {
         T visitResourceServer();
 
         T visitExpressConfiguration();
-
-        T visitB2BIntegration();
 
         T visitRms();
 

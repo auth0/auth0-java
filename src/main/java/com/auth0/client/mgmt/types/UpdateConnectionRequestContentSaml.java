@@ -3,6 +3,7 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpdateConnectionRequestContentSaml.Builder.class)
@@ -32,6 +34,8 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
 
     private final Optional<ConnectionOptionsSaml> options;
 
+    private final OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp;
+
     private final Optional<Boolean> showAsButton;
 
     private final Map<String, Object> additionalProperties;
@@ -42,6 +46,7 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             Optional<ConnectionOptionsSaml> options,
+            OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp,
             Optional<Boolean> showAsButton,
             Map<String, Object> additionalProperties) {
         this.displayName = displayName;
@@ -49,6 +54,7 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
         this.options = options;
+        this.crossAppAccessResourceApp = crossAppAccessResourceApp;
         this.showAsButton = showAsButton;
         this.additionalProperties = additionalProperties;
     }
@@ -82,9 +88,24 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
         return options;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("cross_app_access_resource_app")
+    public OptionalNullable<ConnectionCrossAppAccessResourceApp> getCrossAppAccessResourceApp() {
+        if (crossAppAccessResourceApp == null) {
+            return OptionalNullable.absent();
+        }
+        return crossAppAccessResourceApp;
+    }
+
     @JsonProperty("show_as_button")
     public Optional<Boolean> getShowAsButton() {
         return showAsButton;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("cross_app_access_resource_app")
+    private OptionalNullable<ConnectionCrossAppAccessResourceApp> _getCrossAppAccessResourceApp() {
+        return crossAppAccessResourceApp;
     }
 
     @java.lang.Override
@@ -105,6 +126,7 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
                 && options.equals(other.options)
+                && crossAppAccessResourceApp.equals(other.crossAppAccessResourceApp)
                 && showAsButton.equals(other.showAsButton);
     }
 
@@ -116,6 +138,7 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
                 this.isDomainConnection,
                 this.metadata,
                 this.options,
+                this.crossAppAccessResourceApp,
                 this.showAsButton);
     }
 
@@ -140,6 +163,9 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
 
         private Optional<ConnectionOptionsSaml> options = Optional.empty();
 
+        private OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp =
+                OptionalNullable.absent();
+
         private Optional<Boolean> showAsButton = Optional.empty();
 
         @JsonAnySetter
@@ -153,6 +179,7 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
             options(other.getOptions());
+            crossAppAccessResourceApp(other.getCrossAppAccessResourceApp());
             showAsButton(other.getShowAsButton());
             return this;
         }
@@ -212,6 +239,40 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
             return this;
         }
 
+        @JsonSetter(value = "cross_app_access_resource_app", nulls = Nulls.SKIP)
+        public Builder crossAppAccessResourceApp(
+                @Nullable OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = crossAppAccessResourceApp;
+            return this;
+        }
+
+        public Builder crossAppAccessResourceApp(ConnectionCrossAppAccessResourceApp crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp);
+            return this;
+        }
+
+        public Builder crossAppAccessResourceApp(
+                Optional<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            if (crossAppAccessResourceApp.isPresent()) {
+                this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp.get());
+            } else {
+                this.crossAppAccessResourceApp = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder crossAppAccessResourceApp(
+                com.auth0.client.mgmt.core.Nullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            if (crossAppAccessResourceApp.isNull()) {
+                this.crossAppAccessResourceApp = OptionalNullable.ofNull();
+            } else if (crossAppAccessResourceApp.isEmpty()) {
+                this.crossAppAccessResourceApp = OptionalNullable.absent();
+            } else {
+                this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp.get());
+            }
+            return this;
+        }
+
         @JsonSetter(value = "show_as_button", nulls = Nulls.SKIP)
         public Builder showAsButton(Optional<Boolean> showAsButton) {
             this.showAsButton = showAsButton;
@@ -230,6 +291,7 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
                     isDomainConnection,
                     metadata,
                     options,
+                    crossAppAccessResourceApp,
                     showAsButton,
                     additionalProperties);
         }

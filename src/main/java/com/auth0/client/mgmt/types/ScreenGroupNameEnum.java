@@ -132,6 +132,9 @@ public final class ScreenGroupNameEnum {
     public static final ScreenGroupNameEnum PASSKEY_ENROLLMENT =
             new ScreenGroupNameEnum(Value.PASSKEY_ENROLLMENT, "passkey-enrollment");
 
+    public static final ScreenGroupNameEnum CONSENT_TENANT_SCOPES =
+            new ScreenGroupNameEnum(Value.CONSENT_TENANT_SCOPES, "consent-tenant-scopes");
+
     public static final ScreenGroupNameEnum ORGANIZATION_PICKER =
             new ScreenGroupNameEnum(Value.ORGANIZATION_PICKER, "organization-picker");
 
@@ -387,6 +390,8 @@ public final class ScreenGroupNameEnum {
                 return visitor.visitMfaBeginEnrollOptions();
             case PASSKEY_ENROLLMENT:
                 return visitor.visitPasskeyEnrollment();
+            case CONSENT_TENANT_SCOPES:
+                return visitor.visitConsentTenantScopes();
             case ORGANIZATION_PICKER:
                 return visitor.visitOrganizationPicker();
             case PHONE_IDENTIFIER_CHALLENGE:
@@ -576,6 +581,8 @@ public final class ScreenGroupNameEnum {
                 return MFA_BEGIN_ENROLL_OPTIONS;
             case "passkey-enrollment":
                 return PASSKEY_ENROLLMENT;
+            case "consent-tenant-scopes":
+                return CONSENT_TENANT_SCOPES;
             case "organization-picker":
                 return ORGANIZATION_PICKER;
             case "phone-identifier-challenge":
@@ -731,6 +738,8 @@ public final class ScreenGroupNameEnum {
         CUSTOM_FORM,
 
         CONSENT,
+
+        CONSENT_TENANT_SCOPES,
 
         CUSTOMIZED_CONSENT,
 
@@ -915,6 +924,8 @@ public final class ScreenGroupNameEnum {
         T visitCustomForm();
 
         T visitConsent();
+
+        T visitConsentTenantScopes();
 
         T visitCustomizedConsent();
 
