@@ -246,6 +246,15 @@ public class KeysNetworkAclsWireTest {
         }
     }
 
+    @Test
+    public void testDelete() throws Exception {
+        server.enqueue(new MockResponse().setResponseCode(200).setBody("{}"));
+        client.keys().networkAcls().delete("id");
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("DELETE", request.getMethod());
+    }
+
     /**
      * Compares two JsonNodes with numeric equivalence and null safety.
      * For objects, checks that all fields in 'expected' exist in 'actual' with matching values.

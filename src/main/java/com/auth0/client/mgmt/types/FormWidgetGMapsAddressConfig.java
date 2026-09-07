@@ -10,10 +10,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -21,16 +23,25 @@ import org.jetbrains.annotations.NotNull;
 public final class FormWidgetGMapsAddressConfig {
     private final String apiKey;
 
+    private final Optional<String> serverKey;
+
     private final Map<String, Object> additionalProperties;
 
-    private FormWidgetGMapsAddressConfig(String apiKey, Map<String, Object> additionalProperties) {
+    private FormWidgetGMapsAddressConfig(
+            String apiKey, Optional<String> serverKey, Map<String, Object> additionalProperties) {
         this.apiKey = apiKey;
+        this.serverKey = serverKey;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("api_key")
     public String getApiKey() {
         return apiKey;
+    }
+
+    @JsonProperty("server_key")
+    public Optional<String> getServerKey() {
+        return serverKey;
     }
 
     @java.lang.Override
@@ -45,12 +56,12 @@ public final class FormWidgetGMapsAddressConfig {
     }
 
     private boolean equalTo(FormWidgetGMapsAddressConfig other) {
-        return apiKey.equals(other.apiKey);
+        return apiKey.equals(other.apiKey) && serverKey.equals(other.serverKey);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.apiKey);
+        return Objects.hash(this.apiKey, this.serverKey);
     }
 
     @java.lang.Override
@@ -74,11 +85,17 @@ public final class FormWidgetGMapsAddressConfig {
         _FinalStage additionalProperty(String key, Object value);
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        _FinalStage serverKey(Optional<String> serverKey);
+
+        _FinalStage serverKey(String serverKey);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements ApiKeyStage, _FinalStage {
         private String apiKey;
+
+        private Optional<String> serverKey = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -88,6 +105,7 @@ public final class FormWidgetGMapsAddressConfig {
         @java.lang.Override
         public Builder from(FormWidgetGMapsAddressConfig other) {
             apiKey(other.getApiKey());
+            serverKey(other.getServerKey());
             return this;
         }
 
@@ -99,8 +117,21 @@ public final class FormWidgetGMapsAddressConfig {
         }
 
         @java.lang.Override
+        public _FinalStage serverKey(String serverKey) {
+            this.serverKey = Optional.ofNullable(serverKey);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "server_key", nulls = Nulls.SKIP)
+        public _FinalStage serverKey(Optional<String> serverKey) {
+            this.serverKey = serverKey;
+            return this;
+        }
+
+        @java.lang.Override
         public FormWidgetGMapsAddressConfig build() {
-            return new FormWidgetGMapsAddressConfig(apiKey, additionalProperties);
+            return new FormWidgetGMapsAddressConfig(apiKey, serverKey, additionalProperties);
         }
 
         @java.lang.Override

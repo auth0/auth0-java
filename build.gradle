@@ -22,9 +22,9 @@ logger.lifecycle("Using version ${version} for ${name} group $group")
 dependencies {
   // Core dependencies
   api 'com.squareup.okhttp3:okhttp:5.2.1'
-  api 'com.fasterxml.jackson.core:jackson-databind:2.21.5'
-  api 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.21.5'
-  api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.21.5'
+  api 'com.fasterxml.jackson.core:jackson-databind:2.21.6'
+  api 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.21.6'
+  api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.21.6'
 
   // Dependencies for legacy management code from auth0-real
   implementation 'com.squareup.okhttp3:logging-interceptor:5.2.1'
@@ -48,6 +48,16 @@ java {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+// The Management API client is Fern-generated (~4000 types). javac's type
+// inference over that tree exhausts the compiler's default heap. Because the
+// Java 8 toolchain differs from the JDK running Gradle, javac is forked into a
+// separate process, so org.gradle.jvmargs (the daemon heap) does not apply —
+// the heap must be set on the forked compiler here.
+tasks.withType(JavaCompile).configureEach {
+  options.fork = true
+  options.forkOptions.memoryMaximumSize = '2g'
+}
 
 jar {
   manifest {

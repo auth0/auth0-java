@@ -45,6 +45,8 @@ public final class NetworkAclMatch {
 
     private final Optional<List<String>> connectingIpv6Cidrs;
 
+    private final Optional<NetworkAclHttpMessageSignature> httpMessageSignature;
+
     private final Map<String, Object> additionalProperties;
 
     private NetworkAclMatch(
@@ -60,6 +62,7 @@ public final class NetworkAclMatch {
             Optional<List<String>> hostnames,
             Optional<List<String>> connectingIpv4Cidrs,
             Optional<List<String>> connectingIpv6Cidrs,
+            Optional<NetworkAclHttpMessageSignature> httpMessageSignature,
             Map<String, Object> additionalProperties) {
         this.asns = asns;
         this.auth0Managed = auth0Managed;
@@ -73,6 +76,7 @@ public final class NetworkAclMatch {
         this.hostnames = hostnames;
         this.connectingIpv4Cidrs = connectingIpv4Cidrs;
         this.connectingIpv6Cidrs = connectingIpv6Cidrs;
+        this.httpMessageSignature = httpMessageSignature;
         this.additionalProperties = additionalProperties;
     }
 
@@ -136,6 +140,11 @@ public final class NetworkAclMatch {
         return connectingIpv6Cidrs;
     }
 
+    @JsonProperty("http_message_signature")
+    public Optional<NetworkAclHttpMessageSignature> getHttpMessageSignature() {
+        return httpMessageSignature;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -159,7 +168,8 @@ public final class NetworkAclMatch {
                 && userAgents.equals(other.userAgents)
                 && hostnames.equals(other.hostnames)
                 && connectingIpv4Cidrs.equals(other.connectingIpv4Cidrs)
-                && connectingIpv6Cidrs.equals(other.connectingIpv6Cidrs);
+                && connectingIpv6Cidrs.equals(other.connectingIpv6Cidrs)
+                && httpMessageSignature.equals(other.httpMessageSignature);
     }
 
     @java.lang.Override
@@ -176,7 +186,8 @@ public final class NetworkAclMatch {
                 this.userAgents,
                 this.hostnames,
                 this.connectingIpv4Cidrs,
-                this.connectingIpv6Cidrs);
+                this.connectingIpv6Cidrs,
+                this.httpMessageSignature);
     }
 
     @java.lang.Override
@@ -214,6 +225,8 @@ public final class NetworkAclMatch {
 
         private Optional<List<String>> connectingIpv6Cidrs = Optional.empty();
 
+        private Optional<NetworkAclHttpMessageSignature> httpMessageSignature = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -232,6 +245,7 @@ public final class NetworkAclMatch {
             hostnames(other.getHostnames());
             connectingIpv4Cidrs(other.getConnectingIpv4Cidrs());
             connectingIpv6Cidrs(other.getConnectingIpv6Cidrs());
+            httpMessageSignature(other.getHttpMessageSignature());
             return this;
         }
 
@@ -367,6 +381,17 @@ public final class NetworkAclMatch {
             return this;
         }
 
+        @JsonSetter(value = "http_message_signature", nulls = Nulls.SKIP)
+        public Builder httpMessageSignature(Optional<NetworkAclHttpMessageSignature> httpMessageSignature) {
+            this.httpMessageSignature = httpMessageSignature;
+            return this;
+        }
+
+        public Builder httpMessageSignature(NetworkAclHttpMessageSignature httpMessageSignature) {
+            this.httpMessageSignature = Optional.ofNullable(httpMessageSignature);
+            return this;
+        }
+
         public NetworkAclMatch build() {
             return new NetworkAclMatch(
                     asns,
@@ -381,6 +406,7 @@ public final class NetworkAclMatch {
                     hostnames,
                     connectingIpv4Cidrs,
                     connectingIpv6Cidrs,
+                    httpMessageSignature,
                     additionalProperties);
         }
 

@@ -45,6 +45,8 @@ public final class EventStreamCloudEventConnectionCreatedObject5Options {
 
     private final Optional<Boolean> kerberos;
 
+    private final Optional<Boolean> kerberosOnly;
+
     private final Optional<List<String>> nonPersistentAttrs;
 
     private final Optional<EventStreamCloudEventConnectionCreatedObject5OptionsSetUserRootAttributesEnum>
@@ -73,6 +75,7 @@ public final class EventStreamCloudEventConnectionCreatedObject5Options {
             Optional<String> iconUrl,
             Optional<List<String>> ips,
             Optional<Boolean> kerberos,
+            Optional<Boolean> kerberosOnly,
             Optional<List<String>> nonPersistentAttrs,
             Optional<EventStreamCloudEventConnectionCreatedObject5OptionsSetUserRootAttributesEnum>
                     setUserRootAttributes,
@@ -93,6 +96,7 @@ public final class EventStreamCloudEventConnectionCreatedObject5Options {
         this.iconUrl = iconUrl;
         this.ips = ips;
         this.kerberos = kerberos;
+        this.kerberosOnly = kerberosOnly;
         this.nonPersistentAttrs = nonPersistentAttrs;
         this.setUserRootAttributes = setUserRootAttributes;
         this.signInEndpoint = signInEndpoint;
@@ -199,6 +203,14 @@ public final class EventStreamCloudEventConnectionCreatedObject5Options {
     }
 
     /**
+     * @return When true, restricts the connection to Kerberos-only authentication, disallowing username/password fallback.
+     */
+    @JsonProperty("kerberos_only")
+    public Optional<Boolean> getKerberosOnly() {
+        return kerberosOnly;
+    }
+
+    /**
      * @return An array of user fields that should not be stored in the Auth0 database (https://auth0.com/docs/security/data-security/denylist)
      */
     @JsonProperty("non_persistent_attrs")
@@ -266,6 +278,7 @@ public final class EventStreamCloudEventConnectionCreatedObject5Options {
                 && iconUrl.equals(other.iconUrl)
                 && ips.equals(other.ips)
                 && kerberos.equals(other.kerberos)
+                && kerberosOnly.equals(other.kerberosOnly)
                 && nonPersistentAttrs.equals(other.nonPersistentAttrs)
                 && setUserRootAttributes.equals(other.setUserRootAttributes)
                 && signInEndpoint.equals(other.signInEndpoint)
@@ -289,6 +302,7 @@ public final class EventStreamCloudEventConnectionCreatedObject5Options {
                 this.iconUrl,
                 this.ips,
                 this.kerberos,
+                this.kerberosOnly,
                 this.nonPersistentAttrs,
                 this.setUserRootAttributes,
                 this.signInEndpoint,
@@ -332,6 +346,8 @@ public final class EventStreamCloudEventConnectionCreatedObject5Options {
 
         private Optional<Boolean> kerberos = Optional.empty();
 
+        private Optional<Boolean> kerberosOnly = Optional.empty();
+
         private Optional<List<String>> nonPersistentAttrs = Optional.empty();
 
         private Optional<EventStreamCloudEventConnectionCreatedObject5OptionsSetUserRootAttributesEnum>
@@ -363,6 +379,7 @@ public final class EventStreamCloudEventConnectionCreatedObject5Options {
             iconUrl(other.getIconUrl());
             ips(other.getIps());
             kerberos(other.getKerberos());
+            kerberosOnly(other.getKerberosOnly());
             nonPersistentAttrs(other.getNonPersistentAttrs());
             setUserRootAttributes(other.getSetUserRootAttributes());
             signInEndpoint(other.getSignInEndpoint());
@@ -541,6 +558,20 @@ public final class EventStreamCloudEventConnectionCreatedObject5Options {
         }
 
         /**
+         * <p>When true, restricts the connection to Kerberos-only authentication, disallowing username/password fallback.</p>
+         */
+        @JsonSetter(value = "kerberos_only", nulls = Nulls.SKIP)
+        public Builder kerberosOnly(Optional<Boolean> kerberosOnly) {
+            this.kerberosOnly = kerberosOnly;
+            return this;
+        }
+
+        public Builder kerberosOnly(Boolean kerberosOnly) {
+            this.kerberosOnly = Optional.ofNullable(kerberosOnly);
+            return this;
+        }
+
+        /**
          * <p>An array of user fields that should not be stored in the Auth0 database (https://auth0.com/docs/security/data-security/denylist)</p>
          */
         @JsonSetter(value = "non_persistent_attrs", nulls = Nulls.SKIP)
@@ -635,6 +666,7 @@ public final class EventStreamCloudEventConnectionCreatedObject5Options {
                     iconUrl,
                     ips,
                     kerberos,
+                    kerberosOnly,
                     nonPersistentAttrs,
                     setUserRootAttributes,
                     signInEndpoint,

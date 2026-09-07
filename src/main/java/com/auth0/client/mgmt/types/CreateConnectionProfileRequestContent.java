@@ -34,6 +34,8 @@ public final class CreateConnectionProfileRequestContent {
 
     private final Optional<ConnectionProfileStrategyOverrides> strategyOverrides;
 
+    private final Optional<ConnectionProfileProvisioning> provisioning;
+
     private final Optional<ConnectionProfileCrossAppAccessResourceApp> crossAppAccessResourceApp;
 
     private final Map<String, Object> additionalProperties;
@@ -45,6 +47,7 @@ public final class CreateConnectionProfileRequestContent {
             Optional<List<EnabledFeaturesEnum>> enabledFeatures,
             Optional<ConnectionProfileConfig> connectionConfig,
             Optional<ConnectionProfileStrategyOverrides> strategyOverrides,
+            Optional<ConnectionProfileProvisioning> provisioning,
             Optional<ConnectionProfileCrossAppAccessResourceApp> crossAppAccessResourceApp,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -53,6 +56,7 @@ public final class CreateConnectionProfileRequestContent {
         this.enabledFeatures = enabledFeatures;
         this.connectionConfig = connectionConfig;
         this.strategyOverrides = strategyOverrides;
+        this.provisioning = provisioning;
         this.crossAppAccessResourceApp = crossAppAccessResourceApp;
         this.additionalProperties = additionalProperties;
     }
@@ -87,6 +91,11 @@ public final class CreateConnectionProfileRequestContent {
         return strategyOverrides;
     }
 
+    @JsonProperty("provisioning")
+    public Optional<ConnectionProfileProvisioning> getProvisioning() {
+        return provisioning;
+    }
+
     @JsonProperty("cross_app_access_resource_app")
     public Optional<ConnectionProfileCrossAppAccessResourceApp> getCrossAppAccessResourceApp() {
         return crossAppAccessResourceApp;
@@ -111,6 +120,7 @@ public final class CreateConnectionProfileRequestContent {
                 && enabledFeatures.equals(other.enabledFeatures)
                 && connectionConfig.equals(other.connectionConfig)
                 && strategyOverrides.equals(other.strategyOverrides)
+                && provisioning.equals(other.provisioning)
                 && crossAppAccessResourceApp.equals(other.crossAppAccessResourceApp);
     }
 
@@ -123,6 +133,7 @@ public final class CreateConnectionProfileRequestContent {
                 this.enabledFeatures,
                 this.connectionConfig,
                 this.strategyOverrides,
+                this.provisioning,
                 this.crossAppAccessResourceApp);
     }
 
@@ -168,6 +179,10 @@ public final class CreateConnectionProfileRequestContent {
 
         _FinalStage strategyOverrides(ConnectionProfileStrategyOverrides strategyOverrides);
 
+        _FinalStage provisioning(Optional<ConnectionProfileProvisioning> provisioning);
+
+        _FinalStage provisioning(ConnectionProfileProvisioning provisioning);
+
         _FinalStage crossAppAccessResourceApp(
                 Optional<ConnectionProfileCrossAppAccessResourceApp> crossAppAccessResourceApp);
 
@@ -179,6 +194,8 @@ public final class CreateConnectionProfileRequestContent {
         private String name;
 
         private Optional<ConnectionProfileCrossAppAccessResourceApp> crossAppAccessResourceApp = Optional.empty();
+
+        private Optional<ConnectionProfileProvisioning> provisioning = Optional.empty();
 
         private Optional<ConnectionProfileStrategyOverrides> strategyOverrides = Optional.empty();
 
@@ -203,6 +220,7 @@ public final class CreateConnectionProfileRequestContent {
             enabledFeatures(other.getEnabledFeatures());
             connectionConfig(other.getConnectionConfig());
             strategyOverrides(other.getStrategyOverrides());
+            provisioning(other.getProvisioning());
             crossAppAccessResourceApp(other.getCrossAppAccessResourceApp());
             return this;
         }
@@ -226,6 +244,19 @@ public final class CreateConnectionProfileRequestContent {
         public _FinalStage crossAppAccessResourceApp(
                 Optional<ConnectionProfileCrossAppAccessResourceApp> crossAppAccessResourceApp) {
             this.crossAppAccessResourceApp = crossAppAccessResourceApp;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage provisioning(ConnectionProfileProvisioning provisioning) {
+            this.provisioning = Optional.ofNullable(provisioning);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "provisioning", nulls = Nulls.SKIP)
+        public _FinalStage provisioning(Optional<ConnectionProfileProvisioning> provisioning) {
+            this.provisioning = provisioning;
             return this;
         }
 
@@ -303,6 +334,7 @@ public final class CreateConnectionProfileRequestContent {
                     enabledFeatures,
                     connectionConfig,
                     strategyOverrides,
+                    provisioning,
                     crossAppAccessResourceApp,
                     additionalProperties);
         }

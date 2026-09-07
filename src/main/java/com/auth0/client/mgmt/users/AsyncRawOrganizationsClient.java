@@ -12,6 +12,7 @@ import com.auth0.client.mgmt.core.QueryStringMapper;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.RetryInterceptor;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
+import com.auth0.client.mgmt.errors.BadRequestError;
 import com.auth0.client.mgmt.errors.ForbiddenError;
 import com.auth0.client.mgmt.errors.NotFoundError;
 import com.auth0.client.mgmt.errors.TooManyRequestsError;
@@ -44,6 +45,19 @@ public class AsyncRawOrganizationsClient {
 
     /**
      * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
+     * <p>This endpoint supports two types of pagination:</p>
+     * <ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul>
+     * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
+     * <p><strong>Checkpoint Pagination</strong></p>
+     * <p>To search by checkpoint, use the following parameters:</p>
+     * <ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Organization>>> list(String id) {
         return list(id, ListUserOrganizationsRequestParameters.builder().build());
@@ -51,6 +65,19 @@ public class AsyncRawOrganizationsClient {
 
     /**
      * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
+     * <p>This endpoint supports two types of pagination:</p>
+     * <ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul>
+     * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
+     * <p><strong>Checkpoint Pagination</strong></p>
+     * <p>To search by checkpoint, use the following parameters:</p>
+     * <ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Organization>>> list(
             String id, RequestOptions requestOptions) {
@@ -59,6 +86,19 @@ public class AsyncRawOrganizationsClient {
 
     /**
      * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
+     * <p>This endpoint supports two types of pagination:</p>
+     * <ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul>
+     * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
+     * <p><strong>Checkpoint Pagination</strong></p>
+     * <p>To search by checkpoint, use the following parameters:</p>
+     * <ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Organization>>> list(
             String id, ListUserOrganizationsRequestParameters request) {
@@ -67,6 +107,19 @@ public class AsyncRawOrganizationsClient {
 
     /**
      * Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
+     * <p>This endpoint supports two types of pagination:</p>
+     * <ul>
+     * <li>Offset pagination</li>
+     * <li>Checkpoint pagination</li>
+     * </ul>
+     * <p>Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.</p>
+     * <p><strong>Checkpoint Pagination</strong></p>
+     * <p>To search by checkpoint, use the following parameters:</p>
+     * <ul>
+     * <li><code>from</code>: Optional id from which to start selection.</li>
+     * <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
+     * </ul>
+     * <p><strong>Note</strong>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<Organization>>> list(
             String id, ListUserOrganizationsRequestParameters request, RequestOptions requestOptions) {
@@ -140,6 +193,11 @@ public class AsyncRawOrganizationsClient {
                     }
                     try {
                         switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
                             case 401:
                                 future.completeExceptionally(new UnauthorizedError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),

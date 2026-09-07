@@ -31,6 +31,11 @@ public final class EventStreamCloudEventOrgConnectionUpdatedObject {
 
     private final Optional<Boolean> isSignupEnabled;
 
+    private final Optional<Boolean> isEnabled;
+
+    private final Optional<EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel>
+            organizationAccessLevel;
+
     private final Map<String, Object> additionalProperties;
 
     private EventStreamCloudEventOrgConnectionUpdatedObject(
@@ -39,12 +44,16 @@ public final class EventStreamCloudEventOrgConnectionUpdatedObject {
             Optional<Boolean> assignMembershipOnLogin,
             Optional<Boolean> showAsButton,
             Optional<Boolean> isSignupEnabled,
+            Optional<Boolean> isEnabled,
+            Optional<EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel> organizationAccessLevel,
             Map<String, Object> additionalProperties) {
         this.organization = organization;
         this.connection = connection;
         this.assignMembershipOnLogin = assignMembershipOnLogin;
         this.showAsButton = showAsButton;
         this.isSignupEnabled = isSignupEnabled;
+        this.isEnabled = isEnabled;
+        this.organizationAccessLevel = organizationAccessLevel;
         this.additionalProperties = additionalProperties;
     }
 
@@ -86,6 +95,20 @@ public final class EventStreamCloudEventOrgConnectionUpdatedObject {
         return isSignupEnabled;
     }
 
+    /**
+     * @return Determines whether the connection is enabled for the organization.
+     */
+    @JsonProperty("is_enabled")
+    public Optional<Boolean> getIsEnabled() {
+        return isEnabled;
+    }
+
+    @JsonProperty("organization_access_level")
+    public Optional<EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel>
+            getOrganizationAccessLevel() {
+        return organizationAccessLevel;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -103,7 +126,9 @@ public final class EventStreamCloudEventOrgConnectionUpdatedObject {
                 && connection.equals(other.connection)
                 && assignMembershipOnLogin.equals(other.assignMembershipOnLogin)
                 && showAsButton.equals(other.showAsButton)
-                && isSignupEnabled.equals(other.isSignupEnabled);
+                && isSignupEnabled.equals(other.isSignupEnabled)
+                && isEnabled.equals(other.isEnabled)
+                && organizationAccessLevel.equals(other.organizationAccessLevel);
     }
 
     @java.lang.Override
@@ -113,7 +138,9 @@ public final class EventStreamCloudEventOrgConnectionUpdatedObject {
                 this.connection,
                 this.assignMembershipOnLogin,
                 this.showAsButton,
-                this.isSignupEnabled);
+                this.isSignupEnabled,
+                this.isEnabled,
+                this.organizationAccessLevel);
     }
 
     @java.lang.Override
@@ -166,6 +193,20 @@ public final class EventStreamCloudEventOrgConnectionUpdatedObject {
         _FinalStage isSignupEnabled(Optional<Boolean> isSignupEnabled);
 
         _FinalStage isSignupEnabled(Boolean isSignupEnabled);
+
+        /**
+         * <p>Determines whether the connection is enabled for the organization.</p>
+         */
+        _FinalStage isEnabled(Optional<Boolean> isEnabled);
+
+        _FinalStage isEnabled(Boolean isEnabled);
+
+        _FinalStage organizationAccessLevel(
+                Optional<EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel>
+                        organizationAccessLevel);
+
+        _FinalStage organizationAccessLevel(
+                EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel organizationAccessLevel);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -173,6 +214,11 @@ public final class EventStreamCloudEventOrgConnectionUpdatedObject {
         private EventStreamCloudEventOrgConnectionUpdatedObjectOrganization organization;
 
         private EventStreamCloudEventOrgConnectionUpdatedObjectConnection connection;
+
+        private Optional<EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel>
+                organizationAccessLevel = Optional.empty();
+
+        private Optional<Boolean> isEnabled = Optional.empty();
 
         private Optional<Boolean> isSignupEnabled = Optional.empty();
 
@@ -192,6 +238,8 @@ public final class EventStreamCloudEventOrgConnectionUpdatedObject {
             assignMembershipOnLogin(other.getAssignMembershipOnLogin());
             showAsButton(other.getShowAsButton());
             isSignupEnabled(other.getIsSignupEnabled());
+            isEnabled(other.getIsEnabled());
+            organizationAccessLevel(other.getOrganizationAccessLevel());
             return this;
         }
 
@@ -207,6 +255,42 @@ public final class EventStreamCloudEventOrgConnectionUpdatedObject {
         @JsonSetter("connection")
         public _FinalStage connection(@NotNull EventStreamCloudEventOrgConnectionUpdatedObjectConnection connection) {
             this.connection = Objects.requireNonNull(connection, "connection must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage organizationAccessLevel(
+                EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel organizationAccessLevel) {
+            this.organizationAccessLevel = Optional.ofNullable(organizationAccessLevel);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "organization_access_level", nulls = Nulls.SKIP)
+        public _FinalStage organizationAccessLevel(
+                Optional<EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel>
+                        organizationAccessLevel) {
+            this.organizationAccessLevel = organizationAccessLevel;
+            return this;
+        }
+
+        /**
+         * <p>Determines whether the connection is enabled for the organization.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage isEnabled(Boolean isEnabled) {
+            this.isEnabled = Optional.ofNullable(isEnabled);
+            return this;
+        }
+
+        /**
+         * <p>Determines whether the connection is enabled for the organization.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "is_enabled", nulls = Nulls.SKIP)
+        public _FinalStage isEnabled(Optional<Boolean> isEnabled) {
+            this.isEnabled = isEnabled;
             return this;
         }
 
@@ -286,6 +370,8 @@ public final class EventStreamCloudEventOrgConnectionUpdatedObject {
                     assignMembershipOnLogin,
                     showAsButton,
                     isSignupEnabled,
+                    isEnabled,
+                    organizationAccessLevel,
                     additionalProperties);
         }
 

@@ -3,6 +3,7 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionResponseContentSaml.Builder.class)
@@ -44,6 +46,8 @@ public final class ConnectionResponseContentSaml
 
     private final ConnectionResponseContentSamlStrategy strategy;
 
+    private final OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp;
+
     private final Optional<ConnectionOptionsSaml> options;
 
     private final Optional<String> provisioningTicketUrl;
@@ -63,6 +67,7 @@ public final class ConnectionResponseContentSaml
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             ConnectionResponseContentSamlStrategy strategy,
+            OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp,
             Optional<ConnectionOptionsSaml> options,
             Optional<String> provisioningTicketUrl,
             Optional<Boolean> showAsButton,
@@ -77,6 +82,7 @@ public final class ConnectionResponseContentSaml
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
         this.strategy = strategy;
+        this.crossAppAccessResourceApp = crossAppAccessResourceApp;
         this.options = options;
         this.provisioningTicketUrl = provisioningTicketUrl;
         this.showAsButton = showAsButton;
@@ -145,6 +151,15 @@ public final class ConnectionResponseContentSaml
         return strategy;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("cross_app_access_resource_app")
+    public OptionalNullable<ConnectionCrossAppAccessResourceApp> getCrossAppAccessResourceApp() {
+        if (crossAppAccessResourceApp == null) {
+            return OptionalNullable.absent();
+        }
+        return crossAppAccessResourceApp;
+    }
+
     @JsonProperty("options")
     public Optional<ConnectionOptionsSaml> getOptions() {
         return options;
@@ -158,6 +173,12 @@ public final class ConnectionResponseContentSaml
     @JsonProperty("show_as_button")
     public Optional<Boolean> getShowAsButton() {
         return showAsButton;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("cross_app_access_resource_app")
+    private OptionalNullable<ConnectionCrossAppAccessResourceApp> _getCrossAppAccessResourceApp() {
+        return crossAppAccessResourceApp;
     }
 
     @java.lang.Override
@@ -182,6 +203,7 @@ public final class ConnectionResponseContentSaml
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
                 && strategy.equals(other.strategy)
+                && crossAppAccessResourceApp.equals(other.crossAppAccessResourceApp)
                 && options.equals(other.options)
                 && provisioningTicketUrl.equals(other.provisioningTicketUrl)
                 && showAsButton.equals(other.showAsButton);
@@ -200,6 +222,7 @@ public final class ConnectionResponseContentSaml
                 this.isDomainConnection,
                 this.metadata,
                 this.strategy,
+                this.crossAppAccessResourceApp,
                 this.options,
                 this.provisioningTicketUrl,
                 this.showAsButton);
@@ -266,6 +289,16 @@ public final class ConnectionResponseContentSaml
 
         _FinalStage metadata(Map<String, OptionalNullable<String>> metadata);
 
+        _FinalStage crossAppAccessResourceApp(
+                @Nullable OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp);
+
+        _FinalStage crossAppAccessResourceApp(ConnectionCrossAppAccessResourceApp crossAppAccessResourceApp);
+
+        _FinalStage crossAppAccessResourceApp(Optional<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp);
+
+        _FinalStage crossAppAccessResourceApp(
+                com.auth0.client.mgmt.core.Nullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp);
+
         _FinalStage options(Optional<ConnectionOptionsSaml> options);
 
         _FinalStage options(ConnectionOptionsSaml options);
@@ -292,6 +325,9 @@ public final class ConnectionResponseContentSaml
         private Optional<String> provisioningTicketUrl = Optional.empty();
 
         private Optional<ConnectionOptionsSaml> options = Optional.empty();
+
+        private OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp =
+                OptionalNullable.absent();
 
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
@@ -324,6 +360,7 @@ public final class ConnectionResponseContentSaml
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
             strategy(other.getStrategy());
+            crossAppAccessResourceApp(other.getCrossAppAccessResourceApp());
             options(other.getOptions());
             provisioningTicketUrl(other.getProvisioningTicketUrl());
             showAsButton(other.getShowAsButton());
@@ -387,6 +424,44 @@ public final class ConnectionResponseContentSaml
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
         public _FinalStage options(Optional<ConnectionOptionsSaml> options) {
             this.options = options;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage crossAppAccessResourceApp(
+                com.auth0.client.mgmt.core.Nullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            if (crossAppAccessResourceApp.isNull()) {
+                this.crossAppAccessResourceApp = OptionalNullable.ofNull();
+            } else if (crossAppAccessResourceApp.isEmpty()) {
+                this.crossAppAccessResourceApp = OptionalNullable.absent();
+            } else {
+                this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage crossAppAccessResourceApp(
+                Optional<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            if (crossAppAccessResourceApp.isPresent()) {
+                this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp.get());
+            } else {
+                this.crossAppAccessResourceApp = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage crossAppAccessResourceApp(ConnectionCrossAppAccessResourceApp crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = OptionalNullable.of(crossAppAccessResourceApp);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "cross_app_access_resource_app", nulls = Nulls.SKIP)
+        public _FinalStage crossAppAccessResourceApp(
+                @Nullable OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp) {
+            this.crossAppAccessResourceApp = crossAppAccessResourceApp;
             return this;
         }
 
@@ -501,6 +576,7 @@ public final class ConnectionResponseContentSaml
                     isDomainConnection,
                     metadata,
                     strategy,
+                    crossAppAccessResourceApp,
                     options,
                     provisioningTicketUrl,
                     showAsButton,

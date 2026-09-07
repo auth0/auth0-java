@@ -67,6 +67,8 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
     private final Optional<Boolean> disableSignout;
 
+    private final Optional<String> discoveryUrl;
+
     private final Optional<Map<String, ConnectionFieldsMapSamlValue>> fieldsMap;
 
     private final Optional<String> globalTokenRevocationJwtIss;
@@ -76,6 +78,8 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
     private final Optional<String> metadataUrl;
 
     private final Optional<String> metadataXml;
+
+    private final Optional<ConnectionOptionsOidcMetadata> oidcMetadata;
 
     private final Optional<String> recipientUrl;
 
@@ -113,11 +117,13 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             Optional<Boolean> deflate,
             Optional<String> destinationUrl,
             Optional<Boolean> disableSignout,
+            Optional<String> discoveryUrl,
             Optional<Map<String, ConnectionFieldsMapSamlValue>> fieldsMap,
             Optional<String> globalTokenRevocationJwtIss,
             Optional<String> globalTokenRevocationJwtSub,
             Optional<String> metadataUrl,
             Optional<String> metadataXml,
+            Optional<ConnectionOptionsOidcMetadata> oidcMetadata,
             Optional<String> recipientUrl,
             Optional<String> requestTemplate,
             Optional<String> signingCert,
@@ -146,11 +152,13 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         this.deflate = deflate;
         this.destinationUrl = destinationUrl;
         this.disableSignout = disableSignout;
+        this.discoveryUrl = discoveryUrl;
         this.fieldsMap = fieldsMap;
         this.globalTokenRevocationJwtIss = globalTokenRevocationJwtIss;
         this.globalTokenRevocationJwtSub = globalTokenRevocationJwtSub;
         this.metadataUrl = metadataUrl;
         this.metadataXml = metadataXml;
+        this.oidcMetadata = oidcMetadata;
         this.recipientUrl = recipientUrl;
         this.requestTemplate = requestTemplate;
         this.signingCert = signingCert;
@@ -289,6 +297,11 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         return disableSignout;
     }
 
+    @JsonProperty("discovery_url")
+    public Optional<String> getDiscoveryUrl() {
+        return discoveryUrl;
+    }
+
     @JsonProperty("fieldsMap")
     public Optional<Map<String, ConnectionFieldsMapSamlValue>> getFieldsMap() {
         return fieldsMap;
@@ -312,6 +325,11 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
     @JsonProperty("metadataXml")
     public Optional<String> getMetadataXml() {
         return metadataXml;
+    }
+
+    @JsonProperty("oidc_metadata")
+    public Optional<ConnectionOptionsOidcMetadata> getOidcMetadata() {
+        return oidcMetadata;
     }
 
     @JsonProperty("recipientUrl")
@@ -384,11 +402,13 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                 && deflate.equals(other.deflate)
                 && destinationUrl.equals(other.destinationUrl)
                 && disableSignout.equals(other.disableSignout)
+                && discoveryUrl.equals(other.discoveryUrl)
                 && fieldsMap.equals(other.fieldsMap)
                 && globalTokenRevocationJwtIss.equals(other.globalTokenRevocationJwtIss)
                 && globalTokenRevocationJwtSub.equals(other.globalTokenRevocationJwtSub)
                 && metadataUrl.equals(other.metadataUrl)
                 && metadataXml.equals(other.metadataXml)
+                && oidcMetadata.equals(other.oidcMetadata)
                 && recipientUrl.equals(other.recipientUrl)
                 && requestTemplate.equals(other.requestTemplate)
                 && signingCert.equals(other.signingCert)
@@ -421,11 +441,13 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                 this.deflate,
                 this.destinationUrl,
                 this.disableSignout,
+                this.discoveryUrl,
                 this.fieldsMap,
                 this.globalTokenRevocationJwtIss,
                 this.globalTokenRevocationJwtSub,
                 this.metadataUrl,
                 this.metadataXml,
+                this.oidcMetadata,
                 this.recipientUrl,
                 this.requestTemplate,
                 this.signingCert,
@@ -488,6 +510,8 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
         private Optional<Boolean> disableSignout = Optional.empty();
 
+        private Optional<String> discoveryUrl = Optional.empty();
+
         private Optional<Map<String, ConnectionFieldsMapSamlValue>> fieldsMap = Optional.empty();
 
         private Optional<String> globalTokenRevocationJwtIss = Optional.empty();
@@ -497,6 +521,8 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         private Optional<String> metadataUrl = Optional.empty();
 
         private Optional<String> metadataXml = Optional.empty();
+
+        private Optional<ConnectionOptionsOidcMetadata> oidcMetadata = Optional.empty();
 
         private Optional<String> recipientUrl = Optional.empty();
 
@@ -537,11 +563,13 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             deflate(other.getDeflate());
             destinationUrl(other.getDestinationUrl());
             disableSignout(other.getDisableSignout());
+            discoveryUrl(other.getDiscoveryUrl());
             fieldsMap(other.getFieldsMap());
             globalTokenRevocationJwtIss(other.getGlobalTokenRevocationJwtIss());
             globalTokenRevocationJwtSub(other.getGlobalTokenRevocationJwtSub());
             metadataUrl(other.getMetadataUrl());
             metadataXml(other.getMetadataXml());
+            oidcMetadata(other.getOidcMetadata());
             recipientUrl(other.getRecipientUrl());
             requestTemplate(other.getRequestTemplate());
             signingCert(other.getSigningCert());
@@ -814,6 +842,17 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             return this;
         }
 
+        @JsonSetter(value = "discovery_url", nulls = Nulls.SKIP)
+        public Builder discoveryUrl(Optional<String> discoveryUrl) {
+            this.discoveryUrl = discoveryUrl;
+            return this;
+        }
+
+        public Builder discoveryUrl(String discoveryUrl) {
+            this.discoveryUrl = Optional.ofNullable(discoveryUrl);
+            return this;
+        }
+
         @JsonSetter(value = "fieldsMap", nulls = Nulls.SKIP)
         public Builder fieldsMap(Optional<Map<String, ConnectionFieldsMapSamlValue>> fieldsMap) {
             this.fieldsMap = fieldsMap;
@@ -866,6 +905,17 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
         public Builder metadataXml(String metadataXml) {
             this.metadataXml = Optional.ofNullable(metadataXml);
+            return this;
+        }
+
+        @JsonSetter(value = "oidc_metadata", nulls = Nulls.SKIP)
+        public Builder oidcMetadata(Optional<ConnectionOptionsOidcMetadata> oidcMetadata) {
+            this.oidcMetadata = oidcMetadata;
+            return this;
+        }
+
+        public Builder oidcMetadata(ConnectionOptionsOidcMetadata oidcMetadata) {
+            this.oidcMetadata = Optional.ofNullable(oidcMetadata);
             return this;
         }
 
@@ -958,11 +1008,13 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                     deflate,
                     destinationUrl,
                     disableSignout,
+                    discoveryUrl,
                     fieldsMap,
                     globalTokenRevocationJwtIss,
                     globalTokenRevocationJwtSub,
                     metadataUrl,
                     metadataXml,
+                    oidcMetadata,
                     recipientUrl,
                     requestTemplate,
                     signingCert,
