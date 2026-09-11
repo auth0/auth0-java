@@ -1,5 +1,23 @@
 # Change Log
 
+## [5.2.0](https://github.com/auth0/auth0-java/tree/5.2.0) (2026-09-11)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/5.1.0...5.2.0)
+
+**Added**
+- feat: add Guardian settings, Organization search, Resource Server search & anonymous sessions [#927](https://github.com/auth0/auth0-java/pull/927) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - Guardian: `guardian().get()` / `guardian().set()`, plus email and phone factor settings sub-clients
+    - Organizations: enhanced `list()` with offset + checkpoint pagination, new `search()` (SCIM/Lucene), `getByName()`
+    - Resource Servers: new `search()` operation
+    - Clients: `anonymousSessions` on create, update, get, and rotate-secret payloads
+
+**Breaking changes**
+- feat: add Guardian settings, Organization search, Resource Server search & anonymous sessions [#927](https://github.com/auth0/auth0-java/pull/927) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - Removed `organizationTemplates()` client (Limited EA feature withdrawn until GA; `create:organization_templates` / `update:organization_templates` scopes also removed)
+    - `ConnectionIdentityProviderEnum` cleaned up: `-mcp` suffix dropped for `asana`, `atlassian`, `gitlab`, `slack`; `docusign`, `figma`, `gusto`, `heroku`, `intercom`, `pagerduty`, `supabase`,
+      `vercel`, `xero` removed entirely
+    - `GuardianClient` / `AsyncGuardianClient` moved from `com.auth0.client.mgmt.guardian` to `com.auth0.client.mgmt`; `SetGuardianSettingsRequestContent` moved to `com.auth0.client.mgmt.types`
+
+
 ## [5.1.0](https://github.com/auth0/auth0-java/tree/5.1.0) (2026-09-03)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/5.0.0...5.1.0)
 
