@@ -16,6 +16,8 @@ import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.errors.BadRequestError;
 import com.auth0.client.mgmt.errors.ConflictError;
 import com.auth0.client.mgmt.errors.ForbiddenError;
+import com.auth0.client.mgmt.errors.GatewayTimeoutError;
+import com.auth0.client.mgmt.errors.InternalServerError;
 import com.auth0.client.mgmt.errors.NotFoundError;
 import com.auth0.client.mgmt.errors.TooManyRequestsError;
 import com.auth0.client.mgmt.errors.UnauthorizedError;
@@ -26,12 +28,16 @@ import com.auth0.client.mgmt.types.GetResourceServerResponseContent;
 import com.auth0.client.mgmt.types.ListResourceServerOffsetPaginatedResponseContent;
 import com.auth0.client.mgmt.types.ListResourceServerRequestParameters;
 import com.auth0.client.mgmt.types.ResourceServer;
+import com.auth0.client.mgmt.types.ResourceServerSearchResponse;
+import com.auth0.client.mgmt.types.SearchResourceServersRequestParameters;
+import com.auth0.client.mgmt.types.SearchResourceServersResponseContent;
 import com.auth0.client.mgmt.types.UpdateResourceServerRequestContent;
 import com.auth0.client.mgmt.types.UpdateResourceServerResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
@@ -285,6 +291,185 @@ public class AsyncRawResourceServersClient {
                                 return;
                             case 429:
                                 future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ManagementApiException(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (JsonProcessingException e) {
+                    future.completeExceptionally(
+                            new ManagementException("Failed to deserialize response: " + e.getMessage(), e));
+                } catch (IOException e) {
+                    future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new ManagementException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    /**
+     * Search resource servers using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;). This endpoint provides an alternative to the standard GET /resource-servers endpoint with better performance for complex queries.
+     * Results may not reflect recent updates immediately.
+     * <p>The <code>signing_secret</code> field is not supported by this endpoint.</p>
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ResourceServerSearchResponse>>> search() {
+        return search(SearchResourceServersRequestParameters.builder().build());
+    }
+
+    /**
+     * Search resource servers using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;). This endpoint provides an alternative to the standard GET /resource-servers endpoint with better performance for complex queries.
+     * Results may not reflect recent updates immediately.
+     * <p>The <code>signing_secret</code> field is not supported by this endpoint.</p>
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ResourceServerSearchResponse>>> search(
+            RequestOptions requestOptions) {
+        return search(SearchResourceServersRequestParameters.builder().build(), requestOptions);
+    }
+
+    /**
+     * Search resource servers using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;). This endpoint provides an alternative to the standard GET /resource-servers endpoint with better performance for complex queries.
+     * Results may not reflect recent updates immediately.
+     * <p>The <code>signing_secret</code> field is not supported by this endpoint.</p>
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ResourceServerSearchResponse>>> search(
+            SearchResourceServersRequestParameters request) {
+        return search(request, null);
+    }
+
+    /**
+     * Search resource servers using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;). This endpoint provides an alternative to the standard GET /resource-servers endpoint with better performance for complex queries.
+     * Results may not reflect recent updates immediately.
+     * <p>The <code>signing_secret</code> field is not supported by this endpoint.</p>
+     */
+    public CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ResourceServerSearchResponse>>> search(
+            SearchResourceServersRequestParameters request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("resource-servers/search");
+        if (!request.getQ().isAbsent()) {
+            QueryStringMapper.addQueryParameter(httpUrl, "q", request.getQ().orElse(null), false);
+        }
+        if (!request.getParser().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "parser", request.getParser().orElse(null), false);
+        }
+        if (!request.getFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "fields", request.getFields().orElse(null), false);
+        }
+        if (!request.getIncludeFields().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_fields", request.getIncludeFields().orElse(null), false);
+        }
+        QueryStringMapper.addQueryParameter(httpUrl, "take", request.getTake().orElse(50), false);
+        if (!request.getFrom().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "from", request.getFrom().orElse(null), false);
+        }
+        if (!request.getSort().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "sort", request.getSort().orElse(null), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
+        CompletableFuture<ManagementApiHttpResponse<SyncPagingIterable<ResourceServerSearchResponse>>> future =
+                new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        SearchResourceServersResponseContent parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, SearchResourceServersResponseContent.class);
+                        Optional<String> startingAfter = parsedResponse.getNext();
+                        SearchResourceServersRequestParameters nextRequest =
+                                SearchResourceServersRequestParameters.builder()
+                                        .from(request)
+                                        .from(startingAfter)
+                                        .build();
+                        List<ResourceServerSearchResponse> result = parsedResponse.getResourceServers();
+                        future.complete(new ManagementApiHttpResponse<>(
+                                new SyncPagingIterable<ResourceServerSearchResponse>(
+                                        startingAfter.isPresent(), result, parsedResponse, () -> {
+                                            try {
+                                                return search(nextRequest, requestOptions)
+                                                        .get()
+                                                        .body();
+                                            } catch (InterruptedException | ExecutionException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                        }),
+                                response));
+                        return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 404:
+                                future.completeExceptionally(new NotFoundError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 500:
+                                future.completeExceptionally(new InternalServerError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 504:
+                                future.completeExceptionally(new GatewayTimeoutError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
                                         response));
                                 return;

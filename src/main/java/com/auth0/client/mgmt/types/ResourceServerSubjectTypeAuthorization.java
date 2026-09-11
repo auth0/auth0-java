@@ -24,14 +24,18 @@ public final class ResourceServerSubjectTypeAuthorization {
 
     private final Optional<ResourceServerSubjectTypeAuthorizationClient> client;
 
+    private final Optional<ResourceServerSubjectTypeAuthorizationAnonymousUser> anonymousUser;
+
     private final Map<String, Object> additionalProperties;
 
     private ResourceServerSubjectTypeAuthorization(
             Optional<ResourceServerSubjectTypeAuthorizationUser> user,
             Optional<ResourceServerSubjectTypeAuthorizationClient> client,
+            Optional<ResourceServerSubjectTypeAuthorizationAnonymousUser> anonymousUser,
             Map<String, Object> additionalProperties) {
         this.user = user;
         this.client = client;
+        this.anonymousUser = anonymousUser;
         this.additionalProperties = additionalProperties;
     }
 
@@ -43,6 +47,11 @@ public final class ResourceServerSubjectTypeAuthorization {
     @JsonProperty("client")
     public Optional<ResourceServerSubjectTypeAuthorizationClient> getClient() {
         return client;
+    }
+
+    @JsonProperty("anonymous_user")
+    public Optional<ResourceServerSubjectTypeAuthorizationAnonymousUser> getAnonymousUser() {
+        return anonymousUser;
     }
 
     @java.lang.Override
@@ -58,12 +67,12 @@ public final class ResourceServerSubjectTypeAuthorization {
     }
 
     private boolean equalTo(ResourceServerSubjectTypeAuthorization other) {
-        return user.equals(other.user) && client.equals(other.client);
+        return user.equals(other.user) && client.equals(other.client) && anonymousUser.equals(other.anonymousUser);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.user, this.client);
+        return Objects.hash(this.user, this.client, this.anonymousUser);
     }
 
     @java.lang.Override
@@ -81,6 +90,8 @@ public final class ResourceServerSubjectTypeAuthorization {
 
         private Optional<ResourceServerSubjectTypeAuthorizationClient> client = Optional.empty();
 
+        private Optional<ResourceServerSubjectTypeAuthorizationAnonymousUser> anonymousUser = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -89,6 +100,7 @@ public final class ResourceServerSubjectTypeAuthorization {
         public Builder from(ResourceServerSubjectTypeAuthorization other) {
             user(other.getUser());
             client(other.getClient());
+            anonymousUser(other.getAnonymousUser());
             return this;
         }
 
@@ -114,8 +126,19 @@ public final class ResourceServerSubjectTypeAuthorization {
             return this;
         }
 
+        @JsonSetter(value = "anonymous_user", nulls = Nulls.SKIP)
+        public Builder anonymousUser(Optional<ResourceServerSubjectTypeAuthorizationAnonymousUser> anonymousUser) {
+            this.anonymousUser = anonymousUser;
+            return this;
+        }
+
+        public Builder anonymousUser(ResourceServerSubjectTypeAuthorizationAnonymousUser anonymousUser) {
+            this.anonymousUser = Optional.ofNullable(anonymousUser);
+            return this;
+        }
+
         public ResourceServerSubjectTypeAuthorization build() {
-            return new ResourceServerSubjectTypeAuthorization(user, client, additionalProperties);
+            return new ResourceServerSubjectTypeAuthorization(user, client, anonymousUser, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

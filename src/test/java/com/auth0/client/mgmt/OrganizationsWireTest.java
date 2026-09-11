@@ -8,6 +8,10 @@ import com.auth0.client.mgmt.types.GetOrganizationByNameResponseContent;
 import com.auth0.client.mgmt.types.GetOrganizationResponseContent;
 import com.auth0.client.mgmt.types.ListOrganizationsRequestParameters;
 import com.auth0.client.mgmt.types.Organization;
+import com.auth0.client.mgmt.types.OrganizationSortFieldEnum;
+import com.auth0.client.mgmt.types.SearchOrganization;
+import com.auth0.client.mgmt.types.SearchOrganizationsRequestParameters;
+import com.auth0.client.mgmt.types.SearchParserEnum;
 import com.auth0.client.mgmt.types.UpdateOrganizationRequestContent;
 import com.auth0.client.mgmt.types.UpdateOrganizationResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -249,6 +253,31 @@ public class OrganizationsWireTest {
         if (actualResponseNode.isObject()) {
             Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
         }
+    }
+
+    @Test
+    public void testSearch() throws Exception {
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"organizations\":[{\"id\":\"id\",\"name\":\"name\",\"display_name\":\"display_name\",\"token_quota\":{\"client_credentials\":{}},\"third_party_client_access\":\"block\",\"is_app_entitlement_active\":true}],\"next\":\"next\"}"));
+        SyncPagingIterable<SearchOrganization> response = client.organizations()
+                .search(SearchOrganizationsRequestParameters.builder()
+                        .q("q")
+                        .parser(SearchParserEnum.SCIM)
+                        .take(1)
+                        .from("from")
+                        .sort(OrganizationSortFieldEnum.NAME)
+                        .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("GET", request.getMethod());
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        // Pagination response validated via MockWebServer
+        // The SDK correctly parses the response into a SyncPagingIterable
     }
 
     @Test

@@ -84,6 +84,8 @@ public final class UpdateClientRequestContent {
 
     private final OptionalNullable<UpdateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant;
 
+    private final OptionalNullable<UpdateAnonymousSessions> anonymousSessions;
+
     private final Optional<String> formTemplate;
 
     private final Optional<ClientAddons> addons;
@@ -171,6 +173,7 @@ public final class UpdateClientRequestContent {
             Optional<String> customLoginPagePreview,
             OptionalNullable<UpdateTokenQuota> tokenQuota,
             OptionalNullable<UpdateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant,
+            OptionalNullable<UpdateAnonymousSessions> anonymousSessions,
             Optional<String> formTemplate,
             Optional<ClientAddons> addons,
             Optional<Map<String, Object>> clientMetadata,
@@ -229,6 +232,7 @@ public final class UpdateClientRequestContent {
         this.customLoginPagePreview = customLoginPagePreview;
         this.tokenQuota = tokenQuota;
         this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
+        this.anonymousSessions = anonymousSessions;
         this.formTemplate = formTemplate;
         this.addons = addons;
         this.clientMetadata = clientMetadata;
@@ -502,6 +506,15 @@ public final class UpdateClientRequestContent {
         return identityAssertionAuthorizationGrant;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("anonymous_sessions")
+    public OptionalNullable<UpdateAnonymousSessions> getAnonymousSessions() {
+        if (anonymousSessions == null) {
+            return OptionalNullable.absent();
+        }
+        return anonymousSessions;
+    }
+
     /**
      * @return Form template for WS-Federation protocol
      */
@@ -760,6 +773,12 @@ public final class UpdateClientRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("anonymous_sessions")
+    private OptionalNullable<UpdateAnonymousSessions> _getAnonymousSessions() {
+        return anonymousSessions;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("native_social_login")
     private OptionalNullable<NativeSocialLoginPatch> _getNativeSocialLogin() {
         return nativeSocialLogin;
@@ -891,6 +910,7 @@ public final class UpdateClientRequestContent {
                 && customLoginPagePreview.equals(other.customLoginPagePreview)
                 && tokenQuota.equals(other.tokenQuota)
                 && identityAssertionAuthorizationGrant.equals(other.identityAssertionAuthorizationGrant)
+                && anonymousSessions.equals(other.anonymousSessions)
                 && formTemplate.equals(other.formTemplate)
                 && addons.equals(other.addons)
                 && clientMetadata.equals(other.clientMetadata)
@@ -954,6 +974,7 @@ public final class UpdateClientRequestContent {
                 this.customLoginPagePreview,
                 this.tokenQuota,
                 this.identityAssertionAuthorizationGrant,
+                this.anonymousSessions,
                 this.formTemplate,
                 this.addons,
                 this.clientMetadata,
@@ -1056,6 +1077,8 @@ public final class UpdateClientRequestContent {
         private OptionalNullable<UpdateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant =
                 OptionalNullable.absent();
 
+        private OptionalNullable<UpdateAnonymousSessions> anonymousSessions = OptionalNullable.absent();
+
         private Optional<String> formTemplate = Optional.empty();
 
         private Optional<ClientAddons> addons = Optional.empty();
@@ -1151,6 +1174,7 @@ public final class UpdateClientRequestContent {
             customLoginPagePreview(other.getCustomLoginPagePreview());
             tokenQuota(other.getTokenQuota());
             identityAssertionAuthorizationGrant(other.getIdentityAssertionAuthorizationGrant());
+            anonymousSessions(other.getAnonymousSessions());
             formTemplate(other.getFormTemplate());
             addons(other.getAddons());
             clientMetadata(other.getClientMetadata());
@@ -1709,6 +1733,38 @@ public final class UpdateClientRequestContent {
             } else {
                 this.identityAssertionAuthorizationGrant =
                         OptionalNullable.of(identityAssertionAuthorizationGrant.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "anonymous_sessions", nulls = Nulls.SKIP)
+        public Builder anonymousSessions(@Nullable OptionalNullable<UpdateAnonymousSessions> anonymousSessions) {
+            this.anonymousSessions = anonymousSessions;
+            return this;
+        }
+
+        public Builder anonymousSessions(UpdateAnonymousSessions anonymousSessions) {
+            this.anonymousSessions = OptionalNullable.of(anonymousSessions);
+            return this;
+        }
+
+        public Builder anonymousSessions(Optional<UpdateAnonymousSessions> anonymousSessions) {
+            if (anonymousSessions.isPresent()) {
+                this.anonymousSessions = OptionalNullable.of(anonymousSessions.get());
+            } else {
+                this.anonymousSessions = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder anonymousSessions(
+                com.auth0.client.mgmt.core.Nullable<UpdateAnonymousSessions> anonymousSessions) {
+            if (anonymousSessions.isNull()) {
+                this.anonymousSessions = OptionalNullable.ofNull();
+            } else if (anonymousSessions.isEmpty()) {
+                this.anonymousSessions = OptionalNullable.absent();
+            } else {
+                this.anonymousSessions = OptionalNullable.of(anonymousSessions.get());
             }
             return this;
         }
@@ -2407,6 +2463,7 @@ public final class UpdateClientRequestContent {
                     customLoginPagePreview,
                     tokenQuota,
                     identityAssertionAuthorizationGrant,
+                    anonymousSessions,
                     formTemplate,
                     addons,
                     clientMetadata,

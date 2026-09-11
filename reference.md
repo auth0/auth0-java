@@ -2138,6 +2138,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dl>
 <dd>
 
+**anonymousSessions:** `Optional<CreateAnonymousSessions>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **thirdPartySecurityMode:** `Optional<ClientThirdPartySecurityModeEnum>` 
     
 </dd>
@@ -2772,6 +2780,14 @@ client.clients().update(
 <dd>
 
 **identityAssertionAuthorizationGrant:** `Optional<UpdateIdentityAssertionAuthorizationGrant>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**anonymousSessions:** `Optional<UpdateAnonymousSessions>` 
     
 </dd>
 </dl>
@@ -4956,7 +4972,7 @@ client.deviceCredentials().list(
 <dl>
 <dd>
 
-**type:** `Optional<DeviceCredentialTypeEnum>` — Type of credentials to retrieve. Must be `public_key`, `refresh_token` or `rotating_refresh_token`. The property will default to `refresh_token` when paging is requested
+**type:** `Optional<DeviceCredentialTypeEnum>` — Type of credentials to retrieve. Must be `public_key`, `refresh_token` or `rotating_refresh_token`. If none is provided a combined list of `refresh_tokens` and `public_keys` will be returned (and no `rotating_refresh_token`), in this case `page`, `per_page` and `include_totals` will be ignored.
     
 </dd>
 </dl>
@@ -7113,6 +7129,132 @@ client.groups().delete("id");
 </dl>
 </details>
 
+## Guardian
+<details><summary><code>client.guardian.get() -> GetGuardianSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+TODO: Link this endpoint to relevant documentation when available.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.guardian().get();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.guardian.set(request) -> SetGuardianSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a tenant's guardian settings such as Remember Me 
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.guardian().set(
+    SetGuardianSettingsRequestContent
+        .builder()
+        .displayRememberMeCheckbox(true)
+        .rememberMeDefaultValue(true)
+        .mfaSessionInactivityTimeout(1)
+        .mfaSessionOverallTimeout(1)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**displayRememberMeCheckbox:** `Boolean` — Determines whether to display the "Remember Me" checkbox on the MFA prompt in Universal Login.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**rememberMeDefaultValue:** `Boolean` — Determines the default state of the "Remember Me" checkbox on the MFA prompt in Universal Login.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mfaSessionInactivityTimeout:** `Integer` — Duration of inactivity after which the user will be prompted for MFA. Represented as seconds. Minimum duration is 1 hour, maximum is 30 days, and cannot exceed the overall timeout.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mfaSessionOverallTimeout:** `Integer` — Maximum duration after which the user will be prompted for MFA regardless of activity. Represented as seconds. Minimum duration is 1 hour, maximum is 90 days.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Hooks
 <details><summary><code>client.hooks.list() -> SyncPagingIterable&amp;lt;Hook&amp;gt;</code></summary>
 <dl>
@@ -9064,527 +9206,6 @@ client.networkAcls().update(
 </dl>
 </details>
 
-## OrganizationTemplates
-<details><summary><code>client.organizationTemplates.list() -> SyncPagingIterable&amp;lt;OrganizationTemplate&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve a list of Organization Templates. This endpoint supports Checkpoint pagination. Results are returned in a stable order, sorted by their identifier (`id`) in ascending order.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.organizationTemplates().list(
-    ListOrganizationTemplatesRequestParameters
-        .builder()
-        .from("from")
-        .take(1)
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**from:** `Optional<String>` — Optional Id from which to start selection.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**take:** `Optional<Integer>` — Number of results per page. Defaults to 5. Values greater than 10 are capped at 10.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.organizationTemplates.create(request) -> OrganizationTemplate</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create an Organization Template.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.organizationTemplates().create(
-    CreateOrganizationTemplateRequestContent
-        .builder()
-        .name("name")
-        .organizationDeletionBehavior(OrganizationDeletionBehaviorEnum.ALLOW)
-        .enforcePermissionCeiling(true)
-        .enforceSelfAssignmentRestriction(true)
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**name:** `String` — The name of the organization template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**isDefault:** `Optional<Boolean>` — Whether this is the default template applied to new organizations.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**organizationDeletionBehavior:** `OrganizationDeletionBehaviorEnum` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**connectionDeletionBehavior:** `Optional<ConnectionDeletionBehaviorEnum>` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**enforcePermissionCeiling:** `Boolean` — Whether to enforce permission ceiling for organizations using this template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**enforceSelfAssignmentRestriction:** `Boolean` — Whether to enforce self-assignment restrictions for organizations using this template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**connectionProfileId:** `Optional<String>` — The connection profile to apply to new connections.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**userAttributeProfileId:** `Optional<String>` — The user attribute profile to apply to organizations.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**allowedStrategies:** `Optional<List<OrganizationTemplateAllowedStrategyEnum>>` — List of allowed connection strategies for this template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**invitationLandingClientId:** `Optional<String>` — The client ID for the invitation landing page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**adminRolesAssignment:** `Optional<List<String>>` — Default admin roles to assign to organization creators.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**useForOrganizationDiscovery:** `Optional<OrganizationTemplateUseForOrganizationDiscovery>` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**roleVisibilityPolicy:** `Optional<OrganizationTemplateRoleVisibilityPolicy>` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.organizationTemplates.get(id) -> OrganizationTemplate</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve details about a single Organization Template specified by ID.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.organizationTemplates().get("id");
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `String` — Organization Template identifier.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.organizationTemplates.update(id, request) -> OrganizationTemplate</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Update the details of a specific Organization Template.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.organizationTemplates().update(
-    "id",
-    UpdateOrganizationTemplateRequestContent
-        .builder()
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `String` — Organization Template identifier.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `Optional<String>` — The name of the organization template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**isDefault:** `Optional<Boolean>` — Whether this is the default template applied to new organizations.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**organizationDeletionBehavior:** `Optional<OrganizationDeletionBehaviorEnum>` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**connectionDeletionBehavior:** `Optional<ConnectionDeletionBehaviorEnum>` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**enforcePermissionCeiling:** `Optional<Boolean>` — Whether to enforce permission ceiling for organizations using this template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**enforceSelfAssignmentRestriction:** `Optional<Boolean>` — Whether to enforce self-assignment restrictions for organizations using this template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**connectionProfileId:** `Optional<String>` — The connection profile to apply to new connections.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**userAttributeProfileId:** `Optional<String>` — The user attribute profile to apply to organizations.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**allowedStrategies:** `Optional<List<OrganizationTemplateAllowedStrategyEnum>>` — List of allowed connection strategies for this template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**invitationLandingClientId:** `Optional<String>` — The client ID for the invitation landing page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**adminRolesAssignment:** `Optional<List<String>>` — Default admin roles to assign to organization creators.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**useForOrganizationDiscovery:** `Optional<OrganizationTemplateUseForOrganizationDiscovery>` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**roleVisibilityPolicy:** `Optional<OrganizationTemplateRoleVisibilityPolicy>` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.organizationTemplates.listOrganizations(id) -> SyncPagingIterable&amp;lt;OrganizationTemplateAssignedOrganization&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve a list of organizations assigned to an Organization Template. This endpoint supports Checkpoint pagination. Results are returned in a stable order, sorted by their identifier (`id`) in ascending order.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.organizationTemplates().listOrganizations(
-    "id",
-    ListTemplateOrganizationsRequestParameters
-        .builder()
-        .from("from")
-        .take(1)
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `String` — The ID of the organization template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**from:** `Optional<String>` — Optional Id from which to start selection.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**take:** `Optional<Integer>` — Number of results per page. Defaults to 5. Values greater than 10 are capped at 10.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Organizations
 <details><summary><code>client.organizations.list() -> SyncPagingIterable&amp;lt;Organization&amp;gt;</code></summary>
 <dl>
@@ -9855,6 +9476,115 @@ client.organizations().getByName("name");
 <dd>
 
 **name:** `String` — name of the organization to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.search() -> SyncPagingIterable&amp;lt;SearchOrganization&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details of organizations matching a search criteria. It is possible to:
+
+- Specify a search criteria for organizations
+- Search via `name`
+- Search via `display_name`
+- Substring matching (`contains` and `ends-with`) requires at least 3 characters
+- Use wildcards
+
+The `q` query parameter can be used to get organizations that match the specified criteria on `name` OR `display_name`.
+
+This endpoint supports SCIM or Lucene filter syntax with low-latency, cursor-based pagination. Use the `parser` parameter to specify "scim" or "lucene" syntax (default: "lucene").
+
+Results are eventually consistent and may not reflect recent updates immediately.
+
+**Sortable fields:** `name`, `display_name`, `created_at` (ascending only). Defaults to insertion order (oldest first).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.organizations().search(
+    SearchOrganizationsRequestParameters
+        .builder()
+        .q("q")
+        .parser(SearchParserEnum.SCIM)
+        .take(1)
+        .from("from")
+        .sort(OrganizationSortFieldEnum.NAME)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**q:** `Optional<String>` — Filter expression in SCIM or Lucene syntax (depending on parser parameter, default: Lucene). Lucene examples: `name:acme*`, `display_name:*auth*`. SCIM examples: `name eq "Auth0"`, `display_name sw "auth" and created_at gt "2024-01-01"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Organization ID (case-sensitive, exact match)</li><li><i>name</i> - Organization name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>display_name</i> - Organization display name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>created_at</i> - Creation timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by organization metadata key-value pairs</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parser:** `Optional<SearchParserEnum>` — Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Maximum number of results to return per page (1-100). Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Cursor for the next page of results. Use the value from the next field in the previous response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort:** `Optional<OrganizationSortFieldEnum>` — Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
     
 </dd>
 </dl>
@@ -11086,6 +10816,14 @@ client.resourceServers().create(
 <dl>
 <dd>
 
+**tokenLifetimeForAnonymousAccessTokens:** `Optional<Integer>` — Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **tokenDialect:** `Optional<ResourceServerTokenDialectSchemaEnum>` 
     
 </dd>
@@ -11151,6 +10889,122 @@ client.resourceServers().create(
 <dd>
 
 **authorizationPolicy:** `Optional<ResourceServerAuthorizationPolicy>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.resourceServers.search() -> SyncPagingIterable&amp;lt;ResourceServerSearchResponse&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search resource servers using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene"). This endpoint provides an alternative to the standard GET /resource-servers endpoint with better performance for complex queries.
+Results may not reflect recent updates immediately.
+
+The `signing_secret` field is not supported by this endpoint.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.resourceServers().search(
+    SearchResourceServersRequestParameters
+        .builder()
+        .q("q")
+        .parser(SearchParserEnum.SCIM)
+        .fields("fields")
+        .includeFields(true)
+        .take(1)
+        .from("from")
+        .sort(ResourceServerSortFieldEnum.IDENTIFIER)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**q:** `Optional<String>` — Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `name eq "My API"`, `identifier sw "https://"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Filter by resource server ID</li><li><i>identifier</i> - Filter by resource server identifier</li><li><i>name</i> - Filter by resource server name</li><li><i>updated_at</i> - Filter by last update date</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parser:** `Optional<SearchParserEnum>` — Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `Optional<String>` — Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeFields:** `Optional<Boolean>` — Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Maximum number of results to return per page (1-100). Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Cursor for the next page of results. Use the value from the next field in the previous response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort:** `Optional<ResourceServerSortFieldEnum>` — Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
     
 </dd>
 </dl>
@@ -11404,6 +11258,14 @@ client.resourceServers().update(
 <dd>
 
 **tokenLifetime:** `Optional<Integer>` — Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tokenLifetimeForAnonymousAccessTokens:** `Optional<Integer>` — Expiration value (in seconds) for anonymous-session access tokens issued for this API.
     
 </dd>
 </dl>
@@ -22022,6 +21884,75 @@ client.eventStreams().redeliveries().createById("id", "event_id");
 </dl>
 </details>
 
+## Experimentation Experiments
+<details><summary><code>client.experimentation.experiments.advanceRamp(id, request) -> AdvanceRampResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Increments the current ramp index to the requested target level. Up-only: the target must be the immediate next level in the schedule. Idempotent: calling with the current level returns success without writing anything.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.experimentation().experiments().advanceRamp(
+    "id",
+    AdvanceRampRequestContent
+        .builder()
+        .targetLevel(1)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of the experiment to advance.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**targetLevel:** `Integer` — The target percentage level from the experiment schedule. Must be the immediate next level.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Flows Executions
 <details><summary><code>client.flows.executions.list(flowId) -> SyncPagingIterable&amp;lt;FlowExecutionSummary&amp;gt;</code></summary>
 <dl>
@@ -23211,6 +23142,114 @@ client.guardian().policies().set(
 </dl>
 </details>
 
+## Guardian Factors Email
+<details><summary><code>client.guardian.factors.email.get() -> GetEmailFactorSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+TODO: Link this endpoint to relevant documentation when available.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.guardian().factors().email().get();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.guardian.factors.email.set(request) -> SetEmailFactorSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+TODO: Link this endpoint to relevant documentation when available.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.guardian().factors().email().set(
+    SetEmailFactorSettingsRequestContent
+        .builder()
+        .otpLength(1)
+        .otpExpirationTime(1)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**otpLength:** `Integer` — The length of the OTP code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**otpExpirationTime:** `Integer` — The OTP expiration time in seconds.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Guardian Factors Phone
 <details><summary><code>client.guardian.factors.phone.getMessageTypes() -> GetGuardianFactorPhoneMessageTypesResponseContent</code></summary>
 <dl>
@@ -23506,6 +23545,113 @@ client.guardian().factors().phone().setProvider(
 <dd>
 
 **provider:** `GuardianFactorsProviderSmsProviderEnum` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.guardian.factors.phone.get() -> GetPhoneFactorSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+TODO: Link this endpoint to relevant documentation when available.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.guardian().factors().phone().get();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.guardian.factors.phone.set(request) -> SetPhoneFactorSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+TODO: Link this endpoint to relevant documentation when available.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.guardian().factors().phone().set(
+    SetPhoneFactorSettingsRequestContent
+        .builder()
+        .otpLength(1)
+        .otpExpirationTime(1)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**otpLength:** `Integer` — The length of the OTP code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**otpExpirationTime:** `Integer` — The OTP expiration time in seconds.
     
 </dd>
 </dl>

@@ -127,6 +127,8 @@ public final class CreateClientRequestContent {
 
     private final Optional<CreateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant;
 
+    private final Optional<CreateAnonymousSessions> anonymousSessions;
+
     private final Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode;
 
     private final Optional<ClientRedirectionPolicyEnum> redirectionPolicy;
@@ -193,6 +195,7 @@ public final class CreateClientRequestContent {
             Optional<CreateTokenQuota> tokenQuota,
             Optional<String> resourceServerIdentifier,
             Optional<CreateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant,
+            Optional<CreateAnonymousSessions> anonymousSessions,
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
             Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
             Optional<ExpressConfiguration> expressConfiguration,
@@ -251,6 +254,7 @@ public final class CreateClientRequestContent {
         this.tokenQuota = tokenQuota;
         this.resourceServerIdentifier = resourceServerIdentifier;
         this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
+        this.anonymousSessions = anonymousSessions;
         this.thirdPartySecurityMode = thirdPartySecurityMode;
         this.redirectionPolicy = redirectionPolicy;
         this.expressConfiguration = expressConfiguration;
@@ -628,6 +632,11 @@ public final class CreateClientRequestContent {
         return identityAssertionAuthorizationGrant;
     }
 
+    @JsonProperty("anonymous_sessions")
+    public Optional<CreateAnonymousSessions> getAnonymousSessions() {
+        return anonymousSessions;
+    }
+
     @JsonProperty("third_party_security_mode")
     public Optional<ClientThirdPartySecurityModeEnum> getThirdPartySecurityMode() {
         return thirdPartySecurityMode;
@@ -758,6 +767,7 @@ public final class CreateClientRequestContent {
                 && tokenQuota.equals(other.tokenQuota)
                 && resourceServerIdentifier.equals(other.resourceServerIdentifier)
                 && identityAssertionAuthorizationGrant.equals(other.identityAssertionAuthorizationGrant)
+                && anonymousSessions.equals(other.anonymousSessions)
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
                 && redirectionPolicy.equals(other.redirectionPolicy)
                 && expressConfiguration.equals(other.expressConfiguration)
@@ -820,6 +830,7 @@ public final class CreateClientRequestContent {
                 this.tokenQuota,
                 this.resourceServerIdentifier,
                 this.identityAssertionAuthorizationGrant,
+                this.anonymousSessions,
                 this.thirdPartySecurityMode,
                 this.redirectionPolicy,
                 this.expressConfiguration,
@@ -1173,6 +1184,10 @@ public final class CreateClientRequestContent {
         _FinalStage identityAssertionAuthorizationGrant(
                 CreateIdentityAssertionAuthorizationGrant identityAssertionAuthorizationGrant);
 
+        _FinalStage anonymousSessions(Optional<CreateAnonymousSessions> anonymousSessions);
+
+        _FinalStage anonymousSessions(CreateAnonymousSessions anonymousSessions);
+
         _FinalStage thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode);
 
         _FinalStage thirdPartySecurityMode(ClientThirdPartySecurityModeEnum thirdPartySecurityMode);
@@ -1217,6 +1232,8 @@ public final class CreateClientRequestContent {
         private Optional<ClientRedirectionPolicyEnum> redirectionPolicy = Optional.empty();
 
         private Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode = Optional.empty();
+
+        private Optional<CreateAnonymousSessions> anonymousSessions = Optional.empty();
 
         private Optional<CreateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant =
                 Optional.empty();
@@ -1377,6 +1394,7 @@ public final class CreateClientRequestContent {
             tokenQuota(other.getTokenQuota());
             resourceServerIdentifier(other.getResourceServerIdentifier());
             identityAssertionAuthorizationGrant(other.getIdentityAssertionAuthorizationGrant());
+            anonymousSessions(other.getAnonymousSessions());
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
             redirectionPolicy(other.getRedirectionPolicy());
             expressConfiguration(other.getExpressConfiguration());
@@ -1477,6 +1495,19 @@ public final class CreateClientRequestContent {
         @JsonSetter(value = "third_party_security_mode", nulls = Nulls.SKIP)
         public _FinalStage thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode) {
             this.thirdPartySecurityMode = thirdPartySecurityMode;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage anonymousSessions(CreateAnonymousSessions anonymousSessions) {
+            this.anonymousSessions = Optional.ofNullable(anonymousSessions);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "anonymous_sessions", nulls = Nulls.SKIP)
+        public _FinalStage anonymousSessions(Optional<CreateAnonymousSessions> anonymousSessions) {
+            this.anonymousSessions = anonymousSessions;
             return this;
         }
 
@@ -2543,6 +2574,7 @@ public final class CreateClientRequestContent {
                     tokenQuota,
                     resourceServerIdentifier,
                     identityAssertionAuthorizationGrant,
+                    anonymousSessions,
                     thirdPartySecurityMode,
                     redirectionPolicy,
                     expressConfiguration,

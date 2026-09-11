@@ -9,14 +9,17 @@ import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorPhoneMessag
 import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorPhoneTemplatesRequestContent;
 import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPhoneRequestContent;
 import com.auth0.client.mgmt.guardian.factors.types.SetGuardianFactorsProviderPhoneTwilioRequestContent;
+import com.auth0.client.mgmt.guardian.factors.types.SetPhoneFactorSettingsRequestContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorPhoneMessageTypesResponseContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorPhoneTemplatesResponseContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorsProviderPhoneResponseContent;
 import com.auth0.client.mgmt.types.GetGuardianFactorsProviderPhoneTwilioResponseContent;
+import com.auth0.client.mgmt.types.GetPhoneFactorSettingsResponseContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorPhoneMessageTypesResponseContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorPhoneTemplatesResponseContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPhoneResponseContent;
 import com.auth0.client.mgmt.types.SetGuardianFactorsProviderPhoneTwilioResponseContent;
+import com.auth0.client.mgmt.types.SetPhoneFactorSettingsResponseContent;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncPhoneClient {
@@ -136,6 +139,35 @@ public class AsyncPhoneClient {
     public CompletableFuture<SetGuardianFactorsProviderPhoneResponseContent> setProvider(
             SetGuardianFactorsProviderPhoneRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.setProvider(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * TODO: Link this endpoint to relevant documentation when available.
+     */
+    public CompletableFuture<GetPhoneFactorSettingsResponseContent> get() {
+        return this.rawClient.get().thenApply(response -> response.body());
+    }
+
+    /**
+     * TODO: Link this endpoint to relevant documentation when available.
+     */
+    public CompletableFuture<GetPhoneFactorSettingsResponseContent> get(RequestOptions requestOptions) {
+        return this.rawClient.get(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * TODO: Link this endpoint to relevant documentation when available.
+     */
+    public CompletableFuture<SetPhoneFactorSettingsResponseContent> set(SetPhoneFactorSettingsRequestContent request) {
+        return this.rawClient.set(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * TODO: Link this endpoint to relevant documentation when available.
+     */
+    public CompletableFuture<SetPhoneFactorSettingsResponseContent> set(
+            SetPhoneFactorSettingsRequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.set(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**

@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,10 @@ import org.jetbrains.annotations.Nullable;
 @JsonDeserialize(builder = RotateClientSecretResponseContent.Builder.class)
 public final class RotateClientSecretResponseContent {
     private final Optional<String> clientId;
+
+    private final Optional<OffsetDateTime> createdAt;
+
+    private final Optional<OffsetDateTime> updatedAt;
 
     private final Optional<String> tenant;
 
@@ -138,6 +143,8 @@ public final class RotateClientSecretResponseContent {
 
     private final Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant;
 
+    private final Optional<AnonymousSessions> anonymousSessions;
+
     private final Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode;
 
     private final Optional<ClientRedirectionPolicyEnum> redirectionPolicy;
@@ -158,6 +165,8 @@ public final class RotateClientSecretResponseContent {
 
     private RotateClientSecretResponseContent(
             Optional<String> clientId,
+            Optional<OffsetDateTime> createdAt,
+            Optional<OffsetDateTime> updatedAt,
             Optional<String> tenant,
             Optional<String> name,
             Optional<String> description,
@@ -214,6 +223,7 @@ public final class RotateClientSecretResponseContent {
             Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration,
             Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration,
             Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant,
+            Optional<AnonymousSessions> anonymousSessions,
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
             Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
             Optional<String> resourceServerIdentifier,
@@ -224,6 +234,8 @@ public final class RotateClientSecretResponseContent {
             Optional<String> jwksUri,
             Map<String, Object> additionalProperties) {
         this.clientId = clientId;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.tenant = tenant;
         this.name = name;
         this.description = description;
@@ -280,6 +292,7 @@ public final class RotateClientSecretResponseContent {
         this.b2BIntegrationConfiguration = b2BIntegrationConfiguration;
         this.myOrganizationConfiguration = myOrganizationConfiguration;
         this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
+        this.anonymousSessions = anonymousSessions;
         this.thirdPartySecurityMode = thirdPartySecurityMode;
         this.redirectionPolicy = redirectionPolicy;
         this.resourceServerIdentifier = resourceServerIdentifier;
@@ -297,6 +310,22 @@ public final class RotateClientSecretResponseContent {
     @JsonProperty("client_id")
     public Optional<String> getClientId() {
         return clientId;
+    }
+
+    /**
+     * @return The ISO 8601 timestamp of when this client was created.
+     */
+    @JsonProperty("created_at")
+    public Optional<OffsetDateTime> getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * @return The ISO 8601 timestamp of when this client was last updated.
+     */
+    @JsonProperty("updated_at")
+    public Optional<OffsetDateTime> getUpdatedAt() {
+        return updatedAt;
     }
 
     /**
@@ -703,6 +732,11 @@ public final class RotateClientSecretResponseContent {
         return identityAssertionAuthorizationGrant;
     }
 
+    @JsonProperty("anonymous_sessions")
+    public Optional<AnonymousSessions> getAnonymousSessions() {
+        return anonymousSessions;
+    }
+
     @JsonProperty("third_party_security_mode")
     public Optional<ClientThirdPartySecurityModeEnum> getThirdPartySecurityMode() {
         return thirdPartySecurityMode;
@@ -813,6 +847,8 @@ public final class RotateClientSecretResponseContent {
 
     private boolean equalTo(RotateClientSecretResponseContent other) {
         return clientId.equals(other.clientId)
+                && createdAt.equals(other.createdAt)
+                && updatedAt.equals(other.updatedAt)
                 && tenant.equals(other.tenant)
                 && name.equals(other.name)
                 && description.equals(other.description)
@@ -870,6 +906,7 @@ public final class RotateClientSecretResponseContent {
                 && b2BIntegrationConfiguration.equals(other.b2BIntegrationConfiguration)
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
                 && identityAssertionAuthorizationGrant.equals(other.identityAssertionAuthorizationGrant)
+                && anonymousSessions.equals(other.anonymousSessions)
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
                 && redirectionPolicy.equals(other.redirectionPolicy)
                 && resourceServerIdentifier.equals(other.resourceServerIdentifier)
@@ -884,6 +921,8 @@ public final class RotateClientSecretResponseContent {
     public int hashCode() {
         return Objects.hash(
                 this.clientId,
+                this.createdAt,
+                this.updatedAt,
                 this.tenant,
                 this.name,
                 this.description,
@@ -940,6 +979,7 @@ public final class RotateClientSecretResponseContent {
                 this.b2BIntegrationConfiguration,
                 this.myOrganizationConfiguration,
                 this.identityAssertionAuthorizationGrant,
+                this.anonymousSessions,
                 this.thirdPartySecurityMode,
                 this.redirectionPolicy,
                 this.resourceServerIdentifier,
@@ -962,6 +1002,10 @@ public final class RotateClientSecretResponseContent {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
         private Optional<String> clientId = Optional.empty();
+
+        private Optional<OffsetDateTime> createdAt = Optional.empty();
+
+        private Optional<OffsetDateTime> updatedAt = Optional.empty();
 
         private Optional<String> tenant = Optional.empty();
 
@@ -1076,6 +1120,8 @@ public final class RotateClientSecretResponseContent {
 
         private Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant = Optional.empty();
 
+        private Optional<AnonymousSessions> anonymousSessions = Optional.empty();
+
         private Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode = Optional.empty();
 
         private Optional<ClientRedirectionPolicyEnum> redirectionPolicy = Optional.empty();
@@ -1100,6 +1146,8 @@ public final class RotateClientSecretResponseContent {
 
         public Builder from(RotateClientSecretResponseContent other) {
             clientId(other.getClientId());
+            createdAt(other.getCreatedAt());
+            updatedAt(other.getUpdatedAt());
             tenant(other.getTenant());
             name(other.getName());
             description(other.getDescription());
@@ -1156,6 +1204,7 @@ public final class RotateClientSecretResponseContent {
             b2BIntegrationConfiguration(other.getB2BIntegrationConfiguration());
             myOrganizationConfiguration(other.getMyOrganizationConfiguration());
             identityAssertionAuthorizationGrant(other.getIdentityAssertionAuthorizationGrant());
+            anonymousSessions(other.getAnonymousSessions());
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
             redirectionPolicy(other.getRedirectionPolicy());
             resourceServerIdentifier(other.getResourceServerIdentifier());
@@ -1178,6 +1227,34 @@ public final class RotateClientSecretResponseContent {
 
         public Builder clientId(String clientId) {
             this.clientId = Optional.ofNullable(clientId);
+            return this;
+        }
+
+        /**
+         * <p>The ISO 8601 timestamp of when this client was created.</p>
+         */
+        @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
+        public Builder createdAt(Optional<OffsetDateTime> createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        public Builder createdAt(OffsetDateTime createdAt) {
+            this.createdAt = Optional.ofNullable(createdAt);
+            return this;
+        }
+
+        /**
+         * <p>The ISO 8601 timestamp of when this client was last updated.</p>
+         */
+        @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
+        public Builder updatedAt(Optional<OffsetDateTime> updatedAt) {
+            this.updatedAt = updatedAt;
+            return this;
+        }
+
+        public Builder updatedAt(OffsetDateTime updatedAt) {
+            this.updatedAt = Optional.ofNullable(updatedAt);
             return this;
         }
 
@@ -2065,6 +2142,17 @@ public final class RotateClientSecretResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "anonymous_sessions", nulls = Nulls.SKIP)
+        public Builder anonymousSessions(Optional<AnonymousSessions> anonymousSessions) {
+            this.anonymousSessions = anonymousSessions;
+            return this;
+        }
+
+        public Builder anonymousSessions(AnonymousSessions anonymousSessions) {
+            this.anonymousSessions = Optional.ofNullable(anonymousSessions);
+            return this;
+        }
+
         @JsonSetter(value = "third_party_security_mode", nulls = Nulls.SKIP)
         public Builder thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode) {
             this.thirdPartySecurityMode = thirdPartySecurityMode;
@@ -2168,6 +2256,8 @@ public final class RotateClientSecretResponseContent {
         public RotateClientSecretResponseContent build() {
             return new RotateClientSecretResponseContent(
                     clientId,
+                    createdAt,
+                    updatedAt,
                     tenant,
                     name,
                     description,
@@ -2224,6 +2314,7 @@ public final class RotateClientSecretResponseContent {
                     b2BIntegrationConfiguration,
                     myOrganizationConfiguration,
                     identityAssertionAuthorizationGrant,
+                    anonymousSessions,
                     thirdPartySecurityMode,
                     redirectionPolicy,
                     resourceServerIdentifier,
