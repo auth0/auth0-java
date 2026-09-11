@@ -43,6 +43,8 @@ public final class CreateResourceServerRequestContent {
 
     private final Optional<Integer> tokenLifetime;
 
+    private final OptionalNullable<Integer> tokenLifetimeForAnonymousAccessTokens;
+
     private final Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect;
 
     private final Optional<Boolean> skipConsentForVerifiableFirstPartyClients;
@@ -73,6 +75,7 @@ public final class CreateResourceServerRequestContent {
             Optional<Boolean> allowOnlineAccess,
             Optional<Boolean> allowOnlineAccessWithEphemeralSessions,
             Optional<Integer> tokenLifetime,
+            OptionalNullable<Integer> tokenLifetimeForAnonymousAccessTokens,
             Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect,
             Optional<Boolean> skipConsentForVerifiableFirstPartyClients,
             Optional<Boolean> enforcePolicies,
@@ -92,6 +95,7 @@ public final class CreateResourceServerRequestContent {
         this.allowOnlineAccess = allowOnlineAccess;
         this.allowOnlineAccessWithEphemeralSessions = allowOnlineAccessWithEphemeralSessions;
         this.tokenLifetime = tokenLifetime;
+        this.tokenLifetimeForAnonymousAccessTokens = tokenLifetimeForAnonymousAccessTokens;
         this.tokenDialect = tokenDialect;
         this.skipConsentForVerifiableFirstPartyClients = skipConsentForVerifiableFirstPartyClients;
         this.enforcePolicies = enforcePolicies;
@@ -173,6 +177,18 @@ public final class CreateResourceServerRequestContent {
         return tokenLifetime;
     }
 
+    /**
+     * @return Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_lifetime_for_anonymous_access_tokens")
+    public OptionalNullable<Integer> getTokenLifetimeForAnonymousAccessTokens() {
+        if (tokenLifetimeForAnonymousAccessTokens == null) {
+            return OptionalNullable.absent();
+        }
+        return tokenLifetimeForAnonymousAccessTokens;
+    }
+
     @JsonProperty("token_dialect")
     public Optional<ResourceServerTokenDialectSchemaEnum> getTokenDialect() {
         return tokenDialect;
@@ -245,6 +261,12 @@ public final class CreateResourceServerRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_lifetime_for_anonymous_access_tokens")
+    private OptionalNullable<Integer> _getTokenLifetimeForAnonymousAccessTokens() {
+        return tokenLifetimeForAnonymousAccessTokens;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_encryption")
     private OptionalNullable<ResourceServerTokenEncryption> _getTokenEncryption() {
         return tokenEncryption;
@@ -296,6 +318,7 @@ public final class CreateResourceServerRequestContent {
                 && allowOnlineAccess.equals(other.allowOnlineAccess)
                 && allowOnlineAccessWithEphemeralSessions.equals(other.allowOnlineAccessWithEphemeralSessions)
                 && tokenLifetime.equals(other.tokenLifetime)
+                && tokenLifetimeForAnonymousAccessTokens.equals(other.tokenLifetimeForAnonymousAccessTokens)
                 && tokenDialect.equals(other.tokenDialect)
                 && skipConsentForVerifiableFirstPartyClients.equals(other.skipConsentForVerifiableFirstPartyClients)
                 && enforcePolicies.equals(other.enforcePolicies)
@@ -319,6 +342,7 @@ public final class CreateResourceServerRequestContent {
                 this.allowOnlineAccess,
                 this.allowOnlineAccessWithEphemeralSessions,
                 this.tokenLifetime,
+                this.tokenLifetimeForAnonymousAccessTokens,
                 this.tokenDialect,
                 this.skipConsentForVerifiableFirstPartyClients,
                 this.enforcePolicies,
@@ -407,6 +431,19 @@ public final class CreateResourceServerRequestContent {
         _FinalStage tokenLifetime(Optional<Integer> tokenLifetime);
 
         _FinalStage tokenLifetime(Integer tokenLifetime);
+
+        /**
+         * <p>Expiration value (in seconds) for anonymous-session access tokens issued for this API.</p>
+         */
+        _FinalStage tokenLifetimeForAnonymousAccessTokens(
+                @Nullable OptionalNullable<Integer> tokenLifetimeForAnonymousAccessTokens);
+
+        _FinalStage tokenLifetimeForAnonymousAccessTokens(Integer tokenLifetimeForAnonymousAccessTokens);
+
+        _FinalStage tokenLifetimeForAnonymousAccessTokens(Optional<Integer> tokenLifetimeForAnonymousAccessTokens);
+
+        _FinalStage tokenLifetimeForAnonymousAccessTokens(
+                com.auth0.client.mgmt.core.Nullable<Integer> tokenLifetimeForAnonymousAccessTokens);
 
         _FinalStage tokenDialect(Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect);
 
@@ -497,6 +534,8 @@ public final class CreateResourceServerRequestContent {
 
         private Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect = Optional.empty();
 
+        private OptionalNullable<Integer> tokenLifetimeForAnonymousAccessTokens = OptionalNullable.absent();
+
         private Optional<Integer> tokenLifetime = Optional.empty();
 
         private Optional<Boolean> allowOnlineAccessWithEphemeralSessions = Optional.empty();
@@ -529,6 +568,7 @@ public final class CreateResourceServerRequestContent {
             allowOnlineAccess(other.getAllowOnlineAccess());
             allowOnlineAccessWithEphemeralSessions(other.getAllowOnlineAccessWithEphemeralSessions());
             tokenLifetime(other.getTokenLifetime());
+            tokenLifetimeForAnonymousAccessTokens(other.getTokenLifetimeForAnonymousAccessTokens());
             tokenDialect(other.getTokenDialect());
             skipConsentForVerifiableFirstPartyClients(other.getSkipConsentForVerifiableFirstPartyClients());
             enforcePolicies(other.getEnforcePolicies());
@@ -805,6 +845,61 @@ public final class CreateResourceServerRequestContent {
         }
 
         /**
+         * <p>Expiration value (in seconds) for anonymous-session access tokens issued for this API.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage tokenLifetimeForAnonymousAccessTokens(
+                com.auth0.client.mgmt.core.Nullable<Integer> tokenLifetimeForAnonymousAccessTokens) {
+            if (tokenLifetimeForAnonymousAccessTokens.isNull()) {
+                this.tokenLifetimeForAnonymousAccessTokens = OptionalNullable.ofNull();
+            } else if (tokenLifetimeForAnonymousAccessTokens.isEmpty()) {
+                this.tokenLifetimeForAnonymousAccessTokens = OptionalNullable.absent();
+            } else {
+                this.tokenLifetimeForAnonymousAccessTokens =
+                        OptionalNullable.of(tokenLifetimeForAnonymousAccessTokens.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>Expiration value (in seconds) for anonymous-session access tokens issued for this API.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage tokenLifetimeForAnonymousAccessTokens(
+                Optional<Integer> tokenLifetimeForAnonymousAccessTokens) {
+            if (tokenLifetimeForAnonymousAccessTokens.isPresent()) {
+                this.tokenLifetimeForAnonymousAccessTokens =
+                        OptionalNullable.of(tokenLifetimeForAnonymousAccessTokens.get());
+            } else {
+                this.tokenLifetimeForAnonymousAccessTokens = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        /**
+         * <p>Expiration value (in seconds) for anonymous-session access tokens issued for this API.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage tokenLifetimeForAnonymousAccessTokens(Integer tokenLifetimeForAnonymousAccessTokens) {
+            this.tokenLifetimeForAnonymousAccessTokens = OptionalNullable.of(tokenLifetimeForAnonymousAccessTokens);
+            return this;
+        }
+
+        /**
+         * <p>Expiration value (in seconds) for anonymous-session access tokens issued for this API.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "token_lifetime_for_anonymous_access_tokens", nulls = Nulls.SKIP)
+        public _FinalStage tokenLifetimeForAnonymousAccessTokens(
+                @Nullable OptionalNullable<Integer> tokenLifetimeForAnonymousAccessTokens) {
+            this.tokenLifetimeForAnonymousAccessTokens = tokenLifetimeForAnonymousAccessTokens;
+            return this;
+        }
+
+        /**
          * <p>Expiration value (in seconds) for access tokens issued for this API from the token endpoint.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -970,6 +1065,7 @@ public final class CreateResourceServerRequestContent {
                     allowOnlineAccess,
                     allowOnlineAccessWithEphemeralSessions,
                     tokenLifetime,
+                    tokenLifetimeForAnonymousAccessTokens,
                     tokenDialect,
                     skipConsentForVerifiableFirstPartyClients,
                     enforcePolicies,

@@ -42,6 +42,8 @@ public final class UpdateResourceServerRequestContent {
 
     private final Optional<Integer> tokenLifetime;
 
+    private final OptionalNullable<Integer> tokenLifetimeForAnonymousAccessTokens;
+
     private final Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect;
 
     private final Optional<Boolean> enforcePolicies;
@@ -70,6 +72,7 @@ public final class UpdateResourceServerRequestContent {
             Optional<Boolean> allowOnlineAccess,
             Optional<Boolean> allowOnlineAccessWithEphemeralSessions,
             Optional<Integer> tokenLifetime,
+            OptionalNullable<Integer> tokenLifetimeForAnonymousAccessTokens,
             Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect,
             Optional<Boolean> enforcePolicies,
             OptionalNullable<ResourceServerTokenEncryption> tokenEncryption,
@@ -88,6 +91,7 @@ public final class UpdateResourceServerRequestContent {
         this.allowOnlineAccess = allowOnlineAccess;
         this.allowOnlineAccessWithEphemeralSessions = allowOnlineAccessWithEphemeralSessions;
         this.tokenLifetime = tokenLifetime;
+        this.tokenLifetimeForAnonymousAccessTokens = tokenLifetimeForAnonymousAccessTokens;
         this.tokenDialect = tokenDialect;
         this.enforcePolicies = enforcePolicies;
         this.tokenEncryption = tokenEncryption;
@@ -168,6 +172,18 @@ public final class UpdateResourceServerRequestContent {
         return tokenLifetime;
     }
 
+    /**
+     * @return Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_lifetime_for_anonymous_access_tokens")
+    public OptionalNullable<Integer> getTokenLifetimeForAnonymousAccessTokens() {
+        if (tokenLifetimeForAnonymousAccessTokens == null) {
+            return OptionalNullable.absent();
+        }
+        return tokenLifetimeForAnonymousAccessTokens;
+    }
+
     @JsonProperty("token_dialect")
     public Optional<ResourceServerTokenDialectSchemaEnum> getTokenDialect() {
         return tokenDialect;
@@ -232,6 +248,12 @@ public final class UpdateResourceServerRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_lifetime_for_anonymous_access_tokens")
+    private OptionalNullable<Integer> _getTokenLifetimeForAnonymousAccessTokens() {
+        return tokenLifetimeForAnonymousAccessTokens;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_encryption")
     private OptionalNullable<ResourceServerTokenEncryption> _getTokenEncryption() {
         return tokenEncryption;
@@ -283,6 +305,7 @@ public final class UpdateResourceServerRequestContent {
                 && allowOnlineAccess.equals(other.allowOnlineAccess)
                 && allowOnlineAccessWithEphemeralSessions.equals(other.allowOnlineAccessWithEphemeralSessions)
                 && tokenLifetime.equals(other.tokenLifetime)
+                && tokenLifetimeForAnonymousAccessTokens.equals(other.tokenLifetimeForAnonymousAccessTokens)
                 && tokenDialect.equals(other.tokenDialect)
                 && enforcePolicies.equals(other.enforcePolicies)
                 && tokenEncryption.equals(other.tokenEncryption)
@@ -305,6 +328,7 @@ public final class UpdateResourceServerRequestContent {
                 this.allowOnlineAccess,
                 this.allowOnlineAccessWithEphemeralSessions,
                 this.tokenLifetime,
+                this.tokenLifetimeForAnonymousAccessTokens,
                 this.tokenDialect,
                 this.enforcePolicies,
                 this.tokenEncryption,
@@ -344,6 +368,8 @@ public final class UpdateResourceServerRequestContent {
 
         private Optional<Integer> tokenLifetime = Optional.empty();
 
+        private OptionalNullable<Integer> tokenLifetimeForAnonymousAccessTokens = OptionalNullable.absent();
+
         private Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect = Optional.empty();
 
         private Optional<Boolean> enforcePolicies = Optional.empty();
@@ -375,6 +401,7 @@ public final class UpdateResourceServerRequestContent {
             allowOnlineAccess(other.getAllowOnlineAccess());
             allowOnlineAccessWithEphemeralSessions(other.getAllowOnlineAccessWithEphemeralSessions());
             tokenLifetime(other.getTokenLifetime());
+            tokenLifetimeForAnonymousAccessTokens(other.getTokenLifetimeForAnonymousAccessTokens());
             tokenDialect(other.getTokenDialect());
             enforcePolicies(other.getEnforcePolicies());
             tokenEncryption(other.getTokenEncryption());
@@ -509,6 +536,44 @@ public final class UpdateResourceServerRequestContent {
 
         public Builder tokenLifetime(Integer tokenLifetime) {
             this.tokenLifetime = Optional.ofNullable(tokenLifetime);
+            return this;
+        }
+
+        /**
+         * <p>Expiration value (in seconds) for anonymous-session access tokens issued for this API.</p>
+         */
+        @JsonSetter(value = "token_lifetime_for_anonymous_access_tokens", nulls = Nulls.SKIP)
+        public Builder tokenLifetimeForAnonymousAccessTokens(
+                @Nullable OptionalNullable<Integer> tokenLifetimeForAnonymousAccessTokens) {
+            this.tokenLifetimeForAnonymousAccessTokens = tokenLifetimeForAnonymousAccessTokens;
+            return this;
+        }
+
+        public Builder tokenLifetimeForAnonymousAccessTokens(Integer tokenLifetimeForAnonymousAccessTokens) {
+            this.tokenLifetimeForAnonymousAccessTokens = OptionalNullable.of(tokenLifetimeForAnonymousAccessTokens);
+            return this;
+        }
+
+        public Builder tokenLifetimeForAnonymousAccessTokens(Optional<Integer> tokenLifetimeForAnonymousAccessTokens) {
+            if (tokenLifetimeForAnonymousAccessTokens.isPresent()) {
+                this.tokenLifetimeForAnonymousAccessTokens =
+                        OptionalNullable.of(tokenLifetimeForAnonymousAccessTokens.get());
+            } else {
+                this.tokenLifetimeForAnonymousAccessTokens = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder tokenLifetimeForAnonymousAccessTokens(
+                com.auth0.client.mgmt.core.Nullable<Integer> tokenLifetimeForAnonymousAccessTokens) {
+            if (tokenLifetimeForAnonymousAccessTokens.isNull()) {
+                this.tokenLifetimeForAnonymousAccessTokens = OptionalNullable.ofNull();
+            } else if (tokenLifetimeForAnonymousAccessTokens.isEmpty()) {
+                this.tokenLifetimeForAnonymousAccessTokens = OptionalNullable.absent();
+            } else {
+                this.tokenLifetimeForAnonymousAccessTokens =
+                        OptionalNullable.of(tokenLifetimeForAnonymousAccessTokens.get());
+            }
             return this;
         }
 
@@ -721,6 +786,7 @@ public final class UpdateResourceServerRequestContent {
                     allowOnlineAccess,
                     allowOnlineAccessWithEphemeralSessions,
                     tokenLifetime,
+                    tokenLifetimeForAnonymousAccessTokens,
                     tokenDialect,
                     enforcePolicies,
                     tokenEncryption,

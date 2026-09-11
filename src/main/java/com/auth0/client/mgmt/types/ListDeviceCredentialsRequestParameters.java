@@ -147,7 +147,7 @@ public final class ListDeviceCredentialsRequestParameters {
     }
 
     /**
-     * @return Type of credentials to retrieve. Must be <code>public_key</code>, <code>refresh_token</code> or <code>rotating_refresh_token</code>. The property will default to <code>refresh_token</code> when paging is requested
+     * @return Type of credentials to retrieve. Must be <code>public_key</code>, <code>refresh_token</code> or <code>rotating_refresh_token</code>. If none is provided a combined list of <code>refresh_tokens</code> and <code>public_keys</code> will be returned (and no <code>rotating_refresh_token</code>), in this case <code>page</code>, <code>per_page</code> and <code>include_totals</code> will be ignored.
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("type")
@@ -525,7 +525,7 @@ public final class ListDeviceCredentialsRequestParameters {
         }
 
         /**
-         * <p>Type of credentials to retrieve. Must be <code>public_key</code>, <code>refresh_token</code> or <code>rotating_refresh_token</code>. The property will default to <code>refresh_token</code> when paging is requested</p>
+         * <p>Type of credentials to retrieve. Must be <code>public_key</code>, <code>refresh_token</code> or <code>rotating_refresh_token</code>. If none is provided a combined list of <code>refresh_tokens</code> and <code>public_keys</code> will be returned (and no <code>rotating_refresh_token</code>), in this case <code>page</code>, <code>per_page</code> and <code>include_totals</code> will be ignored.</p>
          */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(@Nullable OptionalNullable<DeviceCredentialTypeEnum> type) {

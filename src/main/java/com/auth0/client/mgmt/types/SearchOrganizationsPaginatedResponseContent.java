@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,41 +20,39 @@ import java.util.Objects;
 import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = ListOrganizationTemplatesPaginatedResponseContent.Builder.class)
-public final class ListOrganizationTemplatesPaginatedResponseContent {
-    private final Optional<String> next;
+@JsonDeserialize(builder = SearchOrganizationsPaginatedResponseContent.Builder.class)
+public final class SearchOrganizationsPaginatedResponseContent {
+    private final List<SearchOrganization> organizations;
 
-    private final Optional<List<OrganizationTemplate>> organizationTemplates;
+    private final Optional<String> next;
 
     private final Map<String, Object> additionalProperties;
 
-    private ListOrganizationTemplatesPaginatedResponseContent(
-            Optional<String> next,
-            Optional<List<OrganizationTemplate>> organizationTemplates,
-            Map<String, Object> additionalProperties) {
+    private SearchOrganizationsPaginatedResponseContent(
+            List<SearchOrganization> organizations, Optional<String> next, Map<String, Object> additionalProperties) {
+        this.organizations = organizations;
         this.next = next;
-        this.organizationTemplates = organizationTemplates;
         this.additionalProperties = additionalProperties;
     }
 
+    @JsonProperty("organizations")
+    public List<SearchOrganization> getOrganizations() {
+        return organizations;
+    }
+
     /**
-     * @return A cursor to be used as the &quot;from&quot; query parameter for the next page of results.
+     * @return Cursor for retrieving the next page of results. Absent when no more results are available.
      */
     @JsonProperty("next")
     public Optional<String> getNext() {
         return next;
     }
 
-    @JsonProperty("organization_templates")
-    public Optional<List<OrganizationTemplate>> getOrganizationTemplates() {
-        return organizationTemplates;
-    }
-
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof ListOrganizationTemplatesPaginatedResponseContent
-                && equalTo((ListOrganizationTemplatesPaginatedResponseContent) other);
+        return other instanceof SearchOrganizationsPaginatedResponseContent
+                && equalTo((SearchOrganizationsPaginatedResponseContent) other);
     }
 
     @JsonAnyGetter
@@ -61,13 +60,13 @@ public final class ListOrganizationTemplatesPaginatedResponseContent {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(ListOrganizationTemplatesPaginatedResponseContent other) {
-        return next.equals(other.next) && organizationTemplates.equals(other.organizationTemplates);
+    private boolean equalTo(SearchOrganizationsPaginatedResponseContent other) {
+        return organizations.equals(other.organizations) && next.equals(other.next);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.next, this.organizationTemplates);
+        return Objects.hash(this.organizations, this.next);
     }
 
     @java.lang.Override
@@ -81,23 +80,44 @@ public final class ListOrganizationTemplatesPaginatedResponseContent {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<String> next = Optional.empty();
+        private List<SearchOrganization> organizations = new ArrayList<>();
 
-        private Optional<List<OrganizationTemplate>> organizationTemplates = Optional.empty();
+        private Optional<String> next = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        public Builder from(ListOrganizationTemplatesPaginatedResponseContent other) {
+        public Builder from(SearchOrganizationsPaginatedResponseContent other) {
+            organizations(other.getOrganizations());
             next(other.getNext());
-            organizationTemplates(other.getOrganizationTemplates());
+            return this;
+        }
+
+        @JsonSetter(value = "organizations", nulls = Nulls.SKIP)
+        public Builder organizations(List<SearchOrganization> organizations) {
+            this.organizations.clear();
+            if (organizations != null) {
+                this.organizations.addAll(organizations);
+            }
+            return this;
+        }
+
+        public Builder addOrganizations(SearchOrganization organizations) {
+            this.organizations.add(organizations);
+            return this;
+        }
+
+        public Builder addAllOrganizations(List<SearchOrganization> organizations) {
+            if (organizations != null) {
+                this.organizations.addAll(organizations);
+            }
             return this;
         }
 
         /**
-         * <p>A cursor to be used as the &quot;from&quot; query parameter for the next page of results.</p>
+         * <p>Cursor for retrieving the next page of results. Absent when no more results are available.</p>
          */
         @JsonSetter(value = "next", nulls = Nulls.SKIP)
         public Builder next(Optional<String> next) {
@@ -110,20 +130,8 @@ public final class ListOrganizationTemplatesPaginatedResponseContent {
             return this;
         }
 
-        @JsonSetter(value = "organization_templates", nulls = Nulls.SKIP)
-        public Builder organizationTemplates(Optional<List<OrganizationTemplate>> organizationTemplates) {
-            this.organizationTemplates = organizationTemplates;
-            return this;
-        }
-
-        public Builder organizationTemplates(List<OrganizationTemplate> organizationTemplates) {
-            this.organizationTemplates = Optional.ofNullable(organizationTemplates);
-            return this;
-        }
-
-        public ListOrganizationTemplatesPaginatedResponseContent build() {
-            return new ListOrganizationTemplatesPaginatedResponseContent(
-                    next, organizationTemplates, additionalProperties);
+        public SearchOrganizationsPaginatedResponseContent build() {
+            return new SearchOrganizationsPaginatedResponseContent(organizations, next, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

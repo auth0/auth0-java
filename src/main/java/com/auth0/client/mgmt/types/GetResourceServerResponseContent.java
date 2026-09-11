@@ -52,6 +52,8 @@ public final class GetResourceServerResponseContent {
 
     private final Optional<Boolean> enforcePolicies;
 
+    private final Optional<Integer> tokenLifetimeForAnonymousAccessTokens;
+
     private final Optional<ResourceServerTokenDialectResponseEnum> tokenDialect;
 
     private final OptionalNullable<ResourceServerTokenEncryption> tokenEncryption;
@@ -85,6 +87,7 @@ public final class GetResourceServerResponseContent {
             Optional<Integer> tokenLifetime,
             Optional<Integer> tokenLifetimeForWeb,
             Optional<Boolean> enforcePolicies,
+            Optional<Integer> tokenLifetimeForAnonymousAccessTokens,
             Optional<ResourceServerTokenDialectResponseEnum> tokenDialect,
             OptionalNullable<ResourceServerTokenEncryption> tokenEncryption,
             OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy,
@@ -108,6 +111,7 @@ public final class GetResourceServerResponseContent {
         this.tokenLifetime = tokenLifetime;
         this.tokenLifetimeForWeb = tokenLifetimeForWeb;
         this.enforcePolicies = enforcePolicies;
+        this.tokenLifetimeForAnonymousAccessTokens = tokenLifetimeForAnonymousAccessTokens;
         this.tokenDialect = tokenDialect;
         this.tokenEncryption = tokenEncryption;
         this.consentPolicy = consentPolicy;
@@ -226,6 +230,14 @@ public final class GetResourceServerResponseContent {
     @JsonProperty("enforce_policies")
     public Optional<Boolean> getEnforcePolicies() {
         return enforcePolicies;
+    }
+
+    /**
+     * @return Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+     */
+    @JsonProperty("token_lifetime_for_anonymous_access_tokens")
+    public Optional<Integer> getTokenLifetimeForAnonymousAccessTokens() {
+        return tokenLifetimeForAnonymousAccessTokens;
     }
 
     @JsonProperty("token_dialect")
@@ -347,6 +359,7 @@ public final class GetResourceServerResponseContent {
                 && tokenLifetime.equals(other.tokenLifetime)
                 && tokenLifetimeForWeb.equals(other.tokenLifetimeForWeb)
                 && enforcePolicies.equals(other.enforcePolicies)
+                && tokenLifetimeForAnonymousAccessTokens.equals(other.tokenLifetimeForAnonymousAccessTokens)
                 && tokenDialect.equals(other.tokenDialect)
                 && tokenEncryption.equals(other.tokenEncryption)
                 && consentPolicy.equals(other.consentPolicy)
@@ -374,6 +387,7 @@ public final class GetResourceServerResponseContent {
                 this.tokenLifetime,
                 this.tokenLifetimeForWeb,
                 this.enforcePolicies,
+                this.tokenLifetimeForAnonymousAccessTokens,
                 this.tokenDialect,
                 this.tokenEncryption,
                 this.consentPolicy,
@@ -423,6 +437,8 @@ public final class GetResourceServerResponseContent {
 
         private Optional<Boolean> enforcePolicies = Optional.empty();
 
+        private Optional<Integer> tokenLifetimeForAnonymousAccessTokens = Optional.empty();
+
         private Optional<ResourceServerTokenDialectResponseEnum> tokenDialect = Optional.empty();
 
         private OptionalNullable<ResourceServerTokenEncryption> tokenEncryption = OptionalNullable.absent();
@@ -459,6 +475,7 @@ public final class GetResourceServerResponseContent {
             tokenLifetime(other.getTokenLifetime());
             tokenLifetimeForWeb(other.getTokenLifetimeForWeb());
             enforcePolicies(other.getEnforcePolicies());
+            tokenLifetimeForAnonymousAccessTokens(other.getTokenLifetimeForAnonymousAccessTokens());
             tokenDialect(other.getTokenDialect());
             tokenEncryption(other.getTokenEncryption());
             consentPolicy(other.getConsentPolicy());
@@ -663,6 +680,20 @@ public final class GetResourceServerResponseContent {
 
         public Builder enforcePolicies(Boolean enforcePolicies) {
             this.enforcePolicies = Optional.ofNullable(enforcePolicies);
+            return this;
+        }
+
+        /**
+         * <p>Expiration value (in seconds) for anonymous-session access tokens issued for this API.</p>
+         */
+        @JsonSetter(value = "token_lifetime_for_anonymous_access_tokens", nulls = Nulls.SKIP)
+        public Builder tokenLifetimeForAnonymousAccessTokens(Optional<Integer> tokenLifetimeForAnonymousAccessTokens) {
+            this.tokenLifetimeForAnonymousAccessTokens = tokenLifetimeForAnonymousAccessTokens;
+            return this;
+        }
+
+        public Builder tokenLifetimeForAnonymousAccessTokens(Integer tokenLifetimeForAnonymousAccessTokens) {
+            this.tokenLifetimeForAnonymousAccessTokens = Optional.ofNullable(tokenLifetimeForAnonymousAccessTokens);
             return this;
         }
 
@@ -880,6 +911,7 @@ public final class GetResourceServerResponseContent {
                     tokenLifetime,
                     tokenLifetimeForWeb,
                     enforcePolicies,
+                    tokenLifetimeForAnonymousAccessTokens,
                     tokenDialect,
                     tokenEncryption,
                     consentPolicy,

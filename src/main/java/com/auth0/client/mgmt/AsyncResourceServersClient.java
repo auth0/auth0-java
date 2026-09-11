@@ -12,6 +12,8 @@ import com.auth0.client.mgmt.types.GetResourceServerRequestParameters;
 import com.auth0.client.mgmt.types.GetResourceServerResponseContent;
 import com.auth0.client.mgmt.types.ListResourceServerRequestParameters;
 import com.auth0.client.mgmt.types.ResourceServer;
+import com.auth0.client.mgmt.types.ResourceServerSearchResponse;
+import com.auth0.client.mgmt.types.SearchResourceServersRequestParameters;
 import com.auth0.client.mgmt.types.UpdateResourceServerRequestContent;
 import com.auth0.client.mgmt.types.UpdateResourceServerResponseContent;
 import java.util.concurrent.CompletableFuture;
@@ -75,6 +77,44 @@ public class AsyncResourceServersClient {
     public CompletableFuture<CreateResourceServerResponseContent> create(
             CreateResourceServerRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Search resource servers using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;). This endpoint provides an alternative to the standard GET /resource-servers endpoint with better performance for complex queries.
+     * Results may not reflect recent updates immediately.
+     * <p>The <code>signing_secret</code> field is not supported by this endpoint.</p>
+     */
+    public CompletableFuture<SyncPagingIterable<ResourceServerSearchResponse>> search() {
+        return this.rawClient.search().thenApply(response -> response.body());
+    }
+
+    /**
+     * Search resource servers using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;). This endpoint provides an alternative to the standard GET /resource-servers endpoint with better performance for complex queries.
+     * Results may not reflect recent updates immediately.
+     * <p>The <code>signing_secret</code> field is not supported by this endpoint.</p>
+     */
+    public CompletableFuture<SyncPagingIterable<ResourceServerSearchResponse>> search(RequestOptions requestOptions) {
+        return this.rawClient.search(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Search resource servers using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;). This endpoint provides an alternative to the standard GET /resource-servers endpoint with better performance for complex queries.
+     * Results may not reflect recent updates immediately.
+     * <p>The <code>signing_secret</code> field is not supported by this endpoint.</p>
+     */
+    public CompletableFuture<SyncPagingIterable<ResourceServerSearchResponse>> search(
+            SearchResourceServersRequestParameters request) {
+        return this.rawClient.search(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Search resource servers using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;). This endpoint provides an alternative to the standard GET /resource-servers endpoint with better performance for complex queries.
+     * Results may not reflect recent updates immediately.
+     * <p>The <code>signing_secret</code> field is not supported by this endpoint.</p>
+     */
+    public CompletableFuture<SyncPagingIterable<ResourceServerSearchResponse>> search(
+            SearchResourceServersRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**

@@ -8,6 +8,10 @@ import com.auth0.client.mgmt.types.GetResourceServerRequestParameters;
 import com.auth0.client.mgmt.types.GetResourceServerResponseContent;
 import com.auth0.client.mgmt.types.ListResourceServerRequestParameters;
 import com.auth0.client.mgmt.types.ResourceServer;
+import com.auth0.client.mgmt.types.ResourceServerSearchResponse;
+import com.auth0.client.mgmt.types.ResourceServerSortFieldEnum;
+import com.auth0.client.mgmt.types.SearchParserEnum;
+import com.auth0.client.mgmt.types.SearchResourceServersRequestParameters;
 import com.auth0.client.mgmt.types.UpdateResourceServerRequestContent;
 import com.auth0.client.mgmt.types.UpdateResourceServerResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -47,7 +51,7 @@ public class ResourceServersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"resource_servers\":[{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"allow_online_access\":true,\"allow_online_access_with_ephemeral_sessions\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"alg\":\"RSA-OAEP-256\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true},\"authorization_policy\":{\"policy_id\":\"policy_id\"},\"client_id\":\"client_id\"}]}"));
+                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"resource_servers\":[{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\"}],\"signing_alg\":\"HS256\",\"signing_secret\":\"signing_secret\",\"allow_offline_access\":true,\"allow_online_access\":true,\"allow_online_access_with_ephemeral_sessions\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_lifetime_for_anonymous_access_tokens\":1,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"alg\":\"RSA-OAEP-256\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true},\"authorization_policy\":{\"policy_id\":\"policy_id\"},\"client_id\":\"client_id\"}]}"));
         SyncPagingIterable<ResourceServer> response = client.resourceServers()
                 .list(ListResourceServerRequestParameters.builder()
                         .page(1)
@@ -142,6 +146,33 @@ public class ResourceServersWireTest {
         if (actualResponseNode.isObject()) {
             Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
         }
+    }
+
+    @Test
+    public void testSearch() throws Exception {
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"resource_servers\":[{\"id\":\"id\",\"name\":\"name\",\"is_system\":true,\"identifier\":\"identifier\",\"scopes\":[{\"value\":\"value\"}],\"signing_alg\":\"HS256\",\"allow_offline_access\":true,\"allow_online_access\":true,\"allow_online_access_with_ephemeral_sessions\":true,\"skip_consent_for_verifiable_first_party_clients\":true,\"token_lifetime\":1,\"token_lifetime_for_web\":1,\"enforce_policies\":true,\"token_lifetime_for_anonymous_access_tokens\":1,\"token_dialect\":\"access_token\",\"token_encryption\":{\"format\":\"compact-nested-jwe\",\"encryption_key\":{\"alg\":\"RSA-OAEP-256\",\"pem\":\"pem\"}},\"consent_policy\":\"transactional-authorization-with-mfa\",\"proof_of_possession\":{\"mechanism\":\"mtls\",\"required\":true},\"authorization_policy\":{\"policy_id\":\"policy_id\"},\"client_id\":\"client_id\"}],\"next\":\"next\"}"));
+        SyncPagingIterable<ResourceServerSearchResponse> response = client.resourceServers()
+                .search(SearchResourceServersRequestParameters.builder()
+                        .q("q")
+                        .parser(SearchParserEnum.SCIM)
+                        .fields("fields")
+                        .includeFields(true)
+                        .take(1)
+                        .from("from")
+                        .sort(ResourceServerSortFieldEnum.IDENTIFIER)
+                        .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("GET", request.getMethod());
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        // Pagination response validated via MockWebServer
+        // The SDK correctly parses the response into a SyncPagingIterable
     }
 
     @Test

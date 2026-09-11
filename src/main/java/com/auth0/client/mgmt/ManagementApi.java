@@ -8,7 +8,7 @@ import com.auth0.client.mgmt.attackprotection.AttackProtectionClient;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.Suppliers;
 import com.auth0.client.mgmt.emails.EmailsClient;
-import com.auth0.client.mgmt.guardian.GuardianClient;
+import com.auth0.client.mgmt.experimentation.ExperimentationClient;
 import com.auth0.client.mgmt.keys.KeysClient;
 import com.auth0.client.mgmt.riskassessments.RiskAssessmentsClient;
 import com.auth0.client.mgmt.tenants.TenantsClient;
@@ -50,6 +50,8 @@ public class ManagementApi {
 
     protected final Supplier<GroupsClient> groupsClient;
 
+    protected final Supplier<GuardianClient> guardianClient;
+
     protected final Supplier<HooksClient> hooksClient;
 
     protected final Supplier<JobsClient> jobsClient;
@@ -59,8 +61,6 @@ public class ManagementApi {
     protected final Supplier<LogsClient> logsClient;
 
     protected final Supplier<NetworkAclsClient> networkAclsClient;
-
-    protected final Supplier<OrganizationTemplatesClient> organizationTemplatesClient;
 
     protected final Supplier<OrganizationsClient> organizationsClient;
 
@@ -102,7 +102,7 @@ public class ManagementApi {
 
     protected final Supplier<EmailsClient> emailsClient;
 
-    protected final Supplier<GuardianClient> guardianClient;
+    protected final Supplier<ExperimentationClient> experimentationClient;
 
     protected final Supplier<KeysClient> keysClient;
 
@@ -130,12 +130,12 @@ public class ManagementApi {
         this.formsClient = Suppliers.memoize(() -> new FormsClient(clientOptions));
         this.userGrantsClient = Suppliers.memoize(() -> new UserGrantsClient(clientOptions));
         this.groupsClient = Suppliers.memoize(() -> new GroupsClient(clientOptions));
+        this.guardianClient = Suppliers.memoize(() -> new GuardianClient(clientOptions));
         this.hooksClient = Suppliers.memoize(() -> new HooksClient(clientOptions));
         this.jobsClient = Suppliers.memoize(() -> new JobsClient(clientOptions));
         this.logStreamsClient = Suppliers.memoize(() -> new LogStreamsClient(clientOptions));
         this.logsClient = Suppliers.memoize(() -> new LogsClient(clientOptions));
         this.networkAclsClient = Suppliers.memoize(() -> new NetworkAclsClient(clientOptions));
-        this.organizationTemplatesClient = Suppliers.memoize(() -> new OrganizationTemplatesClient(clientOptions));
         this.organizationsClient = Suppliers.memoize(() -> new OrganizationsClient(clientOptions));
         this.promptsClient = Suppliers.memoize(() -> new PromptsClient(clientOptions));
         this.rateLimitPoliciesClient = Suppliers.memoize(() -> new RateLimitPoliciesClient(clientOptions));
@@ -156,7 +156,7 @@ public class ManagementApi {
         this.anomalyClient = Suppliers.memoize(() -> new AnomalyClient(clientOptions));
         this.attackProtectionClient = Suppliers.memoize(() -> new AttackProtectionClient(clientOptions));
         this.emailsClient = Suppliers.memoize(() -> new EmailsClient(clientOptions));
-        this.guardianClient = Suppliers.memoize(() -> new GuardianClient(clientOptions));
+        this.experimentationClient = Suppliers.memoize(() -> new ExperimentationClient(clientOptions));
         this.keysClient = Suppliers.memoize(() -> new KeysClient(clientOptions));
         this.riskAssessmentsClient = Suppliers.memoize(() -> new RiskAssessmentsClient(clientOptions));
         this.tenantsClient = Suppliers.memoize(() -> new TenantsClient(clientOptions));
@@ -227,6 +227,10 @@ public class ManagementApi {
         return this.groupsClient.get();
     }
 
+    public GuardianClient guardian() {
+        return this.guardianClient.get();
+    }
+
     public HooksClient hooks() {
         return this.hooksClient.get();
     }
@@ -245,10 +249,6 @@ public class ManagementApi {
 
     public NetworkAclsClient networkAcls() {
         return this.networkAclsClient.get();
-    }
-
-    public OrganizationTemplatesClient organizationTemplates() {
-        return this.organizationTemplatesClient.get();
     }
 
     public OrganizationsClient organizations() {
@@ -331,8 +331,8 @@ public class ManagementApi {
         return this.emailsClient.get();
     }
 
-    public GuardianClient guardian() {
-        return this.guardianClient.get();
+    public ExperimentationClient experimentation() {
+        return this.experimentationClient.get();
     }
 
     public KeysClient keys() {

@@ -6,6 +6,7 @@ package com.auth0.client.mgmt.guardian;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
+import com.auth0.client.mgmt.guardian.factors.AsyncEmailClient;
 import com.auth0.client.mgmt.guardian.factors.AsyncPhoneClient;
 import com.auth0.client.mgmt.guardian.factors.AsyncPushNotificationClient;
 import com.auth0.client.mgmt.guardian.factors.AsyncSmsClient;
@@ -23,6 +24,8 @@ public class AsyncFactorsClient {
 
     private final AsyncRawFactorsClient rawClient;
 
+    protected final Supplier<AsyncEmailClient> emailClient;
+
     protected final Supplier<AsyncPhoneClient> phoneClient;
 
     protected final Supplier<AsyncPushNotificationClient> pushNotificationClient;
@@ -34,6 +37,7 @@ public class AsyncFactorsClient {
     public AsyncFactorsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.rawClient = new AsyncRawFactorsClient(clientOptions);
+        this.emailClient = Suppliers.memoize(() -> new AsyncEmailClient(clientOptions));
         this.phoneClient = Suppliers.memoize(() -> new AsyncPhoneClient(clientOptions));
         this.pushNotificationClient = Suppliers.memoize(() -> new AsyncPushNotificationClient(clientOptions));
         this.smsClient = Suppliers.memoize(() -> new AsyncSmsClient(clientOptions));
@@ -75,6 +79,10 @@ public class AsyncFactorsClient {
     public CompletableFuture<SetGuardianFactorResponseContent> set(
             GuardianFactorNameEnum name, SetGuardianFactorRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.set(name, request, requestOptions).thenApply(response -> response.body());
+    }
+
+    public AsyncEmailClient email() {
+        return this.emailClient.get();
     }
 
     public AsyncPhoneClient phone() {

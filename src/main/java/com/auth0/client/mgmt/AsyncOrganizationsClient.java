@@ -23,6 +23,8 @@ import com.auth0.client.mgmt.types.GetOrganizationByNameResponseContent;
 import com.auth0.client.mgmt.types.GetOrganizationResponseContent;
 import com.auth0.client.mgmt.types.ListOrganizationsRequestParameters;
 import com.auth0.client.mgmt.types.Organization;
+import com.auth0.client.mgmt.types.SearchOrganization;
+import com.auth0.client.mgmt.types.SearchOrganizationsRequestParameters;
 import com.auth0.client.mgmt.types.UpdateOrganizationRequestContent;
 import com.auth0.client.mgmt.types.UpdateOrganizationResponseContent;
 import java.util.concurrent.CompletableFuture;
@@ -184,6 +186,80 @@ public class AsyncOrganizationsClient {
     public CompletableFuture<GetOrganizationByNameResponseContent> getByName(
             String name, RequestOptions requestOptions) {
         return this.rawClient.getByName(name, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve details of organizations matching a search criteria. It is possible to:
+     * <ul>
+     * <li>Specify a search criteria for organizations</li>
+     * <li>Search via <code>name</code></li>
+     * <li>Search via <code>display_name</code></li>
+     * <li>Substring matching (<code>contains</code> and <code>ends-with</code>) requires at least 3 characters</li>
+     * <li>Use wildcards</li>
+     * </ul>
+     * <p>The <code>q</code> query parameter can be used to get organizations that match the specified criteria on <code>name</code> OR <code>display_name</code>.</p>
+     * <p>This endpoint supports SCIM or Lucene filter syntax with low-latency, cursor-based pagination. Use the <code>parser</code> parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;).</p>
+     * <p>Results are eventually consistent and may not reflect recent updates immediately.</p>
+     * <p><strong>Sortable fields:</strong> <code>name</code>, <code>display_name</code>, <code>created_at</code> (ascending only). Defaults to insertion order (oldest first).</p>
+     */
+    public CompletableFuture<SyncPagingIterable<SearchOrganization>> search() {
+        return this.rawClient.search().thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve details of organizations matching a search criteria. It is possible to:
+     * <ul>
+     * <li>Specify a search criteria for organizations</li>
+     * <li>Search via <code>name</code></li>
+     * <li>Search via <code>display_name</code></li>
+     * <li>Substring matching (<code>contains</code> and <code>ends-with</code>) requires at least 3 characters</li>
+     * <li>Use wildcards</li>
+     * </ul>
+     * <p>The <code>q</code> query parameter can be used to get organizations that match the specified criteria on <code>name</code> OR <code>display_name</code>.</p>
+     * <p>This endpoint supports SCIM or Lucene filter syntax with low-latency, cursor-based pagination. Use the <code>parser</code> parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;).</p>
+     * <p>Results are eventually consistent and may not reflect recent updates immediately.</p>
+     * <p><strong>Sortable fields:</strong> <code>name</code>, <code>display_name</code>, <code>created_at</code> (ascending only). Defaults to insertion order (oldest first).</p>
+     */
+    public CompletableFuture<SyncPagingIterable<SearchOrganization>> search(RequestOptions requestOptions) {
+        return this.rawClient.search(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve details of organizations matching a search criteria. It is possible to:
+     * <ul>
+     * <li>Specify a search criteria for organizations</li>
+     * <li>Search via <code>name</code></li>
+     * <li>Search via <code>display_name</code></li>
+     * <li>Substring matching (<code>contains</code> and <code>ends-with</code>) requires at least 3 characters</li>
+     * <li>Use wildcards</li>
+     * </ul>
+     * <p>The <code>q</code> query parameter can be used to get organizations that match the specified criteria on <code>name</code> OR <code>display_name</code>.</p>
+     * <p>This endpoint supports SCIM or Lucene filter syntax with low-latency, cursor-based pagination. Use the <code>parser</code> parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;).</p>
+     * <p>Results are eventually consistent and may not reflect recent updates immediately.</p>
+     * <p><strong>Sortable fields:</strong> <code>name</code>, <code>display_name</code>, <code>created_at</code> (ascending only). Defaults to insertion order (oldest first).</p>
+     */
+    public CompletableFuture<SyncPagingIterable<SearchOrganization>> search(
+            SearchOrganizationsRequestParameters request) {
+        return this.rawClient.search(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve details of organizations matching a search criteria. It is possible to:
+     * <ul>
+     * <li>Specify a search criteria for organizations</li>
+     * <li>Search via <code>name</code></li>
+     * <li>Search via <code>display_name</code></li>
+     * <li>Substring matching (<code>contains</code> and <code>ends-with</code>) requires at least 3 characters</li>
+     * <li>Use wildcards</li>
+     * </ul>
+     * <p>The <code>q</code> query parameter can be used to get organizations that match the specified criteria on <code>name</code> OR <code>display_name</code>.</p>
+     * <p>This endpoint supports SCIM or Lucene filter syntax with low-latency, cursor-based pagination. Use the <code>parser</code> parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;).</p>
+     * <p>Results are eventually consistent and may not reflect recent updates immediately.</p>
+     * <p><strong>Sortable fields:</strong> <code>name</code>, <code>display_name</code>, <code>created_at</code> (ascending only). Defaults to insertion order (oldest first).</p>
+     */
+    public CompletableFuture<SyncPagingIterable<SearchOrganization>> search(
+            SearchOrganizationsRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**

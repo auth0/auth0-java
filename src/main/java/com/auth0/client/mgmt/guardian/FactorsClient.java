@@ -6,6 +6,7 @@ package com.auth0.client.mgmt.guardian;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
+import com.auth0.client.mgmt.guardian.factors.EmailClient;
 import com.auth0.client.mgmt.guardian.factors.PhoneClient;
 import com.auth0.client.mgmt.guardian.factors.PushNotificationClient;
 import com.auth0.client.mgmt.guardian.factors.SmsClient;
@@ -22,6 +23,8 @@ public class FactorsClient {
 
     private final RawFactorsClient rawClient;
 
+    protected final Supplier<EmailClient> emailClient;
+
     protected final Supplier<PhoneClient> phoneClient;
 
     protected final Supplier<PushNotificationClient> pushNotificationClient;
@@ -33,6 +36,7 @@ public class FactorsClient {
     public FactorsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.rawClient = new RawFactorsClient(clientOptions);
+        this.emailClient = Suppliers.memoize(() -> new EmailClient(clientOptions));
         this.phoneClient = Suppliers.memoize(() -> new PhoneClient(clientOptions));
         this.pushNotificationClient = Suppliers.memoize(() -> new PushNotificationClient(clientOptions));
         this.smsClient = Suppliers.memoize(() -> new SmsClient(clientOptions));
@@ -73,6 +77,10 @@ public class FactorsClient {
     public SetGuardianFactorResponseContent set(
             GuardianFactorNameEnum name, SetGuardianFactorRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.set(name, request, requestOptions).body();
+    }
+
+    public EmailClient email() {
+        return this.emailClient.get();
     }
 
     public PhoneClient phone() {

@@ -8,7 +8,7 @@ import com.auth0.client.mgmt.attackprotection.AsyncAttackProtectionClient;
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.Suppliers;
 import com.auth0.client.mgmt.emails.AsyncEmailsClient;
-import com.auth0.client.mgmt.guardian.AsyncGuardianClient;
+import com.auth0.client.mgmt.experimentation.AsyncExperimentationClient;
 import com.auth0.client.mgmt.keys.AsyncKeysClient;
 import com.auth0.client.mgmt.riskassessments.AsyncRiskAssessmentsClient;
 import com.auth0.client.mgmt.tenants.AsyncTenantsClient;
@@ -50,6 +50,8 @@ public class AsyncManagementApi {
 
     protected final Supplier<AsyncGroupsClient> groupsClient;
 
+    protected final Supplier<AsyncGuardianClient> guardianClient;
+
     protected final Supplier<AsyncHooksClient> hooksClient;
 
     protected final Supplier<AsyncJobsClient> jobsClient;
@@ -59,8 +61,6 @@ public class AsyncManagementApi {
     protected final Supplier<AsyncLogsClient> logsClient;
 
     protected final Supplier<AsyncNetworkAclsClient> networkAclsClient;
-
-    protected final Supplier<AsyncOrganizationTemplatesClient> organizationTemplatesClient;
 
     protected final Supplier<AsyncOrganizationsClient> organizationsClient;
 
@@ -102,7 +102,7 @@ public class AsyncManagementApi {
 
     protected final Supplier<AsyncEmailsClient> emailsClient;
 
-    protected final Supplier<AsyncGuardianClient> guardianClient;
+    protected final Supplier<AsyncExperimentationClient> experimentationClient;
 
     protected final Supplier<AsyncKeysClient> keysClient;
 
@@ -130,12 +130,12 @@ public class AsyncManagementApi {
         this.formsClient = Suppliers.memoize(() -> new AsyncFormsClient(clientOptions));
         this.userGrantsClient = Suppliers.memoize(() -> new AsyncUserGrantsClient(clientOptions));
         this.groupsClient = Suppliers.memoize(() -> new AsyncGroupsClient(clientOptions));
+        this.guardianClient = Suppliers.memoize(() -> new AsyncGuardianClient(clientOptions));
         this.hooksClient = Suppliers.memoize(() -> new AsyncHooksClient(clientOptions));
         this.jobsClient = Suppliers.memoize(() -> new AsyncJobsClient(clientOptions));
         this.logStreamsClient = Suppliers.memoize(() -> new AsyncLogStreamsClient(clientOptions));
         this.logsClient = Suppliers.memoize(() -> new AsyncLogsClient(clientOptions));
         this.networkAclsClient = Suppliers.memoize(() -> new AsyncNetworkAclsClient(clientOptions));
-        this.organizationTemplatesClient = Suppliers.memoize(() -> new AsyncOrganizationTemplatesClient(clientOptions));
         this.organizationsClient = Suppliers.memoize(() -> new AsyncOrganizationsClient(clientOptions));
         this.promptsClient = Suppliers.memoize(() -> new AsyncPromptsClient(clientOptions));
         this.rateLimitPoliciesClient = Suppliers.memoize(() -> new AsyncRateLimitPoliciesClient(clientOptions));
@@ -156,7 +156,7 @@ public class AsyncManagementApi {
         this.anomalyClient = Suppliers.memoize(() -> new AsyncAnomalyClient(clientOptions));
         this.attackProtectionClient = Suppliers.memoize(() -> new AsyncAttackProtectionClient(clientOptions));
         this.emailsClient = Suppliers.memoize(() -> new AsyncEmailsClient(clientOptions));
-        this.guardianClient = Suppliers.memoize(() -> new AsyncGuardianClient(clientOptions));
+        this.experimentationClient = Suppliers.memoize(() -> new AsyncExperimentationClient(clientOptions));
         this.keysClient = Suppliers.memoize(() -> new AsyncKeysClient(clientOptions));
         this.riskAssessmentsClient = Suppliers.memoize(() -> new AsyncRiskAssessmentsClient(clientOptions));
         this.tenantsClient = Suppliers.memoize(() -> new AsyncTenantsClient(clientOptions));
@@ -227,6 +227,10 @@ public class AsyncManagementApi {
         return this.groupsClient.get();
     }
 
+    public AsyncGuardianClient guardian() {
+        return this.guardianClient.get();
+    }
+
     public AsyncHooksClient hooks() {
         return this.hooksClient.get();
     }
@@ -245,10 +249,6 @@ public class AsyncManagementApi {
 
     public AsyncNetworkAclsClient networkAcls() {
         return this.networkAclsClient.get();
-    }
-
-    public AsyncOrganizationTemplatesClient organizationTemplates() {
-        return this.organizationTemplatesClient.get();
     }
 
     public AsyncOrganizationsClient organizations() {
@@ -331,8 +331,8 @@ public class AsyncManagementApi {
         return this.emailsClient.get();
     }
 
-    public AsyncGuardianClient guardian() {
-        return this.guardianClient.get();
+    public AsyncExperimentationClient experimentation() {
+        return this.experimentationClient.get();
     }
 
     public AsyncKeysClient keys() {

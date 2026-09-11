@@ -3,7 +3,9 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -16,17 +18,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = TenantSettingsSessions.Builder.class)
 public final class TenantSettingsSessions {
     private final Optional<Boolean> oidcLogoutPromptEnabled;
 
+    private final OptionalNullable<TenantSettingsSessionsAnonymous> anonymous;
+
     private final Map<String, Object> additionalProperties;
 
     private TenantSettingsSessions(
-            Optional<Boolean> oidcLogoutPromptEnabled, Map<String, Object> additionalProperties) {
+            Optional<Boolean> oidcLogoutPromptEnabled,
+            OptionalNullable<TenantSettingsSessionsAnonymous> anonymous,
+            Map<String, Object> additionalProperties) {
         this.oidcLogoutPromptEnabled = oidcLogoutPromptEnabled;
+        this.anonymous = anonymous;
         this.additionalProperties = additionalProperties;
     }
 
@@ -36,6 +44,21 @@ public final class TenantSettingsSessions {
     @JsonProperty("oidc_logout_prompt_enabled")
     public Optional<Boolean> getOidcLogoutPromptEnabled() {
         return oidcLogoutPromptEnabled;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("anonymous")
+    public OptionalNullable<TenantSettingsSessionsAnonymous> getAnonymous() {
+        if (anonymous == null) {
+            return OptionalNullable.absent();
+        }
+        return anonymous;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("anonymous")
+    private OptionalNullable<TenantSettingsSessionsAnonymous> _getAnonymous() {
+        return anonymous;
     }
 
     @java.lang.Override
@@ -50,12 +73,12 @@ public final class TenantSettingsSessions {
     }
 
     private boolean equalTo(TenantSettingsSessions other) {
-        return oidcLogoutPromptEnabled.equals(other.oidcLogoutPromptEnabled);
+        return oidcLogoutPromptEnabled.equals(other.oidcLogoutPromptEnabled) && anonymous.equals(other.anonymous);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.oidcLogoutPromptEnabled);
+        return Objects.hash(this.oidcLogoutPromptEnabled, this.anonymous);
     }
 
     @java.lang.Override
@@ -71,6 +94,8 @@ public final class TenantSettingsSessions {
     public static final class Builder {
         private Optional<Boolean> oidcLogoutPromptEnabled = Optional.empty();
 
+        private OptionalNullable<TenantSettingsSessionsAnonymous> anonymous = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -78,6 +103,7 @@ public final class TenantSettingsSessions {
 
         public Builder from(TenantSettingsSessions other) {
             oidcLogoutPromptEnabled(other.getOidcLogoutPromptEnabled());
+            anonymous(other.getAnonymous());
             return this;
         }
 
@@ -95,8 +121,39 @@ public final class TenantSettingsSessions {
             return this;
         }
 
+        @JsonSetter(value = "anonymous", nulls = Nulls.SKIP)
+        public Builder anonymous(@Nullable OptionalNullable<TenantSettingsSessionsAnonymous> anonymous) {
+            this.anonymous = anonymous;
+            return this;
+        }
+
+        public Builder anonymous(TenantSettingsSessionsAnonymous anonymous) {
+            this.anonymous = OptionalNullable.of(anonymous);
+            return this;
+        }
+
+        public Builder anonymous(Optional<TenantSettingsSessionsAnonymous> anonymous) {
+            if (anonymous.isPresent()) {
+                this.anonymous = OptionalNullable.of(anonymous.get());
+            } else {
+                this.anonymous = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder anonymous(com.auth0.client.mgmt.core.Nullable<TenantSettingsSessionsAnonymous> anonymous) {
+            if (anonymous.isNull()) {
+                this.anonymous = OptionalNullable.ofNull();
+            } else if (anonymous.isEmpty()) {
+                this.anonymous = OptionalNullable.absent();
+            } else {
+                this.anonymous = OptionalNullable.of(anonymous.get());
+            }
+            return this;
+        }
+
         public TenantSettingsSessions build() {
-            return new TenantSettingsSessions(oidcLogoutPromptEnabled, additionalProperties);
+            return new TenantSettingsSessions(oidcLogoutPromptEnabled, anonymous, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {
