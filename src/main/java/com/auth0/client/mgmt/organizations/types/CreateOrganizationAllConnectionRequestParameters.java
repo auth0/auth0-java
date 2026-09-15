@@ -5,6 +5,7 @@ package com.auth0.client.mgmt.organizations.types;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.types.OrganizationAccessLevelEnum;
+import com.auth0.client.mgmt.types.OrganizationMemberAccessLevelEnum;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -32,6 +33,8 @@ public final class CreateOrganizationAllConnectionRequestParameters {
 
     private final Optional<OrganizationAccessLevelEnum> organizationAccessLevel;
 
+    private final Optional<OrganizationMemberAccessLevelEnum> organizationMemberAccessLevel;
+
     private final Optional<Boolean> isEnabled;
 
     private final String connectionId;
@@ -44,6 +47,7 @@ public final class CreateOrganizationAllConnectionRequestParameters {
             Optional<Boolean> showAsButton,
             Optional<Boolean> isSignupEnabled,
             Optional<OrganizationAccessLevelEnum> organizationAccessLevel,
+            Optional<OrganizationMemberAccessLevelEnum> organizationMemberAccessLevel,
             Optional<Boolean> isEnabled,
             String connectionId,
             Map<String, Object> additionalProperties) {
@@ -52,6 +56,7 @@ public final class CreateOrganizationAllConnectionRequestParameters {
         this.showAsButton = showAsButton;
         this.isSignupEnabled = isSignupEnabled;
         this.organizationAccessLevel = organizationAccessLevel;
+        this.organizationMemberAccessLevel = organizationMemberAccessLevel;
         this.isEnabled = isEnabled;
         this.connectionId = connectionId;
         this.additionalProperties = additionalProperties;
@@ -94,6 +99,11 @@ public final class CreateOrganizationAllConnectionRequestParameters {
         return organizationAccessLevel;
     }
 
+    @JsonProperty("organization_member_access_level")
+    public Optional<OrganizationMemberAccessLevelEnum> getOrganizationMemberAccessLevel() {
+        return organizationMemberAccessLevel;
+    }
+
     /**
      * @return Whether the connection is enabled for the organization.
      */
@@ -128,6 +138,7 @@ public final class CreateOrganizationAllConnectionRequestParameters {
                 && showAsButton.equals(other.showAsButton)
                 && isSignupEnabled.equals(other.isSignupEnabled)
                 && organizationAccessLevel.equals(other.organizationAccessLevel)
+                && organizationMemberAccessLevel.equals(other.organizationMemberAccessLevel)
                 && isEnabled.equals(other.isEnabled)
                 && connectionId.equals(other.connectionId);
     }
@@ -140,6 +151,7 @@ public final class CreateOrganizationAllConnectionRequestParameters {
                 this.showAsButton,
                 this.isSignupEnabled,
                 this.organizationAccessLevel,
+                this.organizationMemberAccessLevel,
                 this.isEnabled,
                 this.connectionId);
     }
@@ -201,6 +213,11 @@ public final class CreateOrganizationAllConnectionRequestParameters {
 
         _FinalStage organizationAccessLevel(OrganizationAccessLevelEnum organizationAccessLevel);
 
+        _FinalStage organizationMemberAccessLevel(
+                Optional<OrganizationMemberAccessLevelEnum> organizationMemberAccessLevel);
+
+        _FinalStage organizationMemberAccessLevel(OrganizationMemberAccessLevelEnum organizationMemberAccessLevel);
+
         /**
          * <p>Whether the connection is enabled for the organization.</p>
          */
@@ -214,6 +231,8 @@ public final class CreateOrganizationAllConnectionRequestParameters {
         private String connectionId;
 
         private Optional<Boolean> isEnabled = Optional.empty();
+
+        private Optional<OrganizationMemberAccessLevelEnum> organizationMemberAccessLevel = Optional.empty();
 
         private Optional<OrganizationAccessLevelEnum> organizationAccessLevel = Optional.empty();
 
@@ -237,6 +256,7 @@ public final class CreateOrganizationAllConnectionRequestParameters {
             showAsButton(other.getShowAsButton());
             isSignupEnabled(other.getIsSignupEnabled());
             organizationAccessLevel(other.getOrganizationAccessLevel());
+            organizationMemberAccessLevel(other.getOrganizationMemberAccessLevel());
             isEnabled(other.getIsEnabled());
             connectionId(other.getConnectionId());
             return this;
@@ -270,6 +290,21 @@ public final class CreateOrganizationAllConnectionRequestParameters {
         @JsonSetter(value = "is_enabled", nulls = Nulls.SKIP)
         public _FinalStage isEnabled(Optional<Boolean> isEnabled) {
             this.isEnabled = isEnabled;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage organizationMemberAccessLevel(
+                OrganizationMemberAccessLevelEnum organizationMemberAccessLevel) {
+            this.organizationMemberAccessLevel = Optional.ofNullable(organizationMemberAccessLevel);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "organization_member_access_level", nulls = Nulls.SKIP)
+        public _FinalStage organizationMemberAccessLevel(
+                Optional<OrganizationMemberAccessLevelEnum> organizationMemberAccessLevel) {
+            this.organizationMemberAccessLevel = organizationMemberAccessLevel;
             return this;
         }
 
@@ -374,6 +409,7 @@ public final class CreateOrganizationAllConnectionRequestParameters {
                     showAsButton,
                     isSignupEnabled,
                     organizationAccessLevel,
+                    organizationMemberAccessLevel,
                     isEnabled,
                     connectionId,
                     additionalProperties);

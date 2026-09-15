@@ -7,6 +7,7 @@ import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.OrganizationAccessLevelEnumWithNull;
+import com.auth0.client.mgmt.types.OrganizationMemberAccessLevelEnumWithNull;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -34,6 +35,8 @@ public final class UpdateOrganizationConnectionRequestParameters {
 
     private final OptionalNullable<OrganizationAccessLevelEnumWithNull> organizationAccessLevel;
 
+    private final OptionalNullable<OrganizationMemberAccessLevelEnumWithNull> organizationMemberAccessLevel;
+
     private final OptionalNullable<Boolean> isEnabled;
 
     private final Map<String, Object> additionalProperties;
@@ -44,6 +47,7 @@ public final class UpdateOrganizationConnectionRequestParameters {
             Optional<Boolean> showAsButton,
             Optional<Boolean> isSignupEnabled,
             OptionalNullable<OrganizationAccessLevelEnumWithNull> organizationAccessLevel,
+            OptionalNullable<OrganizationMemberAccessLevelEnumWithNull> organizationMemberAccessLevel,
             OptionalNullable<Boolean> isEnabled,
             Map<String, Object> additionalProperties) {
         this.organizationConnectionName = organizationConnectionName;
@@ -51,6 +55,7 @@ public final class UpdateOrganizationConnectionRequestParameters {
         this.showAsButton = showAsButton;
         this.isSignupEnabled = isSignupEnabled;
         this.organizationAccessLevel = organizationAccessLevel;
+        this.organizationMemberAccessLevel = organizationMemberAccessLevel;
         this.isEnabled = isEnabled;
         this.additionalProperties = additionalProperties;
     }
@@ -100,6 +105,15 @@ public final class UpdateOrganizationConnectionRequestParameters {
         return organizationAccessLevel;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("organization_member_access_level")
+    public OptionalNullable<OrganizationMemberAccessLevelEnumWithNull> getOrganizationMemberAccessLevel() {
+        if (organizationMemberAccessLevel == null) {
+            return OptionalNullable.absent();
+        }
+        return organizationMemberAccessLevel;
+    }
+
     /**
      * @return Whether the connection is enabled for the organization.
      */
@@ -122,6 +136,12 @@ public final class UpdateOrganizationConnectionRequestParameters {
     @JsonProperty("organization_access_level")
     private OptionalNullable<OrganizationAccessLevelEnumWithNull> _getOrganizationAccessLevel() {
         return organizationAccessLevel;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("organization_member_access_level")
+    private OptionalNullable<OrganizationMemberAccessLevelEnumWithNull> _getOrganizationMemberAccessLevel() {
+        return organizationMemberAccessLevel;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -148,6 +168,7 @@ public final class UpdateOrganizationConnectionRequestParameters {
                 && showAsButton.equals(other.showAsButton)
                 && isSignupEnabled.equals(other.isSignupEnabled)
                 && organizationAccessLevel.equals(other.organizationAccessLevel)
+                && organizationMemberAccessLevel.equals(other.organizationMemberAccessLevel)
                 && isEnabled.equals(other.isEnabled);
     }
 
@@ -159,6 +180,7 @@ public final class UpdateOrganizationConnectionRequestParameters {
                 this.showAsButton,
                 this.isSignupEnabled,
                 this.organizationAccessLevel,
+                this.organizationMemberAccessLevel,
                 this.isEnabled);
     }
 
@@ -184,6 +206,9 @@ public final class UpdateOrganizationConnectionRequestParameters {
         private OptionalNullable<OrganizationAccessLevelEnumWithNull> organizationAccessLevel =
                 OptionalNullable.absent();
 
+        private OptionalNullable<OrganizationMemberAccessLevelEnumWithNull> organizationMemberAccessLevel =
+                OptionalNullable.absent();
+
         private OptionalNullable<Boolean> isEnabled = OptionalNullable.absent();
 
         @JsonAnySetter
@@ -197,6 +222,7 @@ public final class UpdateOrganizationConnectionRequestParameters {
             showAsButton(other.getShowAsButton());
             isSignupEnabled(other.getIsSignupEnabled());
             organizationAccessLevel(other.getOrganizationAccessLevel());
+            organizationMemberAccessLevel(other.getOrganizationMemberAccessLevel());
             isEnabled(other.getIsEnabled());
             return this;
         }
@@ -311,6 +337,42 @@ public final class UpdateOrganizationConnectionRequestParameters {
             return this;
         }
 
+        @JsonSetter(value = "organization_member_access_level", nulls = Nulls.SKIP)
+        public Builder organizationMemberAccessLevel(
+                @Nullable OptionalNullable<OrganizationMemberAccessLevelEnumWithNull> organizationMemberAccessLevel) {
+            this.organizationMemberAccessLevel = organizationMemberAccessLevel;
+            return this;
+        }
+
+        public Builder organizationMemberAccessLevel(
+                OrganizationMemberAccessLevelEnumWithNull organizationMemberAccessLevel) {
+            this.organizationMemberAccessLevel = OptionalNullable.of(organizationMemberAccessLevel);
+            return this;
+        }
+
+        public Builder organizationMemberAccessLevel(
+                Optional<OrganizationMemberAccessLevelEnumWithNull> organizationMemberAccessLevel) {
+            if (organizationMemberAccessLevel.isPresent()) {
+                this.organizationMemberAccessLevel = OptionalNullable.of(organizationMemberAccessLevel.get());
+            } else {
+                this.organizationMemberAccessLevel = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder organizationMemberAccessLevel(
+                com.auth0.client.mgmt.core.Nullable<OrganizationMemberAccessLevelEnumWithNull>
+                        organizationMemberAccessLevel) {
+            if (organizationMemberAccessLevel.isNull()) {
+                this.organizationMemberAccessLevel = OptionalNullable.ofNull();
+            } else if (organizationMemberAccessLevel.isEmpty()) {
+                this.organizationMemberAccessLevel = OptionalNullable.absent();
+            } else {
+                this.organizationMemberAccessLevel = OptionalNullable.of(organizationMemberAccessLevel.get());
+            }
+            return this;
+        }
+
         /**
          * <p>Whether the connection is enabled for the organization.</p>
          */
@@ -352,6 +414,7 @@ public final class UpdateOrganizationConnectionRequestParameters {
                     showAsButton,
                     isSignupEnabled,
                     organizationAccessLevel,
+                    organizationMemberAccessLevel,
                     isEnabled,
                     additionalProperties);
         }

@@ -51,6 +51,8 @@ public final class CreateResourceServerRequestContent {
 
     private final Optional<Boolean> enforcePolicies;
 
+    private final OptionalNullable<ResourceServerAccessToken> accessToken;
+
     private final OptionalNullable<ResourceServerTokenEncryption> tokenEncryption;
 
     private final OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy;
@@ -79,6 +81,7 @@ public final class CreateResourceServerRequestContent {
             Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect,
             Optional<Boolean> skipConsentForVerifiableFirstPartyClients,
             Optional<Boolean> enforcePolicies,
+            OptionalNullable<ResourceServerAccessToken> accessToken,
             OptionalNullable<ResourceServerTokenEncryption> tokenEncryption,
             OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy,
             OptionalNullable<List<Object>> authorizationDetails,
@@ -99,6 +102,7 @@ public final class CreateResourceServerRequestContent {
         this.tokenDialect = tokenDialect;
         this.skipConsentForVerifiableFirstPartyClients = skipConsentForVerifiableFirstPartyClients;
         this.enforcePolicies = enforcePolicies;
+        this.accessToken = accessToken;
         this.tokenEncryption = tokenEncryption;
         this.consentPolicy = consentPolicy;
         this.authorizationDetails = authorizationDetails;
@@ -211,6 +215,15 @@ public final class CreateResourceServerRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("access_token")
+    public OptionalNullable<ResourceServerAccessToken> getAccessToken() {
+        if (accessToken == null) {
+            return OptionalNullable.absent();
+        }
+        return accessToken;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_encryption")
     public OptionalNullable<ResourceServerTokenEncryption> getTokenEncryption() {
         if (tokenEncryption == null) {
@@ -264,6 +277,12 @@ public final class CreateResourceServerRequestContent {
     @JsonProperty("token_lifetime_for_anonymous_access_tokens")
     private OptionalNullable<Integer> _getTokenLifetimeForAnonymousAccessTokens() {
         return tokenLifetimeForAnonymousAccessTokens;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("access_token")
+    private OptionalNullable<ResourceServerAccessToken> _getAccessToken() {
+        return accessToken;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -322,6 +341,7 @@ public final class CreateResourceServerRequestContent {
                 && tokenDialect.equals(other.tokenDialect)
                 && skipConsentForVerifiableFirstPartyClients.equals(other.skipConsentForVerifiableFirstPartyClients)
                 && enforcePolicies.equals(other.enforcePolicies)
+                && accessToken.equals(other.accessToken)
                 && tokenEncryption.equals(other.tokenEncryption)
                 && consentPolicy.equals(other.consentPolicy)
                 && authorizationDetails.equals(other.authorizationDetails)
@@ -346,6 +366,7 @@ public final class CreateResourceServerRequestContent {
                 this.tokenDialect,
                 this.skipConsentForVerifiableFirstPartyClients,
                 this.enforcePolicies,
+                this.accessToken,
                 this.tokenEncryption,
                 this.consentPolicy,
                 this.authorizationDetails,
@@ -464,6 +485,14 @@ public final class CreateResourceServerRequestContent {
 
         _FinalStage enforcePolicies(Boolean enforcePolicies);
 
+        _FinalStage accessToken(@Nullable OptionalNullable<ResourceServerAccessToken> accessToken);
+
+        _FinalStage accessToken(ResourceServerAccessToken accessToken);
+
+        _FinalStage accessToken(Optional<ResourceServerAccessToken> accessToken);
+
+        _FinalStage accessToken(com.auth0.client.mgmt.core.Nullable<ResourceServerAccessToken> accessToken);
+
         _FinalStage tokenEncryption(@Nullable OptionalNullable<ResourceServerTokenEncryption> tokenEncryption);
 
         _FinalStage tokenEncryption(ResourceServerTokenEncryption tokenEncryption);
@@ -528,6 +557,8 @@ public final class CreateResourceServerRequestContent {
 
         private OptionalNullable<ResourceServerTokenEncryption> tokenEncryption = OptionalNullable.absent();
 
+        private OptionalNullable<ResourceServerAccessToken> accessToken = OptionalNullable.absent();
+
         private Optional<Boolean> enforcePolicies = Optional.empty();
 
         private Optional<Boolean> skipConsentForVerifiableFirstPartyClients = Optional.empty();
@@ -572,6 +603,7 @@ public final class CreateResourceServerRequestContent {
             tokenDialect(other.getTokenDialect());
             skipConsentForVerifiableFirstPartyClients(other.getSkipConsentForVerifiableFirstPartyClients());
             enforcePolicies(other.getEnforcePolicies());
+            accessToken(other.getAccessToken());
             tokenEncryption(other.getTokenEncryption());
             consentPolicy(other.getConsentPolicy());
             authorizationDetails(other.getAuthorizationDetails());
@@ -785,6 +817,41 @@ public final class CreateResourceServerRequestContent {
         @JsonSetter(value = "token_encryption", nulls = Nulls.SKIP)
         public _FinalStage tokenEncryption(@Nullable OptionalNullable<ResourceServerTokenEncryption> tokenEncryption) {
             this.tokenEncryption = tokenEncryption;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage accessToken(com.auth0.client.mgmt.core.Nullable<ResourceServerAccessToken> accessToken) {
+            if (accessToken.isNull()) {
+                this.accessToken = OptionalNullable.ofNull();
+            } else if (accessToken.isEmpty()) {
+                this.accessToken = OptionalNullable.absent();
+            } else {
+                this.accessToken = OptionalNullable.of(accessToken.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage accessToken(Optional<ResourceServerAccessToken> accessToken) {
+            if (accessToken.isPresent()) {
+                this.accessToken = OptionalNullable.of(accessToken.get());
+            } else {
+                this.accessToken = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage accessToken(ResourceServerAccessToken accessToken) {
+            this.accessToken = OptionalNullable.of(accessToken);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "access_token", nulls = Nulls.SKIP)
+        public _FinalStage accessToken(@Nullable OptionalNullable<ResourceServerAccessToken> accessToken) {
+            this.accessToken = accessToken;
             return this;
         }
 
@@ -1069,6 +1136,7 @@ public final class CreateResourceServerRequestContent {
                     tokenDialect,
                     skipConsentForVerifiableFirstPartyClients,
                     enforcePolicies,
+                    accessToken,
                     tokenEncryption,
                     consentPolicy,
                     authorizationDetails,

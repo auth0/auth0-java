@@ -68,6 +68,8 @@ public final class GetTenantSettingsResponseContent {
 
     private final Optional<List<SupportedLocales>> enabledLocales;
 
+    private final OptionalNullable<ResourceServerAccessToken> accessToken;
+
     private final OptionalNullable<TenantSettingsNullableSecurityHeaders> securityHeaders;
 
     private final OptionalNullable<SessionCookieSchema> sessionCookie;
@@ -129,6 +131,7 @@ public final class GetTenantSettingsResponseContent {
             Optional<List<String>> sandboxVersionsAvailable,
             Optional<String> defaultRedirectionUri,
             Optional<List<SupportedLocales>> enabledLocales,
+            OptionalNullable<ResourceServerAccessToken> accessToken,
             OptionalNullable<TenantSettingsNullableSecurityHeaders> securityHeaders,
             OptionalNullable<SessionCookieSchema> sessionCookie,
             OptionalNullable<TenantSettingsSessions> sessions,
@@ -170,6 +173,7 @@ public final class GetTenantSettingsResponseContent {
         this.sandboxVersionsAvailable = sandboxVersionsAvailable;
         this.defaultRedirectionUri = defaultRedirectionUri;
         this.enabledLocales = enabledLocales;
+        this.accessToken = accessToken;
         this.securityHeaders = securityHeaders;
         this.sessionCookie = sessionCookie;
         this.sessions = sessions;
@@ -370,6 +374,15 @@ public final class GetTenantSettingsResponseContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("access_token")
+    public OptionalNullable<ResourceServerAccessToken> getAccessToken() {
+        if (accessToken == null) {
+            return OptionalNullable.absent();
+        }
+        return accessToken;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("security_headers")
     public OptionalNullable<TenantSettingsNullableSecurityHeaders> getSecurityHeaders() {
         if (securityHeaders == null) {
@@ -550,6 +563,12 @@ public final class GetTenantSettingsResponseContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("access_token")
+    private OptionalNullable<ResourceServerAccessToken> _getAccessToken() {
+        return accessToken;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("security_headers")
     private OptionalNullable<TenantSettingsNullableSecurityHeaders> _getSecurityHeaders() {
         return securityHeaders;
@@ -625,6 +644,7 @@ public final class GetTenantSettingsResponseContent {
                 && sandboxVersionsAvailable.equals(other.sandboxVersionsAvailable)
                 && defaultRedirectionUri.equals(other.defaultRedirectionUri)
                 && enabledLocales.equals(other.enabledLocales)
+                && accessToken.equals(other.accessToken)
                 && securityHeaders.equals(other.securityHeaders)
                 && sessionCookie.equals(other.sessionCookie)
                 && sessions.equals(other.sessions)
@@ -671,6 +691,7 @@ public final class GetTenantSettingsResponseContent {
                 this.sandboxVersionsAvailable,
                 this.defaultRedirectionUri,
                 this.enabledLocales,
+                this.accessToken,
                 this.securityHeaders,
                 this.sessionCookie,
                 this.sessions,
@@ -746,6 +767,8 @@ public final class GetTenantSettingsResponseContent {
 
         private Optional<List<SupportedLocales>> enabledLocales = Optional.empty();
 
+        private OptionalNullable<ResourceServerAccessToken> accessToken = OptionalNullable.absent();
+
         private OptionalNullable<TenantSettingsNullableSecurityHeaders> securityHeaders = OptionalNullable.absent();
 
         private OptionalNullable<SessionCookieSchema> sessionCookie = OptionalNullable.absent();
@@ -811,6 +834,7 @@ public final class GetTenantSettingsResponseContent {
             sandboxVersionsAvailable(other.getSandboxVersionsAvailable());
             defaultRedirectionUri(other.getDefaultRedirectionUri());
             enabledLocales(other.getEnabledLocales());
+            accessToken(other.getAccessToken());
             securityHeaders(other.getSecurityHeaders());
             sessionCookie(other.getSessionCookie());
             sessions(other.getSessions());
@@ -1220,6 +1244,37 @@ public final class GetTenantSettingsResponseContent {
 
         public Builder enabledLocales(List<SupportedLocales> enabledLocales) {
             this.enabledLocales = Optional.ofNullable(enabledLocales);
+            return this;
+        }
+
+        @JsonSetter(value = "access_token", nulls = Nulls.SKIP)
+        public Builder accessToken(@Nullable OptionalNullable<ResourceServerAccessToken> accessToken) {
+            this.accessToken = accessToken;
+            return this;
+        }
+
+        public Builder accessToken(ResourceServerAccessToken accessToken) {
+            this.accessToken = OptionalNullable.of(accessToken);
+            return this;
+        }
+
+        public Builder accessToken(Optional<ResourceServerAccessToken> accessToken) {
+            if (accessToken.isPresent()) {
+                this.accessToken = OptionalNullable.of(accessToken.get());
+            } else {
+                this.accessToken = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder accessToken(com.auth0.client.mgmt.core.Nullable<ResourceServerAccessToken> accessToken) {
+            if (accessToken.isNull()) {
+                this.accessToken = OptionalNullable.ofNull();
+            } else if (accessToken.isEmpty()) {
+                this.accessToken = OptionalNullable.absent();
+            } else {
+                this.accessToken = OptionalNullable.of(accessToken.get());
+            }
             return this;
         }
 
@@ -1637,6 +1692,7 @@ public final class GetTenantSettingsResponseContent {
                     sandboxVersionsAvailable,
                     defaultRedirectionUri,
                     enabledLocales,
+                    accessToken,
                     securityHeaders,
                     sessionCookie,
                     sessions,

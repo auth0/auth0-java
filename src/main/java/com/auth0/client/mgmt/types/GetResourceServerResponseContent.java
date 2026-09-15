@@ -56,6 +56,8 @@ public final class GetResourceServerResponseContent {
 
     private final Optional<ResourceServerTokenDialectResponseEnum> tokenDialect;
 
+    private final OptionalNullable<ResourceServerAccessToken> accessToken;
+
     private final OptionalNullable<ResourceServerTokenEncryption> tokenEncryption;
 
     private final OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy;
@@ -89,6 +91,7 @@ public final class GetResourceServerResponseContent {
             Optional<Boolean> enforcePolicies,
             Optional<Integer> tokenLifetimeForAnonymousAccessTokens,
             Optional<ResourceServerTokenDialectResponseEnum> tokenDialect,
+            OptionalNullable<ResourceServerAccessToken> accessToken,
             OptionalNullable<ResourceServerTokenEncryption> tokenEncryption,
             OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy,
             OptionalNullable<List<Object>> authorizationDetails,
@@ -113,6 +116,7 @@ public final class GetResourceServerResponseContent {
         this.enforcePolicies = enforcePolicies;
         this.tokenLifetimeForAnonymousAccessTokens = tokenLifetimeForAnonymousAccessTokens;
         this.tokenDialect = tokenDialect;
+        this.accessToken = accessToken;
         this.tokenEncryption = tokenEncryption;
         this.consentPolicy = consentPolicy;
         this.authorizationDetails = authorizationDetails;
@@ -246,6 +250,15 @@ public final class GetResourceServerResponseContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("access_token")
+    public OptionalNullable<ResourceServerAccessToken> getAccessToken() {
+        if (accessToken == null) {
+            return OptionalNullable.absent();
+        }
+        return accessToken;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_encryption")
     public OptionalNullable<ResourceServerTokenEncryption> getTokenEncryption() {
         if (tokenEncryption == null) {
@@ -301,6 +314,12 @@ public final class GetResourceServerResponseContent {
     @JsonProperty("client_id")
     public Optional<String> getClientId() {
         return clientId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("access_token")
+    private OptionalNullable<ResourceServerAccessToken> _getAccessToken() {
+        return accessToken;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -361,6 +380,7 @@ public final class GetResourceServerResponseContent {
                 && enforcePolicies.equals(other.enforcePolicies)
                 && tokenLifetimeForAnonymousAccessTokens.equals(other.tokenLifetimeForAnonymousAccessTokens)
                 && tokenDialect.equals(other.tokenDialect)
+                && accessToken.equals(other.accessToken)
                 && tokenEncryption.equals(other.tokenEncryption)
                 && consentPolicy.equals(other.consentPolicy)
                 && authorizationDetails.equals(other.authorizationDetails)
@@ -389,6 +409,7 @@ public final class GetResourceServerResponseContent {
                 this.enforcePolicies,
                 this.tokenLifetimeForAnonymousAccessTokens,
                 this.tokenDialect,
+                this.accessToken,
                 this.tokenEncryption,
                 this.consentPolicy,
                 this.authorizationDetails,
@@ -441,6 +462,8 @@ public final class GetResourceServerResponseContent {
 
         private Optional<ResourceServerTokenDialectResponseEnum> tokenDialect = Optional.empty();
 
+        private OptionalNullable<ResourceServerAccessToken> accessToken = OptionalNullable.absent();
+
         private OptionalNullable<ResourceServerTokenEncryption> tokenEncryption = OptionalNullable.absent();
 
         private OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy = OptionalNullable.absent();
@@ -477,6 +500,7 @@ public final class GetResourceServerResponseContent {
             enforcePolicies(other.getEnforcePolicies());
             tokenLifetimeForAnonymousAccessTokens(other.getTokenLifetimeForAnonymousAccessTokens());
             tokenDialect(other.getTokenDialect());
+            accessToken(other.getAccessToken());
             tokenEncryption(other.getTokenEncryption());
             consentPolicy(other.getConsentPolicy());
             authorizationDetails(other.getAuthorizationDetails());
@@ -708,6 +732,37 @@ public final class GetResourceServerResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "access_token", nulls = Nulls.SKIP)
+        public Builder accessToken(@Nullable OptionalNullable<ResourceServerAccessToken> accessToken) {
+            this.accessToken = accessToken;
+            return this;
+        }
+
+        public Builder accessToken(ResourceServerAccessToken accessToken) {
+            this.accessToken = OptionalNullable.of(accessToken);
+            return this;
+        }
+
+        public Builder accessToken(Optional<ResourceServerAccessToken> accessToken) {
+            if (accessToken.isPresent()) {
+                this.accessToken = OptionalNullable.of(accessToken.get());
+            } else {
+                this.accessToken = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder accessToken(com.auth0.client.mgmt.core.Nullable<ResourceServerAccessToken> accessToken) {
+            if (accessToken.isNull()) {
+                this.accessToken = OptionalNullable.ofNull();
+            } else if (accessToken.isEmpty()) {
+                this.accessToken = OptionalNullable.absent();
+            } else {
+                this.accessToken = OptionalNullable.of(accessToken.get());
+            }
+            return this;
+        }
+
         @JsonSetter(value = "token_encryption", nulls = Nulls.SKIP)
         public Builder tokenEncryption(@Nullable OptionalNullable<ResourceServerTokenEncryption> tokenEncryption) {
             this.tokenEncryption = tokenEncryption;
@@ -913,6 +968,7 @@ public final class GetResourceServerResponseContent {
                     enforcePolicies,
                     tokenLifetimeForAnonymousAccessTokens,
                     tokenDialect,
+                    accessToken,
                     tokenEncryption,
                     consentPolicy,
                     authorizationDetails,
