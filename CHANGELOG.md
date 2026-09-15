@@ -1,5 +1,11 @@
 # Change Log
 
+## [5.3.0](https://github.com/auth0/auth0-java/tree/5.3.0) (2026-09-15)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/5.2.0...5.3.0)
+
+**Added**
+- feat: add Resource Server access token config, Organization connection member access levels & Client org permission controls [\#930](https://github.com/auth0/auth0-java/pull/930) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [5.2.0](https://github.com/auth0/auth0-java/tree/5.2.0) (2026-09-11)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/5.1.0...5.2.0)
 
