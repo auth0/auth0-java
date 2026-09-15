@@ -70,8 +70,7 @@ tasks.withType(Javadoc) {
   options.addStringOption('Xdoclint:none', '-quiet')
   // Fern-generated POJO types are documented via reference.md; excluding them
   // keeps the javadoc JAR within Maven Central's monthly size quota.
-  exclude 'com/auth0/client/mgmt/types/**'
-  exclude 'com/auth0/client/mgmt/*/types/**'
+  exclude 'com/auth0/client/mgmt/**/types/**'
 }
 
 spotless {
