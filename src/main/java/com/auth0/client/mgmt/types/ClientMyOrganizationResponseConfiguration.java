@@ -35,6 +35,10 @@ public final class ClientMyOrganizationResponseConfiguration {
 
     private final Optional<String> invitationLandingClientId;
 
+    private final Optional<Boolean> enforcePermissionCeiling;
+
+    private final Optional<Boolean> enforceSelfAssignmentRestriction;
+
     private final Map<String, Object> additionalProperties;
 
     private ClientMyOrganizationResponseConfiguration(
@@ -44,6 +48,8 @@ public final class ClientMyOrganizationResponseConfiguration {
             Optional<ClientMyOrganizationThirdPartyClientAccessConfiguration> thirdPartyClientAccess,
             ClientMyOrganizationDeletionBehaviorEnum connectionDeletionBehavior,
             Optional<String> invitationLandingClientId,
+            Optional<Boolean> enforcePermissionCeiling,
+            Optional<Boolean> enforceSelfAssignmentRestriction,
             Map<String, Object> additionalProperties) {
         this.connectionProfileId = connectionProfileId;
         this.userAttributeProfileId = userAttributeProfileId;
@@ -51,6 +57,8 @@ public final class ClientMyOrganizationResponseConfiguration {
         this.thirdPartyClientAccess = thirdPartyClientAccess;
         this.connectionDeletionBehavior = connectionDeletionBehavior;
         this.invitationLandingClientId = invitationLandingClientId;
+        this.enforcePermissionCeiling = enforcePermissionCeiling;
+        this.enforceSelfAssignmentRestriction = enforceSelfAssignmentRestriction;
         this.additionalProperties = additionalProperties;
     }
 
@@ -96,6 +104,22 @@ public final class ClientMyOrganizationResponseConfiguration {
         return invitationLandingClientId;
     }
 
+    /**
+     * @return When true, limits the permissions that organization admins can assign to members to only those held by the admin themselves.
+     */
+    @JsonProperty("enforce_permission_ceiling")
+    public Optional<Boolean> getEnforcePermissionCeiling() {
+        return enforcePermissionCeiling;
+    }
+
+    /**
+     * @return When true, prevents organization admins from assigning permissions to themselves.
+     */
+    @JsonProperty("enforce_self_assignment_restriction")
+    public Optional<Boolean> getEnforceSelfAssignmentRestriction() {
+        return enforceSelfAssignmentRestriction;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -114,7 +138,9 @@ public final class ClientMyOrganizationResponseConfiguration {
                 && allowedStrategies.equals(other.allowedStrategies)
                 && thirdPartyClientAccess.equals(other.thirdPartyClientAccess)
                 && connectionDeletionBehavior.equals(other.connectionDeletionBehavior)
-                && invitationLandingClientId.equals(other.invitationLandingClientId);
+                && invitationLandingClientId.equals(other.invitationLandingClientId)
+                && enforcePermissionCeiling.equals(other.enforcePermissionCeiling)
+                && enforceSelfAssignmentRestriction.equals(other.enforceSelfAssignmentRestriction);
     }
 
     @java.lang.Override
@@ -125,7 +151,9 @@ public final class ClientMyOrganizationResponseConfiguration {
                 this.allowedStrategies,
                 this.thirdPartyClientAccess,
                 this.connectionDeletionBehavior,
-                this.invitationLandingClientId);
+                this.invitationLandingClientId,
+                this.enforcePermissionCeiling,
+                this.enforceSelfAssignmentRestriction);
     }
 
     @java.lang.Override
@@ -187,11 +215,29 @@ public final class ClientMyOrganizationResponseConfiguration {
         _FinalStage invitationLandingClientId(Optional<String> invitationLandingClientId);
 
         _FinalStage invitationLandingClientId(String invitationLandingClientId);
+
+        /**
+         * <p>When true, limits the permissions that organization admins can assign to members to only those held by the admin themselves.</p>
+         */
+        _FinalStage enforcePermissionCeiling(Optional<Boolean> enforcePermissionCeiling);
+
+        _FinalStage enforcePermissionCeiling(Boolean enforcePermissionCeiling);
+
+        /**
+         * <p>When true, prevents organization admins from assigning permissions to themselves.</p>
+         */
+        _FinalStage enforceSelfAssignmentRestriction(Optional<Boolean> enforceSelfAssignmentRestriction);
+
+        _FinalStage enforceSelfAssignmentRestriction(Boolean enforceSelfAssignmentRestriction);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements ConnectionDeletionBehaviorStage, _FinalStage {
         private ClientMyOrganizationDeletionBehaviorEnum connectionDeletionBehavior;
+
+        private Optional<Boolean> enforceSelfAssignmentRestriction = Optional.empty();
+
+        private Optional<Boolean> enforcePermissionCeiling = Optional.empty();
 
         private Optional<String> invitationLandingClientId = Optional.empty();
 
@@ -217,6 +263,8 @@ public final class ClientMyOrganizationResponseConfiguration {
             thirdPartyClientAccess(other.getThirdPartyClientAccess());
             connectionDeletionBehavior(other.getConnectionDeletionBehavior());
             invitationLandingClientId(other.getInvitationLandingClientId());
+            enforcePermissionCeiling(other.getEnforcePermissionCeiling());
+            enforceSelfAssignmentRestriction(other.getEnforceSelfAssignmentRestriction());
             return this;
         }
 
@@ -226,6 +274,46 @@ public final class ClientMyOrganizationResponseConfiguration {
                 @NotNull ClientMyOrganizationDeletionBehaviorEnum connectionDeletionBehavior) {
             this.connectionDeletionBehavior =
                     Objects.requireNonNull(connectionDeletionBehavior, "connectionDeletionBehavior must not be null");
+            return this;
+        }
+
+        /**
+         * <p>When true, prevents organization admins from assigning permissions to themselves.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage enforceSelfAssignmentRestriction(Boolean enforceSelfAssignmentRestriction) {
+            this.enforceSelfAssignmentRestriction = Optional.ofNullable(enforceSelfAssignmentRestriction);
+            return this;
+        }
+
+        /**
+         * <p>When true, prevents organization admins from assigning permissions to themselves.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "enforce_self_assignment_restriction", nulls = Nulls.SKIP)
+        public _FinalStage enforceSelfAssignmentRestriction(Optional<Boolean> enforceSelfAssignmentRestriction) {
+            this.enforceSelfAssignmentRestriction = enforceSelfAssignmentRestriction;
+            return this;
+        }
+
+        /**
+         * <p>When true, limits the permissions that organization admins can assign to members to only those held by the admin themselves.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage enforcePermissionCeiling(Boolean enforcePermissionCeiling) {
+            this.enforcePermissionCeiling = Optional.ofNullable(enforcePermissionCeiling);
+            return this;
+        }
+
+        /**
+         * <p>When true, limits the permissions that organization admins can assign to members to only those held by the admin themselves.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "enforce_permission_ceiling", nulls = Nulls.SKIP)
+        public _FinalStage enforcePermissionCeiling(Optional<Boolean> enforcePermissionCeiling) {
+            this.enforcePermissionCeiling = enforcePermissionCeiling;
             return this;
         }
 
@@ -351,6 +439,8 @@ public final class ClientMyOrganizationResponseConfiguration {
                     thirdPartyClientAccess,
                     connectionDeletionBehavior,
                     invitationLandingClientId,
+                    enforcePermissionCeiling,
+                    enforceSelfAssignmentRestriction,
                     additionalProperties);
         }
 

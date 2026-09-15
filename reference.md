@@ -10848,6 +10848,14 @@ client.resourceServers().create(
 <dl>
 <dd>
 
+**accessToken:** `Optional<ResourceServerAccessToken>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **tokenEncryption:** `Optional<ResourceServerTokenEncryption>` 
     
 </dd>
@@ -11282,6 +11290,14 @@ client.resourceServers().update(
 <dd>
 
 **enforcePolicies:** `Optional<Boolean>` — Whether authorization policies are enforced (true) or not enforced (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**accessToken:** `Optional<ResourceServerAccessToken>` 
     
 </dd>
 </dl>
@@ -27242,6 +27258,14 @@ client.organizations().connections().create(
 <dl>
 <dd>
 
+**organizationMemberAccessLevel:** `Optional<OrganizationMemberAccessLevelEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **isEnabled:** `Optional<Boolean>` — Whether the connection is enabled for the organization.
     
 </dd>
@@ -27441,6 +27465,14 @@ client.organizations().connections().update(
 <dd>
 
 **organizationAccessLevel:** `Optional<OrganizationAccessLevelEnumWithNull>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organizationMemberAccessLevel:** `Optional<OrganizationMemberAccessLevelEnumWithNull>` 
     
 </dd>
 </dl>
@@ -32192,6 +32224,14 @@ client.tenants().settings().update(
 <dd>
 
 **enabledLocales:** `Optional<List<TenantSettingsSupportedLocalesEnum>>` — Supported locales for the user interface
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**accessToken:** `Optional<ResourceServerAccessToken>` 
     
 </dd>
 </dl>
