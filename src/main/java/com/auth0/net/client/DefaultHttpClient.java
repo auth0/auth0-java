@@ -55,7 +55,11 @@ public class DefaultHttpClient implements Auth0HttpClient {
     }
 
     private DefaultHttpClient(Builder builder) {
-        okhttp3.OkHttpClient.Builder clientBuilder = new okhttp3.OkHttpClient.Builder();
+        // When a base client is supplied via Builder#withClient, derive from it so its configuration
+        // (connection pool, dispatcher, cache, custom interceptors, ...) is preserved. The SDK's own
+        // settings and interceptors below are then layered on top; the settings configured on this
+        // builder take precedence over those on the base client.
+        okhttp3.OkHttpClient.Builder clientBuilder = builder.baseClient != null ? builder.baseClient.newBuilder() : new okhttp3.OkHttpClient.Builder();
         clientBuilder.readTimeout(sanitizeTimeout(builder.readTimeout), TimeUnit.SECONDS);
         clientBuilder.connectTimeout(sanitizeTimeout(builder.connectTimeout), TimeUnit.SECONDS);
         clientBuilder.addInterceptor(getLoggingInterceptor(builder.loggingOptions));
@@ -288,6 +292,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
         private int maxRetries = 3;
         private int maxRequests = 64;
         private int maxRequestsPerHost = 5;
+        private OkHttpClient baseClient;
 
         /**
          * Sets the value of the read timeout, in seconds. Defaults to ten seconds. A value of zero results in no read timeout.
@@ -395,6 +400,22 @@ public class DefaultHttpClient implements Auth0HttpClient {
          */
         public Builder withMaxRequestsPerHost(int maxRequestsPerHost) {
             this.maxRequestsPerHost = maxRequestsPerHost;
+            return this;
+        }
+
+        /**
+         * Use an existing {@link OkHttpClient} as the base for this client, allowing its configuration
+         * (connection pool, dispatcher, cache, custom interceptors, etc.) to be reused. The SDK's own
+         * timeout and interceptor configuration (telemetry, rate-limit handling, and logging) is layered
+         * on top of the provided client, so those behaviors are always applied. Where they overlap, the
+         * settings configured on this builder take precedence over those on the base client.
+         *
+         * @param baseClient the {@link OkHttpClient} whose configuration should be reused as the base.
+         * @return this builder instance.
+         */
+        public Builder withClient(OkHttpClient baseClient) {
+            Asserts.assertNotNull(baseClient, "base client");
+            this.baseClient = baseClient;
             return this;
         }
 

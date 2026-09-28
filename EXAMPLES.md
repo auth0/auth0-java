@@ -65,6 +65,26 @@ If the `DefaultHttpClient` does not support your required networking client conf
 your own client by implementing the `Auth0HttpClient` interface and providing it to the API client. This is an advanced
 use case and should be used only when necessary.
 
+If you already have a configured `OkHttpClient` (for example, one shared across your application with a custom connection
+pool, dispatcher, or interceptors), you can reuse it as the base for the `DefaultHttpClient` via `withClient`. The SDK's
+own timeouts and interceptors (telemetry, rate-limit handling, and logging) are layered on top of your client, so those
+behaviors are always applied. Where they overlap, the settings configured on the `DefaultHttpClient` builder take
+precedence.
+
+```java
+OkHttpClient okHttpClient = new OkHttpClient.Builder()
+        // your shared configuration, e.g. a custom interceptor
+        .build();
+
+Auth0HttpClient httpClient = DefaultHttpClient.newBuilder()
+        .withClient(okHttpClient)
+        .build();
+
+AuthAPI auth = AuthAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CLIENT_SECRET}")
+        .withHttpClient(httpClient)
+        .build();
+```
+
 ### Management API
 
 The Management API client uses `ManagementApi` as the main entry point.
