@@ -5,8 +5,19 @@ package com.auth0.client.mgmt.experimentation;
 
 import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
+import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.experimentation.types.AdvanceRampRequestContent;
+import com.auth0.client.mgmt.experimentation.types.CreateExperimentRequestContent;
+import com.auth0.client.mgmt.experimentation.types.ListExperimentsRequestParameters;
+import com.auth0.client.mgmt.experimentation.types.UpdateExperimentRequestParameters;
+import com.auth0.client.mgmt.experimentation.types.UpdateExperimentStatusRequestContent;
 import com.auth0.client.mgmt.types.AdvanceRampResponseContent;
+import com.auth0.client.mgmt.types.CreateExperimentResponseContent;
+import com.auth0.client.mgmt.types.ExperimentListItem;
+import com.auth0.client.mgmt.types.GetExperimentResponseContent;
+import com.auth0.client.mgmt.types.UpdateExperimentResponseContent;
+import com.auth0.client.mgmt.types.UpdateExperimentStatusResponseContent;
+import com.auth0.client.mgmt.types.ValidateExperimentResponseContent;
 
 public class ExperimentsClient {
     protected final ClientOptions clientOptions;
@@ -26,6 +37,107 @@ public class ExperimentsClient {
     }
 
     /**
+     * Retrieve a paginated list of experiments for the tenant, with optional filters.
+     */
+    public SyncPagingIterable<ExperimentListItem> list() {
+        return this.rawClient.list().body();
+    }
+
+    /**
+     * Retrieve a paginated list of experiments for the tenant, with optional filters.
+     */
+    public SyncPagingIterable<ExperimentListItem> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieve a paginated list of experiments for the tenant, with optional filters.
+     */
+    public SyncPagingIterable<ExperimentListItem> list(ListExperimentsRequestParameters request) {
+        return this.rawClient.list(request).body();
+    }
+
+    /**
+     * Retrieve a paginated list of experiments for the tenant, with optional filters.
+     */
+    public SyncPagingIterable<ExperimentListItem> list(
+            ListExperimentsRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient.list(request, requestOptions).body();
+    }
+
+    /**
+     * Create a new experiment for A/B testing.
+     */
+    public CreateExperimentResponseContent create(CreateExperimentRequestContent request) {
+        return this.rawClient.create(request).body();
+    }
+
+    /**
+     * Create a new experiment for A/B testing.
+     */
+    public CreateExperimentResponseContent create(
+            CreateExperimentRequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.create(request, requestOptions).body();
+    }
+
+    /**
+     * Retrieve a single experiment with its allocations by ID.
+     */
+    public GetExperimentResponseContent get(String id) {
+        return this.rawClient.get(id).body();
+    }
+
+    /**
+     * Retrieve a single experiment with its allocations by ID.
+     */
+    public GetExperimentResponseContent get(String id, RequestOptions requestOptions) {
+        return this.rawClient.get(id, requestOptions).body();
+    }
+
+    /**
+     * Permanently delete an experiment and its allocations by ID. Active experiments cannot be deleted; pause or complete first. Idempotent: returns 204 even if the experiment does not exist.
+     */
+    public void delete(String id) {
+        this.rawClient.delete(id).body();
+    }
+
+    /**
+     * Permanently delete an experiment and its allocations by ID. Active experiments cannot be deleted; pause or complete first. Idempotent: returns 204 even if the experiment does not exist.
+     */
+    public void delete(String id, RequestOptions requestOptions) {
+        this.rawClient.delete(id, requestOptions).body();
+    }
+
+    /**
+     * Partially update an experiment by ID. Only provided fields are updated. Providing allocations replaces the entire allocations set.
+     */
+    public UpdateExperimentResponseContent update(String id) {
+        return this.rawClient.update(id).body();
+    }
+
+    /**
+     * Partially update an experiment by ID. Only provided fields are updated. Providing allocations replaces the entire allocations set.
+     */
+    public UpdateExperimentResponseContent update(String id, RequestOptions requestOptions) {
+        return this.rawClient.update(id, requestOptions).body();
+    }
+
+    /**
+     * Partially update an experiment by ID. Only provided fields are updated. Providing allocations replaces the entire allocations set.
+     */
+    public UpdateExperimentResponseContent update(String id, UpdateExperimentRequestParameters request) {
+        return this.rawClient.update(id, request).body();
+    }
+
+    /**
+     * Partially update an experiment by ID. Only provided fields are updated. Providing allocations replaces the entire allocations set.
+     */
+    public UpdateExperimentResponseContent update(
+            String id, UpdateExperimentRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient.update(id, request, requestOptions).body();
+    }
+
+    /**
      * Increments the current ramp index to the requested target level. Up-only: the target must be the immediate next level in the schedule. Idempotent: calling with the current level returns success without writing anything.
      */
     public AdvanceRampResponseContent advanceRamp(String id, AdvanceRampRequestContent request) {
@@ -38,5 +150,34 @@ public class ExperimentsClient {
     public AdvanceRampResponseContent advanceRamp(
             String id, AdvanceRampRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.advanceRamp(id, request, requestOptions).body();
+    }
+
+    /**
+     * Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
+     */
+    public UpdateExperimentStatusResponseContent updateStatus(String id, UpdateExperimentStatusRequestContent request) {
+        return this.rawClient.updateStatus(id, request).body();
+    }
+
+    /**
+     * Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
+     */
+    public UpdateExperimentStatusResponseContent updateStatus(
+            String id, UpdateExperimentStatusRequestContent request, RequestOptions requestOptions) {
+        return this.rawClient.updateStatus(id, request, requestOptions).body();
+    }
+
+    /**
+     * Checks whether an experiment is ready to be activated. Returns is_valid boolean and an errors array describing any blockers. Read-only; no state is modified.
+     */
+    public ValidateExperimentResponseContent validate(String id) {
+        return this.rawClient.validate(id).body();
+    }
+
+    /**
+     * Checks whether an experiment is ready to be activated. Returns is_valid boolean and an errors array describing any blockers. Read-only; no state is modified.
+     */
+    public ValidateExperimentResponseContent validate(String id, RequestOptions requestOptions) {
+        return this.rawClient.validate(id, requestOptions).body();
     }
 }

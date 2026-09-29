@@ -10,6 +10,9 @@ public final class AsyncApprovalNotificationsChannelsEnum {
     public static final AsyncApprovalNotificationsChannelsEnum EMAIL =
             new AsyncApprovalNotificationsChannelsEnum(Value.EMAIL, "email");
 
+    public static final AsyncApprovalNotificationsChannelsEnum MY_ACCOUNT =
+            new AsyncApprovalNotificationsChannelsEnum(Value.MY_ACCOUNT, "my-account");
+
     public static final AsyncApprovalNotificationsChannelsEnum GUARDIAN_PUSH =
             new AsyncApprovalNotificationsChannelsEnum(Value.GUARDIAN_PUSH, "guardian-push");
 
@@ -48,6 +51,8 @@ public final class AsyncApprovalNotificationsChannelsEnum {
         switch (value) {
             case EMAIL:
                 return visitor.visitEmail();
+            case MY_ACCOUNT:
+                return visitor.visitMyAccount();
             case GUARDIAN_PUSH:
                 return visitor.visitGuardianPush();
             case UNKNOWN:
@@ -61,6 +66,8 @@ public final class AsyncApprovalNotificationsChannelsEnum {
         switch (value) {
             case "email":
                 return EMAIL;
+            case "my-account":
+                return MY_ACCOUNT;
             case "guardian-push":
                 return GUARDIAN_PUSH;
             default:
@@ -73,6 +80,8 @@ public final class AsyncApprovalNotificationsChannelsEnum {
 
         EMAIL,
 
+        MY_ACCOUNT,
+
         UNKNOWN
     }
 
@@ -80,6 +89,8 @@ public final class AsyncApprovalNotificationsChannelsEnum {
         T visitGuardianPush();
 
         T visitEmail();
+
+        T visitMyAccount();
 
         T visitUnknown(String unknownType);
     }

@@ -54,6 +54,8 @@ public final class UpdateResourceServerRequestContent {
 
     private final OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy;
 
+    private final Optional<Boolean> requireConsentNonRepudiation;
+
     private final OptionalNullable<List<Object>> authorizationDetails;
 
     private final OptionalNullable<ResourceServerProofOfPossession> proofOfPossession;
@@ -80,6 +82,7 @@ public final class UpdateResourceServerRequestContent {
             OptionalNullable<ResourceServerAccessToken> accessToken,
             OptionalNullable<ResourceServerTokenEncryption> tokenEncryption,
             OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy,
+            Optional<Boolean> requireConsentNonRepudiation,
             OptionalNullable<List<Object>> authorizationDetails,
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
             Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
@@ -100,6 +103,7 @@ public final class UpdateResourceServerRequestContent {
         this.accessToken = accessToken;
         this.tokenEncryption = tokenEncryption;
         this.consentPolicy = consentPolicy;
+        this.requireConsentNonRepudiation = requireConsentNonRepudiation;
         this.authorizationDetails = authorizationDetails;
         this.proofOfPossession = proofOfPossession;
         this.subjectTypeAuthorization = subjectTypeAuthorization;
@@ -228,6 +232,14 @@ public final class UpdateResourceServerRequestContent {
         return consentPolicy;
     }
 
+    /**
+     * @return When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.
+     */
+    @JsonProperty("require_consent_non_repudiation")
+    public Optional<Boolean> getRequireConsentNonRepudiation() {
+        return requireConsentNonRepudiation;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("authorization_details")
     public OptionalNullable<List<Object>> getAuthorizationDetails() {
@@ -330,6 +342,7 @@ public final class UpdateResourceServerRequestContent {
                 && accessToken.equals(other.accessToken)
                 && tokenEncryption.equals(other.tokenEncryption)
                 && consentPolicy.equals(other.consentPolicy)
+                && requireConsentNonRepudiation.equals(other.requireConsentNonRepudiation)
                 && authorizationDetails.equals(other.authorizationDetails)
                 && proofOfPossession.equals(other.proofOfPossession)
                 && subjectTypeAuthorization.equals(other.subjectTypeAuthorization)
@@ -354,6 +367,7 @@ public final class UpdateResourceServerRequestContent {
                 this.accessToken,
                 this.tokenEncryption,
                 this.consentPolicy,
+                this.requireConsentNonRepudiation,
                 this.authorizationDetails,
                 this.proofOfPossession,
                 this.subjectTypeAuthorization,
@@ -401,6 +415,8 @@ public final class UpdateResourceServerRequestContent {
 
         private OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy = OptionalNullable.absent();
 
+        private Optional<Boolean> requireConsentNonRepudiation = Optional.empty();
+
         private OptionalNullable<List<Object>> authorizationDetails = OptionalNullable.absent();
 
         private OptionalNullable<ResourceServerProofOfPossession> proofOfPossession = OptionalNullable.absent();
@@ -430,6 +446,7 @@ public final class UpdateResourceServerRequestContent {
             accessToken(other.getAccessToken());
             tokenEncryption(other.getTokenEncryption());
             consentPolicy(other.getConsentPolicy());
+            requireConsentNonRepudiation(other.getRequireConsentNonRepudiation());
             authorizationDetails(other.getAuthorizationDetails());
             proofOfPossession(other.getProofOfPossession());
             subjectTypeAuthorization(other.getSubjectTypeAuthorization());
@@ -721,6 +738,20 @@ public final class UpdateResourceServerRequestContent {
             return this;
         }
 
+        /**
+         * <p>When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.</p>
+         */
+        @JsonSetter(value = "require_consent_non_repudiation", nulls = Nulls.SKIP)
+        public Builder requireConsentNonRepudiation(Optional<Boolean> requireConsentNonRepudiation) {
+            this.requireConsentNonRepudiation = requireConsentNonRepudiation;
+            return this;
+        }
+
+        public Builder requireConsentNonRepudiation(Boolean requireConsentNonRepudiation) {
+            this.requireConsentNonRepudiation = Optional.ofNullable(requireConsentNonRepudiation);
+            return this;
+        }
+
         @JsonSetter(value = "authorization_details", nulls = Nulls.SKIP)
         public Builder authorizationDetails(@Nullable OptionalNullable<List<Object>> authorizationDetails) {
             this.authorizationDetails = authorizationDetails;
@@ -847,6 +878,7 @@ public final class UpdateResourceServerRequestContent {
                     accessToken,
                     tokenEncryption,
                     consentPolicy,
+                    requireConsentNonRepudiation,
                     authorizationDetails,
                     proofOfPossession,
                     subjectTypeAuthorization,

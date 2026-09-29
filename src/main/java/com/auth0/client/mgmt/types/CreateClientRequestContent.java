@@ -141,6 +141,8 @@ public final class CreateClientRequestContent {
 
     private final Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
 
+    private final Optional<ClientOidcSupportPost> oidcSupport;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateClientRequestContent(
@@ -202,6 +204,7 @@ public final class CreateClientRequestContent {
             Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration,
             Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration,
             Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
+            Optional<ClientOidcSupportPost> oidcSupport,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
@@ -261,6 +264,7 @@ public final class CreateClientRequestContent {
         this.b2BIntegrationConfiguration = b2BIntegrationConfiguration;
         this.myOrganizationConfiguration = myOrganizationConfiguration;
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
+        this.oidcSupport = oidcSupport;
         this.additionalProperties = additionalProperties;
     }
 
@@ -667,6 +671,11 @@ public final class CreateClientRequestContent {
         return asyncApprovalNotificationChannels;
     }
 
+    @JsonProperty("oidc_support")
+    public Optional<ClientOidcSupportPost> getOidcSupport() {
+        return oidcSupport;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("session_transfer")
     private OptionalNullable<ClientSessionTransferConfiguration> _getSessionTransfer() {
@@ -773,7 +782,8 @@ public final class CreateClientRequestContent {
                 && expressConfiguration.equals(other.expressConfiguration)
                 && b2BIntegrationConfiguration.equals(other.b2BIntegrationConfiguration)
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
-                && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels);
+                && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels)
+                && oidcSupport.equals(other.oidcSupport);
     }
 
     @java.lang.Override
@@ -836,7 +846,8 @@ public final class CreateClientRequestContent {
                 this.expressConfiguration,
                 this.b2BIntegrationConfiguration,
                 this.myOrganizationConfiguration,
-                this.asyncApprovalNotificationChannels);
+                this.asyncApprovalNotificationChannels,
+                this.oidcSupport);
     }
 
     @java.lang.Override
@@ -1214,11 +1225,17 @@ public final class CreateClientRequestContent {
 
         _FinalStage asyncApprovalNotificationChannels(
                 List<AsyncApprovalNotificationsChannelsEnum> asyncApprovalNotificationChannels);
+
+        _FinalStage oidcSupport(Optional<ClientOidcSupportPost> oidcSupport);
+
+        _FinalStage oidcSupport(ClientOidcSupportPost oidcSupport);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements NameStage, _FinalStage {
         private String name;
+
+        private Optional<ClientOidcSupportPost> oidcSupport = Optional.empty();
 
         private Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
                 Optional.empty();
@@ -1401,6 +1418,7 @@ public final class CreateClientRequestContent {
             b2BIntegrationConfiguration(other.getB2BIntegrationConfiguration());
             myOrganizationConfiguration(other.getMyOrganizationConfiguration());
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
+            oidcSupport(other.getOidcSupport());
             return this;
         }
 
@@ -1412,6 +1430,19 @@ public final class CreateClientRequestContent {
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage oidcSupport(ClientOidcSupportPost oidcSupport) {
+            this.oidcSupport = Optional.ofNullable(oidcSupport);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "oidc_support", nulls = Nulls.SKIP)
+        public _FinalStage oidcSupport(Optional<ClientOidcSupportPost> oidcSupport) {
+            this.oidcSupport = oidcSupport;
             return this;
         }
 
@@ -2581,6 +2612,7 @@ public final class CreateClientRequestContent {
                     b2BIntegrationConfiguration,
                     myOrganizationConfiguration,
                     asyncApprovalNotificationChannels,
+                    oidcSupport,
                     additionalProperties);
         }
 
