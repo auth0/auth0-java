@@ -25,9 +25,10 @@ import org.jetbrains.annotations.NotNull;
  * API clients.
  * </p>
  * <p>
- * For most use cases, usage of this client is recommended. If you have more advanced use cases,
- * such as the need to re-use an existing HTTP client, you may consider providing a custom
- * implementation of {@link Auth0HttpClient}.
+ * For most use cases, usage of this client is recommended. To reuse an existing {@link OkHttpClient}
+ * and its transport configuration, use {@link Builder#withClient(OkHttpClient)}. Only for advanced use
+ * cases not covered by the {@link Builder} should you provide a custom implementation of
+ * {@link Auth0HttpClient}.
  * </p>
  */
 public class DefaultHttpClient implements Auth0HttpClient {
@@ -55,15 +56,30 @@ public class DefaultHttpClient implements Auth0HttpClient {
     }
 
     private DefaultHttpClient(Builder builder) {
-        okhttp3.OkHttpClient.Builder clientBuilder = new okhttp3.OkHttpClient.Builder();
-        clientBuilder.readTimeout(sanitizeTimeout(builder.readTimeout), TimeUnit.SECONDS);
-        clientBuilder.connectTimeout(sanitizeTimeout(builder.connectTimeout), TimeUnit.SECONDS);
+        okhttp3.OkHttpClient.Builder clientBuilder;
+        if (builder.baseClient != null) {
+            // A caller-supplied client owns all transport configuration: timeouts, dispatcher, connection
+            // pool, cache, proxy, and any interceptors already registered on it are used as-is. The transport
+            // settings on this builder (timeouts, dispatcher, proxy) are intentionally NOT applied here, so
+            // they never silently override the caller's client. The SDK's behavior interceptors are still
+            // layered on below.
+            clientBuilder = builder.baseClient.newBuilder();
+        } else {
+            // Default path (unchanged): the SDK builds and fully configures the transport.
+            clientBuilder = new okhttp3.OkHttpClient.Builder();
+            clientBuilder.readTimeout(sanitizeTimeout(builder.readTimeout), TimeUnit.SECONDS);
+            clientBuilder.connectTimeout(sanitizeTimeout(builder.connectTimeout), TimeUnit.SECONDS);
+            clientBuilder.dispatcher(getDispatcher(builder.maxRequests, builder.maxRequestsPerHost));
+            configureProxy(clientBuilder, builder.proxyOptions);
+        }
+
+        // SDK behavior is always applied regardless of the transport client, so Auth0 telemetry, rate-limit
+        // handling, and logging are guaranteed. These interceptors are parameterized by this builder
+        // (withTelemetry/withLogging/withMaxRetries), which remain effective even when a base client is used.
         clientBuilder.addInterceptor(getLoggingInterceptor(builder.loggingOptions));
         clientBuilder.addInterceptor(getTelemetryInterceptor(builder.telemetryEnabled, builder.telemetry));
         clientBuilder.addInterceptor(getRateLimitInterceptor(builder.maxRetries));
-        clientBuilder.dispatcher(getDispatcher(builder.maxRequests, builder.maxRequestsPerHost));
 
-        configureProxy(clientBuilder, builder.proxyOptions);
         this.client = clientBuilder.build();
     }
 
@@ -288,6 +304,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
         private int maxRetries = 3;
         private int maxRequests = 64;
         private int maxRequestsPerHost = 5;
+        private OkHttpClient baseClient;
 
         /**
          * Sets the value of the read timeout, in seconds. Defaults to ten seconds. A value of zero results in no read timeout.
@@ -295,6 +312,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
          *
          * @param readTimeout the value of the read timeout to use.
          * @return this builder instance.
+         * @see #withClient(OkHttpClient) ignored when a base client is supplied.
          */
         public Builder withReadTimeout(int readTimeout) {
             this.readTimeout = readTimeout;
@@ -306,6 +324,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
          * Negative numbers will be treated as zero.
          * @param connectTimeout the value of the connect timeout to use.
          * @return this builder instance.
+         * @see #withClient(OkHttpClient) ignored when a base client is supplied.
          */
         public Builder withConnectTimeout(int connectTimeout) {
             this.connectTimeout = connectTimeout;
@@ -327,6 +346,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
          *
          * @param proxyOptions the Proxy configuration options
          * @return this builder instance.
+         * @see #withClient(OkHttpClient) ignored when a base client is supplied.
          */
         public Builder withProxy(ProxyOptions proxyOptions) {
             this.proxyOptions = proxyOptions;
@@ -381,6 +401,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
          *
          * @param maxRequests the number of requests to execute concurrently. Must be equal to or greater than one.
          * @return this builder instance.
+         * @see #withClient(OkHttpClient) ignored when a base client is supplied.
          */
         public Builder withMaxRequests(int maxRequests) {
             this.maxRequests = maxRequests;
@@ -392,9 +413,39 @@ public class DefaultHttpClient implements Auth0HttpClient {
          *
          * @param maxRequestsPerHost the maximum number of requests for each host to execute concurrently. Must be equal to or greater than one.
          * @return this builder instance.
+         * @see #withClient(OkHttpClient) ignored when a base client is supplied.
          */
         public Builder withMaxRequestsPerHost(int maxRequestsPerHost) {
             this.maxRequestsPerHost = maxRequestsPerHost;
+            return this;
+        }
+
+        /**
+         * Use an existing {@link OkHttpClient} as the base for this client, reusing all of its
+         * <strong>transport</strong> configuration as-is: timeouts, dispatcher, connection pool, cache,
+         * proxy, and any interceptors already registered on it.
+         * <p>
+         * When a base client is provided, the transport-related settings on this builder
+         * ({@link #withReadTimeout(int)}, {@link #withConnectTimeout(int)}, {@link #withMaxRequests(int)},
+         * {@link #withMaxRequestsPerHost(int)}, and {@link #withProxy(ProxyOptions)}) are
+         * <strong>ignored</strong>. This is deliberate: your client's configuration is never silently
+         * overridden. Configuring those concerns is your responsibility, on the {@code OkHttpClient} you
+         * supply.
+         * </p>
+         * <p>
+         * The SDK's own behavior is always layered on top and cannot be bypassed: the Auth0 telemetry,
+         * rate-limit handling, and logging interceptors are added to your client. These remain configurable
+         * via {@link #withTelemetry(String, String)}, {@link #telemetryEnabled(boolean)},
+         * {@link #withMaxRetries(int)}, and {@link #withLogging(LoggingOptions)}, which stay effective even
+         * when a base client is used.
+         * </p>
+         *
+         * @param baseClient the {@link OkHttpClient} whose transport configuration should be reused.
+         * @return this builder instance.
+         */
+        public Builder withClient(OkHttpClient baseClient) {
+            Asserts.assertNotNull(baseClient, "base client");
+            this.baseClient = baseClient;
             return this;
         }
 
