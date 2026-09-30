@@ -59,7 +59,8 @@ public class DefaultHttpClient implements Auth0HttpClient {
         // (connection pool, dispatcher, cache, custom interceptors, ...) is preserved. The SDK's own
         // settings and interceptors below are then layered on top; the settings configured on this
         // builder take precedence over those on the base client.
-        okhttp3.OkHttpClient.Builder clientBuilder = builder.baseClient != null ? builder.baseClient.newBuilder() : new okhttp3.OkHttpClient.Builder();
+        okhttp3.OkHttpClient.Builder clientBuilder =
+                builder.baseClient != null ? builder.baseClient.newBuilder() : new okhttp3.OkHttpClient.Builder();
         clientBuilder.readTimeout(sanitizeTimeout(builder.readTimeout), TimeUnit.SECONDS);
         clientBuilder.connectTimeout(sanitizeTimeout(builder.connectTimeout), TimeUnit.SECONDS);
         clientBuilder.addInterceptor(getLoggingInterceptor(builder.loggingOptions));
