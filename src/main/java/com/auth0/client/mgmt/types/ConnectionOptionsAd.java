@@ -58,6 +58,8 @@ public final class ConnectionOptionsAd implements IConnectionOptionsCommon {
 
     private final Optional<List<String>> thumbprints;
 
+    private final Optional<List<String>> thumbprintsSha384;
+
     private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             upstreamParams;
 
@@ -81,6 +83,7 @@ public final class ConnectionOptionsAd implements IConnectionOptionsCommon {
             Optional<String> signInEndpoint,
             Optional<String> tenantDomain,
             Optional<List<String>> thumbprints,
+            Optional<List<String>> thumbprintsSha384,
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Map<String, Object> additionalProperties) {
         this.nonPersistentAttrs = nonPersistentAttrs;
@@ -100,6 +103,7 @@ public final class ConnectionOptionsAd implements IConnectionOptionsCommon {
         this.signInEndpoint = signInEndpoint;
         this.tenantDomain = tenantDomain;
         this.thumbprints = thumbprints;
+        this.thumbprintsSha384 = thumbprintsSha384;
         this.upstreamParams = upstreamParams;
         this.additionalProperties = additionalProperties;
     }
@@ -202,6 +206,11 @@ public final class ConnectionOptionsAd implements IConnectionOptionsCommon {
         return thumbprints;
     }
 
+    @JsonProperty("thumbprints_sha384")
+    public Optional<List<String>> getThumbprintsSha384() {
+        return thumbprintsSha384;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
     public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
@@ -247,6 +256,7 @@ public final class ConnectionOptionsAd implements IConnectionOptionsCommon {
                 && signInEndpoint.equals(other.signInEndpoint)
                 && tenantDomain.equals(other.tenantDomain)
                 && thumbprints.equals(other.thumbprints)
+                && thumbprintsSha384.equals(other.thumbprintsSha384)
                 && upstreamParams.equals(other.upstreamParams);
     }
 
@@ -270,6 +280,7 @@ public final class ConnectionOptionsAd implements IConnectionOptionsCommon {
                 this.signInEndpoint,
                 this.tenantDomain,
                 this.thumbprints,
+                this.thumbprintsSha384,
                 this.upstreamParams);
     }
 
@@ -318,6 +329,8 @@ public final class ConnectionOptionsAd implements IConnectionOptionsCommon {
 
         private Optional<List<String>> thumbprints = Optional.empty();
 
+        private Optional<List<String>> thumbprintsSha384 = Optional.empty();
+
         private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
                 OptionalNullable.absent();
 
@@ -344,6 +357,7 @@ public final class ConnectionOptionsAd implements IConnectionOptionsCommon {
             signInEndpoint(other.getSignInEndpoint());
             tenantDomain(other.getTenantDomain());
             thumbprints(other.getThumbprints());
+            thumbprintsSha384(other.getThumbprintsSha384());
             upstreamParams(other.getUpstreamParams());
             return this;
         }
@@ -547,6 +561,17 @@ public final class ConnectionOptionsAd implements IConnectionOptionsCommon {
             return this;
         }
 
+        @JsonSetter(value = "thumbprints_sha384", nulls = Nulls.SKIP)
+        public Builder thumbprintsSha384(Optional<List<String>> thumbprintsSha384) {
+            this.thumbprintsSha384 = thumbprintsSha384;
+            return this;
+        }
+
+        public Builder thumbprintsSha384(List<String> thumbprintsSha384) {
+            this.thumbprintsSha384 = Optional.ofNullable(thumbprintsSha384);
+            return this;
+        }
+
         @JsonSetter(value = "upstream_params", nulls = Nulls.SKIP)
         public Builder upstreamParams(
                 @Nullable
@@ -605,6 +630,7 @@ public final class ConnectionOptionsAd implements IConnectionOptionsCommon {
                     signInEndpoint,
                     tenantDomain,
                     thumbprints,
+                    thumbprintsSha384,
                     upstreamParams,
                     additionalProperties);
         }

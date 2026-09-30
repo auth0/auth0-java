@@ -22,6 +22,9 @@ public final class ClientOidcBackchannelLogoutInitiatorsEnum {
     public static final ClientOidcBackchannelLogoutInitiatorsEnum IDP_LOGOUT =
             new ClientOidcBackchannelLogoutInitiatorsEnum(Value.IDP_LOGOUT, "idp-logout");
 
+    public static final ClientOidcBackchannelLogoutInitiatorsEnum PROFILE_CHANGED =
+            new ClientOidcBackchannelLogoutInitiatorsEnum(Value.PROFILE_CHANGED, "profile-changed");
+
     public static final ClientOidcBackchannelLogoutInitiatorsEnum RP_LOGOUT =
             new ClientOidcBackchannelLogoutInitiatorsEnum(Value.RP_LOGOUT, "rp-logout");
 
@@ -77,6 +80,8 @@ public final class ClientOidcBackchannelLogoutInitiatorsEnum {
                 return visitor.visitAccountDeactivated();
             case IDP_LOGOUT:
                 return visitor.visitIdpLogout();
+            case PROFILE_CHANGED:
+                return visitor.visitProfileChanged();
             case RP_LOGOUT:
                 return visitor.visitRpLogout();
             case PASSWORD_CHANGED:
@@ -104,6 +109,8 @@ public final class ClientOidcBackchannelLogoutInitiatorsEnum {
                 return ACCOUNT_DEACTIVATED;
             case "idp-logout":
                 return IDP_LOGOUT;
+            case "profile-changed":
+                return PROFILE_CHANGED;
             case "rp-logout":
                 return RP_LOGOUT;
             case "password-changed":
@@ -136,6 +143,8 @@ public final class ClientOidcBackchannelLogoutInitiatorsEnum {
 
         ACCOUNT_DEACTIVATED,
 
+        PROFILE_CHANGED,
+
         UNKNOWN
     }
 
@@ -157,6 +166,8 @@ public final class ClientOidcBackchannelLogoutInitiatorsEnum {
         T visitMfaPhoneUnenrolled();
 
         T visitAccountDeactivated();
+
+        T visitProfileChanged();
 
         T visitUnknown(String unknownType);
     }
