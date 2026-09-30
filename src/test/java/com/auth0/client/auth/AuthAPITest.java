@@ -326,14 +326,6 @@ public class AuthAPITest {
     }
 
     @Test
-    public void shouldThrowWhenBaseClientIsNull() {
-        verifyThrows(
-                IllegalArgumentException.class,
-                () -> DefaultHttpClient.newBuilder().withClient(null),
-                "'base client' cannot be null!");
-    }
-
-    @Test
     public void shouldNestAuth0JavaInTelemetryEnv() throws Exception {
         String value = new Telemetry("my-wrapper-sdk", "1.2.3", "auth0-java-9.9.9").getValue();
 

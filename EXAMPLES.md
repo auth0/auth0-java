@@ -66,14 +66,11 @@ your own client by implementing the `Auth0HttpClient` interface and providing it
 use case and should be used only when necessary.
 
 If you already have a configured `OkHttpClient` (for example, one shared across your application with a custom connection
-pool, dispatcher, or interceptors), you can reuse it as the base for the `DefaultHttpClient` via `withClient`. The SDK's
-own timeouts and interceptors (telemetry, rate-limit handling, and logging) are layered on top of your client, so those
-behaviors are always applied. Where they overlap, the settings configured on the `DefaultHttpClient` builder take
-precedence.
+pool, dispatcher, timeouts, or interceptors), you can reuse it as the base for the `DefaultHttpClient` via `withClient`:
 
 ```java
 OkHttpClient okHttpClient = new OkHttpClient.Builder()
-        // your shared configuration, e.g. a custom interceptor
+        // your shared transport configuration, e.g. timeouts, dispatcher, or a custom interceptor
         .build();
 
 Auth0HttpClient httpClient = DefaultHttpClient.newBuilder()
@@ -84,6 +81,18 @@ AuthAPI auth = AuthAPI.newBuilder("{YOUR_DOMAIN}", "{YOUR_CLIENT_ID}", "{YOUR_CL
         .withHttpClient(httpClient)
         .build();
 ```
+
+When you supply a client this way, **you own its transport configuration**: timeouts, dispatcher, connection pool, cache,
+proxy, and any interceptors on it are used as-is. The corresponding `DefaultHttpClient.Builder` transport settings
+(`withReadTimeout`, `withConnectTimeout`, `withMaxRequests`, `withMaxRequestsPerHost`, `withProxy`) are ignored in this
+case, so your client is never silently overridden — configure those on your own `OkHttpClient` instead.
+
+The SDK's own behavior is always layered on top and cannot be bypassed: the Auth0 telemetry, rate-limit handling, and
+logging interceptors are added to your client. These remain configurable via `withTelemetry`, `telemetryEnabled`,
+`withMaxRetries`, and `withLogging`.
+
+> If you do not supply a client, nothing changes: the `DefaultHttpClient.Builder` builds and fully configures the
+> transport as before.
 
 ### Management API
 
