@@ -1,5 +1,20 @@
 # Change Log
 
+## [5.4.0](https://github.com/auth0/auth0-java/tree/5.4.0) (2026-09-30)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/5.3.0...5.4.0)
+
+**Added**
+- feat: allow reusing an existing OkHttpClient via DefaultHttpClient.Bu… [\#936](https://github.com/auth0/auth0-java/pull/936) ([tanya732](https://github.com/tanya732))
+- feat: add Experiment Center, consent non-repudiation & client OIDC support [\#937](https://github.com/auth0/auth0-java/pull/937) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - **Experiment Center - A/B Testing (Early Access):** builds the `experimentation()` client out into a full A/B-testing surface. 
+    - **Resource Servers - consent non-repudiation:** adds a `requireConsentNonRepudiation` flag to the resource server create, update, get, and search payloads.
+    - **Connections:** surfaces new provider option fields on the SAML, AD, ADFS, Azure AD, and PingFederate connection option types.
+
+**Breaking changes**
+- feat: add Experiment Center, consent non-repudiation & client OIDC support [\#937](https://github.com/auth0/auth0-java/pull/937) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - **Removed the per-organization Organization Template client.** 
+
+
 ## [5.3.0](https://github.com/auth0/auth0-java/tree/5.3.0) (2026-09-15)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/5.2.0...5.3.0)
 
