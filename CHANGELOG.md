@@ -1,5 +1,12 @@
 # Change Log
 
+## [5.4.0](https://github.com/auth0/auth0-java/tree/5.4.0) (2026-09-30)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/5.3.0...5.4.0)
+
+**Added**
+- feat: allow reusing an existing OkHttpClient via DefaultHttpClient.Bu… [\#936](https://github.com/auth0/auth0-java/pull/936) ([tanya732](https://github.com/tanya732))
+- feat: add Experiment Center (experiments, feature flags, variations, segments), consent non-repudiation support [\#937](https://github.com/auth0/auth0-java/pull/937) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [5.3.0](https://github.com/auth0/auth0-java/tree/5.3.0) (2026-09-15)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/5.2.0...5.3.0)
 
