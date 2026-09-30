@@ -312,6 +312,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
          *
          * @param readTimeout the value of the read timeout to use.
          * @return this builder instance.
+         * @see #withClient(OkHttpClient) ignored when a base client is supplied.
          */
         public Builder withReadTimeout(int readTimeout) {
             this.readTimeout = readTimeout;
@@ -323,6 +324,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
          * Negative numbers will be treated as zero.
          * @param connectTimeout the value of the connect timeout to use.
          * @return this builder instance.
+         * @see #withClient(OkHttpClient) ignored when a base client is supplied.
          */
         public Builder withConnectTimeout(int connectTimeout) {
             this.connectTimeout = connectTimeout;
@@ -344,6 +346,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
          *
          * @param proxyOptions the Proxy configuration options
          * @return this builder instance.
+         * @see #withClient(OkHttpClient) ignored when a base client is supplied.
          */
         public Builder withProxy(ProxyOptions proxyOptions) {
             this.proxyOptions = proxyOptions;
@@ -398,6 +401,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
          *
          * @param maxRequests the number of requests to execute concurrently. Must be equal to or greater than one.
          * @return this builder instance.
+         * @see #withClient(OkHttpClient) ignored when a base client is supplied.
          */
         public Builder withMaxRequests(int maxRequests) {
             this.maxRequests = maxRequests;
@@ -409,6 +413,7 @@ public class DefaultHttpClient implements Auth0HttpClient {
          *
          * @param maxRequestsPerHost the maximum number of requests for each host to execute concurrently. Must be equal to or greater than one.
          * @return this builder instance.
+         * @see #withClient(OkHttpClient) ignored when a base client is supplied.
          */
         public Builder withMaxRequestsPerHost(int maxRequestsPerHost) {
             this.maxRequestsPerHost = maxRequestsPerHost;
