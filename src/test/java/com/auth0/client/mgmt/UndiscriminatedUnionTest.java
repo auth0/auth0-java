@@ -26,6 +26,11 @@ import com.auth0.client.mgmt.types.LogStreamSinkPatch;
 import com.auth0.client.mgmt.types.LogStreamSplunkSink;
 import com.auth0.client.mgmt.types.LogStreamSumoSink;
 import com.auth0.client.mgmt.types.PhoneProviderConfiguration;
+import com.auth0.client.mgmt.types.SegmentContainsExpression;
+import com.auth0.client.mgmt.types.SegmentEndsWithExpression;
+import com.auth0.client.mgmt.types.SegmentExistsExpression;
+import com.auth0.client.mgmt.types.SegmentMatchExpression;
+import com.auth0.client.mgmt.types.SegmentStartsWithExpression;
 import com.auth0.client.mgmt.types.TwilioProviderConfiguration;
 import org.junit.jupiter.api.Test;
 
@@ -150,5 +155,41 @@ public final class UndiscriminatedUnionTest {
         assertTrue(
                 union.get() instanceof CustomProviderConfiguration,
                 "Expected CustomProviderConfiguration but got different variant");
+    }
+
+    @Test
+    public void testSegmentMatchExpression_SegmentContainsExpression() throws Exception {
+        String json = "{\"contains\":[]}";
+        SegmentMatchExpression union = ObjectMappers.JSON_MAPPER.readValue(json, SegmentMatchExpression.class);
+        assertTrue(
+                union.get() instanceof SegmentContainsExpression,
+                "Expected SegmentContainsExpression but got different variant");
+    }
+
+    @Test
+    public void testSegmentMatchExpression_SegmentStartsWithExpression() throws Exception {
+        String json = "{\"starts_with\":[]}";
+        SegmentMatchExpression union = ObjectMappers.JSON_MAPPER.readValue(json, SegmentMatchExpression.class);
+        assertTrue(
+                union.get() instanceof SegmentStartsWithExpression,
+                "Expected SegmentStartsWithExpression but got different variant");
+    }
+
+    @Test
+    public void testSegmentMatchExpression_SegmentEndsWithExpression() throws Exception {
+        String json = "{\"ends_with\":[]}";
+        SegmentMatchExpression union = ObjectMappers.JSON_MAPPER.readValue(json, SegmentMatchExpression.class);
+        assertTrue(
+                union.get() instanceof SegmentEndsWithExpression,
+                "Expected SegmentEndsWithExpression but got different variant");
+    }
+
+    @Test
+    public void testSegmentMatchExpression_SegmentExistsExpression() throws Exception {
+        String json = "{\"exists\":true}";
+        SegmentMatchExpression union = ObjectMappers.JSON_MAPPER.readValue(json, SegmentMatchExpression.class);
+        assertTrue(
+                union.get() instanceof SegmentExistsExpression,
+                "Expected SegmentExistsExpression but got different variant");
     }
 }

@@ -109,6 +109,10 @@ public final class ConnectionPropertiesOptions {
 
     private final OptionalNullable<ConnectionsOidcMetadata> oidcMetadata;
 
+    private final Optional<List<String>> thumbprints;
+
+    private final Optional<List<String>> thumbprintsSha384;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectionPropertiesOptions(
@@ -154,6 +158,8 @@ public final class ConnectionPropertiesOptions {
             Optional<Boolean> useOauthSpecScope,
             OptionalNullable<String> discoveryUrl,
             OptionalNullable<ConnectionsOidcMetadata> oidcMetadata,
+            Optional<List<String>> thumbprints,
+            Optional<List<String>> thumbprintsSha384,
             Map<String, Object> additionalProperties) {
         this.validation = validation;
         this.nonPersistentAttrs = nonPersistentAttrs;
@@ -197,6 +203,8 @@ public final class ConnectionPropertiesOptions {
         this.useOauthSpecScope = useOauthSpecScope;
         this.discoveryUrl = discoveryUrl;
         this.oidcMetadata = oidcMetadata;
+        this.thumbprints = thumbprints;
+        this.thumbprintsSha384 = thumbprintsSha384;
         this.additionalProperties = additionalProperties;
     }
 
@@ -496,6 +504,16 @@ public final class ConnectionPropertiesOptions {
         return oidcMetadata;
     }
 
+    @JsonProperty("thumbprints")
+    public Optional<List<String>> getThumbprints() {
+        return thumbprints;
+    }
+
+    @JsonProperty("thumbprints_sha384")
+    public Optional<List<String>> getThumbprintsSha384() {
+        return thumbprintsSha384;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("validation")
     private OptionalNullable<ConnectionValidationOptions> _getValidation() {
@@ -652,7 +670,9 @@ public final class ConnectionPropertiesOptions {
                 && idTokenSessionExpirySupported.equals(other.idTokenSessionExpirySupported)
                 && useOauthSpecScope.equals(other.useOauthSpecScope)
                 && discoveryUrl.equals(other.discoveryUrl)
-                && oidcMetadata.equals(other.oidcMetadata);
+                && oidcMetadata.equals(other.oidcMetadata)
+                && thumbprints.equals(other.thumbprints)
+                && thumbprintsSha384.equals(other.thumbprintsSha384);
     }
 
     @java.lang.Override
@@ -699,7 +719,9 @@ public final class ConnectionPropertiesOptions {
                 this.idTokenSessionExpirySupported,
                 this.useOauthSpecScope,
                 this.discoveryUrl,
-                this.oidcMetadata);
+                this.oidcMetadata,
+                this.thumbprints,
+                this.thumbprintsSha384);
     }
 
     @java.lang.Override
@@ -803,6 +825,10 @@ public final class ConnectionPropertiesOptions {
 
         private OptionalNullable<ConnectionsOidcMetadata> oidcMetadata = OptionalNullable.absent();
 
+        private Optional<List<String>> thumbprints = Optional.empty();
+
+        private Optional<List<String>> thumbprintsSha384 = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -851,6 +877,8 @@ public final class ConnectionPropertiesOptions {
             useOauthSpecScope(other.getUseOauthSpecScope());
             discoveryUrl(other.getDiscoveryUrl());
             oidcMetadata(other.getOidcMetadata());
+            thumbprints(other.getThumbprints());
+            thumbprintsSha384(other.getThumbprintsSha384());
             return this;
         }
 
@@ -1713,6 +1741,28 @@ public final class ConnectionPropertiesOptions {
             return this;
         }
 
+        @JsonSetter(value = "thumbprints", nulls = Nulls.SKIP)
+        public Builder thumbprints(Optional<List<String>> thumbprints) {
+            this.thumbprints = thumbprints;
+            return this;
+        }
+
+        public Builder thumbprints(List<String> thumbprints) {
+            this.thumbprints = Optional.ofNullable(thumbprints);
+            return this;
+        }
+
+        @JsonSetter(value = "thumbprints_sha384", nulls = Nulls.SKIP)
+        public Builder thumbprintsSha384(Optional<List<String>> thumbprintsSha384) {
+            this.thumbprintsSha384 = thumbprintsSha384;
+            return this;
+        }
+
+        public Builder thumbprintsSha384(List<String> thumbprintsSha384) {
+            this.thumbprintsSha384 = Optional.ofNullable(thumbprintsSha384);
+            return this;
+        }
+
         public ConnectionPropertiesOptions build() {
             return new ConnectionPropertiesOptions(
                     validation,
@@ -1757,6 +1807,8 @@ public final class ConnectionPropertiesOptions {
                     useOauthSpecScope,
                     discoveryUrl,
                     oidcMetadata,
+                    thumbprints,
+                    thumbprintsSha384,
                     additionalProperties);
         }
 

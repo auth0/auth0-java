@@ -149,6 +149,8 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
 
     private final Optional<List<String>> thumbprints;
 
+    private final Optional<List<String>> thumbprintsSha384;
+
     private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             upstreamParams;
 
@@ -225,6 +227,7 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
             Optional<String> tenantDomain,
             Optional<String> tenantId,
             Optional<List<String>> thumbprints,
+            Optional<List<String>> thumbprintsSha384,
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<Boolean> useWsfed,
             Optional<Boolean> useCommonEndpoint,
@@ -293,6 +296,7 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
         this.tenantDomain = tenantDomain;
         this.tenantId = tenantId;
         this.thumbprints = thumbprints;
+        this.thumbprintsSha384 = thumbprintsSha384;
         this.upstreamParams = upstreamParams;
         this.useWsfed = useWsfed;
         this.useCommonEndpoint = useCommonEndpoint;
@@ -738,6 +742,11 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
         return thumbprints;
     }
 
+    @JsonProperty("thumbprints_sha384")
+    public Optional<List<String>> getThumbprintsSha384() {
+        return thumbprintsSha384;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
     public OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams() {
@@ -851,6 +860,7 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
                 && tenantDomain.equals(other.tenantDomain)
                 && tenantId.equals(other.tenantId)
                 && thumbprints.equals(other.thumbprints)
+                && thumbprintsSha384.equals(other.thumbprintsSha384)
                 && upstreamParams.equals(other.upstreamParams)
                 && useWsfed.equals(other.useWsfed)
                 && useCommonEndpoint.equals(other.useCommonEndpoint)
@@ -923,6 +933,7 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
                 this.tenantDomain,
                 this.tenantId,
                 this.thumbprints,
+                this.thumbprintsSha384,
                 this.upstreamParams,
                 this.useWsfed,
                 this.useCommonEndpoint,
@@ -1324,6 +1335,10 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
 
         _FinalStage thumbprints(List<String> thumbprints);
 
+        _FinalStage thumbprintsSha384(Optional<List<String>> thumbprintsSha384);
+
+        _FinalStage thumbprintsSha384(List<String> thumbprintsSha384);
+
         _FinalStage upstreamParams(
                 @Nullable
                         OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
@@ -1374,6 +1389,8 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
 
         private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
                 OptionalNullable.absent();
+
+        private Optional<List<String>> thumbprintsSha384 = Optional.empty();
 
         private Optional<List<String>> thumbprints = Optional.empty();
 
@@ -1567,6 +1584,7 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
             tenantDomain(other.getTenantDomain());
             tenantId(other.getTenantId());
             thumbprints(other.getThumbprints());
+            thumbprintsSha384(other.getThumbprintsSha384());
             upstreamParams(other.getUpstreamParams());
             useWsfed(other.getUseWsfed());
             useCommonEndpoint(other.getUseCommonEndpoint());
@@ -1681,6 +1699,19 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
                         OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
                                 upstreamParams) {
             this.upstreamParams = upstreamParams;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage thumbprintsSha384(List<String> thumbprintsSha384) {
+            this.thumbprintsSha384 = Optional.ofNullable(thumbprintsSha384);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "thumbprints_sha384", nulls = Nulls.SKIP)
+        public _FinalStage thumbprintsSha384(Optional<List<String>> thumbprintsSha384) {
+            this.thumbprintsSha384 = thumbprintsSha384;
             return this;
         }
 
@@ -2838,6 +2869,7 @@ public final class ConnectionOptionsAzureAd implements IConnectionOptionsCommon 
                     tenantDomain,
                     tenantId,
                     thumbprints,
+                    thumbprintsSha384,
                     upstreamParams,
                     useWsfed,
                     useCommonEndpoint,
