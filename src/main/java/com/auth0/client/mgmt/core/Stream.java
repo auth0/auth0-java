@@ -410,14 +410,7 @@ public final class Stream<T> implements Iterable<T>, Closeable {
                     if (line.trim().isEmpty()) {
                         if (eventDataBuffer.length() > 0 || currentEventType != null) {
                             try {
-                                // Use SseEventParser for event-level discrimination
-                                nextItem = SseEventParser.parseEventLevelUnion(
-                                        currentEventType,
-                                        eventDataBuffer.toString(),
-                                        currentEventId,
-                                        currentRetry,
-                                        valueType,
-                                        discriminatorProperty);
+                                nextItem = parseCurrentEvent();
                                 hasNextItem = true;
                                 resetEventState();
                                 return true;
@@ -477,13 +470,7 @@ public final class Stream<T> implements Iterable<T>, Closeable {
                 // Handle any remaining buffered data at end of stream
                 if (eventDataBuffer.length() > 0 || currentEventType != null) {
                     try {
-                        nextItem = SseEventParser.parseEventLevelUnion(
-                                currentEventType,
-                                eventDataBuffer.toString(),
-                                currentEventId,
-                                currentRetry,
-                                valueType,
-                                discriminatorProperty);
+                        nextItem = parseCurrentEvent();
                         hasNextItem = true;
                         resetEventState();
                         return true;
@@ -508,6 +495,16 @@ public final class Stream<T> implements Iterable<T>, Closeable {
             currentEventType = null;
             currentEventId = null;
             currentRetry = null;
+        }
+
+        private T parseCurrentEvent() {
+            String data = eventDataBuffer.toString();
+            if (SseEventParser.isEventLevelDiscrimination(discriminatorProperty)) {
+                return SseEventParser.parseEventLevelUnion(
+                        currentEventType, data, currentEventId, currentRetry, valueType, discriminatorProperty);
+            }
+            return SseEventParser.parseWithInjectedDiscriminator(
+                    currentEventType, data, valueType, discriminatorProperty);
         }
     }
 }
