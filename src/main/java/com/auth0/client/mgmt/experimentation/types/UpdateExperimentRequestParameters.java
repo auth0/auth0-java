@@ -9,6 +9,7 @@ import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.AllocationRequestItem;
 import com.auth0.client.mgmt.types.AuthenticationFlowEnum;
 import com.auth0.client.mgmt.types.DefaultConfigEnum;
+import com.auth0.client.mgmt.types.ExperimentTransitionStatusEnum;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -39,6 +40,8 @@ public final class UpdateExperimentRequestParameters {
 
     private final Optional<List<Integer>> levels;
 
+    private final Optional<ExperimentTransitionStatusEnum> status;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateExperimentRequestParameters(
@@ -48,6 +51,7 @@ public final class UpdateExperimentRequestParameters {
             Optional<List<AllocationRequestItem>> allocations,
             Optional<DefaultConfigEnum> defaultConfig,
             Optional<List<Integer>> levels,
+            Optional<ExperimentTransitionStatusEnum> status,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
@@ -55,6 +59,7 @@ public final class UpdateExperimentRequestParameters {
         this.allocations = allocations;
         this.defaultConfig = defaultConfig;
         this.levels = levels;
+        this.status = status;
         this.additionalProperties = additionalProperties;
     }
 
@@ -110,6 +115,11 @@ public final class UpdateExperimentRequestParameters {
         return levels;
     }
 
+    @JsonProperty("status")
+    public Optional<ExperimentTransitionStatusEnum> getStatus() {
+        return status;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("description")
     private OptionalNullable<String> _getDescription() {
@@ -133,7 +143,8 @@ public final class UpdateExperimentRequestParameters {
                 && authenticationFlow.equals(other.authenticationFlow)
                 && allocations.equals(other.allocations)
                 && defaultConfig.equals(other.defaultConfig)
-                && levels.equals(other.levels);
+                && levels.equals(other.levels)
+                && status.equals(other.status);
     }
 
     @java.lang.Override
@@ -144,7 +155,8 @@ public final class UpdateExperimentRequestParameters {
                 this.authenticationFlow,
                 this.allocations,
                 this.defaultConfig,
-                this.levels);
+                this.levels,
+                this.status);
     }
 
     @java.lang.Override
@@ -170,6 +182,8 @@ public final class UpdateExperimentRequestParameters {
 
         private Optional<List<Integer>> levels = Optional.empty();
 
+        private Optional<ExperimentTransitionStatusEnum> status = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -182,6 +196,7 @@ public final class UpdateExperimentRequestParameters {
             allocations(other.getAllocations());
             defaultConfig(other.getDefaultConfig());
             levels(other.getLevels());
+            status(other.getStatus());
             return this;
         }
 
@@ -289,9 +304,27 @@ public final class UpdateExperimentRequestParameters {
             return this;
         }
 
+        @JsonSetter(value = "status", nulls = Nulls.SKIP)
+        public Builder status(Optional<ExperimentTransitionStatusEnum> status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder status(ExperimentTransitionStatusEnum status) {
+            this.status = Optional.ofNullable(status);
+            return this;
+        }
+
         public UpdateExperimentRequestParameters build() {
             return new UpdateExperimentRequestParameters(
-                    name, description, authenticationFlow, allocations, defaultConfig, levels, additionalProperties);
+                    name,
+                    description,
+                    authenticationFlow,
+                    allocations,
+                    defaultConfig,
+                    levels,
+                    status,
+                    additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

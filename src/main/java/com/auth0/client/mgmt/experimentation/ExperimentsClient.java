@@ -10,13 +10,11 @@ import com.auth0.client.mgmt.experimentation.types.AdvanceRampRequestContent;
 import com.auth0.client.mgmt.experimentation.types.CreateExperimentRequestContent;
 import com.auth0.client.mgmt.experimentation.types.ListExperimentsRequestParameters;
 import com.auth0.client.mgmt.experimentation.types.UpdateExperimentRequestParameters;
-import com.auth0.client.mgmt.experimentation.types.UpdateExperimentStatusRequestContent;
 import com.auth0.client.mgmt.types.AdvanceRampResponseContent;
 import com.auth0.client.mgmt.types.CreateExperimentResponseContent;
 import com.auth0.client.mgmt.types.ExperimentListItem;
 import com.auth0.client.mgmt.types.GetExperimentResponseContent;
 import com.auth0.client.mgmt.types.UpdateExperimentResponseContent;
-import com.auth0.client.mgmt.types.UpdateExperimentStatusResponseContent;
 import com.auth0.client.mgmt.types.ValidateExperimentResponseContent;
 
 public class ExperimentsClient {
@@ -150,21 +148,6 @@ public class ExperimentsClient {
     public AdvanceRampResponseContent advanceRamp(
             String id, AdvanceRampRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.advanceRamp(id, request, requestOptions).body();
-    }
-
-    /**
-     * Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
-     */
-    public UpdateExperimentStatusResponseContent updateStatus(String id, UpdateExperimentStatusRequestContent request) {
-        return this.rawClient.updateStatus(id, request).body();
-    }
-
-    /**
-     * Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
-     */
-    public UpdateExperimentStatusResponseContent updateStatus(
-            String id, UpdateExperimentStatusRequestContent request, RequestOptions requestOptions) {
-        return this.rawClient.updateStatus(id, request, requestOptions).body();
     }
 
     /**

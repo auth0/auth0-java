@@ -32,6 +32,8 @@ public final class GetSegmentResponseContent {
 
     private final SegmentTypeEnum type;
 
+    private final SegmentStatusEnum status;
+
     private final List<SegmentRule> rules;
 
     private final OffsetDateTime createdAt;
@@ -45,6 +47,7 @@ public final class GetSegmentResponseContent {
             String name,
             Optional<String> description,
             SegmentTypeEnum type,
+            SegmentStatusEnum status,
             List<SegmentRule> rules,
             OffsetDateTime createdAt,
             OffsetDateTime updatedAt,
@@ -53,6 +56,7 @@ public final class GetSegmentResponseContent {
         this.name = name;
         this.description = description;
         this.type = type;
+        this.status = status;
         this.rules = rules;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -77,6 +81,11 @@ public final class GetSegmentResponseContent {
     @JsonProperty("type")
     public SegmentTypeEnum getType() {
         return type;
+    }
+
+    @JsonProperty("status")
+    public SegmentStatusEnum getStatus() {
+        return status;
     }
 
     @JsonProperty("rules")
@@ -110,6 +119,7 @@ public final class GetSegmentResponseContent {
                 && name.equals(other.name)
                 && description.equals(other.description)
                 && type.equals(other.type)
+                && status.equals(other.status)
                 && rules.equals(other.rules)
                 && createdAt.equals(other.createdAt)
                 && updatedAt.equals(other.updatedAt);
@@ -118,7 +128,14 @@ public final class GetSegmentResponseContent {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.id, this.name, this.description, this.type, this.rules, this.createdAt, this.updatedAt);
+                this.id,
+                this.name,
+                this.description,
+                this.type,
+                this.status,
+                this.rules,
+                this.createdAt,
+                this.updatedAt);
     }
 
     @java.lang.Override
@@ -141,7 +158,11 @@ public final class GetSegmentResponseContent {
     }
 
     public interface TypeStage {
-        CreatedAtStage type(@NotNull SegmentTypeEnum type);
+        StatusStage type(@NotNull SegmentTypeEnum type);
+    }
+
+    public interface StatusStage {
+        CreatedAtStage status(@NotNull SegmentStatusEnum status);
     }
 
     public interface CreatedAtStage {
@@ -172,12 +193,14 @@ public final class GetSegmentResponseContent {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder
-            implements IdStage, NameStage, TypeStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
+            implements IdStage, NameStage, TypeStage, StatusStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
         private String id;
 
         private String name;
 
         private SegmentTypeEnum type;
+
+        private SegmentStatusEnum status;
 
         private OffsetDateTime createdAt;
 
@@ -198,6 +221,7 @@ public final class GetSegmentResponseContent {
             name(other.getName());
             description(other.getDescription());
             type(other.getType());
+            status(other.getStatus());
             rules(other.getRules());
             createdAt(other.getCreatedAt());
             updatedAt(other.getUpdatedAt());
@@ -220,8 +244,15 @@ public final class GetSegmentResponseContent {
 
         @java.lang.Override
         @JsonSetter("type")
-        public CreatedAtStage type(@NotNull SegmentTypeEnum type) {
+        public StatusStage type(@NotNull SegmentTypeEnum type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("status")
+        public CreatedAtStage status(@NotNull SegmentStatusEnum status) {
+            this.status = Objects.requireNonNull(status, "status must not be null");
             return this;
         }
 
@@ -279,7 +310,7 @@ public final class GetSegmentResponseContent {
         @java.lang.Override
         public GetSegmentResponseContent build() {
             return new GetSegmentResponseContent(
-                    id, name, description, type, rules, createdAt, updatedAt, additionalProperties);
+                    id, name, description, type, status, rules, createdAt, updatedAt, additionalProperties);
         }
 
         @java.lang.Override

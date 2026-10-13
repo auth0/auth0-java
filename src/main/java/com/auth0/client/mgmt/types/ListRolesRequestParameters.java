@@ -115,7 +115,7 @@ public final class ListRolesRequestParameters {
     }
 
     /**
-     * @return Filter organization-level roles by owner ID. Required when type is &quot;organization&quot;.
+     * @return Filter organization-level roles by owner ID. Use an organization ID to filter that organization's roles, or &quot;auth0&quot; to retrieve Auth0-managed System Roles. Required when type is &quot;organization&quot;.
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("owner_id")
@@ -396,7 +396,7 @@ public final class ListRolesRequestParameters {
         }
 
         /**
-         * <p>Filter organization-level roles by owner ID. Required when type is &quot;organization&quot;.</p>
+         * <p>Filter organization-level roles by owner ID. Use an organization ID to filter that organization's roles, or &quot;auth0&quot; to retrieve Auth0-managed System Roles. Required when type is &quot;organization&quot;.</p>
          */
         @JsonSetter(value = "owner_id", nulls = Nulls.SKIP)
         public Builder ownerId(@Nullable OptionalNullable<String> ownerId) {

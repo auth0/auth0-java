@@ -12,6 +12,9 @@ public final class EnabledFeaturesEnum {
     public static final EnabledFeaturesEnum UNIVERSAL_LOGOUT =
             new EnabledFeaturesEnum(Value.UNIVERSAL_LOGOUT, "universal_logout");
 
+    public static final EnabledFeaturesEnum DIRECTORY_SYNC =
+            new EnabledFeaturesEnum(Value.DIRECTORY_SYNC, "directory_sync");
+
     private final Value value;
 
     private final String string;
@@ -48,6 +51,8 @@ public final class EnabledFeaturesEnum {
                 return visitor.visitScim();
             case UNIVERSAL_LOGOUT:
                 return visitor.visitUniversalLogout();
+            case DIRECTORY_SYNC:
+                return visitor.visitDirectorySync();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -61,6 +66,8 @@ public final class EnabledFeaturesEnum {
                 return SCIM;
             case "universal_logout":
                 return UNIVERSAL_LOGOUT;
+            case "directory_sync":
+                return DIRECTORY_SYNC;
             default:
                 return new EnabledFeaturesEnum(Value.UNKNOWN, value);
         }
@@ -71,6 +78,8 @@ public final class EnabledFeaturesEnum {
 
         UNIVERSAL_LOGOUT,
 
+        DIRECTORY_SYNC,
+
         UNKNOWN
     }
 
@@ -78,6 +87,8 @@ public final class EnabledFeaturesEnum {
         T visitScim();
 
         T visitUniversalLogout();
+
+        T visitDirectorySync();
 
         T visitUnknown(String unknownType);
     }

@@ -161,6 +161,9 @@ public final class OauthScope {
     public static final OauthScope DELETE_ORGANIZATION_INVITATIONS =
             new OauthScope(Value.DELETE_ORGANIZATION_INVITATIONS, "delete:organization_invitations");
 
+    public static final OauthScope DELETE_CLIENT_PROFILES =
+            new OauthScope(Value.DELETE_CLIENT_PROFILES, "delete:client_profiles");
+
     public static final OauthScope READ_NETWORK_ACL_KEYS =
             new OauthScope(Value.READ_NETWORK_ACL_KEYS, "read:network_acl_keys");
 
@@ -240,6 +243,9 @@ public final class OauthScope {
 
     public static final OauthScope CREATE_ENCRYPTION_KEYS =
             new OauthScope(Value.CREATE_ENCRYPTION_KEYS, "create:encryption_keys");
+
+    public static final OauthScope UPDATE_CLIENT_PROFILES =
+            new OauthScope(Value.UPDATE_CLIENT_PROFILES, "update:client_profiles");
 
     public static final OauthScope UPDATE_CURRENT_USER_IDENTITIES =
             new OauthScope(Value.UPDATE_CURRENT_USER_IDENTITIES, "update:current_user_identities");
@@ -395,6 +401,9 @@ public final class OauthScope {
 
     public static final OauthScope UPDATE_SESSIONS = new OauthScope(Value.UPDATE_SESSIONS, "update:sessions");
 
+    public static final OauthScope READ_CLIENT_PROFILES =
+            new OauthScope(Value.READ_CLIENT_PROFILES, "read:client_profiles");
+
     public static final OauthScope CREATE_HOOKS = new OauthScope(Value.CREATE_HOOKS, "create:hooks");
 
     public static final OauthScope READ_CLIENT_KEYS = new OauthScope(Value.READ_CLIENT_KEYS, "read:client_keys");
@@ -428,6 +437,9 @@ public final class OauthScope {
 
     public static final OauthScope READ_FLOWS_VAULT_CONNECTIONS =
             new OauthScope(Value.READ_FLOWS_VAULT_CONNECTIONS, "read:flows_vault_connections");
+
+    public static final OauthScope CREATE_CLIENT_PROFILES =
+            new OauthScope(Value.CREATE_CLIENT_PROFILES, "create:client_profiles");
 
     public static final OauthScope CREATE_AGENTS = new OauthScope(Value.CREATE_AGENTS, "create:agents");
 
@@ -825,6 +837,8 @@ public final class OauthScope {
                 return visitor.visitDeleteClientCredentials();
             case DELETE_ORGANIZATION_INVITATIONS:
                 return visitor.visitDeleteOrganizationInvitations();
+            case DELETE_CLIENT_PROFILES:
+                return visitor.visitDeleteClientProfiles();
             case READ_NETWORK_ACL_KEYS:
                 return visitor.visitReadNetworkAclKeys();
             case CREATE_ORGANIZATION_CLIENT_GRANTS:
@@ -883,6 +897,8 @@ public final class OauthScope {
                 return visitor.visitReadDeviceCredentials();
             case CREATE_ENCRYPTION_KEYS:
                 return visitor.visitCreateEncryptionKeys();
+            case UPDATE_CLIENT_PROFILES:
+                return visitor.visitUpdateClientProfiles();
             case UPDATE_CURRENT_USER_IDENTITIES:
                 return visitor.visitUpdateCurrentUserIdentities();
             case DELETE_FORMS:
@@ -1001,6 +1017,8 @@ public final class OauthScope {
                 return visitor.visitUpdateNetworkAcls();
             case UPDATE_SESSIONS:
                 return visitor.visitUpdateSessions();
+            case READ_CLIENT_PROFILES:
+                return visitor.visitReadClientProfiles();
             case CREATE_HOOKS:
                 return visitor.visitCreateHooks();
             case READ_CLIENT_KEYS:
@@ -1029,6 +1047,8 @@ public final class OauthScope {
                 return visitor.visitDeleteUserAttributeProfiles();
             case READ_FLOWS_VAULT_CONNECTIONS:
                 return visitor.visitReadFlowsVaultConnections();
+            case CREATE_CLIENT_PROFILES:
+                return visitor.visitCreateClientProfiles();
             case CREATE_AGENTS:
                 return visitor.visitCreateAgents();
             case UPDATE_ENCRYPTION_KEYS:
@@ -1336,6 +1356,8 @@ public final class OauthScope {
                 return DELETE_CLIENT_CREDENTIALS;
             case "delete:organization_invitations":
                 return DELETE_ORGANIZATION_INVITATIONS;
+            case "delete:client_profiles":
+                return DELETE_CLIENT_PROFILES;
             case "read:network_acl_keys":
                 return READ_NETWORK_ACL_KEYS;
             case "create:organization_client_grants":
@@ -1394,6 +1416,8 @@ public final class OauthScope {
                 return READ_DEVICE_CREDENTIALS;
             case "create:encryption_keys":
                 return CREATE_ENCRYPTION_KEYS;
+            case "update:client_profiles":
+                return UPDATE_CLIENT_PROFILES;
             case "update:current_user_identities":
                 return UPDATE_CURRENT_USER_IDENTITIES;
             case "delete:forms":
@@ -1512,6 +1536,8 @@ public final class OauthScope {
                 return UPDATE_NETWORK_ACLS;
             case "update:sessions":
                 return UPDATE_SESSIONS;
+            case "read:client_profiles":
+                return READ_CLIENT_PROFILES;
             case "create:hooks":
                 return CREATE_HOOKS;
             case "read:client_keys":
@@ -1540,6 +1566,8 @@ public final class OauthScope {
                 return DELETE_USER_ATTRIBUTE_PROFILES;
             case "read:flows_vault_connections":
                 return READ_FLOWS_VAULT_CONNECTIONS;
+            case "create:client_profiles":
+                return CREATE_CLIENT_PROFILES;
             case "create:agents":
                 return CREATE_AGENTS;
             case "update:encryption_keys":
@@ -2216,6 +2244,14 @@ public final class OauthScope {
 
         DELETE_VDCS_TEMPLATES,
 
+        CREATE_CLIENT_PROFILES,
+
+        READ_CLIENT_PROFILES,
+
+        UPDATE_CLIENT_PROFILES,
+
+        DELETE_CLIENT_PROFILES,
+
         CREATE_ORGANIZATION_CLIENTS,
 
         READ_ORGANIZATION_CLIENTS,
@@ -2721,6 +2757,14 @@ public final class OauthScope {
         T visitUpdateVdcsTemplates();
 
         T visitDeleteVdcsTemplates();
+
+        T visitCreateClientProfiles();
+
+        T visitReadClientProfiles();
+
+        T visitUpdateClientProfiles();
+
+        T visitDeleteClientProfiles();
 
         T visitCreateOrganizationClients();
 

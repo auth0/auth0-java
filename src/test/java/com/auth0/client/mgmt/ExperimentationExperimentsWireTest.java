@@ -6,16 +6,13 @@ import com.auth0.client.mgmt.experimentation.types.AdvanceRampRequestContent;
 import com.auth0.client.mgmt.experimentation.types.CreateExperimentRequestContent;
 import com.auth0.client.mgmt.experimentation.types.ListExperimentsRequestParameters;
 import com.auth0.client.mgmt.experimentation.types.UpdateExperimentRequestParameters;
-import com.auth0.client.mgmt.experimentation.types.UpdateExperimentStatusRequestContent;
 import com.auth0.client.mgmt.types.AdvanceRampResponseContent;
 import com.auth0.client.mgmt.types.AuthenticationFlowEnum;
 import com.auth0.client.mgmt.types.CreateExperimentResponseContent;
 import com.auth0.client.mgmt.types.ExperimentListItem;
 import com.auth0.client.mgmt.types.ExperimentStatusEnum;
-import com.auth0.client.mgmt.types.ExperimentTransitionStatusEnum;
 import com.auth0.client.mgmt.types.GetExperimentResponseContent;
 import com.auth0.client.mgmt.types.UpdateExperimentResponseContent;
-import com.auth0.client.mgmt.types.UpdateExperimentStatusResponseContent;
 import com.auth0.client.mgmt.types.ValidateExperimentResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -478,132 +475,6 @@ public class ExperimentationExperimentsWireTest {
                 + "  \"from_level\": 1,\n"
                 + "  \"to_level\": 1,\n"
                 + "  \"current_level\": 1\n"
-                + "}";
-        JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
-        JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
-        Assertions.assertTrue(
-                jsonEquals(expectedResponseNode, actualResponseNode),
-                "Response body structure does not match expected");
-        if (actualResponseNode.has("type") || actualResponseNode.has("_type") || actualResponseNode.has("kind")) {
-            String discriminator = null;
-            if (actualResponseNode.has("type"))
-                discriminator = actualResponseNode.get("type").asText();
-            else if (actualResponseNode.has("_type"))
-                discriminator = actualResponseNode.get("_type").asText();
-            else if (actualResponseNode.has("kind"))
-                discriminator = actualResponseNode.get("kind").asText();
-            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
-            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
-        }
-
-        if (!actualResponseNode.isNull()) {
-            Assertions.assertTrue(
-                    actualResponseNode.isObject() || actualResponseNode.isArray() || actualResponseNode.isValueNode(),
-                    "response should be a valid JSON value");
-        }
-
-        if (actualResponseNode.isArray()) {
-            Assertions.assertTrue(actualResponseNode.size() >= 0, "Array should have valid size");
-        }
-        if (actualResponseNode.isObject()) {
-            Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
-        }
-    }
-
-    @Test
-    public void testUpdateStatus() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"feature_flag_id\":\"feature_flag_id\",\"feature_flag_name\":\"feature_flag_name\",\"authentication_flow\":\"authentication_flow\",\"allocation_strategy\":\"percentage\",\"status\":\"draft\",\"is_valid\":true,\"default_config\":\"tenant\",\"feature_flag_snapshot\":{\"key\":\"value\"},\"allocations\":[{\"variation_id\":\"variation_id\",\"variation_name\":\"variation_name\",\"segment_id\":\"segment_id\",\"segment_name\":\"segment_name\",\"weight\":1,\"priority\":1,\"is_control\":true,\"is_fallback\":true,\"variation_snapshot\":{\"key\":\"value\"},\"segment_snapshot\":{\"key\":\"value\"}}],\"editable_fields\":[\"editable_fields\"],\"levels\":[1],\"current_level\":1,\"started_at\":\"2024-01-15T09:30:00Z\",\"ended_at\":\"2024-01-15T09:30:00Z\",\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
-        UpdateExperimentStatusResponseContent response = client.experimentation()
-                .experiments()
-                .updateStatus(
-                        "id",
-                        UpdateExperimentStatusRequestContent.builder()
-                                .status(ExperimentTransitionStatusEnum.ACTIVE)
-                                .build());
-        RecordedRequest request = server.takeRequest();
-        Assertions.assertNotNull(request);
-        Assertions.assertEquals("POST", request.getMethod());
-        // Validate request body
-        String actualRequestBody = request.getBody().readUtf8();
-        String expectedRequestBody = "" + "{\n" + "  \"status\": \"active\"\n" + "}";
-        JsonNode actualJson = objectMapper.readTree(actualRequestBody);
-        JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
-        Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
-        if (actualJson.has("type") || actualJson.has("_type") || actualJson.has("kind")) {
-            String discriminator = null;
-            if (actualJson.has("type")) discriminator = actualJson.get("type").asText();
-            else if (actualJson.has("_type"))
-                discriminator = actualJson.get("_type").asText();
-            else if (actualJson.has("kind"))
-                discriminator = actualJson.get("kind").asText();
-            Assertions.assertNotNull(discriminator, "Union type should have a discriminator field");
-            Assertions.assertFalse(discriminator.isEmpty(), "Union discriminator should not be empty");
-        }
-
-        if (!actualJson.isNull()) {
-            Assertions.assertTrue(
-                    actualJson.isObject() || actualJson.isArray() || actualJson.isValueNode(),
-                    "request should be a valid JSON value");
-        }
-
-        if (actualJson.isArray()) {
-            Assertions.assertTrue(actualJson.size() >= 0, "Array should have valid size");
-        }
-        if (actualJson.isObject()) {
-            Assertions.assertTrue(actualJson.size() >= 0, "Object should have valid field count");
-        }
-
-        // Validate response body
-        Assertions.assertNotNull(response, "Response should not be null");
-        String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"id\": \"id\",\n"
-                + "  \"name\": \"name\",\n"
-                + "  \"description\": \"description\",\n"
-                + "  \"feature_flag_id\": \"feature_flag_id\",\n"
-                + "  \"feature_flag_name\": \"feature_flag_name\",\n"
-                + "  \"authentication_flow\": \"authentication_flow\",\n"
-                + "  \"allocation_strategy\": \"percentage\",\n"
-                + "  \"status\": \"draft\",\n"
-                + "  \"is_valid\": true,\n"
-                + "  \"default_config\": \"tenant\",\n"
-                + "  \"feature_flag_snapshot\": {\n"
-                + "    \"key\": \"value\"\n"
-                + "  },\n"
-                + "  \"allocations\": [\n"
-                + "    {\n"
-                + "      \"variation_id\": \"variation_id\",\n"
-                + "      \"variation_name\": \"variation_name\",\n"
-                + "      \"segment_id\": \"segment_id\",\n"
-                + "      \"segment_name\": \"segment_name\",\n"
-                + "      \"weight\": 1,\n"
-                + "      \"priority\": 1,\n"
-                + "      \"is_control\": true,\n"
-                + "      \"is_fallback\": true,\n"
-                + "      \"variation_snapshot\": {\n"
-                + "        \"key\": \"value\"\n"
-                + "      },\n"
-                + "      \"segment_snapshot\": {\n"
-                + "        \"key\": \"value\"\n"
-                + "      }\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"editable_fields\": [\n"
-                + "    \"editable_fields\"\n"
-                + "  ],\n"
-                + "  \"levels\": [\n"
-                + "    1\n"
-                + "  ],\n"
-                + "  \"current_level\": 1,\n"
-                + "  \"started_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"ended_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"created_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "  \"updated_at\": \"2024-01-15T09:30:00Z\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);

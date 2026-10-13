@@ -31,6 +31,8 @@ public final class UpdateBruteForceSettingsResponseContent {
 
     private final Optional<Integer> maxAttempts;
 
+    private final Optional<BruteForceProtectionFormSubmissionModeEnum> formSubmissionMode;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateBruteForceSettingsResponseContent(
@@ -39,12 +41,14 @@ public final class UpdateBruteForceSettingsResponseContent {
             Optional<List<String>> allowlist,
             Optional<BruteForceProtectionModeEnum> mode,
             Optional<Integer> maxAttempts,
+            Optional<BruteForceProtectionFormSubmissionModeEnum> formSubmissionMode,
             Map<String, Object> additionalProperties) {
         this.enabled = enabled;
         this.shields = shields;
         this.allowlist = allowlist;
         this.mode = mode;
         this.maxAttempts = maxAttempts;
+        this.formSubmissionMode = formSubmissionMode;
         this.additionalProperties = additionalProperties;
     }
 
@@ -86,6 +90,11 @@ public final class UpdateBruteForceSettingsResponseContent {
         return maxAttempts;
     }
 
+    @JsonProperty("form_submission_mode")
+    public Optional<BruteForceProtectionFormSubmissionModeEnum> getFormSubmissionMode() {
+        return formSubmissionMode;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -103,12 +112,14 @@ public final class UpdateBruteForceSettingsResponseContent {
                 && shields.equals(other.shields)
                 && allowlist.equals(other.allowlist)
                 && mode.equals(other.mode)
-                && maxAttempts.equals(other.maxAttempts);
+                && maxAttempts.equals(other.maxAttempts)
+                && formSubmissionMode.equals(other.formSubmissionMode);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.enabled, this.shields, this.allowlist, this.mode, this.maxAttempts);
+        return Objects.hash(
+                this.enabled, this.shields, this.allowlist, this.mode, this.maxAttempts, this.formSubmissionMode);
     }
 
     @java.lang.Override
@@ -132,6 +143,8 @@ public final class UpdateBruteForceSettingsResponseContent {
 
         private Optional<Integer> maxAttempts = Optional.empty();
 
+        private Optional<BruteForceProtectionFormSubmissionModeEnum> formSubmissionMode = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -143,6 +156,7 @@ public final class UpdateBruteForceSettingsResponseContent {
             allowlist(other.getAllowlist());
             mode(other.getMode());
             maxAttempts(other.getMaxAttempts());
+            formSubmissionMode(other.getFormSubmissionMode());
             return this;
         }
 
@@ -214,9 +228,20 @@ public final class UpdateBruteForceSettingsResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "form_submission_mode", nulls = Nulls.SKIP)
+        public Builder formSubmissionMode(Optional<BruteForceProtectionFormSubmissionModeEnum> formSubmissionMode) {
+            this.formSubmissionMode = formSubmissionMode;
+            return this;
+        }
+
+        public Builder formSubmissionMode(BruteForceProtectionFormSubmissionModeEnum formSubmissionMode) {
+            this.formSubmissionMode = Optional.ofNullable(formSubmissionMode);
+            return this;
+        }
+
         public UpdateBruteForceSettingsResponseContent build() {
             return new UpdateBruteForceSettingsResponseContent(
-                    enabled, shields, allowlist, mode, maxAttempts, additionalProperties);
+                    enabled, shields, allowlist, mode, maxAttempts, formSubmissionMode, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

@@ -145,6 +145,8 @@ public final class UpdateClientResponseContent {
 
     private final Optional<AnonymousSessions> anonymousSessions;
 
+    private final Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding;
+
     private final Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode;
 
     private final Optional<ClientRedirectionPolicyEnum> redirectionPolicy;
@@ -156,6 +158,8 @@ public final class UpdateClientResponseContent {
     private final Optional<ClientExternalMetadataTypeEnum> externalMetadataType;
 
     private final Optional<ClientExternalMetadataCreatedByEnum> externalMetadataCreatedBy;
+
+    private final Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus;
 
     private final Optional<String> externalClientId;
 
@@ -224,12 +228,14 @@ public final class UpdateClientResponseContent {
             Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration,
             Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant,
             Optional<AnonymousSessions> anonymousSessions,
+            Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding,
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
             Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
             Optional<String> resourceServerIdentifier,
             Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             Optional<ClientExternalMetadataTypeEnum> externalMetadataType,
             Optional<ClientExternalMetadataCreatedByEnum> externalMetadataCreatedBy,
+            Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus,
             Optional<String> externalClientId,
             Optional<String> jwksUri,
             Map<String, Object> additionalProperties) {
@@ -293,12 +299,14 @@ public final class UpdateClientResponseContent {
         this.myOrganizationConfiguration = myOrganizationConfiguration;
         this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
         this.anonymousSessions = anonymousSessions;
+        this.enforceAnonSessionTransferNetworkBinding = enforceAnonSessionTransferNetworkBinding;
         this.thirdPartySecurityMode = thirdPartySecurityMode;
         this.redirectionPolicy = redirectionPolicy;
         this.resourceServerIdentifier = resourceServerIdentifier;
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
         this.externalMetadataType = externalMetadataType;
         this.externalMetadataCreatedBy = externalMetadataCreatedBy;
+        this.externalMetadataStatus = externalMetadataStatus;
         this.externalClientId = externalClientId;
         this.jwksUri = jwksUri;
         this.additionalProperties = additionalProperties;
@@ -737,6 +745,11 @@ public final class UpdateClientResponseContent {
         return anonymousSessions;
     }
 
+    @JsonProperty("enforce_anon_session_transfer_network_binding")
+    public Optional<ClientAnonymousSessionTransferNetworkBindingEnum> getEnforceAnonSessionTransferNetworkBinding() {
+        return enforceAnonSessionTransferNetworkBinding;
+    }
+
     @JsonProperty("third_party_security_mode")
     public Optional<ClientThirdPartySecurityModeEnum> getThirdPartySecurityMode() {
         return thirdPartySecurityMode;
@@ -768,6 +781,11 @@ public final class UpdateClientResponseContent {
     @JsonProperty("external_metadata_created_by")
     public Optional<ClientExternalMetadataCreatedByEnum> getExternalMetadataCreatedBy() {
         return externalMetadataCreatedBy;
+    }
+
+    @JsonProperty("external_metadata_status")
+    public Optional<ClientExternalMetadataStatusEnum> getExternalMetadataStatus() {
+        return externalMetadataStatus;
     }
 
     /**
@@ -907,12 +925,14 @@ public final class UpdateClientResponseContent {
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
                 && identityAssertionAuthorizationGrant.equals(other.identityAssertionAuthorizationGrant)
                 && anonymousSessions.equals(other.anonymousSessions)
+                && enforceAnonSessionTransferNetworkBinding.equals(other.enforceAnonSessionTransferNetworkBinding)
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
                 && redirectionPolicy.equals(other.redirectionPolicy)
                 && resourceServerIdentifier.equals(other.resourceServerIdentifier)
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels)
                 && externalMetadataType.equals(other.externalMetadataType)
                 && externalMetadataCreatedBy.equals(other.externalMetadataCreatedBy)
+                && externalMetadataStatus.equals(other.externalMetadataStatus)
                 && externalClientId.equals(other.externalClientId)
                 && jwksUri.equals(other.jwksUri);
     }
@@ -980,12 +1000,14 @@ public final class UpdateClientResponseContent {
                 this.myOrganizationConfiguration,
                 this.identityAssertionAuthorizationGrant,
                 this.anonymousSessions,
+                this.enforceAnonSessionTransferNetworkBinding,
                 this.thirdPartySecurityMode,
                 this.redirectionPolicy,
                 this.resourceServerIdentifier,
                 this.asyncApprovalNotificationChannels,
                 this.externalMetadataType,
                 this.externalMetadataCreatedBy,
+                this.externalMetadataStatus,
                 this.externalClientId,
                 this.jwksUri);
     }
@@ -1122,6 +1144,9 @@ public final class UpdateClientResponseContent {
 
         private Optional<AnonymousSessions> anonymousSessions = Optional.empty();
 
+        private Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding =
+                Optional.empty();
+
         private Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode = Optional.empty();
 
         private Optional<ClientRedirectionPolicyEnum> redirectionPolicy = Optional.empty();
@@ -1134,6 +1159,8 @@ public final class UpdateClientResponseContent {
         private Optional<ClientExternalMetadataTypeEnum> externalMetadataType = Optional.empty();
 
         private Optional<ClientExternalMetadataCreatedByEnum> externalMetadataCreatedBy = Optional.empty();
+
+        private Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus = Optional.empty();
 
         private Optional<String> externalClientId = Optional.empty();
 
@@ -1205,12 +1232,14 @@ public final class UpdateClientResponseContent {
             myOrganizationConfiguration(other.getMyOrganizationConfiguration());
             identityAssertionAuthorizationGrant(other.getIdentityAssertionAuthorizationGrant());
             anonymousSessions(other.getAnonymousSessions());
+            enforceAnonSessionTransferNetworkBinding(other.getEnforceAnonSessionTransferNetworkBinding());
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
             redirectionPolicy(other.getRedirectionPolicy());
             resourceServerIdentifier(other.getResourceServerIdentifier());
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
             externalMetadataType(other.getExternalMetadataType());
             externalMetadataCreatedBy(other.getExternalMetadataCreatedBy());
+            externalMetadataStatus(other.getExternalMetadataStatus());
             externalClientId(other.getExternalClientId());
             jwksUri(other.getJwksUri());
             return this;
@@ -2153,6 +2182,20 @@ public final class UpdateClientResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "enforce_anon_session_transfer_network_binding", nulls = Nulls.SKIP)
+        public Builder enforceAnonSessionTransferNetworkBinding(
+                Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding) {
+            this.enforceAnonSessionTransferNetworkBinding = enforceAnonSessionTransferNetworkBinding;
+            return this;
+        }
+
+        public Builder enforceAnonSessionTransferNetworkBinding(
+                ClientAnonymousSessionTransferNetworkBindingEnum enforceAnonSessionTransferNetworkBinding) {
+            this.enforceAnonSessionTransferNetworkBinding =
+                    Optional.ofNullable(enforceAnonSessionTransferNetworkBinding);
+            return this;
+        }
+
         @JsonSetter(value = "third_party_security_mode", nulls = Nulls.SKIP)
         public Builder thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode) {
             this.thirdPartySecurityMode = thirdPartySecurityMode;
@@ -2222,6 +2265,17 @@ public final class UpdateClientResponseContent {
 
         public Builder externalMetadataCreatedBy(ClientExternalMetadataCreatedByEnum externalMetadataCreatedBy) {
             this.externalMetadataCreatedBy = Optional.ofNullable(externalMetadataCreatedBy);
+            return this;
+        }
+
+        @JsonSetter(value = "external_metadata_status", nulls = Nulls.SKIP)
+        public Builder externalMetadataStatus(Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus) {
+            this.externalMetadataStatus = externalMetadataStatus;
+            return this;
+        }
+
+        public Builder externalMetadataStatus(ClientExternalMetadataStatusEnum externalMetadataStatus) {
+            this.externalMetadataStatus = Optional.ofNullable(externalMetadataStatus);
             return this;
         }
 
@@ -2315,12 +2369,14 @@ public final class UpdateClientResponseContent {
                     myOrganizationConfiguration,
                     identityAssertionAuthorizationGrant,
                     anonymousSessions,
+                    enforceAnonSessionTransferNetworkBinding,
                     thirdPartySecurityMode,
                     redirectionPolicy,
                     resourceServerIdentifier,
                     asyncApprovalNotificationChannels,
                     externalMetadataType,
                     externalMetadataCreatedBy,
+                    externalMetadataStatus,
                     externalClientId,
                     jwksUri,
                     additionalProperties);

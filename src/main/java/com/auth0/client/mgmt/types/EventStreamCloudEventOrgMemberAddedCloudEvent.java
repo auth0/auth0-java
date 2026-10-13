@@ -36,7 +36,7 @@ public final class EventStreamCloudEventOrgMemberAddedCloudEvent {
 
     private final String a0Tenant;
 
-    private final String a0Stream;
+    private final Optional<String> a0Stream;
 
     private final Optional<EventStreamCloudEventA0PurposeEnum> a0Purpose;
 
@@ -50,7 +50,7 @@ public final class EventStreamCloudEventOrgMemberAddedCloudEvent {
             OffsetDateTime time,
             EventStreamCloudEventOrgMemberAddedData data,
             String a0Tenant,
-            String a0Stream,
+            Optional<String> a0Stream,
             Optional<EventStreamCloudEventA0PurposeEnum> a0Purpose,
             Map<String, Object> additionalProperties) {
         this.specversion = specversion;
@@ -114,9 +114,11 @@ public final class EventStreamCloudEventOrgMemberAddedCloudEvent {
 
     /**
      * @return The auth0 event stream ID of the stream the event was delivered on.
+     * Present when the event is delivered via an event stream; omitted when
+     * events are retrieved via the Events API (GET /api/v2/events).
      */
     @JsonProperty("a0stream")
-    public String getA0Stream() {
+    public Optional<String> getA0Stream() {
         return a0Stream;
     }
 
@@ -211,14 +213,7 @@ public final class EventStreamCloudEventOrgMemberAddedCloudEvent {
         /**
          * <p>The auth0 tenant ID to which the event is associated.</p>
          */
-        A0StreamStage a0Tenant(@NotNull String a0Tenant);
-    }
-
-    public interface A0StreamStage {
-        /**
-         * <p>The auth0 event stream ID of the stream the event was delivered on.</p>
-         */
-        _FinalStage a0Stream(@NotNull String a0Stream);
+        _FinalStage a0Tenant(@NotNull String a0Tenant);
     }
 
     public interface _FinalStage {
@@ -227,6 +222,15 @@ public final class EventStreamCloudEventOrgMemberAddedCloudEvent {
         _FinalStage additionalProperty(String key, Object value);
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>The auth0 event stream ID of the stream the event was delivered on.
+         * Present when the event is delivered via an event stream; omitted when
+         * events are retrieved via the Events API (GET /api/v2/events).</p>
+         */
+        _FinalStage a0Stream(Optional<String> a0Stream);
+
+        _FinalStage a0Stream(String a0Stream);
 
         _FinalStage a0Purpose(Optional<EventStreamCloudEventA0PurposeEnum> a0Purpose);
 
@@ -242,7 +246,6 @@ public final class EventStreamCloudEventOrgMemberAddedCloudEvent {
                     TimeStage,
                     DataStage,
                     A0TenantStage,
-                    A0StreamStage,
                     _FinalStage {
         private EventStreamCloudEventSpecVersionEnum specversion;
 
@@ -258,9 +261,9 @@ public final class EventStreamCloudEventOrgMemberAddedCloudEvent {
 
         private String a0Tenant;
 
-        private String a0Stream;
-
         private Optional<EventStreamCloudEventA0PurposeEnum> a0Purpose = Optional.empty();
+
+        private Optional<String> a0Stream = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -341,19 +344,8 @@ public final class EventStreamCloudEventOrgMemberAddedCloudEvent {
          */
         @java.lang.Override
         @JsonSetter("a0tenant")
-        public A0StreamStage a0Tenant(@NotNull String a0Tenant) {
+        public _FinalStage a0Tenant(@NotNull String a0Tenant) {
             this.a0Tenant = Objects.requireNonNull(a0Tenant, "a0Tenant must not be null");
-            return this;
-        }
-
-        /**
-         * <p>The auth0 event stream ID of the stream the event was delivered on.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("a0stream")
-        public _FinalStage a0Stream(@NotNull String a0Stream) {
-            this.a0Stream = Objects.requireNonNull(a0Stream, "a0Stream must not be null");
             return this;
         }
 
@@ -367,6 +359,30 @@ public final class EventStreamCloudEventOrgMemberAddedCloudEvent {
         @JsonSetter(value = "a0purpose", nulls = Nulls.SKIP)
         public _FinalStage a0Purpose(Optional<EventStreamCloudEventA0PurposeEnum> a0Purpose) {
             this.a0Purpose = a0Purpose;
+            return this;
+        }
+
+        /**
+         * <p>The auth0 event stream ID of the stream the event was delivered on.
+         * Present when the event is delivered via an event stream; omitted when
+         * events are retrieved via the Events API (GET /api/v2/events).</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage a0Stream(String a0Stream) {
+            this.a0Stream = Optional.ofNullable(a0Stream);
+            return this;
+        }
+
+        /**
+         * <p>The auth0 event stream ID of the stream the event was delivered on.
+         * Present when the event is delivered via an event stream; omitted when
+         * events are retrieved via the Events API (GET /api/v2/events).</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "a0stream", nulls = Nulls.SKIP)
+        public _FinalStage a0Stream(Optional<String> a0Stream) {
+            this.a0Stream = a0Stream;
             return this;
         }
 

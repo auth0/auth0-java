@@ -10,6 +10,7 @@ import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.Client;
+import com.auth0.client.mgmt.types.ClientSearchResponse;
 import com.auth0.client.mgmt.types.CreateClientRequestContent;
 import com.auth0.client.mgmt.types.CreateClientResponseContent;
 import com.auth0.client.mgmt.types.GetClientRequestParameters;
@@ -20,6 +21,7 @@ import com.auth0.client.mgmt.types.PreviewCimdMetadataResponseContent;
 import com.auth0.client.mgmt.types.RegisterCimdClientRequestContent;
 import com.auth0.client.mgmt.types.RegisterCimdClientResponseContent;
 import com.auth0.client.mgmt.types.RotateClientSecretResponseContent;
+import com.auth0.client.mgmt.types.SearchClientsRequestParameters;
 import com.auth0.client.mgmt.types.UpdateClientRequestContent;
 import com.auth0.client.mgmt.types.UpdateClientResponseContent;
 import java.util.concurrent.CompletableFuture;
@@ -272,6 +274,95 @@ public class AsyncClientsClient {
     public CompletableFuture<RegisterCimdClientResponseContent> registerCimdClient(
             RegisterCimdClientRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.registerCimdClient(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Search clients using SCIM or Lucene filter syntax with low-latency, eventually consistent results.
+     * Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;).
+     * This endpoint provides an alternative to the standard GET /clients endpoint with better performance
+     * for complex queries. Results may not reflect recent updates immediately.
+     * <ul>
+     * <li>This endpoint only supports <code>read:clients</code> and <code>read:client_summary</code> scopes. The <code>read:client_keys</code> and <code>read:client_credentials</code> scopes are not supported.</li>
+     * <li>The following fields are never returned by this endpoint:
+     * <ul>
+     * <li><code>client_secret</code></li>
+     * <li><code>encryption_key</code></li>
+     * <li><code>signing_keys</code></li>
+     * <li><code>owners</code></li>
+     * <li><code>addons</code></li>
+     * </ul>
+     * </li>
+     * </ul>
+     */
+    public CompletableFuture<SyncPagingIterable<ClientSearchResponse>> search() {
+        return this.rawClient.search().thenApply(response -> response.body());
+    }
+
+    /**
+     * Search clients using SCIM or Lucene filter syntax with low-latency, eventually consistent results.
+     * Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;).
+     * This endpoint provides an alternative to the standard GET /clients endpoint with better performance
+     * for complex queries. Results may not reflect recent updates immediately.
+     * <ul>
+     * <li>This endpoint only supports <code>read:clients</code> and <code>read:client_summary</code> scopes. The <code>read:client_keys</code> and <code>read:client_credentials</code> scopes are not supported.</li>
+     * <li>The following fields are never returned by this endpoint:
+     * <ul>
+     * <li><code>client_secret</code></li>
+     * <li><code>encryption_key</code></li>
+     * <li><code>signing_keys</code></li>
+     * <li><code>owners</code></li>
+     * <li><code>addons</code></li>
+     * </ul>
+     * </li>
+     * </ul>
+     */
+    public CompletableFuture<SyncPagingIterable<ClientSearchResponse>> search(RequestOptions requestOptions) {
+        return this.rawClient.search(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Search clients using SCIM or Lucene filter syntax with low-latency, eventually consistent results.
+     * Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;).
+     * This endpoint provides an alternative to the standard GET /clients endpoint with better performance
+     * for complex queries. Results may not reflect recent updates immediately.
+     * <ul>
+     * <li>This endpoint only supports <code>read:clients</code> and <code>read:client_summary</code> scopes. The <code>read:client_keys</code> and <code>read:client_credentials</code> scopes are not supported.</li>
+     * <li>The following fields are never returned by this endpoint:
+     * <ul>
+     * <li><code>client_secret</code></li>
+     * <li><code>encryption_key</code></li>
+     * <li><code>signing_keys</code></li>
+     * <li><code>owners</code></li>
+     * <li><code>addons</code></li>
+     * </ul>
+     * </li>
+     * </ul>
+     */
+    public CompletableFuture<SyncPagingIterable<ClientSearchResponse>> search(SearchClientsRequestParameters request) {
+        return this.rawClient.search(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Search clients using SCIM or Lucene filter syntax with low-latency, eventually consistent results.
+     * Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;).
+     * This endpoint provides an alternative to the standard GET /clients endpoint with better performance
+     * for complex queries. Results may not reflect recent updates immediately.
+     * <ul>
+     * <li>This endpoint only supports <code>read:clients</code> and <code>read:client_summary</code> scopes. The <code>read:client_keys</code> and <code>read:client_credentials</code> scopes are not supported.</li>
+     * <li>The following fields are never returned by this endpoint:
+     * <ul>
+     * <li><code>client_secret</code></li>
+     * <li><code>encryption_key</code></li>
+     * <li><code>signing_keys</code></li>
+     * <li><code>owners</code></li>
+     * <li><code>addons</code></li>
+     * </ul>
+     * </li>
+     * </ul>
+     */
+    public CompletableFuture<SyncPagingIterable<ClientSearchResponse>> search(
+            SearchClientsRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
