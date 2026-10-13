@@ -1293,6 +1293,120 @@ client.clientGrants().create(
 </dl>
 </details>
 
+<details><summary><code>client.clientGrants.search() -> SyncPagingIterable&amp;lt;ClientGrantResponseContent&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search client grants using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene"). This endpoint provides an alternative to the standard GET /client-grants endpoint with better performance for complex queries.
+Results may not reflect recent updates immediately.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.clientGrants().search(
+    SearchClientGrantsRequestParameters
+        .builder()
+        .q("q")
+        .parser(SearchParserEnum.SCIM)
+        .fields("fields")
+        .includeFields(true)
+        .take(1)
+        .from("from")
+        .sort(ClientGrantSortFieldEnum.AUDIENCE)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**q:** `Optional<String>` — Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `audience eq "https://api.example.com"`, `client_id eq "cli_abc"`, `subject_type eq "client"`, `allow_any_organization eq true`, `default_for eq "third_party_clients"`, `audience co "example" and organization_id eq "org_123"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>audience</i> - Filter by audience (eq, ne, sw, co, ew, pr)</li><li><i>client_id</i> - Filter by client ID (eq, ne, sw, pr)</li><li><i>subject_type</i> - Filter by subject type (eq, ne, sw, pr)</li><li><i>allow_any_organization</i> - Filter by allow_any_organization (eq, ne, pr)</li><li><i>organization_id</i> - Filter by organization ID (eq, ne, sw, pr)</li><li><i>updated_at</i> - Filter by last update date (eq, ne, gt, ge, lt, le, pr)</li><li><i>default_for</i> - Filter by default grant group (eq, ne, sw, pr)</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parser:** `Optional<SearchParserEnum>` — Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `Optional<String>` — Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeFields:** `Optional<Boolean>` — Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Maximum number of results to return per page (1-100). Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Cursor for the next page of results. Use the value from the next field in the previous response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort:** `Optional<ClientGrantSortFieldEnum>` — Field name to sort results by in ascending order. Defaults to insertion order (oldest first) if not provided.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.clientGrants.get(id) -> GetClientGrantResponseContent</code></summary>
 <dl>
 <dd>
@@ -1490,6 +1604,369 @@ client.clientGrants().update(
 <dd>
 
 **allowAllScopes:** `Optional<Boolean>` — If enabled, all scopes configured on the resource server are allowed for this grant.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## ClientProfiles
+<details><summary><code>client.clientProfiles.list() -> SyncPagingIterable&amp;lt;ClientProfile&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of client profiles for the tenant. Uses checkpoint pagination: pass the <code>next</code> cursor from a previous response as the <code>from</code> query parameter to retrieve the following page.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.clientProfiles().list(
+    ListClientProfilesRequestParameters
+        .builder()
+        .from("from")
+        .take(1)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clientProfiles.create(request) -> ClientProfile</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a client profile. At most one profile is allowed per tenant in this release; attempting to create a second returns <code>409 Conflict</code>. The profile governs Dynamic CIMD clients matched by its <code>apply_policy</code> at runtime.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.clientProfiles().create(
+    CreateClientProfileRequestContent
+        .builder()
+        .name("name")
+        .clientConfiguration(
+            ClientProfileClientConfiguration
+                .builder()
+                .build()
+        )
+        .applyPolicy(
+            ClientProfileApplyPolicy
+                .builder()
+                .externalMetadataType(ClientProfileApplyPolicyExternalMetadataTypeEnum.CIMD)
+                .externalMetadataCreatedBy(ClientProfileApplyPolicyExternalMetadataCreatedByEnum.CLIENT)
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**clientConfiguration:** `ClientProfileClientConfiguration` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**applyPolicy:** `ClientProfileApplyPolicy` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clientProfiles.get(id) -> ClientProfile</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a single client profile by its identifier. Returns <code>404</code> if no profile with the given ID exists for the tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.clientProfiles().get("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the client profile.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clientProfiles.delete(id)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a client profile. Idempotent: returns <code>204 No Content</code> whether or not a profile with the given ID existed. Deleting the profile removes fleet governance for matched clients immediately.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.clientProfiles().delete("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the client profile.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clientProfiles.update(id, request) -> ClientProfile</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a client profile. Supports partial updates at the top level (JSON Merge Patch); omitted top-level fields remain unchanged. Nested objects such as <code>client_configuration</code> must be supplied in full.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.clientProfiles().update(
+    "id",
+    UpdateClientProfileRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the client profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**clientConfiguration:** `Optional<ClientProfileClientConfiguration>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**applyPolicy:** `Optional<ClientProfileApplyPolicy>` 
     
 </dd>
 </dl>
@@ -2146,6 +2623,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dl>
 <dd>
 
+**enforceAnonSessionTransferNetworkBinding:** `Optional<ClientAnonymousSessionTransferNetworkBindingEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **thirdPartySecurityMode:** `Optional<ClientThirdPartySecurityModeEnum>` 
     
 </dd>
@@ -2327,6 +2812,130 @@ client.clients().registerCimdClient(
 <dd>
 
 **externalClientId:** `String` — URL to the Client ID Metadata Document. Acts as the unique identifier for upsert operations.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clients.search() -> SyncPagingIterable&amp;lt;ClientSearchResponse&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search clients using SCIM or Lucene filter syntax with low-latency, eventually consistent results.
+Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene").
+This endpoint provides an alternative to the standard GET /clients endpoint with better performance
+for complex queries. Results may not reflect recent updates immediately.
+
+- This endpoint only supports `read:clients` and `read:client_summary` scopes. The `read:client_keys` and `read:client_credentials` scopes are not supported.
+- The following fields are never returned by this endpoint:
+  - `client_secret`
+  - `encryption_key`
+  - `signing_keys`
+  - `owners`
+  - `addons`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.clients().search(
+    SearchClientsRequestParameters
+        .builder()
+        .q("q")
+        .parser(SearchParserEnum.SCIM)
+        .fields("fields")
+        .includeFields(true)
+        .take(1)
+        .from("from")
+        .sort(ClientSortFieldEnum.NAME)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**q:** `Optional<String>` — Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `name eq "Auth0"`, `name sw "auth" and app_type eq "spa"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<br /><ul><li><i>client_id</i> - Auth0 client ID (case-sensitive, exact match)</li><li><i>external_client_id</i> - URL of the Client ID Metadata Document (CIMD); case-sensitive, exact match</li><li><i>name</i> - Client name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>app_type</i> - Application type (e.g. "spa", "native", "non_interactive")</li><li><i>is_first_party</i> - Whether the client is first-party (boolean)</li><li><i>updated_at</i> - Last update timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by client metadata key-value pairs (max 2-level key depth, values indexed up to 64 characters)</li><li><i>client_grant.organization_id</i> - Filter by associated organization ID</li><li><i>client_grant.allow_any_organization</i> - Filter by allow any organization setting</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parser:** `Optional<SearchParserEnum>` — Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `Optional<String>` — Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode. Maximum 50 fields.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeFields:** `Optional<Boolean>` — Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `Optional<Integer>` — Maximum number of results to return per page (1-100). Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `Optional<String>` — Cursor for the next page of results. Use the value from the next field in the previous response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort:** `Optional<ClientSortFieldEnum>` — Field name to sort results by in ascending order. Defaults to insertion order (oldest first) if not provided.
     
 </dd>
 </dl>
@@ -2803,6 +3412,14 @@ client.clients().update(
 <dl>
 <dd>
 
+**enforceAnonSessionTransferNetworkBinding:** `Optional<ClientAnonymousSessionTransferNetworkBindingEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **formTemplate:** `Optional<String>` — Form template for WS-Federation protocol
     
 </dd>
@@ -3016,6 +3633,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dd>
 
 **redirectionPolicy:** `Optional<ClientRedirectionPolicyEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**oidcSupport:** `Optional<ClientOidcSupportPatch>` 
     
 </dd>
 </dl>
@@ -5174,6 +5799,21 @@ client.emailTemplates().create(
     CreateEmailTemplateRequestContent
         .builder()
         .template(EmailTemplateNameEnum.VERIFY_EMAIL)
+        .body(
+            Nullable.ofNull()
+        )
+        .from(
+            Nullable.ofNull()
+        )
+        .subject(
+            Nullable.ofNull()
+        )
+        .syntax(
+            Nullable.ofNull()
+        )
+        .enabled(
+            Nullable.ofNull()
+        )
         .build()
 );
 ```
@@ -5352,6 +5992,21 @@ client.emailTemplates().set(
     SetEmailTemplateRequestContent
         .builder()
         .template(EmailTemplateNameEnum.VERIFY_EMAIL)
+        .body(
+            Nullable.ofNull()
+        )
+        .from(
+            Nullable.ofNull()
+        )
+        .subject(
+            Nullable.ofNull()
+        )
+        .syntax(
+            Nullable.ofNull()
+        )
+        .enabled(
+            Nullable.ofNull()
+        )
         .build()
 );
 ```
@@ -7001,7 +7656,7 @@ client.groups().list(
 <dl>
 <dd>
 
-**includeTotals:** `Optional<Boolean>` — Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+**includeTotals:** `Optional<Boolean>` — Return results inside an object that contains the total result count (true) or as a direct array of results (false, default). The returned total reflects at most 1,000 results.
     
 </dd>
 </dl>
@@ -11394,7 +12049,7 @@ client.resourceServers().update(
 <dl>
 <dd>
 
-Retrieve detailed list of user roles created in your tenant.
+Retrieve a list of roles. Includes roles created in your tenant and, when `owner_id=auth0` is supplied, Auth0-managed System Roles.
 
 **Note**: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
 </dd>
@@ -11476,7 +12131,7 @@ client.roles().list(
 <dl>
 <dd>
 
-**ownerId:** `Optional<String>` — Filter organization-level roles by owner ID. Required when type is "organization".
+**ownerId:** `Optional<String>` — Filter organization-level roles by owner ID. Use an organization ID to filter that organization's roles, or "auth0" to retrieve Auth0-managed System Roles. Required when type is "organization".
     
 </dd>
 </dl>
@@ -17104,6 +17759,14 @@ Action to take when a brute force protection threshold is violated.
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**formSubmissionMode:** `Optional<BruteForceProtectionFormSubmissionModeEnum>` 
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -17255,6 +17918,355 @@ client.attackProtection().captcha().update(
 <dd>
 
 **simpleCaptcha:** `Optional<Map<String, Object>>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## AttackProtection CaptchaPolicies
+<details><summary><code>client.attackProtection.captchaPolicies.list() -> List&amp;lt;AttackProtectionCaptchaPolicy&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve all CAPTCHA attack protection policies for the tenant, sorted by priority ascending.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.attackProtection().captchaPolicies().list();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.attackProtection.captchaPolicies.create(request) -> AttackProtectionCaptchaPolicy</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new CAPTCHA attack protection policy for the tenant. The maximum number of policies per tenant is determined by the tenant's subscription.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.attackProtection().captchaPolicies().create(
+    CreateAttackProtectionCaptchaPolicyRequestContent
+        .builder()
+        .name("name")
+        .priority(1)
+        .match(
+            AttackProtectionCaptchaPolicyMatch
+                .builder()
+                .build()
+        )
+        .action(
+            AttackProtectionCaptchaPolicyActionInput
+                .builder()
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `String` — Human-readable policy name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `Optional<String>` — Description of the attack protection policy.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**priority:** `Integer` — Conflict resolution order. Lower number takes higher precedence. Must be unique per tenant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**match:** `AttackProtectionCaptchaPolicyMatch` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**action:** `AttackProtectionCaptchaPolicyActionInput` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.attackProtection.captchaPolicies.get(id) -> AttackProtectionCaptchaPolicy</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a single CAPTCHA attack protection policy for the tenant by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.attackProtection().captchaPolicies().get("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the CAPTCHA attack protection policy.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.attackProtection.captchaPolicies.delete(id)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a CAPTCHA attack protection policy for the tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.attackProtection().captchaPolicies().delete("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the CAPTCHA attack protection policy.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.attackProtection.captchaPolicies.update(id, request) -> AttackProtectionCaptchaPolicy</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Partially update a CAPTCHA attack protection policy. Only the provided fields are modified. A provided match or action replaces the stored value in full rather than merging with it; within action, a provider secret or API key that is omitted from a provided provider block keeps its stored value.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.attackProtection().captchaPolicies().update(
+    "id",
+    UpdateAttackProtectionCaptchaPolicyRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — ID of the CAPTCHA attack protection policy.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `Optional<String>` — Human-readable policy name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `Optional<String>` — Description of the policy's purpose.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**priority:** `Optional<Integer>` — Conflict resolution order. Lower number takes higher precedence. Must be unique per tenant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**match:** `Optional<AttackProtectionCaptchaPolicyMatch>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**action:** `Optional<AttackProtectionCaptchaPolicyActionInput>` 
     
 </dd>
 </dl>
@@ -22342,6 +23354,14 @@ client.experimentation().experiments().update(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**status:** `Optional<ExperimentTransitionStatusEnum>` 
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -22407,74 +23427,6 @@ client.experimentation().experiments().advanceRamp(
 <dd>
 
 **targetLevel:** `Integer` — The target percentage level from the experiment schedule. Must be the immediate next level.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.experimentation.experiments.updateStatus(id, request) -> UpdateExperimentStatusResponseContent</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.experimentation().experiments().updateStatus(
-    "id",
-    UpdateExperimentStatusRequestContent
-        .builder()
-        .status(ExperimentTransitionStatusEnum.ACTIVE)
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `String` — The ID of the experiment to transition.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `ExperimentTransitionStatusEnum` 
     
 </dd>
 </dl>
@@ -22888,71 +23840,11 @@ client.experimentation().featureFlags().update(
     
 </dd>
 </dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.experimentation.featureFlags.updateStatus(id, request) -> UpdateFeatureFlagStatusResponseContent</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
 
 <dl>
 <dd>
 
-<dl>
-<dd>
-
-Transitions a feature flag through its lifecycle states: draft → active, draft → archived, active → archived.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.experimentation().featureFlags().updateStatus(
-    "id",
-    UpdateFeatureFlagStatusRequestContent
-        .builder()
-        .status(FeatureFlagStatusEnum.DRAFT)
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `String` — The ID of the feature flag to transition.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `FeatureFlagStatusEnum` — The target status to transition the feature flag to.
+**status:** `Optional<FeatureFlagStatusEnum>` — Target lifecycle status (draft → active, draft → archived, active → archived). Activating a flag requires at least 2 variations. When combined with field edits, the edits and the transition are applied together; if the transition is rejected, no edits are applied.
     
 </dd>
 </dl>
@@ -23304,6 +24196,14 @@ client.experimentation().segments().update(
 <dd>
 
 **rules:** `Optional<List<SegmentRule>>` — Replaces the entire rules array. Each rule is limited to 4KB and the whole segment to 10KB (serialized).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `Optional<SegmentStatusEnum>` — Target lifecycle status. Archiving removes the segment from the active pool and is terminal (an archived segment cannot return to active). When combined with field edits, the edits apply first and the transition follows.
     
 </dd>
 </dl>
@@ -33846,6 +34746,14 @@ client.tenants().settings().update(
 <dl>
 <dd>
 
+**dpopStrictRefreshTokenBinding:** `Optional<Boolean>` — Enables strict DPoP refresh token binding per RFC 9449: all refresh tokens issued to public clients that present a DPoP proof are bound to the sender's key, and the binding is validated on every subsequent exchange. When disabled, DPoP refresh token binding may still apply for specific audiences for backwards compatibility.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **skipNonVerifiableCallbackUriConfirmationPrompt:** `Optional<Boolean>` 
 
 Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as `myapp://`, or `localhost`).
@@ -33867,6 +34775,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dd>
 
 **clientIdMetadataDocumentSupported:** `Optional<Boolean>` — Whether the authorization server supports retrieving client metadata from a client_id URL.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**clientIdMetadataDocumentDynamicRegistrationSupported:** `Optional<Boolean>` — Whether the authorization server supports registering clients dynamically from a client_id URL. Requires client_id_metadata_document_supported to be enabled.
     
 </dd>
 </dl>

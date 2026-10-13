@@ -20,19 +20,19 @@ import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = UpdateFeatureFlagStatusResponseContent.Builder.class)
-public final class UpdateFeatureFlagStatusResponseContent {
+@JsonDeserialize(builder = AttackProtectionCaptchaPolicy.Builder.class)
+public final class AttackProtectionCaptchaPolicy {
     private final String id;
 
     private final String name;
 
     private final Optional<String> description;
 
-    private final FeatureFlagTypeEnum type;
+    private final int priority;
 
-    private final FeatureFlagStatusEnum status;
+    private final AttackProtectionCaptchaPolicyMatch match;
 
-    private final Optional<Map<String, FeatureFlagConfigParam>> parameters;
+    private final AttackProtectionCaptchaPolicyAction action;
 
     private final OffsetDateTime createdAt;
 
@@ -40,62 +40,80 @@ public final class UpdateFeatureFlagStatusResponseContent {
 
     private final Map<String, Object> additionalProperties;
 
-    private UpdateFeatureFlagStatusResponseContent(
+    private AttackProtectionCaptchaPolicy(
             String id,
             String name,
             Optional<String> description,
-            FeatureFlagTypeEnum type,
-            FeatureFlagStatusEnum status,
-            Optional<Map<String, FeatureFlagConfigParam>> parameters,
+            int priority,
+            AttackProtectionCaptchaPolicyMatch match,
+            AttackProtectionCaptchaPolicyAction action,
             OffsetDateTime createdAt,
             OffsetDateTime updatedAt,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.type = type;
-        this.status = status;
-        this.parameters = parameters;
+        this.priority = priority;
+        this.match = match;
+        this.action = action;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return System-generated identifier for the policy.
+     */
     @JsonProperty("id")
     public String getId() {
         return id;
     }
 
+    /**
+     * @return Human-readable policy name.
+     */
     @JsonProperty("name")
     public String getName() {
         return name;
     }
 
+    /**
+     * @return Description of the policy's purpose.
+     */
     @JsonProperty("description")
     public Optional<String> getDescription() {
         return description;
     }
 
-    @JsonProperty("type")
-    public FeatureFlagTypeEnum getType() {
-        return type;
+    /**
+     * @return Conflict resolution order. Lower number takes higher precedence.
+     */
+    @JsonProperty("priority")
+    public int getPriority() {
+        return priority;
     }
 
-    @JsonProperty("status")
-    public FeatureFlagStatusEnum getStatus() {
-        return status;
+    @JsonProperty("match")
+    public AttackProtectionCaptchaPolicyMatch getMatch() {
+        return match;
     }
 
-    @JsonProperty("parameters")
-    public Optional<Map<String, FeatureFlagConfigParam>> getParameters() {
-        return parameters;
+    @JsonProperty("action")
+    public AttackProtectionCaptchaPolicyAction getAction() {
+        return action;
     }
 
+    /**
+     * @return ISO 8601 timestamp when the policy was created.
+     */
     @JsonProperty("created_at")
     public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
 
+    /**
+     * @return ISO 8601 timestamp when the policy was last updated.
+     */
     @JsonProperty("updated_at")
     public OffsetDateTime getUpdatedAt() {
         return updatedAt;
@@ -104,8 +122,7 @@ public final class UpdateFeatureFlagStatusResponseContent {
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof UpdateFeatureFlagStatusResponseContent
-                && equalTo((UpdateFeatureFlagStatusResponseContent) other);
+        return other instanceof AttackProtectionCaptchaPolicy && equalTo((AttackProtectionCaptchaPolicy) other);
     }
 
     @JsonAnyGetter
@@ -113,13 +130,13 @@ public final class UpdateFeatureFlagStatusResponseContent {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(UpdateFeatureFlagStatusResponseContent other) {
+    private boolean equalTo(AttackProtectionCaptchaPolicy other) {
         return id.equals(other.id)
                 && name.equals(other.name)
                 && description.equals(other.description)
-                && type.equals(other.type)
-                && status.equals(other.status)
-                && parameters.equals(other.parameters)
+                && priority == other.priority
+                && match.equals(other.match)
+                && action.equals(other.action)
                 && createdAt.equals(other.createdAt)
                 && updatedAt.equals(other.updatedAt);
     }
@@ -130,9 +147,9 @@ public final class UpdateFeatureFlagStatusResponseContent {
                 this.id,
                 this.name,
                 this.description,
-                this.type,
-                this.status,
-                this.parameters,
+                this.priority,
+                this.match,
+                this.action,
                 this.createdAt,
                 this.updatedAt);
     }
@@ -147,63 +164,88 @@ public final class UpdateFeatureFlagStatusResponseContent {
     }
 
     public interface IdStage {
+        /**
+         * <p>System-generated identifier for the policy.</p>
+         */
         NameStage id(@NotNull String id);
 
-        Builder from(UpdateFeatureFlagStatusResponseContent other);
+        Builder from(AttackProtectionCaptchaPolicy other);
     }
 
     public interface NameStage {
-        TypeStage name(@NotNull String name);
+        /**
+         * <p>Human-readable policy name.</p>
+         */
+        PriorityStage name(@NotNull String name);
     }
 
-    public interface TypeStage {
-        StatusStage type(@NotNull FeatureFlagTypeEnum type);
+    public interface PriorityStage {
+        /**
+         * <p>Conflict resolution order. Lower number takes higher precedence.</p>
+         */
+        MatchStage priority(int priority);
     }
 
-    public interface StatusStage {
-        CreatedAtStage status(@NotNull FeatureFlagStatusEnum status);
+    public interface MatchStage {
+        ActionStage match(@NotNull AttackProtectionCaptchaPolicyMatch match);
+    }
+
+    public interface ActionStage {
+        CreatedAtStage action(@NotNull AttackProtectionCaptchaPolicyAction action);
     }
 
     public interface CreatedAtStage {
+        /**
+         * <p>ISO 8601 timestamp when the policy was created.</p>
+         */
         UpdatedAtStage createdAt(@NotNull OffsetDateTime createdAt);
     }
 
     public interface UpdatedAtStage {
+        /**
+         * <p>ISO 8601 timestamp when the policy was last updated.</p>
+         */
         _FinalStage updatedAt(@NotNull OffsetDateTime updatedAt);
     }
 
     public interface _FinalStage {
-        UpdateFeatureFlagStatusResponseContent build();
+        AttackProtectionCaptchaPolicy build();
 
         _FinalStage additionalProperty(String key, Object value);
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
+        /**
+         * <p>Description of the policy's purpose.</p>
+         */
         _FinalStage description(Optional<String> description);
 
         _FinalStage description(String description);
-
-        _FinalStage parameters(Optional<Map<String, FeatureFlagConfigParam>> parameters);
-
-        _FinalStage parameters(Map<String, FeatureFlagConfigParam> parameters);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder
-            implements IdStage, NameStage, TypeStage, StatusStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
+            implements IdStage,
+                    NameStage,
+                    PriorityStage,
+                    MatchStage,
+                    ActionStage,
+                    CreatedAtStage,
+                    UpdatedAtStage,
+                    _FinalStage {
         private String id;
 
         private String name;
 
-        private FeatureFlagTypeEnum type;
+        private int priority;
 
-        private FeatureFlagStatusEnum status;
+        private AttackProtectionCaptchaPolicyMatch match;
+
+        private AttackProtectionCaptchaPolicyAction action;
 
         private OffsetDateTime createdAt;
 
         private OffsetDateTime updatedAt;
-
-        private Optional<Map<String, FeatureFlagConfigParam>> parameters = Optional.empty();
 
         private Optional<String> description = Optional.empty();
 
@@ -213,18 +255,22 @@ public final class UpdateFeatureFlagStatusResponseContent {
         private Builder() {}
 
         @java.lang.Override
-        public Builder from(UpdateFeatureFlagStatusResponseContent other) {
+        public Builder from(AttackProtectionCaptchaPolicy other) {
             id(other.getId());
             name(other.getName());
             description(other.getDescription());
-            type(other.getType());
-            status(other.getStatus());
-            parameters(other.getParameters());
+            priority(other.getPriority());
+            match(other.getMatch());
+            action(other.getAction());
             createdAt(other.getCreatedAt());
             updatedAt(other.getUpdatedAt());
             return this;
         }
 
+        /**
+         * <p>System-generated identifier for the policy.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("id")
         public NameStage id(@NotNull String id) {
@@ -232,27 +278,46 @@ public final class UpdateFeatureFlagStatusResponseContent {
             return this;
         }
 
+        /**
+         * <p>Human-readable policy name.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("name")
-        public TypeStage name(@NotNull String name) {
+        public PriorityStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
             return this;
         }
 
+        /**
+         * <p>Conflict resolution order. Lower number takes higher precedence.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
-        @JsonSetter("type")
-        public StatusStage type(@NotNull FeatureFlagTypeEnum type) {
-            this.type = Objects.requireNonNull(type, "type must not be null");
+        @JsonSetter("priority")
+        public MatchStage priority(int priority) {
+            this.priority = priority;
             return this;
         }
 
         @java.lang.Override
-        @JsonSetter("status")
-        public CreatedAtStage status(@NotNull FeatureFlagStatusEnum status) {
-            this.status = Objects.requireNonNull(status, "status must not be null");
+        @JsonSetter("match")
+        public ActionStage match(@NotNull AttackProtectionCaptchaPolicyMatch match) {
+            this.match = Objects.requireNonNull(match, "match must not be null");
             return this;
         }
 
+        @java.lang.Override
+        @JsonSetter("action")
+        public CreatedAtStage action(@NotNull AttackProtectionCaptchaPolicyAction action) {
+            this.action = Objects.requireNonNull(action, "action must not be null");
+            return this;
+        }
+
+        /**
+         * <p>ISO 8601 timestamp when the policy was created.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("created_at")
         public UpdatedAtStage createdAt(@NotNull OffsetDateTime createdAt) {
@@ -260,6 +325,10 @@ public final class UpdateFeatureFlagStatusResponseContent {
             return this;
         }
 
+        /**
+         * <p>ISO 8601 timestamp when the policy was last updated.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("updated_at")
         public _FinalStage updatedAt(@NotNull OffsetDateTime updatedAt) {
@@ -267,25 +336,19 @@ public final class UpdateFeatureFlagStatusResponseContent {
             return this;
         }
 
-        @java.lang.Override
-        public _FinalStage parameters(Map<String, FeatureFlagConfigParam> parameters) {
-            this.parameters = Optional.ofNullable(parameters);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "parameters", nulls = Nulls.SKIP)
-        public _FinalStage parameters(Optional<Map<String, FeatureFlagConfigParam>> parameters) {
-            this.parameters = parameters;
-            return this;
-        }
-
+        /**
+         * <p>Description of the policy's purpose.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage description(String description) {
             this.description = Optional.ofNullable(description);
             return this;
         }
 
+        /**
+         * <p>Description of the policy's purpose.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public _FinalStage description(Optional<String> description) {
@@ -294,9 +357,9 @@ public final class UpdateFeatureFlagStatusResponseContent {
         }
 
         @java.lang.Override
-        public UpdateFeatureFlagStatusResponseContent build() {
-            return new UpdateFeatureFlagStatusResponseContent(
-                    id, name, description, type, status, parameters, createdAt, updatedAt, additionalProperties);
+        public AttackProtectionCaptchaPolicy build() {
+            return new AttackProtectionCaptchaPolicy(
+                    id, name, description, priority, match, action, createdAt, updatedAt, additionalProperties);
         }
 
         @java.lang.Override

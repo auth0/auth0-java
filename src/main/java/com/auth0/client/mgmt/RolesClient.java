@@ -46,7 +46,7 @@ public class RolesClient {
     }
 
     /**
-     * Retrieve detailed list of user roles created in your tenant.
+     * Retrieve a list of roles. Includes roles created in your tenant and, when <code>owner_id=auth0</code> is supplied, Auth0-managed System Roles.
      * <p><strong>Note</strong>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public SyncPagingIterable<Role> list() {
@@ -54,7 +54,7 @@ public class RolesClient {
     }
 
     /**
-     * Retrieve detailed list of user roles created in your tenant.
+     * Retrieve a list of roles. Includes roles created in your tenant and, when <code>owner_id=auth0</code> is supplied, Auth0-managed System Roles.
      * <p><strong>Note</strong>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public SyncPagingIterable<Role> list(RequestOptions requestOptions) {
@@ -62,7 +62,7 @@ public class RolesClient {
     }
 
     /**
-     * Retrieve detailed list of user roles created in your tenant.
+     * Retrieve a list of roles. Includes roles created in your tenant and, when <code>owner_id=auth0</code> is supplied, Auth0-managed System Roles.
      * <p><strong>Note</strong>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public SyncPagingIterable<Role> list(ListRolesRequestParameters request) {
@@ -70,7 +70,7 @@ public class RolesClient {
     }
 
     /**
-     * Retrieve detailed list of user roles created in your tenant.
+     * Retrieve a list of roles. Includes roles created in your tenant and, when <code>owner_id=auth0</code> is supplied, Auth0-managed System Roles.
      * <p><strong>Note</strong>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.</p>
      */
     public SyncPagingIterable<Role> list(ListRolesRequestParameters request, RequestOptions requestOptions) {

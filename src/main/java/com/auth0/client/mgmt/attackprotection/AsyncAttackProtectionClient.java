@@ -18,6 +18,8 @@ public class AsyncAttackProtectionClient {
 
     protected final Supplier<AsyncCaptchaClient> captchaClient;
 
+    protected final Supplier<AsyncCaptchaPoliciesClient> captchaPoliciesClient;
+
     protected final Supplier<AsyncPhoneProviderProtectionClient> phoneProviderProtectionClient;
 
     protected final Supplier<AsyncSuspiciousIpThrottlingClient> suspiciousIpThrottlingClient;
@@ -29,6 +31,7 @@ public class AsyncAttackProtectionClient {
                 Suppliers.memoize(() -> new AsyncBreachedPasswordDetectionClient(clientOptions));
         this.bruteForceProtectionClient = Suppliers.memoize(() -> new AsyncBruteForceProtectionClient(clientOptions));
         this.captchaClient = Suppliers.memoize(() -> new AsyncCaptchaClient(clientOptions));
+        this.captchaPoliciesClient = Suppliers.memoize(() -> new AsyncCaptchaPoliciesClient(clientOptions));
         this.phoneProviderProtectionClient =
                 Suppliers.memoize(() -> new AsyncPhoneProviderProtectionClient(clientOptions));
         this.suspiciousIpThrottlingClient =
@@ -49,6 +52,10 @@ public class AsyncAttackProtectionClient {
 
     public AsyncCaptchaClient captcha() {
         return this.captchaClient.get();
+    }
+
+    public AsyncCaptchaPoliciesClient captchaPolicies() {
+        return this.captchaPoliciesClient.get();
     }
 
     public AsyncPhoneProviderProtectionClient phoneProviderProtection() {

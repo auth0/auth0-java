@@ -40,7 +40,7 @@ public class AttackProtectionBruteForceProtectionWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"enabled\":true,\"shields\":[\"block\"],\"allowlist\":[\"allowlist\"],\"mode\":\"count_per_identifier_and_ip\",\"max_attempts\":1}"));
+                                "{\"enabled\":true,\"shields\":[\"block\"],\"allowlist\":[\"allowlist\"],\"mode\":\"count_per_identifier_and_ip\",\"max_attempts\":1,\"form_submission_mode\":\"auto\"}"));
         GetBruteForceSettingsResponseContent response =
                 client.attackProtection().bruteForceProtection().get();
         RecordedRequest request = server.takeRequest();
@@ -60,7 +60,8 @@ public class AttackProtectionBruteForceProtectionWireTest {
                 + "    \"allowlist\"\n"
                 + "  ],\n"
                 + "  \"mode\": \"count_per_identifier_and_ip\",\n"
-                + "  \"max_attempts\": 1\n"
+                + "  \"max_attempts\": 1,\n"
+                + "  \"form_submission_mode\": \"auto\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
@@ -99,7 +100,7 @@ public class AttackProtectionBruteForceProtectionWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"enabled\":true,\"shields\":[\"block\"],\"allowlist\":[\"allowlist\"],\"mode\":\"count_per_identifier_and_ip\",\"max_attempts\":1}"));
+                                "{\"enabled\":true,\"shields\":[\"block\"],\"allowlist\":[\"allowlist\"],\"mode\":\"count_per_identifier_and_ip\",\"max_attempts\":1,\"form_submission_mode\":\"auto\"}"));
         UpdateBruteForceSettingsResponseContent response = client.attackProtection()
                 .bruteForceProtection()
                 .update(UpdateBruteForceSettingsRequestContent.builder().build());
@@ -149,7 +150,8 @@ public class AttackProtectionBruteForceProtectionWireTest {
                 + "    \"allowlist\"\n"
                 + "  ],\n"
                 + "  \"mode\": \"count_per_identifier_and_ip\",\n"
-                + "  \"max_attempts\": 1\n"
+                + "  \"max_attempts\": 1,\n"
+                + "  \"form_submission_mode\": \"auto\"\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);

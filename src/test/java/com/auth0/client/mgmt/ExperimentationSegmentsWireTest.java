@@ -48,7 +48,7 @@ public class ExperimentationSegmentsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"segments\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\"}"));
+                                "{\"segments\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"status\":\"active\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\"}"));
         SyncPagingIterable<Segment> response = client.experimentation()
                 .segments()
                 .list(ListSegmentsRequestParameters.builder()
@@ -72,7 +72,7 @@ public class ExperimentationSegmentsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"status\":\"active\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
         CreateSegmentResponseContent response = client.experimentation()
                 .segments()
                 .create(CreateSegmentRequestContent.builder()
@@ -122,6 +122,7 @@ public class ExperimentationSegmentsWireTest {
                 + "  \"name\": \"name\",\n"
                 + "  \"description\": \"description\",\n"
                 + "  \"type\": \"self\",\n"
+                + "  \"status\": \"active\",\n"
                 + "  \"rules\": [\n"
                 + "    {}\n"
                 + "  ],\n"
@@ -165,7 +166,7 @@ public class ExperimentationSegmentsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"status\":\"active\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
         GetSegmentResponseContent response = client.experimentation().segments().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -180,6 +181,7 @@ public class ExperimentationSegmentsWireTest {
                 + "  \"name\": \"name\",\n"
                 + "  \"description\": \"description\",\n"
                 + "  \"type\": \"self\",\n"
+                + "  \"status\": \"active\",\n"
                 + "  \"rules\": [\n"
                 + "    {}\n"
                 + "  ],\n"
@@ -232,7 +234,7 @@ public class ExperimentationSegmentsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"status\":\"active\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
         UpdateSegmentResponseContent response = client.experimentation()
                 .segments()
                 .update("id", UpdateSegmentRequestContent.builder().build());
@@ -278,6 +280,7 @@ public class ExperimentationSegmentsWireTest {
                 + "  \"name\": \"name\",\n"
                 + "  \"description\": \"description\",\n"
                 + "  \"type\": \"self\",\n"
+                + "  \"status\": \"active\",\n"
                 + "  \"rules\": [\n"
                 + "    {}\n"
                 + "  ],\n"

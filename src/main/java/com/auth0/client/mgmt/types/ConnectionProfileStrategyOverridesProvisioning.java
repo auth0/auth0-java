@@ -22,17 +22,27 @@ import java.util.Optional;
 public final class ConnectionProfileStrategyOverridesProvisioning {
     private final Optional<ConnectionProfileProvisioningScim> scim;
 
+    private final Optional<ConnectionProfileProvisioningGoogleWorkspace> googleWorkspace;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectionProfileStrategyOverridesProvisioning(
-            Optional<ConnectionProfileProvisioningScim> scim, Map<String, Object> additionalProperties) {
+            Optional<ConnectionProfileProvisioningScim> scim,
+            Optional<ConnectionProfileProvisioningGoogleWorkspace> googleWorkspace,
+            Map<String, Object> additionalProperties) {
         this.scim = scim;
+        this.googleWorkspace = googleWorkspace;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("scim")
     public Optional<ConnectionProfileProvisioningScim> getScim() {
         return scim;
+    }
+
+    @JsonProperty("google_workspace")
+    public Optional<ConnectionProfileProvisioningGoogleWorkspace> getGoogleWorkspace() {
+        return googleWorkspace;
     }
 
     @java.lang.Override
@@ -48,12 +58,12 @@ public final class ConnectionProfileStrategyOverridesProvisioning {
     }
 
     private boolean equalTo(ConnectionProfileStrategyOverridesProvisioning other) {
-        return scim.equals(other.scim);
+        return scim.equals(other.scim) && googleWorkspace.equals(other.googleWorkspace);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.scim);
+        return Objects.hash(this.scim, this.googleWorkspace);
     }
 
     @java.lang.Override
@@ -69,6 +79,8 @@ public final class ConnectionProfileStrategyOverridesProvisioning {
     public static final class Builder {
         private Optional<ConnectionProfileProvisioningScim> scim = Optional.empty();
 
+        private Optional<ConnectionProfileProvisioningGoogleWorkspace> googleWorkspace = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -76,6 +88,7 @@ public final class ConnectionProfileStrategyOverridesProvisioning {
 
         public Builder from(ConnectionProfileStrategyOverridesProvisioning other) {
             scim(other.getScim());
+            googleWorkspace(other.getGoogleWorkspace());
             return this;
         }
 
@@ -90,8 +103,19 @@ public final class ConnectionProfileStrategyOverridesProvisioning {
             return this;
         }
 
+        @JsonSetter(value = "google_workspace", nulls = Nulls.SKIP)
+        public Builder googleWorkspace(Optional<ConnectionProfileProvisioningGoogleWorkspace> googleWorkspace) {
+            this.googleWorkspace = googleWorkspace;
+            return this;
+        }
+
+        public Builder googleWorkspace(ConnectionProfileProvisioningGoogleWorkspace googleWorkspace) {
+            this.googleWorkspace = Optional.ofNullable(googleWorkspace);
+            return this;
+        }
+
         public ConnectionProfileStrategyOverridesProvisioning build() {
-            return new ConnectionProfileStrategyOverridesProvisioning(scim, additionalProperties);
+            return new ConnectionProfileStrategyOverridesProvisioning(scim, googleWorkspace, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {
