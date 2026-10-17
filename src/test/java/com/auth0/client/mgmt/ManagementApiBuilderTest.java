@@ -1,6 +1,9 @@
 package com.auth0.client.mgmt;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for ManagementApiBuilder domain-based initialization.
@@ -43,22 +46,24 @@ public class ManagementApiBuilderTest {
     /**
      * Test that build() fails when no authentication is provided.
      */
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testBuildFailsWithoutAuth() {
-        ManagementApi.builder().domain("my-tenant.auth0.com").build();
+        assertThrows(
+                RuntimeException.class,
+                () -> ManagementApi.builder().domain("my-tenant.auth0.com").build());
     }
 
     /**
      * Test that build() fails when only clientId is provided without clientSecret.
      */
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testBuildFailsWithPartialCredentials() {
         // This tests an edge case where someone might call clientCredentials incorrectly
         ManagementApiBuilder builder = ManagementApi.builder();
         builder.domain("my-tenant.auth0.com");
         // Manually set only clientId to simulate partial configuration
         // This should fail during build
-        builder.build();
+        assertThrows(RuntimeException.class, builder::build);
     }
 
     /**
@@ -137,5 +142,31 @@ public class ManagementApiBuilderTest {
                 .addHeader("X-Custom-Header", "custom-value")
                 .build();
         assert client != null : "Fluent chaining should work";
+    }
+
+    /**
+     * Test that domain() builds the expected URLs from a bare domain.
+     */
+    @Test
+    public void testDomainUrls() {
+        ManagementApiBuilder builder =
+                ManagementApi.builder().domain("my-tenant.auth0.com").token("test-token");
+        assertEquals("https://my-tenant.auth0.com", builder.getBaseUrl());
+        assertEquals(
+                "https://my-tenant.auth0.com/api/v2",
+                builder.buildClientOptions().environment().getUrl());
+    }
+
+    /**
+     * Test that domain() accepts a domain that includes the scheme and a trailing slash.
+     */
+    @Test
+    public void testDomainWithSchemeAndTrailingSlash() {
+        ManagementApiBuilder builder =
+                ManagementApi.builder().domain("https://my-tenant.auth0.com/").token("test-token");
+        assertEquals("https://my-tenant.auth0.com", builder.getBaseUrl());
+        assertEquals(
+                "https://my-tenant.auth0.com/api/v2",
+                builder.buildClientOptions().environment().getUrl());
     }
 }
