@@ -40,7 +40,7 @@ public class AttackProtectionBruteForceProtectionWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"enabled\":true,\"shields\":[\"block\"],\"allowlist\":[\"allowlist\"],\"mode\":\"count_per_identifier_and_ip\",\"max_attempts\":1}"));
+                                "{\"enabled\":true,\"shields\":[\"block\"],\"allowlist\":[\"allowlist\"],\"mode\":\"count_per_identifier_and_ip\",\"form_submission_mode\":\"auto\",\"max_attempts\":1}"));
         GetBruteForceSettingsResponseContent response =
                 client.attackProtection().bruteForceProtection().get();
         RecordedRequest request = server.takeRequest();
@@ -60,6 +60,7 @@ public class AttackProtectionBruteForceProtectionWireTest {
                 + "    \"allowlist\"\n"
                 + "  ],\n"
                 + "  \"mode\": \"count_per_identifier_and_ip\",\n"
+                + "  \"form_submission_mode\": \"auto\",\n"
                 + "  \"max_attempts\": 1\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
@@ -99,7 +100,7 @@ public class AttackProtectionBruteForceProtectionWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"enabled\":true,\"shields\":[\"block\"],\"allowlist\":[\"allowlist\"],\"mode\":\"count_per_identifier_and_ip\",\"max_attempts\":1}"));
+                                "{\"enabled\":true,\"shields\":[\"block\"],\"allowlist\":[\"allowlist\"],\"mode\":\"count_per_identifier_and_ip\",\"form_submission_mode\":\"auto\",\"max_attempts\":1}"));
         UpdateBruteForceSettingsResponseContent response = client.attackProtection()
                 .bruteForceProtection()
                 .update(UpdateBruteForceSettingsRequestContent.builder().build());
@@ -149,6 +150,7 @@ public class AttackProtectionBruteForceProtectionWireTest {
                 + "    \"allowlist\"\n"
                 + "  ],\n"
                 + "  \"mode\": \"count_per_identifier_and_ip\",\n"
+                + "  \"form_submission_mode\": \"auto\",\n"
                 + "  \"max_attempts\": 1\n"
                 + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);

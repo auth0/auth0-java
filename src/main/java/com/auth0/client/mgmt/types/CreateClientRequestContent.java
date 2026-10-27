@@ -129,6 +129,8 @@ public final class CreateClientRequestContent {
 
     private final Optional<CreateAnonymousSessions> anonymousSessions;
 
+    private final Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding;
+
     private final Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode;
 
     private final Optional<ClientRedirectionPolicyEnum> redirectionPolicy;
@@ -198,6 +200,7 @@ public final class CreateClientRequestContent {
             Optional<String> resourceServerIdentifier,
             Optional<CreateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant,
             Optional<CreateAnonymousSessions> anonymousSessions,
+            Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding,
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
             Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
             Optional<ExpressConfiguration> expressConfiguration,
@@ -258,6 +261,7 @@ public final class CreateClientRequestContent {
         this.resourceServerIdentifier = resourceServerIdentifier;
         this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
         this.anonymousSessions = anonymousSessions;
+        this.enforceAnonSessionTransferNetworkBinding = enforceAnonSessionTransferNetworkBinding;
         this.thirdPartySecurityMode = thirdPartySecurityMode;
         this.redirectionPolicy = redirectionPolicy;
         this.expressConfiguration = expressConfiguration;
@@ -641,6 +645,11 @@ public final class CreateClientRequestContent {
         return anonymousSessions;
     }
 
+    @JsonProperty("enforce_anon_session_transfer_network_binding")
+    public Optional<ClientAnonymousSessionTransferNetworkBindingEnum> getEnforceAnonSessionTransferNetworkBinding() {
+        return enforceAnonSessionTransferNetworkBinding;
+    }
+
     @JsonProperty("third_party_security_mode")
     public Optional<ClientThirdPartySecurityModeEnum> getThirdPartySecurityMode() {
         return thirdPartySecurityMode;
@@ -777,6 +786,7 @@ public final class CreateClientRequestContent {
                 && resourceServerIdentifier.equals(other.resourceServerIdentifier)
                 && identityAssertionAuthorizationGrant.equals(other.identityAssertionAuthorizationGrant)
                 && anonymousSessions.equals(other.anonymousSessions)
+                && enforceAnonSessionTransferNetworkBinding.equals(other.enforceAnonSessionTransferNetworkBinding)
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
                 && redirectionPolicy.equals(other.redirectionPolicy)
                 && expressConfiguration.equals(other.expressConfiguration)
@@ -841,6 +851,7 @@ public final class CreateClientRequestContent {
                 this.resourceServerIdentifier,
                 this.identityAssertionAuthorizationGrant,
                 this.anonymousSessions,
+                this.enforceAnonSessionTransferNetworkBinding,
                 this.thirdPartySecurityMode,
                 this.redirectionPolicy,
                 this.expressConfiguration,
@@ -1199,6 +1210,12 @@ public final class CreateClientRequestContent {
 
         _FinalStage anonymousSessions(CreateAnonymousSessions anonymousSessions);
 
+        _FinalStage enforceAnonSessionTransferNetworkBinding(
+                Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding);
+
+        _FinalStage enforceAnonSessionTransferNetworkBinding(
+                ClientAnonymousSessionTransferNetworkBindingEnum enforceAnonSessionTransferNetworkBinding);
+
         _FinalStage thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode);
 
         _FinalStage thirdPartySecurityMode(ClientThirdPartySecurityModeEnum thirdPartySecurityMode);
@@ -1249,6 +1266,9 @@ public final class CreateClientRequestContent {
         private Optional<ClientRedirectionPolicyEnum> redirectionPolicy = Optional.empty();
 
         private Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode = Optional.empty();
+
+        private Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding =
+                Optional.empty();
 
         private Optional<CreateAnonymousSessions> anonymousSessions = Optional.empty();
 
@@ -1412,6 +1432,7 @@ public final class CreateClientRequestContent {
             resourceServerIdentifier(other.getResourceServerIdentifier());
             identityAssertionAuthorizationGrant(other.getIdentityAssertionAuthorizationGrant());
             anonymousSessions(other.getAnonymousSessions());
+            enforceAnonSessionTransferNetworkBinding(other.getEnforceAnonSessionTransferNetworkBinding());
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
             redirectionPolicy(other.getRedirectionPolicy());
             expressConfiguration(other.getExpressConfiguration());
@@ -1526,6 +1547,22 @@ public final class CreateClientRequestContent {
         @JsonSetter(value = "third_party_security_mode", nulls = Nulls.SKIP)
         public _FinalStage thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode) {
             this.thirdPartySecurityMode = thirdPartySecurityMode;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage enforceAnonSessionTransferNetworkBinding(
+                ClientAnonymousSessionTransferNetworkBindingEnum enforceAnonSessionTransferNetworkBinding) {
+            this.enforceAnonSessionTransferNetworkBinding =
+                    Optional.ofNullable(enforceAnonSessionTransferNetworkBinding);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "enforce_anon_session_transfer_network_binding", nulls = Nulls.SKIP)
+        public _FinalStage enforceAnonSessionTransferNetworkBinding(
+                Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding) {
+            this.enforceAnonSessionTransferNetworkBinding = enforceAnonSessionTransferNetworkBinding;
             return this;
         }
 
@@ -2606,6 +2643,7 @@ public final class CreateClientRequestContent {
                     resourceServerIdentifier,
                     identityAssertionAuthorizationGrant,
                     anonymousSessions,
+                    enforceAnonSessionTransferNetworkBinding,
                     thirdPartySecurityMode,
                     redirectionPolicy,
                     expressConfiguration,

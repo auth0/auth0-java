@@ -64,6 +64,8 @@ public final class UpdateResourceServerRequestContent {
 
     private final OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy;
 
+    private final OptionalNullable<ResourceServerTypeEnum> type;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateResourceServerRequestContent(
@@ -87,6 +89,7 @@ public final class UpdateResourceServerRequestContent {
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
             Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
             OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy,
+            OptionalNullable<ResourceServerTypeEnum> type,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.scopes = scopes;
@@ -108,6 +111,7 @@ public final class UpdateResourceServerRequestContent {
         this.proofOfPossession = proofOfPossession;
         this.subjectTypeAuthorization = subjectTypeAuthorization;
         this.authorizationPolicy = authorizationPolicy;
+        this.type = type;
         this.additionalProperties = additionalProperties;
     }
 
@@ -273,6 +277,15 @@ public final class UpdateResourceServerRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("type")
+    public OptionalNullable<ResourceServerTypeEnum> getType() {
+        if (type == null) {
+            return OptionalNullable.absent();
+        }
+        return type;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_lifetime_for_anonymous_access_tokens")
     private OptionalNullable<Integer> _getTokenLifetimeForAnonymousAccessTokens() {
         return tokenLifetimeForAnonymousAccessTokens;
@@ -314,6 +327,12 @@ public final class UpdateResourceServerRequestContent {
         return authorizationPolicy;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("type")
+    private OptionalNullable<ResourceServerTypeEnum> _getType() {
+        return type;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -346,7 +365,8 @@ public final class UpdateResourceServerRequestContent {
                 && authorizationDetails.equals(other.authorizationDetails)
                 && proofOfPossession.equals(other.proofOfPossession)
                 && subjectTypeAuthorization.equals(other.subjectTypeAuthorization)
-                && authorizationPolicy.equals(other.authorizationPolicy);
+                && authorizationPolicy.equals(other.authorizationPolicy)
+                && type.equals(other.type);
     }
 
     @java.lang.Override
@@ -371,7 +391,8 @@ public final class UpdateResourceServerRequestContent {
                 this.authorizationDetails,
                 this.proofOfPossession,
                 this.subjectTypeAuthorization,
-                this.authorizationPolicy);
+                this.authorizationPolicy,
+                this.type);
     }
 
     @java.lang.Override
@@ -425,6 +446,8 @@ public final class UpdateResourceServerRequestContent {
 
         private OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy = OptionalNullable.absent();
 
+        private OptionalNullable<ResourceServerTypeEnum> type = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -451,6 +474,7 @@ public final class UpdateResourceServerRequestContent {
             proofOfPossession(other.getProofOfPossession());
             subjectTypeAuthorization(other.getSubjectTypeAuthorization());
             authorizationPolicy(other.getAuthorizationPolicy());
+            type(other.getType());
             return this;
         }
 
@@ -861,6 +885,37 @@ public final class UpdateResourceServerRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "type", nulls = Nulls.SKIP)
+        public Builder type(@Nullable OptionalNullable<ResourceServerTypeEnum> type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder type(ResourceServerTypeEnum type) {
+            this.type = OptionalNullable.of(type);
+            return this;
+        }
+
+        public Builder type(Optional<ResourceServerTypeEnum> type) {
+            if (type.isPresent()) {
+                this.type = OptionalNullable.of(type.get());
+            } else {
+                this.type = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder type(com.auth0.client.mgmt.core.Nullable<ResourceServerTypeEnum> type) {
+            if (type.isNull()) {
+                this.type = OptionalNullable.ofNull();
+            } else if (type.isEmpty()) {
+                this.type = OptionalNullable.absent();
+            } else {
+                this.type = OptionalNullable.of(type.get());
+            }
+            return this;
+        }
+
         public UpdateResourceServerRequestContent build() {
             return new UpdateResourceServerRequestContent(
                     name,
@@ -883,6 +938,7 @@ public final class UpdateResourceServerRequestContent {
                     proofOfPossession,
                     subjectTypeAuthorization,
                     authorizationPolicy,
+                    type,
                     additionalProperties);
         }
 

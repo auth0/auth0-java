@@ -19,6 +19,8 @@ public final class GuardianFactorNameEnum {
     public static final GuardianFactorNameEnum WEBAUTHN_ROAMING =
             new GuardianFactorNameEnum(Value.WEBAUTHN_ROAMING, "webauthn-roaming");
 
+    public static final GuardianFactorNameEnum PASSKEY = new GuardianFactorNameEnum(Value.PASSKEY, "passkey");
+
     public static final GuardianFactorNameEnum RECOVERY_CODE =
             new GuardianFactorNameEnum(Value.RECOVERY_CODE, "recovery-code");
 
@@ -70,6 +72,8 @@ public final class GuardianFactorNameEnum {
                 return visitor.visitDuo();
             case WEBAUTHN_ROAMING:
                 return visitor.visitWebauthnRoaming();
+            case PASSKEY:
+                return visitor.visitPasskey();
             case RECOVERY_CODE:
                 return visitor.visitRecoveryCode();
             case SMS:
@@ -95,6 +99,8 @@ public final class GuardianFactorNameEnum {
                 return DUO;
             case "webauthn-roaming":
                 return WEBAUTHN_ROAMING;
+            case "passkey":
+                return PASSKEY;
             case "recovery-code":
                 return RECOVERY_CODE;
             case "sms":
@@ -123,6 +129,8 @@ public final class GuardianFactorNameEnum {
 
         RECOVERY_CODE,
 
+        PASSKEY,
+
         UNKNOWN
     }
 
@@ -142,6 +150,8 @@ public final class GuardianFactorNameEnum {
         T visitWebauthnPlatform();
 
         T visitRecoveryCode();
+
+        T visitPasskey();
 
         T visitUnknown(String unknownType);
     }

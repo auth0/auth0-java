@@ -26,6 +26,8 @@ public class AsyncManagementApi {
 
     protected final Supplier<AsyncClientGrantsClient> clientGrantsClient;
 
+    protected final Supplier<AsyncClientProfilesClient> clientProfilesClient;
+
     protected final Supplier<AsyncClientsClient> clientsClient;
 
     protected final Supplier<AsyncConnectionProfilesClient> connectionProfilesClient;
@@ -118,6 +120,7 @@ public class AsyncManagementApi {
         this.agentsClient = Suppliers.memoize(() -> new AsyncAgentsClient(clientOptions));
         this.brandingClient = Suppliers.memoize(() -> new AsyncBrandingClient(clientOptions));
         this.clientGrantsClient = Suppliers.memoize(() -> new AsyncClientGrantsClient(clientOptions));
+        this.clientProfilesClient = Suppliers.memoize(() -> new AsyncClientProfilesClient(clientOptions));
         this.clientsClient = Suppliers.memoize(() -> new AsyncClientsClient(clientOptions));
         this.connectionProfilesClient = Suppliers.memoize(() -> new AsyncConnectionProfilesClient(clientOptions));
         this.connectionsClient = Suppliers.memoize(() -> new AsyncConnectionsClient(clientOptions));
@@ -177,6 +180,10 @@ public class AsyncManagementApi {
 
     public AsyncClientGrantsClient clientGrants() {
         return this.clientGrantsClient.get();
+    }
+
+    public AsyncClientProfilesClient clientProfiles() {
+        return this.clientProfilesClient.get();
     }
 
     public AsyncClientsClient clients() {

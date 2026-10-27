@@ -67,6 +67,8 @@ public final class CreateResourceServerRequestContent {
 
     private final OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy;
 
+    private final OptionalNullable<ResourceServerTypeEnum> type;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateResourceServerRequestContent(
@@ -91,6 +93,7 @@ public final class CreateResourceServerRequestContent {
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
             Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
             OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy,
+            OptionalNullable<ResourceServerTypeEnum> type,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.identifier = identifier;
@@ -113,6 +116,7 @@ public final class CreateResourceServerRequestContent {
         this.proofOfPossession = proofOfPossession;
         this.subjectTypeAuthorization = subjectTypeAuthorization;
         this.authorizationPolicy = authorizationPolicy;
+        this.type = type;
         this.additionalProperties = additionalProperties;
     }
 
@@ -286,6 +290,15 @@ public final class CreateResourceServerRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("type")
+    public OptionalNullable<ResourceServerTypeEnum> getType() {
+        if (type == null) {
+            return OptionalNullable.absent();
+        }
+        return type;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_lifetime_for_anonymous_access_tokens")
     private OptionalNullable<Integer> _getTokenLifetimeForAnonymousAccessTokens() {
         return tokenLifetimeForAnonymousAccessTokens;
@@ -327,6 +340,12 @@ public final class CreateResourceServerRequestContent {
         return authorizationPolicy;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("type")
+    private OptionalNullable<ResourceServerTypeEnum> _getType() {
+        return type;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -360,7 +379,8 @@ public final class CreateResourceServerRequestContent {
                 && authorizationDetails.equals(other.authorizationDetails)
                 && proofOfPossession.equals(other.proofOfPossession)
                 && subjectTypeAuthorization.equals(other.subjectTypeAuthorization)
-                && authorizationPolicy.equals(other.authorizationPolicy);
+                && authorizationPolicy.equals(other.authorizationPolicy)
+                && type.equals(other.type);
     }
 
     @java.lang.Override
@@ -386,7 +406,8 @@ public final class CreateResourceServerRequestContent {
                 this.authorizationDetails,
                 this.proofOfPossession,
                 this.subjectTypeAuthorization,
-                this.authorizationPolicy);
+                this.authorizationPolicy,
+                this.type);
     }
 
     @java.lang.Override
@@ -560,11 +581,21 @@ public final class CreateResourceServerRequestContent {
 
         _FinalStage authorizationPolicy(
                 com.auth0.client.mgmt.core.Nullable<ResourceServerAuthorizationPolicy> authorizationPolicy);
+
+        _FinalStage type(@Nullable OptionalNullable<ResourceServerTypeEnum> type);
+
+        _FinalStage type(ResourceServerTypeEnum type);
+
+        _FinalStage type(Optional<ResourceServerTypeEnum> type);
+
+        _FinalStage type(com.auth0.client.mgmt.core.Nullable<ResourceServerTypeEnum> type);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements IdentifierStage, _FinalStage {
         private String identifier;
+
+        private OptionalNullable<ResourceServerTypeEnum> type = OptionalNullable.absent();
 
         private OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy = OptionalNullable.absent();
 
@@ -634,6 +665,7 @@ public final class CreateResourceServerRequestContent {
             proofOfPossession(other.getProofOfPossession());
             subjectTypeAuthorization(other.getSubjectTypeAuthorization());
             authorizationPolicy(other.getAuthorizationPolicy());
+            type(other.getType());
             return this;
         }
 
@@ -645,6 +677,41 @@ public final class CreateResourceServerRequestContent {
         @JsonSetter("identifier")
         public _FinalStage identifier(@NotNull String identifier) {
             this.identifier = Objects.requireNonNull(identifier, "identifier must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage type(com.auth0.client.mgmt.core.Nullable<ResourceServerTypeEnum> type) {
+            if (type.isNull()) {
+                this.type = OptionalNullable.ofNull();
+            } else if (type.isEmpty()) {
+                this.type = OptionalNullable.absent();
+            } else {
+                this.type = OptionalNullable.of(type.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage type(Optional<ResourceServerTypeEnum> type) {
+            if (type.isPresent()) {
+                this.type = OptionalNullable.of(type.get());
+            } else {
+                this.type = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage type(ResourceServerTypeEnum type) {
+            this.type = OptionalNullable.of(type);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "type", nulls = Nulls.SKIP)
+        public _FinalStage type(@Nullable OptionalNullable<ResourceServerTypeEnum> type) {
+            this.type = type;
             return this;
         }
 
@@ -1188,6 +1255,7 @@ public final class CreateResourceServerRequestContent {
                     proofOfPossession,
                     subjectTypeAuthorization,
                     authorizationPolicy,
+                    type,
                     additionalProperties);
         }
 

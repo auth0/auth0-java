@@ -7,6 +7,7 @@ import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.SegmentRule;
+import com.auth0.client.mgmt.types.SegmentStatusEnum;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -31,16 +32,20 @@ public final class UpdateSegmentRequestContent {
 
     private final Optional<List<SegmentRule>> rules;
 
+    private final Optional<SegmentStatusEnum> status;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateSegmentRequestContent(
             Optional<String> name,
             OptionalNullable<String> description,
             Optional<List<SegmentRule>> rules,
+            Optional<SegmentStatusEnum> status,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
         this.rules = rules;
+        this.status = status;
         this.additionalProperties = additionalProperties;
     }
 
@@ -72,6 +77,14 @@ public final class UpdateSegmentRequestContent {
         return rules;
     }
 
+    /**
+     * @return Target lifecycle status. Archiving removes the segment from the active pool and is terminal (an archived segment cannot return to active). When combined with field edits, the edits apply first and the transition follows.
+     */
+    @JsonProperty("status")
+    public Optional<SegmentStatusEnum> getStatus() {
+        return status;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("description")
     private OptionalNullable<String> _getDescription() {
@@ -90,12 +103,15 @@ public final class UpdateSegmentRequestContent {
     }
 
     private boolean equalTo(UpdateSegmentRequestContent other) {
-        return name.equals(other.name) && description.equals(other.description) && rules.equals(other.rules);
+        return name.equals(other.name)
+                && description.equals(other.description)
+                && rules.equals(other.rules)
+                && status.equals(other.status);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.name, this.description, this.rules);
+        return Objects.hash(this.name, this.description, this.rules, this.status);
     }
 
     @java.lang.Override
@@ -115,6 +131,8 @@ public final class UpdateSegmentRequestContent {
 
         private Optional<List<SegmentRule>> rules = Optional.empty();
 
+        private Optional<SegmentStatusEnum> status = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -124,6 +142,7 @@ public final class UpdateSegmentRequestContent {
             name(other.getName());
             description(other.getDescription());
             rules(other.getRules());
+            status(other.getStatus());
             return this;
         }
 
@@ -189,8 +208,22 @@ public final class UpdateSegmentRequestContent {
             return this;
         }
 
+        /**
+         * <p>Target lifecycle status. Archiving removes the segment from the active pool and is terminal (an archived segment cannot return to active). When combined with field edits, the edits apply first and the transition follows.</p>
+         */
+        @JsonSetter(value = "status", nulls = Nulls.SKIP)
+        public Builder status(Optional<SegmentStatusEnum> status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder status(SegmentStatusEnum status) {
+            this.status = Optional.ofNullable(status);
+            return this;
+        }
+
         public UpdateSegmentRequestContent build() {
-            return new UpdateSegmentRequestContent(name, description, rules, additionalProperties);
+            return new UpdateSegmentRequestContent(name, description, rules, status, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

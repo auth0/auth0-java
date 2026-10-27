@@ -11,12 +11,10 @@ import com.auth0.client.mgmt.experimentation.featureflags.AsyncVariationsClient;
 import com.auth0.client.mgmt.experimentation.types.CreateFeatureFlagRequestContent;
 import com.auth0.client.mgmt.experimentation.types.ListFeatureFlagsRequestParameters;
 import com.auth0.client.mgmt.experimentation.types.UpdateFeatureFlagRequestContent;
-import com.auth0.client.mgmt.experimentation.types.UpdateFeatureFlagStatusRequestContent;
 import com.auth0.client.mgmt.types.CreateFeatureFlagResponseContent;
 import com.auth0.client.mgmt.types.FeatureFlag;
 import com.auth0.client.mgmt.types.GetFeatureFlagResponseContent;
 import com.auth0.client.mgmt.types.UpdateFeatureFlagResponseContent;
-import com.auth0.client.mgmt.types.UpdateFeatureFlagStatusResponseContent;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
@@ -140,22 +138,6 @@ public class AsyncFeatureFlagsClient {
     public CompletableFuture<UpdateFeatureFlagResponseContent> update(
             String id, UpdateFeatureFlagRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.update(id, request, requestOptions).thenApply(response -> response.body());
-    }
-
-    /**
-     * Transitions a feature flag through its lifecycle states: draft → active, draft → archived, active → archived.
-     */
-    public CompletableFuture<UpdateFeatureFlagStatusResponseContent> updateStatus(
-            String id, UpdateFeatureFlagStatusRequestContent request) {
-        return this.rawClient.updateStatus(id, request).thenApply(response -> response.body());
-    }
-
-    /**
-     * Transitions a feature flag through its lifecycle states: draft → active, draft → archived, active → archived.
-     */
-    public CompletableFuture<UpdateFeatureFlagStatusResponseContent> updateStatus(
-            String id, UpdateFeatureFlagStatusRequestContent request, RequestOptions requestOptions) {
-        return this.rawClient.updateStatus(id, request, requestOptions).thenApply(response -> response.body());
     }
 
     public AsyncVariationsClient variations() {

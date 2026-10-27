@@ -3,6 +3,8 @@ package com.auth0.client.mgmt;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.Client;
+import com.auth0.client.mgmt.types.ClientSearchResponse;
+import com.auth0.client.mgmt.types.ClientSortFieldEnum;
 import com.auth0.client.mgmt.types.CreateClientRequestContent;
 import com.auth0.client.mgmt.types.CreateClientResponseContent;
 import com.auth0.client.mgmt.types.GetClientRequestParameters;
@@ -13,6 +15,8 @@ import com.auth0.client.mgmt.types.PreviewCimdMetadataResponseContent;
 import com.auth0.client.mgmt.types.RegisterCimdClientRequestContent;
 import com.auth0.client.mgmt.types.RegisterCimdClientResponseContent;
 import com.auth0.client.mgmt.types.RotateClientSecretResponseContent;
+import com.auth0.client.mgmt.types.SearchClientsRequestParameters;
+import com.auth0.client.mgmt.types.SearchParserEnum;
 import com.auth0.client.mgmt.types.UpdateClientRequestContent;
 import com.auth0.client.mgmt.types.UpdateClientResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -155,7 +159,7 @@ public class ClientsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"client_id\":\"client_id\",\"errors\":[\"errors\"],\"validation\":{\"valid\":true,\"violations\":[\"violations\"],\"warnings\":[\"warnings\"]},\"mapped_fields\":{\"external_client_id\":\"external_client_id\",\"name\":\"name\",\"app_type\":\"app_type\",\"callbacks\":[\"callbacks\"],\"logo_uri\":\"logo_uri\",\"description\":\"description\",\"grant_types\":[\"grant_types\"],\"token_endpoint_auth_method\":\"token_endpoint_auth_method\",\"jwks_uri\":\"jwks_uri\",\"client_authentication_methods\":{\"private_key_jwt\":{\"credentials\":[{\"credential_type\":\"credential_type\",\"kid\":\"kid\",\"alg\":\"alg\"}]}}}}"));
+                                "{\"client_id\":\"client_id\",\"external_metadata_created_by\":\"admin\",\"errors\":[\"errors\"],\"validation\":{\"valid\":true,\"violations\":[\"violations\"],\"warnings\":[\"warnings\"]},\"mapped_fields\":{\"external_client_id\":\"external_client_id\",\"name\":\"name\",\"app_type\":\"app_type\",\"callbacks\":[\"callbacks\"],\"logo_uri\":\"logo_uri\",\"description\":\"description\",\"grant_types\":[\"grant_types\"],\"token_endpoint_auth_method\":\"token_endpoint_auth_method\",\"jwks_uri\":\"jwks_uri\",\"client_authentication_methods\":{\"private_key_jwt\":{\"credentials\":[{\"credential_type\":\"credential_type\",\"kid\":\"kid\",\"alg\":\"alg\"}]}}}}"));
         PreviewCimdMetadataResponseContent response = client.clients()
                 .previewCimdMetadata(PreviewCimdMetadataRequestContent.builder()
                         .externalClientId("external_client_id")
@@ -199,6 +203,7 @@ public class ClientsWireTest {
         String expectedResponseBody = ""
                 + "{\n"
                 + "  \"client_id\": \"client_id\",\n"
+                + "  \"external_metadata_created_by\": \"admin\",\n"
                 + "  \"errors\": [\n"
                 + "    \"errors\"\n"
                 + "  ],\n"
@@ -384,6 +389,31 @@ public class ClientsWireTest {
         if (actualResponseNode.isObject()) {
             Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
         }
+    }
+
+    @Test
+    public void testSearch() throws Exception {
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource("/wire-tests/ClientsWireTest_testSearch_response.json")));
+        SyncPagingIterable<ClientSearchResponse> response = client.clients()
+                .search(SearchClientsRequestParameters.builder()
+                        .q("q")
+                        .parser(SearchParserEnum.SCIM)
+                        .fields("fields")
+                        .includeFields(true)
+                        .take(1)
+                        .from("from")
+                        .sort(ClientSortFieldEnum.NAME)
+                        .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("GET", request.getMethod());
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        // Pagination response validated via MockWebServer
+        // The SDK correctly parses the response into a SyncPagingIterable
     }
 
     @Test

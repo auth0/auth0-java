@@ -37,6 +37,8 @@ public final class CreateConnectionRequestContentSaml implements ICreateConnecti
 
     private final CreateConnectionRequestContentSamlStrategy strategy;
 
+    private final Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp;
+
     private final OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp;
 
     private final Optional<ConnectionOptionsSaml> options;
@@ -52,6 +54,7 @@ public final class CreateConnectionRequestContentSaml implements ICreateConnecti
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             CreateConnectionRequestContentSamlStrategy strategy,
+            Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp,
             OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp,
             Optional<ConnectionOptionsSaml> options,
             Optional<Boolean> showAsButton,
@@ -62,6 +65,7 @@ public final class CreateConnectionRequestContentSaml implements ICreateConnecti
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
         this.strategy = strategy;
+        this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
         this.crossAppAccessResourceApp = crossAppAccessResourceApp;
         this.options = options;
         this.showAsButton = showAsButton;
@@ -104,6 +108,11 @@ public final class CreateConnectionRequestContentSaml implements ICreateConnecti
     @JsonProperty("strategy")
     public CreateConnectionRequestContentSamlStrategy getStrategy() {
         return strategy;
+    }
+
+    @JsonProperty("cross_app_access_requesting_app")
+    public Optional<CrossAppAccessRequestingApp> getCrossAppAccessRequestingApp() {
+        return crossAppAccessRequestingApp;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -150,6 +159,7 @@ public final class CreateConnectionRequestContentSaml implements ICreateConnecti
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
                 && strategy.equals(other.strategy)
+                && crossAppAccessRequestingApp.equals(other.crossAppAccessRequestingApp)
                 && crossAppAccessResourceApp.equals(other.crossAppAccessResourceApp)
                 && options.equals(other.options)
                 && showAsButton.equals(other.showAsButton);
@@ -164,6 +174,7 @@ public final class CreateConnectionRequestContentSaml implements ICreateConnecti
                 this.isDomainConnection,
                 this.metadata,
                 this.strategy,
+                this.crossAppAccessRequestingApp,
                 this.crossAppAccessResourceApp,
                 this.options,
                 this.showAsButton);
@@ -214,6 +225,10 @@ public final class CreateConnectionRequestContentSaml implements ICreateConnecti
 
         _FinalStage metadata(Map<String, OptionalNullable<String>> metadata);
 
+        _FinalStage crossAppAccessRequestingApp(Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp);
+
+        _FinalStage crossAppAccessRequestingApp(CrossAppAccessRequestingApp crossAppAccessRequestingApp);
+
         _FinalStage crossAppAccessResourceApp(
                 @Nullable OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp);
 
@@ -246,6 +261,8 @@ public final class CreateConnectionRequestContentSaml implements ICreateConnecti
         private OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp =
                 OptionalNullable.absent();
 
+        private Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp = Optional.empty();
+
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
         private Optional<Boolean> isDomainConnection = Optional.empty();
@@ -267,6 +284,7 @@ public final class CreateConnectionRequestContentSaml implements ICreateConnecti
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
             strategy(other.getStrategy());
+            crossAppAccessRequestingApp(other.getCrossAppAccessRequestingApp());
             crossAppAccessResourceApp(other.getCrossAppAccessResourceApp());
             options(other.getOptions());
             showAsButton(other.getShowAsButton());
@@ -352,6 +370,20 @@ public final class CreateConnectionRequestContentSaml implements ICreateConnecti
         }
 
         @java.lang.Override
+        public _FinalStage crossAppAccessRequestingApp(CrossAppAccessRequestingApp crossAppAccessRequestingApp) {
+            this.crossAppAccessRequestingApp = Optional.ofNullable(crossAppAccessRequestingApp);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "cross_app_access_requesting_app", nulls = Nulls.SKIP)
+        public _FinalStage crossAppAccessRequestingApp(
+                Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp) {
+            this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage metadata(Map<String, OptionalNullable<String>> metadata) {
             this.metadata = Optional.ofNullable(metadata);
             return this;
@@ -419,6 +451,7 @@ public final class CreateConnectionRequestContentSaml implements ICreateConnecti
                     isDomainConnection,
                     metadata,
                     strategy,
+                    crossAppAccessRequestingApp,
                     crossAppAccessResourceApp,
                     options,
                     showAsButton,

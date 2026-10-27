@@ -150,6 +150,9 @@ public final class CreateExperimentResponseContent {
         return status;
     }
 
+    /**
+     * @return Whether the experiment is valid and ready to activate, as of its last update. It can lag changes made later to related entities. Call POST /experiments/{id}/validate for the current result.
+     */
     @JsonProperty("is_valid")
     public boolean getIsValid() {
         return isValid;
@@ -327,6 +330,9 @@ public final class CreateExperimentResponseContent {
     }
 
     public interface IsValidStage {
+        /**
+         * <p>Whether the experiment is valid and ready to activate, as of its last update. It can lag changes made later to related entities. Call POST /experiments/{id}/validate for the current result.</p>
+         */
         CreatedAtStage isValid(boolean isValid);
     }
 
@@ -528,6 +534,10 @@ public final class CreateExperimentResponseContent {
             return this;
         }
 
+        /**
+         * <p>Whether the experiment is valid and ready to activate, as of its last update. It can lag changes made later to related entities. Call POST /experiments/{id}/validate for the current result.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("is_valid")
         public CreatedAtStage isValid(boolean isValid) {

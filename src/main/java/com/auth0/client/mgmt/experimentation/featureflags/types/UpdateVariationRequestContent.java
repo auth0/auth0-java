@@ -27,14 +27,14 @@ public final class UpdateVariationRequestContent {
 
     private final OptionalNullable<String> description;
 
-    private final Optional<Map<String, Object>> overrides;
+    private final OptionalNullable<Map<String, Object>> overrides;
 
     private final Map<String, Object> additionalProperties;
 
     private UpdateVariationRequestContent(
             Optional<String> name,
             OptionalNullable<String> description,
-            Optional<Map<String, Object>> overrides,
+            OptionalNullable<Map<String, Object>> overrides,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
@@ -62,8 +62,12 @@ public final class UpdateVariationRequestContent {
         return description;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("overrides")
-    public Optional<Map<String, Object>> getOverrides() {
+    public OptionalNullable<Map<String, Object>> getOverrides() {
+        if (overrides == null) {
+            return OptionalNullable.absent();
+        }
         return overrides;
     }
 
@@ -71,6 +75,12 @@ public final class UpdateVariationRequestContent {
     @JsonProperty("description")
     private OptionalNullable<String> _getDescription() {
         return description;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("overrides")
+    private OptionalNullable<Map<String, Object>> _getOverrides() {
+        return overrides;
     }
 
     @java.lang.Override
@@ -108,7 +118,7 @@ public final class UpdateVariationRequestContent {
 
         private OptionalNullable<String> description = OptionalNullable.absent();
 
-        private Optional<Map<String, Object>> overrides = Optional.empty();
+        private OptionalNullable<Map<String, Object>> overrides = OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -171,13 +181,33 @@ public final class UpdateVariationRequestContent {
         }
 
         @JsonSetter(value = "overrides", nulls = Nulls.SKIP)
-        public Builder overrides(Optional<Map<String, Object>> overrides) {
+        public Builder overrides(@Nullable OptionalNullable<Map<String, Object>> overrides) {
             this.overrides = overrides;
             return this;
         }
 
         public Builder overrides(Map<String, Object> overrides) {
-            this.overrides = Optional.ofNullable(overrides);
+            this.overrides = OptionalNullable.of(overrides);
+            return this;
+        }
+
+        public Builder overrides(Optional<Map<String, Object>> overrides) {
+            if (overrides.isPresent()) {
+                this.overrides = OptionalNullable.of(overrides.get());
+            } else {
+                this.overrides = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder overrides(com.auth0.client.mgmt.core.Nullable<Map<String, Object>> overrides) {
+            if (overrides.isNull()) {
+                this.overrides = OptionalNullable.ofNull();
+            } else if (overrides.isEmpty()) {
+                this.overrides = OptionalNullable.absent();
+            } else {
+                this.overrides = OptionalNullable.of(overrides.get());
+            }
             return this;
         }
 

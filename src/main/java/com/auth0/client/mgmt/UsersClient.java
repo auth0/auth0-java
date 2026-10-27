@@ -7,6 +7,7 @@ import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
+import com.auth0.client.mgmt.types.ConsentSigningKey;
 import com.auth0.client.mgmt.types.CreateUserRequestContent;
 import com.auth0.client.mgmt.types.CreateUserResponseContent;
 import com.auth0.client.mgmt.types.GetUserRequestParameters;
@@ -567,6 +568,48 @@ public class UsersClient {
     public UpdateUserResponseContent update(
             String id, UpdateUserRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.update(id, request, requestOptions).body();
+    }
+
+    /**
+     * Retrieve all consent signing keys registered for a user. Returns an empty array when the user has no keys registered.
+     */
+    public List<ConsentSigningKey> listConsentSigningKeys(String id) {
+        return this.rawClient.listConsentSigningKeys(id).body();
+    }
+
+    /**
+     * Retrieve all consent signing keys registered for a user. Returns an empty array when the user has no keys registered.
+     */
+    public List<ConsentSigningKey> listConsentSigningKeys(String id, RequestOptions requestOptions) {
+        return this.rawClient.listConsentSigningKeys(id, requestOptions).body();
+    }
+
+    /**
+     * Retrieve a single consent signing key for a user by its key identifier (kid). Returns 404 if the key does not exist.
+     */
+    public ConsentSigningKey getConsentSigningKey(String id, String kid) {
+        return this.rawClient.getConsentSigningKey(id, kid).body();
+    }
+
+    /**
+     * Retrieve a single consent signing key for a user by its key identifier (kid). Returns 404 if the key does not exist.
+     */
+    public ConsentSigningKey getConsentSigningKey(String id, String kid, RequestOptions requestOptions) {
+        return this.rawClient.getConsentSigningKey(id, kid, requestOptions).body();
+    }
+
+    /**
+     * Remove a single consent signing key for a user by its key identifier (kid). The operation is idempotent and returns 204 whether or not the key existed.
+     */
+    public void deleteConsentSigningKey(String id, String kid) {
+        this.rawClient.deleteConsentSigningKey(id, kid).body();
+    }
+
+    /**
+     * Remove a single consent signing key for a user by its key identifier (kid). The operation is idempotent and returns 204 whether or not the key existed.
+     */
+    public void deleteConsentSigningKey(String id, String kid, RequestOptions requestOptions) {
+        this.rawClient.deleteConsentSigningKey(id, kid, requestOptions).body();
     }
 
     /**

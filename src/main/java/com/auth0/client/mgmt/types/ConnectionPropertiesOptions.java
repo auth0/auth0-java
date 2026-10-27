@@ -42,6 +42,8 @@ public final class ConnectionPropertiesOptions {
 
     private final Optional<ConnectionCustomScripts> customScripts;
 
+    private final Optional<ConnectionOtpSettings> otpSettings;
+
     private final OptionalNullable<ConnectionAuthenticationMethods> authenticationMethods;
 
     private final OptionalNullable<ConnectionPasskeyOptions> passkeyOptions;
@@ -125,6 +127,7 @@ public final class ConnectionPropertiesOptions {
             Optional<Boolean> importMode,
             OptionalNullable<Map<String, OptionalNullable<String>>> configuration,
             Optional<ConnectionCustomScripts> customScripts,
+            Optional<ConnectionOtpSettings> otpSettings,
             OptionalNullable<ConnectionAuthenticationMethods> authenticationMethods,
             OptionalNullable<ConnectionPasskeyOptions> passkeyOptions,
             OptionalNullable<ConnectionPasswordPolicyEnum> passwordPolicy,
@@ -170,6 +173,7 @@ public final class ConnectionPropertiesOptions {
         this.importMode = importMode;
         this.configuration = configuration;
         this.customScripts = customScripts;
+        this.otpSettings = otpSettings;
         this.authenticationMethods = authenticationMethods;
         this.passkeyOptions = passkeyOptions;
         this.passwordPolicy = passwordPolicy;
@@ -281,6 +285,11 @@ public final class ConnectionPropertiesOptions {
     @JsonProperty("customScripts")
     public Optional<ConnectionCustomScripts> getCustomScripts() {
         return customScripts;
+    }
+
+    @JsonProperty("otp_settings")
+    public Optional<ConnectionOtpSettings> getOtpSettings() {
+        return otpSettings;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -638,6 +647,7 @@ public final class ConnectionPropertiesOptions {
                 && importMode.equals(other.importMode)
                 && configuration.equals(other.configuration)
                 && customScripts.equals(other.customScripts)
+                && otpSettings.equals(other.otpSettings)
                 && authenticationMethods.equals(other.authenticationMethods)
                 && passkeyOptions.equals(other.passkeyOptions)
                 && passwordPolicy.equals(other.passwordPolicy)
@@ -687,6 +697,7 @@ public final class ConnectionPropertiesOptions {
                 this.importMode,
                 this.configuration,
                 this.customScripts,
+                this.otpSettings,
                 this.authenticationMethods,
                 this.passkeyOptions,
                 this.passwordPolicy,
@@ -752,6 +763,8 @@ public final class ConnectionPropertiesOptions {
         private OptionalNullable<Map<String, OptionalNullable<String>>> configuration = OptionalNullable.absent();
 
         private Optional<ConnectionCustomScripts> customScripts = Optional.empty();
+
+        private Optional<ConnectionOtpSettings> otpSettings = Optional.empty();
 
         private OptionalNullable<ConnectionAuthenticationMethods> authenticationMethods = OptionalNullable.absent();
 
@@ -844,6 +857,7 @@ public final class ConnectionPropertiesOptions {
             importMode(other.getImportMode());
             configuration(other.getConfiguration());
             customScripts(other.getCustomScripts());
+            otpSettings(other.getOtpSettings());
             authenticationMethods(other.getAuthenticationMethods());
             passkeyOptions(other.getPasskeyOptions());
             passwordPolicy(other.getPasswordPolicy());
@@ -1057,6 +1071,17 @@ public final class ConnectionPropertiesOptions {
 
         public Builder customScripts(ConnectionCustomScripts customScripts) {
             this.customScripts = Optional.ofNullable(customScripts);
+            return this;
+        }
+
+        @JsonSetter(value = "otp_settings", nulls = Nulls.SKIP)
+        public Builder otpSettings(Optional<ConnectionOtpSettings> otpSettings) {
+            this.otpSettings = otpSettings;
+            return this;
+        }
+
+        public Builder otpSettings(ConnectionOtpSettings otpSettings) {
+            this.otpSettings = Optional.ofNullable(otpSettings);
             return this;
         }
 
@@ -1774,6 +1799,7 @@ public final class ConnectionPropertiesOptions {
                     importMode,
                     configuration,
                     customScripts,
+                    otpSettings,
                     authenticationMethods,
                     passkeyOptions,
                     passwordPolicy,

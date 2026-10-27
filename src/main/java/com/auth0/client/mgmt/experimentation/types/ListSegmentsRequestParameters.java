@@ -6,6 +6,7 @@ package com.auth0.client.mgmt.experimentation.types;
 import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
+import com.auth0.client.mgmt.types.SegmentStatusEnum;
 import com.auth0.client.mgmt.types.SegmentTypeFilterEnum;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -30,16 +31,20 @@ public final class ListSegmentsRequestParameters {
 
     private final OptionalNullable<SegmentTypeFilterEnum> type;
 
+    private final OptionalNullable<SegmentStatusEnum> status;
+
     private final Map<String, Object> additionalProperties;
 
     private ListSegmentsRequestParameters(
             OptionalNullable<String> from,
             OptionalNullable<Integer> take,
             OptionalNullable<SegmentTypeFilterEnum> type,
+            OptionalNullable<SegmentStatusEnum> status,
             Map<String, Object> additionalProperties) {
         this.from = from;
         this.take = take;
         this.type = type;
+        this.status = status;
         this.additionalProperties = additionalProperties;
     }
 
@@ -79,6 +84,18 @@ public final class ListSegmentsRequestParameters {
         return type;
     }
 
+    /**
+     * @return Filter by status. Exact match.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("status")
+    public OptionalNullable<SegmentStatusEnum> getStatus() {
+        if (status == null) {
+            return OptionalNullable.absent();
+        }
+        return status;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("from")
     private OptionalNullable<String> _getFrom() {
@@ -97,6 +114,12 @@ public final class ListSegmentsRequestParameters {
         return type;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("status")
+    private OptionalNullable<SegmentStatusEnum> _getStatus() {
+        return status;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -109,12 +132,15 @@ public final class ListSegmentsRequestParameters {
     }
 
     private boolean equalTo(ListSegmentsRequestParameters other) {
-        return from.equals(other.from) && take.equals(other.take) && type.equals(other.type);
+        return from.equals(other.from)
+                && take.equals(other.take)
+                && type.equals(other.type)
+                && status.equals(other.status);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.from, this.take, this.type);
+        return Objects.hash(this.from, this.take, this.type, this.status);
     }
 
     @java.lang.Override
@@ -134,6 +160,8 @@ public final class ListSegmentsRequestParameters {
 
         private OptionalNullable<SegmentTypeFilterEnum> type = OptionalNullable.absent();
 
+        private OptionalNullable<SegmentStatusEnum> status = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -143,6 +171,7 @@ public final class ListSegmentsRequestParameters {
             from(other.getFrom());
             take(other.getTake());
             type(other.getType());
+            status(other.getStatus());
             return this;
         }
 
@@ -248,8 +277,42 @@ public final class ListSegmentsRequestParameters {
             return this;
         }
 
+        /**
+         * <p>Filter by status. Exact match.</p>
+         */
+        @JsonSetter(value = "status", nulls = Nulls.SKIP)
+        public Builder status(@Nullable OptionalNullable<SegmentStatusEnum> status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder status(SegmentStatusEnum status) {
+            this.status = OptionalNullable.of(status);
+            return this;
+        }
+
+        public Builder status(Optional<SegmentStatusEnum> status) {
+            if (status.isPresent()) {
+                this.status = OptionalNullable.of(status.get());
+            } else {
+                this.status = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder status(com.auth0.client.mgmt.core.Nullable<SegmentStatusEnum> status) {
+            if (status.isNull()) {
+                this.status = OptionalNullable.ofNull();
+            } else if (status.isEmpty()) {
+                this.status = OptionalNullable.absent();
+            } else {
+                this.status = OptionalNullable.of(status.get());
+            }
+            return this;
+        }
+
         public ListSegmentsRequestParameters build() {
-            return new ListSegmentsRequestParameters(from, take, type, additionalProperties);
+            return new ListSegmentsRequestParameters(from, take, type, status, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {
