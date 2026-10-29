@@ -29,7 +29,7 @@ dependencies {
   // Dependencies for legacy management code from auth0-real
   implementation 'com.squareup.okhttp3:logging-interceptor:5.2.1'
   implementation 'com.auth0:java-jwt:4.6.2'
-  implementation 'com.auth0:jwks-rsa:0.24.1'
+  implementation 'com.auth0:jwks-rsa:0.24.2'
   implementation 'net.jodah:failsafe:2.4.4'
 
   // Test dependencies
