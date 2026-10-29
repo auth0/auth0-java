@@ -36,7 +36,7 @@ public final class CreateExperimentRequestContent {
 
     private final Optional<DefaultConfigEnum> defaultConfig;
 
-    private final Optional<AllocationStrategyEnum> allocationStrategy;
+    private final AllocationStrategyEnum allocationStrategy;
 
     private final Optional<List<AllocationRequestItem>> allocations;
 
@@ -50,7 +50,7 @@ public final class CreateExperimentRequestContent {
             String featureFlagId,
             AuthenticationFlowEnum authenticationFlow,
             Optional<DefaultConfigEnum> defaultConfig,
-            Optional<AllocationStrategyEnum> allocationStrategy,
+            AllocationStrategyEnum allocationStrategy,
             Optional<List<AllocationRequestItem>> allocations,
             Optional<List<Integer>> levels,
             Map<String, Object> additionalProperties) {
@@ -106,7 +106,7 @@ public final class CreateExperimentRequestContent {
      * @return The traffic allocation strategy for this experiment
      */
     @JsonProperty("allocation_strategy")
-    public Optional<AllocationStrategyEnum> getAllocationStrategy() {
+    public AllocationStrategyEnum getAllocationStrategy() {
         return allocationStrategy;
     }
 
@@ -187,7 +187,14 @@ public final class CreateExperimentRequestContent {
     }
 
     public interface AuthenticationFlowStage {
-        _FinalStage authenticationFlow(@NotNull AuthenticationFlowEnum authenticationFlow);
+        AllocationStrategyStage authenticationFlow(@NotNull AuthenticationFlowEnum authenticationFlow);
+    }
+
+    public interface AllocationStrategyStage {
+        /**
+         * <p>The traffic allocation strategy for this experiment</p>
+         */
+        _FinalStage allocationStrategy(@NotNull AllocationStrategyEnum allocationStrategy);
     }
 
     public interface _FinalStage {
@@ -212,13 +219,6 @@ public final class CreateExperimentRequestContent {
         _FinalStage defaultConfig(DefaultConfigEnum defaultConfig);
 
         /**
-         * <p>The traffic allocation strategy for this experiment</p>
-         */
-        _FinalStage allocationStrategy(Optional<AllocationStrategyEnum> allocationStrategy);
-
-        _FinalStage allocationStrategy(AllocationStrategyEnum allocationStrategy);
-
-        /**
          * <p>Traffic allocations mapping variations to weights or segments</p>
          */
         _FinalStage allocations(Optional<List<AllocationRequestItem>> allocations);
@@ -234,18 +234,19 @@ public final class CreateExperimentRequestContent {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements NameStage, FeatureFlagIdStage, AuthenticationFlowStage, _FinalStage {
+    public static final class Builder
+            implements NameStage, FeatureFlagIdStage, AuthenticationFlowStage, AllocationStrategyStage, _FinalStage {
         private String name;
 
         private String featureFlagId;
 
         private AuthenticationFlowEnum authenticationFlow;
 
+        private AllocationStrategyEnum allocationStrategy;
+
         private Optional<List<Integer>> levels = Optional.empty();
 
         private Optional<List<AllocationRequestItem>> allocations = Optional.empty();
-
-        private Optional<AllocationStrategyEnum> allocationStrategy = Optional.empty();
 
         private Optional<DefaultConfigEnum> defaultConfig = Optional.empty();
 
@@ -293,8 +294,19 @@ public final class CreateExperimentRequestContent {
 
         @java.lang.Override
         @JsonSetter("authentication_flow")
-        public _FinalStage authenticationFlow(@NotNull AuthenticationFlowEnum authenticationFlow) {
+        public AllocationStrategyStage authenticationFlow(@NotNull AuthenticationFlowEnum authenticationFlow) {
             this.authenticationFlow = Objects.requireNonNull(authenticationFlow, "authenticationFlow must not be null");
+            return this;
+        }
+
+        /**
+         * <p>The traffic allocation strategy for this experiment</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        @JsonSetter("allocation_strategy")
+        public _FinalStage allocationStrategy(@NotNull AllocationStrategyEnum allocationStrategy) {
+            this.allocationStrategy = Objects.requireNonNull(allocationStrategy, "allocationStrategy must not be null");
             return this;
         }
 
@@ -335,26 +347,6 @@ public final class CreateExperimentRequestContent {
         @JsonSetter(value = "allocations", nulls = Nulls.SKIP)
         public _FinalStage allocations(Optional<List<AllocationRequestItem>> allocations) {
             this.allocations = allocations;
-            return this;
-        }
-
-        /**
-         * <p>The traffic allocation strategy for this experiment</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage allocationStrategy(AllocationStrategyEnum allocationStrategy) {
-            this.allocationStrategy = Optional.ofNullable(allocationStrategy);
-            return this;
-        }
-
-        /**
-         * <p>The traffic allocation strategy for this experiment</p>
-         */
-        @java.lang.Override
-        @JsonSetter(value = "allocation_strategy", nulls = Nulls.SKIP)
-        public _FinalStage allocationStrategy(Optional<AllocationStrategyEnum> allocationStrategy) {
-            this.allocationStrategy = allocationStrategy;
             return this;
         }
 

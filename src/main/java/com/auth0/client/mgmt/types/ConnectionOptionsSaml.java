@@ -61,6 +61,10 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
     private final Optional<List<String>> nonPersistentAttrs;
 
+    private final Optional<String> clientId;
+
+    private final Optional<String> clientSecret;
+
     private final Optional<Boolean> debug;
 
     private final Optional<Boolean> deflate;
@@ -116,6 +120,8 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             Optional<List<String>> thumbprintsSha384,
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<List<String>> nonPersistentAttrs,
+            Optional<String> clientId,
+            Optional<String> clientSecret,
             Optional<Boolean> debug,
             Optional<Boolean> deflate,
             Optional<String> destinationUrl,
@@ -152,6 +158,8 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         this.thumbprintsSha384 = thumbprintsSha384;
         this.upstreamParams = upstreamParams;
         this.nonPersistentAttrs = nonPersistentAttrs;
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
         this.debug = debug;
         this.deflate = deflate;
         this.destinationUrl = destinationUrl;
@@ -284,6 +292,16 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         return nonPersistentAttrs;
     }
 
+    @JsonProperty("client_id")
+    public Optional<String> getClientId() {
+        return clientId;
+    }
+
+    @JsonProperty("client_secret")
+    public Optional<String> getClientSecret() {
+        return clientSecret;
+    }
+
     @JsonProperty("debug")
     public Optional<Boolean> getDebug() {
         return debug;
@@ -409,6 +427,8 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                 && thumbprintsSha384.equals(other.thumbprintsSha384)
                 && upstreamParams.equals(other.upstreamParams)
                 && nonPersistentAttrs.equals(other.nonPersistentAttrs)
+                && clientId.equals(other.clientId)
+                && clientSecret.equals(other.clientSecret)
                 && debug.equals(other.debug)
                 && deflate.equals(other.deflate)
                 && destinationUrl.equals(other.destinationUrl)
@@ -449,6 +469,8 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                 this.thumbprintsSha384,
                 this.upstreamParams,
                 this.nonPersistentAttrs,
+                this.clientId,
+                this.clientSecret,
                 this.debug,
                 this.deflate,
                 this.destinationUrl,
@@ -516,6 +538,10 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
         private Optional<List<String>> nonPersistentAttrs = Optional.empty();
 
+        private Optional<String> clientId = Optional.empty();
+
+        private Optional<String> clientSecret = Optional.empty();
+
         private Optional<Boolean> debug = Optional.empty();
 
         private Optional<Boolean> deflate = Optional.empty();
@@ -574,6 +600,8 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             thumbprintsSha384(other.getThumbprintsSha384());
             upstreamParams(other.getUpstreamParams());
             nonPersistentAttrs(other.getNonPersistentAttrs());
+            clientId(other.getClientId());
+            clientSecret(other.getClientSecret());
             debug(other.getDebug());
             deflate(other.getDeflate());
             destinationUrl(other.getDestinationUrl());
@@ -821,6 +849,28 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             return this;
         }
 
+        @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
+        public Builder clientId(Optional<String> clientId) {
+            this.clientId = clientId;
+            return this;
+        }
+
+        public Builder clientId(String clientId) {
+            this.clientId = Optional.ofNullable(clientId);
+            return this;
+        }
+
+        @JsonSetter(value = "client_secret", nulls = Nulls.SKIP)
+        public Builder clientSecret(Optional<String> clientSecret) {
+            this.clientSecret = clientSecret;
+            return this;
+        }
+
+        public Builder clientSecret(String clientSecret) {
+            this.clientSecret = Optional.ofNullable(clientSecret);
+            return this;
+        }
+
         @JsonSetter(value = "debug", nulls = Nulls.SKIP)
         public Builder debug(Optional<Boolean> debug) {
             this.debug = debug;
@@ -1031,6 +1081,8 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                     thumbprintsSha384,
                     upstreamParams,
                     nonPersistentAttrs,
+                    clientId,
+                    clientSecret,
                     debug,
                     deflate,
                     destinationUrl,

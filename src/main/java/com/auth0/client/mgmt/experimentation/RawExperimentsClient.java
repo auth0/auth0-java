@@ -24,14 +24,12 @@ import com.auth0.client.mgmt.experimentation.types.AdvanceRampRequestContent;
 import com.auth0.client.mgmt.experimentation.types.CreateExperimentRequestContent;
 import com.auth0.client.mgmt.experimentation.types.ListExperimentsRequestParameters;
 import com.auth0.client.mgmt.experimentation.types.UpdateExperimentRequestParameters;
-import com.auth0.client.mgmt.experimentation.types.UpdateExperimentStatusRequestContent;
 import com.auth0.client.mgmt.types.AdvanceRampResponseContent;
 import com.auth0.client.mgmt.types.CreateExperimentResponseContent;
 import com.auth0.client.mgmt.types.ExperimentListItem;
 import com.auth0.client.mgmt.types.GetExperimentResponseContent;
 import com.auth0.client.mgmt.types.ListExperimentsResponseContent;
 import com.auth0.client.mgmt.types.UpdateExperimentResponseContent;
-import com.auth0.client.mgmt.types.UpdateExperimentStatusResponseContent;
 import com.auth0.client.mgmt.types.ValidateExperimentResponseContent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
@@ -592,102 +590,6 @@ public class RawExperimentsClient {
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                     case 409:
                         throw new ConflictError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 429:
-                        throw new TooManyRequestsError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                }
-            } catch (JsonProcessingException ignored) {
-                // unable to map error response, throwing generic error
-            }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
-            throw new ManagementApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
-        } catch (JsonProcessingException e) {
-            throw new ManagementException("Failed to deserialize response: " + e.getMessage(), e);
-        } catch (IOException e) {
-            throw new ManagementException("Network error executing HTTP request", e);
-        }
-    }
-
-    /**
-     * Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
-     */
-    public ManagementApiHttpResponse<UpdateExperimentStatusResponseContent> updateStatus(
-            String id, UpdateExperimentStatusRequestContent request) {
-        return updateStatus(id, request, null);
-    }
-
-    /**
-     * Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
-     */
-    public ManagementApiHttpResponse<UpdateExperimentStatusResponseContent> updateStatus(
-            String id, UpdateExperimentStatusRequestContent request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("experimentation/experiments")
-                .addPathSegment(id)
-                .addPathSegments("status");
-        if (requestOptions != null) {
-            requestOptions.getQueryParameters().forEach((_key, _value) -> {
-                httpUrl.addQueryParameter(_key, _value);
-            });
-        }
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new ManagementException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl.build())
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
-            okhttpRequest = okhttpRequest
-                    .newBuilder()
-                    .tag(
-                            RetryInterceptor.MaxRetriesOverride.class,
-                            new RetryInterceptor.MaxRetriesOverride(
-                                    requestOptions.getMaxRetries().get()))
-                    .build();
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            if (response.isSuccessful()) {
-                return new ManagementApiHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, UpdateExperimentStatusResponseContent.class),
-                        response);
-            }
-            try {
-                switch (response.code()) {
-                    case 400:
-                        throw new BadRequestError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 401:
-                        throw new UnauthorizedError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 403:
-                        throw new ForbiddenError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 404:
-                        throw new NotFoundError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 409:
-                        throw new ConflictError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 422:
-                        throw new UnprocessableEntityError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                     case 429:
                         throw new TooManyRequestsError(

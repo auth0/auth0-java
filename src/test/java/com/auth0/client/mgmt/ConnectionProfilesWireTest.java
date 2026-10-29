@@ -202,7 +202,7 @@ public class ConnectionProfilesWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"display_name\":\"display_name\",\"template\":{\"name\":\"name\",\"organization\":{\"show_as_button\":\"none\",\"assign_membership_on_login\":\"none\"},\"connection_name_prefix_template\":\"connection_name_prefix_template\",\"enabled_features\":[\"scim\"],\"provisioning\":{\"scim\":{\"tokens\":{\"scopes\":[\"get:users\"]}}}}}"));
+                                "{\"id\":\"id\",\"display_name\":\"display_name\",\"template\":{\"name\":\"name\",\"organization\":{\"show_as_button\":\"none\",\"assign_membership_on_login\":\"none\"},\"connection_name_prefix_template\":\"connection_name_prefix_template\",\"enabled_features\":[\"scim\"],\"provisioning\":{\"scim\":{\"tokens\":{\"scopes\":[\"get:users\"]}},\"google_workspace\":{\"sync_users\":true}}}}"));
         GetConnectionProfileTemplateResponseContent response =
                 client.connectionProfiles().getTemplate("id");
         RecordedRequest request = server.takeRequest();
@@ -233,6 +233,9 @@ public class ConnectionProfilesWireTest {
                 + "            \"get:users\"\n"
                 + "          ]\n"
                 + "        }\n"
+                + "      },\n"
+                + "      \"google_workspace\": {\n"
+                + "        \"sync_users\": true\n"
                 + "      }\n"
                 + "    }\n"
                 + "  }\n"

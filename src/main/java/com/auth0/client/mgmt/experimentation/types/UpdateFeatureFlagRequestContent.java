@@ -7,6 +7,7 @@ import com.auth0.client.mgmt.core.NullableNonemptyFilter;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.OptionalNullable;
 import com.auth0.client.mgmt.types.FeatureFlagConfigParam;
+import com.auth0.client.mgmt.types.FeatureFlagStatusEnum;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -30,16 +31,20 @@ public final class UpdateFeatureFlagRequestContent {
 
     private final Optional<Map<String, FeatureFlagConfigParam>> parameters;
 
+    private final Optional<FeatureFlagStatusEnum> status;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateFeatureFlagRequestContent(
             Optional<String> name,
             OptionalNullable<String> description,
             Optional<Map<String, FeatureFlagConfigParam>> parameters,
+            Optional<FeatureFlagStatusEnum> status,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
         this.parameters = parameters;
+        this.status = status;
         this.additionalProperties = additionalProperties;
     }
 
@@ -68,6 +73,14 @@ public final class UpdateFeatureFlagRequestContent {
         return parameters;
     }
 
+    /**
+     * @return Target lifecycle status (draft → active, draft → archived, active → archived). Activating a flag requires at least 2 variations. When combined with field edits, the edits and the transition are applied together; if the transition is rejected, no edits are applied.
+     */
+    @JsonProperty("status")
+    public Optional<FeatureFlagStatusEnum> getStatus() {
+        return status;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("description")
     private OptionalNullable<String> _getDescription() {
@@ -86,12 +99,15 @@ public final class UpdateFeatureFlagRequestContent {
     }
 
     private boolean equalTo(UpdateFeatureFlagRequestContent other) {
-        return name.equals(other.name) && description.equals(other.description) && parameters.equals(other.parameters);
+        return name.equals(other.name)
+                && description.equals(other.description)
+                && parameters.equals(other.parameters)
+                && status.equals(other.status);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.name, this.description, this.parameters);
+        return Objects.hash(this.name, this.description, this.parameters, this.status);
     }
 
     @java.lang.Override
@@ -111,6 +127,8 @@ public final class UpdateFeatureFlagRequestContent {
 
         private Optional<Map<String, FeatureFlagConfigParam>> parameters = Optional.empty();
 
+        private Optional<FeatureFlagStatusEnum> status = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -120,6 +138,7 @@ public final class UpdateFeatureFlagRequestContent {
             name(other.getName());
             description(other.getDescription());
             parameters(other.getParameters());
+            status(other.getStatus());
             return this;
         }
 
@@ -182,8 +201,22 @@ public final class UpdateFeatureFlagRequestContent {
             return this;
         }
 
+        /**
+         * <p>Target lifecycle status (draft → active, draft → archived, active → archived). Activating a flag requires at least 2 variations. When combined with field edits, the edits and the transition are applied together; if the transition is rejected, no edits are applied.</p>
+         */
+        @JsonSetter(value = "status", nulls = Nulls.SKIP)
+        public Builder status(Optional<FeatureFlagStatusEnum> status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder status(FeatureFlagStatusEnum status) {
+            this.status = Optional.ofNullable(status);
+            return this;
+        }
+
         public UpdateFeatureFlagRequestContent build() {
-            return new UpdateFeatureFlagRequestContent(name, description, parameters, additionalProperties);
+            return new UpdateFeatureFlagRequestContent(name, description, parameters, status, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

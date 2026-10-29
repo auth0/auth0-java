@@ -9,6 +9,7 @@ import com.auth0.client.mgmt.types.CreateSegmentResponseContent;
 import com.auth0.client.mgmt.types.GetSegmentResponseContent;
 import com.auth0.client.mgmt.types.Segment;
 import com.auth0.client.mgmt.types.SegmentRule;
+import com.auth0.client.mgmt.types.SegmentStatusEnum;
 import com.auth0.client.mgmt.types.SegmentTypeFilterEnum;
 import com.auth0.client.mgmt.types.UpdateSegmentResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -48,13 +49,14 @@ public class ExperimentationSegmentsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"segments\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\"}"));
+                                "{\"segments\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"status\":\"active\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}],\"next\":\"next\"}"));
         SyncPagingIterable<Segment> response = client.experimentation()
                 .segments()
                 .list(ListSegmentsRequestParameters.builder()
                         .from("from")
                         .take(1)
                         .type(SegmentTypeFilterEnum.AUTH0)
+                        .status(SegmentStatusEnum.ACTIVE)
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -72,7 +74,7 @@ public class ExperimentationSegmentsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"status\":\"active\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
         CreateSegmentResponseContent response = client.experimentation()
                 .segments()
                 .create(CreateSegmentRequestContent.builder()
@@ -122,6 +124,7 @@ public class ExperimentationSegmentsWireTest {
                 + "  \"name\": \"name\",\n"
                 + "  \"description\": \"description\",\n"
                 + "  \"type\": \"self\",\n"
+                + "  \"status\": \"active\",\n"
                 + "  \"rules\": [\n"
                 + "    {}\n"
                 + "  ],\n"
@@ -165,7 +168,7 @@ public class ExperimentationSegmentsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"status\":\"active\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
         GetSegmentResponseContent response = client.experimentation().segments().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -180,6 +183,7 @@ public class ExperimentationSegmentsWireTest {
                 + "  \"name\": \"name\",\n"
                 + "  \"description\": \"description\",\n"
                 + "  \"type\": \"self\",\n"
+                + "  \"status\": \"active\",\n"
                 + "  \"rules\": [\n"
                 + "    {}\n"
                 + "  ],\n"
@@ -232,7 +236,7 @@ public class ExperimentationSegmentsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"self\",\"status\":\"active\",\"rules\":[{}],\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
         UpdateSegmentResponseContent response = client.experimentation()
                 .segments()
                 .update("id", UpdateSegmentRequestContent.builder().build());
@@ -278,6 +282,7 @@ public class ExperimentationSegmentsWireTest {
                 + "  \"name\": \"name\",\n"
                 + "  \"description\": \"description\",\n"
                 + "  \"type\": \"self\",\n"
+                + "  \"status\": \"active\",\n"
                 + "  \"rules\": [\n"
                 + "    {}\n"
                 + "  ],\n"

@@ -1,5 +1,6 @@
 package com.auth0.client.mgmt;
 
+import com.auth0.client.mgmt.core.Nullable;
 import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.types.CreateEmailTemplateRequestContent;
 import com.auth0.client.mgmt.types.CreateEmailTemplateResponseContent;
@@ -49,13 +50,26 @@ public class EmailTemplatesWireTest {
         CreateEmailTemplateResponseContent response = client.emailTemplates()
                 .create(CreateEmailTemplateRequestContent.builder()
                         .template(EmailTemplateNameEnum.VERIFY_EMAIL)
+                        .body(Nullable.ofNull())
+                        .from(Nullable.ofNull())
+                        .subject(Nullable.ofNull())
+                        .syntax(Nullable.ofNull())
+                        .enabled(Nullable.ofNull())
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("POST", request.getMethod());
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
-        String expectedRequestBody = "" + "{\n" + "  \"template\": \"verify_email\"\n" + "}";
+        String expectedRequestBody = ""
+                + "{\n"
+                + "  \"template\": \"verify_email\",\n"
+                + "  \"body\": null,\n"
+                + "  \"from\": null,\n"
+                + "  \"subject\": null,\n"
+                + "  \"syntax\": null,\n"
+                + "  \"enabled\": null\n"
+                + "}";
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
         Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
@@ -199,13 +213,26 @@ public class EmailTemplatesWireTest {
                         EmailTemplateNameEnum.VERIFY_EMAIL,
                         SetEmailTemplateRequestContent.builder()
                                 .template(EmailTemplateNameEnum.VERIFY_EMAIL)
+                                .body(Nullable.ofNull())
+                                .from(Nullable.ofNull())
+                                .subject(Nullable.ofNull())
+                                .syntax(Nullable.ofNull())
+                                .enabled(Nullable.ofNull())
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("PUT", request.getMethod());
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
-        String expectedRequestBody = "" + "{\n" + "  \"template\": \"verify_email\"\n" + "}";
+        String expectedRequestBody = ""
+                + "{\n"
+                + "  \"template\": \"verify_email\",\n"
+                + "  \"body\": null,\n"
+                + "  \"from\": null,\n"
+                + "  \"subject\": null,\n"
+                + "  \"syntax\": null,\n"
+                + "  \"enabled\": null\n"
+                + "}";
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
         Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");

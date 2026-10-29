@@ -26,6 +26,8 @@ public class ManagementApi {
 
     protected final Supplier<ClientGrantsClient> clientGrantsClient;
 
+    protected final Supplier<ClientProfilesClient> clientProfilesClient;
+
     protected final Supplier<ClientsClient> clientsClient;
 
     protected final Supplier<ConnectionProfilesClient> connectionProfilesClient;
@@ -118,6 +120,7 @@ public class ManagementApi {
         this.agentsClient = Suppliers.memoize(() -> new AgentsClient(clientOptions));
         this.brandingClient = Suppliers.memoize(() -> new BrandingClient(clientOptions));
         this.clientGrantsClient = Suppliers.memoize(() -> new ClientGrantsClient(clientOptions));
+        this.clientProfilesClient = Suppliers.memoize(() -> new ClientProfilesClient(clientOptions));
         this.clientsClient = Suppliers.memoize(() -> new ClientsClient(clientOptions));
         this.connectionProfilesClient = Suppliers.memoize(() -> new ConnectionProfilesClient(clientOptions));
         this.connectionsClient = Suppliers.memoize(() -> new ConnectionsClient(clientOptions));
@@ -177,6 +180,10 @@ public class ManagementApi {
 
     public ClientGrantsClient clientGrants() {
         return this.clientGrantsClient.get();
+    }
+
+    public ClientProfilesClient clientProfiles() {
+        return this.clientProfilesClient.get();
     }
 
     public ClientsClient clients() {

@@ -92,6 +92,10 @@ public class AsyncRawSegmentsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "type", request.getType().orElse(null), false);
         }
+        if (!request.getStatus().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "status", request.getStatus().orElse(null), false);
+        }
         if (requestOptions != null) {
             requestOptions.getQueryParameters().forEach((_key, _value) -> {
                 httpUrl.addQueryParameter(_key, _value);
