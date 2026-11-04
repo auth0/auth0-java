@@ -88,6 +88,8 @@ public final class OauthScope {
     public static final OauthScope CREATE_SSO_ACCESS_TICKETS =
             new OauthScope(Value.CREATE_SSO_ACCESS_TICKETS, "create:sso_access_tickets");
 
+    public static final OauthScope READ_PORTALS = new OauthScope(Value.READ_PORTALS, "read:portals");
+
     public static final OauthScope UPDATE_EMAIL_TEMPLATES =
             new OauthScope(Value.UPDATE_EMAIL_TEMPLATES, "update:email_templates");
 
@@ -136,6 +138,8 @@ public final class OauthScope {
             new OauthScope(Value.UPDATE_SELF_SERVICE_PROFILES, "update:self_service_profiles");
 
     public static final OauthScope CREATE_ROLES = new OauthScope(Value.CREATE_ROLES, "create:roles");
+
+    public static final OauthScope CREATE_PORTALS = new OauthScope(Value.CREATE_PORTALS, "create:portals");
 
     public static final OauthScope CREATE_SIGNING_KEYS =
             new OauthScope(Value.CREATE_SIGNING_KEYS, "create:signing_keys");
@@ -557,6 +561,8 @@ public final class OauthScope {
 
     public static final OauthScope CREATE_CONNECTIONS = new OauthScope(Value.CREATE_CONNECTIONS, "create:connections");
 
+    public static final OauthScope UPDATE_PORTALS = new OauthScope(Value.UPDATE_PORTALS, "update:portals");
+
     public static final OauthScope DELETE_DEVICE_CREDENTIALS =
             new OauthScope(Value.DELETE_DEVICE_CREDENTIALS, "delete:device_credentials");
 
@@ -603,6 +609,8 @@ public final class OauthScope {
             new OauthScope(Value.UPDATE_CONNECTION_PROFILES, "update:connection_profiles");
 
     public static final OauthScope READ_PROMPTS = new OauthScope(Value.READ_PROMPTS, "read:prompts");
+
+    public static final OauthScope DELETE_PORTALS = new OauthScope(Value.DELETE_PORTALS, "delete:portals");
 
     public static final OauthScope UPDATE_USERS_APP_METADATA =
             new OauthScope(Value.UPDATE_USERS_APP_METADATA, "update:users_app_metadata");
@@ -781,6 +789,8 @@ public final class OauthScope {
                 return visitor.visitReadRefreshTokens();
             case CREATE_SSO_ACCESS_TICKETS:
                 return visitor.visitCreateSsoAccessTickets();
+            case READ_PORTALS:
+                return visitor.visitReadPortals();
             case UPDATE_EMAIL_TEMPLATES:
                 return visitor.visitUpdateEmailTemplates();
             case CREATE_USERS:
@@ -819,6 +829,8 @@ public final class OauthScope {
                 return visitor.visitUpdateSelfServiceProfiles();
             case CREATE_ROLES:
                 return visitor.visitCreateRoles();
+            case CREATE_PORTALS:
+                return visitor.visitCreatePortals();
             case CREATE_SIGNING_KEYS:
                 return visitor.visitCreateSigningKeys();
             case UPDATE_EVENT_STREAMS:
@@ -1133,6 +1145,8 @@ public final class OauthScope {
                 return visitor.visitDeleteOrganizationClients();
             case CREATE_CONNECTIONS:
                 return visitor.visitCreateConnections();
+            case UPDATE_PORTALS:
+                return visitor.visitUpdatePortals();
             case DELETE_DEVICE_CREDENTIALS:
                 return visitor.visitDeleteDeviceCredentials();
             case READ_RULES:
@@ -1169,6 +1183,8 @@ public final class OauthScope {
                 return visitor.visitUpdateConnectionProfiles();
             case READ_PROMPTS:
                 return visitor.visitReadPrompts();
+            case DELETE_PORTALS:
+                return visitor.visitDeletePortals();
             case UPDATE_USERS_APP_METADATA:
                 return visitor.visitUpdateUsersAppMetadata();
             case DELETE_NETWORK_ACLS:
@@ -1300,6 +1316,8 @@ public final class OauthScope {
                 return READ_REFRESH_TOKENS;
             case "create:sso_access_tickets":
                 return CREATE_SSO_ACCESS_TICKETS;
+            case "read:portals":
+                return READ_PORTALS;
             case "update:email_templates":
                 return UPDATE_EMAIL_TEMPLATES;
             case "create:users":
@@ -1338,6 +1356,8 @@ public final class OauthScope {
                 return UPDATE_SELF_SERVICE_PROFILES;
             case "create:roles":
                 return CREATE_ROLES;
+            case "create:portals":
+                return CREATE_PORTALS;
             case "create:signing_keys":
                 return CREATE_SIGNING_KEYS;
             case "update:event_streams":
@@ -1652,6 +1672,8 @@ public final class OauthScope {
                 return DELETE_ORGANIZATION_CLIENTS;
             case "create:connections":
                 return CREATE_CONNECTIONS;
+            case "update:portals":
+                return UPDATE_PORTALS;
             case "delete:device_credentials":
                 return DELETE_DEVICE_CREDENTIALS;
             case "read:rules":
@@ -1688,6 +1710,8 @@ public final class OauthScope {
                 return UPDATE_CONNECTION_PROFILES;
             case "read:prompts":
                 return READ_PROMPTS;
+            case "delete:portals":
+                return DELETE_PORTALS;
             case "update:users_app_metadata":
                 return UPDATE_USERS_APP_METADATA;
             case "delete:network_acls":
@@ -2260,6 +2284,14 @@ public final class OauthScope {
 
         DELETE_ORGANIZATION_CLIENTS,
 
+        CREATE_PORTALS,
+
+        READ_PORTALS,
+
+        UPDATE_PORTALS,
+
+        DELETE_PORTALS,
+
         CREATE_NETWORK_ACL_KEYS,
 
         READ_NETWORK_ACL_KEYS,
@@ -2773,6 +2805,14 @@ public final class OauthScope {
         T visitUpdateOrganizationClients();
 
         T visitDeleteOrganizationClients();
+
+        T visitCreatePortals();
+
+        T visitReadPortals();
+
+        T visitUpdatePortals();
+
+        T visitDeletePortals();
 
         T visitCreateNetworkAclKeys();
 

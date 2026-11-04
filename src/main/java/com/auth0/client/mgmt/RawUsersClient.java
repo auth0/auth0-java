@@ -25,6 +25,7 @@ import com.auth0.client.mgmt.types.CreateUserRequestContent;
 import com.auth0.client.mgmt.types.CreateUserResponseContent;
 import com.auth0.client.mgmt.types.GetUserRequestParameters;
 import com.auth0.client.mgmt.types.GetUserResponseContent;
+import com.auth0.client.mgmt.types.ListUserConsentSigningKeysResponseContent;
 import com.auth0.client.mgmt.types.ListUsersByEmailRequestParameters;
 import com.auth0.client.mgmt.types.ListUsersOffsetPaginatedResponseContent;
 import com.auth0.client.mgmt.types.ListUsersRequestParameters;
@@ -974,16 +975,16 @@ public class RawUsersClient {
     }
 
     /**
-     * Retrieve all consent signing keys registered for a user. Returns an empty array when the user has no keys registered.
+     * Retrieve all consent signing keys registered for a user. Returns an empty <code>keys</code> array when the user has no keys registered.
      */
-    public ManagementApiHttpResponse<List<ConsentSigningKey>> listConsentSigningKeys(String id) {
+    public ManagementApiHttpResponse<ListUserConsentSigningKeysResponseContent> listConsentSigningKeys(String id) {
         return listConsentSigningKeys(id, null);
     }
 
     /**
-     * Retrieve all consent signing keys registered for a user. Returns an empty array when the user has no keys registered.
+     * Retrieve all consent signing keys registered for a user. Returns an empty <code>keys</code> array when the user has no keys registered.
      */
-    public ManagementApiHttpResponse<List<ConsentSigningKey>> listConsentSigningKeys(
+    public ManagementApiHttpResponse<ListUserConsentSigningKeysResponseContent> listConsentSigningKeys(
             String id, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -1020,7 +1021,7 @@ public class RawUsersClient {
             if (response.isSuccessful()) {
                 return new ManagementApiHttpResponse<>(
                         ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, new TypeReference<List<ConsentSigningKey>>() {}),
+                                responseBodyString, ListUserConsentSigningKeysResponseContent.class),
                         response);
             }
             try {

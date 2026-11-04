@@ -72,6 +72,8 @@ public final class ResourceServerSearchResponse {
 
     private final Optional<String> clientId;
 
+    private final Optional<ResourceServerAgentSubjectClaimsResponseEnum> agentSubjectClaims;
+
     private final OptionalNullable<ResourceServerTypeEnum> type;
 
     private final Map<String, Object> additionalProperties;
@@ -101,6 +103,7 @@ public final class ResourceServerSearchResponse {
             Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
             OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy,
             Optional<String> clientId,
+            Optional<ResourceServerAgentSubjectClaimsResponseEnum> agentSubjectClaims,
             OptionalNullable<ResourceServerTypeEnum> type,
             Map<String, Object> additionalProperties) {
         this.id = id;
@@ -127,6 +130,7 @@ public final class ResourceServerSearchResponse {
         this.subjectTypeAuthorization = subjectTypeAuthorization;
         this.authorizationPolicy = authorizationPolicy;
         this.clientId = clientId;
+        this.agentSubjectClaims = agentSubjectClaims;
         this.type = type;
         this.additionalProperties = additionalProperties;
     }
@@ -320,6 +324,11 @@ public final class ResourceServerSearchResponse {
         return clientId;
     }
 
+    @JsonProperty("agent_subject_claims")
+    public Optional<ResourceServerAgentSubjectClaimsResponseEnum> getAgentSubjectClaims() {
+        return agentSubjectClaims;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("type")
     public OptionalNullable<ResourceServerTypeEnum> getType() {
@@ -407,6 +416,7 @@ public final class ResourceServerSearchResponse {
                 && subjectTypeAuthorization.equals(other.subjectTypeAuthorization)
                 && authorizationPolicy.equals(other.authorizationPolicy)
                 && clientId.equals(other.clientId)
+                && agentSubjectClaims.equals(other.agentSubjectClaims)
                 && type.equals(other.type);
     }
 
@@ -437,6 +447,7 @@ public final class ResourceServerSearchResponse {
                 this.subjectTypeAuthorization,
                 this.authorizationPolicy,
                 this.clientId,
+                this.agentSubjectClaims,
                 this.type);
     }
 
@@ -499,6 +510,8 @@ public final class ResourceServerSearchResponse {
 
         private Optional<String> clientId = Optional.empty();
 
+        private Optional<ResourceServerAgentSubjectClaimsResponseEnum> agentSubjectClaims = Optional.empty();
+
         private OptionalNullable<ResourceServerTypeEnum> type = OptionalNullable.absent();
 
         @JsonAnySetter
@@ -531,6 +544,7 @@ public final class ResourceServerSearchResponse {
             subjectTypeAuthorization(other.getSubjectTypeAuthorization());
             authorizationPolicy(other.getAuthorizationPolicy());
             clientId(other.getClientId());
+            agentSubjectClaims(other.getAgentSubjectClaims());
             type(other.getType());
             return this;
         }
@@ -974,6 +988,17 @@ public final class ResourceServerSearchResponse {
             return this;
         }
 
+        @JsonSetter(value = "agent_subject_claims", nulls = Nulls.SKIP)
+        public Builder agentSubjectClaims(Optional<ResourceServerAgentSubjectClaimsResponseEnum> agentSubjectClaims) {
+            this.agentSubjectClaims = agentSubjectClaims;
+            return this;
+        }
+
+        public Builder agentSubjectClaims(ResourceServerAgentSubjectClaimsResponseEnum agentSubjectClaims) {
+            this.agentSubjectClaims = Optional.ofNullable(agentSubjectClaims);
+            return this;
+        }
+
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(@Nullable OptionalNullable<ResourceServerTypeEnum> type) {
             this.type = type;
@@ -1031,6 +1056,7 @@ public final class ResourceServerSearchResponse {
                     subjectTypeAuthorization,
                     authorizationPolicy,
                     clientId,
+                    agentSubjectClaims,
                     type,
                     additionalProperties);
         }

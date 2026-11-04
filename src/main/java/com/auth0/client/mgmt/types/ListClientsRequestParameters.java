@@ -41,6 +41,8 @@ public final class ListClientsRequestParameters {
 
     private final OptionalNullable<String> externalClientId;
 
+    private final OptionalNullable<String> agentId;
+
     private final OptionalNullable<String> q;
 
     private final Map<String, Object> additionalProperties;
@@ -55,6 +57,7 @@ public final class ListClientsRequestParameters {
             OptionalNullable<Boolean> isFirstParty,
             OptionalNullable<String> appType,
             OptionalNullable<String> externalClientId,
+            OptionalNullable<String> agentId,
             OptionalNullable<String> q,
             Map<String, Object> additionalProperties) {
         this.fields = fields;
@@ -66,6 +69,7 @@ public final class ListClientsRequestParameters {
         this.isFirstParty = isFirstParty;
         this.appType = appType;
         this.externalClientId = externalClientId;
+        this.agentId = agentId;
         this.q = q;
         this.additionalProperties = additionalProperties;
     }
@@ -179,6 +183,18 @@ public final class ListClientsRequestParameters {
     }
 
     /**
+     * @return Optional filter by the agent associated with the client.<b>Additional Restrictions</b>:<ul><li>Cannot be used in combination with other filters</li><li>Only <i>fields</i>, <i>include_fields</i>, <i>page</i>, <i>per_page</i>, and <i>include_totals</i> are supported alongside it</li><li>Checkpoint pagination (<i>from</i>, <i>take</i>) is not supported</li></ul>
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("agent_id")
+    public OptionalNullable<String> getAgentId() {
+        if (agentId == null) {
+            return OptionalNullable.absent();
+        }
+        return agentId;
+    }
+
+    /**
      * @return Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<b>Permitted Queries</b>:<ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -245,6 +261,12 @@ public final class ListClientsRequestParameters {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("agent_id")
+    private OptionalNullable<String> _getAgentId() {
+        return agentId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("q")
     private OptionalNullable<String> _getQ() {
         return q;
@@ -271,6 +293,7 @@ public final class ListClientsRequestParameters {
                 && isFirstParty.equals(other.isFirstParty)
                 && appType.equals(other.appType)
                 && externalClientId.equals(other.externalClientId)
+                && agentId.equals(other.agentId)
                 && q.equals(other.q);
     }
 
@@ -286,6 +309,7 @@ public final class ListClientsRequestParameters {
                 this.isFirstParty,
                 this.appType,
                 this.externalClientId,
+                this.agentId,
                 this.q);
     }
 
@@ -318,6 +342,8 @@ public final class ListClientsRequestParameters {
 
         private OptionalNullable<String> externalClientId = OptionalNullable.absent();
 
+        private OptionalNullable<String> agentId = OptionalNullable.absent();
+
         private OptionalNullable<String> q = OptionalNullable.absent();
 
         @JsonAnySetter
@@ -335,6 +361,7 @@ public final class ListClientsRequestParameters {
             isFirstParty(other.getIsFirstParty());
             appType(other.getAppType());
             externalClientId(other.getExternalClientId());
+            agentId(other.getAgentId());
             q(other.getQ());
             return this;
         }
@@ -646,6 +673,40 @@ public final class ListClientsRequestParameters {
         }
 
         /**
+         * <p>Optional filter by the agent associated with the client.<b>Additional Restrictions</b>:<ul><li>Cannot be used in combination with other filters</li><li>Only <i>fields</i>, <i>include_fields</i>, <i>page</i>, <i>per_page</i>, and <i>include_totals</i> are supported alongside it</li><li>Checkpoint pagination (<i>from</i>, <i>take</i>) is not supported</li></ul></p>
+         */
+        @JsonSetter(value = "agent_id", nulls = Nulls.SKIP)
+        public Builder agentId(@Nullable OptionalNullable<String> agentId) {
+            this.agentId = agentId;
+            return this;
+        }
+
+        public Builder agentId(String agentId) {
+            this.agentId = OptionalNullable.of(agentId);
+            return this;
+        }
+
+        public Builder agentId(Optional<String> agentId) {
+            if (agentId.isPresent()) {
+                this.agentId = OptionalNullable.of(agentId.get());
+            } else {
+                this.agentId = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder agentId(com.auth0.client.mgmt.core.Nullable<String> agentId) {
+            if (agentId.isNull()) {
+                this.agentId = OptionalNullable.ofNull();
+            } else if (agentId.isEmpty()) {
+                this.agentId = OptionalNullable.absent();
+            } else {
+                this.agentId = OptionalNullable.of(agentId.get());
+            }
+            return this;
+        }
+
+        /**
          * <p>Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<b>Permitted Queries</b>:<ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i></p>
          */
         @JsonSetter(value = "q", nulls = Nulls.SKIP)
@@ -690,6 +751,7 @@ public final class ListClientsRequestParameters {
                     isFirstParty,
                     appType,
                     externalClientId,
+                    agentId,
                     q,
                     additionalProperties);
         }

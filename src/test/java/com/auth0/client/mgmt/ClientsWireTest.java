@@ -65,6 +65,7 @@ public class ClientsWireTest {
                         .isFirstParty(true)
                         .appType("app_type")
                         .externalClientId("external_client_id")
+                        .agentId("agent_id")
                         .q("q")
                         .build());
         RecordedRequest request = server.takeRequest();

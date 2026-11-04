@@ -66,6 +66,8 @@ public class ManagementApi {
 
     protected final Supplier<OrganizationsClient> organizationsClient;
 
+    protected final Supplier<PortalsClient> portalsClient;
+
     protected final Supplier<PromptsClient> promptsClient;
 
     protected final Supplier<RateLimitPoliciesClient> rateLimitPoliciesClient;
@@ -140,6 +142,7 @@ public class ManagementApi {
         this.logsClient = Suppliers.memoize(() -> new LogsClient(clientOptions));
         this.networkAclsClient = Suppliers.memoize(() -> new NetworkAclsClient(clientOptions));
         this.organizationsClient = Suppliers.memoize(() -> new OrganizationsClient(clientOptions));
+        this.portalsClient = Suppliers.memoize(() -> new PortalsClient(clientOptions));
         this.promptsClient = Suppliers.memoize(() -> new PromptsClient(clientOptions));
         this.rateLimitPoliciesClient = Suppliers.memoize(() -> new RateLimitPoliciesClient(clientOptions));
         this.refreshTokensClient = Suppliers.memoize(() -> new RefreshTokensClient(clientOptions));
@@ -260,6 +263,10 @@ public class ManagementApi {
 
     public OrganizationsClient organizations() {
         return this.organizationsClient.get();
+    }
+
+    public PortalsClient portals() {
+        return this.portalsClient.get();
     }
 
     public PromptsClient prompts() {

@@ -25,6 +25,7 @@ import com.auth0.client.mgmt.types.CreateUserRequestContent;
 import com.auth0.client.mgmt.types.CreateUserResponseContent;
 import com.auth0.client.mgmt.types.GetUserRequestParameters;
 import com.auth0.client.mgmt.types.GetUserResponseContent;
+import com.auth0.client.mgmt.types.ListUserConsentSigningKeysResponseContent;
 import com.auth0.client.mgmt.types.ListUsersByEmailRequestParameters;
 import com.auth0.client.mgmt.types.ListUsersOffsetPaginatedResponseContent;
 import com.auth0.client.mgmt.types.ListUsersRequestParameters;
@@ -1137,17 +1138,18 @@ public class AsyncRawUsersClient {
     }
 
     /**
-     * Retrieve all consent signing keys registered for a user. Returns an empty array when the user has no keys registered.
+     * Retrieve all consent signing keys registered for a user. Returns an empty <code>keys</code> array when the user has no keys registered.
      */
-    public CompletableFuture<ManagementApiHttpResponse<List<ConsentSigningKey>>> listConsentSigningKeys(String id) {
+    public CompletableFuture<ManagementApiHttpResponse<ListUserConsentSigningKeysResponseContent>>
+            listConsentSigningKeys(String id) {
         return listConsentSigningKeys(id, null);
     }
 
     /**
-     * Retrieve all consent signing keys registered for a user. Returns an empty array when the user has no keys registered.
+     * Retrieve all consent signing keys registered for a user. Returns an empty <code>keys</code> array when the user has no keys registered.
      */
-    public CompletableFuture<ManagementApiHttpResponse<List<ConsentSigningKey>>> listConsentSigningKeys(
-            String id, RequestOptions requestOptions) {
+    public CompletableFuture<ManagementApiHttpResponse<ListUserConsentSigningKeysResponseContent>>
+            listConsentSigningKeys(String id, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("users")
@@ -1177,7 +1179,8 @@ public class AsyncRawUsersClient {
                                     requestOptions.getMaxRetries().get()))
                     .build();
         }
-        CompletableFuture<ManagementApiHttpResponse<List<ConsentSigningKey>>> future = new CompletableFuture<>();
+        CompletableFuture<ManagementApiHttpResponse<ListUserConsentSigningKeysResponseContent>> future =
+                new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
@@ -1186,7 +1189,7 @@ public class AsyncRawUsersClient {
                     if (response.isSuccessful()) {
                         future.complete(new ManagementApiHttpResponse<>(
                                 ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBodyString, new TypeReference<List<ConsentSigningKey>>() {}),
+                                        responseBodyString, ListUserConsentSigningKeysResponseContent.class),
                                 response));
                         return;
                     }

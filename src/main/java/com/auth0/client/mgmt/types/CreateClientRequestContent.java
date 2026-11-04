@@ -143,6 +143,8 @@ public final class CreateClientRequestContent {
 
     private final Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
 
+    private final OptionalNullable<String> agentId;
+
     private final Optional<ClientOidcSupportPost> oidcSupport;
 
     private final Map<String, Object> additionalProperties;
@@ -207,6 +209,7 @@ public final class CreateClientRequestContent {
             Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration,
             Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration,
             Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
+            OptionalNullable<String> agentId,
             Optional<ClientOidcSupportPost> oidcSupport,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -268,6 +271,7 @@ public final class CreateClientRequestContent {
         this.b2BIntegrationConfiguration = b2BIntegrationConfiguration;
         this.myOrganizationConfiguration = myOrganizationConfiguration;
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
+        this.agentId = agentId;
         this.oidcSupport = oidcSupport;
         this.additionalProperties = additionalProperties;
     }
@@ -680,6 +684,18 @@ public final class CreateClientRequestContent {
         return asyncApprovalNotificationChannels;
     }
 
+    /**
+     * @return ID of the agent to associate with this client.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("agent_id")
+    public OptionalNullable<String> getAgentId() {
+        if (agentId == null) {
+            return OptionalNullable.absent();
+        }
+        return agentId;
+    }
+
     @JsonProperty("oidc_support")
     public Optional<ClientOidcSupportPost> getOidcSupport() {
         return oidcSupport;
@@ -719,6 +735,12 @@ public final class CreateClientRequestContent {
     @JsonProperty("par_request_expiry")
     private OptionalNullable<Integer> _getParRequestExpiry() {
         return parRequestExpiry;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("agent_id")
+    private OptionalNullable<String> _getAgentId() {
+        return agentId;
     }
 
     @java.lang.Override
@@ -793,6 +815,7 @@ public final class CreateClientRequestContent {
                 && b2BIntegrationConfiguration.equals(other.b2BIntegrationConfiguration)
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels)
+                && agentId.equals(other.agentId)
                 && oidcSupport.equals(other.oidcSupport);
     }
 
@@ -858,6 +881,7 @@ public final class CreateClientRequestContent {
                 this.b2BIntegrationConfiguration,
                 this.myOrganizationConfiguration,
                 this.asyncApprovalNotificationChannels,
+                this.agentId,
                 this.oidcSupport);
     }
 
@@ -1243,6 +1267,17 @@ public final class CreateClientRequestContent {
         _FinalStage asyncApprovalNotificationChannels(
                 List<AsyncApprovalNotificationsChannelsEnum> asyncApprovalNotificationChannels);
 
+        /**
+         * <p>ID of the agent to associate with this client.</p>
+         */
+        _FinalStage agentId(@Nullable OptionalNullable<String> agentId);
+
+        _FinalStage agentId(String agentId);
+
+        _FinalStage agentId(Optional<String> agentId);
+
+        _FinalStage agentId(com.auth0.client.mgmt.core.Nullable<String> agentId);
+
         _FinalStage oidcSupport(Optional<ClientOidcSupportPost> oidcSupport);
 
         _FinalStage oidcSupport(ClientOidcSupportPost oidcSupport);
@@ -1253,6 +1288,8 @@ public final class CreateClientRequestContent {
         private String name;
 
         private Optional<ClientOidcSupportPost> oidcSupport = Optional.empty();
+
+        private OptionalNullable<String> agentId = OptionalNullable.absent();
 
         private Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
                 Optional.empty();
@@ -1439,6 +1476,7 @@ public final class CreateClientRequestContent {
             b2BIntegrationConfiguration(other.getB2BIntegrationConfiguration());
             myOrganizationConfiguration(other.getMyOrganizationConfiguration());
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
+            agentId(other.getAgentId());
             oidcSupport(other.getOidcSupport());
             return this;
         }
@@ -1464,6 +1502,56 @@ public final class CreateClientRequestContent {
         @JsonSetter(value = "oidc_support", nulls = Nulls.SKIP)
         public _FinalStage oidcSupport(Optional<ClientOidcSupportPost> oidcSupport) {
             this.oidcSupport = oidcSupport;
+            return this;
+        }
+
+        /**
+         * <p>ID of the agent to associate with this client.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage agentId(com.auth0.client.mgmt.core.Nullable<String> agentId) {
+            if (agentId.isNull()) {
+                this.agentId = OptionalNullable.ofNull();
+            } else if (agentId.isEmpty()) {
+                this.agentId = OptionalNullable.absent();
+            } else {
+                this.agentId = OptionalNullable.of(agentId.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>ID of the agent to associate with this client.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage agentId(Optional<String> agentId) {
+            if (agentId.isPresent()) {
+                this.agentId = OptionalNullable.of(agentId.get());
+            } else {
+                this.agentId = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        /**
+         * <p>ID of the agent to associate with this client.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage agentId(String agentId) {
+            this.agentId = OptionalNullable.of(agentId);
+            return this;
+        }
+
+        /**
+         * <p>ID of the agent to associate with this client.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "agent_id", nulls = Nulls.SKIP)
+        public _FinalStage agentId(@Nullable OptionalNullable<String> agentId) {
+            this.agentId = agentId;
             return this;
         }
 
@@ -2650,6 +2738,7 @@ public final class CreateClientRequestContent {
                     b2BIntegrationConfiguration,
                     myOrganizationConfiguration,
                     asyncApprovalNotificationChannels,
+                    agentId,
                     oidcSupport,
                     additionalProperties);
         }

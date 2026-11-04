@@ -223,6 +223,10 @@ public class AsyncRawClientsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "external_client_id", request.getExternalClientId().orElse(null), false);
         }
+        if (!request.getAgentId().isAbsent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "agent_id", request.getAgentId().orElse(null), false);
+        }
         if (!request.getQ().isAbsent()) {
             QueryStringMapper.addQueryParameter(httpUrl, "q", request.getQ().orElse(null), false);
         }
