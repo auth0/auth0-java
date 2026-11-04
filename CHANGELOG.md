@@ -1,5 +1,16 @@
 # Change Log
 
+## [5.5.0](https://github.com/auth0/auth0-java/tree/5.5.0) (2026-11-04)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/5.4.0...5.5.0)
+
+**Added**
+- feat: add Portals API, agent_id on clients support [\#948](https://github.com/auth0/auth0-java/pull/948) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - **Portals:** adds the `portals()` client (list, create, get, update, delete) with discriminated `PageComponent` and `SidebarComponent` types for Universal Portals.
+    - **Agents:** adds `agent_id` to client create, update, list and response types, and `agent_subject_claims` to resource servers.
+- feat!: Adds Client Profiles, client/grant search, consent signing keys, resource server type, client OIDC support [\#947](https://github.com/auth0/auth0-java/pull/947) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - **New endpoints:** adds the `clientProfiles()` client, `clients().search` and `clientGrants().search`, and the user consent signing key endpoints. Resource servers gain `type`, and clients gain `oidc_support`.
+    - **Breaking:** connection responses now require `display_name`, `SearchOrganization.metadata` is removed, and the Experiment Center `updateStatus` methods are replaced by `status` on `update`.
+
 ## [5.4.0](https://github.com/auth0/auth0-java/tree/5.4.0) (2026-09-30)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/5.3.0...5.4.0)
 
