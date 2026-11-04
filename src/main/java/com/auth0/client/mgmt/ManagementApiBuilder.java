@@ -67,7 +67,8 @@ public class ManagementApiBuilder {
      *     .build();
      * }</pre>
      *
-     * @param domain The Auth0 domain (e.g., "your-tenant.auth0.com")
+     * @param domain The Auth0 domain (e.g., "your-tenant.auth0.com"). A leading {@code https://} and a trailing
+     *               slash are accepted.
      * @return This builder for method chaining
      */
     public ManagementApiBuilder domain(String domain) {
@@ -241,7 +242,7 @@ public class ManagementApiBuilder {
      */
     protected void setEnvironment(ClientOptions.Builder builder) {
         if (this.domain != null) {
-            String url = "https://" + this.domain + "/api/v2";
+            String url = getBaseUrl() + "/api/v2";
             builder.environment(Environment.custom(url));
         } else {
             builder.environment(this.environment);
@@ -256,7 +257,11 @@ public class ManagementApiBuilder {
      */
     protected String getBaseUrl() {
         if (this.domain != null) {
-            return "https://" + this.domain;
+            String url = this.domain.replaceAll("/+$", "");
+            if (!url.startsWith("https://") && !url.startsWith("http://")) {
+                url = "https://" + url;
+            }
+            return url;
         }
         // Extract base URL from environment URL by removing /api/v2 suffix
         String envUrl = this.environment.getUrl();
