@@ -155,6 +155,8 @@ public final class ClientSearchResponse {
 
     private final Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus;
 
+    private final Optional<String> agentId;
+
     private final Optional<String> externalClientId;
 
     private final Optional<String> jwksUri;
@@ -227,6 +229,7 @@ public final class ClientSearchResponse {
             Optional<ClientExternalMetadataTypeEnum> externalMetadataType,
             Optional<ClientExternalMetadataCreatedByEnum> externalMetadataCreatedBy,
             Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus,
+            Optional<String> agentId,
             Optional<String> externalClientId,
             Optional<String> jwksUri,
             Map<String, Object> additionalProperties) {
@@ -295,6 +298,7 @@ public final class ClientSearchResponse {
         this.externalMetadataType = externalMetadataType;
         this.externalMetadataCreatedBy = externalMetadataCreatedBy;
         this.externalMetadataStatus = externalMetadataStatus;
+        this.agentId = agentId;
         this.externalClientId = externalClientId;
         this.jwksUri = jwksUri;
         this.additionalProperties = additionalProperties;
@@ -751,6 +755,14 @@ public final class ClientSearchResponse {
     }
 
     /**
+     * @return ID of the agent associated with this client.
+     */
+    @JsonProperty("agent_id")
+    public Optional<String> getAgentId() {
+        return agentId;
+    }
+
+    /**
      * @return An alternate client identifier to be used during authorization flows. Only supports CIMD-based client identifiers.
      */
     @JsonProperty("external_client_id")
@@ -880,6 +892,7 @@ public final class ClientSearchResponse {
                 && externalMetadataType.equals(other.externalMetadataType)
                 && externalMetadataCreatedBy.equals(other.externalMetadataCreatedBy)
                 && externalMetadataStatus.equals(other.externalMetadataStatus)
+                && agentId.equals(other.agentId)
                 && externalClientId.equals(other.externalClientId)
                 && jwksUri.equals(other.jwksUri);
     }
@@ -952,6 +965,7 @@ public final class ClientSearchResponse {
                 this.externalMetadataType,
                 this.externalMetadataCreatedBy,
                 this.externalMetadataStatus,
+                this.agentId,
                 this.externalClientId,
                 this.jwksUri);
     }
@@ -1100,6 +1114,8 @@ public final class ClientSearchResponse {
 
         private Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus = Optional.empty();
 
+        private Optional<String> agentId = Optional.empty();
+
         private Optional<String> externalClientId = Optional.empty();
 
         private Optional<String> jwksUri = Optional.empty();
@@ -1175,6 +1191,7 @@ public final class ClientSearchResponse {
             externalMetadataType(other.getExternalMetadataType());
             externalMetadataCreatedBy(other.getExternalMetadataCreatedBy());
             externalMetadataStatus(other.getExternalMetadataStatus());
+            agentId(other.getAgentId());
             externalClientId(other.getExternalClientId());
             jwksUri(other.getJwksUri());
             return this;
@@ -2139,6 +2156,20 @@ public final class ClientSearchResponse {
         }
 
         /**
+         * <p>ID of the agent associated with this client.</p>
+         */
+        @JsonSetter(value = "agent_id", nulls = Nulls.SKIP)
+        public Builder agentId(Optional<String> agentId) {
+            this.agentId = agentId;
+            return this;
+        }
+
+        public Builder agentId(String agentId) {
+            this.agentId = Optional.ofNullable(agentId);
+            return this;
+        }
+
+        /**
          * <p>An alternate client identifier to be used during authorization flows. Only supports CIMD-based client identifiers.</p>
          */
         @JsonSetter(value = "external_client_id", nulls = Nulls.SKIP)
@@ -2233,6 +2264,7 @@ public final class ClientSearchResponse {
                     externalMetadataType,
                     externalMetadataCreatedBy,
                     externalMetadataStatus,
+                    agentId,
                     externalClientId,
                     jwksUri,
                     additionalProperties);

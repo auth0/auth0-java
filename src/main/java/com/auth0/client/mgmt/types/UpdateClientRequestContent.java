@@ -142,6 +142,8 @@ public final class UpdateClientRequestContent {
 
     private final Optional<ClientRedirectionPolicyEnum> redirectionPolicy;
 
+    private final OptionalNullable<String> agentId;
+
     private final OptionalNullable<ClientOidcSupportPatch> oidcSupport;
 
     private final Map<String, Object> additionalProperties;
@@ -206,6 +208,7 @@ public final class UpdateClientRequestContent {
             OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
             Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
+            OptionalNullable<String> agentId,
             OptionalNullable<ClientOidcSupportPatch> oidcSupport,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -267,6 +270,7 @@ public final class UpdateClientRequestContent {
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
         this.thirdPartySecurityMode = thirdPartySecurityMode;
         this.redirectionPolicy = redirectionPolicy;
+        this.agentId = agentId;
         this.oidcSupport = oidcSupport;
         this.additionalProperties = additionalProperties;
     }
@@ -749,6 +753,18 @@ public final class UpdateClientRequestContent {
         return redirectionPolicy;
     }
 
+    /**
+     * @return ID of the agent to associate with this client, or null to remove the association.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("agent_id")
+    public OptionalNullable<String> getAgentId() {
+        if (agentId == null) {
+            return OptionalNullable.absent();
+        }
+        return agentId;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("oidc_support")
     public OptionalNullable<ClientOidcSupportPatch> getOidcSupport() {
@@ -891,6 +907,12 @@ public final class UpdateClientRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("agent_id")
+    private OptionalNullable<String> _getAgentId() {
+        return agentId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("oidc_support")
     private OptionalNullable<ClientOidcSupportPatch> _getOidcSupport() {
         return oidcSupport;
@@ -968,6 +990,7 @@ public final class UpdateClientRequestContent {
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels)
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
                 && redirectionPolicy.equals(other.redirectionPolicy)
+                && agentId.equals(other.agentId)
                 && oidcSupport.equals(other.oidcSupport);
     }
 
@@ -1033,6 +1056,7 @@ public final class UpdateClientRequestContent {
                 this.asyncApprovalNotificationChannels,
                 this.thirdPartySecurityMode,
                 this.redirectionPolicy,
+                this.agentId,
                 this.oidcSupport);
     }
 
@@ -1173,6 +1197,8 @@ public final class UpdateClientRequestContent {
 
         private Optional<ClientRedirectionPolicyEnum> redirectionPolicy = Optional.empty();
 
+        private OptionalNullable<String> agentId = OptionalNullable.absent();
+
         private OptionalNullable<ClientOidcSupportPatch> oidcSupport = OptionalNullable.absent();
 
         @JsonAnySetter
@@ -1240,6 +1266,7 @@ public final class UpdateClientRequestContent {
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
             redirectionPolicy(other.getRedirectionPolicy());
+            agentId(other.getAgentId());
             oidcSupport(other.getOidcSupport());
             return this;
         }
@@ -2484,6 +2511,40 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        /**
+         * <p>ID of the agent to associate with this client, or null to remove the association.</p>
+         */
+        @JsonSetter(value = "agent_id", nulls = Nulls.SKIP)
+        public Builder agentId(@Nullable OptionalNullable<String> agentId) {
+            this.agentId = agentId;
+            return this;
+        }
+
+        public Builder agentId(String agentId) {
+            this.agentId = OptionalNullable.of(agentId);
+            return this;
+        }
+
+        public Builder agentId(Optional<String> agentId) {
+            if (agentId.isPresent()) {
+                this.agentId = OptionalNullable.of(agentId.get());
+            } else {
+                this.agentId = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder agentId(com.auth0.client.mgmt.core.Nullable<String> agentId) {
+            if (agentId.isNull()) {
+                this.agentId = OptionalNullable.ofNull();
+            } else if (agentId.isEmpty()) {
+                this.agentId = OptionalNullable.absent();
+            } else {
+                this.agentId = OptionalNullable.of(agentId.get());
+            }
+            return this;
+        }
+
         @JsonSetter(value = "oidc_support", nulls = Nulls.SKIP)
         public Builder oidcSupport(@Nullable OptionalNullable<ClientOidcSupportPatch> oidcSupport) {
             this.oidcSupport = oidcSupport;
@@ -2576,6 +2637,7 @@ public final class UpdateClientRequestContent {
                     asyncApprovalNotificationChannels,
                     thirdPartySecurityMode,
                     redirectionPolicy,
+                    agentId,
                     oidcSupport,
                     additionalProperties);
         }

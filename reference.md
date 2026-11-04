@@ -2042,6 +2042,7 @@ client.clients().list(
         .isFirstParty(true)
         .appType("app_type")
         .externalClientId("external_client_id")
+        .agentId("agent_id")
         .q("q")
         .build()
 );
@@ -2124,6 +2125,14 @@ client.clients().list(
 <dd>
 
 **externalClientId:** `Optional<String>` — Optional filter by the <a href="https://drafts.oauth.net/draft-ietf-oauth-client-id-metadata-document/draft-ietf-oauth-client-id-metadata-document.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agentId:** `Optional<String>` — Optional filter by the agent associated with the client.<br /><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Only <i>fields</i>, <i>include_fields</i>, <i>page</i>, <i>per_page</i>, and <i>include_totals</i> are supported alongside it</li><li>Checkpoint pagination (<i>from</i>, <i>take</i>) is not supported</li></ul>
     
 </dd>
 </dl>
@@ -2672,6 +2681,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dd>
 
 **asyncApprovalNotificationChannels:** `Optional<List<AsyncApprovalNotificationsChannelsEnum>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agentId:** `Optional<String>` — ID of the agent to associate with this client.
     
 </dd>
 </dl>
@@ -3633,6 +3650,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dd>
 
 **redirectionPolicy:** `Optional<ClientRedirectionPolicyEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agentId:** `Optional<String>` — ID of the agent to associate with this client, or null to remove the association.
     
 </dd>
 </dl>
@@ -10484,6 +10509,299 @@ client.organizations().update(
 </dl>
 </details>
 
+## Portals
+<details><summary><code>client.portals.list() -> ListPortalsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.portals().list();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.portals.create(request) -> Portal</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.portals().create(
+    CreatePortalRequestContent
+        .builder()
+        .slug("slug")
+        .name("name")
+        .client(
+            PortalClientSecretPostRequest
+                .builder()
+                .tokenEndpointAuthMethod(PortalClientSecretPostRequestTokenEndpointAuthMethod.CLIENT_SECRET_POST)
+                .clientId("client_id")
+                .clientSecret("client_secret")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**slug:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client:** `PortalClientSecretPostRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**navigation:** `Optional<PortalNavigation>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pages:** `Optional<PortalPagesByType>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customCode:** `Optional<PortalCustomCode>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.portals.get(id) -> Portal</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.portals().get("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.portals.delete(id)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.portals().delete("id");
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.portals.update(id, request) -> Portal</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.portals().update(
+    "id",
+    UpdatePortalRequestContent
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**slug:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client:** `Optional<PortalClientSecretPostRequest>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**navigation:** `Optional<PortalNavigation>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pages:** `Optional<PortalPagesByType>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customCode:** `Optional<PortalCustomCode>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Prompts
 <details><summary><code>client.prompts.getSettings() -> GetSettingsResponseContent</code></summary>
 <dl>
@@ -11575,6 +11893,14 @@ client.resourceServers().create(
 <dl>
 <dd>
 
+**agentSubjectClaims:** `Optional<ResourceServerAgentSubjectClaimsSchemaEnum>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **type:** `Optional<ResourceServerTypeEnum>` 
     
 </dd>
@@ -12033,6 +12359,14 @@ client.resourceServers().update(
 <dd>
 
 **authorizationPolicy:** `Optional<ResourceServerAuthorizationPolicy>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agentSubjectClaims:** `Optional<ResourceServerAgentSubjectClaimsSchemaEnum>` 
     
 </dd>
 </dl>
@@ -15981,7 +16315,7 @@ client.users().update(
 </dl>
 </details>
 
-<details><summary><code>client.users.listConsentSigningKeys(id) -> List&amp;lt;ConsentSigningKey&amp;gt;</code></summary>
+<details><summary><code>client.users.listConsentSigningKeys(id) -> ListUserConsentSigningKeysResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -15993,7 +16327,7 @@ client.users().update(
 <dl>
 <dd>
 
-Retrieve all consent signing keys registered for a user. Returns an empty array when the user has no keys registered.
+Retrieve all consent signing keys registered for a user. Returns an empty `keys` array when the user has no keys registered.
 </dd>
 </dl>
 </dd>
@@ -21663,7 +21997,7 @@ client.connections().clients().update(
 <dl>
 <dd>
 
-Gets the connection keys for the Okta or OIDC connection strategy.
+Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy.
 </dd>
 </dl>
 </dd>
@@ -21717,7 +22051,7 @@ client.connections().keys().get("id");
 <dl>
 <dd>
 
-Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
 </dd>
 </dl>
 </dd>
@@ -21786,7 +22120,7 @@ client.connections().keys().create(
 <dl>
 <dd>
 
-Rotates the connection keys for the Okta or OIDC connection strategies.
+Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
 </dd>
 </dl>
 </dd>

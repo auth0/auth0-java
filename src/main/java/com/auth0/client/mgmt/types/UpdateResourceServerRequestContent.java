@@ -64,6 +64,8 @@ public final class UpdateResourceServerRequestContent {
 
     private final OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy;
 
+    private final Optional<ResourceServerAgentSubjectClaimsSchemaEnum> agentSubjectClaims;
+
     private final OptionalNullable<ResourceServerTypeEnum> type;
 
     private final Map<String, Object> additionalProperties;
@@ -89,6 +91,7 @@ public final class UpdateResourceServerRequestContent {
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
             Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
             OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy,
+            Optional<ResourceServerAgentSubjectClaimsSchemaEnum> agentSubjectClaims,
             OptionalNullable<ResourceServerTypeEnum> type,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -111,6 +114,7 @@ public final class UpdateResourceServerRequestContent {
         this.proofOfPossession = proofOfPossession;
         this.subjectTypeAuthorization = subjectTypeAuthorization;
         this.authorizationPolicy = authorizationPolicy;
+        this.agentSubjectClaims = agentSubjectClaims;
         this.type = type;
         this.additionalProperties = additionalProperties;
     }
@@ -276,6 +280,11 @@ public final class UpdateResourceServerRequestContent {
         return authorizationPolicy;
     }
 
+    @JsonProperty("agent_subject_claims")
+    public Optional<ResourceServerAgentSubjectClaimsSchemaEnum> getAgentSubjectClaims() {
+        return agentSubjectClaims;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("type")
     public OptionalNullable<ResourceServerTypeEnum> getType() {
@@ -366,6 +375,7 @@ public final class UpdateResourceServerRequestContent {
                 && proofOfPossession.equals(other.proofOfPossession)
                 && subjectTypeAuthorization.equals(other.subjectTypeAuthorization)
                 && authorizationPolicy.equals(other.authorizationPolicy)
+                && agentSubjectClaims.equals(other.agentSubjectClaims)
                 && type.equals(other.type);
     }
 
@@ -392,6 +402,7 @@ public final class UpdateResourceServerRequestContent {
                 this.proofOfPossession,
                 this.subjectTypeAuthorization,
                 this.authorizationPolicy,
+                this.agentSubjectClaims,
                 this.type);
     }
 
@@ -446,6 +457,8 @@ public final class UpdateResourceServerRequestContent {
 
         private OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy = OptionalNullable.absent();
 
+        private Optional<ResourceServerAgentSubjectClaimsSchemaEnum> agentSubjectClaims = Optional.empty();
+
         private OptionalNullable<ResourceServerTypeEnum> type = OptionalNullable.absent();
 
         @JsonAnySetter
@@ -474,6 +487,7 @@ public final class UpdateResourceServerRequestContent {
             proofOfPossession(other.getProofOfPossession());
             subjectTypeAuthorization(other.getSubjectTypeAuthorization());
             authorizationPolicy(other.getAuthorizationPolicy());
+            agentSubjectClaims(other.getAgentSubjectClaims());
             type(other.getType());
             return this;
         }
@@ -885,6 +899,17 @@ public final class UpdateResourceServerRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "agent_subject_claims", nulls = Nulls.SKIP)
+        public Builder agentSubjectClaims(Optional<ResourceServerAgentSubjectClaimsSchemaEnum> agentSubjectClaims) {
+            this.agentSubjectClaims = agentSubjectClaims;
+            return this;
+        }
+
+        public Builder agentSubjectClaims(ResourceServerAgentSubjectClaimsSchemaEnum agentSubjectClaims) {
+            this.agentSubjectClaims = Optional.ofNullable(agentSubjectClaims);
+            return this;
+        }
+
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(@Nullable OptionalNullable<ResourceServerTypeEnum> type) {
             this.type = type;
@@ -938,6 +963,7 @@ public final class UpdateResourceServerRequestContent {
                     proofOfPossession,
                     subjectTypeAuthorization,
                     authorizationPolicy,
+                    agentSubjectClaims,
                     type,
                     additionalProperties);
         }

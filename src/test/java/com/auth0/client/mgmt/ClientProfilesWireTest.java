@@ -68,7 +68,7 @@ public class ClientProfilesWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"client_configuration\":{\"organization_usage\":{\"default_value\":\"deny\"},\"organization_require_behavior\":{\"default_value\":\"no_prompt\"},\"organization_discovery_methods\":{\"default_value\":[\"email\"]},\"require_proof_of_possession\":{\"default_value\":true}},\"apply_policy\":{\"external_metadata_type\":\"cimd\",\"external_metadata_created_by\":\"client\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"client_configuration\":{\"organization_usage\":{\"default_value\":\"deny\"},\"organization_require_behavior\":{\"default_value\":\"no_prompt\"},\"organization_discovery_methods\":{\"default_value\":[\"email\"]},\"require_proof_of_possession\":{\"default_value\":true},\"oidc_support\":{\"default_value\":{\"is_allowed\":true}}},\"apply_policy\":{\"external_metadata_type\":\"cimd\",\"external_metadata_created_by\":\"client\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
         ClientProfile response = client.clientProfiles()
                 .create(CreateClientProfileRequestContent.builder()
                         .name("name")
@@ -142,6 +142,11 @@ public class ClientProfilesWireTest {
                 + "    },\n"
                 + "    \"require_proof_of_possession\": {\n"
                 + "      \"default_value\": true\n"
+                + "    },\n"
+                + "    \"oidc_support\": {\n"
+                + "      \"default_value\": {\n"
+                + "        \"is_allowed\": true\n"
+                + "      }\n"
                 + "    }\n"
                 + "  },\n"
                 + "  \"apply_policy\": {\n"
@@ -188,7 +193,7 @@ public class ClientProfilesWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"client_configuration\":{\"organization_usage\":{\"default_value\":\"deny\"},\"organization_require_behavior\":{\"default_value\":\"no_prompt\"},\"organization_discovery_methods\":{\"default_value\":[\"email\"]},\"require_proof_of_possession\":{\"default_value\":true}},\"apply_policy\":{\"external_metadata_type\":\"cimd\",\"external_metadata_created_by\":\"client\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"client_configuration\":{\"organization_usage\":{\"default_value\":\"deny\"},\"organization_require_behavior\":{\"default_value\":\"no_prompt\"},\"organization_discovery_methods\":{\"default_value\":[\"email\"]},\"require_proof_of_possession\":{\"default_value\":true},\"oidc_support\":{\"default_value\":{\"is_allowed\":true}}},\"apply_policy\":{\"external_metadata_type\":\"cimd\",\"external_metadata_created_by\":\"client\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
         ClientProfile response = client.clientProfiles().get("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -216,6 +221,11 @@ public class ClientProfilesWireTest {
                 + "    },\n"
                 + "    \"require_proof_of_possession\": {\n"
                 + "      \"default_value\": true\n"
+                + "    },\n"
+                + "    \"oidc_support\": {\n"
+                + "      \"default_value\": {\n"
+                + "        \"is_allowed\": true\n"
+                + "      }\n"
                 + "    }\n"
                 + "  },\n"
                 + "  \"apply_policy\": {\n"
@@ -271,7 +281,7 @@ public class ClientProfilesWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"client_configuration\":{\"organization_usage\":{\"default_value\":\"deny\"},\"organization_require_behavior\":{\"default_value\":\"no_prompt\"},\"organization_discovery_methods\":{\"default_value\":[\"email\"]},\"require_proof_of_possession\":{\"default_value\":true}},\"apply_policy\":{\"external_metadata_type\":\"cimd\",\"external_metadata_created_by\":\"client\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
+                                "{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"client_configuration\":{\"organization_usage\":{\"default_value\":\"deny\"},\"organization_require_behavior\":{\"default_value\":\"no_prompt\"},\"organization_discovery_methods\":{\"default_value\":[\"email\"]},\"require_proof_of_possession\":{\"default_value\":true},\"oidc_support\":{\"default_value\":{\"is_allowed\":true}}},\"apply_policy\":{\"external_metadata_type\":\"cimd\",\"external_metadata_created_by\":\"client\"},\"created_at\":\"2024-01-15T09:30:00Z\",\"updated_at\":\"2024-01-15T09:30:00Z\"}"));
         ClientProfile response = client.clientProfiles()
                 .update("id", UpdateClientProfileRequestContent.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -329,6 +339,11 @@ public class ClientProfilesWireTest {
                 + "    },\n"
                 + "    \"require_proof_of_possession\": {\n"
                 + "      \"default_value\": true\n"
+                + "    },\n"
+                + "    \"oidc_support\": {\n"
+                + "      \"default_value\": {\n"
+                + "        \"is_allowed\": true\n"
+                + "      }\n"
                 + "    }\n"
                 + "  },\n"
                 + "  \"apply_policy\": {\n"

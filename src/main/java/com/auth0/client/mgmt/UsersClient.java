@@ -12,6 +12,7 @@ import com.auth0.client.mgmt.types.CreateUserRequestContent;
 import com.auth0.client.mgmt.types.CreateUserResponseContent;
 import com.auth0.client.mgmt.types.GetUserRequestParameters;
 import com.auth0.client.mgmt.types.GetUserResponseContent;
+import com.auth0.client.mgmt.types.ListUserConsentSigningKeysResponseContent;
 import com.auth0.client.mgmt.types.ListUsersByEmailRequestParameters;
 import com.auth0.client.mgmt.types.ListUsersRequestParameters;
 import com.auth0.client.mgmt.types.RegenerateUsersRecoveryCodeResponseContent;
@@ -571,16 +572,16 @@ public class UsersClient {
     }
 
     /**
-     * Retrieve all consent signing keys registered for a user. Returns an empty array when the user has no keys registered.
+     * Retrieve all consent signing keys registered for a user. Returns an empty <code>keys</code> array when the user has no keys registered.
      */
-    public List<ConsentSigningKey> listConsentSigningKeys(String id) {
+    public ListUserConsentSigningKeysResponseContent listConsentSigningKeys(String id) {
         return this.rawClient.listConsentSigningKeys(id).body();
     }
 
     /**
-     * Retrieve all consent signing keys registered for a user. Returns an empty array when the user has no keys registered.
+     * Retrieve all consent signing keys registered for a user. Returns an empty <code>keys</code> array when the user has no keys registered.
      */
-    public List<ConsentSigningKey> listConsentSigningKeys(String id, RequestOptions requestOptions) {
+    public ListUserConsentSigningKeysResponseContent listConsentSigningKeys(String id, RequestOptions requestOptions) {
         return this.rawClient.listConsentSigningKeys(id, requestOptions).body();
     }
 

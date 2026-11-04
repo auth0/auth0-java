@@ -7,6 +7,7 @@ import com.auth0.client.mgmt.types.CreateUserRequestContent;
 import com.auth0.client.mgmt.types.CreateUserResponseContent;
 import com.auth0.client.mgmt.types.GetUserRequestParameters;
 import com.auth0.client.mgmt.types.GetUserResponseContent;
+import com.auth0.client.mgmt.types.ListUserConsentSigningKeysResponseContent;
 import com.auth0.client.mgmt.types.ListUsersByEmailRequestParameters;
 import com.auth0.client.mgmt.types.ListUsersRequestParameters;
 import com.auth0.client.mgmt.types.RegenerateUsersRecoveryCodeResponseContent;
@@ -510,8 +511,8 @@ public class UsersWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "[{\"kid\":\"kid\",\"device_identifier\":\"device_identifier\",\"created_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\"}]"));
-        List<ConsentSigningKey> response = client.users().listConsentSigningKeys("id");
+                                "{\"keys\":[{\"kid\":\"kid\",\"device_identifier\":\"device_identifier\",\"created_at\":\"2024-01-15T09:30:00Z\",\"expires_at\":\"2024-01-15T09:30:00Z\"}]}"));
+        ListUserConsentSigningKeysResponseContent response = client.users().listConsentSigningKeys("id");
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("GET", request.getMethod());
@@ -520,14 +521,16 @@ public class UsersWireTest {
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
         String expectedResponseBody = ""
-                + "[\n"
-                + "  {\n"
-                + "    \"kid\": \"kid\",\n"
-                + "    \"device_identifier\": \"device_identifier\",\n"
-                + "    \"created_at\": \"2024-01-15T09:30:00Z\",\n"
-                + "    \"expires_at\": \"2024-01-15T09:30:00Z\"\n"
-                + "  }\n"
-                + "]";
+                + "{\n"
+                + "  \"keys\": [\n"
+                + "    {\n"
+                + "      \"kid\": \"kid\",\n"
+                + "      \"device_identifier\": \"device_identifier\",\n"
+                + "      \"created_at\": \"2024-01-15T09:30:00Z\",\n"
+                + "      \"expires_at\": \"2024-01-15T09:30:00Z\"\n"
+                + "    }\n"
+                + "  ]\n"
+                + "}";
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(

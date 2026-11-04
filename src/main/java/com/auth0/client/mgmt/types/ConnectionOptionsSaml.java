@@ -97,6 +97,12 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
     private final Optional<String> signOutEndpoint;
 
+    private final OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod;
+
+    private final OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg;
+
+    private final Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat;
+
     private final Optional<String> userIdAttribute;
 
     private final Map<String, Object> additionalProperties;
@@ -138,6 +144,9 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             Optional<String> signingCert,
             Optional<ConnectionSigningKeySaml> signingKey,
             Optional<String> signOutEndpoint,
+            OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod,
+            OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg,
+            Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
             Optional<String> userIdAttribute,
             Map<String, Object> additionalProperties) {
         this.assertionDecryptionSettings = assertionDecryptionSettings;
@@ -176,6 +185,9 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         this.signingCert = signingCert;
         this.signingKey = signingKey;
         this.signOutEndpoint = signOutEndpoint;
+        this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
+        this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
+        this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
         this.userIdAttribute = userIdAttribute;
         this.additionalProperties = additionalProperties;
     }
@@ -385,6 +397,29 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         return signOutEndpoint;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_endpoint_auth_method")
+    public OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> getTokenEndpointAuthMethod() {
+        if (tokenEndpointAuthMethod == null) {
+            return OptionalNullable.absent();
+        }
+        return tokenEndpointAuthMethod;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_endpoint_auth_signing_alg")
+    public OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> getTokenEndpointAuthSigningAlg() {
+        if (tokenEndpointAuthSigningAlg == null) {
+            return OptionalNullable.absent();
+        }
+        return tokenEndpointAuthSigningAlg;
+    }
+
+    @JsonProperty("token_endpoint_jwtca_aud_format")
+    public Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> getTokenEndpointJwtcaAudFormat() {
+        return tokenEndpointJwtcaAudFormat;
+    }
+
     @JsonProperty("user_id_attribute")
     public Optional<String> getUserIdAttribute() {
         return userIdAttribute;
@@ -395,6 +430,18 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
     private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             _getUpstreamParams() {
         return upstreamParams;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_endpoint_auth_method")
+    private OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> _getTokenEndpointAuthMethod() {
+        return tokenEndpointAuthMethod;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_endpoint_auth_signing_alg")
+    private OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> _getTokenEndpointAuthSigningAlg() {
+        return tokenEndpointAuthSigningAlg;
     }
 
     @java.lang.Override
@@ -445,6 +492,9 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                 && signingCert.equals(other.signingCert)
                 && signingKey.equals(other.signingKey)
                 && signOutEndpoint.equals(other.signOutEndpoint)
+                && tokenEndpointAuthMethod.equals(other.tokenEndpointAuthMethod)
+                && tokenEndpointAuthSigningAlg.equals(other.tokenEndpointAuthSigningAlg)
+                && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat)
                 && userIdAttribute.equals(other.userIdAttribute);
     }
 
@@ -487,6 +537,9 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                 this.signingCert,
                 this.signingKey,
                 this.signOutEndpoint,
+                this.tokenEndpointAuthMethod,
+                this.tokenEndpointAuthSigningAlg,
+                this.tokenEndpointJwtcaAudFormat,
                 this.userIdAttribute);
     }
 
@@ -574,6 +627,14 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
         private Optional<String> signOutEndpoint = Optional.empty();
 
+        private OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod =
+                OptionalNullable.absent();
+
+        private OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg =
+                OptionalNullable.absent();
+
+        private Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat = Optional.empty();
+
         private Optional<String> userIdAttribute = Optional.empty();
 
         @JsonAnySetter
@@ -618,6 +679,9 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             signingCert(other.getSigningCert());
             signingKey(other.getSigningKey());
             signOutEndpoint(other.getSignOutEndpoint());
+            tokenEndpointAuthMethod(other.getTokenEndpointAuthMethod());
+            tokenEndpointAuthSigningAlg(other.getTokenEndpointAuthSigningAlg());
+            tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
             userIdAttribute(other.getUserIdAttribute());
             return this;
         }
@@ -1050,6 +1114,89 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             return this;
         }
 
+        @JsonSetter(value = "token_endpoint_auth_method", nulls = Nulls.SKIP)
+        public Builder tokenEndpointAuthMethod(
+                @Nullable OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
+            this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
+            return this;
+        }
+
+        public Builder tokenEndpointAuthMethod(ConnectionTokenEndpointAuthMethodEnum tokenEndpointAuthMethod) {
+            this.tokenEndpointAuthMethod = OptionalNullable.of(tokenEndpointAuthMethod);
+            return this;
+        }
+
+        public Builder tokenEndpointAuthMethod(
+                Optional<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
+            if (tokenEndpointAuthMethod.isPresent()) {
+                this.tokenEndpointAuthMethod = OptionalNullable.of(tokenEndpointAuthMethod.get());
+            } else {
+                this.tokenEndpointAuthMethod = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder tokenEndpointAuthMethod(
+                com.auth0.client.mgmt.core.Nullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
+            if (tokenEndpointAuthMethod.isNull()) {
+                this.tokenEndpointAuthMethod = OptionalNullable.ofNull();
+            } else if (tokenEndpointAuthMethod.isEmpty()) {
+                this.tokenEndpointAuthMethod = OptionalNullable.absent();
+            } else {
+                this.tokenEndpointAuthMethod = OptionalNullable.of(tokenEndpointAuthMethod.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "token_endpoint_auth_signing_alg", nulls = Nulls.SKIP)
+        public Builder tokenEndpointAuthSigningAlg(
+                @Nullable OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg) {
+            this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
+            return this;
+        }
+
+        public Builder tokenEndpointAuthSigningAlg(
+                ConnectionTokenEndpointAuthSigningAlgEnum tokenEndpointAuthSigningAlg) {
+            this.tokenEndpointAuthSigningAlg = OptionalNullable.of(tokenEndpointAuthSigningAlg);
+            return this;
+        }
+
+        public Builder tokenEndpointAuthSigningAlg(
+                Optional<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg) {
+            if (tokenEndpointAuthSigningAlg.isPresent()) {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.of(tokenEndpointAuthSigningAlg.get());
+            } else {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder tokenEndpointAuthSigningAlg(
+                com.auth0.client.mgmt.core.Nullable<ConnectionTokenEndpointAuthSigningAlgEnum>
+                        tokenEndpointAuthSigningAlg) {
+            if (tokenEndpointAuthSigningAlg.isNull()) {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.ofNull();
+            } else if (tokenEndpointAuthSigningAlg.isEmpty()) {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.absent();
+            } else {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.of(tokenEndpointAuthSigningAlg.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "token_endpoint_jwtca_aud_format", nulls = Nulls.SKIP)
+        public Builder tokenEndpointJwtcaAudFormat(
+                Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat) {
+            this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
+            return this;
+        }
+
+        public Builder tokenEndpointJwtcaAudFormat(
+                ConnectionTokenEndpointJwtcaAudFormatEnumOidc tokenEndpointJwtcaAudFormat) {
+            this.tokenEndpointJwtcaAudFormat = Optional.ofNullable(tokenEndpointJwtcaAudFormat);
+            return this;
+        }
+
         @JsonSetter(value = "user_id_attribute", nulls = Nulls.SKIP)
         public Builder userIdAttribute(Optional<String> userIdAttribute) {
             this.userIdAttribute = userIdAttribute;
@@ -1099,6 +1246,9 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                     signingCert,
                     signingKey,
                     signOutEndpoint,
+                    tokenEndpointAuthMethod,
+                    tokenEndpointAuthSigningAlg,
+                    tokenEndpointJwtcaAudFormat,
                     userIdAttribute,
                     additionalProperties);
         }

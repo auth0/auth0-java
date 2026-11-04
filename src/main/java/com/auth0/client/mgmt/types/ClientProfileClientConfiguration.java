@@ -30,6 +30,8 @@ public final class ClientProfileClientConfiguration {
 
     private final Optional<ClientProfileClientConfigurationRequireProofOfPossession> requireProofOfPossession;
 
+    private final Optional<ClientProfileClientConfigurationOidcSupport> oidcSupport;
+
     private final Map<String, Object> additionalProperties;
 
     private ClientProfileClientConfiguration(
@@ -38,12 +40,14 @@ public final class ClientProfileClientConfiguration {
             Optional<ClientProfileClientConfigurationOrganizationRequireBehavior> organizationRequireBehavior,
             Optional<ClientProfileClientConfigurationOrganizationDiscoveryMethods> organizationDiscoveryMethods,
             Optional<ClientProfileClientConfigurationRequireProofOfPossession> requireProofOfPossession,
+            Optional<ClientProfileClientConfigurationOidcSupport> oidcSupport,
             Map<String, Object> additionalProperties) {
         this.refreshToken = refreshToken;
         this.organizationUsage = organizationUsage;
         this.organizationRequireBehavior = organizationRequireBehavior;
         this.organizationDiscoveryMethods = organizationDiscoveryMethods;
         this.requireProofOfPossession = requireProofOfPossession;
+        this.oidcSupport = oidcSupport;
         this.additionalProperties = additionalProperties;
     }
 
@@ -72,6 +76,11 @@ public final class ClientProfileClientConfiguration {
         return requireProofOfPossession;
     }
 
+    @JsonProperty("oidc_support")
+    public Optional<ClientProfileClientConfigurationOidcSupport> getOidcSupport() {
+        return oidcSupport;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -88,7 +97,8 @@ public final class ClientProfileClientConfiguration {
                 && organizationUsage.equals(other.organizationUsage)
                 && organizationRequireBehavior.equals(other.organizationRequireBehavior)
                 && organizationDiscoveryMethods.equals(other.organizationDiscoveryMethods)
-                && requireProofOfPossession.equals(other.requireProofOfPossession);
+                && requireProofOfPossession.equals(other.requireProofOfPossession)
+                && oidcSupport.equals(other.oidcSupport);
     }
 
     @java.lang.Override
@@ -98,7 +108,8 @@ public final class ClientProfileClientConfiguration {
                 this.organizationUsage,
                 this.organizationRequireBehavior,
                 this.organizationDiscoveryMethods,
-                this.requireProofOfPossession);
+                this.requireProofOfPossession,
+                this.oidcSupport);
     }
 
     @java.lang.Override
@@ -125,6 +136,8 @@ public final class ClientProfileClientConfiguration {
         private Optional<ClientProfileClientConfigurationRequireProofOfPossession> requireProofOfPossession =
                 Optional.empty();
 
+        private Optional<ClientProfileClientConfigurationOidcSupport> oidcSupport = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -136,6 +149,7 @@ public final class ClientProfileClientConfiguration {
             organizationRequireBehavior(other.getOrganizationRequireBehavior());
             organizationDiscoveryMethods(other.getOrganizationDiscoveryMethods());
             requireProofOfPossession(other.getRequireProofOfPossession());
+            oidcSupport(other.getOidcSupport());
             return this;
         }
 
@@ -201,6 +215,17 @@ public final class ClientProfileClientConfiguration {
             return this;
         }
 
+        @JsonSetter(value = "oidc_support", nulls = Nulls.SKIP)
+        public Builder oidcSupport(Optional<ClientProfileClientConfigurationOidcSupport> oidcSupport) {
+            this.oidcSupport = oidcSupport;
+            return this;
+        }
+
+        public Builder oidcSupport(ClientProfileClientConfigurationOidcSupport oidcSupport) {
+            this.oidcSupport = Optional.ofNullable(oidcSupport);
+            return this;
+        }
+
         public ClientProfileClientConfiguration build() {
             return new ClientProfileClientConfiguration(
                     refreshToken,
@@ -208,6 +233,7 @@ public final class ClientProfileClientConfiguration {
                     organizationRequireBehavior,
                     organizationDiscoveryMethods,
                     requireProofOfPossession,
+                    oidcSupport,
                     additionalProperties);
         }
 
