@@ -22,10 +22,16 @@ import java.util.Optional;
 public final class ConnectionPasskeyAuthenticationMethod {
     private final Optional<Boolean> enabled;
 
+    private final Optional<ConnectionSignupBehaviorEnum> signupBehavior;
+
     private final Map<String, Object> additionalProperties;
 
-    private ConnectionPasskeyAuthenticationMethod(Optional<Boolean> enabled, Map<String, Object> additionalProperties) {
+    private ConnectionPasskeyAuthenticationMethod(
+            Optional<Boolean> enabled,
+            Optional<ConnectionSignupBehaviorEnum> signupBehavior,
+            Map<String, Object> additionalProperties) {
         this.enabled = enabled;
+        this.signupBehavior = signupBehavior;
         this.additionalProperties = additionalProperties;
     }
 
@@ -35,6 +41,14 @@ public final class ConnectionPasskeyAuthenticationMethod {
     @JsonProperty("enabled")
     public Optional<Boolean> getEnabled() {
         return enabled;
+    }
+
+    /**
+     * @return Specifies the signup behavior for passkey authentication
+     */
+    @JsonProperty("signup_behavior")
+    public Optional<ConnectionSignupBehaviorEnum> getSignupBehavior() {
+        return signupBehavior;
     }
 
     @java.lang.Override
@@ -50,12 +64,12 @@ public final class ConnectionPasskeyAuthenticationMethod {
     }
 
     private boolean equalTo(ConnectionPasskeyAuthenticationMethod other) {
-        return enabled.equals(other.enabled);
+        return enabled.equals(other.enabled) && signupBehavior.equals(other.signupBehavior);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.enabled);
+        return Objects.hash(this.enabled, this.signupBehavior);
     }
 
     @java.lang.Override
@@ -71,6 +85,8 @@ public final class ConnectionPasskeyAuthenticationMethod {
     public static final class Builder {
         private Optional<Boolean> enabled = Optional.empty();
 
+        private Optional<ConnectionSignupBehaviorEnum> signupBehavior = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -78,6 +94,7 @@ public final class ConnectionPasskeyAuthenticationMethod {
 
         public Builder from(ConnectionPasskeyAuthenticationMethod other) {
             enabled(other.getEnabled());
+            signupBehavior(other.getSignupBehavior());
             return this;
         }
 
@@ -95,8 +112,22 @@ public final class ConnectionPasskeyAuthenticationMethod {
             return this;
         }
 
+        /**
+         * <p>Specifies the signup behavior for passkey authentication</p>
+         */
+        @JsonSetter(value = "signup_behavior", nulls = Nulls.SKIP)
+        public Builder signupBehavior(Optional<ConnectionSignupBehaviorEnum> signupBehavior) {
+            this.signupBehavior = signupBehavior;
+            return this;
+        }
+
+        public Builder signupBehavior(ConnectionSignupBehaviorEnum signupBehavior) {
+            this.signupBehavior = Optional.ofNullable(signupBehavior);
+            return this;
+        }
+
         public ConnectionPasskeyAuthenticationMethod build() {
-            return new ConnectionPasskeyAuthenticationMethod(enabled, additionalProperties);
+            return new ConnectionPasskeyAuthenticationMethod(enabled, signupBehavior, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

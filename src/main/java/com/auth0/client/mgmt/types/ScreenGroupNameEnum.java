@@ -159,6 +159,9 @@ public final class ScreenGroupNameEnum {
     public static final ScreenGroupNameEnum MFA_PHONE_CHALLENGE =
             new ScreenGroupNameEnum(Value.MFA_PHONE_CHALLENGE, "mfa-phone-challenge");
 
+    public static final ScreenGroupNameEnum PENDING_CONSENT =
+            new ScreenGroupNameEnum(Value.PENDING_CONSENT, "pending-consent");
+
     public static final ScreenGroupNameEnum SIGNUP = new ScreenGroupNameEnum(Value.SIGNUP, "signup");
 
     public static final ScreenGroupNameEnum MFA_PUSH_WELCOME =
@@ -408,6 +411,8 @@ public final class ScreenGroupNameEnum {
                 return visitor.visitResetPasswordEmail();
             case MFA_PHONE_CHALLENGE:
                 return visitor.visitMfaPhoneChallenge();
+            case PENDING_CONSENT:
+                return visitor.visitPendingConsent();
             case SIGNUP:
                 return visitor.visitSignup();
             case MFA_PUSH_WELCOME:
@@ -599,6 +604,8 @@ public final class ScreenGroupNameEnum {
                 return RESET_PASSWORD_EMAIL;
             case "mfa-phone-challenge":
                 return MFA_PHONE_CHALLENGE;
+            case "pending-consent":
+                return PENDING_CONSENT;
             case "signup":
                 return SIGNUP;
             case "mfa-push-welcome":
@@ -740,6 +747,8 @@ public final class ScreenGroupNameEnum {
         CONSENT,
 
         CONSENT_TENANT_SCOPES,
+
+        PENDING_CONSENT,
 
         CUSTOMIZED_CONSENT,
 
@@ -926,6 +935,8 @@ public final class ScreenGroupNameEnum {
         T visitConsent();
 
         T visitConsentTenantScopes();
+
+        T visitPendingConsent();
 
         T visitCustomizedConsent();
 

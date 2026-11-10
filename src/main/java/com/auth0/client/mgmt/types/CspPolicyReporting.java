@@ -42,7 +42,7 @@ public final class CspPolicyReporting {
     }
 
     /**
-     * @return Report-To group name for modern reporting.
+     * @return Report-To group name for modern reporting. Letters, digits, underscores and hyphens only; enforced on write by the request validator.
      */
     @JsonProperty("report_to_group")
     public Optional<String> getReportToGroup() {
@@ -110,7 +110,7 @@ public final class CspPolicyReporting {
         }
 
         /**
-         * <p>Report-To group name for modern reporting.</p>
+         * <p>Report-To group name for modern reporting. Letters, digits, underscores and hyphens only; enforced on write by the request validator.</p>
          */
         @JsonSetter(value = "report_to_group", nulls = Nulls.SKIP)
         public Builder reportToGroup(Optional<String> reportToGroup) {
