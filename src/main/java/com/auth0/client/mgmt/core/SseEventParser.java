@@ -75,6 +75,44 @@ public final class SseEventParser {
     }
 
     /**
+     * Parse an SSE event whose discriminator is not part of the SSE envelope shape (i.e.
+     * {@link #isEventLevelDiscrimination(String)} is {@code false}) but is also absent from the
+     * wire payload itself. Merges the SSE {@code event:} name into the root of the parsed
+     * {@code data:} object under {@code discriminatorProperty}, without overwriting a
+     * pre-existing value, then deserializes the merged object to the target type.
+     *
+     * @param eventType            The SSE event type (from event: field)
+     * @param data                 The SSE data content (from data: field)
+     * @param unionClass           The target union class
+     * @param discriminatorProperty The property name used for discrimination (e.g., "type")
+     * @param <T>                  The target type
+     * @return The deserialized object
+     */
+    public static <T> T parseWithInjectedDiscriminator(
+            String eventType, String data, Class<T> unionClass, String discriminatorProperty) {
+        Map<String, Object> parsedData = null;
+        if (data != null && !data.isEmpty()) {
+            try {
+                parsedData = ObjectMappers.JSON_MAPPER.readValue(data, new TypeReference<Map<String, Object>>() {});
+            } catch (Exception e) {
+                parsedData = null;
+            }
+        }
+        try {
+            if (parsedData == null) {
+                return parseDataLevelUnion(data, unionClass);
+            }
+            if (eventType != null) {
+                parsedData.putIfAbsent(discriminatorProperty, eventType);
+            }
+            String mergedJson = ObjectMappers.JSON_MAPPER.writeValueAsString(parsedData);
+            return ObjectMappers.JSON_MAPPER.readValue(mergedJson, unionClass);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to parse SSE event with injected discriminator", e);
+        }
+    }
+
+    /**
      * Parse an SSE event using data-level discrimination.
      * <p>
      * Simply parses the data field as JSON and deserializes it to the target type.
