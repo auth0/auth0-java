@@ -139,7 +139,7 @@ public final class ListGroupsRequestParameters {
     }
 
     /**
-     * @return Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+     * @return Return results inside an object that contains the total result count (true) or as a direct array of results (false, default). The returned total reflects at most 1,000 results.
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("include_totals")
@@ -517,7 +517,7 @@ public final class ListGroupsRequestParameters {
         }
 
         /**
-         * <p>Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).</p>
+         * <p>Return results inside an object that contains the total result count (true) or as a direct array of results (false, default). The returned total reflects at most 1,000 results.</p>
          */
         @JsonSetter(value = "include_totals", nulls = Nulls.SKIP)
         public Builder includeTotals(@Nullable OptionalNullable<Boolean> includeTotals) {

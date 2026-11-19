@@ -145,7 +145,11 @@ public final class GetClientResponseContent {
 
     private final Optional<AnonymousSessions> anonymousSessions;
 
+    private final Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding;
+
     private final Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode;
+
+    private final Optional<ClientOidcSupport> oidcSupport;
 
     private final Optional<ClientRedirectionPolicyEnum> redirectionPolicy;
 
@@ -156,6 +160,10 @@ public final class GetClientResponseContent {
     private final Optional<ClientExternalMetadataTypeEnum> externalMetadataType;
 
     private final Optional<ClientExternalMetadataCreatedByEnum> externalMetadataCreatedBy;
+
+    private final Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus;
+
+    private final Optional<String> agentId;
 
     private final Optional<String> externalClientId;
 
@@ -224,12 +232,16 @@ public final class GetClientResponseContent {
             Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration,
             Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant,
             Optional<AnonymousSessions> anonymousSessions,
+            Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding,
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
+            Optional<ClientOidcSupport> oidcSupport,
             Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
             Optional<String> resourceServerIdentifier,
             Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             Optional<ClientExternalMetadataTypeEnum> externalMetadataType,
             Optional<ClientExternalMetadataCreatedByEnum> externalMetadataCreatedBy,
+            Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus,
+            Optional<String> agentId,
             Optional<String> externalClientId,
             Optional<String> jwksUri,
             Map<String, Object> additionalProperties) {
@@ -293,12 +305,16 @@ public final class GetClientResponseContent {
         this.myOrganizationConfiguration = myOrganizationConfiguration;
         this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
         this.anonymousSessions = anonymousSessions;
+        this.enforceAnonSessionTransferNetworkBinding = enforceAnonSessionTransferNetworkBinding;
         this.thirdPartySecurityMode = thirdPartySecurityMode;
+        this.oidcSupport = oidcSupport;
         this.redirectionPolicy = redirectionPolicy;
         this.resourceServerIdentifier = resourceServerIdentifier;
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
         this.externalMetadataType = externalMetadataType;
         this.externalMetadataCreatedBy = externalMetadataCreatedBy;
+        this.externalMetadataStatus = externalMetadataStatus;
+        this.agentId = agentId;
         this.externalClientId = externalClientId;
         this.jwksUri = jwksUri;
         this.additionalProperties = additionalProperties;
@@ -737,9 +753,19 @@ public final class GetClientResponseContent {
         return anonymousSessions;
     }
 
+    @JsonProperty("enforce_anon_session_transfer_network_binding")
+    public Optional<ClientAnonymousSessionTransferNetworkBindingEnum> getEnforceAnonSessionTransferNetworkBinding() {
+        return enforceAnonSessionTransferNetworkBinding;
+    }
+
     @JsonProperty("third_party_security_mode")
     public Optional<ClientThirdPartySecurityModeEnum> getThirdPartySecurityMode() {
         return thirdPartySecurityMode;
+    }
+
+    @JsonProperty("oidc_support")
+    public Optional<ClientOidcSupport> getOidcSupport() {
+        return oidcSupport;
     }
 
     @JsonProperty("redirection_policy")
@@ -768,6 +794,19 @@ public final class GetClientResponseContent {
     @JsonProperty("external_metadata_created_by")
     public Optional<ClientExternalMetadataCreatedByEnum> getExternalMetadataCreatedBy() {
         return externalMetadataCreatedBy;
+    }
+
+    @JsonProperty("external_metadata_status")
+    public Optional<ClientExternalMetadataStatusEnum> getExternalMetadataStatus() {
+        return externalMetadataStatus;
+    }
+
+    /**
+     * @return ID of the agent associated with this client.
+     */
+    @JsonProperty("agent_id")
+    public Optional<String> getAgentId() {
+        return agentId;
     }
 
     /**
@@ -907,12 +946,16 @@ public final class GetClientResponseContent {
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
                 && identityAssertionAuthorizationGrant.equals(other.identityAssertionAuthorizationGrant)
                 && anonymousSessions.equals(other.anonymousSessions)
+                && enforceAnonSessionTransferNetworkBinding.equals(other.enforceAnonSessionTransferNetworkBinding)
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
+                && oidcSupport.equals(other.oidcSupport)
                 && redirectionPolicy.equals(other.redirectionPolicy)
                 && resourceServerIdentifier.equals(other.resourceServerIdentifier)
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels)
                 && externalMetadataType.equals(other.externalMetadataType)
                 && externalMetadataCreatedBy.equals(other.externalMetadataCreatedBy)
+                && externalMetadataStatus.equals(other.externalMetadataStatus)
+                && agentId.equals(other.agentId)
                 && externalClientId.equals(other.externalClientId)
                 && jwksUri.equals(other.jwksUri);
     }
@@ -980,12 +1023,16 @@ public final class GetClientResponseContent {
                 this.myOrganizationConfiguration,
                 this.identityAssertionAuthorizationGrant,
                 this.anonymousSessions,
+                this.enforceAnonSessionTransferNetworkBinding,
                 this.thirdPartySecurityMode,
+                this.oidcSupport,
                 this.redirectionPolicy,
                 this.resourceServerIdentifier,
                 this.asyncApprovalNotificationChannels,
                 this.externalMetadataType,
                 this.externalMetadataCreatedBy,
+                this.externalMetadataStatus,
+                this.agentId,
                 this.externalClientId,
                 this.jwksUri);
     }
@@ -1122,7 +1169,12 @@ public final class GetClientResponseContent {
 
         private Optional<AnonymousSessions> anonymousSessions = Optional.empty();
 
+        private Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding =
+                Optional.empty();
+
         private Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode = Optional.empty();
+
+        private Optional<ClientOidcSupport> oidcSupport = Optional.empty();
 
         private Optional<ClientRedirectionPolicyEnum> redirectionPolicy = Optional.empty();
 
@@ -1134,6 +1186,10 @@ public final class GetClientResponseContent {
         private Optional<ClientExternalMetadataTypeEnum> externalMetadataType = Optional.empty();
 
         private Optional<ClientExternalMetadataCreatedByEnum> externalMetadataCreatedBy = Optional.empty();
+
+        private Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus = Optional.empty();
+
+        private Optional<String> agentId = Optional.empty();
 
         private Optional<String> externalClientId = Optional.empty();
 
@@ -1205,12 +1261,16 @@ public final class GetClientResponseContent {
             myOrganizationConfiguration(other.getMyOrganizationConfiguration());
             identityAssertionAuthorizationGrant(other.getIdentityAssertionAuthorizationGrant());
             anonymousSessions(other.getAnonymousSessions());
+            enforceAnonSessionTransferNetworkBinding(other.getEnforceAnonSessionTransferNetworkBinding());
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
+            oidcSupport(other.getOidcSupport());
             redirectionPolicy(other.getRedirectionPolicy());
             resourceServerIdentifier(other.getResourceServerIdentifier());
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
             externalMetadataType(other.getExternalMetadataType());
             externalMetadataCreatedBy(other.getExternalMetadataCreatedBy());
+            externalMetadataStatus(other.getExternalMetadataStatus());
+            agentId(other.getAgentId());
             externalClientId(other.getExternalClientId());
             jwksUri(other.getJwksUri());
             return this;
@@ -2153,6 +2213,20 @@ public final class GetClientResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "enforce_anon_session_transfer_network_binding", nulls = Nulls.SKIP)
+        public Builder enforceAnonSessionTransferNetworkBinding(
+                Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding) {
+            this.enforceAnonSessionTransferNetworkBinding = enforceAnonSessionTransferNetworkBinding;
+            return this;
+        }
+
+        public Builder enforceAnonSessionTransferNetworkBinding(
+                ClientAnonymousSessionTransferNetworkBindingEnum enforceAnonSessionTransferNetworkBinding) {
+            this.enforceAnonSessionTransferNetworkBinding =
+                    Optional.ofNullable(enforceAnonSessionTransferNetworkBinding);
+            return this;
+        }
+
         @JsonSetter(value = "third_party_security_mode", nulls = Nulls.SKIP)
         public Builder thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode) {
             this.thirdPartySecurityMode = thirdPartySecurityMode;
@@ -2161,6 +2235,17 @@ public final class GetClientResponseContent {
 
         public Builder thirdPartySecurityMode(ClientThirdPartySecurityModeEnum thirdPartySecurityMode) {
             this.thirdPartySecurityMode = Optional.ofNullable(thirdPartySecurityMode);
+            return this;
+        }
+
+        @JsonSetter(value = "oidc_support", nulls = Nulls.SKIP)
+        public Builder oidcSupport(Optional<ClientOidcSupport> oidcSupport) {
+            this.oidcSupport = oidcSupport;
+            return this;
+        }
+
+        public Builder oidcSupport(ClientOidcSupport oidcSupport) {
+            this.oidcSupport = Optional.ofNullable(oidcSupport);
             return this;
         }
 
@@ -2222,6 +2307,31 @@ public final class GetClientResponseContent {
 
         public Builder externalMetadataCreatedBy(ClientExternalMetadataCreatedByEnum externalMetadataCreatedBy) {
             this.externalMetadataCreatedBy = Optional.ofNullable(externalMetadataCreatedBy);
+            return this;
+        }
+
+        @JsonSetter(value = "external_metadata_status", nulls = Nulls.SKIP)
+        public Builder externalMetadataStatus(Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus) {
+            this.externalMetadataStatus = externalMetadataStatus;
+            return this;
+        }
+
+        public Builder externalMetadataStatus(ClientExternalMetadataStatusEnum externalMetadataStatus) {
+            this.externalMetadataStatus = Optional.ofNullable(externalMetadataStatus);
+            return this;
+        }
+
+        /**
+         * <p>ID of the agent associated with this client.</p>
+         */
+        @JsonSetter(value = "agent_id", nulls = Nulls.SKIP)
+        public Builder agentId(Optional<String> agentId) {
+            this.agentId = agentId;
+            return this;
+        }
+
+        public Builder agentId(String agentId) {
+            this.agentId = Optional.ofNullable(agentId);
             return this;
         }
 
@@ -2315,12 +2425,16 @@ public final class GetClientResponseContent {
                     myOrganizationConfiguration,
                     identityAssertionAuthorizationGrant,
                     anonymousSessions,
+                    enforceAnonSessionTransferNetworkBinding,
                     thirdPartySecurityMode,
+                    oidcSupport,
                     redirectionPolicy,
                     resourceServerIdentifier,
                     asyncApprovalNotificationChannels,
                     externalMetadataType,
                     externalMetadataCreatedBy,
+                    externalMetadataStatus,
+                    agentId,
                     externalClientId,
                     jwksUri,
                     additionalProperties);

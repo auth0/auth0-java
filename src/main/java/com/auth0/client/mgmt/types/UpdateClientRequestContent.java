@@ -86,6 +86,8 @@ public final class UpdateClientRequestContent {
 
     private final OptionalNullable<UpdateAnonymousSessions> anonymousSessions;
 
+    private final Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding;
+
     private final Optional<String> formTemplate;
 
     private final Optional<ClientAddons> addons;
@@ -140,6 +142,10 @@ public final class UpdateClientRequestContent {
 
     private final Optional<ClientRedirectionPolicyEnum> redirectionPolicy;
 
+    private final OptionalNullable<String> agentId;
+
+    private final OptionalNullable<ClientOidcSupportPatch> oidcSupport;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateClientRequestContent(
@@ -174,6 +180,7 @@ public final class UpdateClientRequestContent {
             OptionalNullable<UpdateTokenQuota> tokenQuota,
             OptionalNullable<UpdateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant,
             OptionalNullable<UpdateAnonymousSessions> anonymousSessions,
+            Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding,
             Optional<String> formTemplate,
             Optional<ClientAddons> addons,
             Optional<Map<String, Object>> clientMetadata,
@@ -201,6 +208,8 @@ public final class UpdateClientRequestContent {
             OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
             Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
+            OptionalNullable<String> agentId,
+            OptionalNullable<ClientOidcSupportPatch> oidcSupport,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
@@ -233,6 +242,7 @@ public final class UpdateClientRequestContent {
         this.tokenQuota = tokenQuota;
         this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
         this.anonymousSessions = anonymousSessions;
+        this.enforceAnonSessionTransferNetworkBinding = enforceAnonSessionTransferNetworkBinding;
         this.formTemplate = formTemplate;
         this.addons = addons;
         this.clientMetadata = clientMetadata;
@@ -260,6 +270,8 @@ public final class UpdateClientRequestContent {
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
         this.thirdPartySecurityMode = thirdPartySecurityMode;
         this.redirectionPolicy = redirectionPolicy;
+        this.agentId = agentId;
+        this.oidcSupport = oidcSupport;
         this.additionalProperties = additionalProperties;
     }
 
@@ -515,6 +527,11 @@ public final class UpdateClientRequestContent {
         return anonymousSessions;
     }
 
+    @JsonProperty("enforce_anon_session_transfer_network_binding")
+    public Optional<ClientAnonymousSessionTransferNetworkBindingEnum> getEnforceAnonSessionTransferNetworkBinding() {
+        return enforceAnonSessionTransferNetworkBinding;
+    }
+
     /**
      * @return Form template for WS-Federation protocol
      */
@@ -736,6 +753,27 @@ public final class UpdateClientRequestContent {
         return redirectionPolicy;
     }
 
+    /**
+     * @return ID of the agent to associate with this client, or null to remove the association.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("agent_id")
+    public OptionalNullable<String> getAgentId() {
+        if (agentId == null) {
+            return OptionalNullable.absent();
+        }
+        return agentId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("oidc_support")
+    public OptionalNullable<ClientOidcSupportPatch> getOidcSupport() {
+        if (oidcSupport == null) {
+            return OptionalNullable.absent();
+        }
+        return oidcSupport;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("session_transfer")
     private OptionalNullable<ClientSessionTransferConfiguration> _getSessionTransfer() {
@@ -868,6 +906,18 @@ public final class UpdateClientRequestContent {
         return asyncApprovalNotificationChannels;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("agent_id")
+    private OptionalNullable<String> _getAgentId() {
+        return agentId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("oidc_support")
+    private OptionalNullable<ClientOidcSupportPatch> _getOidcSupport() {
+        return oidcSupport;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -911,6 +961,7 @@ public final class UpdateClientRequestContent {
                 && tokenQuota.equals(other.tokenQuota)
                 && identityAssertionAuthorizationGrant.equals(other.identityAssertionAuthorizationGrant)
                 && anonymousSessions.equals(other.anonymousSessions)
+                && enforceAnonSessionTransferNetworkBinding.equals(other.enforceAnonSessionTransferNetworkBinding)
                 && formTemplate.equals(other.formTemplate)
                 && addons.equals(other.addons)
                 && clientMetadata.equals(other.clientMetadata)
@@ -938,7 +989,9 @@ public final class UpdateClientRequestContent {
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels)
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
-                && redirectionPolicy.equals(other.redirectionPolicy);
+                && redirectionPolicy.equals(other.redirectionPolicy)
+                && agentId.equals(other.agentId)
+                && oidcSupport.equals(other.oidcSupport);
     }
 
     @java.lang.Override
@@ -975,6 +1028,7 @@ public final class UpdateClientRequestContent {
                 this.tokenQuota,
                 this.identityAssertionAuthorizationGrant,
                 this.anonymousSessions,
+                this.enforceAnonSessionTransferNetworkBinding,
                 this.formTemplate,
                 this.addons,
                 this.clientMetadata,
@@ -1001,7 +1055,9 @@ public final class UpdateClientRequestContent {
                 this.myOrganizationConfiguration,
                 this.asyncApprovalNotificationChannels,
                 this.thirdPartySecurityMode,
-                this.redirectionPolicy);
+                this.redirectionPolicy,
+                this.agentId,
+                this.oidcSupport);
     }
 
     @java.lang.Override
@@ -1079,6 +1135,9 @@ public final class UpdateClientRequestContent {
 
         private OptionalNullable<UpdateAnonymousSessions> anonymousSessions = OptionalNullable.absent();
 
+        private Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding =
+                Optional.empty();
+
         private Optional<String> formTemplate = Optional.empty();
 
         private Optional<ClientAddons> addons = Optional.empty();
@@ -1138,6 +1197,10 @@ public final class UpdateClientRequestContent {
 
         private Optional<ClientRedirectionPolicyEnum> redirectionPolicy = Optional.empty();
 
+        private OptionalNullable<String> agentId = OptionalNullable.absent();
+
+        private OptionalNullable<ClientOidcSupportPatch> oidcSupport = OptionalNullable.absent();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -1175,6 +1238,7 @@ public final class UpdateClientRequestContent {
             tokenQuota(other.getTokenQuota());
             identityAssertionAuthorizationGrant(other.getIdentityAssertionAuthorizationGrant());
             anonymousSessions(other.getAnonymousSessions());
+            enforceAnonSessionTransferNetworkBinding(other.getEnforceAnonSessionTransferNetworkBinding());
             formTemplate(other.getFormTemplate());
             addons(other.getAddons());
             clientMetadata(other.getClientMetadata());
@@ -1202,6 +1266,8 @@ public final class UpdateClientRequestContent {
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
             redirectionPolicy(other.getRedirectionPolicy());
+            agentId(other.getAgentId());
+            oidcSupport(other.getOidcSupport());
             return this;
         }
 
@@ -1766,6 +1832,20 @@ public final class UpdateClientRequestContent {
             } else {
                 this.anonymousSessions = OptionalNullable.of(anonymousSessions.get());
             }
+            return this;
+        }
+
+        @JsonSetter(value = "enforce_anon_session_transfer_network_binding", nulls = Nulls.SKIP)
+        public Builder enforceAnonSessionTransferNetworkBinding(
+                Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding) {
+            this.enforceAnonSessionTransferNetworkBinding = enforceAnonSessionTransferNetworkBinding;
+            return this;
+        }
+
+        public Builder enforceAnonSessionTransferNetworkBinding(
+                ClientAnonymousSessionTransferNetworkBindingEnum enforceAnonSessionTransferNetworkBinding) {
+            this.enforceAnonSessionTransferNetworkBinding =
+                    Optional.ofNullable(enforceAnonSessionTransferNetworkBinding);
             return this;
         }
 
@@ -2431,6 +2511,71 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        /**
+         * <p>ID of the agent to associate with this client, or null to remove the association.</p>
+         */
+        @JsonSetter(value = "agent_id", nulls = Nulls.SKIP)
+        public Builder agentId(@Nullable OptionalNullable<String> agentId) {
+            this.agentId = agentId;
+            return this;
+        }
+
+        public Builder agentId(String agentId) {
+            this.agentId = OptionalNullable.of(agentId);
+            return this;
+        }
+
+        public Builder agentId(Optional<String> agentId) {
+            if (agentId.isPresent()) {
+                this.agentId = OptionalNullable.of(agentId.get());
+            } else {
+                this.agentId = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder agentId(com.auth0.client.mgmt.core.Nullable<String> agentId) {
+            if (agentId.isNull()) {
+                this.agentId = OptionalNullable.ofNull();
+            } else if (agentId.isEmpty()) {
+                this.agentId = OptionalNullable.absent();
+            } else {
+                this.agentId = OptionalNullable.of(agentId.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "oidc_support", nulls = Nulls.SKIP)
+        public Builder oidcSupport(@Nullable OptionalNullable<ClientOidcSupportPatch> oidcSupport) {
+            this.oidcSupport = oidcSupport;
+            return this;
+        }
+
+        public Builder oidcSupport(ClientOidcSupportPatch oidcSupport) {
+            this.oidcSupport = OptionalNullable.of(oidcSupport);
+            return this;
+        }
+
+        public Builder oidcSupport(Optional<ClientOidcSupportPatch> oidcSupport) {
+            if (oidcSupport.isPresent()) {
+                this.oidcSupport = OptionalNullable.of(oidcSupport.get());
+            } else {
+                this.oidcSupport = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder oidcSupport(com.auth0.client.mgmt.core.Nullable<ClientOidcSupportPatch> oidcSupport) {
+            if (oidcSupport.isNull()) {
+                this.oidcSupport = OptionalNullable.ofNull();
+            } else if (oidcSupport.isEmpty()) {
+                this.oidcSupport = OptionalNullable.absent();
+            } else {
+                this.oidcSupport = OptionalNullable.of(oidcSupport.get());
+            }
+            return this;
+        }
+
         public UpdateClientRequestContent build() {
             return new UpdateClientRequestContent(
                     name,
@@ -2464,6 +2609,7 @@ public final class UpdateClientRequestContent {
                     tokenQuota,
                     identityAssertionAuthorizationGrant,
                     anonymousSessions,
+                    enforceAnonSessionTransferNetworkBinding,
                     formTemplate,
                     addons,
                     clientMetadata,
@@ -2491,6 +2637,8 @@ public final class UpdateClientRequestContent {
                     asyncApprovalNotificationChannels,
                     thirdPartySecurityMode,
                     redirectionPolicy,
+                    agentId,
+                    oidcSupport,
                     additionalProperties);
         }
 

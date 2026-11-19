@@ -300,7 +300,7 @@ public final class TenantSettingsFlags {
     }
 
     /**
-     * @return Enables new insights activity page view
+     * @return Deprecated. This flag has no effect and is retained only for backward compatibility
      */
     @JsonProperty("dashboard_insights_view")
     public Optional<Boolean> getDashboardInsightsView() {
@@ -848,7 +848,7 @@ public final class TenantSettingsFlags {
         }
 
         /**
-         * <p>Enables new insights activity page view</p>
+         * <p>Deprecated. This flag has no effect and is retained only for backward compatibility</p>
          */
         @JsonSetter(value = "dashboard_insights_view", nulls = Nulls.SKIP)
         public Builder dashboardInsightsView(Optional<Boolean> dashboardInsightsView) {

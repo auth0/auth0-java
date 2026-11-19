@@ -68,6 +68,8 @@ public final class UpdateTenantSettingsResponseContent {
 
     private final Optional<List<SupportedLocales>> enabledLocales;
 
+    private final OptionalNullable<ResourceServerAccessToken> accessToken;
+
     private final OptionalNullable<TenantSettingsNullableSecurityHeaders> securityHeaders;
 
     private final OptionalNullable<SessionCookieSchema> sessionCookie;
@@ -88,11 +90,15 @@ public final class UpdateTenantSettingsResponseContent {
 
     private final OptionalNullable<Boolean> authorizationResponseIssParameterSupported;
 
+    private final OptionalNullable<Boolean> dpopStrictRefreshTokenBinding;
+
     private final OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt;
 
     private final Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile;
 
     private final Optional<Boolean> clientIdMetadataDocumentSupported;
+
+    private final Optional<Boolean> clientIdMetadataDocumentDynamicRegistrationSupported;
 
     private final Optional<Boolean> phoneConsolidatedExperience;
 
@@ -129,6 +135,7 @@ public final class UpdateTenantSettingsResponseContent {
             Optional<List<String>> sandboxVersionsAvailable,
             Optional<String> defaultRedirectionUri,
             Optional<List<SupportedLocales>> enabledLocales,
+            OptionalNullable<ResourceServerAccessToken> accessToken,
             OptionalNullable<TenantSettingsNullableSecurityHeaders> securityHeaders,
             OptionalNullable<SessionCookieSchema> sessionCookie,
             OptionalNullable<TenantSettingsSessions> sessions,
@@ -139,9 +146,11 @@ public final class UpdateTenantSettingsResponseContent {
             OptionalNullable<TenantSettingsMtls> mtls,
             Optional<Boolean> pushedAuthorizationRequestsSupported,
             OptionalNullable<Boolean> authorizationResponseIssParameterSupported,
+            OptionalNullable<Boolean> dpopStrictRefreshTokenBinding,
             OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt,
             Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile,
             Optional<Boolean> clientIdMetadataDocumentSupported,
+            Optional<Boolean> clientIdMetadataDocumentDynamicRegistrationSupported,
             Optional<Boolean> phoneConsolidatedExperience,
             Optional<Boolean> enableAiGuide,
             Optional<Boolean> includeSessionMetadataInTenantLogs,
@@ -170,6 +179,7 @@ public final class UpdateTenantSettingsResponseContent {
         this.sandboxVersionsAvailable = sandboxVersionsAvailable;
         this.defaultRedirectionUri = defaultRedirectionUri;
         this.enabledLocales = enabledLocales;
+        this.accessToken = accessToken;
         this.securityHeaders = securityHeaders;
         this.sessionCookie = sessionCookie;
         this.sessions = sessions;
@@ -180,9 +190,12 @@ public final class UpdateTenantSettingsResponseContent {
         this.mtls = mtls;
         this.pushedAuthorizationRequestsSupported = pushedAuthorizationRequestsSupported;
         this.authorizationResponseIssParameterSupported = authorizationResponseIssParameterSupported;
+        this.dpopStrictRefreshTokenBinding = dpopStrictRefreshTokenBinding;
         this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
         this.resourceParameterProfile = resourceParameterProfile;
         this.clientIdMetadataDocumentSupported = clientIdMetadataDocumentSupported;
+        this.clientIdMetadataDocumentDynamicRegistrationSupported =
+                clientIdMetadataDocumentDynamicRegistrationSupported;
         this.phoneConsolidatedExperience = phoneConsolidatedExperience;
         this.enableAiGuide = enableAiGuide;
         this.includeSessionMetadataInTenantLogs = includeSessionMetadataInTenantLogs;
@@ -370,6 +383,15 @@ public final class UpdateTenantSettingsResponseContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("access_token")
+    public OptionalNullable<ResourceServerAccessToken> getAccessToken() {
+        if (accessToken == null) {
+            return OptionalNullable.absent();
+        }
+        return accessToken;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("security_headers")
     public OptionalNullable<TenantSettingsNullableSecurityHeaders> getSecurityHeaders() {
         if (securityHeaders == null) {
@@ -459,6 +481,18 @@ public final class UpdateTenantSettingsResponseContent {
     }
 
     /**
+     * @return Enables strict DPoP refresh token binding per RFC 9449: all refresh tokens issued to public clients that present a DPoP proof are bound to the sender's key, and the binding is validated on every subsequent exchange. When disabled, DPoP refresh token binding may still apply for specific audiences for backwards compatibility.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("dpop_strict_refresh_token_binding")
+    public OptionalNullable<Boolean> getDpopStrictRefreshTokenBinding() {
+        if (dpopStrictRefreshTokenBinding == null) {
+            return OptionalNullable.absent();
+        }
+        return dpopStrictRefreshTokenBinding;
+    }
+
+    /**
      * @return Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as <code>myapp://</code>, or <code>localhost</code>).
      * If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
      * See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.
@@ -483,6 +517,14 @@ public final class UpdateTenantSettingsResponseContent {
     @JsonProperty("client_id_metadata_document_supported")
     public Optional<Boolean> getClientIdMetadataDocumentSupported() {
         return clientIdMetadataDocumentSupported;
+    }
+
+    /**
+     * @return Whether the authorization server supports registering clients dynamically from a client_id URL. Requires client_id_metadata_document_supported to be enabled.
+     */
+    @JsonProperty("client_id_metadata_document_dynamic_registration_supported")
+    public Optional<Boolean> getClientIdMetadataDocumentDynamicRegistrationSupported() {
+        return clientIdMetadataDocumentDynamicRegistrationSupported;
     }
 
     /**
@@ -550,6 +592,12 @@ public final class UpdateTenantSettingsResponseContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("access_token")
+    private OptionalNullable<ResourceServerAccessToken> _getAccessToken() {
+        return accessToken;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("security_headers")
     private OptionalNullable<TenantSettingsNullableSecurityHeaders> _getSecurityHeaders() {
         return securityHeaders;
@@ -583,6 +631,12 @@ public final class UpdateTenantSettingsResponseContent {
     @JsonProperty("authorization_response_iss_parameter_supported")
     private OptionalNullable<Boolean> _getAuthorizationResponseIssParameterSupported() {
         return authorizationResponseIssParameterSupported;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("dpop_strict_refresh_token_binding")
+    private OptionalNullable<Boolean> _getDpopStrictRefreshTokenBinding() {
+        return dpopStrictRefreshTokenBinding;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -626,6 +680,7 @@ public final class UpdateTenantSettingsResponseContent {
                 && sandboxVersionsAvailable.equals(other.sandboxVersionsAvailable)
                 && defaultRedirectionUri.equals(other.defaultRedirectionUri)
                 && enabledLocales.equals(other.enabledLocales)
+                && accessToken.equals(other.accessToken)
                 && securityHeaders.equals(other.securityHeaders)
                 && sessionCookie.equals(other.sessionCookie)
                 && sessions.equals(other.sessions)
@@ -636,10 +691,13 @@ public final class UpdateTenantSettingsResponseContent {
                 && mtls.equals(other.mtls)
                 && pushedAuthorizationRequestsSupported.equals(other.pushedAuthorizationRequestsSupported)
                 && authorizationResponseIssParameterSupported.equals(other.authorizationResponseIssParameterSupported)
+                && dpopStrictRefreshTokenBinding.equals(other.dpopStrictRefreshTokenBinding)
                 && skipNonVerifiableCallbackUriConfirmationPrompt.equals(
                         other.skipNonVerifiableCallbackUriConfirmationPrompt)
                 && resourceParameterProfile.equals(other.resourceParameterProfile)
                 && clientIdMetadataDocumentSupported.equals(other.clientIdMetadataDocumentSupported)
+                && clientIdMetadataDocumentDynamicRegistrationSupported.equals(
+                        other.clientIdMetadataDocumentDynamicRegistrationSupported)
                 && phoneConsolidatedExperience.equals(other.phoneConsolidatedExperience)
                 && enableAiGuide.equals(other.enableAiGuide)
                 && includeSessionMetadataInTenantLogs.equals(other.includeSessionMetadataInTenantLogs)
@@ -672,6 +730,7 @@ public final class UpdateTenantSettingsResponseContent {
                 this.sandboxVersionsAvailable,
                 this.defaultRedirectionUri,
                 this.enabledLocales,
+                this.accessToken,
                 this.securityHeaders,
                 this.sessionCookie,
                 this.sessions,
@@ -682,9 +741,11 @@ public final class UpdateTenantSettingsResponseContent {
                 this.mtls,
                 this.pushedAuthorizationRequestsSupported,
                 this.authorizationResponseIssParameterSupported,
+                this.dpopStrictRefreshTokenBinding,
                 this.skipNonVerifiableCallbackUriConfirmationPrompt,
                 this.resourceParameterProfile,
                 this.clientIdMetadataDocumentSupported,
+                this.clientIdMetadataDocumentDynamicRegistrationSupported,
                 this.phoneConsolidatedExperience,
                 this.enableAiGuide,
                 this.includeSessionMetadataInTenantLogs,
@@ -747,6 +808,8 @@ public final class UpdateTenantSettingsResponseContent {
 
         private Optional<List<SupportedLocales>> enabledLocales = Optional.empty();
 
+        private OptionalNullable<ResourceServerAccessToken> accessToken = OptionalNullable.absent();
+
         private OptionalNullable<TenantSettingsNullableSecurityHeaders> securityHeaders = OptionalNullable.absent();
 
         private OptionalNullable<SessionCookieSchema> sessionCookie = OptionalNullable.absent();
@@ -767,11 +830,15 @@ public final class UpdateTenantSettingsResponseContent {
 
         private OptionalNullable<Boolean> authorizationResponseIssParameterSupported = OptionalNullable.absent();
 
+        private OptionalNullable<Boolean> dpopStrictRefreshTokenBinding = OptionalNullable.absent();
+
         private OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt = OptionalNullable.absent();
 
         private Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile = Optional.empty();
 
         private Optional<Boolean> clientIdMetadataDocumentSupported = Optional.empty();
+
+        private Optional<Boolean> clientIdMetadataDocumentDynamicRegistrationSupported = Optional.empty();
 
         private Optional<Boolean> phoneConsolidatedExperience = Optional.empty();
 
@@ -812,6 +879,7 @@ public final class UpdateTenantSettingsResponseContent {
             sandboxVersionsAvailable(other.getSandboxVersionsAvailable());
             defaultRedirectionUri(other.getDefaultRedirectionUri());
             enabledLocales(other.getEnabledLocales());
+            accessToken(other.getAccessToken());
             securityHeaders(other.getSecurityHeaders());
             sessionCookie(other.getSessionCookie());
             sessions(other.getSessions());
@@ -822,9 +890,12 @@ public final class UpdateTenantSettingsResponseContent {
             mtls(other.getMtls());
             pushedAuthorizationRequestsSupported(other.getPushedAuthorizationRequestsSupported());
             authorizationResponseIssParameterSupported(other.getAuthorizationResponseIssParameterSupported());
+            dpopStrictRefreshTokenBinding(other.getDpopStrictRefreshTokenBinding());
             skipNonVerifiableCallbackUriConfirmationPrompt(other.getSkipNonVerifiableCallbackUriConfirmationPrompt());
             resourceParameterProfile(other.getResourceParameterProfile());
             clientIdMetadataDocumentSupported(other.getClientIdMetadataDocumentSupported());
+            clientIdMetadataDocumentDynamicRegistrationSupported(
+                    other.getClientIdMetadataDocumentDynamicRegistrationSupported());
             phoneConsolidatedExperience(other.getPhoneConsolidatedExperience());
             enableAiGuide(other.getEnableAiGuide());
             includeSessionMetadataInTenantLogs(other.getIncludeSessionMetadataInTenantLogs());
@@ -1224,6 +1295,37 @@ public final class UpdateTenantSettingsResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "access_token", nulls = Nulls.SKIP)
+        public Builder accessToken(@Nullable OptionalNullable<ResourceServerAccessToken> accessToken) {
+            this.accessToken = accessToken;
+            return this;
+        }
+
+        public Builder accessToken(ResourceServerAccessToken accessToken) {
+            this.accessToken = OptionalNullable.of(accessToken);
+            return this;
+        }
+
+        public Builder accessToken(Optional<ResourceServerAccessToken> accessToken) {
+            if (accessToken.isPresent()) {
+                this.accessToken = OptionalNullable.of(accessToken.get());
+            } else {
+                this.accessToken = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder accessToken(com.auth0.client.mgmt.core.Nullable<ResourceServerAccessToken> accessToken) {
+            if (accessToken.isNull()) {
+                this.accessToken = OptionalNullable.ofNull();
+            } else if (accessToken.isEmpty()) {
+                this.accessToken = OptionalNullable.absent();
+            } else {
+                this.accessToken = OptionalNullable.of(accessToken.get());
+            }
+            return this;
+        }
+
         @JsonSetter(value = "security_headers", nulls = Nulls.SKIP)
         public Builder securityHeaders(
                 @Nullable OptionalNullable<TenantSettingsNullableSecurityHeaders> securityHeaders) {
@@ -1480,6 +1582,42 @@ public final class UpdateTenantSettingsResponseContent {
         }
 
         /**
+         * <p>Enables strict DPoP refresh token binding per RFC 9449: all refresh tokens issued to public clients that present a DPoP proof are bound to the sender's key, and the binding is validated on every subsequent exchange. When disabled, DPoP refresh token binding may still apply for specific audiences for backwards compatibility.</p>
+         */
+        @JsonSetter(value = "dpop_strict_refresh_token_binding", nulls = Nulls.SKIP)
+        public Builder dpopStrictRefreshTokenBinding(
+                @Nullable OptionalNullable<Boolean> dpopStrictRefreshTokenBinding) {
+            this.dpopStrictRefreshTokenBinding = dpopStrictRefreshTokenBinding;
+            return this;
+        }
+
+        public Builder dpopStrictRefreshTokenBinding(Boolean dpopStrictRefreshTokenBinding) {
+            this.dpopStrictRefreshTokenBinding = OptionalNullable.of(dpopStrictRefreshTokenBinding);
+            return this;
+        }
+
+        public Builder dpopStrictRefreshTokenBinding(Optional<Boolean> dpopStrictRefreshTokenBinding) {
+            if (dpopStrictRefreshTokenBinding.isPresent()) {
+                this.dpopStrictRefreshTokenBinding = OptionalNullable.of(dpopStrictRefreshTokenBinding.get());
+            } else {
+                this.dpopStrictRefreshTokenBinding = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder dpopStrictRefreshTokenBinding(
+                com.auth0.client.mgmt.core.Nullable<Boolean> dpopStrictRefreshTokenBinding) {
+            if (dpopStrictRefreshTokenBinding.isNull()) {
+                this.dpopStrictRefreshTokenBinding = OptionalNullable.ofNull();
+            } else if (dpopStrictRefreshTokenBinding.isEmpty()) {
+                this.dpopStrictRefreshTokenBinding = OptionalNullable.absent();
+            } else {
+                this.dpopStrictRefreshTokenBinding = OptionalNullable.of(dpopStrictRefreshTokenBinding.get());
+            }
+            return this;
+        }
+
+        /**
          * <p>Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as <code>myapp://</code>, or <code>localhost</code>).
          * If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
          * See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.</p>
@@ -1545,6 +1683,24 @@ public final class UpdateTenantSettingsResponseContent {
 
         public Builder clientIdMetadataDocumentSupported(Boolean clientIdMetadataDocumentSupported) {
             this.clientIdMetadataDocumentSupported = Optional.ofNullable(clientIdMetadataDocumentSupported);
+            return this;
+        }
+
+        /**
+         * <p>Whether the authorization server supports registering clients dynamically from a client_id URL. Requires client_id_metadata_document_supported to be enabled.</p>
+         */
+        @JsonSetter(value = "client_id_metadata_document_dynamic_registration_supported", nulls = Nulls.SKIP)
+        public Builder clientIdMetadataDocumentDynamicRegistrationSupported(
+                Optional<Boolean> clientIdMetadataDocumentDynamicRegistrationSupported) {
+            this.clientIdMetadataDocumentDynamicRegistrationSupported =
+                    clientIdMetadataDocumentDynamicRegistrationSupported;
+            return this;
+        }
+
+        public Builder clientIdMetadataDocumentDynamicRegistrationSupported(
+                Boolean clientIdMetadataDocumentDynamicRegistrationSupported) {
+            this.clientIdMetadataDocumentDynamicRegistrationSupported =
+                    Optional.ofNullable(clientIdMetadataDocumentDynamicRegistrationSupported);
             return this;
         }
 
@@ -1638,6 +1794,7 @@ public final class UpdateTenantSettingsResponseContent {
                     sandboxVersionsAvailable,
                     defaultRedirectionUri,
                     enabledLocales,
+                    accessToken,
                     securityHeaders,
                     sessionCookie,
                     sessions,
@@ -1648,9 +1805,11 @@ public final class UpdateTenantSettingsResponseContent {
                     mtls,
                     pushedAuthorizationRequestsSupported,
                     authorizationResponseIssParameterSupported,
+                    dpopStrictRefreshTokenBinding,
                     skipNonVerifiableCallbackUriConfirmationPrompt,
                     resourceParameterProfile,
                     clientIdMetadataDocumentSupported,
+                    clientIdMetadataDocumentDynamicRegistrationSupported,
                     phoneConsolidatedExperience,
                     enableAiGuide,
                     includeSessionMetadataInTenantLogs,

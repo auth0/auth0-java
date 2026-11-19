@@ -47,14 +47,14 @@ public class AsyncRawKeysClient {
     }
 
     /**
-     * Gets the connection keys for the Okta or OIDC connection strategy.
+     * Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<ConnectionKey>>> get(String id) {
         return get(id, null);
     }
 
     /**
-     * Gets the connection keys for the Okta or OIDC connection strategy.
+     * Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<ConnectionKey>>> get(
             String id, RequestOptions requestOptions) {
@@ -152,7 +152,7 @@ public class AsyncRawKeysClient {
     }
 
     /**
-     * Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+     * Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<PostConnectionsKeysResponseContentItem>>> create(
             String id) {
@@ -160,7 +160,7 @@ public class AsyncRawKeysClient {
     }
 
     /**
-     * Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+     * Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<PostConnectionsKeysResponseContentItem>>> create(
             String id, RequestOptions requestOptions) {
@@ -168,7 +168,7 @@ public class AsyncRawKeysClient {
     }
 
     /**
-     * Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+     * Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<PostConnectionsKeysResponseContentItem>>> create(
             String id, OptionalNullable<PostConnectionKeysRequestContent> request) {
@@ -176,7 +176,7 @@ public class AsyncRawKeysClient {
     }
 
     /**
-     * Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+     * Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<PostConnectionsKeysResponseContentItem>>> create(
             String id, OptionalNullable<PostConnectionKeysRequestContent> request, RequestOptions requestOptions) {
@@ -292,14 +292,14 @@ public class AsyncRawKeysClient {
     }
 
     /**
-     * Rotates the connection keys for the Okta or OIDC connection strategies.
+     * Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
      */
     public CompletableFuture<ManagementApiHttpResponse<RotateConnectionsKeysResponseContent>> rotate(String id) {
         return rotate(id, OptionalNullable.<RotateConnectionKeysRequestContent>absent());
     }
 
     /**
-     * Rotates the connection keys for the Okta or OIDC connection strategies.
+     * Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
      */
     public CompletableFuture<ManagementApiHttpResponse<RotateConnectionsKeysResponseContent>> rotate(
             String id, RequestOptions requestOptions) {
@@ -307,7 +307,7 @@ public class AsyncRawKeysClient {
     }
 
     /**
-     * Rotates the connection keys for the Okta or OIDC connection strategies.
+     * Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
      */
     public CompletableFuture<ManagementApiHttpResponse<RotateConnectionsKeysResponseContent>> rotate(
             String id, OptionalNullable<RotateConnectionKeysRequestContent> request) {
@@ -315,7 +315,7 @@ public class AsyncRawKeysClient {
     }
 
     /**
-     * Rotates the connection keys for the Okta or OIDC connection strategies.
+     * Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
      */
     public CompletableFuture<ManagementApiHttpResponse<RotateConnectionsKeysResponseContent>> rotate(
             String id, OptionalNullable<RotateConnectionKeysRequestContent> request, RequestOptions requestOptions) {

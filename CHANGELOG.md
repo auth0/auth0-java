@@ -1,5 +1,37 @@
 # Change Log
 
+## [5.5.0](https://github.com/auth0/auth0-java/tree/5.5.0) (2026-11-04)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/5.4.0...5.5.0)
+
+**Added**
+- feat: add Portals API, agent_id on clients support [\#948](https://github.com/auth0/auth0-java/pull/948) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - **Portals:** adds the `portals()` client (list, create, get, update, delete) with discriminated `PageComponent` and `SidebarComponent` types for Universal Portals.
+    - **Agents:** adds `agent_id` to client create, update, list and response types, and `agent_subject_claims` to resource servers.
+- feat!: Adds Client Profiles, client/grant search, consent signing keys, resource server type, client OIDC support [\#947](https://github.com/auth0/auth0-java/pull/947) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - **New endpoints:** adds the `clientProfiles()` client, `clients().search` and `clientGrants().search`, and the user consent signing key endpoints. Resource servers gain `type`, and clients gain `oidc_support`.
+    - **Breaking:** connection responses now require `display_name`, `SearchOrganization.metadata` is removed, and the Experiment Center `updateStatus` methods are replaced by `status` on `update`.
+
+## [5.4.0](https://github.com/auth0/auth0-java/tree/5.4.0) (2026-09-30)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/5.3.0...5.4.0)
+
+**Added**
+- feat: allow reusing an existing OkHttpClient via DefaultHttpClient.Bu… [\#936](https://github.com/auth0/auth0-java/pull/936) ([tanya732](https://github.com/tanya732))
+- feat: add Experiment Center, consent non-repudiation & client OIDC support [\#937](https://github.com/auth0/auth0-java/pull/937) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - **Experiment Center - A/B Testing (Early Access):** builds the `experimentation()` client out into a full A/B-testing surface. 
+    - **Resource Servers - consent non-repudiation:** adds a `requireConsentNonRepudiation` flag to the resource server create, update, get, and search payloads.
+    - **Connections:** surfaces new provider option fields on the SAML, AD, ADFS, Azure AD, and PingFederate connection option types.
+
+**Breaking changes**
+- feat: add Experiment Center, consent non-repudiation & client OIDC support [\#937](https://github.com/auth0/auth0-java/pull/937) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - **Removed the per-organization Organization Template client.** 
+
+
+## [5.3.0](https://github.com/auth0/auth0-java/tree/5.3.0) (2026-09-15)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/5.2.0...5.3.0)
+
+**Added**
+- feat: add Resource Server access token config, Organization connection member access levels & Client org permission controls [\#930](https://github.com/auth0/auth0-java/pull/930) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [5.2.0](https://github.com/auth0/auth0-java/tree/5.2.0) (2026-09-11)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/5.1.0...5.2.0)
 

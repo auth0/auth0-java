@@ -22,14 +22,14 @@ logger.lifecycle("Using version ${version} for ${name} group $group")
 dependencies {
   // Core dependencies
   api 'com.squareup.okhttp3:okhttp:5.2.1'
-  api 'com.fasterxml.jackson.core:jackson-databind:2.21.6'
-  api 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.21.6'
-  api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.21.6'
+  api 'com.fasterxml.jackson.core:jackson-databind:2.22.4'
+  api 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.22.4'
+  api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.22.4'
 
   // Dependencies for legacy management code from auth0-real
   implementation 'com.squareup.okhttp3:logging-interceptor:5.2.1'
-  implementation 'com.auth0:java-jwt:4.4.0'
-  implementation 'com.auth0:jwks-rsa:0.22.1'
+  implementation 'com.auth0:java-jwt:4.6.2'
+  implementation 'com.auth0:jwks-rsa:0.24.2'
   implementation 'net.jodah:failsafe:2.4.4'
 
   // Test dependencies
@@ -68,6 +68,9 @@ jar {
 tasks.withType(Javadoc) {
   failOnError false
   options.addStringOption('Xdoclint:none', '-quiet')
+  // Fern-generated POJO types are documented via reference.md; excluding them
+  // keeps the javadoc JAR within Maven Central's monthly size quota.
+  exclude 'com/auth0/client/mgmt/**/types/**'
 }
 
 spotless {

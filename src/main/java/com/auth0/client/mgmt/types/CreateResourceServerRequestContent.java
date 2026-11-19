@@ -51,9 +51,13 @@ public final class CreateResourceServerRequestContent {
 
     private final Optional<Boolean> enforcePolicies;
 
+    private final OptionalNullable<ResourceServerAccessToken> accessToken;
+
     private final OptionalNullable<ResourceServerTokenEncryption> tokenEncryption;
 
     private final OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy;
+
+    private final Optional<Boolean> requireConsentNonRepudiation;
 
     private final OptionalNullable<List<Object>> authorizationDetails;
 
@@ -62,6 +66,10 @@ public final class CreateResourceServerRequestContent {
     private final Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization;
 
     private final OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy;
+
+    private final Optional<ResourceServerAgentSubjectClaimsSchemaEnum> agentSubjectClaims;
+
+    private final OptionalNullable<ResourceServerTypeEnum> type;
 
     private final Map<String, Object> additionalProperties;
 
@@ -79,12 +87,16 @@ public final class CreateResourceServerRequestContent {
             Optional<ResourceServerTokenDialectSchemaEnum> tokenDialect,
             Optional<Boolean> skipConsentForVerifiableFirstPartyClients,
             Optional<Boolean> enforcePolicies,
+            OptionalNullable<ResourceServerAccessToken> accessToken,
             OptionalNullable<ResourceServerTokenEncryption> tokenEncryption,
             OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy,
+            Optional<Boolean> requireConsentNonRepudiation,
             OptionalNullable<List<Object>> authorizationDetails,
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
             Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
             OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy,
+            Optional<ResourceServerAgentSubjectClaimsSchemaEnum> agentSubjectClaims,
+            OptionalNullable<ResourceServerTypeEnum> type,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.identifier = identifier;
@@ -99,12 +111,16 @@ public final class CreateResourceServerRequestContent {
         this.tokenDialect = tokenDialect;
         this.skipConsentForVerifiableFirstPartyClients = skipConsentForVerifiableFirstPartyClients;
         this.enforcePolicies = enforcePolicies;
+        this.accessToken = accessToken;
         this.tokenEncryption = tokenEncryption;
         this.consentPolicy = consentPolicy;
+        this.requireConsentNonRepudiation = requireConsentNonRepudiation;
         this.authorizationDetails = authorizationDetails;
         this.proofOfPossession = proofOfPossession;
         this.subjectTypeAuthorization = subjectTypeAuthorization;
         this.authorizationPolicy = authorizationPolicy;
+        this.agentSubjectClaims = agentSubjectClaims;
+        this.type = type;
         this.additionalProperties = additionalProperties;
     }
 
@@ -211,6 +227,15 @@ public final class CreateResourceServerRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("access_token")
+    public OptionalNullable<ResourceServerAccessToken> getAccessToken() {
+        if (accessToken == null) {
+            return OptionalNullable.absent();
+        }
+        return accessToken;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_encryption")
     public OptionalNullable<ResourceServerTokenEncryption> getTokenEncryption() {
         if (tokenEncryption == null) {
@@ -226,6 +251,14 @@ public final class CreateResourceServerRequestContent {
             return OptionalNullable.absent();
         }
         return consentPolicy;
+    }
+
+    /**
+     * @return When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.
+     */
+    @JsonProperty("require_consent_non_repudiation")
+    public Optional<Boolean> getRequireConsentNonRepudiation() {
+        return requireConsentNonRepudiation;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -260,10 +293,30 @@ public final class CreateResourceServerRequestContent {
         return authorizationPolicy;
     }
 
+    @JsonProperty("agent_subject_claims")
+    public Optional<ResourceServerAgentSubjectClaimsSchemaEnum> getAgentSubjectClaims() {
+        return agentSubjectClaims;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("type")
+    public OptionalNullable<ResourceServerTypeEnum> getType() {
+        if (type == null) {
+            return OptionalNullable.absent();
+        }
+        return type;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("token_lifetime_for_anonymous_access_tokens")
     private OptionalNullable<Integer> _getTokenLifetimeForAnonymousAccessTokens() {
         return tokenLifetimeForAnonymousAccessTokens;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("access_token")
+    private OptionalNullable<ResourceServerAccessToken> _getAccessToken() {
+        return accessToken;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -296,6 +349,12 @@ public final class CreateResourceServerRequestContent {
         return authorizationPolicy;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("type")
+    private OptionalNullable<ResourceServerTypeEnum> _getType() {
+        return type;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -322,12 +381,16 @@ public final class CreateResourceServerRequestContent {
                 && tokenDialect.equals(other.tokenDialect)
                 && skipConsentForVerifiableFirstPartyClients.equals(other.skipConsentForVerifiableFirstPartyClients)
                 && enforcePolicies.equals(other.enforcePolicies)
+                && accessToken.equals(other.accessToken)
                 && tokenEncryption.equals(other.tokenEncryption)
                 && consentPolicy.equals(other.consentPolicy)
+                && requireConsentNonRepudiation.equals(other.requireConsentNonRepudiation)
                 && authorizationDetails.equals(other.authorizationDetails)
                 && proofOfPossession.equals(other.proofOfPossession)
                 && subjectTypeAuthorization.equals(other.subjectTypeAuthorization)
-                && authorizationPolicy.equals(other.authorizationPolicy);
+                && authorizationPolicy.equals(other.authorizationPolicy)
+                && agentSubjectClaims.equals(other.agentSubjectClaims)
+                && type.equals(other.type);
     }
 
     @java.lang.Override
@@ -346,12 +409,16 @@ public final class CreateResourceServerRequestContent {
                 this.tokenDialect,
                 this.skipConsentForVerifiableFirstPartyClients,
                 this.enforcePolicies,
+                this.accessToken,
                 this.tokenEncryption,
                 this.consentPolicy,
+                this.requireConsentNonRepudiation,
                 this.authorizationDetails,
                 this.proofOfPossession,
                 this.subjectTypeAuthorization,
-                this.authorizationPolicy);
+                this.authorizationPolicy,
+                this.agentSubjectClaims,
+                this.type);
     }
 
     @java.lang.Override
@@ -464,6 +531,14 @@ public final class CreateResourceServerRequestContent {
 
         _FinalStage enforcePolicies(Boolean enforcePolicies);
 
+        _FinalStage accessToken(@Nullable OptionalNullable<ResourceServerAccessToken> accessToken);
+
+        _FinalStage accessToken(ResourceServerAccessToken accessToken);
+
+        _FinalStage accessToken(Optional<ResourceServerAccessToken> accessToken);
+
+        _FinalStage accessToken(com.auth0.client.mgmt.core.Nullable<ResourceServerAccessToken> accessToken);
+
         _FinalStage tokenEncryption(@Nullable OptionalNullable<ResourceServerTokenEncryption> tokenEncryption);
 
         _FinalStage tokenEncryption(ResourceServerTokenEncryption tokenEncryption);
@@ -479,6 +554,13 @@ public final class CreateResourceServerRequestContent {
         _FinalStage consentPolicy(Optional<ResourceServerConsentPolicyEnum> consentPolicy);
 
         _FinalStage consentPolicy(com.auth0.client.mgmt.core.Nullable<ResourceServerConsentPolicyEnum> consentPolicy);
+
+        /**
+         * <p>When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.</p>
+         */
+        _FinalStage requireConsentNonRepudiation(Optional<Boolean> requireConsentNonRepudiation);
+
+        _FinalStage requireConsentNonRepudiation(Boolean requireConsentNonRepudiation);
 
         _FinalStage authorizationDetails(@Nullable OptionalNullable<List<Object>> authorizationDetails);
 
@@ -510,11 +592,27 @@ public final class CreateResourceServerRequestContent {
 
         _FinalStage authorizationPolicy(
                 com.auth0.client.mgmt.core.Nullable<ResourceServerAuthorizationPolicy> authorizationPolicy);
+
+        _FinalStage agentSubjectClaims(Optional<ResourceServerAgentSubjectClaimsSchemaEnum> agentSubjectClaims);
+
+        _FinalStage agentSubjectClaims(ResourceServerAgentSubjectClaimsSchemaEnum agentSubjectClaims);
+
+        _FinalStage type(@Nullable OptionalNullable<ResourceServerTypeEnum> type);
+
+        _FinalStage type(ResourceServerTypeEnum type);
+
+        _FinalStage type(Optional<ResourceServerTypeEnum> type);
+
+        _FinalStage type(com.auth0.client.mgmt.core.Nullable<ResourceServerTypeEnum> type);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements IdentifierStage, _FinalStage {
         private String identifier;
+
+        private OptionalNullable<ResourceServerTypeEnum> type = OptionalNullable.absent();
+
+        private Optional<ResourceServerAgentSubjectClaimsSchemaEnum> agentSubjectClaims = Optional.empty();
 
         private OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy = OptionalNullable.absent();
 
@@ -524,9 +622,13 @@ public final class CreateResourceServerRequestContent {
 
         private OptionalNullable<List<Object>> authorizationDetails = OptionalNullable.absent();
 
+        private Optional<Boolean> requireConsentNonRepudiation = Optional.empty();
+
         private OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy = OptionalNullable.absent();
 
         private OptionalNullable<ResourceServerTokenEncryption> tokenEncryption = OptionalNullable.absent();
+
+        private OptionalNullable<ResourceServerAccessToken> accessToken = OptionalNullable.absent();
 
         private Optional<Boolean> enforcePolicies = Optional.empty();
 
@@ -572,12 +674,16 @@ public final class CreateResourceServerRequestContent {
             tokenDialect(other.getTokenDialect());
             skipConsentForVerifiableFirstPartyClients(other.getSkipConsentForVerifiableFirstPartyClients());
             enforcePolicies(other.getEnforcePolicies());
+            accessToken(other.getAccessToken());
             tokenEncryption(other.getTokenEncryption());
             consentPolicy(other.getConsentPolicy());
+            requireConsentNonRepudiation(other.getRequireConsentNonRepudiation());
             authorizationDetails(other.getAuthorizationDetails());
             proofOfPossession(other.getProofOfPossession());
             subjectTypeAuthorization(other.getSubjectTypeAuthorization());
             authorizationPolicy(other.getAuthorizationPolicy());
+            agentSubjectClaims(other.getAgentSubjectClaims());
+            type(other.getType());
             return this;
         }
 
@@ -589,6 +695,54 @@ public final class CreateResourceServerRequestContent {
         @JsonSetter("identifier")
         public _FinalStage identifier(@NotNull String identifier) {
             this.identifier = Objects.requireNonNull(identifier, "identifier must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage type(com.auth0.client.mgmt.core.Nullable<ResourceServerTypeEnum> type) {
+            if (type.isNull()) {
+                this.type = OptionalNullable.ofNull();
+            } else if (type.isEmpty()) {
+                this.type = OptionalNullable.absent();
+            } else {
+                this.type = OptionalNullable.of(type.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage type(Optional<ResourceServerTypeEnum> type) {
+            if (type.isPresent()) {
+                this.type = OptionalNullable.of(type.get());
+            } else {
+                this.type = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage type(ResourceServerTypeEnum type) {
+            this.type = OptionalNullable.of(type);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "type", nulls = Nulls.SKIP)
+        public _FinalStage type(@Nullable OptionalNullable<ResourceServerTypeEnum> type) {
+            this.type = type;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage agentSubjectClaims(ResourceServerAgentSubjectClaimsSchemaEnum agentSubjectClaims) {
+            this.agentSubjectClaims = Optional.ofNullable(agentSubjectClaims);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "agent_subject_claims", nulls = Nulls.SKIP)
+        public _FinalStage agentSubjectClaims(Optional<ResourceServerAgentSubjectClaimsSchemaEnum> agentSubjectClaims) {
+            this.agentSubjectClaims = agentSubjectClaims;
             return this;
         }
 
@@ -716,6 +870,26 @@ public final class CreateResourceServerRequestContent {
             return this;
         }
 
+        /**
+         * <p>When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage requireConsentNonRepudiation(Boolean requireConsentNonRepudiation) {
+            this.requireConsentNonRepudiation = Optional.ofNullable(requireConsentNonRepudiation);
+            return this;
+        }
+
+        /**
+         * <p>When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "require_consent_non_repudiation", nulls = Nulls.SKIP)
+        public _FinalStage requireConsentNonRepudiation(Optional<Boolean> requireConsentNonRepudiation) {
+            this.requireConsentNonRepudiation = requireConsentNonRepudiation;
+            return this;
+        }
+
         @java.lang.Override
         public _FinalStage consentPolicy(
                 com.auth0.client.mgmt.core.Nullable<ResourceServerConsentPolicyEnum> consentPolicy) {
@@ -785,6 +959,41 @@ public final class CreateResourceServerRequestContent {
         @JsonSetter(value = "token_encryption", nulls = Nulls.SKIP)
         public _FinalStage tokenEncryption(@Nullable OptionalNullable<ResourceServerTokenEncryption> tokenEncryption) {
             this.tokenEncryption = tokenEncryption;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage accessToken(com.auth0.client.mgmt.core.Nullable<ResourceServerAccessToken> accessToken) {
+            if (accessToken.isNull()) {
+                this.accessToken = OptionalNullable.ofNull();
+            } else if (accessToken.isEmpty()) {
+                this.accessToken = OptionalNullable.absent();
+            } else {
+                this.accessToken = OptionalNullable.of(accessToken.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage accessToken(Optional<ResourceServerAccessToken> accessToken) {
+            if (accessToken.isPresent()) {
+                this.accessToken = OptionalNullable.of(accessToken.get());
+            } else {
+                this.accessToken = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage accessToken(ResourceServerAccessToken accessToken) {
+            this.accessToken = OptionalNullable.of(accessToken);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "access_token", nulls = Nulls.SKIP)
+        public _FinalStage accessToken(@Nullable OptionalNullable<ResourceServerAccessToken> accessToken) {
+            this.accessToken = accessToken;
             return this;
         }
 
@@ -1069,12 +1278,16 @@ public final class CreateResourceServerRequestContent {
                     tokenDialect,
                     skipConsentForVerifiableFirstPartyClients,
                     enforcePolicies,
+                    accessToken,
                     tokenEncryption,
                     consentPolicy,
+                    requireConsentNonRepudiation,
                     authorizationDetails,
                     proofOfPossession,
                     subjectTypeAuthorization,
                     authorizationPolicy,
+                    agentSubjectClaims,
+                    type,
                     additionalProperties);
         }
 

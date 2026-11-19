@@ -13,6 +13,7 @@ import com.auth0.client.mgmt.types.CreateClientGrantRequestContent;
 import com.auth0.client.mgmt.types.CreateClientGrantResponseContent;
 import com.auth0.client.mgmt.types.GetClientGrantResponseContent;
 import com.auth0.client.mgmt.types.ListClientGrantsRequestParameters;
+import com.auth0.client.mgmt.types.SearchClientGrantsRequestParameters;
 import com.auth0.client.mgmt.types.UpdateClientGrantRequestContent;
 import com.auth0.client.mgmt.types.UpdateClientGrantResponseContent;
 import java.util.function.Supplier;
@@ -79,6 +80,39 @@ public class ClientGrantsClient {
     public CreateClientGrantResponseContent create(
             CreateClientGrantRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).body();
+    }
+
+    /**
+     * Search client grants using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;). This endpoint provides an alternative to the standard GET /client-grants endpoint with better performance for complex queries.
+     * Results may not reflect recent updates immediately.
+     */
+    public SyncPagingIterable<ClientGrantResponseContent> search() {
+        return this.rawClient.search().body();
+    }
+
+    /**
+     * Search client grants using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;). This endpoint provides an alternative to the standard GET /client-grants endpoint with better performance for complex queries.
+     * Results may not reflect recent updates immediately.
+     */
+    public SyncPagingIterable<ClientGrantResponseContent> search(RequestOptions requestOptions) {
+        return this.rawClient.search(requestOptions).body();
+    }
+
+    /**
+     * Search client grants using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;). This endpoint provides an alternative to the standard GET /client-grants endpoint with better performance for complex queries.
+     * Results may not reflect recent updates immediately.
+     */
+    public SyncPagingIterable<ClientGrantResponseContent> search(SearchClientGrantsRequestParameters request) {
+        return this.rawClient.search(request).body();
+    }
+
+    /**
+     * Search client grants using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify &quot;scim&quot; or &quot;lucene&quot; syntax (default: &quot;lucene&quot;). This endpoint provides an alternative to the standard GET /client-grants endpoint with better performance for complex queries.
+     * Results may not reflect recent updates immediately.
+     */
+    public SyncPagingIterable<ClientGrantResponseContent> search(
+            SearchClientGrantsRequestParameters request, RequestOptions requestOptions) {
+        return this.rawClient.search(request, requestOptions).body();
     }
 
     /**

@@ -12,12 +12,26 @@ public class ExperimentationClient {
 
     protected final Supplier<ExperimentsClient> experimentsClient;
 
+    protected final Supplier<FeatureFlagsClient> featureFlagsClient;
+
+    protected final Supplier<SegmentsClient> segmentsClient;
+
     public ExperimentationClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.experimentsClient = Suppliers.memoize(() -> new ExperimentsClient(clientOptions));
+        this.featureFlagsClient = Suppliers.memoize(() -> new FeatureFlagsClient(clientOptions));
+        this.segmentsClient = Suppliers.memoize(() -> new SegmentsClient(clientOptions));
     }
 
     public ExperimentsClient experiments() {
         return this.experimentsClient.get();
+    }
+
+    public FeatureFlagsClient featureFlags() {
+        return this.featureFlagsClient.get();
+    }
+
+    public SegmentsClient segments() {
+        return this.segmentsClient.get();
     }
 }

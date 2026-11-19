@@ -48,5 +48,29 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-java-sdk: 4.11.1
-current_generation: b97372b9f40b0341aa2ac580fa64488e2ad2aff2
+  - commit_sha: 52b481b4c8ac54e43f7ad6639899321570ea73b3
+    tree_hash: abd8d0c430153dc3513b9c5fcb33ff1af8b5c573
+    timestamp: 2026-09-15T11:43:42.039Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-java-sdk: 4.11.1
+  - commit_sha: 72c6c335cb93c52314a459f895a03fa2a0730e87
+    tree_hash: e485efdbc833d45f6f6c69c79cbff62e8a99bfa4
+    timestamp: 2026-09-29T05:57:51.188Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-java-sdk: 4.11.1
+  - commit_sha: aea2edeb38693d237fd526174237509079d38899
+    tree_hash: 6f9dcd3a746086fe8195691a55f3e6a9bc3a8fd8
+    timestamp: 2026-10-27T05:56:52.912Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-java-sdk: 4.11.1
+  - commit_sha: eb0e87eec2d01cbd9dba8048da5a2d95d09c5806
+    tree_hash: 87289d68b4802c8950169e6defe403f52779352c
+    timestamp: 2026-11-04T04:00:02.404Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-java-sdk: 4.11.1
+current_generation: eb0e87eec2d01cbd9dba8048da5a2d95d09c5806
 patches: []

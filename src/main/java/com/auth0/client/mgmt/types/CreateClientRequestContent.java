@@ -129,6 +129,8 @@ public final class CreateClientRequestContent {
 
     private final Optional<CreateAnonymousSessions> anonymousSessions;
 
+    private final Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding;
+
     private final Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode;
 
     private final Optional<ClientRedirectionPolicyEnum> redirectionPolicy;
@@ -140,6 +142,10 @@ public final class CreateClientRequestContent {
     private final Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration;
 
     private final Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
+
+    private final OptionalNullable<String> agentId;
+
+    private final Optional<ClientOidcSupportPost> oidcSupport;
 
     private final Map<String, Object> additionalProperties;
 
@@ -196,12 +202,15 @@ public final class CreateClientRequestContent {
             Optional<String> resourceServerIdentifier,
             Optional<CreateIdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant,
             Optional<CreateAnonymousSessions> anonymousSessions,
+            Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding,
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
             Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
             Optional<ExpressConfiguration> expressConfiguration,
             Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration,
             Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration,
             Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
+            OptionalNullable<String> agentId,
+            Optional<ClientOidcSupportPost> oidcSupport,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
@@ -255,12 +264,15 @@ public final class CreateClientRequestContent {
         this.resourceServerIdentifier = resourceServerIdentifier;
         this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
         this.anonymousSessions = anonymousSessions;
+        this.enforceAnonSessionTransferNetworkBinding = enforceAnonSessionTransferNetworkBinding;
         this.thirdPartySecurityMode = thirdPartySecurityMode;
         this.redirectionPolicy = redirectionPolicy;
         this.expressConfiguration = expressConfiguration;
         this.b2BIntegrationConfiguration = b2BIntegrationConfiguration;
         this.myOrganizationConfiguration = myOrganizationConfiguration;
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
+        this.agentId = agentId;
+        this.oidcSupport = oidcSupport;
         this.additionalProperties = additionalProperties;
     }
 
@@ -637,6 +649,11 @@ public final class CreateClientRequestContent {
         return anonymousSessions;
     }
 
+    @JsonProperty("enforce_anon_session_transfer_network_binding")
+    public Optional<ClientAnonymousSessionTransferNetworkBindingEnum> getEnforceAnonSessionTransferNetworkBinding() {
+        return enforceAnonSessionTransferNetworkBinding;
+    }
+
     @JsonProperty("third_party_security_mode")
     public Optional<ClientThirdPartySecurityModeEnum> getThirdPartySecurityMode() {
         return thirdPartySecurityMode;
@@ -665,6 +682,23 @@ public final class CreateClientRequestContent {
     @JsonProperty("async_approval_notification_channels")
     public Optional<List<AsyncApprovalNotificationsChannelsEnum>> getAsyncApprovalNotificationChannels() {
         return asyncApprovalNotificationChannels;
+    }
+
+    /**
+     * @return ID of the agent to associate with this client.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("agent_id")
+    public OptionalNullable<String> getAgentId() {
+        if (agentId == null) {
+            return OptionalNullable.absent();
+        }
+        return agentId;
+    }
+
+    @JsonProperty("oidc_support")
+    public Optional<ClientOidcSupportPost> getOidcSupport() {
+        return oidcSupport;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -701,6 +735,12 @@ public final class CreateClientRequestContent {
     @JsonProperty("par_request_expiry")
     private OptionalNullable<Integer> _getParRequestExpiry() {
         return parRequestExpiry;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("agent_id")
+    private OptionalNullable<String> _getAgentId() {
+        return agentId;
     }
 
     @java.lang.Override
@@ -768,12 +808,15 @@ public final class CreateClientRequestContent {
                 && resourceServerIdentifier.equals(other.resourceServerIdentifier)
                 && identityAssertionAuthorizationGrant.equals(other.identityAssertionAuthorizationGrant)
                 && anonymousSessions.equals(other.anonymousSessions)
+                && enforceAnonSessionTransferNetworkBinding.equals(other.enforceAnonSessionTransferNetworkBinding)
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
                 && redirectionPolicy.equals(other.redirectionPolicy)
                 && expressConfiguration.equals(other.expressConfiguration)
                 && b2BIntegrationConfiguration.equals(other.b2BIntegrationConfiguration)
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
-                && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels);
+                && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels)
+                && agentId.equals(other.agentId)
+                && oidcSupport.equals(other.oidcSupport);
     }
 
     @java.lang.Override
@@ -831,12 +874,15 @@ public final class CreateClientRequestContent {
                 this.resourceServerIdentifier,
                 this.identityAssertionAuthorizationGrant,
                 this.anonymousSessions,
+                this.enforceAnonSessionTransferNetworkBinding,
                 this.thirdPartySecurityMode,
                 this.redirectionPolicy,
                 this.expressConfiguration,
                 this.b2BIntegrationConfiguration,
                 this.myOrganizationConfiguration,
-                this.asyncApprovalNotificationChannels);
+                this.asyncApprovalNotificationChannels,
+                this.agentId,
+                this.oidcSupport);
     }
 
     @java.lang.Override
@@ -1188,6 +1234,12 @@ public final class CreateClientRequestContent {
 
         _FinalStage anonymousSessions(CreateAnonymousSessions anonymousSessions);
 
+        _FinalStage enforceAnonSessionTransferNetworkBinding(
+                Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding);
+
+        _FinalStage enforceAnonSessionTransferNetworkBinding(
+                ClientAnonymousSessionTransferNetworkBindingEnum enforceAnonSessionTransferNetworkBinding);
+
         _FinalStage thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode);
 
         _FinalStage thirdPartySecurityMode(ClientThirdPartySecurityModeEnum thirdPartySecurityMode);
@@ -1214,11 +1266,30 @@ public final class CreateClientRequestContent {
 
         _FinalStage asyncApprovalNotificationChannels(
                 List<AsyncApprovalNotificationsChannelsEnum> asyncApprovalNotificationChannels);
+
+        /**
+         * <p>ID of the agent to associate with this client.</p>
+         */
+        _FinalStage agentId(@Nullable OptionalNullable<String> agentId);
+
+        _FinalStage agentId(String agentId);
+
+        _FinalStage agentId(Optional<String> agentId);
+
+        _FinalStage agentId(com.auth0.client.mgmt.core.Nullable<String> agentId);
+
+        _FinalStage oidcSupport(Optional<ClientOidcSupportPost> oidcSupport);
+
+        _FinalStage oidcSupport(ClientOidcSupportPost oidcSupport);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements NameStage, _FinalStage {
         private String name;
+
+        private Optional<ClientOidcSupportPost> oidcSupport = Optional.empty();
+
+        private OptionalNullable<String> agentId = OptionalNullable.absent();
 
         private Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
                 Optional.empty();
@@ -1232,6 +1303,9 @@ public final class CreateClientRequestContent {
         private Optional<ClientRedirectionPolicyEnum> redirectionPolicy = Optional.empty();
 
         private Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode = Optional.empty();
+
+        private Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding =
+                Optional.empty();
 
         private Optional<CreateAnonymousSessions> anonymousSessions = Optional.empty();
 
@@ -1395,12 +1469,15 @@ public final class CreateClientRequestContent {
             resourceServerIdentifier(other.getResourceServerIdentifier());
             identityAssertionAuthorizationGrant(other.getIdentityAssertionAuthorizationGrant());
             anonymousSessions(other.getAnonymousSessions());
+            enforceAnonSessionTransferNetworkBinding(other.getEnforceAnonSessionTransferNetworkBinding());
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
             redirectionPolicy(other.getRedirectionPolicy());
             expressConfiguration(other.getExpressConfiguration());
             b2BIntegrationConfiguration(other.getB2BIntegrationConfiguration());
             myOrganizationConfiguration(other.getMyOrganizationConfiguration());
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
+            agentId(other.getAgentId());
+            oidcSupport(other.getOidcSupport());
             return this;
         }
 
@@ -1412,6 +1489,69 @@ public final class CreateClientRequestContent {
         @JsonSetter("name")
         public _FinalStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage oidcSupport(ClientOidcSupportPost oidcSupport) {
+            this.oidcSupport = Optional.ofNullable(oidcSupport);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "oidc_support", nulls = Nulls.SKIP)
+        public _FinalStage oidcSupport(Optional<ClientOidcSupportPost> oidcSupport) {
+            this.oidcSupport = oidcSupport;
+            return this;
+        }
+
+        /**
+         * <p>ID of the agent to associate with this client.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage agentId(com.auth0.client.mgmt.core.Nullable<String> agentId) {
+            if (agentId.isNull()) {
+                this.agentId = OptionalNullable.ofNull();
+            } else if (agentId.isEmpty()) {
+                this.agentId = OptionalNullable.absent();
+            } else {
+                this.agentId = OptionalNullable.of(agentId.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>ID of the agent to associate with this client.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage agentId(Optional<String> agentId) {
+            if (agentId.isPresent()) {
+                this.agentId = OptionalNullable.of(agentId.get());
+            } else {
+                this.agentId = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        /**
+         * <p>ID of the agent to associate with this client.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage agentId(String agentId) {
+            this.agentId = OptionalNullable.of(agentId);
+            return this;
+        }
+
+        /**
+         * <p>ID of the agent to associate with this client.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "agent_id", nulls = Nulls.SKIP)
+        public _FinalStage agentId(@Nullable OptionalNullable<String> agentId) {
+            this.agentId = agentId;
             return this;
         }
 
@@ -1495,6 +1635,22 @@ public final class CreateClientRequestContent {
         @JsonSetter(value = "third_party_security_mode", nulls = Nulls.SKIP)
         public _FinalStage thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode) {
             this.thirdPartySecurityMode = thirdPartySecurityMode;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage enforceAnonSessionTransferNetworkBinding(
+                ClientAnonymousSessionTransferNetworkBindingEnum enforceAnonSessionTransferNetworkBinding) {
+            this.enforceAnonSessionTransferNetworkBinding =
+                    Optional.ofNullable(enforceAnonSessionTransferNetworkBinding);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "enforce_anon_session_transfer_network_binding", nulls = Nulls.SKIP)
+        public _FinalStage enforceAnonSessionTransferNetworkBinding(
+                Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding) {
+            this.enforceAnonSessionTransferNetworkBinding = enforceAnonSessionTransferNetworkBinding;
             return this;
         }
 
@@ -2575,12 +2731,15 @@ public final class CreateClientRequestContent {
                     resourceServerIdentifier,
                     identityAssertionAuthorizationGrant,
                     anonymousSessions,
+                    enforceAnonSessionTransferNetworkBinding,
                     thirdPartySecurityMode,
                     redirectionPolicy,
                     expressConfiguration,
                     b2BIntegrationConfiguration,
                     myOrganizationConfiguration,
                     asyncApprovalNotificationChannels,
+                    agentId,
+                    oidcSupport,
                     additionalProperties);
         }
 

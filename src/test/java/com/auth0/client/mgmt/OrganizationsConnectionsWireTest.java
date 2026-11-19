@@ -45,7 +45,7 @@ public class OrganizationsConnectionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"connections\":[{\"organization_connection_name\":\"organization_connection_name\",\"assign_membership_on_login\":true,\"show_as_button\":true,\"is_signup_enabled\":true,\"organization_access_level\":\"none\",\"is_enabled\":true,\"connection_id\":\"connection_id\"}]}"));
+                                "{\"start\":1.1,\"limit\":1.1,\"total\":1.1,\"connections\":[{\"organization_connection_name\":\"organization_connection_name\",\"assign_membership_on_login\":true,\"show_as_button\":true,\"is_signup_enabled\":true,\"organization_access_level\":\"none\",\"organization_member_access_level\":\"none\",\"is_enabled\":true,\"connection_id\":\"connection_id\"}]}"));
         SyncPagingIterable<OrganizationAllConnectionPost> response = client.organizations()
                 .connections()
                 .list(
@@ -72,7 +72,7 @@ public class OrganizationsConnectionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"organization_connection_name\":\"organization_connection_name\",\"assign_membership_on_login\":true,\"show_as_button\":true,\"is_signup_enabled\":true,\"organization_access_level\":\"none\",\"is_enabled\":true,\"connection_id\":\"connection_id\",\"connection\":{\"name\":\"name\",\"strategy\":\"strategy\"}}"));
+                                "{\"organization_connection_name\":\"organization_connection_name\",\"assign_membership_on_login\":true,\"show_as_button\":true,\"is_signup_enabled\":true,\"organization_access_level\":\"none\",\"organization_member_access_level\":\"none\",\"is_enabled\":true,\"connection_id\":\"connection_id\",\"connection\":{\"name\":\"name\",\"strategy\":\"strategy\"}}"));
         CreateOrganizationAllConnectionResponseContent response = client.organizations()
                 .connections()
                 .create(
@@ -123,6 +123,7 @@ public class OrganizationsConnectionsWireTest {
                 + "  \"show_as_button\": true,\n"
                 + "  \"is_signup_enabled\": true,\n"
                 + "  \"organization_access_level\": \"none\",\n"
+                + "  \"organization_member_access_level\": \"none\",\n"
                 + "  \"is_enabled\": true,\n"
                 + "  \"connection_id\": \"connection_id\",\n"
                 + "  \"connection\": {\n"
@@ -167,7 +168,7 @@ public class OrganizationsConnectionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"organization_connection_name\":\"organization_connection_name\",\"assign_membership_on_login\":true,\"show_as_button\":true,\"is_signup_enabled\":true,\"organization_access_level\":\"none\",\"is_enabled\":true,\"connection_id\":\"connection_id\",\"connection\":{\"name\":\"name\",\"strategy\":\"strategy\"}}"));
+                                "{\"organization_connection_name\":\"organization_connection_name\",\"assign_membership_on_login\":true,\"show_as_button\":true,\"is_signup_enabled\":true,\"organization_access_level\":\"none\",\"organization_member_access_level\":\"none\",\"is_enabled\":true,\"connection_id\":\"connection_id\",\"connection\":{\"name\":\"name\",\"strategy\":\"strategy\"}}"));
         GetOrganizationAllConnectionResponseContent response =
                 client.organizations().connections().get("id", "connection_id");
         RecordedRequest request = server.takeRequest();
@@ -184,6 +185,7 @@ public class OrganizationsConnectionsWireTest {
                 + "  \"show_as_button\": true,\n"
                 + "  \"is_signup_enabled\": true,\n"
                 + "  \"organization_access_level\": \"none\",\n"
+                + "  \"organization_member_access_level\": \"none\",\n"
                 + "  \"is_enabled\": true,\n"
                 + "  \"connection_id\": \"connection_id\",\n"
                 + "  \"connection\": {\n"
@@ -237,7 +239,7 @@ public class OrganizationsConnectionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"organization_connection_name\":\"organization_connection_name\",\"assign_membership_on_login\":true,\"show_as_button\":true,\"is_signup_enabled\":true,\"organization_access_level\":\"none\",\"is_enabled\":true,\"connection_id\":\"connection_id\",\"connection\":{\"name\":\"name\",\"strategy\":\"strategy\"}}"));
+                                "{\"organization_connection_name\":\"organization_connection_name\",\"assign_membership_on_login\":true,\"show_as_button\":true,\"is_signup_enabled\":true,\"organization_access_level\":\"none\",\"organization_member_access_level\":\"none\",\"is_enabled\":true,\"connection_id\":\"connection_id\",\"connection\":{\"name\":\"name\",\"strategy\":\"strategy\"}}"));
         UpdateOrganizationAllConnectionResponseContent response = client.organizations()
                 .connections()
                 .update(
@@ -287,6 +289,7 @@ public class OrganizationsConnectionsWireTest {
                 + "  \"show_as_button\": true,\n"
                 + "  \"is_signup_enabled\": true,\n"
                 + "  \"organization_access_level\": \"none\",\n"
+                + "  \"organization_member_access_level\": \"none\",\n"
                 + "  \"is_enabled\": true,\n"
                 + "  \"connection_id\": \"connection_id\",\n"
                 + "  \"connection\": {\n"

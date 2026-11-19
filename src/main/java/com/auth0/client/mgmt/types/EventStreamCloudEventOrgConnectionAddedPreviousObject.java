@@ -36,6 +36,9 @@ public final class EventStreamCloudEventOrgConnectionAddedPreviousObject {
     private final Optional<EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel>
             organizationAccessLevel;
 
+    private final Optional<EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel>
+            organizationMemberAccessLevel;
+
     private final Map<String, Object> additionalProperties;
 
     private EventStreamCloudEventOrgConnectionAddedPreviousObject(
@@ -47,6 +50,8 @@ public final class EventStreamCloudEventOrgConnectionAddedPreviousObject {
             Optional<Boolean> isEnabled,
             Optional<EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel>
                     organizationAccessLevel,
+            Optional<EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel>
+                    organizationMemberAccessLevel,
             Map<String, Object> additionalProperties) {
         this.organization = organization;
         this.connection = connection;
@@ -55,6 +60,7 @@ public final class EventStreamCloudEventOrgConnectionAddedPreviousObject {
         this.isSignupEnabled = isSignupEnabled;
         this.isEnabled = isEnabled;
         this.organizationAccessLevel = organizationAccessLevel;
+        this.organizationMemberAccessLevel = organizationMemberAccessLevel;
         this.additionalProperties = additionalProperties;
     }
 
@@ -110,6 +116,12 @@ public final class EventStreamCloudEventOrgConnectionAddedPreviousObject {
         return organizationAccessLevel;
     }
 
+    @JsonProperty("organization_member_access_level")
+    public Optional<EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel>
+            getOrganizationMemberAccessLevel() {
+        return organizationMemberAccessLevel;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -129,7 +141,8 @@ public final class EventStreamCloudEventOrgConnectionAddedPreviousObject {
                 && showAsButton.equals(other.showAsButton)
                 && isSignupEnabled.equals(other.isSignupEnabled)
                 && isEnabled.equals(other.isEnabled)
-                && organizationAccessLevel.equals(other.organizationAccessLevel);
+                && organizationAccessLevel.equals(other.organizationAccessLevel)
+                && organizationMemberAccessLevel.equals(other.organizationMemberAccessLevel);
     }
 
     @java.lang.Override
@@ -141,7 +154,8 @@ public final class EventStreamCloudEventOrgConnectionAddedPreviousObject {
                 this.showAsButton,
                 this.isSignupEnabled,
                 this.isEnabled,
-                this.organizationAccessLevel);
+                this.organizationAccessLevel,
+                this.organizationMemberAccessLevel);
     }
 
     @java.lang.Override
@@ -209,6 +223,14 @@ public final class EventStreamCloudEventOrgConnectionAddedPreviousObject {
 
         _FinalStage organizationAccessLevel(
                 EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel organizationAccessLevel);
+
+        _FinalStage organizationMemberAccessLevel(
+                Optional<EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel>
+                        organizationMemberAccessLevel);
+
+        _FinalStage organizationMemberAccessLevel(
+                EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel
+                        organizationMemberAccessLevel);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -216,6 +238,9 @@ public final class EventStreamCloudEventOrgConnectionAddedPreviousObject {
         private EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganization organization;
 
         private EventStreamCloudEventOrgConnectionAddedPreviousObjectConnection connection;
+
+        private Optional<EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel>
+                organizationMemberAccessLevel = Optional.empty();
 
         private Optional<EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel>
                 organizationAccessLevel = Optional.empty();
@@ -242,6 +267,7 @@ public final class EventStreamCloudEventOrgConnectionAddedPreviousObject {
             isSignupEnabled(other.getIsSignupEnabled());
             isEnabled(other.getIsEnabled());
             organizationAccessLevel(other.getOrganizationAccessLevel());
+            organizationMemberAccessLevel(other.getOrganizationMemberAccessLevel());
             return this;
         }
 
@@ -258,6 +284,23 @@ public final class EventStreamCloudEventOrgConnectionAddedPreviousObject {
         public _FinalStage connection(
                 @NotNull EventStreamCloudEventOrgConnectionAddedPreviousObjectConnection connection) {
             this.connection = Objects.requireNonNull(connection, "connection must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage organizationMemberAccessLevel(
+                EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel
+                        organizationMemberAccessLevel) {
+            this.organizationMemberAccessLevel = Optional.ofNullable(organizationMemberAccessLevel);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "organization_member_access_level", nulls = Nulls.SKIP)
+        public _FinalStage organizationMemberAccessLevel(
+                Optional<EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel>
+                        organizationMemberAccessLevel) {
+            this.organizationMemberAccessLevel = organizationMemberAccessLevel;
             return this;
         }
 
@@ -375,6 +418,7 @@ public final class EventStreamCloudEventOrgConnectionAddedPreviousObject {
                     isSignupEnabled,
                     isEnabled,
                     organizationAccessLevel,
+                    organizationMemberAccessLevel,
                     additionalProperties);
         }
 

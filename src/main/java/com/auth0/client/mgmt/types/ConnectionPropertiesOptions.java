@@ -42,6 +42,8 @@ public final class ConnectionPropertiesOptions {
 
     private final Optional<ConnectionCustomScripts> customScripts;
 
+    private final Optional<ConnectionOtpSettings> otpSettings;
+
     private final OptionalNullable<ConnectionAuthenticationMethods> authenticationMethods;
 
     private final OptionalNullable<ConnectionPasskeyOptions> passkeyOptions;
@@ -109,6 +111,10 @@ public final class ConnectionPropertiesOptions {
 
     private final OptionalNullable<ConnectionsOidcMetadata> oidcMetadata;
 
+    private final Optional<List<String>> thumbprints;
+
+    private final Optional<List<String>> thumbprintsSha384;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectionPropertiesOptions(
@@ -121,6 +127,7 @@ public final class ConnectionPropertiesOptions {
             Optional<Boolean> importMode,
             OptionalNullable<Map<String, OptionalNullable<String>>> configuration,
             Optional<ConnectionCustomScripts> customScripts,
+            Optional<ConnectionOtpSettings> otpSettings,
             OptionalNullable<ConnectionAuthenticationMethods> authenticationMethods,
             OptionalNullable<ConnectionPasskeyOptions> passkeyOptions,
             OptionalNullable<ConnectionPasswordPolicyEnum> passwordPolicy,
@@ -154,6 +161,8 @@ public final class ConnectionPropertiesOptions {
             Optional<Boolean> useOauthSpecScope,
             OptionalNullable<String> discoveryUrl,
             OptionalNullable<ConnectionsOidcMetadata> oidcMetadata,
+            Optional<List<String>> thumbprints,
+            Optional<List<String>> thumbprintsSha384,
             Map<String, Object> additionalProperties) {
         this.validation = validation;
         this.nonPersistentAttrs = nonPersistentAttrs;
@@ -164,6 +173,7 @@ public final class ConnectionPropertiesOptions {
         this.importMode = importMode;
         this.configuration = configuration;
         this.customScripts = customScripts;
+        this.otpSettings = otpSettings;
         this.authenticationMethods = authenticationMethods;
         this.passkeyOptions = passkeyOptions;
         this.passwordPolicy = passwordPolicy;
@@ -197,6 +207,8 @@ public final class ConnectionPropertiesOptions {
         this.useOauthSpecScope = useOauthSpecScope;
         this.discoveryUrl = discoveryUrl;
         this.oidcMetadata = oidcMetadata;
+        this.thumbprints = thumbprints;
+        this.thumbprintsSha384 = thumbprintsSha384;
         this.additionalProperties = additionalProperties;
     }
 
@@ -273,6 +285,11 @@ public final class ConnectionPropertiesOptions {
     @JsonProperty("customScripts")
     public Optional<ConnectionCustomScripts> getCustomScripts() {
         return customScripts;
+    }
+
+    @JsonProperty("otp_settings")
+    public Optional<ConnectionOtpSettings> getOtpSettings() {
+        return otpSettings;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -496,6 +513,16 @@ public final class ConnectionPropertiesOptions {
         return oidcMetadata;
     }
 
+    @JsonProperty("thumbprints")
+    public Optional<List<String>> getThumbprints() {
+        return thumbprints;
+    }
+
+    @JsonProperty("thumbprints_sha384")
+    public Optional<List<String>> getThumbprintsSha384() {
+        return thumbprintsSha384;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("validation")
     private OptionalNullable<ConnectionValidationOptions> _getValidation() {
@@ -620,6 +647,7 @@ public final class ConnectionPropertiesOptions {
                 && importMode.equals(other.importMode)
                 && configuration.equals(other.configuration)
                 && customScripts.equals(other.customScripts)
+                && otpSettings.equals(other.otpSettings)
                 && authenticationMethods.equals(other.authenticationMethods)
                 && passkeyOptions.equals(other.passkeyOptions)
                 && passwordPolicy.equals(other.passwordPolicy)
@@ -652,7 +680,9 @@ public final class ConnectionPropertiesOptions {
                 && idTokenSessionExpirySupported.equals(other.idTokenSessionExpirySupported)
                 && useOauthSpecScope.equals(other.useOauthSpecScope)
                 && discoveryUrl.equals(other.discoveryUrl)
-                && oidcMetadata.equals(other.oidcMetadata);
+                && oidcMetadata.equals(other.oidcMetadata)
+                && thumbprints.equals(other.thumbprints)
+                && thumbprintsSha384.equals(other.thumbprintsSha384);
     }
 
     @java.lang.Override
@@ -667,6 +697,7 @@ public final class ConnectionPropertiesOptions {
                 this.importMode,
                 this.configuration,
                 this.customScripts,
+                this.otpSettings,
                 this.authenticationMethods,
                 this.passkeyOptions,
                 this.passwordPolicy,
@@ -699,7 +730,9 @@ public final class ConnectionPropertiesOptions {
                 this.idTokenSessionExpirySupported,
                 this.useOauthSpecScope,
                 this.discoveryUrl,
-                this.oidcMetadata);
+                this.oidcMetadata,
+                this.thumbprints,
+                this.thumbprintsSha384);
     }
 
     @java.lang.Override
@@ -730,6 +763,8 @@ public final class ConnectionPropertiesOptions {
         private OptionalNullable<Map<String, OptionalNullable<String>>> configuration = OptionalNullable.absent();
 
         private Optional<ConnectionCustomScripts> customScripts = Optional.empty();
+
+        private Optional<ConnectionOtpSettings> otpSettings = Optional.empty();
 
         private OptionalNullable<ConnectionAuthenticationMethods> authenticationMethods = OptionalNullable.absent();
 
@@ -803,6 +838,10 @@ public final class ConnectionPropertiesOptions {
 
         private OptionalNullable<ConnectionsOidcMetadata> oidcMetadata = OptionalNullable.absent();
 
+        private Optional<List<String>> thumbprints = Optional.empty();
+
+        private Optional<List<String>> thumbprintsSha384 = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -818,6 +857,7 @@ public final class ConnectionPropertiesOptions {
             importMode(other.getImportMode());
             configuration(other.getConfiguration());
             customScripts(other.getCustomScripts());
+            otpSettings(other.getOtpSettings());
             authenticationMethods(other.getAuthenticationMethods());
             passkeyOptions(other.getPasskeyOptions());
             passwordPolicy(other.getPasswordPolicy());
@@ -851,6 +891,8 @@ public final class ConnectionPropertiesOptions {
             useOauthSpecScope(other.getUseOauthSpecScope());
             discoveryUrl(other.getDiscoveryUrl());
             oidcMetadata(other.getOidcMetadata());
+            thumbprints(other.getThumbprints());
+            thumbprintsSha384(other.getThumbprintsSha384());
             return this;
         }
 
@@ -1029,6 +1071,17 @@ public final class ConnectionPropertiesOptions {
 
         public Builder customScripts(ConnectionCustomScripts customScripts) {
             this.customScripts = Optional.ofNullable(customScripts);
+            return this;
+        }
+
+        @JsonSetter(value = "otp_settings", nulls = Nulls.SKIP)
+        public Builder otpSettings(Optional<ConnectionOtpSettings> otpSettings) {
+            this.otpSettings = otpSettings;
+            return this;
+        }
+
+        public Builder otpSettings(ConnectionOtpSettings otpSettings) {
+            this.otpSettings = Optional.ofNullable(otpSettings);
             return this;
         }
 
@@ -1713,6 +1766,28 @@ public final class ConnectionPropertiesOptions {
             return this;
         }
 
+        @JsonSetter(value = "thumbprints", nulls = Nulls.SKIP)
+        public Builder thumbprints(Optional<List<String>> thumbprints) {
+            this.thumbprints = thumbprints;
+            return this;
+        }
+
+        public Builder thumbprints(List<String> thumbprints) {
+            this.thumbprints = Optional.ofNullable(thumbprints);
+            return this;
+        }
+
+        @JsonSetter(value = "thumbprints_sha384", nulls = Nulls.SKIP)
+        public Builder thumbprintsSha384(Optional<List<String>> thumbprintsSha384) {
+            this.thumbprintsSha384 = thumbprintsSha384;
+            return this;
+        }
+
+        public Builder thumbprintsSha384(List<String> thumbprintsSha384) {
+            this.thumbprintsSha384 = Optional.ofNullable(thumbprintsSha384);
+            return this;
+        }
+
         public ConnectionPropertiesOptions build() {
             return new ConnectionPropertiesOptions(
                     validation,
@@ -1724,6 +1799,7 @@ public final class ConnectionPropertiesOptions {
                     importMode,
                     configuration,
                     customScripts,
+                    otpSettings,
                     authenticationMethods,
                     passkeyOptions,
                     passwordPolicy,
@@ -1757,6 +1833,8 @@ public final class ConnectionPropertiesOptions {
                     useOauthSpecScope,
                     discoveryUrl,
                     oidcMetadata,
+                    thumbprints,
+                    thumbprintsSha384,
                     additionalProperties);
         }
 

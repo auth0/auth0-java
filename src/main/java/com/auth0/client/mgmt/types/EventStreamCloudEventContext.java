@@ -29,6 +29,8 @@ public final class EventStreamCloudEventContext {
 
     private final EventStreamCloudEventContextTenant tenant;
 
+    private final Optional<EventStreamCloudEventContextTransaction> transaction;
+
     private final Map<String, Object> additionalProperties;
 
     private EventStreamCloudEventContext(
@@ -36,11 +38,13 @@ public final class EventStreamCloudEventContext {
             Optional<EventStreamCloudEventContextConnection> connection,
             Optional<EventStreamCloudEventContextRequest> request,
             EventStreamCloudEventContextTenant tenant,
+            Optional<EventStreamCloudEventContextTransaction> transaction,
             Map<String, Object> additionalProperties) {
         this.client = client;
         this.connection = connection;
         this.request = request;
         this.tenant = tenant;
+        this.transaction = transaction;
         this.additionalProperties = additionalProperties;
     }
 
@@ -64,6 +68,11 @@ public final class EventStreamCloudEventContext {
         return tenant;
     }
 
+    @JsonProperty("transaction")
+    public Optional<EventStreamCloudEventContextTransaction> getTransaction() {
+        return transaction;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -79,12 +88,13 @@ public final class EventStreamCloudEventContext {
         return client.equals(other.client)
                 && connection.equals(other.connection)
                 && request.equals(other.request)
-                && tenant.equals(other.tenant);
+                && tenant.equals(other.tenant)
+                && transaction.equals(other.transaction);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.client, this.connection, this.request, this.tenant);
+        return Objects.hash(this.client, this.connection, this.request, this.tenant, this.transaction);
     }
 
     @java.lang.Override
@@ -120,11 +130,17 @@ public final class EventStreamCloudEventContext {
         _FinalStage request(Optional<EventStreamCloudEventContextRequest> request);
 
         _FinalStage request(EventStreamCloudEventContextRequest request);
+
+        _FinalStage transaction(Optional<EventStreamCloudEventContextTransaction> transaction);
+
+        _FinalStage transaction(EventStreamCloudEventContextTransaction transaction);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TenantStage, _FinalStage {
         private EventStreamCloudEventContextTenant tenant;
+
+        private Optional<EventStreamCloudEventContextTransaction> transaction = Optional.empty();
 
         private Optional<EventStreamCloudEventContextRequest> request = Optional.empty();
 
@@ -143,6 +159,7 @@ public final class EventStreamCloudEventContext {
             connection(other.getConnection());
             request(other.getRequest());
             tenant(other.getTenant());
+            transaction(other.getTransaction());
             return this;
         }
 
@@ -150,6 +167,19 @@ public final class EventStreamCloudEventContext {
         @JsonSetter("tenant")
         public _FinalStage tenant(@NotNull EventStreamCloudEventContextTenant tenant) {
             this.tenant = Objects.requireNonNull(tenant, "tenant must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage transaction(EventStreamCloudEventContextTransaction transaction) {
+            this.transaction = Optional.ofNullable(transaction);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "transaction", nulls = Nulls.SKIP)
+        public _FinalStage transaction(Optional<EventStreamCloudEventContextTransaction> transaction) {
+            this.transaction = transaction;
             return this;
         }
 
@@ -194,7 +224,8 @@ public final class EventStreamCloudEventContext {
 
         @java.lang.Override
         public EventStreamCloudEventContext build() {
-            return new EventStreamCloudEventContext(client, connection, request, tenant, additionalProperties);
+            return new EventStreamCloudEventContext(
+                    client, connection, request, tenant, transaction, additionalProperties);
         }
 
         @java.lang.Override

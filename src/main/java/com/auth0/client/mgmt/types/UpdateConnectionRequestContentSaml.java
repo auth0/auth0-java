@@ -34,6 +34,8 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
 
     private final Optional<ConnectionOptionsSaml> options;
 
+    private final Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp;
+
     private final OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp;
 
     private final Optional<Boolean> showAsButton;
@@ -46,6 +48,7 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             Optional<ConnectionOptionsSaml> options,
+            Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp,
             OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp,
             Optional<Boolean> showAsButton,
             Map<String, Object> additionalProperties) {
@@ -54,6 +57,7 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
         this.options = options;
+        this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
         this.crossAppAccessResourceApp = crossAppAccessResourceApp;
         this.showAsButton = showAsButton;
         this.additionalProperties = additionalProperties;
@@ -86,6 +90,11 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
     @JsonProperty("options")
     public Optional<ConnectionOptionsSaml> getOptions() {
         return options;
+    }
+
+    @JsonProperty("cross_app_access_requesting_app")
+    public Optional<CrossAppAccessRequestingApp> getCrossAppAccessRequestingApp() {
+        return crossAppAccessRequestingApp;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -126,6 +135,7 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
                 && options.equals(other.options)
+                && crossAppAccessRequestingApp.equals(other.crossAppAccessRequestingApp)
                 && crossAppAccessResourceApp.equals(other.crossAppAccessResourceApp)
                 && showAsButton.equals(other.showAsButton);
     }
@@ -138,6 +148,7 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
                 this.isDomainConnection,
                 this.metadata,
                 this.options,
+                this.crossAppAccessRequestingApp,
                 this.crossAppAccessResourceApp,
                 this.showAsButton);
     }
@@ -163,6 +174,8 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
 
         private Optional<ConnectionOptionsSaml> options = Optional.empty();
 
+        private Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp = Optional.empty();
+
         private OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp =
                 OptionalNullable.absent();
 
@@ -179,6 +192,7 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
             options(other.getOptions());
+            crossAppAccessRequestingApp(other.getCrossAppAccessRequestingApp());
             crossAppAccessResourceApp(other.getCrossAppAccessResourceApp());
             showAsButton(other.getShowAsButton());
             return this;
@@ -239,6 +253,17 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
             return this;
         }
 
+        @JsonSetter(value = "cross_app_access_requesting_app", nulls = Nulls.SKIP)
+        public Builder crossAppAccessRequestingApp(Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp) {
+            this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
+            return this;
+        }
+
+        public Builder crossAppAccessRequestingApp(CrossAppAccessRequestingApp crossAppAccessRequestingApp) {
+            this.crossAppAccessRequestingApp = Optional.ofNullable(crossAppAccessRequestingApp);
+            return this;
+        }
+
         @JsonSetter(value = "cross_app_access_resource_app", nulls = Nulls.SKIP)
         public Builder crossAppAccessResourceApp(
                 @Nullable OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp) {
@@ -291,6 +316,7 @@ public final class UpdateConnectionRequestContentSaml implements IConnectionComm
                     isDomainConnection,
                     metadata,
                     options,
+                    crossAppAccessRequestingApp,
                     crossAppAccessResourceApp,
                     showAsButton,
                     additionalProperties);

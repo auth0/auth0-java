@@ -7,10 +7,12 @@ import com.auth0.client.mgmt.core.ClientOptions;
 import com.auth0.client.mgmt.core.RequestOptions;
 import com.auth0.client.mgmt.core.Suppliers;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
+import com.auth0.client.mgmt.types.ConsentSigningKey;
 import com.auth0.client.mgmt.types.CreateUserRequestContent;
 import com.auth0.client.mgmt.types.CreateUserResponseContent;
 import com.auth0.client.mgmt.types.GetUserRequestParameters;
 import com.auth0.client.mgmt.types.GetUserResponseContent;
+import com.auth0.client.mgmt.types.ListUserConsentSigningKeysResponseContent;
 import com.auth0.client.mgmt.types.ListUsersByEmailRequestParameters;
 import com.auth0.client.mgmt.types.ListUsersRequestParameters;
 import com.auth0.client.mgmt.types.RegenerateUsersRecoveryCodeResponseContent;
@@ -104,68 +106,84 @@ public class AsyncUsersClient {
     }
 
     /**
-     * Retrieve details of users. It is possible to:
+     * This endpoint retrieves details of users. It's best suited to interactive, best-effort search and lookups where slightly stale results are acceptable. With it, you can:
      * <ul>
-     * <li>Specify a search criteria for users</li>
+     * <li>Specify search criteria for users</li>
      * <li>Sort the users to be returned</li>
      * <li>Select the fields to be returned</li>
      * <li>Specify the number of users to retrieve per page and the page index</li>
      * </ul>
-     * <p>The <code>q</code> query parameter can be used to get users that match the specified criteria <a href="https://auth0.com/docs/users/search/v3/query-syntax">using query string syntax.</a></p>
-     * <p><a href="https://auth0.com/docs/users/search/v3">Learn more about searching for users.</a></p>
-     * <p>Read about <a href="https://auth0.com/docs/users/search/best-practices">best practices</a> when working with the API endpoints for retrieving users.</p>
-     * <p>Auth0 limits the number of users you can return. If you exceed this threshold, please redefine your search, use the <a href="https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports">export job</a>, or the <a href="https://auth0.com/docs/extensions/user-import-export">User Import / Export</a> extension.</p>
+     * <p>This endpoint is <strong>not suited for use in critical paths</strong>. It is eventually consistent and runs under a short (~2 second) query time limit, so results can be stale and heavy queries can return a 503.</p>
+     * <ul>
+     * <li>Do not use this endpoint for authentication, account linking, or logic inside login-flow Actions. Instead, <a href="https://auth0.com/docs/manage-users/user-search/get-users-by-id-or-email#management-api">look users up directly by ID or email</a> to get their current state.</li>
+     * <li>Do not use this endpoint to keep an external system in sync with user data. Instead, subscribe to <a href="https://auth0.com/docs/customize/events/sync-data-across-systems">Event Streams</a> to receive every change as it happens.</li>
+     * <li>Do not use this endpoint to enumerate or export your entire user base. Instead, run a <a href="https://auth0.com/docs/manage-users/user-migration/bulk-user-exports">bulk user export</a> to retrieve the full set.</li>
+     * </ul>
+     * <p>Use the <code>q</code> query parameter to match users with <a href="https://auth0.com/docs/manage-users/user-search/user-search-query-syntax">query string syntax</a>. For full instructions and guidance, see <a href="https://auth0.com/docs/manage-users/user-search/list-and-search-users">How to List and Search Users</a>.</p>
+     * <p>For efficient queries, prefer indexed top-level fields and exact matches. Certain kinds of queries can be slow and may time out, such as filtering on freeform or multi-value fields (like user-defined attributes in <code>app_metadata</code> or <code>user_metadata</code>) or using leading wildcards.</p>
      */
     public CompletableFuture<SyncPagingIterable<UserResponseSchema>> list() {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve details of users. It is possible to:
+     * This endpoint retrieves details of users. It's best suited to interactive, best-effort search and lookups where slightly stale results are acceptable. With it, you can:
      * <ul>
-     * <li>Specify a search criteria for users</li>
+     * <li>Specify search criteria for users</li>
      * <li>Sort the users to be returned</li>
      * <li>Select the fields to be returned</li>
      * <li>Specify the number of users to retrieve per page and the page index</li>
      * </ul>
-     * <p>The <code>q</code> query parameter can be used to get users that match the specified criteria <a href="https://auth0.com/docs/users/search/v3/query-syntax">using query string syntax.</a></p>
-     * <p><a href="https://auth0.com/docs/users/search/v3">Learn more about searching for users.</a></p>
-     * <p>Read about <a href="https://auth0.com/docs/users/search/best-practices">best practices</a> when working with the API endpoints for retrieving users.</p>
-     * <p>Auth0 limits the number of users you can return. If you exceed this threshold, please redefine your search, use the <a href="https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports">export job</a>, or the <a href="https://auth0.com/docs/extensions/user-import-export">User Import / Export</a> extension.</p>
+     * <p>This endpoint is <strong>not suited for use in critical paths</strong>. It is eventually consistent and runs under a short (~2 second) query time limit, so results can be stale and heavy queries can return a 503.</p>
+     * <ul>
+     * <li>Do not use this endpoint for authentication, account linking, or logic inside login-flow Actions. Instead, <a href="https://auth0.com/docs/manage-users/user-search/get-users-by-id-or-email#management-api">look users up directly by ID or email</a> to get their current state.</li>
+     * <li>Do not use this endpoint to keep an external system in sync with user data. Instead, subscribe to <a href="https://auth0.com/docs/customize/events/sync-data-across-systems">Event Streams</a> to receive every change as it happens.</li>
+     * <li>Do not use this endpoint to enumerate or export your entire user base. Instead, run a <a href="https://auth0.com/docs/manage-users/user-migration/bulk-user-exports">bulk user export</a> to retrieve the full set.</li>
+     * </ul>
+     * <p>Use the <code>q</code> query parameter to match users with <a href="https://auth0.com/docs/manage-users/user-search/user-search-query-syntax">query string syntax</a>. For full instructions and guidance, see <a href="https://auth0.com/docs/manage-users/user-search/list-and-search-users">How to List and Search Users</a>.</p>
+     * <p>For efficient queries, prefer indexed top-level fields and exact matches. Certain kinds of queries can be slow and may time out, such as filtering on freeform or multi-value fields (like user-defined attributes in <code>app_metadata</code> or <code>user_metadata</code>) or using leading wildcards.</p>
      */
     public CompletableFuture<SyncPagingIterable<UserResponseSchema>> list(RequestOptions requestOptions) {
         return this.rawClient.list(requestOptions).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve details of users. It is possible to:
+     * This endpoint retrieves details of users. It's best suited to interactive, best-effort search and lookups where slightly stale results are acceptable. With it, you can:
      * <ul>
-     * <li>Specify a search criteria for users</li>
+     * <li>Specify search criteria for users</li>
      * <li>Sort the users to be returned</li>
      * <li>Select the fields to be returned</li>
      * <li>Specify the number of users to retrieve per page and the page index</li>
      * </ul>
-     * <p>The <code>q</code> query parameter can be used to get users that match the specified criteria <a href="https://auth0.com/docs/users/search/v3/query-syntax">using query string syntax.</a></p>
-     * <p><a href="https://auth0.com/docs/users/search/v3">Learn more about searching for users.</a></p>
-     * <p>Read about <a href="https://auth0.com/docs/users/search/best-practices">best practices</a> when working with the API endpoints for retrieving users.</p>
-     * <p>Auth0 limits the number of users you can return. If you exceed this threshold, please redefine your search, use the <a href="https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports">export job</a>, or the <a href="https://auth0.com/docs/extensions/user-import-export">User Import / Export</a> extension.</p>
+     * <p>This endpoint is <strong>not suited for use in critical paths</strong>. It is eventually consistent and runs under a short (~2 second) query time limit, so results can be stale and heavy queries can return a 503.</p>
+     * <ul>
+     * <li>Do not use this endpoint for authentication, account linking, or logic inside login-flow Actions. Instead, <a href="https://auth0.com/docs/manage-users/user-search/get-users-by-id-or-email#management-api">look users up directly by ID or email</a> to get their current state.</li>
+     * <li>Do not use this endpoint to keep an external system in sync with user data. Instead, subscribe to <a href="https://auth0.com/docs/customize/events/sync-data-across-systems">Event Streams</a> to receive every change as it happens.</li>
+     * <li>Do not use this endpoint to enumerate or export your entire user base. Instead, run a <a href="https://auth0.com/docs/manage-users/user-migration/bulk-user-exports">bulk user export</a> to retrieve the full set.</li>
+     * </ul>
+     * <p>Use the <code>q</code> query parameter to match users with <a href="https://auth0.com/docs/manage-users/user-search/user-search-query-syntax">query string syntax</a>. For full instructions and guidance, see <a href="https://auth0.com/docs/manage-users/user-search/list-and-search-users">How to List and Search Users</a>.</p>
+     * <p>For efficient queries, prefer indexed top-level fields and exact matches. Certain kinds of queries can be slow and may time out, such as filtering on freeform or multi-value fields (like user-defined attributes in <code>app_metadata</code> or <code>user_metadata</code>) or using leading wildcards.</p>
      */
     public CompletableFuture<SyncPagingIterable<UserResponseSchema>> list(ListUsersRequestParameters request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
     /**
-     * Retrieve details of users. It is possible to:
+     * This endpoint retrieves details of users. It's best suited to interactive, best-effort search and lookups where slightly stale results are acceptable. With it, you can:
      * <ul>
-     * <li>Specify a search criteria for users</li>
+     * <li>Specify search criteria for users</li>
      * <li>Sort the users to be returned</li>
      * <li>Select the fields to be returned</li>
      * <li>Specify the number of users to retrieve per page and the page index</li>
      * </ul>
-     * <p>The <code>q</code> query parameter can be used to get users that match the specified criteria <a href="https://auth0.com/docs/users/search/v3/query-syntax">using query string syntax.</a></p>
-     * <p><a href="https://auth0.com/docs/users/search/v3">Learn more about searching for users.</a></p>
-     * <p>Read about <a href="https://auth0.com/docs/users/search/best-practices">best practices</a> when working with the API endpoints for retrieving users.</p>
-     * <p>Auth0 limits the number of users you can return. If you exceed this threshold, please redefine your search, use the <a href="https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports">export job</a>, or the <a href="https://auth0.com/docs/extensions/user-import-export">User Import / Export</a> extension.</p>
+     * <p>This endpoint is <strong>not suited for use in critical paths</strong>. It is eventually consistent and runs under a short (~2 second) query time limit, so results can be stale and heavy queries can return a 503.</p>
+     * <ul>
+     * <li>Do not use this endpoint for authentication, account linking, or logic inside login-flow Actions. Instead, <a href="https://auth0.com/docs/manage-users/user-search/get-users-by-id-or-email#management-api">look users up directly by ID or email</a> to get their current state.</li>
+     * <li>Do not use this endpoint to keep an external system in sync with user data. Instead, subscribe to <a href="https://auth0.com/docs/customize/events/sync-data-across-systems">Event Streams</a> to receive every change as it happens.</li>
+     * <li>Do not use this endpoint to enumerate or export your entire user base. Instead, run a <a href="https://auth0.com/docs/manage-users/user-migration/bulk-user-exports">bulk user export</a> to retrieve the full set.</li>
+     * </ul>
+     * <p>Use the <code>q</code> query parameter to match users with <a href="https://auth0.com/docs/manage-users/user-search/user-search-query-syntax">query string syntax</a>. For full instructions and guidance, see <a href="https://auth0.com/docs/manage-users/user-search/list-and-search-users">How to List and Search Users</a>.</p>
+     * <p>For efficient queries, prefer indexed top-level fields and exact matches. Certain kinds of queries can be slow and may time out, such as filtering on freeform or multi-value fields (like user-defined attributes in <code>app_metadata</code> or <code>user_metadata</code>) or using leading wildcards.</p>
      */
     public CompletableFuture<SyncPagingIterable<UserResponseSchema>> list(
             ListUsersRequestParameters request, RequestOptions requestOptions) {
@@ -554,6 +572,50 @@ public class AsyncUsersClient {
     public CompletableFuture<UpdateUserResponseContent> update(
             String id, UpdateUserRequestContent request, RequestOptions requestOptions) {
         return this.rawClient.update(id, request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve all consent signing keys registered for a user. Returns an empty <code>keys</code> array when the user has no keys registered.
+     */
+    public CompletableFuture<ListUserConsentSigningKeysResponseContent> listConsentSigningKeys(String id) {
+        return this.rawClient.listConsentSigningKeys(id).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve all consent signing keys registered for a user. Returns an empty <code>keys</code> array when the user has no keys registered.
+     */
+    public CompletableFuture<ListUserConsentSigningKeysResponseContent> listConsentSigningKeys(
+            String id, RequestOptions requestOptions) {
+        return this.rawClient.listConsentSigningKeys(id, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a single consent signing key for a user by its key identifier (kid). Returns 404 if the key does not exist.
+     */
+    public CompletableFuture<ConsentSigningKey> getConsentSigningKey(String id, String kid) {
+        return this.rawClient.getConsentSigningKey(id, kid).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieve a single consent signing key for a user by its key identifier (kid). Returns 404 if the key does not exist.
+     */
+    public CompletableFuture<ConsentSigningKey> getConsentSigningKey(
+            String id, String kid, RequestOptions requestOptions) {
+        return this.rawClient.getConsentSigningKey(id, kid, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Remove a single consent signing key for a user by its key identifier (kid). The operation is idempotent and returns 204 whether or not the key existed.
+     */
+    public CompletableFuture<Void> deleteConsentSigningKey(String id, String kid) {
+        return this.rawClient.deleteConsentSigningKey(id, kid).thenApply(response -> response.body());
+    }
+
+    /**
+     * Remove a single consent signing key for a user by its key identifier (kid). The operation is idempotent and returns 204 whether or not the key existed.
+     */
+    public CompletableFuture<Void> deleteConsentSigningKey(String id, String kid, RequestOptions requestOptions) {
+        return this.rawClient.deleteConsentSigningKey(id, kid, requestOptions).thenApply(response -> response.body());
     }
 
     /**

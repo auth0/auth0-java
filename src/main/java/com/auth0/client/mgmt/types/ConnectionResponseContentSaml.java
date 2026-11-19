@@ -24,11 +24,12 @@ import org.jetbrains.annotations.Nullable;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionResponseContentSaml.Builder.class)
-public final class ConnectionResponseContentSaml
-        implements IConnectionPurposes, IConnectionResponseCommon, ICreateConnectionCommon {
+public final class ConnectionResponseContentSaml implements IConnectionPurposes, IConnectionResponseCommon {
     private final Optional<ConnectionAuthenticationPurpose> authentication;
 
     private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
+
+    private final String displayName;
 
     private final String id;
 
@@ -38,13 +39,13 @@ public final class ConnectionResponseContentSaml
 
     private final Optional<List<String>> enabledClients;
 
-    private final Optional<String> displayName;
-
     private final Optional<Boolean> isDomainConnection;
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
 
     private final ConnectionResponseContentSamlStrategy strategy;
+
+    private final Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp;
 
     private final OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp;
 
@@ -59,14 +60,15 @@ public final class ConnectionResponseContentSaml
     private ConnectionResponseContentSaml(
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
+            String displayName,
             String id,
             Optional<List<String>> realms,
             String name,
             Optional<List<String>> enabledClients,
-            Optional<String> displayName,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             ConnectionResponseContentSamlStrategy strategy,
+            Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp,
             OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp,
             Optional<ConnectionOptionsSaml> options,
             Optional<String> provisioningTicketUrl,
@@ -74,14 +76,15 @@ public final class ConnectionResponseContentSaml
             Map<String, Object> additionalProperties) {
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
+        this.displayName = displayName;
         this.id = id;
         this.realms = realms;
         this.name = name;
         this.enabledClients = enabledClients;
-        this.displayName = displayName;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
         this.strategy = strategy;
+        this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
         this.crossAppAccessResourceApp = crossAppAccessResourceApp;
         this.options = options;
         this.provisioningTicketUrl = provisioningTicketUrl;
@@ -99,6 +102,12 @@ public final class ConnectionResponseContentSaml
     @java.lang.Override
     public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
         return connectedAccounts;
+    }
+
+    @JsonProperty("display_name")
+    @java.lang.Override
+    public String getDisplayName() {
+        return displayName;
     }
 
     @JsonProperty("id")
@@ -128,12 +137,6 @@ public final class ConnectionResponseContentSaml
         return enabledClients;
     }
 
-    @JsonProperty("display_name")
-    @java.lang.Override
-    public Optional<String> getDisplayName() {
-        return displayName;
-    }
-
     @JsonProperty("is_domain_connection")
     @java.lang.Override
     public Optional<Boolean> getIsDomainConnection() {
@@ -149,6 +152,11 @@ public final class ConnectionResponseContentSaml
     @JsonProperty("strategy")
     public ConnectionResponseContentSamlStrategy getStrategy() {
         return strategy;
+    }
+
+    @JsonProperty("cross_app_access_requesting_app")
+    public Optional<CrossAppAccessRequestingApp> getCrossAppAccessRequestingApp() {
+        return crossAppAccessRequestingApp;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -195,14 +203,15 @@ public final class ConnectionResponseContentSaml
     private boolean equalTo(ConnectionResponseContentSaml other) {
         return authentication.equals(other.authentication)
                 && connectedAccounts.equals(other.connectedAccounts)
+                && displayName.equals(other.displayName)
                 && id.equals(other.id)
                 && realms.equals(other.realms)
                 && name.equals(other.name)
                 && enabledClients.equals(other.enabledClients)
-                && displayName.equals(other.displayName)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
                 && strategy.equals(other.strategy)
+                && crossAppAccessRequestingApp.equals(other.crossAppAccessRequestingApp)
                 && crossAppAccessResourceApp.equals(other.crossAppAccessResourceApp)
                 && options.equals(other.options)
                 && provisioningTicketUrl.equals(other.provisioningTicketUrl)
@@ -214,14 +223,15 @@ public final class ConnectionResponseContentSaml
         return Objects.hash(
                 this.authentication,
                 this.connectedAccounts,
+                this.displayName,
                 this.id,
                 this.realms,
                 this.name,
                 this.enabledClients,
-                this.displayName,
                 this.isDomainConnection,
                 this.metadata,
                 this.strategy,
+                this.crossAppAccessRequestingApp,
                 this.crossAppAccessResourceApp,
                 this.options,
                 this.provisioningTicketUrl,
@@ -233,14 +243,18 @@ public final class ConnectionResponseContentSaml
         return ObjectMappers.stringify(this);
     }
 
-    public static IdStage builder() {
+    public static DisplayNameStage builder() {
         return new Builder();
+    }
+
+    public interface DisplayNameStage {
+        IdStage displayName(@NotNull String displayName);
+
+        Builder from(ConnectionResponseContentSaml other);
     }
 
     public interface IdStage {
         NameStage id(@NotNull String id);
-
-        Builder from(ConnectionResponseContentSaml other);
     }
 
     public interface NameStage {
@@ -277,10 +291,6 @@ public final class ConnectionResponseContentSaml
 
         _FinalStage enabledClients(List<String> enabledClients);
 
-        _FinalStage displayName(Optional<String> displayName);
-
-        _FinalStage displayName(String displayName);
-
         _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection);
 
         _FinalStage isDomainConnection(Boolean isDomainConnection);
@@ -288,6 +298,10 @@ public final class ConnectionResponseContentSaml
         _FinalStage metadata(Optional<Map<String, OptionalNullable<String>>> metadata);
 
         _FinalStage metadata(Map<String, OptionalNullable<String>> metadata);
+
+        _FinalStage crossAppAccessRequestingApp(Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp);
+
+        _FinalStage crossAppAccessRequestingApp(CrossAppAccessRequestingApp crossAppAccessRequestingApp);
 
         _FinalStage crossAppAccessResourceApp(
                 @Nullable OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp);
@@ -313,7 +327,9 @@ public final class ConnectionResponseContentSaml
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements IdStage, NameStage, StrategyStage, _FinalStage {
+    public static final class Builder implements DisplayNameStage, IdStage, NameStage, StrategyStage, _FinalStage {
+        private String displayName;
+
         private String id;
 
         private String name;
@@ -329,11 +345,11 @@ public final class ConnectionResponseContentSaml
         private OptionalNullable<ConnectionCrossAppAccessResourceApp> crossAppAccessResourceApp =
                 OptionalNullable.absent();
 
+        private Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp = Optional.empty();
+
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
         private Optional<Boolean> isDomainConnection = Optional.empty();
-
-        private Optional<String> displayName = Optional.empty();
 
         private Optional<List<String>> enabledClients = Optional.empty();
 
@@ -352,18 +368,26 @@ public final class ConnectionResponseContentSaml
         public Builder from(ConnectionResponseContentSaml other) {
             authentication(other.getAuthentication());
             connectedAccounts(other.getConnectedAccounts());
+            displayName(other.getDisplayName());
             id(other.getId());
             realms(other.getRealms());
             name(other.getName());
             enabledClients(other.getEnabledClients());
-            displayName(other.getDisplayName());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
             strategy(other.getStrategy());
+            crossAppAccessRequestingApp(other.getCrossAppAccessRequestingApp());
             crossAppAccessResourceApp(other.getCrossAppAccessResourceApp());
             options(other.getOptions());
             provisioningTicketUrl(other.getProvisioningTicketUrl());
             showAsButton(other.getShowAsButton());
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("display_name")
+        public IdStage displayName(@NotNull String displayName) {
+            this.displayName = Objects.requireNonNull(displayName, "displayName must not be null");
             return this;
         }
 
@@ -466,6 +490,20 @@ public final class ConnectionResponseContentSaml
         }
 
         @java.lang.Override
+        public _FinalStage crossAppAccessRequestingApp(CrossAppAccessRequestingApp crossAppAccessRequestingApp) {
+            this.crossAppAccessRequestingApp = Optional.ofNullable(crossAppAccessRequestingApp);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "cross_app_access_requesting_app", nulls = Nulls.SKIP)
+        public _FinalStage crossAppAccessRequestingApp(
+                Optional<CrossAppAccessRequestingApp> crossAppAccessRequestingApp) {
+            this.crossAppAccessRequestingApp = crossAppAccessRequestingApp;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage metadata(Map<String, OptionalNullable<String>> metadata) {
             this.metadata = Optional.ofNullable(metadata);
             return this;
@@ -488,19 +526,6 @@ public final class ConnectionResponseContentSaml
         @JsonSetter(value = "is_domain_connection", nulls = Nulls.SKIP)
         public _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection) {
             this.isDomainConnection = isDomainConnection;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage displayName(String displayName) {
-            this.displayName = Optional.ofNullable(displayName);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
-        public _FinalStage displayName(Optional<String> displayName) {
-            this.displayName = displayName;
             return this;
         }
 
@@ -568,14 +593,15 @@ public final class ConnectionResponseContentSaml
             return new ConnectionResponseContentSaml(
                     authentication,
                     connectedAccounts,
+                    displayName,
                     id,
                     realms,
                     name,
                     enabledClients,
-                    displayName,
                     isDomainConnection,
                     metadata,
                     strategy,
+                    crossAppAccessRequestingApp,
                     crossAppAccessResourceApp,
                     options,
                     provisioningTicketUrl,

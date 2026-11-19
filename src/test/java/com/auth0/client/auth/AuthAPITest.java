@@ -37,6 +37,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -297,6 +298,31 @@ public class AuthAPITest {
         JsonNode telemetry = decodeTelemetryHeader(server.takeRequest());
         assertThat(telemetry.get("name").asText(), is("my-wrapper-sdk"));
         assertThat(telemetry.get("version").asText(), is("1.2.3"));
+    }
+
+    @Test
+    public void shouldReuseBaseClientAndPreserveSdkBehavior() throws Exception {
+        OkHttpClient baseClient = new OkHttpClient.Builder()
+                .addInterceptor(chain -> chain.proceed(chain.request()
+                        .newBuilder()
+                        .addHeader("X-Custom-Base", "base-client")
+                        .build()))
+                .build();
+
+        AuthAPI customApi = AuthAPI.newBuilder(server.getBaseUrl(), CLIENT_ID, CLIENT_SECRET)
+                .withHttpClient(
+                        DefaultHttpClient.newBuilder().withClient(baseClient).build())
+                .build();
+
+        Request<UserInfo> request = customApi.userInfo("accessToken");
+        server.jsonResponse(AUTH_USER_INFO, 200);
+        request.execute();
+
+        RecordedRequest recordedRequest = server.takeRequest();
+        // The base client's interceptor is carried over via newBuilder(), so the user's config is preserved.
+        assertThat(recordedRequest.getHeader("X-Custom-Base"), is("base-client"));
+        // SDK behavior (telemetry) is still layered on top, so integrity is preserved.
+        assertThat(recordedRequest.getHeader("Auth0-Client"), is(notNullValue()));
     }
 
     @Test

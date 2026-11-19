@@ -22,7 +22,9 @@ import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionResponseCommon.Builder.class)
-public final class ConnectionResponseCommon implements IConnectionResponseCommon, ICreateConnectionCommon {
+public final class ConnectionResponseCommon implements IConnectionResponseCommon {
+    private final String displayName;
+
     private final String id;
 
     private final Optional<List<String>> realms;
@@ -31,8 +33,6 @@ public final class ConnectionResponseCommon implements IConnectionResponseCommon
 
     private final Optional<List<String>> enabledClients;
 
-    private final Optional<String> displayName;
-
     private final Optional<Boolean> isDomainConnection;
 
     private final Optional<Map<String, OptionalNullable<String>>> metadata;
@@ -40,22 +40,28 @@ public final class ConnectionResponseCommon implements IConnectionResponseCommon
     private final Map<String, Object> additionalProperties;
 
     private ConnectionResponseCommon(
+            String displayName,
             String id,
             Optional<List<String>> realms,
             String name,
             Optional<List<String>> enabledClients,
-            Optional<String> displayName,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             Map<String, Object> additionalProperties) {
+        this.displayName = displayName;
         this.id = id;
         this.realms = realms;
         this.name = name;
         this.enabledClients = enabledClients;
-        this.displayName = displayName;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("display_name")
+    @java.lang.Override
+    public String getDisplayName() {
+        return displayName;
     }
 
     @JsonProperty("id")
@@ -85,12 +91,6 @@ public final class ConnectionResponseCommon implements IConnectionResponseCommon
         return enabledClients;
     }
 
-    @JsonProperty("display_name")
-    @java.lang.Override
-    public Optional<String> getDisplayName() {
-        return displayName;
-    }
-
     @JsonProperty("is_domain_connection")
     @java.lang.Override
     public Optional<Boolean> getIsDomainConnection() {
@@ -115,11 +115,11 @@ public final class ConnectionResponseCommon implements IConnectionResponseCommon
     }
 
     private boolean equalTo(ConnectionResponseCommon other) {
-        return id.equals(other.id)
+        return displayName.equals(other.displayName)
+                && id.equals(other.id)
                 && realms.equals(other.realms)
                 && name.equals(other.name)
                 && enabledClients.equals(other.enabledClients)
-                && displayName.equals(other.displayName)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata);
     }
@@ -127,11 +127,11 @@ public final class ConnectionResponseCommon implements IConnectionResponseCommon
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.displayName,
                 this.id,
                 this.realms,
                 this.name,
                 this.enabledClients,
-                this.displayName,
                 this.isDomainConnection,
                 this.metadata);
     }
@@ -141,14 +141,18 @@ public final class ConnectionResponseCommon implements IConnectionResponseCommon
         return ObjectMappers.stringify(this);
     }
 
-    public static IdStage builder() {
+    public static DisplayNameStage builder() {
         return new Builder();
+    }
+
+    public interface DisplayNameStage {
+        IdStage displayName(@NotNull String displayName);
+
+        Builder from(ConnectionResponseCommon other);
     }
 
     public interface IdStage {
         NameStage id(@NotNull String id);
-
-        Builder from(ConnectionResponseCommon other);
     }
 
     public interface NameStage {
@@ -173,10 +177,6 @@ public final class ConnectionResponseCommon implements IConnectionResponseCommon
 
         _FinalStage enabledClients(List<String> enabledClients);
 
-        _FinalStage displayName(Optional<String> displayName);
-
-        _FinalStage displayName(String displayName);
-
         _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection);
 
         _FinalStage isDomainConnection(Boolean isDomainConnection);
@@ -187,7 +187,9 @@ public final class ConnectionResponseCommon implements IConnectionResponseCommon
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements IdStage, NameStage, _FinalStage {
+    public static final class Builder implements DisplayNameStage, IdStage, NameStage, _FinalStage {
+        private String displayName;
+
         private String id;
 
         private String name;
@@ -195,8 +197,6 @@ public final class ConnectionResponseCommon implements IConnectionResponseCommon
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
         private Optional<Boolean> isDomainConnection = Optional.empty();
-
-        private Optional<String> displayName = Optional.empty();
 
         private Optional<List<String>> enabledClients = Optional.empty();
 
@@ -209,13 +209,20 @@ public final class ConnectionResponseCommon implements IConnectionResponseCommon
 
         @java.lang.Override
         public Builder from(ConnectionResponseCommon other) {
+            displayName(other.getDisplayName());
             id(other.getId());
             realms(other.getRealms());
             name(other.getName());
             enabledClients(other.getEnabledClients());
-            displayName(other.getDisplayName());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("display_name")
+        public IdStage displayName(@NotNull String displayName) {
+            this.displayName = Objects.requireNonNull(displayName, "displayName must not be null");
             return this;
         }
 
@@ -259,19 +266,6 @@ public final class ConnectionResponseCommon implements IConnectionResponseCommon
             return this;
         }
 
-        @java.lang.Override
-        public _FinalStage displayName(String displayName) {
-            this.displayName = Optional.ofNullable(displayName);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
-        public _FinalStage displayName(Optional<String> displayName) {
-            this.displayName = displayName;
-            return this;
-        }
-
         /**
          * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -308,7 +302,7 @@ public final class ConnectionResponseCommon implements IConnectionResponseCommon
         @java.lang.Override
         public ConnectionResponseCommon build() {
             return new ConnectionResponseCommon(
-                    id, realms, name, enabledClients, displayName, isDomainConnection, metadata, additionalProperties);
+                    displayName, id, realms, name, enabledClients, isDomainConnection, metadata, additionalProperties);
         }
 
         @java.lang.Override

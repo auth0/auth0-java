@@ -81,9 +81,6 @@ public final class UserEffectivePermissionRoleSourceResponseContent {
         return type;
     }
 
-    /**
-     * @return The id of the entity that owns this role, such as an organization id.
-     */
     @JsonProperty("owner_id")
     public Optional<String> getOwnerId() {
         return ownerId;
@@ -214,9 +211,6 @@ public final class UserEffectivePermissionRoleSourceResponseContent {
             return this;
         }
 
-        /**
-         * <p>The id of the entity that owns this role, such as an organization id.</p>
-         */
         @JsonSetter(value = "owner_id", nulls = Nulls.SKIP)
         public Builder ownerId(Optional<String> ownerId) {
             this.ownerId = ownerId;

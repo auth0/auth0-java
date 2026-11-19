@@ -23,6 +23,8 @@ import java.util.Optional;
 public final class PreviewCimdMetadataResponseContent {
     private final Optional<String> clientId;
 
+    private final Optional<CimdExternalMetadataCreatedByEnum> externalMetadataCreatedBy;
+
     private final Optional<List<String>> errors;
 
     private final Optional<CimdValidationResult> validation;
@@ -33,11 +35,13 @@ public final class PreviewCimdMetadataResponseContent {
 
     private PreviewCimdMetadataResponseContent(
             Optional<String> clientId,
+            Optional<CimdExternalMetadataCreatedByEnum> externalMetadataCreatedBy,
             Optional<List<String>> errors,
             Optional<CimdValidationResult> validation,
             Optional<CimdMappedClientFields> mappedFields,
             Map<String, Object> additionalProperties) {
         this.clientId = clientId;
+        this.externalMetadataCreatedBy = externalMetadataCreatedBy;
         this.errors = errors;
         this.validation = validation;
         this.mappedFields = mappedFields;
@@ -50,6 +54,11 @@ public final class PreviewCimdMetadataResponseContent {
     @JsonProperty("client_id")
     public Optional<String> getClientId() {
         return clientId;
+    }
+
+    @JsonProperty("external_metadata_created_by")
+    public Optional<CimdExternalMetadataCreatedByEnum> getExternalMetadataCreatedBy() {
+        return externalMetadataCreatedBy;
     }
 
     /**
@@ -84,6 +93,7 @@ public final class PreviewCimdMetadataResponseContent {
 
     private boolean equalTo(PreviewCimdMetadataResponseContent other) {
         return clientId.equals(other.clientId)
+                && externalMetadataCreatedBy.equals(other.externalMetadataCreatedBy)
                 && errors.equals(other.errors)
                 && validation.equals(other.validation)
                 && mappedFields.equals(other.mappedFields);
@@ -91,7 +101,8 @@ public final class PreviewCimdMetadataResponseContent {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.clientId, this.errors, this.validation, this.mappedFields);
+        return Objects.hash(
+                this.clientId, this.externalMetadataCreatedBy, this.errors, this.validation, this.mappedFields);
     }
 
     @java.lang.Override
@@ -107,6 +118,8 @@ public final class PreviewCimdMetadataResponseContent {
     public static final class Builder {
         private Optional<String> clientId = Optional.empty();
 
+        private Optional<CimdExternalMetadataCreatedByEnum> externalMetadataCreatedBy = Optional.empty();
+
         private Optional<List<String>> errors = Optional.empty();
 
         private Optional<CimdValidationResult> validation = Optional.empty();
@@ -120,6 +133,7 @@ public final class PreviewCimdMetadataResponseContent {
 
         public Builder from(PreviewCimdMetadataResponseContent other) {
             clientId(other.getClientId());
+            externalMetadataCreatedBy(other.getExternalMetadataCreatedBy());
             errors(other.getErrors());
             validation(other.getValidation());
             mappedFields(other.getMappedFields());
@@ -137,6 +151,18 @@ public final class PreviewCimdMetadataResponseContent {
 
         public Builder clientId(String clientId) {
             this.clientId = Optional.ofNullable(clientId);
+            return this;
+        }
+
+        @JsonSetter(value = "external_metadata_created_by", nulls = Nulls.SKIP)
+        public Builder externalMetadataCreatedBy(
+                Optional<CimdExternalMetadataCreatedByEnum> externalMetadataCreatedBy) {
+            this.externalMetadataCreatedBy = externalMetadataCreatedBy;
+            return this;
+        }
+
+        public Builder externalMetadataCreatedBy(CimdExternalMetadataCreatedByEnum externalMetadataCreatedBy) {
+            this.externalMetadataCreatedBy = Optional.ofNullable(externalMetadataCreatedBy);
             return this;
         }
 
@@ -178,7 +204,7 @@ public final class PreviewCimdMetadataResponseContent {
 
         public PreviewCimdMetadataResponseContent build() {
             return new PreviewCimdMetadataResponseContent(
-                    clientId, errors, validation, mappedFields, additionalProperties);
+                    clientId, externalMetadataCreatedBy, errors, validation, mappedFields, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {
