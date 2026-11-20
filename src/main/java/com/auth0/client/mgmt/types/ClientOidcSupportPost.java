@@ -40,16 +40,25 @@ public final class ClientOidcSupportPost {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Allows the client to use OIDC, including receiving ID tokens and calling the UserInfo endpoint.
+     */
     @JsonProperty("is_allowed")
     public boolean getIsAllowed() {
         return isAllowed;
     }
 
+    /**
+     * @return Allows the client to request all supported OIDC scopes. Mutually exclusive with allowed_scopes.
+     */
     @JsonProperty("allow_all_scopes")
     public Optional<Boolean> getAllowAllScopes() {
         return allowAllScopes;
     }
 
+    /**
+     * @return OIDC scopes the client may request (<code>profile</code>, <code>email</code>, <code>address</code>, and <code>phone</code>), which determine the user profile information it can access. Mutually exclusive with allow_all_scopes.
+     */
     @JsonProperty("allowed_scopes")
     public Optional<List<ClientOidcSupportAllowedScopesEnum>> getAllowedScopes() {
         return allowedScopes;
@@ -87,6 +96,9 @@ public final class ClientOidcSupportPost {
     }
 
     public interface IsAllowedStage {
+        /**
+         * <p>Allows the client to use OIDC, including receiving ID tokens and calling the UserInfo endpoint.</p>
+         */
         _FinalStage isAllowed(boolean isAllowed);
 
         Builder from(ClientOidcSupportPost other);
@@ -99,10 +111,16 @@ public final class ClientOidcSupportPost {
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
+        /**
+         * <p>Allows the client to request all supported OIDC scopes. Mutually exclusive with allowed_scopes.</p>
+         */
         _FinalStage allowAllScopes(Optional<Boolean> allowAllScopes);
 
         _FinalStage allowAllScopes(Boolean allowAllScopes);
 
+        /**
+         * <p>OIDC scopes the client may request (<code>profile</code>, <code>email</code>, <code>address</code>, and <code>phone</code>), which determine the user profile information it can access. Mutually exclusive with allow_all_scopes.</p>
+         */
         _FinalStage allowedScopes(Optional<List<ClientOidcSupportAllowedScopesEnum>> allowedScopes);
 
         _FinalStage allowedScopes(List<ClientOidcSupportAllowedScopesEnum> allowedScopes);
@@ -129,6 +147,10 @@ public final class ClientOidcSupportPost {
             return this;
         }
 
+        /**
+         * <p>Allows the client to use OIDC, including receiving ID tokens and calling the UserInfo endpoint.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("is_allowed")
         public _FinalStage isAllowed(boolean isAllowed) {
@@ -136,12 +158,19 @@ public final class ClientOidcSupportPost {
             return this;
         }
 
+        /**
+         * <p>OIDC scopes the client may request (<code>profile</code>, <code>email</code>, <code>address</code>, and <code>phone</code>), which determine the user profile information it can access. Mutually exclusive with allow_all_scopes.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage allowedScopes(List<ClientOidcSupportAllowedScopesEnum> allowedScopes) {
             this.allowedScopes = Optional.ofNullable(allowedScopes);
             return this;
         }
 
+        /**
+         * <p>OIDC scopes the client may request (<code>profile</code>, <code>email</code>, <code>address</code>, and <code>phone</code>), which determine the user profile information it can access. Mutually exclusive with allow_all_scopes.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "allowed_scopes", nulls = Nulls.SKIP)
         public _FinalStage allowedScopes(Optional<List<ClientOidcSupportAllowedScopesEnum>> allowedScopes) {
@@ -149,12 +178,19 @@ public final class ClientOidcSupportPost {
             return this;
         }
 
+        /**
+         * <p>Allows the client to request all supported OIDC scopes. Mutually exclusive with allowed_scopes.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage allowAllScopes(Boolean allowAllScopes) {
             this.allowAllScopes = Optional.ofNullable(allowAllScopes);
             return this;
         }
 
+        /**
+         * <p>Allows the client to request all supported OIDC scopes. Mutually exclusive with allowed_scopes.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "allow_all_scopes", nulls = Nulls.SKIP)
         public _FinalStage allowAllScopes(Optional<Boolean> allowAllScopes) {

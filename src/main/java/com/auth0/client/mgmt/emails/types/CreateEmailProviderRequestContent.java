@@ -32,7 +32,7 @@ public final class CreateEmailProviderRequestContent {
 
     private final Optional<String> defaultFromAddress;
 
-    private final EmailProviderCredentialsSchema credentials;
+    private final Optional<EmailProviderCredentialsSchema> credentials;
 
     private final OptionalNullable<Map<String, Object>> settings;
 
@@ -42,7 +42,7 @@ public final class CreateEmailProviderRequestContent {
             EmailProviderNameEnum name,
             Optional<Boolean> enabled,
             Optional<String> defaultFromAddress,
-            EmailProviderCredentialsSchema credentials,
+            Optional<EmailProviderCredentialsSchema> credentials,
             OptionalNullable<Map<String, Object>> settings,
             Map<String, Object> additionalProperties) {
         this.name = name;
@@ -75,7 +75,7 @@ public final class CreateEmailProviderRequestContent {
     }
 
     @JsonProperty("credentials")
-    public EmailProviderCredentialsSchema getCredentials() {
+    public Optional<EmailProviderCredentialsSchema> getCredentials() {
         return credentials;
     }
 
@@ -128,13 +128,9 @@ public final class CreateEmailProviderRequestContent {
     }
 
     public interface NameStage {
-        CredentialsStage name(@NotNull EmailProviderNameEnum name);
+        _FinalStage name(@NotNull EmailProviderNameEnum name);
 
         Builder from(CreateEmailProviderRequestContent other);
-    }
-
-    public interface CredentialsStage {
-        _FinalStage credentials(@NotNull EmailProviderCredentialsSchema credentials);
     }
 
     public interface _FinalStage {
@@ -158,6 +154,10 @@ public final class CreateEmailProviderRequestContent {
 
         _FinalStage defaultFromAddress(String defaultFromAddress);
 
+        _FinalStage credentials(Optional<EmailProviderCredentialsSchema> credentials);
+
+        _FinalStage credentials(EmailProviderCredentialsSchema credentials);
+
         _FinalStage settings(@Nullable OptionalNullable<Map<String, Object>> settings);
 
         _FinalStage settings(Map<String, Object> settings);
@@ -168,12 +168,12 @@ public final class CreateEmailProviderRequestContent {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements NameStage, CredentialsStage, _FinalStage {
+    public static final class Builder implements NameStage, _FinalStage {
         private EmailProviderNameEnum name;
 
-        private EmailProviderCredentialsSchema credentials;
-
         private OptionalNullable<Map<String, Object>> settings = OptionalNullable.absent();
+
+        private Optional<EmailProviderCredentialsSchema> credentials = Optional.empty();
 
         private Optional<String> defaultFromAddress = Optional.empty();
 
@@ -196,15 +196,8 @@ public final class CreateEmailProviderRequestContent {
 
         @java.lang.Override
         @JsonSetter("name")
-        public CredentialsStage name(@NotNull EmailProviderNameEnum name) {
+        public _FinalStage name(@NotNull EmailProviderNameEnum name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter("credentials")
-        public _FinalStage credentials(@NotNull EmailProviderCredentialsSchema credentials) {
-            this.credentials = Objects.requireNonNull(credentials, "credentials must not be null");
             return this;
         }
 
@@ -240,6 +233,19 @@ public final class CreateEmailProviderRequestContent {
         @JsonSetter(value = "settings", nulls = Nulls.SKIP)
         public _FinalStage settings(@Nullable OptionalNullable<Map<String, Object>> settings) {
             this.settings = settings;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage credentials(EmailProviderCredentialsSchema credentials) {
+            this.credentials = Optional.ofNullable(credentials);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "credentials", nulls = Nulls.SKIP)
+        public _FinalStage credentials(Optional<EmailProviderCredentialsSchema> credentials) {
+            this.credentials = credentials;
             return this;
         }
 

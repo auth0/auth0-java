@@ -68,8 +68,6 @@ public final class TenantSettingsFlags {
 
     private final Optional<Boolean> improvedSignupBotDetectionInClassic;
 
-    private final Optional<Boolean> genaiTrial;
-
     private final Optional<Boolean> localResourceDiscovery;
 
     private final Optional<Boolean> enableDynamicClientRegistration;
@@ -107,7 +105,6 @@ public final class TenantSettingsFlags {
             Optional<Boolean> mfaShowFactorListOnEnrollment,
             Optional<Boolean> removeAlgFromJwks,
             Optional<Boolean> improvedSignupBotDetectionInClassic,
-            Optional<Boolean> genaiTrial,
             Optional<Boolean> localResourceDiscovery,
             Optional<Boolean> enableDynamicClientRegistration,
             Optional<Boolean> disableManagementApiSmsObfuscation,
@@ -138,7 +135,6 @@ public final class TenantSettingsFlags {
         this.mfaShowFactorListOnEnrollment = mfaShowFactorListOnEnrollment;
         this.removeAlgFromJwks = removeAlgFromJwks;
         this.improvedSignupBotDetectionInClassic = improvedSignupBotDetectionInClassic;
-        this.genaiTrial = genaiTrial;
         this.localResourceDiscovery = localResourceDiscovery;
         this.enableDynamicClientRegistration = enableDynamicClientRegistration;
         this.disableManagementApiSmsObfuscation = disableManagementApiSmsObfuscation;
@@ -340,14 +336,6 @@ public final class TenantSettingsFlags {
     }
 
     /**
-     * @return This tenant signed up for the Auth4GenAI trail
-     */
-    @JsonProperty("genai_trial")
-    public Optional<Boolean> getGenaiTrial() {
-        return genaiTrial;
-    }
-
-    /**
      * @return Whether the Local Resource Discovery endpoint is enabled (true) or disabled (false).
      */
     @JsonProperty("local_resource_discovery")
@@ -424,7 +412,6 @@ public final class TenantSettingsFlags {
                 && mfaShowFactorListOnEnrollment.equals(other.mfaShowFactorListOnEnrollment)
                 && removeAlgFromJwks.equals(other.removeAlgFromJwks)
                 && improvedSignupBotDetectionInClassic.equals(other.improvedSignupBotDetectionInClassic)
-                && genaiTrial.equals(other.genaiTrial)
                 && localResourceDiscovery.equals(other.localResourceDiscovery)
                 && enableDynamicClientRegistration.equals(other.enableDynamicClientRegistration)
                 && disableManagementApiSmsObfuscation.equals(other.disableManagementApiSmsObfuscation)
@@ -460,7 +447,6 @@ public final class TenantSettingsFlags {
                 this.mfaShowFactorListOnEnrollment,
                 this.removeAlgFromJwks,
                 this.improvedSignupBotDetectionInClassic,
-                this.genaiTrial,
                 this.localResourceDiscovery,
                 this.enableDynamicClientRegistration,
                 this.disableManagementApiSmsObfuscation,
@@ -527,8 +513,6 @@ public final class TenantSettingsFlags {
 
         private Optional<Boolean> improvedSignupBotDetectionInClassic = Optional.empty();
 
-        private Optional<Boolean> genaiTrial = Optional.empty();
-
         private Optional<Boolean> localResourceDiscovery = Optional.empty();
 
         private Optional<Boolean> enableDynamicClientRegistration = Optional.empty();
@@ -569,7 +553,6 @@ public final class TenantSettingsFlags {
             mfaShowFactorListOnEnrollment(other.getMfaShowFactorListOnEnrollment());
             removeAlgFromJwks(other.getRemoveAlgFromJwks());
             improvedSignupBotDetectionInClassic(other.getImprovedSignupBotDetectionInClassic());
-            genaiTrial(other.getGenaiTrial());
             localResourceDiscovery(other.getLocalResourceDiscovery());
             enableDynamicClientRegistration(other.getEnableDynamicClientRegistration());
             disableManagementApiSmsObfuscation(other.getDisableManagementApiSmsObfuscation());
@@ -918,20 +901,6 @@ public final class TenantSettingsFlags {
         }
 
         /**
-         * <p>This tenant signed up for the Auth4GenAI trail</p>
-         */
-        @JsonSetter(value = "genai_trial", nulls = Nulls.SKIP)
-        public Builder genaiTrial(Optional<Boolean> genaiTrial) {
-            this.genaiTrial = genaiTrial;
-            return this;
-        }
-
-        public Builder genaiTrial(Boolean genaiTrial) {
-            this.genaiTrial = Optional.ofNullable(genaiTrial);
-            return this;
-        }
-
-        /**
          * <p>Whether the Local Resource Discovery endpoint is enabled (true) or disabled (false).</p>
          */
         @JsonSetter(value = "local_resource_discovery", nulls = Nulls.SKIP)
@@ -1030,7 +999,6 @@ public final class TenantSettingsFlags {
                     mfaShowFactorListOnEnrollment,
                     removeAlgFromJwks,
                     improvedSignupBotDetectionInClassic,
-                    genaiTrial,
                     localResourceDiscovery,
                     enableDynamicClientRegistration,
                     disableManagementApiSmsObfuscation,

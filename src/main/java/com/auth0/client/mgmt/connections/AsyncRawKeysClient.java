@@ -47,14 +47,14 @@ public class AsyncRawKeysClient {
     }
 
     /**
-     * Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy.
+     * Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy. The response includes both signing keys and encryption keys, told apart by <code>key_use</code>. Encryption keys apply only to OIDC and Okta connections.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<ConnectionKey>>> get(String id) {
         return get(id, null);
     }
 
     /**
-     * Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy.
+     * Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy. The response includes both signing keys and encryption keys, told apart by <code>key_use</code>. Encryption keys apply only to OIDC and Okta connections.
      */
     public CompletableFuture<ManagementApiHttpResponse<List<ConnectionKey>>> get(
             String id, RequestOptions requestOptions) {
@@ -152,7 +152,8 @@ public class AsyncRawKeysClient {
     }
 
     /**
-     * Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+     * Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication or encrypted ID tokens, enabling zero-downtime transitions.
+     * <p>Set <code>key_use</code> to <code>signing</code> (default) to provision signing keys, optionally choosing <code>signing_alg</code>, or to <code>encryption</code> to provision encryption keys, optionally choosing <code>encryption_alg</code>. <code>signing_alg</code> and <code>encryption_alg</code> each apply only to their own key use. Encryption keys and encrypted ID tokens apply only to OIDC and Okta connections. The response lists all of the connection's keys.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<List<PostConnectionsKeysResponseContentItem>>> create(
             String id) {
@@ -160,7 +161,8 @@ public class AsyncRawKeysClient {
     }
 
     /**
-     * Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+     * Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication or encrypted ID tokens, enabling zero-downtime transitions.
+     * <p>Set <code>key_use</code> to <code>signing</code> (default) to provision signing keys, optionally choosing <code>signing_alg</code>, or to <code>encryption</code> to provision encryption keys, optionally choosing <code>encryption_alg</code>. <code>signing_alg</code> and <code>encryption_alg</code> each apply only to their own key use. Encryption keys and encrypted ID tokens apply only to OIDC and Okta connections. The response lists all of the connection's keys.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<List<PostConnectionsKeysResponseContentItem>>> create(
             String id, RequestOptions requestOptions) {
@@ -168,7 +170,8 @@ public class AsyncRawKeysClient {
     }
 
     /**
-     * Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+     * Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication or encrypted ID tokens, enabling zero-downtime transitions.
+     * <p>Set <code>key_use</code> to <code>signing</code> (default) to provision signing keys, optionally choosing <code>signing_alg</code>, or to <code>encryption</code> to provision encryption keys, optionally choosing <code>encryption_alg</code>. <code>signing_alg</code> and <code>encryption_alg</code> each apply only to their own key use. Encryption keys and encrypted ID tokens apply only to OIDC and Okta connections. The response lists all of the connection's keys.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<List<PostConnectionsKeysResponseContentItem>>> create(
             String id, OptionalNullable<PostConnectionKeysRequestContent> request) {
@@ -176,7 +179,8 @@ public class AsyncRawKeysClient {
     }
 
     /**
-     * Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+     * Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication or encrypted ID tokens, enabling zero-downtime transitions.
+     * <p>Set <code>key_use</code> to <code>signing</code> (default) to provision signing keys, optionally choosing <code>signing_alg</code>, or to <code>encryption</code> to provision encryption keys, optionally choosing <code>encryption_alg</code>. <code>signing_alg</code> and <code>encryption_alg</code> each apply only to their own key use. Encryption keys and encrypted ID tokens apply only to OIDC and Okta connections. The response lists all of the connection's keys.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<List<PostConnectionsKeysResponseContentItem>>> create(
             String id, OptionalNullable<PostConnectionKeysRequestContent> request, RequestOptions requestOptions) {
@@ -293,6 +297,7 @@ public class AsyncRawKeysClient {
 
     /**
      * Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
+     * <p>Set <code>key_use</code> to <code>signing</code> (default) to rotate the signing key, optionally choosing <code>signing_alg</code>, or to <code>encryption</code> to rotate the encryption key, optionally choosing <code>encryption_alg</code>. Rotating signing keys requires the connection to be configured to use JWT Client Authentication. Rotating encryption keys requires the connection to be configured to use encrypted ID tokens (<code>id_token_encrypted_response_alg</code> set), which applies only to OIDC and Okta connections. When <code>encryption_alg</code> is omitted, the new encryption key uses <code>id_token_encrypted_response_alg</code>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<RotateConnectionsKeysResponseContent>> rotate(String id) {
         return rotate(id, OptionalNullable.<RotateConnectionKeysRequestContent>absent());
@@ -300,6 +305,7 @@ public class AsyncRawKeysClient {
 
     /**
      * Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
+     * <p>Set <code>key_use</code> to <code>signing</code> (default) to rotate the signing key, optionally choosing <code>signing_alg</code>, or to <code>encryption</code> to rotate the encryption key, optionally choosing <code>encryption_alg</code>. Rotating signing keys requires the connection to be configured to use JWT Client Authentication. Rotating encryption keys requires the connection to be configured to use encrypted ID tokens (<code>id_token_encrypted_response_alg</code> set), which applies only to OIDC and Okta connections. When <code>encryption_alg</code> is omitted, the new encryption key uses <code>id_token_encrypted_response_alg</code>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<RotateConnectionsKeysResponseContent>> rotate(
             String id, RequestOptions requestOptions) {
@@ -308,6 +314,7 @@ public class AsyncRawKeysClient {
 
     /**
      * Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
+     * <p>Set <code>key_use</code> to <code>signing</code> (default) to rotate the signing key, optionally choosing <code>signing_alg</code>, or to <code>encryption</code> to rotate the encryption key, optionally choosing <code>encryption_alg</code>. Rotating signing keys requires the connection to be configured to use JWT Client Authentication. Rotating encryption keys requires the connection to be configured to use encrypted ID tokens (<code>id_token_encrypted_response_alg</code> set), which applies only to OIDC and Okta connections. When <code>encryption_alg</code> is omitted, the new encryption key uses <code>id_token_encrypted_response_alg</code>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<RotateConnectionsKeysResponseContent>> rotate(
             String id, OptionalNullable<RotateConnectionKeysRequestContent> request) {
@@ -316,6 +323,7 @@ public class AsyncRawKeysClient {
 
     /**
      * Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
+     * <p>Set <code>key_use</code> to <code>signing</code> (default) to rotate the signing key, optionally choosing <code>signing_alg</code>, or to <code>encryption</code> to rotate the encryption key, optionally choosing <code>encryption_alg</code>. Rotating signing keys requires the connection to be configured to use JWT Client Authentication. Rotating encryption keys requires the connection to be configured to use encrypted ID tokens (<code>id_token_encrypted_response_alg</code> set), which applies only to OIDC and Okta connections. When <code>encryption_alg</code> is omitted, the new encryption key uses <code>id_token_encrypted_response_alg</code>.</p>
      */
     public CompletableFuture<ManagementApiHttpResponse<RotateConnectionsKeysResponseContent>> rotate(
             String id, OptionalNullable<RotateConnectionKeysRequestContent> request, RequestOptions requestOptions) {

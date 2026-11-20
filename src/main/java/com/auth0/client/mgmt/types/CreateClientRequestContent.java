@@ -141,6 +141,8 @@ public final class CreateClientRequestContent {
 
     private final Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration;
 
+    private final Optional<GoogleAccountLinkingConfigurationCreate> googleAccountLinking;
+
     private final Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
 
     private final OptionalNullable<String> agentId;
@@ -208,6 +210,7 @@ public final class CreateClientRequestContent {
             Optional<ExpressConfiguration> expressConfiguration,
             Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration,
             Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration,
+            Optional<GoogleAccountLinkingConfigurationCreate> googleAccountLinking,
             Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             OptionalNullable<String> agentId,
             Optional<ClientOidcSupportPost> oidcSupport,
@@ -270,6 +273,7 @@ public final class CreateClientRequestContent {
         this.expressConfiguration = expressConfiguration;
         this.b2BIntegrationConfiguration = b2BIntegrationConfiguration;
         this.myOrganizationConfiguration = myOrganizationConfiguration;
+        this.googleAccountLinking = googleAccountLinking;
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
         this.agentId = agentId;
         this.oidcSupport = oidcSupport;
@@ -679,6 +683,11 @@ public final class CreateClientRequestContent {
         return myOrganizationConfiguration;
     }
 
+    @JsonProperty("google_account_linking")
+    public Optional<GoogleAccountLinkingConfigurationCreate> getGoogleAccountLinking() {
+        return googleAccountLinking;
+    }
+
     @JsonProperty("async_approval_notification_channels")
     public Optional<List<AsyncApprovalNotificationsChannelsEnum>> getAsyncApprovalNotificationChannels() {
         return asyncApprovalNotificationChannels;
@@ -814,6 +823,7 @@ public final class CreateClientRequestContent {
                 && expressConfiguration.equals(other.expressConfiguration)
                 && b2BIntegrationConfiguration.equals(other.b2BIntegrationConfiguration)
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
+                && googleAccountLinking.equals(other.googleAccountLinking)
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels)
                 && agentId.equals(other.agentId)
                 && oidcSupport.equals(other.oidcSupport);
@@ -880,6 +890,7 @@ public final class CreateClientRequestContent {
                 this.expressConfiguration,
                 this.b2BIntegrationConfiguration,
                 this.myOrganizationConfiguration,
+                this.googleAccountLinking,
                 this.asyncApprovalNotificationChannels,
                 this.agentId,
                 this.oidcSupport);
@@ -1261,6 +1272,10 @@ public final class CreateClientRequestContent {
 
         _FinalStage myOrganizationConfiguration(ClientMyOrganizationPostConfiguration myOrganizationConfiguration);
 
+        _FinalStage googleAccountLinking(Optional<GoogleAccountLinkingConfigurationCreate> googleAccountLinking);
+
+        _FinalStage googleAccountLinking(GoogleAccountLinkingConfigurationCreate googleAccountLinking);
+
         _FinalStage asyncApprovalNotificationChannels(
                 Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels);
 
@@ -1293,6 +1308,8 @@ public final class CreateClientRequestContent {
 
         private Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
                 Optional.empty();
+
+        private Optional<GoogleAccountLinkingConfigurationCreate> googleAccountLinking = Optional.empty();
 
         private Optional<ClientMyOrganizationPostConfiguration> myOrganizationConfiguration = Optional.empty();
 
@@ -1475,6 +1492,7 @@ public final class CreateClientRequestContent {
             expressConfiguration(other.getExpressConfiguration());
             b2BIntegrationConfiguration(other.getB2BIntegrationConfiguration());
             myOrganizationConfiguration(other.getMyOrganizationConfiguration());
+            googleAccountLinking(other.getGoogleAccountLinking());
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
             agentId(other.getAgentId());
             oidcSupport(other.getOidcSupport());
@@ -1567,6 +1585,20 @@ public final class CreateClientRequestContent {
         public _FinalStage asyncApprovalNotificationChannels(
                 Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels) {
             this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage googleAccountLinking(GoogleAccountLinkingConfigurationCreate googleAccountLinking) {
+            this.googleAccountLinking = Optional.ofNullable(googleAccountLinking);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "google_account_linking", nulls = Nulls.SKIP)
+        public _FinalStage googleAccountLinking(
+                Optional<GoogleAccountLinkingConfigurationCreate> googleAccountLinking) {
+            this.googleAccountLinking = googleAccountLinking;
             return this;
         }
 
@@ -2737,6 +2769,7 @@ public final class CreateClientRequestContent {
                     expressConfiguration,
                     b2BIntegrationConfiguration,
                     myOrganizationConfiguration,
+                    googleAccountLinking,
                     asyncApprovalNotificationChannels,
                     agentId,
                     oidcSupport,

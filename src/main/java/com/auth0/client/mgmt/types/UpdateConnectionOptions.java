@@ -107,6 +107,10 @@ public final class UpdateConnectionOptions {
 
     private final Optional<Boolean> useOauthSpecScope;
 
+    private final OptionalNullable<String> clientId;
+
+    private final OptionalNullable<List<String>> allowedAudiences;
+
     private final OptionalNullable<String> discoveryUrl;
 
     private final OptionalNullable<ConnectionsOidcMetadata> oidcMetadata;
@@ -159,6 +163,8 @@ public final class UpdateConnectionOptions {
             Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
             Optional<Boolean> idTokenSessionExpirySupported,
             Optional<Boolean> useOauthSpecScope,
+            OptionalNullable<String> clientId,
+            OptionalNullable<List<String>> allowedAudiences,
             OptionalNullable<String> discoveryUrl,
             OptionalNullable<ConnectionsOidcMetadata> oidcMetadata,
             Optional<List<String>> thumbprints,
@@ -205,6 +211,8 @@ public final class UpdateConnectionOptions {
         this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
         this.idTokenSessionExpirySupported = idTokenSessionExpirySupported;
         this.useOauthSpecScope = useOauthSpecScope;
+        this.clientId = clientId;
+        this.allowedAudiences = allowedAudiences;
         this.discoveryUrl = discoveryUrl;
         this.oidcMetadata = oidcMetadata;
         this.thumbprints = thumbprints;
@@ -495,6 +503,30 @@ public final class UpdateConnectionOptions {
         return useOauthSpecScope;
     }
 
+    /**
+     * @return The client ID registered with the identity provider
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("client_id")
+    public OptionalNullable<String> getClientId() {
+        if (clientId == null) {
+            return OptionalNullable.absent();
+        }
+        return clientId;
+    }
+
+    /**
+     * @return Additional Google client IDs accepted as the <code>aud</code> (audience) of Google ID tokens, used by Google native login and Google Streamlined Linking.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("allowed_audiences")
+    public OptionalNullable<List<String>> getAllowedAudiences() {
+        if (allowedAudiences == null) {
+            return OptionalNullable.absent();
+        }
+        return allowedAudiences;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("discovery_url")
     public OptionalNullable<String> getDiscoveryUrl() {
@@ -615,6 +647,18 @@ public final class UpdateConnectionOptions {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("client_id")
+    private OptionalNullable<String> _getClientId() {
+        return clientId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("allowed_audiences")
+    private OptionalNullable<List<String>> _getAllowedAudiences() {
+        return allowedAudiences;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("discovery_url")
     private OptionalNullable<String> _getDiscoveryUrl() {
         return discoveryUrl;
@@ -679,6 +723,8 @@ public final class UpdateConnectionOptions {
                 && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat)
                 && idTokenSessionExpirySupported.equals(other.idTokenSessionExpirySupported)
                 && useOauthSpecScope.equals(other.useOauthSpecScope)
+                && clientId.equals(other.clientId)
+                && allowedAudiences.equals(other.allowedAudiences)
                 && discoveryUrl.equals(other.discoveryUrl)
                 && oidcMetadata.equals(other.oidcMetadata)
                 && thumbprints.equals(other.thumbprints)
@@ -729,6 +775,8 @@ public final class UpdateConnectionOptions {
                 this.tokenEndpointJwtcaAudFormat,
                 this.idTokenSessionExpirySupported,
                 this.useOauthSpecScope,
+                this.clientId,
+                this.allowedAudiences,
                 this.discoveryUrl,
                 this.oidcMetadata,
                 this.thumbprints,
@@ -834,6 +882,10 @@ public final class UpdateConnectionOptions {
 
         private Optional<Boolean> useOauthSpecScope = Optional.empty();
 
+        private OptionalNullable<String> clientId = OptionalNullable.absent();
+
+        private OptionalNullable<List<String>> allowedAudiences = OptionalNullable.absent();
+
         private OptionalNullable<String> discoveryUrl = OptionalNullable.absent();
 
         private OptionalNullable<ConnectionsOidcMetadata> oidcMetadata = OptionalNullable.absent();
@@ -889,6 +941,8 @@ public final class UpdateConnectionOptions {
             tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
             idTokenSessionExpirySupported(other.getIdTokenSessionExpirySupported());
             useOauthSpecScope(other.getUseOauthSpecScope());
+            clientId(other.getClientId());
+            allowedAudiences(other.getAllowedAudiences());
             discoveryUrl(other.getDiscoveryUrl());
             oidcMetadata(other.getOidcMetadata());
             thumbprints(other.getThumbprints());
@@ -1704,6 +1758,74 @@ public final class UpdateConnectionOptions {
             return this;
         }
 
+        /**
+         * <p>The client ID registered with the identity provider</p>
+         */
+        @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
+        public Builder clientId(@Nullable OptionalNullable<String> clientId) {
+            this.clientId = clientId;
+            return this;
+        }
+
+        public Builder clientId(String clientId) {
+            this.clientId = OptionalNullable.of(clientId);
+            return this;
+        }
+
+        public Builder clientId(Optional<String> clientId) {
+            if (clientId.isPresent()) {
+                this.clientId = OptionalNullable.of(clientId.get());
+            } else {
+                this.clientId = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder clientId(com.auth0.client.mgmt.core.Nullable<String> clientId) {
+            if (clientId.isNull()) {
+                this.clientId = OptionalNullable.ofNull();
+            } else if (clientId.isEmpty()) {
+                this.clientId = OptionalNullable.absent();
+            } else {
+                this.clientId = OptionalNullable.of(clientId.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>Additional Google client IDs accepted as the <code>aud</code> (audience) of Google ID tokens, used by Google native login and Google Streamlined Linking.</p>
+         */
+        @JsonSetter(value = "allowed_audiences", nulls = Nulls.SKIP)
+        public Builder allowedAudiences(@Nullable OptionalNullable<List<String>> allowedAudiences) {
+            this.allowedAudiences = allowedAudiences;
+            return this;
+        }
+
+        public Builder allowedAudiences(List<String> allowedAudiences) {
+            this.allowedAudiences = OptionalNullable.of(allowedAudiences);
+            return this;
+        }
+
+        public Builder allowedAudiences(Optional<List<String>> allowedAudiences) {
+            if (allowedAudiences.isPresent()) {
+                this.allowedAudiences = OptionalNullable.of(allowedAudiences.get());
+            } else {
+                this.allowedAudiences = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder allowedAudiences(com.auth0.client.mgmt.core.Nullable<List<String>> allowedAudiences) {
+            if (allowedAudiences.isNull()) {
+                this.allowedAudiences = OptionalNullable.ofNull();
+            } else if (allowedAudiences.isEmpty()) {
+                this.allowedAudiences = OptionalNullable.absent();
+            } else {
+                this.allowedAudiences = OptionalNullable.of(allowedAudiences.get());
+            }
+            return this;
+        }
+
         @JsonSetter(value = "discovery_url", nulls = Nulls.SKIP)
         public Builder discoveryUrl(@Nullable OptionalNullable<String> discoveryUrl) {
             this.discoveryUrl = discoveryUrl;
@@ -1831,6 +1953,8 @@ public final class UpdateConnectionOptions {
                     tokenEndpointJwtcaAudFormat,
                     idTokenSessionExpirySupported,
                     useOauthSpecScope,
+                    clientId,
+                    allowedAudiences,
                     discoveryUrl,
                     oidcMetadata,
                     thumbprints,
