@@ -41,7 +41,7 @@ public final class ClientProfileClientConfigurationOidcSupportDefaultValue {
     }
 
     /**
-     * @return Whether matched clients may use OIDC.
+     * @return Allows matched clients to use OIDC, including receiving ID tokens and calling the UserInfo endpoint.
      */
     @JsonProperty("is_allowed")
     public boolean getIsAllowed() {
@@ -49,7 +49,7 @@ public final class ClientProfileClientConfigurationOidcSupportDefaultValue {
     }
 
     /**
-     * @return Whether matched clients may request all optional OIDC scopes. Cannot be combined with allowed_scopes.
+     * @return Allows matched clients to request all supported OIDC scopes. Mutually exclusive with allowed_scopes.
      */
     @JsonProperty("allow_all_scopes")
     public Optional<Boolean> getAllowAllScopes() {
@@ -57,7 +57,7 @@ public final class ClientProfileClientConfigurationOidcSupportDefaultValue {
     }
 
     /**
-     * @return Optional OIDC scopes that matched clients may request.
+     * @return OIDC scopes matched clients may request (<code>profile</code>, <code>email</code>, <code>address</code>, and <code>phone</code>), which determine the user profile information they can access. Mutually exclusive with allow_all_scopes.
      */
     @JsonProperty("allowed_scopes")
     public Optional<List<ClientProfileClientConfigurationOidcSupportAllowedScopesEnum>> getAllowedScopes() {
@@ -98,7 +98,7 @@ public final class ClientProfileClientConfigurationOidcSupportDefaultValue {
 
     public interface IsAllowedStage {
         /**
-         * <p>Whether matched clients may use OIDC.</p>
+         * <p>Allows matched clients to use OIDC, including receiving ID tokens and calling the UserInfo endpoint.</p>
          */
         _FinalStage isAllowed(boolean isAllowed);
 
@@ -113,14 +113,14 @@ public final class ClientProfileClientConfigurationOidcSupportDefaultValue {
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
         /**
-         * <p>Whether matched clients may request all optional OIDC scopes. Cannot be combined with allowed_scopes.</p>
+         * <p>Allows matched clients to request all supported OIDC scopes. Mutually exclusive with allowed_scopes.</p>
          */
         _FinalStage allowAllScopes(Optional<Boolean> allowAllScopes);
 
         _FinalStage allowAllScopes(Boolean allowAllScopes);
 
         /**
-         * <p>Optional OIDC scopes that matched clients may request.</p>
+         * <p>OIDC scopes matched clients may request (<code>profile</code>, <code>email</code>, <code>address</code>, and <code>phone</code>), which determine the user profile information they can access. Mutually exclusive with allow_all_scopes.</p>
          */
         _FinalStage allowedScopes(
                 Optional<List<ClientProfileClientConfigurationOidcSupportAllowedScopesEnum>> allowedScopes);
@@ -151,7 +151,7 @@ public final class ClientProfileClientConfigurationOidcSupportDefaultValue {
         }
 
         /**
-         * <p>Whether matched clients may use OIDC.</p>
+         * <p>Allows matched clients to use OIDC, including receiving ID tokens and calling the UserInfo endpoint.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -162,7 +162,7 @@ public final class ClientProfileClientConfigurationOidcSupportDefaultValue {
         }
 
         /**
-         * <p>Optional OIDC scopes that matched clients may request.</p>
+         * <p>OIDC scopes matched clients may request (<code>profile</code>, <code>email</code>, <code>address</code>, and <code>phone</code>), which determine the user profile information they can access. Mutually exclusive with allow_all_scopes.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -173,7 +173,7 @@ public final class ClientProfileClientConfigurationOidcSupportDefaultValue {
         }
 
         /**
-         * <p>Optional OIDC scopes that matched clients may request.</p>
+         * <p>OIDC scopes matched clients may request (<code>profile</code>, <code>email</code>, <code>address</code>, and <code>phone</code>), which determine the user profile information they can access. Mutually exclusive with allow_all_scopes.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "allowed_scopes", nulls = Nulls.SKIP)
@@ -184,7 +184,7 @@ public final class ClientProfileClientConfigurationOidcSupportDefaultValue {
         }
 
         /**
-         * <p>Whether matched clients may request all optional OIDC scopes. Cannot be combined with allowed_scopes.</p>
+         * <p>Allows matched clients to request all supported OIDC scopes. Mutually exclusive with allowed_scopes.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -194,7 +194,7 @@ public final class ClientProfileClientConfigurationOidcSupportDefaultValue {
         }
 
         /**
-         * <p>Whether matched clients may request all optional OIDC scopes. Cannot be combined with allowed_scopes.</p>
+         * <p>Allows matched clients to request all supported OIDC scopes. Mutually exclusive with allowed_scopes.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "allow_all_scopes", nulls = Nulls.SKIP)

@@ -136,6 +136,8 @@ public final class UpdateClientRequestContent {
 
     private final OptionalNullable<ClientMyOrganizationPatchConfiguration> myOrganizationConfiguration;
 
+    private final OptionalNullable<GoogleAccountLinkingConfigurationOrNull> googleAccountLinking;
+
     private final OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels;
 
     private final Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode;
@@ -205,6 +207,7 @@ public final class UpdateClientRequestContent {
             OptionalNullable<ExpressConfigurationOrNull> expressConfiguration,
             Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration,
             OptionalNullable<ClientMyOrganizationPatchConfiguration> myOrganizationConfiguration,
+            OptionalNullable<GoogleAccountLinkingConfigurationOrNull> googleAccountLinking,
             OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
             Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
@@ -267,6 +270,7 @@ public final class UpdateClientRequestContent {
         this.expressConfiguration = expressConfiguration;
         this.b2BIntegrationConfiguration = b2BIntegrationConfiguration;
         this.myOrganizationConfiguration = myOrganizationConfiguration;
+        this.googleAccountLinking = googleAccountLinking;
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
         this.thirdPartySecurityMode = thirdPartySecurityMode;
         this.redirectionPolicy = redirectionPolicy;
@@ -735,6 +739,15 @@ public final class UpdateClientRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("google_account_linking")
+    public OptionalNullable<GoogleAccountLinkingConfigurationOrNull> getGoogleAccountLinking() {
+        if (googleAccountLinking == null) {
+            return OptionalNullable.absent();
+        }
+        return googleAccountLinking;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("async_approval_notification_channels")
     public OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> getAsyncApprovalNotificationChannels() {
         if (asyncApprovalNotificationChannels == null) {
@@ -901,6 +914,12 @@ public final class UpdateClientRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("google_account_linking")
+    private OptionalNullable<GoogleAccountLinkingConfigurationOrNull> _getGoogleAccountLinking() {
+        return googleAccountLinking;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("async_approval_notification_channels")
     private OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> _getAsyncApprovalNotificationChannels() {
         return asyncApprovalNotificationChannels;
@@ -987,6 +1006,7 @@ public final class UpdateClientRequestContent {
                 && expressConfiguration.equals(other.expressConfiguration)
                 && b2BIntegrationConfiguration.equals(other.b2BIntegrationConfiguration)
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
+                && googleAccountLinking.equals(other.googleAccountLinking)
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels)
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
                 && redirectionPolicy.equals(other.redirectionPolicy)
@@ -1053,6 +1073,7 @@ public final class UpdateClientRequestContent {
                 this.expressConfiguration,
                 this.b2BIntegrationConfiguration,
                 this.myOrganizationConfiguration,
+                this.googleAccountLinking,
                 this.asyncApprovalNotificationChannels,
                 this.thirdPartySecurityMode,
                 this.redirectionPolicy,
@@ -1190,6 +1211,9 @@ public final class UpdateClientRequestContent {
         private OptionalNullable<ClientMyOrganizationPatchConfiguration> myOrganizationConfiguration =
                 OptionalNullable.absent();
 
+        private OptionalNullable<GoogleAccountLinkingConfigurationOrNull> googleAccountLinking =
+                OptionalNullable.absent();
+
         private OptionalNullable<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels =
                 OptionalNullable.absent();
 
@@ -1263,6 +1287,7 @@ public final class UpdateClientRequestContent {
             expressConfiguration(other.getExpressConfiguration());
             b2BIntegrationConfiguration(other.getB2BIntegrationConfiguration());
             myOrganizationConfiguration(other.getMyOrganizationConfiguration());
+            googleAccountLinking(other.getGoogleAccountLinking());
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
             redirectionPolicy(other.getRedirectionPolicy());
@@ -2451,6 +2476,39 @@ public final class UpdateClientRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "google_account_linking", nulls = Nulls.SKIP)
+        public Builder googleAccountLinking(
+                @Nullable OptionalNullable<GoogleAccountLinkingConfigurationOrNull> googleAccountLinking) {
+            this.googleAccountLinking = googleAccountLinking;
+            return this;
+        }
+
+        public Builder googleAccountLinking(GoogleAccountLinkingConfigurationOrNull googleAccountLinking) {
+            this.googleAccountLinking = OptionalNullable.of(googleAccountLinking);
+            return this;
+        }
+
+        public Builder googleAccountLinking(Optional<GoogleAccountLinkingConfigurationOrNull> googleAccountLinking) {
+            if (googleAccountLinking.isPresent()) {
+                this.googleAccountLinking = OptionalNullable.of(googleAccountLinking.get());
+            } else {
+                this.googleAccountLinking = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder googleAccountLinking(
+                com.auth0.client.mgmt.core.Nullable<GoogleAccountLinkingConfigurationOrNull> googleAccountLinking) {
+            if (googleAccountLinking.isNull()) {
+                this.googleAccountLinking = OptionalNullable.ofNull();
+            } else if (googleAccountLinking.isEmpty()) {
+                this.googleAccountLinking = OptionalNullable.absent();
+            } else {
+                this.googleAccountLinking = OptionalNullable.of(googleAccountLinking.get());
+            }
+            return this;
+        }
+
         @JsonSetter(value = "async_approval_notification_channels", nulls = Nulls.SKIP)
         public Builder asyncApprovalNotificationChannels(
                 @Nullable
@@ -2634,6 +2692,7 @@ public final class UpdateClientRequestContent {
                     expressConfiguration,
                     b2BIntegrationConfiguration,
                     myOrganizationConfiguration,
+                    googleAccountLinking,
                     asyncApprovalNotificationChannels,
                     thirdPartySecurityMode,
                     redirectionPolicy,

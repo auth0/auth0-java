@@ -40,16 +40,25 @@ public final class ClientOidcSupport {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Allows the client to use OIDC, including receiving ID tokens and calling the UserInfo endpoint.
+     */
     @JsonProperty("is_allowed")
     public Optional<Boolean> getIsAllowed() {
         return isAllowed;
     }
 
+    /**
+     * @return Allows the client to request all supported OIDC scopes. Mutually exclusive with allowed_scopes.
+     */
     @JsonProperty("allow_all_scopes")
     public Optional<Boolean> getAllowAllScopes() {
         return allowAllScopes;
     }
 
+    /**
+     * @return OIDC scopes the client may request (<code>profile</code>, <code>email</code>, <code>address</code>, and <code>phone</code>), which determine the user profile information it can access. Mutually exclusive with allow_all_scopes.
+     */
     @JsonProperty("allowed_scopes")
     public Optional<List<ClientOidcSupportAllowedScopesEnum>> getAllowedScopes() {
         return allowedScopes;
@@ -106,6 +115,9 @@ public final class ClientOidcSupport {
             return this;
         }
 
+        /**
+         * <p>Allows the client to use OIDC, including receiving ID tokens and calling the UserInfo endpoint.</p>
+         */
         @JsonSetter(value = "is_allowed", nulls = Nulls.SKIP)
         public Builder isAllowed(Optional<Boolean> isAllowed) {
             this.isAllowed = isAllowed;
@@ -117,6 +129,9 @@ public final class ClientOidcSupport {
             return this;
         }
 
+        /**
+         * <p>Allows the client to request all supported OIDC scopes. Mutually exclusive with allowed_scopes.</p>
+         */
         @JsonSetter(value = "allow_all_scopes", nulls = Nulls.SKIP)
         public Builder allowAllScopes(Optional<Boolean> allowAllScopes) {
             this.allowAllScopes = allowAllScopes;
@@ -128,6 +143,9 @@ public final class ClientOidcSupport {
             return this;
         }
 
+        /**
+         * <p>OIDC scopes the client may request (<code>profile</code>, <code>email</code>, <code>address</code>, and <code>phone</code>), which determine the user profile information it can access. Mutually exclusive with allow_all_scopes.</p>
+         */
         @JsonSetter(value = "allowed_scopes", nulls = Nulls.SKIP)
         public Builder allowedScopes(Optional<List<ClientOidcSupportAllowedScopesEnum>> allowedScopes) {
             this.allowedScopes = allowedScopes;
