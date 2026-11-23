@@ -39,5 +39,7 @@ public interface IConnectionOptionsCommonSaml {
 
     Optional<List<String>> getThumbprints();
 
+    Optional<List<String>> getThumbprintsSha384();
+
     OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> getUpstreamParams();
 }

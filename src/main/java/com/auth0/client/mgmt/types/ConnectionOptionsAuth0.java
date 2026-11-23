@@ -48,6 +48,8 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
 
     private final Optional<ConnectionMfa> mfa;
 
+    private final Optional<ConnectionOtpSettings> otpSettings;
+
     private final OptionalNullable<ConnectionPasskeyOptions> passkeyOptions;
 
     private final OptionalNullable<ConnectionPasswordPolicyEnum> passwordPolicy;
@@ -85,6 +87,7 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
             Optional<Boolean> enabledDatabaseCustomization,
             Optional<Boolean> importMode,
             Optional<ConnectionMfa> mfa,
+            Optional<ConnectionOtpSettings> otpSettings,
             OptionalNullable<ConnectionPasskeyOptions> passkeyOptions,
             OptionalNullable<ConnectionPasswordPolicyEnum> passwordPolicy,
             OptionalNullable<ConnectionPasswordComplexityOptions> passwordComplexityOptions,
@@ -109,6 +112,7 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
         this.enabledDatabaseCustomization = enabledDatabaseCustomization;
         this.importMode = importMode;
         this.mfa = mfa;
+        this.otpSettings = otpSettings;
         this.passkeyOptions = passkeyOptions;
         this.passwordPolicy = passwordPolicy;
         this.passwordComplexityOptions = passwordComplexityOptions;
@@ -186,6 +190,11 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
     @JsonProperty("mfa")
     public Optional<ConnectionMfa> getMfa() {
         return mfa;
+    }
+
+    @JsonProperty("otp_settings")
+    public Optional<ConnectionOtpSettings> getOtpSettings() {
+        return otpSettings;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -343,6 +352,7 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
                 && enabledDatabaseCustomization.equals(other.enabledDatabaseCustomization)
                 && importMode.equals(other.importMode)
                 && mfa.equals(other.mfa)
+                && otpSettings.equals(other.otpSettings)
                 && passkeyOptions.equals(other.passkeyOptions)
                 && passwordPolicy.equals(other.passwordPolicy)
                 && passwordComplexityOptions.equals(other.passwordComplexityOptions)
@@ -371,6 +381,7 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
                 this.enabledDatabaseCustomization,
                 this.importMode,
                 this.mfa,
+                this.otpSettings,
                 this.passkeyOptions,
                 this.passwordPolicy,
                 this.passwordComplexityOptions,
@@ -419,6 +430,8 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
 
         private Optional<ConnectionMfa> mfa = Optional.empty();
 
+        private Optional<ConnectionOtpSettings> otpSettings = Optional.empty();
+
         private OptionalNullable<ConnectionPasskeyOptions> passkeyOptions = OptionalNullable.absent();
 
         private OptionalNullable<ConnectionPasswordPolicyEnum> passwordPolicy = OptionalNullable.absent();
@@ -461,6 +474,7 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
             enabledDatabaseCustomization(other.getEnabledDatabaseCustomization());
             importMode(other.getImportMode());
             mfa(other.getMfa());
+            otpSettings(other.getOtpSettings());
             passkeyOptions(other.getPasskeyOptions());
             passwordPolicy(other.getPasswordPolicy());
             passwordComplexityOptions(other.getPasswordComplexityOptions());
@@ -626,6 +640,17 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
 
         public Builder mfa(ConnectionMfa mfa) {
             this.mfa = Optional.ofNullable(mfa);
+            return this;
+        }
+
+        @JsonSetter(value = "otp_settings", nulls = Nulls.SKIP)
+        public Builder otpSettings(Optional<ConnectionOtpSettings> otpSettings) {
+            this.otpSettings = otpSettings;
+            return this;
+        }
+
+        public Builder otpSettings(ConnectionOtpSettings otpSettings) {
+            this.otpSettings = Optional.ofNullable(otpSettings);
             return this;
         }
 
@@ -914,6 +939,7 @@ public final class ConnectionOptionsAuth0 implements IConnectionOptionsCommon {
                     enabledDatabaseCustomization,
                     importMode,
                     mfa,
+                    otpSettings,
                     passkeyOptions,
                     passwordPolicy,
                     passwordComplexityOptions,

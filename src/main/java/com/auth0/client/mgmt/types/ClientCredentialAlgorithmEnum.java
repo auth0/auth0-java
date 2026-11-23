@@ -7,7 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ClientCredentialAlgorithmEnum {
+    public static final ClientCredentialAlgorithmEnum PS384 = new ClientCredentialAlgorithmEnum(Value.PS384, "PS384");
+
     public static final ClientCredentialAlgorithmEnum PS256 = new ClientCredentialAlgorithmEnum(Value.PS256, "PS256");
+
+    public static final ClientCredentialAlgorithmEnum ES256 = new ClientCredentialAlgorithmEnum(Value.ES256, "ES256");
 
     public static final ClientCredentialAlgorithmEnum RS384 = new ClientCredentialAlgorithmEnum(Value.RS384, "RS384");
 
@@ -46,8 +50,12 @@ public final class ClientCredentialAlgorithmEnum {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case PS384:
+                return visitor.visitPs384();
             case PS256:
                 return visitor.visitPs256();
+            case ES256:
+                return visitor.visitEs256();
             case RS384:
                 return visitor.visitRs384();
             case RS256:
@@ -61,8 +69,12 @@ public final class ClientCredentialAlgorithmEnum {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ClientCredentialAlgorithmEnum valueOf(String value) {
         switch (value) {
+            case "PS384":
+                return PS384;
             case "PS256":
                 return PS256;
+            case "ES256":
+                return ES256;
             case "RS384":
                 return RS384;
             case "RS256":
@@ -79,6 +91,10 @@ public final class ClientCredentialAlgorithmEnum {
 
         PS256,
 
+        ES256,
+
+        PS384,
+
         UNKNOWN
     }
 
@@ -88,6 +104,10 @@ public final class ClientCredentialAlgorithmEnum {
         T visitRs384();
 
         T visitPs256();
+
+        T visitEs256();
+
+        T visitPs384();
 
         T visitUnknown(String unknownType);
     }

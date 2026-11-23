@@ -42,6 +42,8 @@ public final class ConnectionPropertiesOptions {
 
     private final Optional<ConnectionCustomScripts> customScripts;
 
+    private final Optional<ConnectionOtpSettings> otpSettings;
+
     private final OptionalNullable<ConnectionAuthenticationMethods> authenticationMethods;
 
     private final OptionalNullable<ConnectionPasskeyOptions> passkeyOptions;
@@ -105,9 +107,17 @@ public final class ConnectionPropertiesOptions {
 
     private final Optional<Boolean> useOauthSpecScope;
 
+    private final OptionalNullable<String> clientId;
+
+    private final OptionalNullable<List<String>> allowedAudiences;
+
     private final OptionalNullable<String> discoveryUrl;
 
     private final OptionalNullable<ConnectionsOidcMetadata> oidcMetadata;
+
+    private final Optional<List<String>> thumbprints;
+
+    private final Optional<List<String>> thumbprintsSha384;
 
     private final Map<String, Object> additionalProperties;
 
@@ -121,6 +131,7 @@ public final class ConnectionPropertiesOptions {
             Optional<Boolean> importMode,
             OptionalNullable<Map<String, OptionalNullable<String>>> configuration,
             Optional<ConnectionCustomScripts> customScripts,
+            Optional<ConnectionOtpSettings> otpSettings,
             OptionalNullable<ConnectionAuthenticationMethods> authenticationMethods,
             OptionalNullable<ConnectionPasskeyOptions> passkeyOptions,
             OptionalNullable<ConnectionPasswordPolicyEnum> passwordPolicy,
@@ -152,8 +163,12 @@ public final class ConnectionPropertiesOptions {
             Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
             Optional<Boolean> idTokenSessionExpirySupported,
             Optional<Boolean> useOauthSpecScope,
+            OptionalNullable<String> clientId,
+            OptionalNullable<List<String>> allowedAudiences,
             OptionalNullable<String> discoveryUrl,
             OptionalNullable<ConnectionsOidcMetadata> oidcMetadata,
+            Optional<List<String>> thumbprints,
+            Optional<List<String>> thumbprintsSha384,
             Map<String, Object> additionalProperties) {
         this.validation = validation;
         this.nonPersistentAttrs = nonPersistentAttrs;
@@ -164,6 +179,7 @@ public final class ConnectionPropertiesOptions {
         this.importMode = importMode;
         this.configuration = configuration;
         this.customScripts = customScripts;
+        this.otpSettings = otpSettings;
         this.authenticationMethods = authenticationMethods;
         this.passkeyOptions = passkeyOptions;
         this.passwordPolicy = passwordPolicy;
@@ -195,8 +211,12 @@ public final class ConnectionPropertiesOptions {
         this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
         this.idTokenSessionExpirySupported = idTokenSessionExpirySupported;
         this.useOauthSpecScope = useOauthSpecScope;
+        this.clientId = clientId;
+        this.allowedAudiences = allowedAudiences;
         this.discoveryUrl = discoveryUrl;
         this.oidcMetadata = oidcMetadata;
+        this.thumbprints = thumbprints;
+        this.thumbprintsSha384 = thumbprintsSha384;
         this.additionalProperties = additionalProperties;
     }
 
@@ -273,6 +293,11 @@ public final class ConnectionPropertiesOptions {
     @JsonProperty("customScripts")
     public Optional<ConnectionCustomScripts> getCustomScripts() {
         return customScripts;
+    }
+
+    @JsonProperty("otp_settings")
+    public Optional<ConnectionOtpSettings> getOtpSettings() {
+        return otpSettings;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -478,6 +503,30 @@ public final class ConnectionPropertiesOptions {
         return useOauthSpecScope;
     }
 
+    /**
+     * @return The client ID registered with the identity provider
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("client_id")
+    public OptionalNullable<String> getClientId() {
+        if (clientId == null) {
+            return OptionalNullable.absent();
+        }
+        return clientId;
+    }
+
+    /**
+     * @return Additional Google client IDs accepted as the <code>aud</code> (audience) of Google ID tokens, used by Google native login and Google Streamlined Linking.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("allowed_audiences")
+    public OptionalNullable<List<String>> getAllowedAudiences() {
+        if (allowedAudiences == null) {
+            return OptionalNullable.absent();
+        }
+        return allowedAudiences;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("discovery_url")
     public OptionalNullable<String> getDiscoveryUrl() {
@@ -494,6 +543,16 @@ public final class ConnectionPropertiesOptions {
             return OptionalNullable.absent();
         }
         return oidcMetadata;
+    }
+
+    @JsonProperty("thumbprints")
+    public Optional<List<String>> getThumbprints() {
+        return thumbprints;
+    }
+
+    @JsonProperty("thumbprints_sha384")
+    public Optional<List<String>> getThumbprintsSha384() {
+        return thumbprintsSha384;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -588,6 +647,18 @@ public final class ConnectionPropertiesOptions {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("client_id")
+    private OptionalNullable<String> _getClientId() {
+        return clientId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("allowed_audiences")
+    private OptionalNullable<List<String>> _getAllowedAudiences() {
+        return allowedAudiences;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("discovery_url")
     private OptionalNullable<String> _getDiscoveryUrl() {
         return discoveryUrl;
@@ -620,6 +691,7 @@ public final class ConnectionPropertiesOptions {
                 && importMode.equals(other.importMode)
                 && configuration.equals(other.configuration)
                 && customScripts.equals(other.customScripts)
+                && otpSettings.equals(other.otpSettings)
                 && authenticationMethods.equals(other.authenticationMethods)
                 && passkeyOptions.equals(other.passkeyOptions)
                 && passwordPolicy.equals(other.passwordPolicy)
@@ -651,8 +723,12 @@ public final class ConnectionPropertiesOptions {
                 && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat)
                 && idTokenSessionExpirySupported.equals(other.idTokenSessionExpirySupported)
                 && useOauthSpecScope.equals(other.useOauthSpecScope)
+                && clientId.equals(other.clientId)
+                && allowedAudiences.equals(other.allowedAudiences)
                 && discoveryUrl.equals(other.discoveryUrl)
-                && oidcMetadata.equals(other.oidcMetadata);
+                && oidcMetadata.equals(other.oidcMetadata)
+                && thumbprints.equals(other.thumbprints)
+                && thumbprintsSha384.equals(other.thumbprintsSha384);
     }
 
     @java.lang.Override
@@ -667,6 +743,7 @@ public final class ConnectionPropertiesOptions {
                 this.importMode,
                 this.configuration,
                 this.customScripts,
+                this.otpSettings,
                 this.authenticationMethods,
                 this.passkeyOptions,
                 this.passwordPolicy,
@@ -698,8 +775,12 @@ public final class ConnectionPropertiesOptions {
                 this.tokenEndpointJwtcaAudFormat,
                 this.idTokenSessionExpirySupported,
                 this.useOauthSpecScope,
+                this.clientId,
+                this.allowedAudiences,
                 this.discoveryUrl,
-                this.oidcMetadata);
+                this.oidcMetadata,
+                this.thumbprints,
+                this.thumbprintsSha384);
     }
 
     @java.lang.Override
@@ -730,6 +811,8 @@ public final class ConnectionPropertiesOptions {
         private OptionalNullable<Map<String, OptionalNullable<String>>> configuration = OptionalNullable.absent();
 
         private Optional<ConnectionCustomScripts> customScripts = Optional.empty();
+
+        private Optional<ConnectionOtpSettings> otpSettings = Optional.empty();
 
         private OptionalNullable<ConnectionAuthenticationMethods> authenticationMethods = OptionalNullable.absent();
 
@@ -799,9 +882,17 @@ public final class ConnectionPropertiesOptions {
 
         private Optional<Boolean> useOauthSpecScope = Optional.empty();
 
+        private OptionalNullable<String> clientId = OptionalNullable.absent();
+
+        private OptionalNullable<List<String>> allowedAudiences = OptionalNullable.absent();
+
         private OptionalNullable<String> discoveryUrl = OptionalNullable.absent();
 
         private OptionalNullable<ConnectionsOidcMetadata> oidcMetadata = OptionalNullable.absent();
+
+        private Optional<List<String>> thumbprints = Optional.empty();
+
+        private Optional<List<String>> thumbprintsSha384 = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -818,6 +909,7 @@ public final class ConnectionPropertiesOptions {
             importMode(other.getImportMode());
             configuration(other.getConfiguration());
             customScripts(other.getCustomScripts());
+            otpSettings(other.getOtpSettings());
             authenticationMethods(other.getAuthenticationMethods());
             passkeyOptions(other.getPasskeyOptions());
             passwordPolicy(other.getPasswordPolicy());
@@ -849,8 +941,12 @@ public final class ConnectionPropertiesOptions {
             tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
             idTokenSessionExpirySupported(other.getIdTokenSessionExpirySupported());
             useOauthSpecScope(other.getUseOauthSpecScope());
+            clientId(other.getClientId());
+            allowedAudiences(other.getAllowedAudiences());
             discoveryUrl(other.getDiscoveryUrl());
             oidcMetadata(other.getOidcMetadata());
+            thumbprints(other.getThumbprints());
+            thumbprintsSha384(other.getThumbprintsSha384());
             return this;
         }
 
@@ -1029,6 +1125,17 @@ public final class ConnectionPropertiesOptions {
 
         public Builder customScripts(ConnectionCustomScripts customScripts) {
             this.customScripts = Optional.ofNullable(customScripts);
+            return this;
+        }
+
+        @JsonSetter(value = "otp_settings", nulls = Nulls.SKIP)
+        public Builder otpSettings(Optional<ConnectionOtpSettings> otpSettings) {
+            this.otpSettings = otpSettings;
+            return this;
+        }
+
+        public Builder otpSettings(ConnectionOtpSettings otpSettings) {
+            this.otpSettings = Optional.ofNullable(otpSettings);
             return this;
         }
 
@@ -1651,6 +1758,74 @@ public final class ConnectionPropertiesOptions {
             return this;
         }
 
+        /**
+         * <p>The client ID registered with the identity provider</p>
+         */
+        @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
+        public Builder clientId(@Nullable OptionalNullable<String> clientId) {
+            this.clientId = clientId;
+            return this;
+        }
+
+        public Builder clientId(String clientId) {
+            this.clientId = OptionalNullable.of(clientId);
+            return this;
+        }
+
+        public Builder clientId(Optional<String> clientId) {
+            if (clientId.isPresent()) {
+                this.clientId = OptionalNullable.of(clientId.get());
+            } else {
+                this.clientId = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder clientId(com.auth0.client.mgmt.core.Nullable<String> clientId) {
+            if (clientId.isNull()) {
+                this.clientId = OptionalNullable.ofNull();
+            } else if (clientId.isEmpty()) {
+                this.clientId = OptionalNullable.absent();
+            } else {
+                this.clientId = OptionalNullable.of(clientId.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>Additional Google client IDs accepted as the <code>aud</code> (audience) of Google ID tokens, used by Google native login and Google Streamlined Linking.</p>
+         */
+        @JsonSetter(value = "allowed_audiences", nulls = Nulls.SKIP)
+        public Builder allowedAudiences(@Nullable OptionalNullable<List<String>> allowedAudiences) {
+            this.allowedAudiences = allowedAudiences;
+            return this;
+        }
+
+        public Builder allowedAudiences(List<String> allowedAudiences) {
+            this.allowedAudiences = OptionalNullable.of(allowedAudiences);
+            return this;
+        }
+
+        public Builder allowedAudiences(Optional<List<String>> allowedAudiences) {
+            if (allowedAudiences.isPresent()) {
+                this.allowedAudiences = OptionalNullable.of(allowedAudiences.get());
+            } else {
+                this.allowedAudiences = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder allowedAudiences(com.auth0.client.mgmt.core.Nullable<List<String>> allowedAudiences) {
+            if (allowedAudiences.isNull()) {
+                this.allowedAudiences = OptionalNullable.ofNull();
+            } else if (allowedAudiences.isEmpty()) {
+                this.allowedAudiences = OptionalNullable.absent();
+            } else {
+                this.allowedAudiences = OptionalNullable.of(allowedAudiences.get());
+            }
+            return this;
+        }
+
         @JsonSetter(value = "discovery_url", nulls = Nulls.SKIP)
         public Builder discoveryUrl(@Nullable OptionalNullable<String> discoveryUrl) {
             this.discoveryUrl = discoveryUrl;
@@ -1713,6 +1888,28 @@ public final class ConnectionPropertiesOptions {
             return this;
         }
 
+        @JsonSetter(value = "thumbprints", nulls = Nulls.SKIP)
+        public Builder thumbprints(Optional<List<String>> thumbprints) {
+            this.thumbprints = thumbprints;
+            return this;
+        }
+
+        public Builder thumbprints(List<String> thumbprints) {
+            this.thumbprints = Optional.ofNullable(thumbprints);
+            return this;
+        }
+
+        @JsonSetter(value = "thumbprints_sha384", nulls = Nulls.SKIP)
+        public Builder thumbprintsSha384(Optional<List<String>> thumbprintsSha384) {
+            this.thumbprintsSha384 = thumbprintsSha384;
+            return this;
+        }
+
+        public Builder thumbprintsSha384(List<String> thumbprintsSha384) {
+            this.thumbprintsSha384 = Optional.ofNullable(thumbprintsSha384);
+            return this;
+        }
+
         public ConnectionPropertiesOptions build() {
             return new ConnectionPropertiesOptions(
                     validation,
@@ -1724,6 +1921,7 @@ public final class ConnectionPropertiesOptions {
                     importMode,
                     configuration,
                     customScripts,
+                    otpSettings,
                     authenticationMethods,
                     passkeyOptions,
                     passwordPolicy,
@@ -1755,8 +1953,12 @@ public final class ConnectionPropertiesOptions {
                     tokenEndpointJwtcaAudFormat,
                     idTokenSessionExpirySupported,
                     useOauthSpecScope,
+                    clientId,
+                    allowedAudiences,
                     discoveryUrl,
                     oidcMetadata,
+                    thumbprints,
+                    thumbprintsSha384,
                     additionalProperties);
         }
 

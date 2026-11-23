@@ -54,10 +54,16 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
     private final Optional<List<String>> thumbprints;
 
+    private final Optional<List<String>> thumbprintsSha384;
+
     private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             upstreamParams;
 
     private final Optional<List<String>> nonPersistentAttrs;
+
+    private final Optional<String> clientId;
+
+    private final Optional<String> clientSecret;
 
     private final Optional<Boolean> debug;
 
@@ -91,6 +97,12 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
     private final Optional<String> signOutEndpoint;
 
+    private final OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod;
+
+    private final OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg;
+
+    private final Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat;
+
     private final Optional<String> userIdAttribute;
 
     private final Map<String, Object> additionalProperties;
@@ -111,8 +123,11 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             Optional<ConnectionSignatureAlgorithmEnumSaml> signatureAlgorithm,
             Optional<String> tenantDomain,
             Optional<List<String>> thumbprints,
+            Optional<List<String>> thumbprintsSha384,
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<List<String>> nonPersistentAttrs,
+            Optional<String> clientId,
+            Optional<String> clientSecret,
             Optional<Boolean> debug,
             Optional<Boolean> deflate,
             Optional<String> destinationUrl,
@@ -129,6 +144,9 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             Optional<String> signingCert,
             Optional<ConnectionSigningKeySaml> signingKey,
             Optional<String> signOutEndpoint,
+            OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod,
+            OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg,
+            Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat,
             Optional<String> userIdAttribute,
             Map<String, Object> additionalProperties) {
         this.assertionDecryptionSettings = assertionDecryptionSettings;
@@ -146,8 +164,11 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         this.signatureAlgorithm = signatureAlgorithm;
         this.tenantDomain = tenantDomain;
         this.thumbprints = thumbprints;
+        this.thumbprintsSha384 = thumbprintsSha384;
         this.upstreamParams = upstreamParams;
         this.nonPersistentAttrs = nonPersistentAttrs;
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
         this.debug = debug;
         this.deflate = deflate;
         this.destinationUrl = destinationUrl;
@@ -164,6 +185,9 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         this.signingCert = signingCert;
         this.signingKey = signingKey;
         this.signOutEndpoint = signOutEndpoint;
+        this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
+        this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
+        this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
         this.userIdAttribute = userIdAttribute;
         this.additionalProperties = additionalProperties;
     }
@@ -258,6 +282,12 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         return thumbprints;
     }
 
+    @JsonProperty("thumbprints_sha384")
+    @java.lang.Override
+    public Optional<List<String>> getThumbprintsSha384() {
+        return thumbprintsSha384;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
     @java.lang.Override
@@ -272,6 +302,16 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
     @java.lang.Override
     public Optional<List<String>> getNonPersistentAttrs() {
         return nonPersistentAttrs;
+    }
+
+    @JsonProperty("client_id")
+    public Optional<String> getClientId() {
+        return clientId;
+    }
+
+    @JsonProperty("client_secret")
+    public Optional<String> getClientSecret() {
+        return clientSecret;
     }
 
     @JsonProperty("debug")
@@ -357,6 +397,29 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
         return signOutEndpoint;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_endpoint_auth_method")
+    public OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> getTokenEndpointAuthMethod() {
+        if (tokenEndpointAuthMethod == null) {
+            return OptionalNullable.absent();
+        }
+        return tokenEndpointAuthMethod;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_endpoint_auth_signing_alg")
+    public OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> getTokenEndpointAuthSigningAlg() {
+        if (tokenEndpointAuthSigningAlg == null) {
+            return OptionalNullable.absent();
+        }
+        return tokenEndpointAuthSigningAlg;
+    }
+
+    @JsonProperty("token_endpoint_jwtca_aud_format")
+    public Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> getTokenEndpointJwtcaAudFormat() {
+        return tokenEndpointJwtcaAudFormat;
+    }
+
     @JsonProperty("user_id_attribute")
     public Optional<String> getUserIdAttribute() {
         return userIdAttribute;
@@ -367,6 +430,18 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
     private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             _getUpstreamParams() {
         return upstreamParams;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_endpoint_auth_method")
+    private OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> _getTokenEndpointAuthMethod() {
+        return tokenEndpointAuthMethod;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("token_endpoint_auth_signing_alg")
+    private OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> _getTokenEndpointAuthSigningAlg() {
+        return tokenEndpointAuthSigningAlg;
     }
 
     @java.lang.Override
@@ -396,8 +471,11 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                 && signatureAlgorithm.equals(other.signatureAlgorithm)
                 && tenantDomain.equals(other.tenantDomain)
                 && thumbprints.equals(other.thumbprints)
+                && thumbprintsSha384.equals(other.thumbprintsSha384)
                 && upstreamParams.equals(other.upstreamParams)
                 && nonPersistentAttrs.equals(other.nonPersistentAttrs)
+                && clientId.equals(other.clientId)
+                && clientSecret.equals(other.clientSecret)
                 && debug.equals(other.debug)
                 && deflate.equals(other.deflate)
                 && destinationUrl.equals(other.destinationUrl)
@@ -414,6 +492,9 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                 && signingCert.equals(other.signingCert)
                 && signingKey.equals(other.signingKey)
                 && signOutEndpoint.equals(other.signOutEndpoint)
+                && tokenEndpointAuthMethod.equals(other.tokenEndpointAuthMethod)
+                && tokenEndpointAuthSigningAlg.equals(other.tokenEndpointAuthSigningAlg)
+                && tokenEndpointJwtcaAudFormat.equals(other.tokenEndpointJwtcaAudFormat)
                 && userIdAttribute.equals(other.userIdAttribute);
     }
 
@@ -435,8 +516,11 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                 this.signatureAlgorithm,
                 this.tenantDomain,
                 this.thumbprints,
+                this.thumbprintsSha384,
                 this.upstreamParams,
                 this.nonPersistentAttrs,
+                this.clientId,
+                this.clientSecret,
                 this.debug,
                 this.deflate,
                 this.destinationUrl,
@@ -453,6 +537,9 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                 this.signingCert,
                 this.signingKey,
                 this.signOutEndpoint,
+                this.tokenEndpointAuthMethod,
+                this.tokenEndpointAuthSigningAlg,
+                this.tokenEndpointJwtcaAudFormat,
                 this.userIdAttribute);
     }
 
@@ -497,10 +584,16 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
         private Optional<List<String>> thumbprints = Optional.empty();
 
+        private Optional<List<String>> thumbprintsSha384 = Optional.empty();
+
         private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
                 OptionalNullable.absent();
 
         private Optional<List<String>> nonPersistentAttrs = Optional.empty();
+
+        private Optional<String> clientId = Optional.empty();
+
+        private Optional<String> clientSecret = Optional.empty();
 
         private Optional<Boolean> debug = Optional.empty();
 
@@ -534,6 +627,14 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
         private Optional<String> signOutEndpoint = Optional.empty();
 
+        private OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod =
+                OptionalNullable.absent();
+
+        private OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg =
+                OptionalNullable.absent();
+
+        private Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat = Optional.empty();
+
         private Optional<String> userIdAttribute = Optional.empty();
 
         @JsonAnySetter
@@ -557,8 +658,11 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             signatureAlgorithm(other.getSignatureAlgorithm());
             tenantDomain(other.getTenantDomain());
             thumbprints(other.getThumbprints());
+            thumbprintsSha384(other.getThumbprintsSha384());
             upstreamParams(other.getUpstreamParams());
             nonPersistentAttrs(other.getNonPersistentAttrs());
+            clientId(other.getClientId());
+            clientSecret(other.getClientSecret());
             debug(other.getDebug());
             deflate(other.getDeflate());
             destinationUrl(other.getDestinationUrl());
@@ -575,6 +679,9 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             signingCert(other.getSigningCert());
             signingKey(other.getSigningKey());
             signOutEndpoint(other.getSignOutEndpoint());
+            tokenEndpointAuthMethod(other.getTokenEndpointAuthMethod());
+            tokenEndpointAuthSigningAlg(other.getTokenEndpointAuthSigningAlg());
+            tokenEndpointJwtcaAudFormat(other.getTokenEndpointJwtcaAudFormat());
             userIdAttribute(other.getUserIdAttribute());
             return this;
         }
@@ -745,6 +852,17 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             return this;
         }
 
+        @JsonSetter(value = "thumbprints_sha384", nulls = Nulls.SKIP)
+        public Builder thumbprintsSha384(Optional<List<String>> thumbprintsSha384) {
+            this.thumbprintsSha384 = thumbprintsSha384;
+            return this;
+        }
+
+        public Builder thumbprintsSha384(List<String> thumbprintsSha384) {
+            this.thumbprintsSha384 = Optional.ofNullable(thumbprintsSha384);
+            return this;
+        }
+
         @JsonSetter(value = "upstream_params", nulls = Nulls.SKIP)
         public Builder upstreamParams(
                 @Nullable
@@ -792,6 +910,28 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
 
         public Builder nonPersistentAttrs(List<String> nonPersistentAttrs) {
             this.nonPersistentAttrs = Optional.ofNullable(nonPersistentAttrs);
+            return this;
+        }
+
+        @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
+        public Builder clientId(Optional<String> clientId) {
+            this.clientId = clientId;
+            return this;
+        }
+
+        public Builder clientId(String clientId) {
+            this.clientId = Optional.ofNullable(clientId);
+            return this;
+        }
+
+        @JsonSetter(value = "client_secret", nulls = Nulls.SKIP)
+        public Builder clientSecret(Optional<String> clientSecret) {
+            this.clientSecret = clientSecret;
+            return this;
+        }
+
+        public Builder clientSecret(String clientSecret) {
+            this.clientSecret = Optional.ofNullable(clientSecret);
             return this;
         }
 
@@ -974,6 +1114,89 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
             return this;
         }
 
+        @JsonSetter(value = "token_endpoint_auth_method", nulls = Nulls.SKIP)
+        public Builder tokenEndpointAuthMethod(
+                @Nullable OptionalNullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
+            this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
+            return this;
+        }
+
+        public Builder tokenEndpointAuthMethod(ConnectionTokenEndpointAuthMethodEnum tokenEndpointAuthMethod) {
+            this.tokenEndpointAuthMethod = OptionalNullable.of(tokenEndpointAuthMethod);
+            return this;
+        }
+
+        public Builder tokenEndpointAuthMethod(
+                Optional<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
+            if (tokenEndpointAuthMethod.isPresent()) {
+                this.tokenEndpointAuthMethod = OptionalNullable.of(tokenEndpointAuthMethod.get());
+            } else {
+                this.tokenEndpointAuthMethod = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder tokenEndpointAuthMethod(
+                com.auth0.client.mgmt.core.Nullable<ConnectionTokenEndpointAuthMethodEnum> tokenEndpointAuthMethod) {
+            if (tokenEndpointAuthMethod.isNull()) {
+                this.tokenEndpointAuthMethod = OptionalNullable.ofNull();
+            } else if (tokenEndpointAuthMethod.isEmpty()) {
+                this.tokenEndpointAuthMethod = OptionalNullable.absent();
+            } else {
+                this.tokenEndpointAuthMethod = OptionalNullable.of(tokenEndpointAuthMethod.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "token_endpoint_auth_signing_alg", nulls = Nulls.SKIP)
+        public Builder tokenEndpointAuthSigningAlg(
+                @Nullable OptionalNullable<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg) {
+            this.tokenEndpointAuthSigningAlg = tokenEndpointAuthSigningAlg;
+            return this;
+        }
+
+        public Builder tokenEndpointAuthSigningAlg(
+                ConnectionTokenEndpointAuthSigningAlgEnum tokenEndpointAuthSigningAlg) {
+            this.tokenEndpointAuthSigningAlg = OptionalNullable.of(tokenEndpointAuthSigningAlg);
+            return this;
+        }
+
+        public Builder tokenEndpointAuthSigningAlg(
+                Optional<ConnectionTokenEndpointAuthSigningAlgEnum> tokenEndpointAuthSigningAlg) {
+            if (tokenEndpointAuthSigningAlg.isPresent()) {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.of(tokenEndpointAuthSigningAlg.get());
+            } else {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder tokenEndpointAuthSigningAlg(
+                com.auth0.client.mgmt.core.Nullable<ConnectionTokenEndpointAuthSigningAlgEnum>
+                        tokenEndpointAuthSigningAlg) {
+            if (tokenEndpointAuthSigningAlg.isNull()) {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.ofNull();
+            } else if (tokenEndpointAuthSigningAlg.isEmpty()) {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.absent();
+            } else {
+                this.tokenEndpointAuthSigningAlg = OptionalNullable.of(tokenEndpointAuthSigningAlg.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "token_endpoint_jwtca_aud_format", nulls = Nulls.SKIP)
+        public Builder tokenEndpointJwtcaAudFormat(
+                Optional<ConnectionTokenEndpointJwtcaAudFormatEnumOidc> tokenEndpointJwtcaAudFormat) {
+            this.tokenEndpointJwtcaAudFormat = tokenEndpointJwtcaAudFormat;
+            return this;
+        }
+
+        public Builder tokenEndpointJwtcaAudFormat(
+                ConnectionTokenEndpointJwtcaAudFormatEnumOidc tokenEndpointJwtcaAudFormat) {
+            this.tokenEndpointJwtcaAudFormat = Optional.ofNullable(tokenEndpointJwtcaAudFormat);
+            return this;
+        }
+
         @JsonSetter(value = "user_id_attribute", nulls = Nulls.SKIP)
         public Builder userIdAttribute(Optional<String> userIdAttribute) {
             this.userIdAttribute = userIdAttribute;
@@ -1002,8 +1225,11 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                     signatureAlgorithm,
                     tenantDomain,
                     thumbprints,
+                    thumbprintsSha384,
                     upstreamParams,
                     nonPersistentAttrs,
+                    clientId,
+                    clientSecret,
                     debug,
                     deflate,
                     destinationUrl,
@@ -1020,6 +1246,9 @@ public final class ConnectionOptionsSaml implements IConnectionOptionsCommonSaml
                     signingCert,
                     signingKey,
                     signOutEndpoint,
+                    tokenEndpointAuthMethod,
+                    tokenEndpointAuthSigningAlg,
+                    tokenEndpointJwtcaAudFormat,
                     userIdAttribute,
                     additionalProperties);
         }

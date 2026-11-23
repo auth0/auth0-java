@@ -5,8 +5,6 @@ import com.auth0.client.mgmt.emails.types.CreateEmailProviderRequestContent;
 import com.auth0.client.mgmt.emails.types.GetEmailProviderRequestParameters;
 import com.auth0.client.mgmt.emails.types.UpdateEmailProviderRequestContent;
 import com.auth0.client.mgmt.types.CreateEmailProviderResponseContent;
-import com.auth0.client.mgmt.types.EmailProviderCredentialsSchema;
-import com.auth0.client.mgmt.types.EmailProviderCredentialsSchemaZero;
 import com.auth0.client.mgmt.types.EmailProviderNameEnum;
 import com.auth0.client.mgmt.types.GetEmailProviderResponseContent;
 import com.auth0.client.mgmt.types.UpdateEmailProviderResponseContent;
@@ -118,22 +116,13 @@ public class EmailsProviderWireTest {
                 .provider()
                 .create(CreateEmailProviderRequestContent.builder()
                         .name(EmailProviderNameEnum.MAILGUN)
-                        .credentials(EmailProviderCredentialsSchema.of(EmailProviderCredentialsSchemaZero.builder()
-                                .apiKey("api_key")
-                                .build()))
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("POST", request.getMethod());
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
-        String expectedRequestBody = ""
-                + "{\n"
-                + "  \"name\": \"mailgun\",\n"
-                + "  \"credentials\": {\n"
-                + "    \"api_key\": \"api_key\"\n"
-                + "  }\n"
-                + "}";
+        String expectedRequestBody = "" + "{\n" + "  \"name\": \"mailgun\"\n" + "}";
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
         Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");

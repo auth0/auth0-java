@@ -26,6 +26,8 @@ public class AsyncManagementApi {
 
     protected final Supplier<AsyncClientGrantsClient> clientGrantsClient;
 
+    protected final Supplier<AsyncClientProfilesClient> clientProfilesClient;
+
     protected final Supplier<AsyncClientsClient> clientsClient;
 
     protected final Supplier<AsyncConnectionProfilesClient> connectionProfilesClient;
@@ -63,6 +65,8 @@ public class AsyncManagementApi {
     protected final Supplier<AsyncNetworkAclsClient> networkAclsClient;
 
     protected final Supplier<AsyncOrganizationsClient> organizationsClient;
+
+    protected final Supplier<AsyncPortalsClient> portalsClient;
 
     protected final Supplier<AsyncPromptsClient> promptsClient;
 
@@ -118,6 +122,7 @@ public class AsyncManagementApi {
         this.agentsClient = Suppliers.memoize(() -> new AsyncAgentsClient(clientOptions));
         this.brandingClient = Suppliers.memoize(() -> new AsyncBrandingClient(clientOptions));
         this.clientGrantsClient = Suppliers.memoize(() -> new AsyncClientGrantsClient(clientOptions));
+        this.clientProfilesClient = Suppliers.memoize(() -> new AsyncClientProfilesClient(clientOptions));
         this.clientsClient = Suppliers.memoize(() -> new AsyncClientsClient(clientOptions));
         this.connectionProfilesClient = Suppliers.memoize(() -> new AsyncConnectionProfilesClient(clientOptions));
         this.connectionsClient = Suppliers.memoize(() -> new AsyncConnectionsClient(clientOptions));
@@ -137,6 +142,7 @@ public class AsyncManagementApi {
         this.logsClient = Suppliers.memoize(() -> new AsyncLogsClient(clientOptions));
         this.networkAclsClient = Suppliers.memoize(() -> new AsyncNetworkAclsClient(clientOptions));
         this.organizationsClient = Suppliers.memoize(() -> new AsyncOrganizationsClient(clientOptions));
+        this.portalsClient = Suppliers.memoize(() -> new AsyncPortalsClient(clientOptions));
         this.promptsClient = Suppliers.memoize(() -> new AsyncPromptsClient(clientOptions));
         this.rateLimitPoliciesClient = Suppliers.memoize(() -> new AsyncRateLimitPoliciesClient(clientOptions));
         this.refreshTokensClient = Suppliers.memoize(() -> new AsyncRefreshTokensClient(clientOptions));
@@ -177,6 +183,10 @@ public class AsyncManagementApi {
 
     public AsyncClientGrantsClient clientGrants() {
         return this.clientGrantsClient.get();
+    }
+
+    public AsyncClientProfilesClient clientProfiles() {
+        return this.clientProfilesClient.get();
     }
 
     public AsyncClientsClient clients() {
@@ -253,6 +263,10 @@ public class AsyncManagementApi {
 
     public AsyncOrganizationsClient organizations() {
         return this.organizationsClient.get();
+    }
+
+    public AsyncPortalsClient portals() {
+        return this.portalsClient.get();
     }
 
     public AsyncPromptsClient prompts() {

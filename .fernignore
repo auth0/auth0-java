@@ -70,6 +70,7 @@ src/test/java/com/auth0/client/mgmt/OAuthTokenSupplierTest.java
 src/test/java/com/auth0/client/mgmt/ManagementApiBuilderTest.java
 src/test/java/com/auth0/client/mgmt/CustomDomainInterceptorTest.java
 src/test/java/com/auth0/client/mgmt/CustomDomainHeaderIntegrationTest.java
+src/test/java/com/auth0/net/client/DefaultHttpClientTest.java
 
 # Configuration files from auth0-real
 .codecov.yml

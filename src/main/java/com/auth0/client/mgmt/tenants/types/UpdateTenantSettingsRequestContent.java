@@ -112,11 +112,15 @@ public final class UpdateTenantSettingsRequestContent {
 
     private final OptionalNullable<Boolean> authorizationResponseIssParameterSupported;
 
+    private final OptionalNullable<Boolean> dpopStrictRefreshTokenBinding;
+
     private final OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt;
 
     private final Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile;
 
     private final Optional<Boolean> clientIdMetadataDocumentSupported;
+
+    private final Optional<Boolean> clientIdMetadataDocumentDynamicRegistrationSupported;
 
     private final Optional<Boolean> enableAiGuide;
 
@@ -167,9 +171,11 @@ public final class UpdateTenantSettingsRequestContent {
             OptionalNullable<TenantSettingsMtls> mtls,
             OptionalNullable<Boolean> pushedAuthorizationRequestsSupported,
             OptionalNullable<Boolean> authorizationResponseIssParameterSupported,
+            OptionalNullable<Boolean> dpopStrictRefreshTokenBinding,
             OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt,
             Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile,
             Optional<Boolean> clientIdMetadataDocumentSupported,
+            Optional<Boolean> clientIdMetadataDocumentDynamicRegistrationSupported,
             Optional<Boolean> enableAiGuide,
             Optional<Boolean> phoneConsolidatedExperience,
             Optional<Boolean> includeSessionMetadataInTenantLogs,
@@ -212,9 +218,12 @@ public final class UpdateTenantSettingsRequestContent {
         this.mtls = mtls;
         this.pushedAuthorizationRequestsSupported = pushedAuthorizationRequestsSupported;
         this.authorizationResponseIssParameterSupported = authorizationResponseIssParameterSupported;
+        this.dpopStrictRefreshTokenBinding = dpopStrictRefreshTokenBinding;
         this.skipNonVerifiableCallbackUriConfirmationPrompt = skipNonVerifiableCallbackUriConfirmationPrompt;
         this.resourceParameterProfile = resourceParameterProfile;
         this.clientIdMetadataDocumentSupported = clientIdMetadataDocumentSupported;
+        this.clientIdMetadataDocumentDynamicRegistrationSupported =
+                clientIdMetadataDocumentDynamicRegistrationSupported;
         this.enableAiGuide = enableAiGuide;
         this.phoneConsolidatedExperience = phoneConsolidatedExperience;
         this.includeSessionMetadataInTenantLogs = includeSessionMetadataInTenantLogs;
@@ -539,6 +548,18 @@ public final class UpdateTenantSettingsRequestContent {
     }
 
     /**
+     * @return Enables strict DPoP refresh token binding per RFC 9449: all refresh tokens issued to public clients that present a DPoP proof are bound to the sender's key, and the binding is validated on every subsequent exchange. When disabled, DPoP refresh token binding may still apply for specific audiences for backwards compatibility.
+     */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("dpop_strict_refresh_token_binding")
+    public OptionalNullable<Boolean> getDpopStrictRefreshTokenBinding() {
+        if (dpopStrictRefreshTokenBinding == null) {
+            return OptionalNullable.absent();
+        }
+        return dpopStrictRefreshTokenBinding;
+    }
+
+    /**
      * @return Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as <code>myapp://</code>, or <code>localhost</code>).
      * If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
      * See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.
@@ -563,6 +584,14 @@ public final class UpdateTenantSettingsRequestContent {
     @JsonProperty("client_id_metadata_document_supported")
     public Optional<Boolean> getClientIdMetadataDocumentSupported() {
         return clientIdMetadataDocumentSupported;
+    }
+
+    /**
+     * @return Whether the authorization server supports registering clients dynamically from a client_id URL. Requires client_id_metadata_document_supported to be enabled.
+     */
+    @JsonProperty("client_id_metadata_document_dynamic_registration_supported")
+    public Optional<Boolean> getClientIdMetadataDocumentDynamicRegistrationSupported() {
+        return clientIdMetadataDocumentDynamicRegistrationSupported;
     }
 
     /**
@@ -694,6 +723,12 @@ public final class UpdateTenantSettingsRequestContent {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("dpop_strict_refresh_token_binding")
+    private OptionalNullable<Boolean> _getDpopStrictRefreshTokenBinding() {
+        return dpopStrictRefreshTokenBinding;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("skip_non_verifiable_callback_uri_confirmation_prompt")
     private OptionalNullable<Boolean> _getSkipNonVerifiableCallbackUriConfirmationPrompt() {
         return skipNonVerifiableCallbackUriConfirmationPrompt;
@@ -754,10 +789,13 @@ public final class UpdateTenantSettingsRequestContent {
                 && mtls.equals(other.mtls)
                 && pushedAuthorizationRequestsSupported.equals(other.pushedAuthorizationRequestsSupported)
                 && authorizationResponseIssParameterSupported.equals(other.authorizationResponseIssParameterSupported)
+                && dpopStrictRefreshTokenBinding.equals(other.dpopStrictRefreshTokenBinding)
                 && skipNonVerifiableCallbackUriConfirmationPrompt.equals(
                         other.skipNonVerifiableCallbackUriConfirmationPrompt)
                 && resourceParameterProfile.equals(other.resourceParameterProfile)
                 && clientIdMetadataDocumentSupported.equals(other.clientIdMetadataDocumentSupported)
+                && clientIdMetadataDocumentDynamicRegistrationSupported.equals(
+                        other.clientIdMetadataDocumentDynamicRegistrationSupported)
                 && enableAiGuide.equals(other.enableAiGuide)
                 && phoneConsolidatedExperience.equals(other.phoneConsolidatedExperience)
                 && includeSessionMetadataInTenantLogs.equals(other.includeSessionMetadataInTenantLogs)
@@ -804,9 +842,11 @@ public final class UpdateTenantSettingsRequestContent {
                 this.mtls,
                 this.pushedAuthorizationRequestsSupported,
                 this.authorizationResponseIssParameterSupported,
+                this.dpopStrictRefreshTokenBinding,
                 this.skipNonVerifiableCallbackUriConfirmationPrompt,
                 this.resourceParameterProfile,
                 this.clientIdMetadataDocumentSupported,
+                this.clientIdMetadataDocumentDynamicRegistrationSupported,
                 this.enableAiGuide,
                 this.phoneConsolidatedExperience,
                 this.includeSessionMetadataInTenantLogs,
@@ -897,11 +937,15 @@ public final class UpdateTenantSettingsRequestContent {
 
         private OptionalNullable<Boolean> authorizationResponseIssParameterSupported = OptionalNullable.absent();
 
+        private OptionalNullable<Boolean> dpopStrictRefreshTokenBinding = OptionalNullable.absent();
+
         private OptionalNullable<Boolean> skipNonVerifiableCallbackUriConfirmationPrompt = OptionalNullable.absent();
 
         private Optional<TenantSettingsResourceParameterProfile> resourceParameterProfile = Optional.empty();
 
         private Optional<Boolean> clientIdMetadataDocumentSupported = Optional.empty();
+
+        private Optional<Boolean> clientIdMetadataDocumentDynamicRegistrationSupported = Optional.empty();
 
         private Optional<Boolean> enableAiGuide = Optional.empty();
 
@@ -956,9 +1000,12 @@ public final class UpdateTenantSettingsRequestContent {
             mtls(other.getMtls());
             pushedAuthorizationRequestsSupported(other.getPushedAuthorizationRequestsSupported());
             authorizationResponseIssParameterSupported(other.getAuthorizationResponseIssParameterSupported());
+            dpopStrictRefreshTokenBinding(other.getDpopStrictRefreshTokenBinding());
             skipNonVerifiableCallbackUriConfirmationPrompt(other.getSkipNonVerifiableCallbackUriConfirmationPrompt());
             resourceParameterProfile(other.getResourceParameterProfile());
             clientIdMetadataDocumentSupported(other.getClientIdMetadataDocumentSupported());
+            clientIdMetadataDocumentDynamicRegistrationSupported(
+                    other.getClientIdMetadataDocumentDynamicRegistrationSupported());
             enableAiGuide(other.getEnableAiGuide());
             phoneConsolidatedExperience(other.getPhoneConsolidatedExperience());
             includeSessionMetadataInTenantLogs(other.getIncludeSessionMetadataInTenantLogs());
@@ -1760,6 +1807,42 @@ public final class UpdateTenantSettingsRequestContent {
         }
 
         /**
+         * <p>Enables strict DPoP refresh token binding per RFC 9449: all refresh tokens issued to public clients that present a DPoP proof are bound to the sender's key, and the binding is validated on every subsequent exchange. When disabled, DPoP refresh token binding may still apply for specific audiences for backwards compatibility.</p>
+         */
+        @JsonSetter(value = "dpop_strict_refresh_token_binding", nulls = Nulls.SKIP)
+        public Builder dpopStrictRefreshTokenBinding(
+                @Nullable OptionalNullable<Boolean> dpopStrictRefreshTokenBinding) {
+            this.dpopStrictRefreshTokenBinding = dpopStrictRefreshTokenBinding;
+            return this;
+        }
+
+        public Builder dpopStrictRefreshTokenBinding(Boolean dpopStrictRefreshTokenBinding) {
+            this.dpopStrictRefreshTokenBinding = OptionalNullable.of(dpopStrictRefreshTokenBinding);
+            return this;
+        }
+
+        public Builder dpopStrictRefreshTokenBinding(Optional<Boolean> dpopStrictRefreshTokenBinding) {
+            if (dpopStrictRefreshTokenBinding.isPresent()) {
+                this.dpopStrictRefreshTokenBinding = OptionalNullable.of(dpopStrictRefreshTokenBinding.get());
+            } else {
+                this.dpopStrictRefreshTokenBinding = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder dpopStrictRefreshTokenBinding(
+                com.auth0.client.mgmt.core.Nullable<Boolean> dpopStrictRefreshTokenBinding) {
+            if (dpopStrictRefreshTokenBinding.isNull()) {
+                this.dpopStrictRefreshTokenBinding = OptionalNullable.ofNull();
+            } else if (dpopStrictRefreshTokenBinding.isEmpty()) {
+                this.dpopStrictRefreshTokenBinding = OptionalNullable.absent();
+            } else {
+                this.dpopStrictRefreshTokenBinding = OptionalNullable.of(dpopStrictRefreshTokenBinding.get());
+            }
+            return this;
+        }
+
+        /**
          * <p>Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as <code>myapp://</code>, or <code>localhost</code>).
          * If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
          * See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.</p>
@@ -1825,6 +1908,24 @@ public final class UpdateTenantSettingsRequestContent {
 
         public Builder clientIdMetadataDocumentSupported(Boolean clientIdMetadataDocumentSupported) {
             this.clientIdMetadataDocumentSupported = Optional.ofNullable(clientIdMetadataDocumentSupported);
+            return this;
+        }
+
+        /**
+         * <p>Whether the authorization server supports registering clients dynamically from a client_id URL. Requires client_id_metadata_document_supported to be enabled.</p>
+         */
+        @JsonSetter(value = "client_id_metadata_document_dynamic_registration_supported", nulls = Nulls.SKIP)
+        public Builder clientIdMetadataDocumentDynamicRegistrationSupported(
+                Optional<Boolean> clientIdMetadataDocumentDynamicRegistrationSupported) {
+            this.clientIdMetadataDocumentDynamicRegistrationSupported =
+                    clientIdMetadataDocumentDynamicRegistrationSupported;
+            return this;
+        }
+
+        public Builder clientIdMetadataDocumentDynamicRegistrationSupported(
+                Boolean clientIdMetadataDocumentDynamicRegistrationSupported) {
+            this.clientIdMetadataDocumentDynamicRegistrationSupported =
+                    Optional.ofNullable(clientIdMetadataDocumentDynamicRegistrationSupported);
             return this;
         }
 
@@ -1952,9 +2053,11 @@ public final class UpdateTenantSettingsRequestContent {
                     mtls,
                     pushedAuthorizationRequestsSupported,
                     authorizationResponseIssParameterSupported,
+                    dpopStrictRefreshTokenBinding,
                     skipNonVerifiableCallbackUriConfirmationPrompt,
                     resourceParameterProfile,
                     clientIdMetadataDocumentSupported,
+                    clientIdMetadataDocumentDynamicRegistrationSupported,
                     enableAiGuide,
                     phoneConsolidatedExperience,
                     includeSessionMetadataInTenantLogs,

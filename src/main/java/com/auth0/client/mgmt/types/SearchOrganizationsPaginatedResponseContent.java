@@ -35,6 +35,9 @@ public final class SearchOrganizationsPaginatedResponseContent {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Array of organization objects matching the search criteria.
+     */
     @JsonProperty("organizations")
     public List<SearchOrganization> getOrganizations() {
         return organizations;
@@ -95,6 +98,9 @@ public final class SearchOrganizationsPaginatedResponseContent {
             return this;
         }
 
+        /**
+         * <p>Array of organization objects matching the search criteria.</p>
+         */
         @JsonSetter(value = "organizations", nulls = Nulls.SKIP)
         public Builder organizations(List<SearchOrganization> organizations) {
             this.organizations.clear();

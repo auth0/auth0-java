@@ -25,6 +25,8 @@ public final class ConnectionPasswordOptionsDictionary {
 
     private final Optional<List<String>> custom;
 
+    private final Optional<PasswordDictionaryMatchTypeEnum> matchType;
+
     private final Optional<PasswordDefaultDictionariesEnum> default_;
 
     private final Map<String, Object> additionalProperties;
@@ -32,10 +34,12 @@ public final class ConnectionPasswordOptionsDictionary {
     private ConnectionPasswordOptionsDictionary(
             Optional<Boolean> active,
             Optional<List<String>> custom,
+            Optional<PasswordDictionaryMatchTypeEnum> matchType,
             Optional<PasswordDefaultDictionariesEnum> default_,
             Map<String, Object> additionalProperties) {
         this.active = active;
         this.custom = custom;
+        this.matchType = matchType;
         this.default_ = default_;
         this.additionalProperties = additionalProperties;
     }
@@ -49,11 +53,16 @@ public final class ConnectionPasswordOptionsDictionary {
     }
 
     /**
-     * @return Array of custom words to block in passwords. Maximum 200 items, each up to 50 characters
+     * @return Array of custom words to block in passwords
      */
     @JsonProperty("custom")
     public Optional<List<String>> getCustom() {
         return custom;
+    }
+
+    @JsonProperty("match_type")
+    public Optional<PasswordDictionaryMatchTypeEnum> getMatchType() {
+        return matchType;
     }
 
     @JsonProperty("default")
@@ -74,12 +83,15 @@ public final class ConnectionPasswordOptionsDictionary {
     }
 
     private boolean equalTo(ConnectionPasswordOptionsDictionary other) {
-        return active.equals(other.active) && custom.equals(other.custom) && default_.equals(other.default_);
+        return active.equals(other.active)
+                && custom.equals(other.custom)
+                && matchType.equals(other.matchType)
+                && default_.equals(other.default_);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.active, this.custom, this.default_);
+        return Objects.hash(this.active, this.custom, this.matchType, this.default_);
     }
 
     @java.lang.Override
@@ -97,6 +109,8 @@ public final class ConnectionPasswordOptionsDictionary {
 
         private Optional<List<String>> custom = Optional.empty();
 
+        private Optional<PasswordDictionaryMatchTypeEnum> matchType = Optional.empty();
+
         private Optional<PasswordDefaultDictionariesEnum> default_ = Optional.empty();
 
         @JsonAnySetter
@@ -107,6 +121,7 @@ public final class ConnectionPasswordOptionsDictionary {
         public Builder from(ConnectionPasswordOptionsDictionary other) {
             active(other.getActive());
             custom(other.getCustom());
+            matchType(other.getMatchType());
             default_(other.getDefault());
             return this;
         }
@@ -126,7 +141,7 @@ public final class ConnectionPasswordOptionsDictionary {
         }
 
         /**
-         * <p>Array of custom words to block in passwords. Maximum 200 items, each up to 50 characters</p>
+         * <p>Array of custom words to block in passwords</p>
          */
         @JsonSetter(value = "custom", nulls = Nulls.SKIP)
         public Builder custom(Optional<List<String>> custom) {
@@ -136,6 +151,17 @@ public final class ConnectionPasswordOptionsDictionary {
 
         public Builder custom(List<String> custom) {
             this.custom = Optional.ofNullable(custom);
+            return this;
+        }
+
+        @JsonSetter(value = "match_type", nulls = Nulls.SKIP)
+        public Builder matchType(Optional<PasswordDictionaryMatchTypeEnum> matchType) {
+            this.matchType = matchType;
+            return this;
+        }
+
+        public Builder matchType(PasswordDictionaryMatchTypeEnum matchType) {
+            this.matchType = Optional.ofNullable(matchType);
             return this;
         }
 
@@ -151,7 +177,7 @@ public final class ConnectionPasswordOptionsDictionary {
         }
 
         public ConnectionPasswordOptionsDictionary build() {
-            return new ConnectionPasswordOptionsDictionary(active, custom, default_, additionalProperties);
+            return new ConnectionPasswordOptionsDictionary(active, custom, matchType, default_, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

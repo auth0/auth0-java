@@ -34,8 +34,8 @@ public final class ListUserBlocksRequestParameters {
     }
 
     /**
-     * @return If true and Brute Force Protection is enabled and configured to block logins, will return a list of blocked IP addresses.
-     * If true and Brute Force Protection is disabled, will return an empty list.
+     * @return If true, returns only blocks that are currently enforced (e.g. subject to protection status, IP allowlist, etc.).
+     * If false or omitted, returns all blocks regardless of enforcement state.
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("consider_brute_force_enablement")
@@ -96,8 +96,8 @@ public final class ListUserBlocksRequestParameters {
         }
 
         /**
-         * <p>If true and Brute Force Protection is enabled and configured to block logins, will return a list of blocked IP addresses.
-         * If true and Brute Force Protection is disabled, will return an empty list.</p>
+         * <p>If true, returns only blocks that are currently enforced (e.g. subject to protection status, IP allowlist, etc.).
+         * If false or omitted, returns all blocks regardless of enforcement state.</p>
          */
         @JsonSetter(value = "consider_brute_force_enablement", nulls = Nulls.SKIP)
         public Builder considerBruteForceEnablement(@Nullable OptionalNullable<Boolean> considerBruteForceEnablement) {

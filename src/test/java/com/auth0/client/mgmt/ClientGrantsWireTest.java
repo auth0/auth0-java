@@ -4,11 +4,14 @@ import com.auth0.client.mgmt.core.ObjectMappers;
 import com.auth0.client.mgmt.core.SyncPagingIterable;
 import com.auth0.client.mgmt.types.ClientGrantDefaultForEnum;
 import com.auth0.client.mgmt.types.ClientGrantResponseContent;
+import com.auth0.client.mgmt.types.ClientGrantSortFieldEnum;
 import com.auth0.client.mgmt.types.ClientGrantSubjectTypeEnum;
 import com.auth0.client.mgmt.types.CreateClientGrantRequestContent;
 import com.auth0.client.mgmt.types.CreateClientGrantResponseContent;
 import com.auth0.client.mgmt.types.GetClientGrantResponseContent;
 import com.auth0.client.mgmt.types.ListClientGrantsRequestParameters;
+import com.auth0.client.mgmt.types.SearchClientGrantsRequestParameters;
+import com.auth0.client.mgmt.types.SearchParserEnum;
 import com.auth0.client.mgmt.types.UpdateClientGrantRequestContent;
 import com.auth0.client.mgmt.types.UpdateClientGrantResponseContent;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -163,6 +166,33 @@ public class ClientGrantsWireTest {
         if (actualResponseNode.isObject()) {
             Assertions.assertTrue(actualResponseNode.size() >= 0, "Object should have valid field count");
         }
+    }
+
+    @Test
+    public void testSearch() throws Exception {
+        server.enqueue(
+                new MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                                "{\"client_grants\":[{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true,\"default_for\":\"third_party_clients\",\"is_system\":true,\"subject_type\":\"client\",\"authorization_details_types\":[\"authorization_details_types\"],\"allow_all_scopes\":true}],\"next\":\"next\"}"));
+        SyncPagingIterable<ClientGrantResponseContent> response = client.clientGrants()
+                .search(SearchClientGrantsRequestParameters.builder()
+                        .q("q")
+                        .parser(SearchParserEnum.SCIM)
+                        .fields("fields")
+                        .includeFields(true)
+                        .take(1)
+                        .from("from")
+                        .sort(ClientGrantSortFieldEnum.AUDIENCE)
+                        .build());
+        RecordedRequest request = server.takeRequest();
+        Assertions.assertNotNull(request);
+        Assertions.assertEquals("GET", request.getMethod());
+
+        // Validate response body
+        Assertions.assertNotNull(response, "Response should not be null");
+        // Pagination response validated via MockWebServer
+        // The SDK correctly parses the response into a SyncPagingIterable
     }
 
     @Test

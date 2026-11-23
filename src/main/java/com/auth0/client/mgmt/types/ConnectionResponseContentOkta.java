@@ -22,11 +22,12 @@ import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionResponseContentOkta.Builder.class)
-public final class ConnectionResponseContentOkta
-        implements IConnectionPurposes, IConnectionResponseCommon, ICreateConnectionCommon {
+public final class ConnectionResponseContentOkta implements IConnectionPurposes, IConnectionResponseCommon {
     private final Optional<ConnectionAuthenticationPurpose> authentication;
 
     private final Optional<ConnectionConnectedAccountsPurpose> connectedAccounts;
+
+    private final String displayName;
 
     private final String id;
 
@@ -35,8 +36,6 @@ public final class ConnectionResponseContentOkta
     private final String name;
 
     private final Optional<List<String>> enabledClients;
-
-    private final Optional<String> displayName;
 
     private final Optional<Boolean> isDomainConnection;
 
@@ -55,11 +54,11 @@ public final class ConnectionResponseContentOkta
     private ConnectionResponseContentOkta(
             Optional<ConnectionAuthenticationPurpose> authentication,
             Optional<ConnectionConnectedAccountsPurpose> connectedAccounts,
+            String displayName,
             String id,
             Optional<List<String>> realms,
             String name,
             Optional<List<String>> enabledClients,
-            Optional<String> displayName,
             Optional<Boolean> isDomainConnection,
             Optional<Map<String, OptionalNullable<String>>> metadata,
             ConnectionResponseContentOktaStrategy strategy,
@@ -69,11 +68,11 @@ public final class ConnectionResponseContentOkta
             Map<String, Object> additionalProperties) {
         this.authentication = authentication;
         this.connectedAccounts = connectedAccounts;
+        this.displayName = displayName;
         this.id = id;
         this.realms = realms;
         this.name = name;
         this.enabledClients = enabledClients;
-        this.displayName = displayName;
         this.isDomainConnection = isDomainConnection;
         this.metadata = metadata;
         this.strategy = strategy;
@@ -93,6 +92,12 @@ public final class ConnectionResponseContentOkta
     @java.lang.Override
     public Optional<ConnectionConnectedAccountsPurpose> getConnectedAccounts() {
         return connectedAccounts;
+    }
+
+    @JsonProperty("display_name")
+    @java.lang.Override
+    public String getDisplayName() {
+        return displayName;
     }
 
     @JsonProperty("id")
@@ -120,12 +125,6 @@ public final class ConnectionResponseContentOkta
     @java.lang.Override
     public Optional<List<String>> getEnabledClients() {
         return enabledClients;
-    }
-
-    @JsonProperty("display_name")
-    @java.lang.Override
-    public Optional<String> getDisplayName() {
-        return displayName;
     }
 
     @JsonProperty("is_domain_connection")
@@ -174,11 +173,11 @@ public final class ConnectionResponseContentOkta
     private boolean equalTo(ConnectionResponseContentOkta other) {
         return authentication.equals(other.authentication)
                 && connectedAccounts.equals(other.connectedAccounts)
+                && displayName.equals(other.displayName)
                 && id.equals(other.id)
                 && realms.equals(other.realms)
                 && name.equals(other.name)
                 && enabledClients.equals(other.enabledClients)
-                && displayName.equals(other.displayName)
                 && isDomainConnection.equals(other.isDomainConnection)
                 && metadata.equals(other.metadata)
                 && strategy.equals(other.strategy)
@@ -192,11 +191,11 @@ public final class ConnectionResponseContentOkta
         return Objects.hash(
                 this.authentication,
                 this.connectedAccounts,
+                this.displayName,
                 this.id,
                 this.realms,
                 this.name,
                 this.enabledClients,
-                this.displayName,
                 this.isDomainConnection,
                 this.metadata,
                 this.strategy,
@@ -210,14 +209,18 @@ public final class ConnectionResponseContentOkta
         return ObjectMappers.stringify(this);
     }
 
-    public static IdStage builder() {
+    public static DisplayNameStage builder() {
         return new Builder();
+    }
+
+    public interface DisplayNameStage {
+        IdStage displayName(@NotNull String displayName);
+
+        Builder from(ConnectionResponseContentOkta other);
     }
 
     public interface IdStage {
         NameStage id(@NotNull String id);
-
-        Builder from(ConnectionResponseContentOkta other);
     }
 
     public interface NameStage {
@@ -254,10 +257,6 @@ public final class ConnectionResponseContentOkta
 
         _FinalStage enabledClients(List<String> enabledClients);
 
-        _FinalStage displayName(Optional<String> displayName);
-
-        _FinalStage displayName(String displayName);
-
         _FinalStage isDomainConnection(Optional<Boolean> isDomainConnection);
 
         _FinalStage isDomainConnection(Boolean isDomainConnection);
@@ -280,7 +279,9 @@ public final class ConnectionResponseContentOkta
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements IdStage, NameStage, StrategyStage, _FinalStage {
+    public static final class Builder implements DisplayNameStage, IdStage, NameStage, StrategyStage, _FinalStage {
+        private String displayName;
+
         private String id;
 
         private String name;
@@ -296,8 +297,6 @@ public final class ConnectionResponseContentOkta
         private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
 
         private Optional<Boolean> isDomainConnection = Optional.empty();
-
-        private Optional<String> displayName = Optional.empty();
 
         private Optional<List<String>> enabledClients = Optional.empty();
 
@@ -316,17 +315,24 @@ public final class ConnectionResponseContentOkta
         public Builder from(ConnectionResponseContentOkta other) {
             authentication(other.getAuthentication());
             connectedAccounts(other.getConnectedAccounts());
+            displayName(other.getDisplayName());
             id(other.getId());
             realms(other.getRealms());
             name(other.getName());
             enabledClients(other.getEnabledClients());
-            displayName(other.getDisplayName());
             isDomainConnection(other.getIsDomainConnection());
             metadata(other.getMetadata());
             strategy(other.getStrategy());
             crossAppAccessRequestingApp(other.getCrossAppAccessRequestingApp());
             options(other.getOptions());
             showAsButton(other.getShowAsButton());
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("display_name")
+        public IdStage displayName(@NotNull String displayName) {
+            this.displayName = Objects.requireNonNull(displayName, "displayName must not be null");
             return this;
         }
 
@@ -417,19 +423,6 @@ public final class ConnectionResponseContentOkta
             return this;
         }
 
-        @java.lang.Override
-        public _FinalStage displayName(String displayName) {
-            this.displayName = Optional.ofNullable(displayName);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
-        public _FinalStage displayName(Optional<String> displayName) {
-            this.displayName = displayName;
-            return this;
-        }
-
         /**
          * <p>Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -494,11 +487,11 @@ public final class ConnectionResponseContentOkta
             return new ConnectionResponseContentOkta(
                     authentication,
                     connectedAccounts,
+                    displayName,
                     id,
                     realms,
                     name,
                     enabledClients,
-                    displayName,
                     isDomainConnection,
                     metadata,
                     strategy,

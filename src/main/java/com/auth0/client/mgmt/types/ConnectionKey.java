@@ -77,7 +77,7 @@ public final class ConnectionKey {
     }
 
     /**
-     * @return The key id of the signing key
+     * @return The key id of the signing or encryption key
      */
     @JsonProperty("kid")
     public String getKid() {
@@ -85,7 +85,7 @@ public final class ConnectionKey {
     }
 
     /**
-     * @return The public certificate of the signing key
+     * @return The public certificate of the signing or encryption key
      */
     @JsonProperty("cert")
     public String getCert() {
@@ -93,7 +93,7 @@ public final class ConnectionKey {
     }
 
     /**
-     * @return The public certificate of the signing key in pkcs7 format
+     * @return The public certificate of the signing or encryption key in pkcs7 format
      */
     @JsonProperty("pkcs")
     public Optional<String> getPkcs() {
@@ -149,7 +149,7 @@ public final class ConnectionKey {
     }
 
     /**
-     * @return Signing key algorithm
+     * @return Key algorithm: a signing algorithm for signing keys, or a key-management algorithm for encryption keys
      */
     @JsonProperty("algorithm")
     public Optional<String> getAlgorithm() {
@@ -220,7 +220,7 @@ public final class ConnectionKey {
 
     public interface KidStage {
         /**
-         * <p>The key id of the signing key</p>
+         * <p>The key id of the signing or encryption key</p>
          */
         CertStage kid(@NotNull String kid);
 
@@ -229,7 +229,7 @@ public final class ConnectionKey {
 
     public interface CertStage {
         /**
-         * <p>The public certificate of the signing key</p>
+         * <p>The public certificate of the signing or encryption key</p>
          */
         FingerprintStage cert(@NotNull String cert);
     }
@@ -256,7 +256,7 @@ public final class ConnectionKey {
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
         /**
-         * <p>The public certificate of the signing key in pkcs7 format</p>
+         * <p>The public certificate of the signing or encryption key in pkcs7 format</p>
          */
         _FinalStage pkcs(Optional<String> pkcs);
 
@@ -291,7 +291,7 @@ public final class ConnectionKey {
         _FinalStage currentSince(String currentSince);
 
         /**
-         * <p>Signing key algorithm</p>
+         * <p>Key algorithm: a signing algorithm for signing keys, or a key-management algorithm for encryption keys</p>
          */
         _FinalStage algorithm(Optional<String> algorithm);
 
@@ -355,7 +355,7 @@ public final class ConnectionKey {
         }
 
         /**
-         * <p>The key id of the signing key</p>
+         * <p>The key id of the signing or encryption key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -366,7 +366,7 @@ public final class ConnectionKey {
         }
 
         /**
-         * <p>The public certificate of the signing key</p>
+         * <p>The public certificate of the signing or encryption key</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -425,7 +425,7 @@ public final class ConnectionKey {
         }
 
         /**
-         * <p>Signing key algorithm</p>
+         * <p>Key algorithm: a signing algorithm for signing keys, or a key-management algorithm for encryption keys</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -435,7 +435,7 @@ public final class ConnectionKey {
         }
 
         /**
-         * <p>Signing key algorithm</p>
+         * <p>Key algorithm: a signing algorithm for signing keys, or a key-management algorithm for encryption keys</p>
          */
         @java.lang.Override
         @JsonSetter(value = "algorithm", nulls = Nulls.SKIP)
@@ -525,7 +525,7 @@ public final class ConnectionKey {
         }
 
         /**
-         * <p>The public certificate of the signing key in pkcs7 format</p>
+         * <p>The public certificate of the signing or encryption key in pkcs7 format</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -535,7 +535,7 @@ public final class ConnectionKey {
         }
 
         /**
-         * <p>The public certificate of the signing key in pkcs7 format</p>
+         * <p>The public certificate of the signing or encryption key in pkcs7 format</p>
          */
         @java.lang.Override
         @JsonSetter(value = "pkcs", nulls = Nulls.SKIP)

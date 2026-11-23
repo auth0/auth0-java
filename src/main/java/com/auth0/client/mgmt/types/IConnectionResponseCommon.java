@@ -3,11 +3,23 @@
  */
 package com.auth0.client.mgmt.types;
 
+import com.auth0.client.mgmt.core.OptionalNullable;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-public interface IConnectionResponseCommon extends ICreateConnectionCommon {
+public interface IConnectionResponseCommon {
+    String getDisplayName();
+
     String getId();
 
     Optional<List<String>> getRealms();
+
+    String getName();
+
+    Optional<List<String>> getEnabledClients();
+
+    Optional<Boolean> getIsDomainConnection();
+
+    Optional<Map<String, OptionalNullable<String>>> getMetadata();
 }

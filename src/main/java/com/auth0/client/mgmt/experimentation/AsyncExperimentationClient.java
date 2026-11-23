@@ -12,12 +12,26 @@ public class AsyncExperimentationClient {
 
     protected final Supplier<AsyncExperimentsClient> experimentsClient;
 
+    protected final Supplier<AsyncFeatureFlagsClient> featureFlagsClient;
+
+    protected final Supplier<AsyncSegmentsClient> segmentsClient;
+
     public AsyncExperimentationClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.experimentsClient = Suppliers.memoize(() -> new AsyncExperimentsClient(clientOptions));
+        this.featureFlagsClient = Suppliers.memoize(() -> new AsyncFeatureFlagsClient(clientOptions));
+        this.segmentsClient = Suppliers.memoize(() -> new AsyncSegmentsClient(clientOptions));
     }
 
     public AsyncExperimentsClient experiments() {
         return this.experimentsClient.get();
+    }
+
+    public AsyncFeatureFlagsClient featureFlags() {
+        return this.featureFlagsClient.get();
+    }
+
+    public AsyncSegmentsClient segments() {
+        return this.segmentsClient.get();
     }
 }

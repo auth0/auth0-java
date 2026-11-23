@@ -4,7 +4,6 @@
 package com.auth0.client.mgmt.types;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
-import com.auth0.client.mgmt.core.OptionalNullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -29,8 +28,6 @@ public final class SearchOrganization {
 
     private final Optional<OrganizationBranding> branding;
 
-    private final Optional<Map<String, OptionalNullable<String>>> metadata;
-
     private final Optional<TokenQuota> tokenQuota;
 
     private final Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess;
@@ -44,7 +41,6 @@ public final class SearchOrganization {
             Optional<String> name,
             Optional<String> displayName,
             Optional<OrganizationBranding> branding,
-            Optional<Map<String, OptionalNullable<String>>> metadata,
             Optional<TokenQuota> tokenQuota,
             Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess,
             Optional<Boolean> isAppEntitlementActive,
@@ -53,7 +49,6 @@ public final class SearchOrganization {
         this.name = name;
         this.displayName = displayName;
         this.branding = branding;
-        this.metadata = metadata;
         this.tokenQuota = tokenQuota;
         this.thirdPartyClientAccess = thirdPartyClientAccess;
         this.isAppEntitlementActive = isAppEntitlementActive;
@@ -87,11 +82,6 @@ public final class SearchOrganization {
     @JsonProperty("branding")
     public Optional<OrganizationBranding> getBranding() {
         return branding;
-    }
-
-    @JsonProperty("metadata")
-    public Optional<Map<String, OptionalNullable<String>>> getMetadata() {
-        return metadata;
     }
 
     @JsonProperty("token_quota")
@@ -128,7 +118,6 @@ public final class SearchOrganization {
                 && name.equals(other.name)
                 && displayName.equals(other.displayName)
                 && branding.equals(other.branding)
-                && metadata.equals(other.metadata)
                 && tokenQuota.equals(other.tokenQuota)
                 && thirdPartyClientAccess.equals(other.thirdPartyClientAccess)
                 && isAppEntitlementActive.equals(other.isAppEntitlementActive);
@@ -141,7 +130,6 @@ public final class SearchOrganization {
                 this.name,
                 this.displayName,
                 this.branding,
-                this.metadata,
                 this.tokenQuota,
                 this.thirdPartyClientAccess,
                 this.isAppEntitlementActive);
@@ -166,8 +154,6 @@ public final class SearchOrganization {
 
         private Optional<OrganizationBranding> branding = Optional.empty();
 
-        private Optional<Map<String, OptionalNullable<String>>> metadata = Optional.empty();
-
         private Optional<TokenQuota> tokenQuota = Optional.empty();
 
         private Optional<OrganizationThirdPartyClientAccessEnum> thirdPartyClientAccess = Optional.empty();
@@ -184,7 +170,6 @@ public final class SearchOrganization {
             name(other.getName());
             displayName(other.getDisplayName());
             branding(other.getBranding());
-            metadata(other.getMetadata());
             tokenQuota(other.getTokenQuota());
             thirdPartyClientAccess(other.getThirdPartyClientAccess());
             isAppEntitlementActive(other.getIsAppEntitlementActive());
@@ -244,17 +229,6 @@ public final class SearchOrganization {
             return this;
         }
 
-        @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
-        public Builder metadata(Optional<Map<String, OptionalNullable<String>>> metadata) {
-            this.metadata = metadata;
-            return this;
-        }
-
-        public Builder metadata(Map<String, OptionalNullable<String>> metadata) {
-            this.metadata = Optional.ofNullable(metadata);
-            return this;
-        }
-
         @JsonSetter(value = "token_quota", nulls = Nulls.SKIP)
         public Builder tokenQuota(Optional<TokenQuota> tokenQuota) {
             this.tokenQuota = tokenQuota;
@@ -297,7 +271,6 @@ public final class SearchOrganization {
                     name,
                     displayName,
                     branding,
-                    metadata,
                     tokenQuota,
                     thirdPartyClientAccess,
                     isAppEntitlementActive,

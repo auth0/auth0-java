@@ -55,6 +55,8 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
 
     private final Optional<List<String>> thumbprints;
 
+    private final Optional<List<String>> thumbprintsSha384;
+
     private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             upstreamParams;
 
@@ -82,6 +84,7 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
             Optional<ConnectionSignatureAlgorithmEnumSaml> signatureAlgorithm,
             Optional<String> tenantDomain,
             Optional<List<String>> thumbprints,
+            Optional<List<String>> thumbprintsSha384,
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Optional<List<String>> nonPersistentAttrs,
             String pingFederateBaseUrl,
@@ -102,6 +105,7 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
         this.signatureAlgorithm = signatureAlgorithm;
         this.tenantDomain = tenantDomain;
         this.thumbprints = thumbprints;
+        this.thumbprintsSha384 = thumbprintsSha384;
         this.upstreamParams = upstreamParams;
         this.nonPersistentAttrs = nonPersistentAttrs;
         this.pingFederateBaseUrl = pingFederateBaseUrl;
@@ -199,6 +203,12 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
         return thumbprints;
     }
 
+    @JsonProperty("thumbprints_sha384")
+    @java.lang.Override
+    public Optional<List<String>> getThumbprintsSha384() {
+        return thumbprintsSha384;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
     @java.lang.Override
@@ -259,6 +269,7 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
                 && signatureAlgorithm.equals(other.signatureAlgorithm)
                 && tenantDomain.equals(other.tenantDomain)
                 && thumbprints.equals(other.thumbprints)
+                && thumbprintsSha384.equals(other.thumbprintsSha384)
                 && upstreamParams.equals(other.upstreamParams)
                 && nonPersistentAttrs.equals(other.nonPersistentAttrs)
                 && pingFederateBaseUrl.equals(other.pingFederateBaseUrl)
@@ -283,6 +294,7 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
                 this.signatureAlgorithm,
                 this.tenantDomain,
                 this.thumbprints,
+                this.thumbprintsSha384,
                 this.upstreamParams,
                 this.nonPersistentAttrs,
                 this.pingFederateBaseUrl,
@@ -372,6 +384,10 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
 
         _FinalStage thumbprints(List<String> thumbprints);
 
+        _FinalStage thumbprintsSha384(Optional<List<String>> thumbprintsSha384);
+
+        _FinalStage thumbprintsSha384(List<String> thumbprintsSha384);
+
         _FinalStage upstreamParams(
                 @Nullable
                         OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
@@ -407,6 +423,8 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
 
         private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
                 OptionalNullable.absent();
+
+        private Optional<List<String>> thumbprintsSha384 = Optional.empty();
 
         private Optional<List<String>> thumbprints = Optional.empty();
 
@@ -460,6 +478,7 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
             signatureAlgorithm(other.getSignatureAlgorithm());
             tenantDomain(other.getTenantDomain());
             thumbprints(other.getThumbprints());
+            thumbprintsSha384(other.getThumbprintsSha384());
             upstreamParams(other.getUpstreamParams());
             nonPersistentAttrs(other.getNonPersistentAttrs());
             pingFederateBaseUrl(other.getPingFederateBaseUrl());
@@ -541,6 +560,19 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
                         OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
                                 upstreamParams) {
             this.upstreamParams = upstreamParams;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage thumbprintsSha384(List<String> thumbprintsSha384) {
+            this.thumbprintsSha384 = Optional.ofNullable(thumbprintsSha384);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "thumbprints_sha384", nulls = Nulls.SKIP)
+        public _FinalStage thumbprintsSha384(Optional<List<String>> thumbprintsSha384) {
+            this.thumbprintsSha384 = thumbprintsSha384;
             return this;
         }
 
@@ -759,6 +791,7 @@ public final class ConnectionOptionsPingFederate implements IConnectionOptionsCo
                     signatureAlgorithm,
                     tenantDomain,
                     thumbprints,
+                    thumbprintsSha384,
                     upstreamParams,
                     nonPersistentAttrs,
                     pingFederateBaseUrl,

@@ -4,6 +4,7 @@
 package com.auth0.client.mgmt.attackprotection.types;
 
 import com.auth0.client.mgmt.core.ObjectMappers;
+import com.auth0.client.mgmt.types.BruteForceProtectionFormSubmissionModeEnum;
 import com.auth0.client.mgmt.types.BruteForceProtectionModeEnum;
 import com.auth0.client.mgmt.types.BruteForceProtectionShieldsEnum;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -31,6 +32,8 @@ public final class UpdateBruteForceSettingsRequestContent {
 
     private final Optional<BruteForceProtectionModeEnum> mode;
 
+    private final Optional<BruteForceProtectionFormSubmissionModeEnum> formSubmissionMode;
+
     private final Optional<Integer> maxAttempts;
 
     private final Map<String, Object> additionalProperties;
@@ -40,12 +43,14 @@ public final class UpdateBruteForceSettingsRequestContent {
             Optional<List<BruteForceProtectionShieldsEnum>> shields,
             Optional<List<String>> allowlist,
             Optional<BruteForceProtectionModeEnum> mode,
+            Optional<BruteForceProtectionFormSubmissionModeEnum> formSubmissionMode,
             Optional<Integer> maxAttempts,
             Map<String, Object> additionalProperties) {
         this.enabled = enabled;
         this.shields = shields;
         this.allowlist = allowlist;
         this.mode = mode;
+        this.formSubmissionMode = formSubmissionMode;
         this.maxAttempts = maxAttempts;
         this.additionalProperties = additionalProperties;
     }
@@ -80,6 +85,11 @@ public final class UpdateBruteForceSettingsRequestContent {
         return mode;
     }
 
+    @JsonProperty("form_submission_mode")
+    public Optional<BruteForceProtectionFormSubmissionModeEnum> getFormSubmissionMode() {
+        return formSubmissionMode;
+    }
+
     /**
      * @return Maximum number of unsuccessful attempts.
      */
@@ -105,12 +115,14 @@ public final class UpdateBruteForceSettingsRequestContent {
                 && shields.equals(other.shields)
                 && allowlist.equals(other.allowlist)
                 && mode.equals(other.mode)
+                && formSubmissionMode.equals(other.formSubmissionMode)
                 && maxAttempts.equals(other.maxAttempts);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.enabled, this.shields, this.allowlist, this.mode, this.maxAttempts);
+        return Objects.hash(
+                this.enabled, this.shields, this.allowlist, this.mode, this.formSubmissionMode, this.maxAttempts);
     }
 
     @java.lang.Override
@@ -132,6 +144,8 @@ public final class UpdateBruteForceSettingsRequestContent {
 
         private Optional<BruteForceProtectionModeEnum> mode = Optional.empty();
 
+        private Optional<BruteForceProtectionFormSubmissionModeEnum> formSubmissionMode = Optional.empty();
+
         private Optional<Integer> maxAttempts = Optional.empty();
 
         @JsonAnySetter
@@ -144,6 +158,7 @@ public final class UpdateBruteForceSettingsRequestContent {
             shields(other.getShields());
             allowlist(other.getAllowlist());
             mode(other.getMode());
+            formSubmissionMode(other.getFormSubmissionMode());
             maxAttempts(other.getMaxAttempts());
             return this;
         }
@@ -202,6 +217,17 @@ public final class UpdateBruteForceSettingsRequestContent {
             return this;
         }
 
+        @JsonSetter(value = "form_submission_mode", nulls = Nulls.SKIP)
+        public Builder formSubmissionMode(Optional<BruteForceProtectionFormSubmissionModeEnum> formSubmissionMode) {
+            this.formSubmissionMode = formSubmissionMode;
+            return this;
+        }
+
+        public Builder formSubmissionMode(BruteForceProtectionFormSubmissionModeEnum formSubmissionMode) {
+            this.formSubmissionMode = Optional.ofNullable(formSubmissionMode);
+            return this;
+        }
+
         /**
          * <p>Maximum number of unsuccessful attempts.</p>
          */
@@ -218,7 +244,7 @@ public final class UpdateBruteForceSettingsRequestContent {
 
         public UpdateBruteForceSettingsRequestContent build() {
             return new UpdateBruteForceSettingsRequestContent(
-                    enabled, shields, allowlist, mode, maxAttempts, additionalProperties);
+                    enabled, shields, allowlist, mode, formSubmissionMode, maxAttempts, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

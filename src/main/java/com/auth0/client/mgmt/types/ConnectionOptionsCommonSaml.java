@@ -54,6 +54,8 @@ public final class ConnectionOptionsCommonSaml implements IConnectionOptionsComm
 
     private final Optional<List<String>> thumbprints;
 
+    private final Optional<List<String>> thumbprintsSha384;
+
     private final OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>>
             upstreamParams;
 
@@ -75,6 +77,7 @@ public final class ConnectionOptionsCommonSaml implements IConnectionOptionsComm
             Optional<ConnectionSignatureAlgorithmEnumSaml> signatureAlgorithm,
             Optional<String> tenantDomain,
             Optional<List<String>> thumbprints,
+            Optional<List<String>> thumbprintsSha384,
             OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams,
             Map<String, Object> additionalProperties) {
         this.assertionDecryptionSettings = assertionDecryptionSettings;
@@ -92,6 +95,7 @@ public final class ConnectionOptionsCommonSaml implements IConnectionOptionsComm
         this.signatureAlgorithm = signatureAlgorithm;
         this.tenantDomain = tenantDomain;
         this.thumbprints = thumbprints;
+        this.thumbprintsSha384 = thumbprintsSha384;
         this.upstreamParams = upstreamParams;
         this.additionalProperties = additionalProperties;
     }
@@ -186,6 +190,12 @@ public final class ConnectionOptionsCommonSaml implements IConnectionOptionsComm
         return thumbprints;
     }
 
+    @JsonProperty("thumbprints_sha384")
+    @java.lang.Override
+    public Optional<List<String>> getThumbprintsSha384() {
+        return thumbprintsSha384;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("upstream_params")
     @java.lang.Override
@@ -230,6 +240,7 @@ public final class ConnectionOptionsCommonSaml implements IConnectionOptionsComm
                 && signatureAlgorithm.equals(other.signatureAlgorithm)
                 && tenantDomain.equals(other.tenantDomain)
                 && thumbprints.equals(other.thumbprints)
+                && thumbprintsSha384.equals(other.thumbprintsSha384)
                 && upstreamParams.equals(other.upstreamParams);
     }
 
@@ -251,6 +262,7 @@ public final class ConnectionOptionsCommonSaml implements IConnectionOptionsComm
                 this.signatureAlgorithm,
                 this.tenantDomain,
                 this.thumbprints,
+                this.thumbprintsSha384,
                 this.upstreamParams);
     }
 
@@ -295,6 +307,8 @@ public final class ConnectionOptionsCommonSaml implements IConnectionOptionsComm
 
         private Optional<List<String>> thumbprints = Optional.empty();
 
+        private Optional<List<String>> thumbprintsSha384 = Optional.empty();
+
         private OptionalNullable<Map<String, OptionalNullable<ConnectionUpstreamAdditionalProperties>>> upstreamParams =
                 OptionalNullable.absent();
 
@@ -319,6 +333,7 @@ public final class ConnectionOptionsCommonSaml implements IConnectionOptionsComm
             signatureAlgorithm(other.getSignatureAlgorithm());
             tenantDomain(other.getTenantDomain());
             thumbprints(other.getThumbprints());
+            thumbprintsSha384(other.getThumbprintsSha384());
             upstreamParams(other.getUpstreamParams());
             return this;
         }
@@ -489,6 +504,17 @@ public final class ConnectionOptionsCommonSaml implements IConnectionOptionsComm
             return this;
         }
 
+        @JsonSetter(value = "thumbprints_sha384", nulls = Nulls.SKIP)
+        public Builder thumbprintsSha384(Optional<List<String>> thumbprintsSha384) {
+            this.thumbprintsSha384 = thumbprintsSha384;
+            return this;
+        }
+
+        public Builder thumbprintsSha384(List<String> thumbprintsSha384) {
+            this.thumbprintsSha384 = Optional.ofNullable(thumbprintsSha384);
+            return this;
+        }
+
         @JsonSetter(value = "upstream_params", nulls = Nulls.SKIP)
         public Builder upstreamParams(
                 @Nullable
@@ -545,6 +571,7 @@ public final class ConnectionOptionsCommonSaml implements IConnectionOptionsComm
                     signatureAlgorithm,
                     tenantDomain,
                     thumbprints,
+                    thumbprintsSha384,
                     upstreamParams,
                     additionalProperties);
         }

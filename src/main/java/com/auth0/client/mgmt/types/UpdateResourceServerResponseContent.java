@@ -62,6 +62,8 @@ public final class UpdateResourceServerResponseContent {
 
     private final OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy;
 
+    private final Optional<Boolean> requireConsentNonRepudiation;
+
     private final OptionalNullable<List<Object>> authorizationDetails;
 
     private final OptionalNullable<ResourceServerProofOfPossession> proofOfPossession;
@@ -71,6 +73,10 @@ public final class UpdateResourceServerResponseContent {
     private final OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy;
 
     private final Optional<String> clientId;
+
+    private final Optional<ResourceServerAgentSubjectClaimsResponseEnum> agentSubjectClaims;
+
+    private final OptionalNullable<ResourceServerTypeEnum> type;
 
     private final Map<String, Object> additionalProperties;
 
@@ -94,11 +100,14 @@ public final class UpdateResourceServerResponseContent {
             OptionalNullable<ResourceServerAccessToken> accessToken,
             OptionalNullable<ResourceServerTokenEncryption> tokenEncryption,
             OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy,
+            Optional<Boolean> requireConsentNonRepudiation,
             OptionalNullable<List<Object>> authorizationDetails,
             OptionalNullable<ResourceServerProofOfPossession> proofOfPossession,
             Optional<ResourceServerSubjectTypeAuthorization> subjectTypeAuthorization,
             OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy,
             Optional<String> clientId,
+            Optional<ResourceServerAgentSubjectClaimsResponseEnum> agentSubjectClaims,
+            OptionalNullable<ResourceServerTypeEnum> type,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.name = name;
@@ -119,11 +128,14 @@ public final class UpdateResourceServerResponseContent {
         this.accessToken = accessToken;
         this.tokenEncryption = tokenEncryption;
         this.consentPolicy = consentPolicy;
+        this.requireConsentNonRepudiation = requireConsentNonRepudiation;
         this.authorizationDetails = authorizationDetails;
         this.proofOfPossession = proofOfPossession;
         this.subjectTypeAuthorization = subjectTypeAuthorization;
         this.authorizationPolicy = authorizationPolicy;
         this.clientId = clientId;
+        this.agentSubjectClaims = agentSubjectClaims;
+        this.type = type;
         this.additionalProperties = additionalProperties;
     }
 
@@ -276,6 +288,14 @@ public final class UpdateResourceServerResponseContent {
         return consentPolicy;
     }
 
+    /**
+     * @return When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.
+     */
+    @JsonProperty("require_consent_non_repudiation")
+    public Optional<Boolean> getRequireConsentNonRepudiation() {
+        return requireConsentNonRepudiation;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("authorization_details")
     public OptionalNullable<List<Object>> getAuthorizationDetails() {
@@ -316,6 +336,20 @@ public final class UpdateResourceServerResponseContent {
         return clientId;
     }
 
+    @JsonProperty("agent_subject_claims")
+    public Optional<ResourceServerAgentSubjectClaimsResponseEnum> getAgentSubjectClaims() {
+        return agentSubjectClaims;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("type")
+    public OptionalNullable<ResourceServerTypeEnum> getType() {
+        if (type == null) {
+            return OptionalNullable.absent();
+        }
+        return type;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("access_token")
     private OptionalNullable<ResourceServerAccessToken> _getAccessToken() {
@@ -352,6 +386,12 @@ public final class UpdateResourceServerResponseContent {
         return authorizationPolicy;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("type")
+    private OptionalNullable<ResourceServerTypeEnum> _getType() {
+        return type;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -384,11 +424,14 @@ public final class UpdateResourceServerResponseContent {
                 && accessToken.equals(other.accessToken)
                 && tokenEncryption.equals(other.tokenEncryption)
                 && consentPolicy.equals(other.consentPolicy)
+                && requireConsentNonRepudiation.equals(other.requireConsentNonRepudiation)
                 && authorizationDetails.equals(other.authorizationDetails)
                 && proofOfPossession.equals(other.proofOfPossession)
                 && subjectTypeAuthorization.equals(other.subjectTypeAuthorization)
                 && authorizationPolicy.equals(other.authorizationPolicy)
-                && clientId.equals(other.clientId);
+                && clientId.equals(other.clientId)
+                && agentSubjectClaims.equals(other.agentSubjectClaims)
+                && type.equals(other.type);
     }
 
     @java.lang.Override
@@ -413,11 +456,14 @@ public final class UpdateResourceServerResponseContent {
                 this.accessToken,
                 this.tokenEncryption,
                 this.consentPolicy,
+                this.requireConsentNonRepudiation,
                 this.authorizationDetails,
                 this.proofOfPossession,
                 this.subjectTypeAuthorization,
                 this.authorizationPolicy,
-                this.clientId);
+                this.clientId,
+                this.agentSubjectClaims,
+                this.type);
     }
 
     @java.lang.Override
@@ -469,6 +515,8 @@ public final class UpdateResourceServerResponseContent {
 
         private OptionalNullable<ResourceServerConsentPolicyEnum> consentPolicy = OptionalNullable.absent();
 
+        private Optional<Boolean> requireConsentNonRepudiation = Optional.empty();
+
         private OptionalNullable<List<Object>> authorizationDetails = OptionalNullable.absent();
 
         private OptionalNullable<ResourceServerProofOfPossession> proofOfPossession = OptionalNullable.absent();
@@ -478,6 +526,10 @@ public final class UpdateResourceServerResponseContent {
         private OptionalNullable<ResourceServerAuthorizationPolicy> authorizationPolicy = OptionalNullable.absent();
 
         private Optional<String> clientId = Optional.empty();
+
+        private Optional<ResourceServerAgentSubjectClaimsResponseEnum> agentSubjectClaims = Optional.empty();
+
+        private OptionalNullable<ResourceServerTypeEnum> type = OptionalNullable.absent();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -504,11 +556,14 @@ public final class UpdateResourceServerResponseContent {
             accessToken(other.getAccessToken());
             tokenEncryption(other.getTokenEncryption());
             consentPolicy(other.getConsentPolicy());
+            requireConsentNonRepudiation(other.getRequireConsentNonRepudiation());
             authorizationDetails(other.getAuthorizationDetails());
             proofOfPossession(other.getProofOfPossession());
             subjectTypeAuthorization(other.getSubjectTypeAuthorization());
             authorizationPolicy(other.getAuthorizationPolicy());
             clientId(other.getClientId());
+            agentSubjectClaims(other.getAgentSubjectClaims());
+            type(other.getType());
             return this;
         }
 
@@ -828,6 +883,20 @@ public final class UpdateResourceServerResponseContent {
             return this;
         }
 
+        /**
+         * <p>When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.</p>
+         */
+        @JsonSetter(value = "require_consent_non_repudiation", nulls = Nulls.SKIP)
+        public Builder requireConsentNonRepudiation(Optional<Boolean> requireConsentNonRepudiation) {
+            this.requireConsentNonRepudiation = requireConsentNonRepudiation;
+            return this;
+        }
+
+        public Builder requireConsentNonRepudiation(Boolean requireConsentNonRepudiation) {
+            this.requireConsentNonRepudiation = Optional.ofNullable(requireConsentNonRepudiation);
+            return this;
+        }
+
         @JsonSetter(value = "authorization_details", nulls = Nulls.SKIP)
         public Builder authorizationDetails(@Nullable OptionalNullable<List<Object>> authorizationDetails) {
             this.authorizationDetails = authorizationDetails;
@@ -951,6 +1020,48 @@ public final class UpdateResourceServerResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "agent_subject_claims", nulls = Nulls.SKIP)
+        public Builder agentSubjectClaims(Optional<ResourceServerAgentSubjectClaimsResponseEnum> agentSubjectClaims) {
+            this.agentSubjectClaims = agentSubjectClaims;
+            return this;
+        }
+
+        public Builder agentSubjectClaims(ResourceServerAgentSubjectClaimsResponseEnum agentSubjectClaims) {
+            this.agentSubjectClaims = Optional.ofNullable(agentSubjectClaims);
+            return this;
+        }
+
+        @JsonSetter(value = "type", nulls = Nulls.SKIP)
+        public Builder type(@Nullable OptionalNullable<ResourceServerTypeEnum> type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder type(ResourceServerTypeEnum type) {
+            this.type = OptionalNullable.of(type);
+            return this;
+        }
+
+        public Builder type(Optional<ResourceServerTypeEnum> type) {
+            if (type.isPresent()) {
+                this.type = OptionalNullable.of(type.get());
+            } else {
+                this.type = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder type(com.auth0.client.mgmt.core.Nullable<ResourceServerTypeEnum> type) {
+            if (type.isNull()) {
+                this.type = OptionalNullable.ofNull();
+            } else if (type.isEmpty()) {
+                this.type = OptionalNullable.absent();
+            } else {
+                this.type = OptionalNullable.of(type.get());
+            }
+            return this;
+        }
+
         public UpdateResourceServerResponseContent build() {
             return new UpdateResourceServerResponseContent(
                     id,
@@ -972,11 +1083,14 @@ public final class UpdateResourceServerResponseContent {
                     accessToken,
                     tokenEncryption,
                     consentPolicy,
+                    requireConsentNonRepudiation,
                     authorizationDetails,
                     proofOfPossession,
                     subjectTypeAuthorization,
                     authorizationPolicy,
                     clientId,
+                    agentSubjectClaims,
+                    type,
                     additionalProperties);
         }
 

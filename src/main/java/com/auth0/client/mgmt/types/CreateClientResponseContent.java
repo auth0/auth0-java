@@ -141,11 +141,17 @@ public final class CreateClientResponseContent {
 
     private final Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration;
 
+    private final Optional<GoogleAccountLinkingConfiguration> googleAccountLinking;
+
     private final Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant;
 
     private final Optional<AnonymousSessions> anonymousSessions;
 
+    private final Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding;
+
     private final Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode;
+
+    private final Optional<ClientOidcSupport> oidcSupport;
 
     private final Optional<ClientRedirectionPolicyEnum> redirectionPolicy;
 
@@ -156,6 +162,10 @@ public final class CreateClientResponseContent {
     private final Optional<ClientExternalMetadataTypeEnum> externalMetadataType;
 
     private final Optional<ClientExternalMetadataCreatedByEnum> externalMetadataCreatedBy;
+
+    private final Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus;
+
+    private final Optional<String> agentId;
 
     private final Optional<String> externalClientId;
 
@@ -222,14 +232,19 @@ public final class CreateClientResponseContent {
             Optional<ExpressConfiguration> expressConfiguration,
             Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration,
             Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration,
+            Optional<GoogleAccountLinkingConfiguration> googleAccountLinking,
             Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant,
             Optional<AnonymousSessions> anonymousSessions,
+            Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding,
             Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode,
+            Optional<ClientOidcSupport> oidcSupport,
             Optional<ClientRedirectionPolicyEnum> redirectionPolicy,
             Optional<String> resourceServerIdentifier,
             Optional<List<AsyncApprovalNotificationsChannelsEnum>> asyncApprovalNotificationChannels,
             Optional<ClientExternalMetadataTypeEnum> externalMetadataType,
             Optional<ClientExternalMetadataCreatedByEnum> externalMetadataCreatedBy,
+            Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus,
+            Optional<String> agentId,
             Optional<String> externalClientId,
             Optional<String> jwksUri,
             Map<String, Object> additionalProperties) {
@@ -291,14 +306,19 @@ public final class CreateClientResponseContent {
         this.expressConfiguration = expressConfiguration;
         this.b2BIntegrationConfiguration = b2BIntegrationConfiguration;
         this.myOrganizationConfiguration = myOrganizationConfiguration;
+        this.googleAccountLinking = googleAccountLinking;
         this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
         this.anonymousSessions = anonymousSessions;
+        this.enforceAnonSessionTransferNetworkBinding = enforceAnonSessionTransferNetworkBinding;
         this.thirdPartySecurityMode = thirdPartySecurityMode;
+        this.oidcSupport = oidcSupport;
         this.redirectionPolicy = redirectionPolicy;
         this.resourceServerIdentifier = resourceServerIdentifier;
         this.asyncApprovalNotificationChannels = asyncApprovalNotificationChannels;
         this.externalMetadataType = externalMetadataType;
         this.externalMetadataCreatedBy = externalMetadataCreatedBy;
+        this.externalMetadataStatus = externalMetadataStatus;
+        this.agentId = agentId;
         this.externalClientId = externalClientId;
         this.jwksUri = jwksUri;
         this.additionalProperties = additionalProperties;
@@ -727,6 +747,11 @@ public final class CreateClientResponseContent {
         return myOrganizationConfiguration;
     }
 
+    @JsonProperty("google_account_linking")
+    public Optional<GoogleAccountLinkingConfiguration> getGoogleAccountLinking() {
+        return googleAccountLinking;
+    }
+
     @JsonProperty("identity_assertion_authorization_grant")
     public Optional<IdentityAssertionAuthorizationGrant> getIdentityAssertionAuthorizationGrant() {
         return identityAssertionAuthorizationGrant;
@@ -737,9 +762,19 @@ public final class CreateClientResponseContent {
         return anonymousSessions;
     }
 
+    @JsonProperty("enforce_anon_session_transfer_network_binding")
+    public Optional<ClientAnonymousSessionTransferNetworkBindingEnum> getEnforceAnonSessionTransferNetworkBinding() {
+        return enforceAnonSessionTransferNetworkBinding;
+    }
+
     @JsonProperty("third_party_security_mode")
     public Optional<ClientThirdPartySecurityModeEnum> getThirdPartySecurityMode() {
         return thirdPartySecurityMode;
+    }
+
+    @JsonProperty("oidc_support")
+    public Optional<ClientOidcSupport> getOidcSupport() {
+        return oidcSupport;
     }
 
     @JsonProperty("redirection_policy")
@@ -768,6 +803,19 @@ public final class CreateClientResponseContent {
     @JsonProperty("external_metadata_created_by")
     public Optional<ClientExternalMetadataCreatedByEnum> getExternalMetadataCreatedBy() {
         return externalMetadataCreatedBy;
+    }
+
+    @JsonProperty("external_metadata_status")
+    public Optional<ClientExternalMetadataStatusEnum> getExternalMetadataStatus() {
+        return externalMetadataStatus;
+    }
+
+    /**
+     * @return ID of the agent associated with this client.
+     */
+    @JsonProperty("agent_id")
+    public Optional<String> getAgentId() {
+        return agentId;
     }
 
     /**
@@ -905,14 +953,19 @@ public final class CreateClientResponseContent {
                 && expressConfiguration.equals(other.expressConfiguration)
                 && b2BIntegrationConfiguration.equals(other.b2BIntegrationConfiguration)
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
+                && googleAccountLinking.equals(other.googleAccountLinking)
                 && identityAssertionAuthorizationGrant.equals(other.identityAssertionAuthorizationGrant)
                 && anonymousSessions.equals(other.anonymousSessions)
+                && enforceAnonSessionTransferNetworkBinding.equals(other.enforceAnonSessionTransferNetworkBinding)
                 && thirdPartySecurityMode.equals(other.thirdPartySecurityMode)
+                && oidcSupport.equals(other.oidcSupport)
                 && redirectionPolicy.equals(other.redirectionPolicy)
                 && resourceServerIdentifier.equals(other.resourceServerIdentifier)
                 && asyncApprovalNotificationChannels.equals(other.asyncApprovalNotificationChannels)
                 && externalMetadataType.equals(other.externalMetadataType)
                 && externalMetadataCreatedBy.equals(other.externalMetadataCreatedBy)
+                && externalMetadataStatus.equals(other.externalMetadataStatus)
+                && agentId.equals(other.agentId)
                 && externalClientId.equals(other.externalClientId)
                 && jwksUri.equals(other.jwksUri);
     }
@@ -978,14 +1031,19 @@ public final class CreateClientResponseContent {
                 this.expressConfiguration,
                 this.b2BIntegrationConfiguration,
                 this.myOrganizationConfiguration,
+                this.googleAccountLinking,
                 this.identityAssertionAuthorizationGrant,
                 this.anonymousSessions,
+                this.enforceAnonSessionTransferNetworkBinding,
                 this.thirdPartySecurityMode,
+                this.oidcSupport,
                 this.redirectionPolicy,
                 this.resourceServerIdentifier,
                 this.asyncApprovalNotificationChannels,
                 this.externalMetadataType,
                 this.externalMetadataCreatedBy,
+                this.externalMetadataStatus,
+                this.agentId,
                 this.externalClientId,
                 this.jwksUri);
     }
@@ -1118,11 +1176,18 @@ public final class CreateClientResponseContent {
 
         private Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration = Optional.empty();
 
+        private Optional<GoogleAccountLinkingConfiguration> googleAccountLinking = Optional.empty();
+
         private Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant = Optional.empty();
 
         private Optional<AnonymousSessions> anonymousSessions = Optional.empty();
 
+        private Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding =
+                Optional.empty();
+
         private Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode = Optional.empty();
+
+        private Optional<ClientOidcSupport> oidcSupport = Optional.empty();
 
         private Optional<ClientRedirectionPolicyEnum> redirectionPolicy = Optional.empty();
 
@@ -1134,6 +1199,10 @@ public final class CreateClientResponseContent {
         private Optional<ClientExternalMetadataTypeEnum> externalMetadataType = Optional.empty();
 
         private Optional<ClientExternalMetadataCreatedByEnum> externalMetadataCreatedBy = Optional.empty();
+
+        private Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus = Optional.empty();
+
+        private Optional<String> agentId = Optional.empty();
 
         private Optional<String> externalClientId = Optional.empty();
 
@@ -1203,14 +1272,19 @@ public final class CreateClientResponseContent {
             expressConfiguration(other.getExpressConfiguration());
             b2BIntegrationConfiguration(other.getB2BIntegrationConfiguration());
             myOrganizationConfiguration(other.getMyOrganizationConfiguration());
+            googleAccountLinking(other.getGoogleAccountLinking());
             identityAssertionAuthorizationGrant(other.getIdentityAssertionAuthorizationGrant());
             anonymousSessions(other.getAnonymousSessions());
+            enforceAnonSessionTransferNetworkBinding(other.getEnforceAnonSessionTransferNetworkBinding());
             thirdPartySecurityMode(other.getThirdPartySecurityMode());
+            oidcSupport(other.getOidcSupport());
             redirectionPolicy(other.getRedirectionPolicy());
             resourceServerIdentifier(other.getResourceServerIdentifier());
             asyncApprovalNotificationChannels(other.getAsyncApprovalNotificationChannels());
             externalMetadataType(other.getExternalMetadataType());
             externalMetadataCreatedBy(other.getExternalMetadataCreatedBy());
+            externalMetadataStatus(other.getExternalMetadataStatus());
+            agentId(other.getAgentId());
             externalClientId(other.getExternalClientId());
             jwksUri(other.getJwksUri());
             return this;
@@ -2129,6 +2203,17 @@ public final class CreateClientResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "google_account_linking", nulls = Nulls.SKIP)
+        public Builder googleAccountLinking(Optional<GoogleAccountLinkingConfiguration> googleAccountLinking) {
+            this.googleAccountLinking = googleAccountLinking;
+            return this;
+        }
+
+        public Builder googleAccountLinking(GoogleAccountLinkingConfiguration googleAccountLinking) {
+            this.googleAccountLinking = Optional.ofNullable(googleAccountLinking);
+            return this;
+        }
+
         @JsonSetter(value = "identity_assertion_authorization_grant", nulls = Nulls.SKIP)
         public Builder identityAssertionAuthorizationGrant(
                 Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant) {
@@ -2153,6 +2238,20 @@ public final class CreateClientResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "enforce_anon_session_transfer_network_binding", nulls = Nulls.SKIP)
+        public Builder enforceAnonSessionTransferNetworkBinding(
+                Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding) {
+            this.enforceAnonSessionTransferNetworkBinding = enforceAnonSessionTransferNetworkBinding;
+            return this;
+        }
+
+        public Builder enforceAnonSessionTransferNetworkBinding(
+                ClientAnonymousSessionTransferNetworkBindingEnum enforceAnonSessionTransferNetworkBinding) {
+            this.enforceAnonSessionTransferNetworkBinding =
+                    Optional.ofNullable(enforceAnonSessionTransferNetworkBinding);
+            return this;
+        }
+
         @JsonSetter(value = "third_party_security_mode", nulls = Nulls.SKIP)
         public Builder thirdPartySecurityMode(Optional<ClientThirdPartySecurityModeEnum> thirdPartySecurityMode) {
             this.thirdPartySecurityMode = thirdPartySecurityMode;
@@ -2161,6 +2260,17 @@ public final class CreateClientResponseContent {
 
         public Builder thirdPartySecurityMode(ClientThirdPartySecurityModeEnum thirdPartySecurityMode) {
             this.thirdPartySecurityMode = Optional.ofNullable(thirdPartySecurityMode);
+            return this;
+        }
+
+        @JsonSetter(value = "oidc_support", nulls = Nulls.SKIP)
+        public Builder oidcSupport(Optional<ClientOidcSupport> oidcSupport) {
+            this.oidcSupport = oidcSupport;
+            return this;
+        }
+
+        public Builder oidcSupport(ClientOidcSupport oidcSupport) {
+            this.oidcSupport = Optional.ofNullable(oidcSupport);
             return this;
         }
 
@@ -2222,6 +2332,31 @@ public final class CreateClientResponseContent {
 
         public Builder externalMetadataCreatedBy(ClientExternalMetadataCreatedByEnum externalMetadataCreatedBy) {
             this.externalMetadataCreatedBy = Optional.ofNullable(externalMetadataCreatedBy);
+            return this;
+        }
+
+        @JsonSetter(value = "external_metadata_status", nulls = Nulls.SKIP)
+        public Builder externalMetadataStatus(Optional<ClientExternalMetadataStatusEnum> externalMetadataStatus) {
+            this.externalMetadataStatus = externalMetadataStatus;
+            return this;
+        }
+
+        public Builder externalMetadataStatus(ClientExternalMetadataStatusEnum externalMetadataStatus) {
+            this.externalMetadataStatus = Optional.ofNullable(externalMetadataStatus);
+            return this;
+        }
+
+        /**
+         * <p>ID of the agent associated with this client.</p>
+         */
+        @JsonSetter(value = "agent_id", nulls = Nulls.SKIP)
+        public Builder agentId(Optional<String> agentId) {
+            this.agentId = agentId;
+            return this;
+        }
+
+        public Builder agentId(String agentId) {
+            this.agentId = Optional.ofNullable(agentId);
             return this;
         }
 
@@ -2313,14 +2448,19 @@ public final class CreateClientResponseContent {
                     expressConfiguration,
                     b2BIntegrationConfiguration,
                     myOrganizationConfiguration,
+                    googleAccountLinking,
                     identityAssertionAuthorizationGrant,
                     anonymousSessions,
+                    enforceAnonSessionTransferNetworkBinding,
                     thirdPartySecurityMode,
+                    oidcSupport,
                     redirectionPolicy,
                     resourceServerIdentifier,
                     asyncApprovalNotificationChannels,
                     externalMetadataType,
                     externalMetadataCreatedBy,
+                    externalMetadataStatus,
+                    agentId,
                     externalClientId,
                     jwksUri,
                     additionalProperties);
