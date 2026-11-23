@@ -40,6 +40,8 @@ public final class ExpressConfiguration {
 
     private final Optional<String> oinSubmissionId;
 
+    private final Optional<String> oktaOinListingUrl;
+
     private final Map<String, Object> additionalProperties;
 
     private ExpressConfiguration(
@@ -52,6 +54,7 @@ public final class ExpressConfiguration {
             String oktaOinClientId,
             String adminLoginDomain,
             Optional<String> oinSubmissionId,
+            Optional<String> oktaOinListingUrl,
             Map<String, Object> additionalProperties) {
         this.initiateLoginUriTemplate = initiateLoginUriTemplate;
         this.userAttributeProfileId = userAttributeProfileId;
@@ -62,6 +65,7 @@ public final class ExpressConfiguration {
         this.oktaOinClientId = oktaOinClientId;
         this.adminLoginDomain = adminLoginDomain;
         this.oinSubmissionId = oinSubmissionId;
+        this.oktaOinListingUrl = oktaOinListingUrl;
         this.additionalProperties = additionalProperties;
     }
 
@@ -137,6 +141,14 @@ public final class ExpressConfiguration {
         return oinSubmissionId;
     }
 
+    /**
+     * @return URL of the application's listing in the Okta Integration Network (OIN) catalog, used to redirect customers into OIN Express Configuration. Must be an https URL on an okta.com domain with no query string or fragment.
+     */
+    @JsonProperty("okta_oin_listing_url")
+    public Optional<String> getOktaOinListingUrl() {
+        return oktaOinListingUrl;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -157,7 +169,8 @@ public final class ExpressConfiguration {
                 && linkedClients.equals(other.linkedClients)
                 && oktaOinClientId.equals(other.oktaOinClientId)
                 && adminLoginDomain.equals(other.adminLoginDomain)
-                && oinSubmissionId.equals(other.oinSubmissionId);
+                && oinSubmissionId.equals(other.oinSubmissionId)
+                && oktaOinListingUrl.equals(other.oktaOinListingUrl);
     }
 
     @java.lang.Override
@@ -171,7 +184,8 @@ public final class ExpressConfiguration {
                 this.linkedClients,
                 this.oktaOinClientId,
                 this.adminLoginDomain,
-                this.oinSubmissionId);
+                this.oinSubmissionId,
+                this.oktaOinListingUrl);
     }
 
     @java.lang.Override
@@ -254,6 +268,13 @@ public final class ExpressConfiguration {
         _FinalStage oinSubmissionId(Optional<String> oinSubmissionId);
 
         _FinalStage oinSubmissionId(String oinSubmissionId);
+
+        /**
+         * <p>URL of the application's listing in the Okta Integration Network (OIN) catalog, used to redirect customers into OIN Express Configuration. Must be an https URL on an okta.com domain with no query string or fragment.</p>
+         */
+        _FinalStage oktaOinListingUrl(Optional<String> oktaOinListingUrl);
+
+        _FinalStage oktaOinListingUrl(String oktaOinListingUrl);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -280,6 +301,8 @@ public final class ExpressConfiguration {
 
         private String adminLoginDomain;
 
+        private Optional<String> oktaOinListingUrl = Optional.empty();
+
         private Optional<String> oinSubmissionId = Optional.empty();
 
         private Optional<List<LinkedClientConfiguration>> linkedClients = Optional.empty();
@@ -300,6 +323,7 @@ public final class ExpressConfiguration {
             oktaOinClientId(other.getOktaOinClientId());
             adminLoginDomain(other.getAdminLoginDomain());
             oinSubmissionId(other.getOinSubmissionId());
+            oktaOinListingUrl(other.getOktaOinListingUrl());
             return this;
         }
 
@@ -384,6 +408,26 @@ public final class ExpressConfiguration {
         }
 
         /**
+         * <p>URL of the application's listing in the Okta Integration Network (OIN) catalog, used to redirect customers into OIN Express Configuration. Must be an https URL on an okta.com domain with no query string or fragment.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage oktaOinListingUrl(String oktaOinListingUrl) {
+            this.oktaOinListingUrl = Optional.ofNullable(oktaOinListingUrl);
+            return this;
+        }
+
+        /**
+         * <p>URL of the application's listing in the Okta Integration Network (OIN) catalog, used to redirect customers into OIN Express Configuration. Must be an https URL on an okta.com domain with no query string or fragment.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "okta_oin_listing_url", nulls = Nulls.SKIP)
+        public _FinalStage oktaOinListingUrl(Optional<String> oktaOinListingUrl) {
+            this.oktaOinListingUrl = oktaOinListingUrl;
+            return this;
+        }
+
+        /**
          * <p>The identifier of the published application in the OKTA OIN.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -435,6 +479,7 @@ public final class ExpressConfiguration {
                     oktaOinClientId,
                     adminLoginDomain,
                     oinSubmissionId,
+                    oktaOinListingUrl,
                     additionalProperties);
         }
 

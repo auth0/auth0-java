@@ -20,14 +20,27 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = PostConnectionKeysRequestContent.Builder.class)
 public final class PostConnectionKeysRequestContent {
+    private final Optional<ConnectionKeyUseEnum> keyUse;
+
     private final Optional<PostConnectionKeysAlgEnum> signingAlg;
 
     private final Map<String, Object> additionalProperties;
 
     private PostConnectionKeysRequestContent(
-            Optional<PostConnectionKeysAlgEnum> signingAlg, Map<String, Object> additionalProperties) {
+            Optional<ConnectionKeyUseEnum> keyUse,
+            Optional<PostConnectionKeysAlgEnum> signingAlg,
+            Map<String, Object> additionalProperties) {
+        this.keyUse = keyUse;
         this.signingAlg = signingAlg;
         this.additionalProperties = additionalProperties;
+    }
+
+    /**
+     * @return Whether to provision a signing key (default) or an encryption key for the connection.
+     */
+    @JsonProperty("key_use")
+    public Optional<ConnectionKeyUseEnum> getKeyUse() {
+        return keyUse;
     }
 
     @JsonProperty("signing_alg")
@@ -47,12 +60,12 @@ public final class PostConnectionKeysRequestContent {
     }
 
     private boolean equalTo(PostConnectionKeysRequestContent other) {
-        return signingAlg.equals(other.signingAlg);
+        return keyUse.equals(other.keyUse) && signingAlg.equals(other.signingAlg);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.signingAlg);
+        return Objects.hash(this.keyUse, this.signingAlg);
     }
 
     @java.lang.Override
@@ -66,6 +79,8 @@ public final class PostConnectionKeysRequestContent {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<ConnectionKeyUseEnum> keyUse = Optional.empty();
+
         private Optional<PostConnectionKeysAlgEnum> signingAlg = Optional.empty();
 
         @JsonAnySetter
@@ -74,7 +89,22 @@ public final class PostConnectionKeysRequestContent {
         private Builder() {}
 
         public Builder from(PostConnectionKeysRequestContent other) {
+            keyUse(other.getKeyUse());
             signingAlg(other.getSigningAlg());
+            return this;
+        }
+
+        /**
+         * <p>Whether to provision a signing key (default) or an encryption key for the connection.</p>
+         */
+        @JsonSetter(value = "key_use", nulls = Nulls.SKIP)
+        public Builder keyUse(Optional<ConnectionKeyUseEnum> keyUse) {
+            this.keyUse = keyUse;
+            return this;
+        }
+
+        public Builder keyUse(ConnectionKeyUseEnum keyUse) {
+            this.keyUse = Optional.ofNullable(keyUse);
             return this;
         }
 
@@ -90,7 +120,7 @@ public final class PostConnectionKeysRequestContent {
         }
 
         public PostConnectionKeysRequestContent build() {
-            return new PostConnectionKeysRequestContent(signingAlg, additionalProperties);
+            return new PostConnectionKeysRequestContent(keyUse, signingAlg, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

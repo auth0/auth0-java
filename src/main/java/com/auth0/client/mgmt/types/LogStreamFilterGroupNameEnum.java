@@ -25,8 +25,14 @@ public final class LogStreamFilterGroupNameEnum {
     public static final LogStreamFilterGroupNameEnum AUTH_SILENT_AUTH_FAIL =
             new LogStreamFilterGroupNameEnum(Value.AUTH_SILENT_AUTH_FAIL, "auth.silent_auth.fail");
 
+    public static final LogStreamFilterGroupNameEnum AGENT_GATEWAY_OPERATION_FAIL =
+            new LogStreamFilterGroupNameEnum(Value.AGENT_GATEWAY_OPERATION_FAIL, "agent_gateway.operation.fail");
+
     public static final LogStreamFilterGroupNameEnum AUTH_LOGOUT_FAIL =
             new LogStreamFilterGroupNameEnum(Value.AUTH_LOGOUT_FAIL, "auth.logout.fail");
+
+    public static final LogStreamFilterGroupNameEnum AGENT_GATEWAY_OPERATION_SUCCESS =
+            new LogStreamFilterGroupNameEnum(Value.AGENT_GATEWAY_OPERATION_SUCCESS, "agent_gateway.operation.success");
 
     public static final LogStreamFilterGroupNameEnum AUTH_TOKEN_EXCHANGE_SUCCESS =
             new LogStreamFilterGroupNameEnum(Value.AUTH_TOKEN_EXCHANGE_SUCCESS, "auth.token_exchange.success");
@@ -62,6 +68,10 @@ public final class LogStreamFilterGroupNameEnum {
 
     public static final LogStreamFilterGroupNameEnum AUTH_LOGIN_NOTIFICATION =
             new LogStreamFilterGroupNameEnum(Value.AUTH_LOGIN_NOTIFICATION, "auth.login.notification");
+
+    public static final LogStreamFilterGroupNameEnum AGENT_GATEWAY_AUTHENTICATION_FAIL =
+            new LogStreamFilterGroupNameEnum(
+                    Value.AGENT_GATEWAY_AUTHENTICATION_FAIL, "agent_gateway.authentication.fail");
 
     public static final LogStreamFilterGroupNameEnum USER_SUCCESS =
             new LogStreamFilterGroupNameEnum(Value.USER_SUCCESS, "user.success");
@@ -111,8 +121,12 @@ public final class LogStreamFilterGroupNameEnum {
                 return visitor.visitActions();
             case AUTH_SILENT_AUTH_FAIL:
                 return visitor.visitAuthSilentAuthFail();
+            case AGENT_GATEWAY_OPERATION_FAIL:
+                return visitor.visitAgentGatewayOperationFail();
             case AUTH_LOGOUT_FAIL:
                 return visitor.visitAuthLogoutFail();
+            case AGENT_GATEWAY_OPERATION_SUCCESS:
+                return visitor.visitAgentGatewayOperationSuccess();
             case AUTH_TOKEN_EXCHANGE_SUCCESS:
                 return visitor.visitAuthTokenExchangeSuccess();
             case USER_NOTIFICATION:
@@ -137,6 +151,8 @@ public final class LogStreamFilterGroupNameEnum {
                 return visitor.visitAuthLoginFail();
             case AUTH_LOGIN_NOTIFICATION:
                 return visitor.visitAuthLoginNotification();
+            case AGENT_GATEWAY_AUTHENTICATION_FAIL:
+                return visitor.visitAgentGatewayAuthenticationFail();
             case USER_SUCCESS:
                 return visitor.visitUserSuccess();
             case UNKNOWN:
@@ -160,8 +176,12 @@ public final class LogStreamFilterGroupNameEnum {
                 return ACTIONS;
             case "auth.silent_auth.fail":
                 return AUTH_SILENT_AUTH_FAIL;
+            case "agent_gateway.operation.fail":
+                return AGENT_GATEWAY_OPERATION_FAIL;
             case "auth.logout.fail":
                 return AUTH_LOGOUT_FAIL;
+            case "agent_gateway.operation.success":
+                return AGENT_GATEWAY_OPERATION_SUCCESS;
             case "auth.token_exchange.success":
                 return AUTH_TOKEN_EXCHANGE_SUCCESS;
             case "user.notification":
@@ -186,6 +206,8 @@ public final class LogStreamFilterGroupNameEnum {
                 return AUTH_LOGIN_FAIL;
             case "auth.login.notification":
                 return AUTH_LOGIN_NOTIFICATION;
+            case "agent_gateway.authentication.fail":
+                return AGENT_GATEWAY_AUTHENTICATION_FAIL;
             case "user.success":
                 return USER_SUCCESS;
             default:
@@ -232,6 +254,12 @@ public final class LogStreamFilterGroupNameEnum {
 
         ACTIONS,
 
+        AGENT_GATEWAY_AUTHENTICATION_FAIL,
+
+        AGENT_GATEWAY_OPERATION_FAIL,
+
+        AGENT_GATEWAY_OPERATION_SUCCESS,
+
         OTHER,
 
         UNKNOWN
@@ -275,6 +303,12 @@ public final class LogStreamFilterGroupNameEnum {
         T visitUserSuccess();
 
         T visitActions();
+
+        T visitAgentGatewayAuthenticationFail();
+
+        T visitAgentGatewayOperationFail();
+
+        T visitAgentGatewayOperationSuccess();
 
         T visitOther();
 

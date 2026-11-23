@@ -10,6 +10,9 @@ public final class ResourceServerTypeEnum {
     public static final ResourceServerTypeEnum UNIVERSAL_COMMERCE_PROTOCOL_SERVER =
             new ResourceServerTypeEnum(Value.UNIVERSAL_COMMERCE_PROTOCOL_SERVER, "universal_commerce_protocol_server");
 
+    public static final ResourceServerTypeEnum MODEL_CONTEXT_PROTOCOL_SERVER =
+            new ResourceServerTypeEnum(Value.MODEL_CONTEXT_PROTOCOL_SERVER, "model_context_protocol_server");
+
     private final Value value;
 
     private final String string;
@@ -45,6 +48,8 @@ public final class ResourceServerTypeEnum {
         switch (value) {
             case UNIVERSAL_COMMERCE_PROTOCOL_SERVER:
                 return visitor.visitUniversalCommerceProtocolServer();
+            case MODEL_CONTEXT_PROTOCOL_SERVER:
+                return visitor.visitModelContextProtocolServer();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -56,6 +61,8 @@ public final class ResourceServerTypeEnum {
         switch (value) {
             case "universal_commerce_protocol_server":
                 return UNIVERSAL_COMMERCE_PROTOCOL_SERVER;
+            case "model_context_protocol_server":
+                return MODEL_CONTEXT_PROTOCOL_SERVER;
             default:
                 return new ResourceServerTypeEnum(Value.UNKNOWN, value);
         }
@@ -64,11 +71,15 @@ public final class ResourceServerTypeEnum {
     public enum Value {
         UNIVERSAL_COMMERCE_PROTOCOL_SERVER,
 
+        MODEL_CONTEXT_PROTOCOL_SERVER,
+
         UNKNOWN
     }
 
     public interface Visitor<T> {
         T visitUniversalCommerceProtocolServer();
+
+        T visitModelContextProtocolServer();
 
         T visitUnknown(String unknownType);
     }

@@ -141,6 +141,8 @@ public final class UpdateClientResponseContent {
 
     private final Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration;
 
+    private final Optional<GoogleAccountLinkingConfiguration> googleAccountLinking;
+
     private final Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant;
 
     private final Optional<AnonymousSessions> anonymousSessions;
@@ -230,6 +232,7 @@ public final class UpdateClientResponseContent {
             Optional<ExpressConfiguration> expressConfiguration,
             Optional<B2BIntegrationConfiguration> b2BIntegrationConfiguration,
             Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration,
+            Optional<GoogleAccountLinkingConfiguration> googleAccountLinking,
             Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant,
             Optional<AnonymousSessions> anonymousSessions,
             Optional<ClientAnonymousSessionTransferNetworkBindingEnum> enforceAnonSessionTransferNetworkBinding,
@@ -303,6 +306,7 @@ public final class UpdateClientResponseContent {
         this.expressConfiguration = expressConfiguration;
         this.b2BIntegrationConfiguration = b2BIntegrationConfiguration;
         this.myOrganizationConfiguration = myOrganizationConfiguration;
+        this.googleAccountLinking = googleAccountLinking;
         this.identityAssertionAuthorizationGrant = identityAssertionAuthorizationGrant;
         this.anonymousSessions = anonymousSessions;
         this.enforceAnonSessionTransferNetworkBinding = enforceAnonSessionTransferNetworkBinding;
@@ -743,6 +747,11 @@ public final class UpdateClientResponseContent {
         return myOrganizationConfiguration;
     }
 
+    @JsonProperty("google_account_linking")
+    public Optional<GoogleAccountLinkingConfiguration> getGoogleAccountLinking() {
+        return googleAccountLinking;
+    }
+
     @JsonProperty("identity_assertion_authorization_grant")
     public Optional<IdentityAssertionAuthorizationGrant> getIdentityAssertionAuthorizationGrant() {
         return identityAssertionAuthorizationGrant;
@@ -944,6 +953,7 @@ public final class UpdateClientResponseContent {
                 && expressConfiguration.equals(other.expressConfiguration)
                 && b2BIntegrationConfiguration.equals(other.b2BIntegrationConfiguration)
                 && myOrganizationConfiguration.equals(other.myOrganizationConfiguration)
+                && googleAccountLinking.equals(other.googleAccountLinking)
                 && identityAssertionAuthorizationGrant.equals(other.identityAssertionAuthorizationGrant)
                 && anonymousSessions.equals(other.anonymousSessions)
                 && enforceAnonSessionTransferNetworkBinding.equals(other.enforceAnonSessionTransferNetworkBinding)
@@ -1021,6 +1031,7 @@ public final class UpdateClientResponseContent {
                 this.expressConfiguration,
                 this.b2BIntegrationConfiguration,
                 this.myOrganizationConfiguration,
+                this.googleAccountLinking,
                 this.identityAssertionAuthorizationGrant,
                 this.anonymousSessions,
                 this.enforceAnonSessionTransferNetworkBinding,
@@ -1165,6 +1176,8 @@ public final class UpdateClientResponseContent {
 
         private Optional<ClientMyOrganizationResponseConfiguration> myOrganizationConfiguration = Optional.empty();
 
+        private Optional<GoogleAccountLinkingConfiguration> googleAccountLinking = Optional.empty();
+
         private Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant = Optional.empty();
 
         private Optional<AnonymousSessions> anonymousSessions = Optional.empty();
@@ -1259,6 +1272,7 @@ public final class UpdateClientResponseContent {
             expressConfiguration(other.getExpressConfiguration());
             b2BIntegrationConfiguration(other.getB2BIntegrationConfiguration());
             myOrganizationConfiguration(other.getMyOrganizationConfiguration());
+            googleAccountLinking(other.getGoogleAccountLinking());
             identityAssertionAuthorizationGrant(other.getIdentityAssertionAuthorizationGrant());
             anonymousSessions(other.getAnonymousSessions());
             enforceAnonSessionTransferNetworkBinding(other.getEnforceAnonSessionTransferNetworkBinding());
@@ -2189,6 +2203,17 @@ public final class UpdateClientResponseContent {
             return this;
         }
 
+        @JsonSetter(value = "google_account_linking", nulls = Nulls.SKIP)
+        public Builder googleAccountLinking(Optional<GoogleAccountLinkingConfiguration> googleAccountLinking) {
+            this.googleAccountLinking = googleAccountLinking;
+            return this;
+        }
+
+        public Builder googleAccountLinking(GoogleAccountLinkingConfiguration googleAccountLinking) {
+            this.googleAccountLinking = Optional.ofNullable(googleAccountLinking);
+            return this;
+        }
+
         @JsonSetter(value = "identity_assertion_authorization_grant", nulls = Nulls.SKIP)
         public Builder identityAssertionAuthorizationGrant(
                 Optional<IdentityAssertionAuthorizationGrant> identityAssertionAuthorizationGrant) {
@@ -2423,6 +2448,7 @@ public final class UpdateClientResponseContent {
                     expressConfiguration,
                     b2BIntegrationConfiguration,
                     myOrganizationConfiguration,
+                    googleAccountLinking,
                     identityAssertionAuthorizationGrant,
                     anonymousSessions,
                     enforceAnonSessionTransferNetworkBinding,

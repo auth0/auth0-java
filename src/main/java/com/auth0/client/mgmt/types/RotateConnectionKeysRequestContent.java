@@ -20,14 +20,27 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = RotateConnectionKeysRequestContent.Builder.class)
 public final class RotateConnectionKeysRequestContent {
+    private final Optional<ConnectionKeyUseEnum> keyUse;
+
     private final Optional<RotateConnectionKeysSigningAlgEnum> signingAlg;
 
     private final Map<String, Object> additionalProperties;
 
     private RotateConnectionKeysRequestContent(
-            Optional<RotateConnectionKeysSigningAlgEnum> signingAlg, Map<String, Object> additionalProperties) {
+            Optional<ConnectionKeyUseEnum> keyUse,
+            Optional<RotateConnectionKeysSigningAlgEnum> signingAlg,
+            Map<String, Object> additionalProperties) {
+        this.keyUse = keyUse;
         this.signingAlg = signingAlg;
         this.additionalProperties = additionalProperties;
+    }
+
+    /**
+     * @return Whether to rotate the signing key (default) or the encryption key for the connection.
+     */
+    @JsonProperty("key_use")
+    public Optional<ConnectionKeyUseEnum> getKeyUse() {
+        return keyUse;
     }
 
     @JsonProperty("signing_alg")
@@ -48,12 +61,12 @@ public final class RotateConnectionKeysRequestContent {
     }
 
     private boolean equalTo(RotateConnectionKeysRequestContent other) {
-        return signingAlg.equals(other.signingAlg);
+        return keyUse.equals(other.keyUse) && signingAlg.equals(other.signingAlg);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.signingAlg);
+        return Objects.hash(this.keyUse, this.signingAlg);
     }
 
     @java.lang.Override
@@ -67,6 +80,8 @@ public final class RotateConnectionKeysRequestContent {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<ConnectionKeyUseEnum> keyUse = Optional.empty();
+
         private Optional<RotateConnectionKeysSigningAlgEnum> signingAlg = Optional.empty();
 
         @JsonAnySetter
@@ -75,7 +90,22 @@ public final class RotateConnectionKeysRequestContent {
         private Builder() {}
 
         public Builder from(RotateConnectionKeysRequestContent other) {
+            keyUse(other.getKeyUse());
             signingAlg(other.getSigningAlg());
+            return this;
+        }
+
+        /**
+         * <p>Whether to rotate the signing key (default) or the encryption key for the connection.</p>
+         */
+        @JsonSetter(value = "key_use", nulls = Nulls.SKIP)
+        public Builder keyUse(Optional<ConnectionKeyUseEnum> keyUse) {
+            this.keyUse = keyUse;
+            return this;
+        }
+
+        public Builder keyUse(ConnectionKeyUseEnum keyUse) {
+            this.keyUse = Optional.ofNullable(keyUse);
             return this;
         }
 
@@ -91,7 +121,7 @@ public final class RotateConnectionKeysRequestContent {
         }
 
         public RotateConnectionKeysRequestContent build() {
-            return new RotateConnectionKeysRequestContent(signingAlg, additionalProperties);
+            return new RotateConnectionKeysRequestContent(keyUse, signingAlg, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {
