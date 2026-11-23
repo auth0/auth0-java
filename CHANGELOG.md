@@ -1,5 +1,18 @@
 # Change Log
 
+## [5.6.0](https://github.com/auth0/auth0-java/tree/5.6.0) (2026-11-23)
+[Full Changelog](https://github.com/auth0/auth0-java/compare/5.5.0...5.6.0)
+
+**Added**
+- feat: add Google account linking on clients, and Universal Logout config for SSO tickets [\#950](https://github.com/auth0/auth0-java/pull/950) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - **Clients:** adds `google_account_linking` (Google Streamlined Linking) to client create, update, list and response types, and `okta_oin_listing_url` to `express_configuration`.
+    - **Self-Service Profiles & Connections:** adds `universal_logout_config` to SSO ticket creation, and `key_use` to connection key create and rotate so encryption keys can be managed.
+
+**Breaking changes**
+- feat: add Google account linking on clients, and Universal Logout config for SSO tickets [\#950](https://github.com/auth0/auth0-java/pull/950) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - **Removed `genai_trial` from `TenantSettingsFlags`.** `getGenaiTrial()` and the builder's `genaiTrial(...)` no longer exist; remove these calls.
+    - **`CreateEmailProviderRequestContent.credentials` is now optional.** `getCredentials()` returns `Optional<EmailProviderCredentialsSchema>` instead of `EmailProviderCredentialsSchema`, so callers must unwrap the `Optional`. Existing `.name(...).credentials(...)` builder chains still compile.
+
 ## [5.5.0](https://github.com/auth0/auth0-java/tree/5.5.0) (2026-11-04)
 [Full Changelog](https://github.com/auth0/auth0-java/compare/5.4.0...5.5.0)
 
