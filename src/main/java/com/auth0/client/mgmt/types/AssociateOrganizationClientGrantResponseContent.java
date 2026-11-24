@@ -21,7 +21,7 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = AssociateOrganizationClientGrantResponseContent.Builder.class)
 public final class AssociateOrganizationClientGrantResponseContent {
-    private final Optional<String> id;
+    private final Optional<String> grantId;
 
     private final Optional<String> clientId;
 
@@ -36,14 +36,14 @@ public final class AssociateOrganizationClientGrantResponseContent {
     private final Map<String, Object> additionalProperties;
 
     private AssociateOrganizationClientGrantResponseContent(
-            Optional<String> id,
+            Optional<String> grantId,
             Optional<String> clientId,
             Optional<String> audience,
             Optional<List<String>> scope,
             Optional<OrganizationUsageEnum> organizationUsage,
             Optional<Boolean> allowAnyOrganization,
             Map<String, Object> additionalProperties) {
-        this.id = id;
+        this.grantId = grantId;
         this.clientId = clientId;
         this.audience = audience;
         this.scope = scope;
@@ -55,9 +55,9 @@ public final class AssociateOrganizationClientGrantResponseContent {
     /**
      * @return ID of the client grant.
      */
-    @JsonProperty("id")
-    public Optional<String> getId() {
-        return id;
+    @JsonProperty("grant_id")
+    public Optional<String> getGrantId() {
+        return grantId;
     }
 
     /**
@@ -110,7 +110,7 @@ public final class AssociateOrganizationClientGrantResponseContent {
     }
 
     private boolean equalTo(AssociateOrganizationClientGrantResponseContent other) {
-        return id.equals(other.id)
+        return grantId.equals(other.grantId)
                 && clientId.equals(other.clientId)
                 && audience.equals(other.audience)
                 && scope.equals(other.scope)
@@ -121,7 +121,12 @@ public final class AssociateOrganizationClientGrantResponseContent {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.id, this.clientId, this.audience, this.scope, this.organizationUsage, this.allowAnyOrganization);
+                this.grantId,
+                this.clientId,
+                this.audience,
+                this.scope,
+                this.organizationUsage,
+                this.allowAnyOrganization);
     }
 
     @java.lang.Override
@@ -135,7 +140,7 @@ public final class AssociateOrganizationClientGrantResponseContent {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<String> id = Optional.empty();
+        private Optional<String> grantId = Optional.empty();
 
         private Optional<String> clientId = Optional.empty();
 
@@ -153,7 +158,7 @@ public final class AssociateOrganizationClientGrantResponseContent {
         private Builder() {}
 
         public Builder from(AssociateOrganizationClientGrantResponseContent other) {
-            id(other.getId());
+            grantId(other.getGrantId());
             clientId(other.getClientId());
             audience(other.getAudience());
             scope(other.getScope());
@@ -165,14 +170,14 @@ public final class AssociateOrganizationClientGrantResponseContent {
         /**
          * <p>ID of the client grant.</p>
          */
-        @JsonSetter(value = "id", nulls = Nulls.SKIP)
-        public Builder id(Optional<String> id) {
-            this.id = id;
+        @JsonSetter(value = "grant_id", nulls = Nulls.SKIP)
+        public Builder grantId(Optional<String> grantId) {
+            this.grantId = grantId;
             return this;
         }
 
-        public Builder id(String id) {
-            this.id = Optional.ofNullable(id);
+        public Builder grantId(String grantId) {
+            this.grantId = Optional.ofNullable(grantId);
             return this;
         }
 
@@ -245,7 +250,7 @@ public final class AssociateOrganizationClientGrantResponseContent {
 
         public AssociateOrganizationClientGrantResponseContent build() {
             return new AssociateOrganizationClientGrantResponseContent(
-                    id, clientId, audience, scope, organizationUsage, allowAnyOrganization, additionalProperties);
+                    grantId, clientId, audience, scope, organizationUsage, allowAnyOrganization, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {
