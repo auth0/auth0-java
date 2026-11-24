@@ -184,7 +184,7 @@ public final class TenantSettingsFlags {
     }
 
     /**
-     * @return If enabled, clients are able to add legacy delegation grants.
+     * @return DEPRECATED property. If enabled, first-party applications can add the legacy delegation grant types. It does not enable the /delegation endpoint.
      */
     @JsonProperty("allow_legacy_delegation_grant_types")
     public Optional<Boolean> getAllowLegacyDelegationGrantTypes() {
@@ -632,7 +632,7 @@ public final class TenantSettingsFlags {
         }
 
         /**
-         * <p>If enabled, clients are able to add legacy delegation grants.</p>
+         * <p>DEPRECATED property. If enabled, first-party applications can add the legacy delegation grant types. It does not enable the /delegation endpoint.</p>
          */
         @JsonSetter(value = "allow_legacy_delegation_grant_types", nulls = Nulls.SKIP)
         public Builder allowLegacyDelegationGrantTypes(Optional<Boolean> allowLegacyDelegationGrantTypes) {

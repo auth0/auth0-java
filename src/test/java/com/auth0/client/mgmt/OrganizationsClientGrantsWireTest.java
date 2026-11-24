@@ -72,7 +72,7 @@ public class OrganizationsClientGrantsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"id\":\"id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true}"));
+                                "{\"grant_id\":\"grant_id\",\"client_id\":\"client_id\",\"audience\":\"audience\",\"scope\":[\"scope\"],\"organization_usage\":\"deny\",\"allow_any_organization\":true}"));
         AssociateOrganizationClientGrantResponseContent response = client.organizations()
                 .clientGrants()
                 .create(
@@ -118,7 +118,7 @@ public class OrganizationsClientGrantsWireTest {
         String actualResponseJson = objectMapper.writeValueAsString(response);
         String expectedResponseBody = ""
                 + "{\n"
-                + "  \"id\": \"id\",\n"
+                + "  \"grant_id\": \"grant_id\",\n"
                 + "  \"client_id\": \"client_id\",\n"
                 + "  \"audience\": \"audience\",\n"
                 + "  \"scope\": [\n"
