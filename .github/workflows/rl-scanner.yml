@@ -60,7 +60,7 @@ jobs:
 
       - name: Run RL Scanner
         id: rl-scan-conclusion
-        uses: auth0/devsecops-tooling/.github/actions/rl-scan@main
+        uses: auth0/devsecops-tooling/.github/actions/rl-scan@e29f26478db18ff0bcbe4bc447a8fbd54fbeec9e # main on 2026-11-27, TODO: use a release instead
         with:
           artifact-name: ${{ github.event.repository.name }}
           artifact-path: "${{ github.workspace }}/${{ inputs.artifact-name }}"
